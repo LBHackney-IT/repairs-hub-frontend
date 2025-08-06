@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import { WorkOrder } from '../../models/workOrder'
-import AppointmentDetails from './AppointmentDetails'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const tasksAndSors = [
   {
@@ -50,7 +50,7 @@ describe('PrintJobTicketDetails component', () => {
     const { asFragment } = render(
       <PrintJobTicketDetails
         workOrder={new WorkOrder(workOrderData)}
-        appointmentDetails={new AppointmentDetails(appointmentDetails)}
+        appointmentDetails={new WorkOrderAppointmentDetails(appointmentDetails)}
         property={property}
         tasksAndSors={tasksAndSors}
         locationAlerts={locationAlerts}
@@ -81,7 +81,7 @@ describe('PrintJobTicketDetails component', () => {
     const { asFragment } = render(
       <PrintJobTicketDetails
         workOrder={new WorkOrder(workOrderData)}
-        appointmentDetails={new AppointmentDetails(appointmentDetails)}
+        appointmentDetails={new WorkOrderAppointmentDetails(appointmentDetails)}
         property={property}
         tasksAndSors={tasksAndSors}
         locationAlerts={locationAlerts}

@@ -8,6 +8,7 @@ import UserContext from '../UserContext'
 import { agent } from 'factories/agent'
 import AppointmentDetails from './AppointmentDetails'
 import { WorkOrder } from '@/models/workOrder'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const workOrderData = {
   reference: 10000012,
@@ -59,12 +60,6 @@ describe('AppointmentDetails component', () => {
       ...workOrderData,
     }
 
-    const appointmentDetails = {
-      ...appointmentDetailsData,
-      externalAppointmentManagementUrl:
-        'https://scheduler.example.hackney.gov.uk?bookingId=1',
-    }
-
     describe('with no appointment', () => {
       describe('when the work order can be scheduled', () => {
         it('shows a link to schedule an appointment with DRS Web Booking Manager', () => {
@@ -76,7 +71,13 @@ describe('AppointmentDetails component', () => {
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
                 workOrder={workOrder}
-                appointmentDetails={appointmentDetails}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl:
+                      'https://scheduler.example.hackney.gov.uk?bookingId=1',
+                  })
+                }
               />
             </UserContext.Provider>
           )
@@ -94,7 +95,13 @@ describe('AppointmentDetails component', () => {
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
                 workOrder={workOrder}
-                appointmentDetails={appointmentDetails}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl:
+                      'https://scheduler.example.hackney.gov.uk?bookingId=1',
+                  })
+                }
               />
             </UserContext.Provider>
           )
@@ -109,18 +116,18 @@ describe('AppointmentDetails component', () => {
           const workOrder = new WorkOrder({ ...drsWorkOrder })
           workOrder.canBeScheduled = jest.fn(() => true)
 
-          const appointmentDetails = {
-            ...appointmentDetailsData,
-            externalAppointmentManagementUrl:
-              'https://scheduler.example.hackney.gov.uk?bookingId=1',
-            appointment,
-          }
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
                 workOrder={workOrder}
-                appointmentDetails={appointmentDetails}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl:
+                      'https://scheduler.example.hackney.gov.uk?bookingId=1',
+                    appointment,
+                  })
+                }
               />
             </UserContext.Provider>
           )
@@ -134,18 +141,18 @@ describe('AppointmentDetails component', () => {
 
           workOrder.canBeScheduled = jest.fn(() => false)
 
-          const appointmentDetails = {
-            ...appointmentDetailsData,
-            externalAppointmentManagementUrl:
-              'https://scheduler.example.hackney.gov.uk?bookingId=1',
-            appointment,
-          }
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
                 workOrder={workOrder}
-                appointmentDetails={appointmentDetails}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl:
+                      'https://scheduler.example.hackney.gov.uk?bookingId=1',
+                    appointment,
+                  })
+                }
               />
             </UserContext.Provider>
           )
@@ -160,11 +167,6 @@ describe('AppointmentDetails component', () => {
       ...workOrderData,
     }
 
-    const nonDrsAppointment = {
-      ...appointmentDetailsData,
-      externalAppointmentManagementUrl: null,
-    }
-
     describe('with no appointment', () => {
       describe('when the work order can be scheduled', () => {
         it('shows a link to schedule an appointment', () => {
@@ -176,7 +178,12 @@ describe('AppointmentDetails component', () => {
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
                 workOrder={workOrder}
-                appointmentDetails={nonDrsAppointment}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl: null,
+                  })
+                }
               />
             </UserContext.Provider>
           )
@@ -193,7 +200,7 @@ describe('AppointmentDetails component', () => {
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
                 workOrder={workOrder}
-                appointmentDetails={{}}
+                appointmentDetails={new WorkOrderAppointmentDetails()}
               />
             </UserContext.Provider>
           )
@@ -208,15 +215,13 @@ describe('AppointmentDetails component', () => {
           const workOrder = new WorkOrder({ ...nonDRSWorkOrder })
           workOrder.canBeScheduled = jest.fn(() => true)
 
-          const appointmentDetails = {
-            appointment,
-          }
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
                 workOrder={workOrder}
-                appointmentDetails={{ appointmentDetails }}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({ appointment })
+                }
               />
             </UserContext.Provider>
           )
@@ -230,15 +235,13 @@ describe('AppointmentDetails component', () => {
 
           workOrder.canBeScheduled = jest.fn(() => false)
 
-          const appointmentDetails = {
-            appointment,
-          }
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
                 workOrder={workOrder}
-                ppointmentDetails={{ appointmentDetails }}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({ appointment })
+                }
               />
             </UserContext.Provider>
           )
