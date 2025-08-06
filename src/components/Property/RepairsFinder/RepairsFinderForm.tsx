@@ -25,8 +25,6 @@ import { Priority } from '@/root/src/models/priority'
 import { getPriorityObjectByCode } from './helpers'
 import RepairsFinderInput from './RepairsFinderInput'
 
-const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
-
 interface Props {
   propertyReference: string
   address: Address
@@ -150,15 +148,14 @@ const RepairsFinderForm = (props: Props) => {
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {canAssignFollowOnRelationship(user) &&
-              NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED === 'true' && (
-                <RaiseWorkOrderFollowOn
-                  register={register}
-                  errors={errors}
-                  propertyReference={propertyReference}
-                  watch={watch}
-                />
-              )}
+            {canAssignFollowOnRelationship(user) && (
+              <RaiseWorkOrderFollowOn
+                register={register}
+                errors={errors}
+                propertyReference={propertyReference}
+                watch={watch}
+              />
+            )}
 
             <RepairsFinderInput
               propertyReference={propertyReference}

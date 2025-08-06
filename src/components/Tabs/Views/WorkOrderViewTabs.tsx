@@ -5,8 +5,6 @@ import { useContext } from 'react'
 import UserContext from '../../UserContext'
 import { canSeeRelatedWorkOrdersTab } from '@/root/src/utils/userPermissions'
 
-const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
-
 const tabsList: TabName[] = [
   TabName.TasksAndSors,
   TabName.Notes,
@@ -36,11 +34,9 @@ const WorkOrderViewTabs = (props: Props) => {
   const { user } = useContext(UserContext)
 
   // Contractor cannot view RelatedWorkOrders tab
-  const filteredTabs =
-    !canSeeRelatedWorkOrdersTab(user) ||
-    NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED !== 'true'
-      ? tabsList.filter((x) => x !== TabName.RelatedWorkOrders)
-      : tabsList
+  const filteredTabs = !canSeeRelatedWorkOrdersTab(user)
+    ? tabsList.filter((x) => x !== TabName.RelatedWorkOrders)
+    : tabsList
 
   return (
     <Tabs
