@@ -42,6 +42,9 @@ export class WorkOrder {
   propertyReference: string
   property: string
 
+  canAssignOperative: boolean
+  isSplit: boolean
+
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
   }

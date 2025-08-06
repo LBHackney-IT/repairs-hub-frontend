@@ -158,6 +158,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         tasksAndSors={tasksAndSors}
         budgetCode={workOrder?.budgetCode}
         workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
       />
 
       {/* Only displayed for print media */}

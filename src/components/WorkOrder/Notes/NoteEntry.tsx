@@ -5,6 +5,7 @@ import NoteWithImageContent from './NoteContent/NoteWithImageContent'
 import CompletedNoteContent from './NoteContent/CompletedNoteContent'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { TabName } from '../../Tabs/tabNames'
+import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
 
 const NoteInfo = ({ note }: { note: Note }) => {
   const { time, user, userEmail } = note
@@ -27,10 +28,16 @@ const DetectImageNote = (userNote: string) => {
 interface Props {
   note: Note
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
   setActiveTab: (tab: string) => void
 }
 
-const NoteEntry = ({ note, workOrder, setActiveTab }: Props) => {
+const NoteEntry = ({
+  note,
+  workOrder,
+  setActiveTab,
+  appointmentDetails,
+}: Props) => {
   return (
     <>
       <div className="note-info lbh-body-s">
@@ -40,6 +47,7 @@ const NoteEntry = ({ note, workOrder, setActiveTab }: Props) => {
       <NoteContent
         note={note}
         workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
         setActiveTab={setActiveTab}
       />
     </>
@@ -49,10 +57,12 @@ const NoteEntry = ({ note, workOrder, setActiveTab }: Props) => {
 const NoteContent = ({
   note,
   workOrder,
+  appointmentDetails,
   setActiveTab,
 }: {
   note: Note
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
   setActiveTab: (tabName: TabName) => void
 }) => {
   if (
@@ -64,6 +74,7 @@ const NoteContent = ({
       <CompletedNoteContent
         note={note}
         workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
         setActiveTab={setActiveTab}
       />
     )

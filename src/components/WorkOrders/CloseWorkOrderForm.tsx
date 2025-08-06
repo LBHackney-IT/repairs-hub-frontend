@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
@@ -23,31 +22,60 @@ import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import { canRaiseAFollowOn } from '../../utils/userPermissions'
 import UserContext from '../UserContext'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
+import { Operative } from '../../models/operativeModel'
 
-const CloseWorkOrderForm = ({
-  reference,
-  onSubmit,
-  availableOperatives,
-  assignedOperativesToWorkOrder,
-  operativeAssignmentMandatory,
-  notes,
-  completionTime,
-  completionDate,
-  startTime,
-  startDate,
-  dateRaised,
-  selectedPercentagesToShowOnEdit,
-  totalSMV,
-  jobIsSplitByOperative,
-  paymentType,
-  existingStartTime,
-  reason,
-  followOnStatus,
-  followOnData,
-  isLoading,
-  defaultFiles,
-  description,
-}) => {
+interface Props {
+  reference: string
+  onSubmit: (formData: any, files: any) => void
+  notes: string
+  completionTime: string
+  completionDate: Date
+  startTime?: string
+  startDate: Date
+  reason?: string
+  dateRaised: string
+  totalSMV: number
+  jobIsSplitByOperative: boolean
+  paymentType: string
+  existingStartTime: boolean
+
+  availableOperatives: Operative[]
+  assignedOperativesToWorkOrder: Operative[]
+  operativeAssignmentMandatory: boolean
+  selectedPercentagesToShowOnEdit: any[]
+  followOnStatus: string
+  followOnData: any
+  isLoading: boolean
+  defaultFiles: any[]
+  description: string
+}
+
+const CloseWorkOrderForm = (props: Props) => {
+  const {
+    reference,
+    onSubmit,
+    availableOperatives,
+    assignedOperativesToWorkOrder,
+    operativeAssignmentMandatory,
+    notes,
+    completionTime,
+    completionDate,
+    startTime,
+    startDate,
+    dateRaised,
+    selectedPercentagesToShowOnEdit,
+    totalSMV,
+    jobIsSplitByOperative,
+    paymentType,
+    existingStartTime,
+    reason,
+    followOnStatus,
+    followOnData,
+    isLoading,
+    defaultFiles,
+    description,
+  } = props
+
   const {
     handleSubmit,
     register,
@@ -314,22 +342,6 @@ const CloseWorkOrderForm = ({
       </form>
     </div>
   )
-}
-
-CloseWorkOrderForm.propTypes = {
-  reference: PropTypes.number.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  notes: PropTypes.string.isRequired,
-  completionTime: PropTypes.string.isRequired,
-  completionDate: PropTypes.instanceOf(Date),
-  startTime: PropTypes.string,
-  startDate: PropTypes.instanceOf(Date),
-  reason: PropTypes.string,
-  dateRaised: PropTypes.string,
-  totalSMV: PropTypes.number.isRequired,
-  jobIsSplitByOperative: PropTypes.bool.isRequired,
-  paymentType: PropTypes.string,
-  existingStartTime: PropTypes.bool.isRequired,
 }
 
 export default CloseWorkOrderForm

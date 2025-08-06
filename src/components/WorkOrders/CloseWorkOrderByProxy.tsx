@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
 import { useState, useEffect } from 'react'
 import { convertToDateFormat } from '@/utils/date'
@@ -19,9 +18,14 @@ import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
-import { getWorkOrderDetails } from '../../utils/requests/workOrders'
+import {
+  getAppointmentDetails,
+  getWorkOrderDetails,
+} from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import { Operative } from '../../models/operativeModel'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -29,24 +33,34 @@ import { formatRequestErrorMessage } from '../../utils/errorHandling/formatError
 // Typically this means a supervisor is copying information from
 // another source to close this work order.
 
-const CloseWorkOrderByProxy = ({ reference }) => {
+interface Props {
+  reference: string
+}
+
+const CloseWorkOrderByProxy = ({ reference }: Props) => {
   const [completionDate, setCompletionDate] = useState('')
   const [completionTime, setCompletionTime] = useState('')
 
   const [startDate, setStartDate] = useState('')
   const [startTime, setStartTime] = useState('')
   const [files, setFiles] = useState([])
-  const [description, setDescription] = useState('')
+  const [description, setDescription] = useState<string>('')
 
-  const [loadingStatus, setLoadingStatus] = useState(null)
-  const [error, setError] = useState()
+  const [loadingStatus, setLoadingStatus] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
   const [followOnStatus, setFollowOnStatus] = useState('')
   const [paymentType, setPaymentType] = useState(null)
-  const [availableOperatives, setAvailableOperatives] = useState([])
-  const [selectedOperatives, setSelectedOperatives] = useState([])
-  const [workOrder, setWorkOrder] = useState()
+  const [availableOperatives, setAvailableOperatives] = useState<Operative[]>(
+    []
+  )
+  const [selectedOperatives, setSelectedOperatives] = useState<Operative[]>([])
+  const [workOrder, setWorkOrder] = useState<WorkOrder>()
+  const [
+    appointmentDetails,
+    setAppointmentDetails,
+  ] = useState<WorkOrderAppointmentDetails>()
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -59,7 +73,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const SUMMARY_PAGE = 2
   const CONFIRMATION_PAGE = 3
 
-  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
+  const [currentPage, setCurrentPage] = useState<number>(FORM_PAGE)
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
 
@@ -132,19 +146,20 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
     try {
       const workOrderResponse = await getWorkOrderDetails(reference)
-
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
-
+      if (!workOrderResponse.success) throw workOrderResponse.error
       const workOrder = workOrderResponse.response
-
       setWorkOrder(new WorkOrder(workOrder))
+
+      const appointmentDetailsResponse = await getAppointmentDetails(reference)
+      if (!appointmentDetailsResponse.success)
+        throw appointmentDetailsResponse.error
+      const appointmentDetails = appointmentDetailsResponse.response
+      setAppointmentDetails(new WorkOrderAppointmentDetails(appointmentDetails))
 
       if (workOrder.canAssignOperative) {
         workOrder.paymentType && setPaymentType(workOrder.paymentType)
 
-        setSelectedOperatives(workOrder.operatives)
+        setSelectedOperatives(appointmentDetails.operatives)
 
         const operatives = await frontEndApiRequest({
           method: 'get',
@@ -154,6 +169,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       }
     } catch (e) {
       setWorkOrder(null)
+      setAppointmentDetails(null)
       setAvailableOperatives([])
 
       console.error('An error has occured:', e.response)
@@ -215,7 +231,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     }
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
-      completionDate,
+      new Date(completionDate),
       comments,
       reference,
       reason,
@@ -333,9 +349,9 @@ const CloseWorkOrderByProxy = ({ reference }) => {
               onSubmit={onGetToSummary}
               notes={notes}
               completionTime={completionTime}
-              completionDate={completionDate}
+              completionDate={new Date(completionDate)}
               startTime={startTime}
-              startDate={startDate}
+              startDate={new Date(startDate)}
               reason={reason}
               followOnStatus={followOnStatus}
               operativeAssignmentMandatory={workOrder.canAssignOperative}
@@ -345,7 +361,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
               selectedPercentagesToShowOnEdit={selectedPercentagesToShowOnEdit}
               defaultFiles={files}
               description={description}
-              closingByProxy={true}
               totalSMV={workOrder.totalSMVs}
               jobIsSplitByOperative={workOrder.isSplit}
               paymentType={paymentType}
@@ -397,10 +412,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       )}
     </>
   )
-}
-
-CloseWorkOrderByProxy.propTypes = {
-  reference: PropTypes.string.isRequired,
 }
 
 export default CloseWorkOrderByProxy

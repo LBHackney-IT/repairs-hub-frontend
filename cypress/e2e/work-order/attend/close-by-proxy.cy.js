@@ -3,18 +3,6 @@ import 'cypress-audit/commands'
 
 describe('Closing a work order on behalf of an operative', () => {
   beforeEach(() => {
-    // cy.intercept(
-    //   {
-    //     method: 'GET',
-    //     path: '/api/simple-feature-toggle',
-    //   },
-    //   {
-    //     body: {
-    //       enableNewAppointmentEndpoint: true,
-    //     },
-    //   }
-    // ).as('feature-toggle')
-
     cy.intercept(
       {
         method: 'GET',
@@ -75,7 +63,6 @@ describe('Closing a work order on behalf of an operative', () => {
       {
         body: {
           enableFollowOnIsEmergencyField: true,
-          enableNewAppointmentEndpoint: true,
         },
       }
     ).as('feature-toggle')
