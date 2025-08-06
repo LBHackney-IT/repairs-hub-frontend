@@ -47,7 +47,6 @@ describe('Closing a work order on behalf of an operative', () => {
       })
       .as('workOrder')
 
-
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/appointments/10000040' },
       {
@@ -648,7 +647,6 @@ describe('Closing a work order on behalf of an operative', () => {
           ).as('workOrder')
         })
 
-
         cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
           x.operatives = []
 
@@ -657,7 +655,6 @@ describe('Closing a work order on behalf of an operative', () => {
             { body: x }
           ).as('appointmentDetails')
         })
-
 
         cy.intercept(
           { method: 'GET', path: '/api/operatives' },
@@ -858,14 +855,11 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
 
-
               cy.intercept(
                 { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
             })
-
-
 
             cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
               x.operatives = [
@@ -884,11 +878,13 @@ describe('Closing a work order on behalf of an operative', () => {
               ]
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
                 { body: x }
               ).as('appointmentDetails')
             })
-
 
             cy.intercept(
               { method: 'POST', path: '/api/workOrderComplete' },
@@ -1164,12 +1160,13 @@ describe('Closing a work order on behalf of an operative', () => {
               ]
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
                 { body: x }
               ).as('appointmentDetails')
             })
-
-
 
             cy.intercept(
               { method: 'POST', path: '/api/workOrderComplete' },
@@ -1306,11 +1303,13 @@ describe('Closing a work order on behalf of an operative', () => {
               x.operatives = []
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
                 { body: x }
               ).as('appointmentDetails')
             })
-
 
             cy.intercept(
               { method: 'POST', path: '/api/workOrderComplete' },
@@ -1440,7 +1439,6 @@ describe('Closing a work order on behalf of an operative', () => {
             { body: workOrder }
           ).as('workOrder')
         })
-
 
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/appointments/10000040' },
@@ -2069,7 +2067,6 @@ describe('Closing a work order on behalf of an operative', () => {
           ).as('appointmentDetails')
         })
 
-
         cy.intercept(
           { method: 'GET', path: '/api/operatives' },
           {
@@ -2291,11 +2288,13 @@ describe('Closing a work order on behalf of an operative', () => {
               ]
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
                 { body: x }
               ).as('appointmentDetails')
             })
-
 
             cy.intercept(
               { method: 'POST', path: '/api/workOrderComplete' },
@@ -2571,11 +2570,13 @@ describe('Closing a work order on behalf of an operative', () => {
               ]
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
                 { body: x }
               ).as('appointmentDetails')
             })
-
 
             cy.intercept(
               { method: 'POST', path: '/api/workOrderComplete' },
@@ -2712,11 +2713,13 @@ describe('Closing a work order on behalf of an operative', () => {
               x.operatives = []
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
                 { body: x }
               ).as('appointmentDetails')
             })
-
 
             cy.intercept(
               { method: 'POST', path: '/api/workOrderComplete' },
@@ -3133,8 +3136,6 @@ describe('Closing a work order on behalf of an operative', () => {
           { body: workOrder }
         ).as('workOrder')
       })
-
-
 
       cy.visit('/work-orders/10000040/close')
 
