@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react'
 import CompletedNoteContent from '.'
-import { appRouterInstrumentNavigation } from '@sentry/nextjs/build/types/client/routing/appRouterRoutingInstrumentation'
 
 describe('CompletedNoteContent component', () => {
   it('should match snapshot when user comment is empty', () => {
