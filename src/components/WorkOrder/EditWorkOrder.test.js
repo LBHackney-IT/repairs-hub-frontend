@@ -4,7 +4,7 @@ import { getWorkOrderDetails } from '@/utils/requests/workOrders'
 import { getContactDetails, getPropertyData } from '@/utils/requests/property'
 
 jest.mock('@/utils/requests/workOrders', () => ({
-  getWorkOrder: jest.fn(),
+  getWorkOrderDetails: jest.fn(),
 }))
 jest.mock('@/utils/requests/property', () => ({
   getPropertyData: jest.fn(),
