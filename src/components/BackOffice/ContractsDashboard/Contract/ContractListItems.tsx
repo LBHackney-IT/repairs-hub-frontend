@@ -6,7 +6,7 @@ import ErrorMessage from '../../../Errors/ErrorMessage'
 
 interface Props {
   contracts: Contract[]
-  heading: string
+  heading?: string
   warningText?: string
   error?: Error | string | null
   page: string
