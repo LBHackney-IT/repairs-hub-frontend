@@ -1,54 +1,15 @@
-import {
-  fetchSimpleFeatureToggles,
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 
-export const getWorkOrderOld = async (
-  workOrderReference: string
-): Promise<ApiResponseType<WorkOrder | null>> => {
-  try {
-    const workOrderData = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/workOrders/${workOrderReference}`,
-    })
-
-    return {
-      success: true,
-      response: new WorkOrder(workOrderData),
-      error: null,
-    }
-  } catch (e) {
-    console.error('An error has occurred:', e.response)
-
-    return {
-      success: false,
-      response: null,
-      error: new APIResponseError(
-        e.response?.status === 404
-          ? `Could not find a work order with reference ${workOrderReference}`
-          : formatRequestErrorMessage(e)
-      ),
-    }
-  }
-}
-
 export const getWorkOrder = async (
   workOrderReference: string,
   includeAppointmentData: boolean
 ): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
-    const featureToggleData = await fetchSimpleFeatureToggles()
-
-    if (!featureToggleData?.enableNewAppointmentEndpoint) {
-      // default to old endpoint if FT disabled
-      return await getWorkOrderOld(workOrderReference)
-    }
-
     const workOrderData = await frontEndApiRequest({
       method: 'get',
       path: `/api/workOrders/${workOrderReference}/new`,

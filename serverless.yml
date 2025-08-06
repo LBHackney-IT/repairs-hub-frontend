@@ -75,7 +75,6 @@ functions:
       SENTRY_DSN: ${ssm:/repairs-hub/${self:provider.stage}/sentry-dsn}
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
-      NEW_APPOINTMENT_ENDPOINT_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/enable-new-appointments-endpoint}
       FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.follow-on-is-emergency-field-enabled.${self:provider.stage}}
       USE_COMPRESSOR_JS: ${self:custom.use-compressor-js.${self:provider.stage}}
       REPAIRS_FINDER_INTEGRATION_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/enable-repairs-finder-integration}
