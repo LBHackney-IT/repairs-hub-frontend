@@ -5,6 +5,7 @@ export interface SimpleFeatureToggleResponse {
   googleTagManagerEnabled: boolean
   enableNewAppointmentEndpoint: boolean
   enableFollowOnIsEmergencyField: boolean
+  enableRepairsFinderIntegration: boolean
   useCompressorJS: boolean
 }
 
@@ -17,6 +18,9 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
     enableFollowOnIsEmergencyField:
       process.env.FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED === 'true',
+
+    enableRepairsFinderIntegration:
+      process.env.REPAIRS_FINDER_INTEGRATION_ENABLED === 'true',
 
     useCompressorJS: process.env.USE_COMPRESSOR_JS === 'true',
   }

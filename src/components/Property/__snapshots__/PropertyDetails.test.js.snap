@@ -16,7 +16,7 @@ exports[`PropertyDetails component when the date is after out of hours should sh
     </h1>
     <div>
       <span
-        class="lbh-heading-h2 text-green"
+        class="lbh-heading-h3 text-green"
       >
         <a
           class="lbh-link"
@@ -103,7 +103,7 @@ exports[`PropertyDetails component when the date is before out of hours does not
     </h1>
     <div>
       <span
-        class="lbh-heading-h2 text-green"
+        class="lbh-heading-h3 text-green"
       >
         <a
           class="lbh-link"

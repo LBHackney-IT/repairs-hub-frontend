@@ -131,7 +131,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(reference)
+      const workOrderResponse = await getWorkOrder(reference, true)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
