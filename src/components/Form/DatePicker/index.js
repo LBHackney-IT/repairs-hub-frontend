@@ -6,7 +6,7 @@ const DatePicker = ({
   name,
   register,
   error,
-  required,
+  required = false,
   hint,
   label,
   labelSize = 'm',

@@ -16,9 +16,11 @@ import AppointmentDetailsInfo from './AppointmentDetailsInfo'
 import ScheduleAppointment from './ScheduleAppointment/ScheduleAppointment'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 import { DrsBookingLifeCycleStatusBadge } from '../DrsBookingLifeCycleStatusBadge'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface Props {
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
 }
 
 const INACTIVE_STATUS_CODES = new Set<string>([
@@ -28,12 +30,14 @@ const INACTIVE_STATUS_CODES = new Set<string>([
   STATUS_NO_ACCESS.description,
 ])
 
-const AppointmentDetails = ({ workOrder }: Props) => {
+const AppointmentDetails = (props: Props) => {
+  const { workOrder, appointmentDetails } = props
+
   const { user } = useContext(UserContext)
 
   const showDrsLifeCycleStatus = () => {
     if (!canSeeAppointmentDetailsInfo(user)) return false
-    if (!workOrder?.appointment?.bookingLifeCycleStatus) return false
+    if (!appointmentDetails?.appointment?.bookingLifeCycleStatus) return false
 
     // hide when workorder is inactive
     if (INACTIVE_STATUS_CODES.has(workOrder.status)) return false
@@ -59,7 +63,7 @@ const AppointmentDetails = ({ workOrder }: Props) => {
           {showDrsLifeCycleStatus() && (
             <DrsBookingLifeCycleStatusBadge
               bookingLifeCycleStatus={
-                workOrder?.appointment?.bookingLifeCycleStatus
+                appointmentDetails?.appointment?.bookingLifeCycleStatus
               }
             />
           )}
@@ -68,34 +72,31 @@ const AppointmentDetails = ({ workOrder }: Props) => {
             {user && (
               <>
                 {canSeeAppointmentDetailsInfo(user) &&
-                  workOrder.appointment &&
+                  appointmentDetails.appointment &&
                   workOrder.status !== STATUS_CANCELLED.description && (
                     <AppointmentDetailsInfo
-                      appointment={workOrder?.appointment}
+                      appointment={appointmentDetails?.appointment}
                     />
                   )}
 
                 {canScheduleAppointment(user) &&
                   workOrder.canBeScheduled() &&
-                  (workOrder?.externalAppointmentManagementUrl ? (
+                  (appointmentDetails?.externalAppointmentManagementUrl ? (
                     <ScheduleAppointment
-                      externalAppointmentManagementUrl={
-                        workOrder.externalAppointmentManagementUrl
-                      }
-                      hasExistingAppointment={!!workOrder?.appointment}
-                      workOrder={workOrder}
+                      appointmentDetails={appointmentDetails}
+                      hasExistingAppointment={!!appointmentDetails?.appointment}
                       workOrderReference={workOrder.reference}
                     />
                   ) : (
                     <ScheduleInternalAppointmentLink
                       workOrderReference={workOrder.reference}
-                      hasExistingAppointment={!!workOrder?.appointment}
-                      appointmentIsToday={workOrder.appointmentIsToday()}
+                      hasExistingAppointment={!!appointmentDetails?.appointment}
+                      appointmentIsToday={appointmentDetails.appointmentIsToday()}
                     />
                   ))}
 
                 {canSeeAppointmentDetailsInfo(user) &&
-                  !workOrder.appointment &&
+                  !appointmentDetails.appointment &&
                   !workOrder.canBeScheduled() && (
                     <p className="lbh-!-font-weight-bold">Not applicable</p>
                   )}

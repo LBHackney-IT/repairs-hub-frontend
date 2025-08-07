@@ -8,6 +8,7 @@ import UserContext from '../UserContext'
 import { agent } from 'factories/agent'
 import AppointmentDetails from './AppointmentDetails'
 import { WorkOrder } from '@/models/workOrder'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const workOrderData = {
   reference: 10000012,
@@ -27,6 +28,9 @@ const workOrderData = {
   callerName: 'Jill Smith',
   callerNumber: '07700 900999',
   contractorReference: 'H01',
+}
+
+const appointmentDetailsData = {
   appointment: null,
 }
 
@@ -52,22 +56,29 @@ describe('AppointmentDetails component', () => {
   })
 
   describe('DRS work order', () => {
-    let drsWorkOrder = {
+    const drsWorkOrder = {
       ...workOrderData,
-      externalAppointmentManagementUrl:
-        'https://scheduler.example.hackney.gov.uk?bookingId=1',
     }
 
     describe('with no appointment', () => {
       describe('when the work order can be scheduled', () => {
         it('shows a link to schedule an appointment with DRS Web Booking Manager', () => {
-          let workOrder = new WorkOrder(drsWorkOrder)
+          const workOrder = new WorkOrder(drsWorkOrder)
 
           workOrder.canBeScheduled = jest.fn(() => true)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl:
+                      'https://scheduler.example.hackney.gov.uk?bookingId=1',
+                  })
+                }
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -76,13 +87,22 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order cannot be scheduled', () => {
         it('does not show a schedule link', () => {
-          let workOrder = new WorkOrder(drsWorkOrder)
+          const workOrder = new WorkOrder(drsWorkOrder)
 
           workOrder.canBeScheduled = jest.fn(() => false)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl:
+                      'https://scheduler.example.hackney.gov.uk?bookingId=1',
+                  })
+                }
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -93,13 +113,22 @@ describe('AppointmentDetails component', () => {
     describe('with an appointment', () => {
       describe('when the work order can be scheduled', () => {
         it('shows a link to reschedule an appointment with DRS Web Booking Manager', () => {
-          let workOrder = new WorkOrder({ ...drsWorkOrder, appointment })
-
+          const workOrder = new WorkOrder({ ...drsWorkOrder })
           workOrder.canBeScheduled = jest.fn(() => true)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl:
+                      'https://scheduler.example.hackney.gov.uk?bookingId=1',
+                    appointment,
+                  })
+                }
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -108,13 +137,23 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order cannot be scheduled', () => {
         it('does not show a reschedule link but shows the existing appointment', () => {
-          let workOrder = new WorkOrder({ ...drsWorkOrder, appointment })
+          const workOrder = new WorkOrder({ ...drsWorkOrder })
 
           workOrder.canBeScheduled = jest.fn(() => false)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl:
+                      'https://scheduler.example.hackney.gov.uk?bookingId=1',
+                    appointment,
+                  })
+                }
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -124,9 +163,8 @@ describe('AppointmentDetails component', () => {
   })
 
   describe('Work order (non DRS)', () => {
-    let nonDRSWorkOrder = {
+    const nonDRSWorkOrder = {
       ...workOrderData,
-      externalAppointmentManagementUrl: null,
     }
 
     describe('with no appointment', () => {
@@ -138,7 +176,15 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({
+                    ...appointmentDetailsData,
+                    externalAppointmentManagementUrl: null,
+                  })
+                }
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -147,13 +193,15 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order cannot be scheduled', () => {
         it('does not show a schedule link', () => {
-          let workOrder = new WorkOrder(nonDRSWorkOrder)
-
+          const workOrder = new WorkOrder(nonDRSWorkOrder)
           workOrder.canBeScheduled = jest.fn(() => false)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                appointmentDetails={new WorkOrderAppointmentDetails()}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -164,13 +212,17 @@ describe('AppointmentDetails component', () => {
     describe('with an appointment', () => {
       describe('when the work order can be scheduled', () => {
         it('shows a link to reschedule an appointment', () => {
-          let workOrder = new WorkOrder({ ...nonDRSWorkOrder, appointment })
-
+          const workOrder = new WorkOrder({ ...nonDRSWorkOrder })
           workOrder.canBeScheduled = jest.fn(() => true)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({ appointment })
+                }
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -179,13 +231,18 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order cannot be scheduled', () => {
         it('does not show a reschedule link but shows the existing appointment', () => {
-          let workOrder = new WorkOrder({ ...nonDRSWorkOrder, appointment })
+          const workOrder = new WorkOrder({ ...nonDRSWorkOrder })
 
           workOrder.canBeScheduled = jest.fn(() => false)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                appointmentDetails={
+                  new WorkOrderAppointmentDetails({ appointment })
+                }
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()

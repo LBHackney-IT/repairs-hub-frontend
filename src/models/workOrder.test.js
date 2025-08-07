@@ -1,5 +1,4 @@
-import { addDays, addMinutes, subDays, subMinutes } from 'date-fns'
-import format from 'date-fns/format'
+import { addMinutes, subMinutes } from 'date-fns'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -175,53 +174,6 @@ describe('WorkOrder', () => {
     })
   })
 
-  describe('appointmentISODatePassed()', () => {
-    it('returns false when there is no appointment', () => {
-      const workOrder = new WorkOrder()
-
-      expect(workOrder.appointmentISODatePassed()).toBe(false)
-    })
-
-    it('returns true when the current date is the same as the appointment start date with past time', () => {
-      const now = new Date()
-
-      const date = format(now, 'yyyy-MM-dd')
-      const start = format(now, 'HH:mm')
-
-      const workOrder = new WorkOrder({ appointment: { date, start } })
-
-      MockDate.set(addMinutes(now, 1))
-
-      expect(workOrder.appointmentISODatePassed()).toBe(true)
-    })
-
-    it('returns true when the current date is the same as the appointment start date with before time', () => {
-      const now = new Date()
-
-      const date = format(now, 'yyyy-MM-dd')
-      const start = format(now, 'HH:mm')
-
-      const workOrder = new WorkOrder({ appointment: { date, start } })
-
-      MockDate.set(subMinutes(now, 1))
-
-      expect(workOrder.appointmentISODatePassed()).toBe(true)
-    })
-
-    it('returns false when the current date is before the appointment date', () => {
-      const now = new Date()
-
-      const date = format(now, 'yyyy-MM-dd')
-      const start = format(now, 'HH:mm')
-
-      const workOrder = new WorkOrder({ appointment: { date, start } })
-
-      MockDate.set(subDays(now, 1))
-
-      expect(workOrder.appointmentISODatePassed()).toBe(false)
-    })
-  })
-
   describe('completionReason()', () => {
     it('returns Completed when the status is work complete', () => {
       const workOrder = new WorkOrder({ status: STATUS_COMPLETED.description })
@@ -260,49 +212,6 @@ describe('WorkOrder', () => {
       MockDate.set(subMinutes(now, 1))
 
       expect(workOrder.targetTimePassed()).toBe(false)
-    })
-  })
-
-  describe('appointmentIsToday()', () => {
-    const now = new Date()
-
-    const date = format(now, 'yyyy-MM-dd')
-    const start = format(now, 'HH:mm')
-
-    describe('when the appointment is tomorrow', () => {
-      beforeEach(() => {
-        MockDate.set(subDays(now, 1))
-      })
-
-      it('returns false', () => {
-        const workOrder = new WorkOrder({ appointment: { date, start } })
-
-        expect(workOrder.appointmentIsToday()).toBe(false)
-      })
-    })
-
-    describe('when the appointment is today', () => {
-      beforeEach(() => {
-        MockDate.set(now)
-      })
-
-      it('returns true', () => {
-        const workOrder = new WorkOrder({ appointment: { date, start } })
-
-        expect(workOrder.appointmentIsToday()).toBe(true)
-      })
-    })
-
-    describe('when the appointment was yesterday', () => {
-      beforeEach(() => {
-        MockDate.set(addDays(now, 1))
-      })
-
-      it('returns false', () => {
-        const workOrder = new WorkOrder({ appointment: { date, start } })
-
-        expect(workOrder.appointmentIsToday()).toBe(false)
-      })
     })
   })
 

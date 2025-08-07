@@ -4,9 +4,11 @@ import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import WarningText from '@/components/Template/WarningText'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface Props {
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
   property: {
     tmoName: string
     address: {
@@ -28,6 +30,7 @@ interface Props {
 const PrintJobTicketDetails = (props: Props) => {
   const {
     workOrder,
+    appointmentDetails,
     property,
     locationAlerts,
     personAlerts,
@@ -100,11 +103,11 @@ const PrintJobTicketDetails = (props: Props) => {
               <tr>
                 <td className="lbh-body-s">
                   <strong>Appointment date: </strong>
-                  {workOrder.appointment && (
+                  {appointmentDetails.appointment && (
                     <>
                       {
                         formatDateTime(
-                          new Date(workOrder.appointment['date'])
+                          new Date(appointmentDetails.appointment['date'])
                         ).split(',')[0]
                       }
                     </>
@@ -114,24 +117,24 @@ const PrintJobTicketDetails = (props: Props) => {
               <tr>
                 <td className="lbh-body-s">
                   <strong>Appointment slot: </strong>
-                  {workOrder.appointment && (
-                    <>{workOrder?.appointment['description']}</>
+                  {appointmentDetails.appointment && (
+                    <>{appointmentDetails?.appointment['description']}</>
                   )}
                 </td>
               </tr>
               <tr>
                 <td className="lbh-body-s">
                   <strong>
-                    {workOrder.operatives.length > 1
+                    {appointmentDetails.operatives.length > 1
                       ? 'Operatives: '
                       : 'Operative: '}
                   </strong>
-                  {workOrder.operatives.length > 0 &&
-                    ((workOrder.appointment &&
-                      workOrder.appointmentISODatePassed()) ||
+                  {appointmentDetails.operatives.length > 0 &&
+                    ((appointmentDetails.appointment &&
+                      appointmentDetails.appointmentISODatePassed()) ||
                       readOnly) && (
                       <>
-                        {`${workOrder.operatives
+                        {`${appointmentDetails.operatives
                           .map((operative) => operative.name)
                           .join(', ')}`}
                       </>
@@ -199,8 +202,8 @@ const PrintJobTicketDetails = (props: Props) => {
                 <tr>
                   <td className="lbh-body-s">
                     <strong>Appointment notes: </strong>
-                    {workOrder.appointment && (
-                      <>{workOrder.appointment['note'] || 'None'}</>
+                    {appointmentDetails.appointment && (
+                      <>{appointmentDetails.appointment['note'] || 'None'}</>
                     )}
                   </td>
                 </tr>
@@ -249,7 +252,7 @@ const PrintJobTicketDetails = (props: Props) => {
           <div className="govuk-!-margin-top-4">
             <p className="lbh-body-s display-inline">
               <strong>Planner comments: </strong>
-              {workOrder.plannerComments}
+              {appointmentDetails.plannerComments}
             </p>
           </div>
 

@@ -13,6 +13,7 @@ import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { WorkOrder } from '@/models/workOrder'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const axios = require('axios')
 
@@ -25,7 +26,7 @@ describe('WorkOrderDetails component', () => {
     },
   })
 
-  let workOrderData = {
+  const workOrderData = {
     reference: 10000012,
     dateRaised: '2021-01-18T15:28:57.17811',
     lastUpdated: null,
@@ -40,10 +41,13 @@ describe('WorkOrderDetails component', () => {
     target: '2021-01-23T18:30:00.00000',
     callerName: 'Jill Smith',
     callerNumber: '07700 900999',
+  }
+
+  const appointmentDetailsData = {
     operatives: [],
   }
 
-  let migratedWorkOrderData = {
+  const migratedWorkOrderData = {
     reference: 648707,
     dateRaised: '2014-02-22T07:58:20.37842',
     lastUpdated: null,
@@ -58,7 +62,7 @@ describe('WorkOrderDetails component', () => {
     target: '2014-02-27T18:30:00.00000',
     callerName: 'Jill Smith',
     callerNumber: '07700 900999',
-    operatives: [],
+    // operatives: [],
   }
 
   const props = {
@@ -105,6 +109,9 @@ describe('WorkOrderDetails component', () => {
           <WorkOrderDetails
             property={props.property}
             workOrder={new WorkOrder(workOrderData)}
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
@@ -127,6 +134,9 @@ describe('WorkOrderDetails component', () => {
           <WorkOrderDetails
             property={props.property}
             workOrder={new WorkOrder(migratedWorkOrderData)}
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
@@ -154,6 +164,9 @@ describe('WorkOrderDetails component', () => {
                 ...workOrderData,
                 closedDated: '2021-01-22T18:15:00.00000',
               })
+            }
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
             }
             tasksAndSors={[]}
             tenure={props.tenure}
@@ -194,6 +207,9 @@ describe('WorkOrderDetails component', () => {
           <WorkOrderDetails
             property={props.property}
             workOrder={new WorkOrder(workOrderData)}
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
@@ -233,6 +249,9 @@ describe('WorkOrderDetails component', () => {
           <WorkOrderDetails
             property={props.property}
             workOrder={new WorkOrder(workOrderData)}
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
@@ -276,6 +295,9 @@ describe('WorkOrderDetails component', () => {
                 status: 'Variation Pending Approval',
               })
             }
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
@@ -299,6 +321,9 @@ describe('WorkOrderDetails component', () => {
             property={props.property}
             workOrder={
               new WorkOrder({ ...workOrderData, status: 'In Progress' })
+            }
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
             }
             tasksAndSors={[]}
             tenure={props.tenure}
@@ -339,6 +364,9 @@ describe('WorkOrderDetails component', () => {
           <WorkOrderDetails
             property={props.property}
             workOrder={new WorkOrder(workOrderData)}
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
@@ -381,6 +409,9 @@ describe('WorkOrderDetails component', () => {
                 status: 'Authorisation Pending Approval',
               })
             }
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
@@ -405,6 +436,9 @@ describe('WorkOrderDetails component', () => {
             property={props.property}
             workOrder={
               new WorkOrder({ ...workOrderData, status: 'In Progress' })
+            }
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
             }
             tasksAndSors={[]}
             tenure={props.tenure}

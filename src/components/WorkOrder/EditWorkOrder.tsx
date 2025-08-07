@@ -15,7 +15,7 @@ import { WorkOrder } from '@/models/workOrder'
 import {
   postNote,
   editWorkOrder,
-  getWorkOrder,
+  getWorkOrderDetails,
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 import {
@@ -55,7 +55,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
   const fetchWorkOrderDetails = async () => {
     setLoading(true)
-    const workOrderResponse = await getWorkOrder(workOrderReference, false)
+    const workOrderResponse = await getWorkOrderDetails(workOrderReference)
 
     if (!workOrderResponse.success) {
       setError(workOrderResponse.error.message)

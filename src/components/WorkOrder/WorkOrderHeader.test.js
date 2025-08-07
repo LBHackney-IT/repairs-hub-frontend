@@ -9,6 +9,7 @@ import UserContext from '../UserContext'
 import { agent } from 'factories/agent'
 import { WorkOrder } from '@/models/workOrder'
 import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const axios = require('axios')
 
@@ -21,7 +22,7 @@ describe('WorkOrderHeader component', () => {
     },
   })
 
-  let workOrderData = {
+  const workOrderData = {
     reference: 10000012,
     dateRaised: '2021-01-18T15:28:57.17811',
     lastUpdated: null,
@@ -36,8 +37,11 @@ describe('WorkOrderHeader component', () => {
     target: '2021-01-23T18:30:00.00000',
     callerName: 'Jill Smith',
     callerNumber: '07700 900999',
-    operatives: [],
     closedDated: '2021-01-22T18:15:00.00000',
+  }
+
+  const appointmentDetailsData = {
+    operatives: [],
   }
 
   const props = {
@@ -70,6 +74,9 @@ describe('WorkOrderHeader component', () => {
           <WorkOrderHeader
             propertyReference={props.property.propertyReference}
             workOrder={new WorkOrder(workOrderData)}
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -94,6 +101,9 @@ describe('WorkOrderHeader component', () => {
           <WorkOrderHeader
             propertyReference={props.property.propertyReference}
             workOrder={new WorkOrder({ ...workOrderData, status: 'No Access' })}
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
+            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -134,8 +144,12 @@ describe('WorkOrderHeader component', () => {
           <UserContext.Provider value={{ user: agent }}>
             <WorkOrderHeader
               propertyReference={props.property.propertyReference}
-              workOrder={
-                new WorkOrder({ ...workOrderData, operatives: operatives })
+              workOrder={new WorkOrder(workOrderData)}
+              appointmentDetails={
+                new WorkOrderAppointmentDetails({
+                  ...appointmentDetailsData,
+                  operatives,
+                })
               }
               address={props.property.address}
               subTypeDescription={
@@ -167,6 +181,9 @@ describe('WorkOrderHeader component', () => {
             propertyReference={props.property.propertyReference}
             workOrder={
               new WorkOrder({ ...workOrderData, status: 'In Progress' })
+            }
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
             }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
@@ -208,6 +225,9 @@ describe('WorkOrderHeader component', () => {
                   additionalNotes: 'sdfsdf',
                 },
               })
+            }
+            appointmentDetails={
+              new WorkOrderAppointmentDetails(appointmentDetailsData)
             }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}

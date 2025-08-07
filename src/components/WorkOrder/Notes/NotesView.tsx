@@ -8,16 +8,24 @@ import { sortObjectsByDateKey } from '@/utils/date'
 import { TabName } from '../../Tabs/tabNames'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
 
 interface Props {
   workOrderReference: string
   tabName: string
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
   setActiveTab: (tabName: TabName) => void
 }
 
 const NotesView = (props: Props) => {
-  const { workOrderReference, tabName, workOrder, setActiveTab } = props
+  const {
+    workOrderReference,
+    tabName,
+    workOrder,
+    setActiveTab,
+    appointmentDetails,
+  } = props
 
   const [notes, setNotes] = useState([])
   const [loading, setLoading] = useState(false)
@@ -88,6 +96,7 @@ const NotesView = (props: Props) => {
         <NotesTimeline
           notes={notes}
           workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
           setActiveTab={setActiveTab}
         />
       )}

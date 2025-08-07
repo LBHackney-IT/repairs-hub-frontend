@@ -13,13 +13,15 @@ import Panel from '../../Template/Panel'
 import NoAvailableAppointments from './NoAvailableAppointments'
 import { toISODate } from '../../../utils/date'
 import { createWOLinks } from '@/utils/successPageLinks'
-import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const AppointmentView = ({ workOrderReference, successText }) => {
   const [property, setProperty] = useState({})
+
   const [workOrder, setWorkOrder] = useState({})
+
   const [tenure, setTenure] = useState({})
   const [tasksAndSors, setTasksAndSors] = useState({})
   const [availableAppointments, setAvailableAppointments] = useState([])
@@ -37,7 +39,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference, true)
+      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -51,6 +53,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
         )
         return
       }
+
       const tasksAndSors = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,

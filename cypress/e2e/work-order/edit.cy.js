@@ -4,15 +4,6 @@ describe('Editing a work order description', () => {
   context('As an authorisation manager', () => {
     beforeEach(() => {
       cy.loginWithAuthorisationManagerRole()
-
-      cy.intercept(
-        { method: 'GET', path: '/api/simple-feature-toggle' },
-        {
-          body: {
-            enableNewAppointmentEndpoint: true,
-          },
-        }
-      ).as('featureToggle')
     })
 
     describe('When tenure is null', () => {

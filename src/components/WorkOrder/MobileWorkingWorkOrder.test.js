@@ -7,6 +7,7 @@ import {
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import MockDate from 'mockdate'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const axios = require('axios')
 
@@ -34,6 +35,10 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
     tradeCode: 'PL',
     tradeDescription: 'Plumbing - PL',
     status: 'In Progress',
+    totalSMVs: 76,
+  }
+
+  const appointmentDetailsData = {
     plannerComment: 'planner comment',
     operatives: [
       {
@@ -44,7 +49,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
         jobPercentage: 100,
       },
     ],
-    totalSMVs: 76,
+
     appointment: {
       date: '2021-09-03',
       description: 'AM Slot',
@@ -94,6 +99,9 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -132,6 +140,9 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -170,6 +181,9 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -223,11 +237,15 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
 
     it('should render work order elements with Status Completed', async () => {
       const workOrder = new WorkOrder(workOrderData)
+
       const { asFragment } = render(
         <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -267,11 +285,15 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
 
     it('should render work order elements with Status No Access', async () => {
       const workOrder = new WorkOrder(workOrderData)
+
       const { asFragment } = render(
         <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -311,11 +333,15 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
 
     it('renders an overtime check box', async () => {
       const workOrder = new WorkOrder(workOrderData)
+
       const { asFragment } = render(
         <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -379,6 +405,10 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
     tradeCode: 'PL',
     tradeDescription: 'Plumbing - PL',
     status: 'In Progress',
+    totalSMVs: 76,
+  }
+
+  const appointmentDetailsData = {
     plannerComment: 'planner comment',
     operatives: [
       {
@@ -396,7 +426,7 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
         jobPercentage: 50,
       },
     ],
-    totalSMVs: 76,
+
     appointment: {
       date: '2021-09-03',
       description: 'AM Slot',
@@ -430,12 +460,16 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
   }
   describe('when has status In Progress', () => {
     const workOrder = new WorkOrder(workOrderData)
+
     it('should render work order elements with an Update operative link', async () => {
       const { asFragment } = render(
         <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -480,6 +514,9 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -543,6 +580,10 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
     tradeCode: 'PL',
     tradeDescription: 'Plumbing - PL',
     status: 'In Progress',
+    totalSMVs: 76,
+  }
+
+  const appointmentDetailsData = {
     plannerComment: 'planner comment',
     operatives: [
       {
@@ -560,7 +601,6 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
         jobPercentage: 50,
       },
     ],
-    totalSMVs: 76,
     appointment: {
       date: '2021-09-03',
       description: 'AM Slot',
@@ -592,6 +632,7 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
       tenancyAgreementReference: 'tenancyAgreementRef1',
     },
   }
+
   describe('when the workOrder has been loaded', () => {
     const workOrder = new WorkOrder(workOrderData)
     it('should render the confirm button', async () => {
@@ -600,6 +641,9 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',

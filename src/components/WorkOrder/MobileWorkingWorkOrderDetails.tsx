@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import TruncateText from '../Layout/TruncateText'
@@ -10,14 +9,30 @@ import { useRouter } from 'next/router'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import { formatDateTime } from '../../utils/time'
 import Status from './Status'
+import { Property } from '../../models/property'
+import { Tenure } from '../../models/tenure'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
-const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
-  const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
-  const [locationAlertsError, setLocationAlertsError] = useState()
+interface Props {
+  property: Property
+  workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
+  tenure: Tenure
+}
+
+const MobileWorkingWorkOrderDetails = (props: Props) => {
+  const { property, tenure, workOrder, appointmentDetails } = props
+
+  const [locationAlertsLoading, setLocationAlertsLoading] = useState<boolean>(
+    false
+  )
+  const [locationAlertsError, setLocationAlertsError] = useState<
+    string | null
+  >()
   const [locationAlerts, setLocationAlerts] = useState([])
 
-  const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
-  const [personAlertsError, setPersonAlertsError] = useState()
+  const [personAlertsLoading, setPersonAlertsLoading] = useState<boolean>(false)
+  const [personAlertsError, setPersonAlertsError] = useState<string | null>()
   const [personAlerts, setPersonAlerts] = useState([])
 
   const router = useRouter()
@@ -120,10 +135,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
           </>
         )}
 
-        {workOrder.plannerComments && (
+        {appointmentDetails.plannerComments && (
           <>
             <h5 className="lbh-heading-h5">Planner Comment</h5>
-            <p className="govuk-body">{workOrder.plannerComments}</p>
+            <p className="govuk-body">{appointmentDetails.plannerComments}</p>
           </>
         )}
         <div className="work-order-information">
@@ -202,26 +217,23 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
             </GridRow>
           )}
 
-          {workOrder.appointment && workOrder.appointment.note && (
-            <GridRow className="govuk-!-margin-top-0">
-              <GridColumn width="one-half">
-                <div className="lbh-body property-name">Comment</div>
-              </GridColumn>
-              <GridColumn width="one-half" className="align-grid-column">
-                <div className="lbh-body">{workOrder.appointment.note}</div>
-              </GridColumn>
-            </GridRow>
-          )}
+          {appointmentDetails.appointment &&
+            appointmentDetails.appointment.note && (
+              <GridRow className="govuk-!-margin-top-0">
+                <GridColumn width="one-half">
+                  <div className="lbh-body property-name">Comment</div>
+                </GridColumn>
+                <GridColumn width="one-half" className="align-grid-column">
+                  <div className="lbh-body">
+                    {appointmentDetails.appointment.note}
+                  </div>
+                </GridColumn>
+              </GridRow>
+            )}
         </div>
       </div>
     </>
   )
-}
-
-MobileWorkingWorkOrderDetails.propTypes = {
-  property: PropTypes.object.isRequired,
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  tenure: PropTypes.object,
 }
 
 export default MobileWorkingWorkOrderDetails

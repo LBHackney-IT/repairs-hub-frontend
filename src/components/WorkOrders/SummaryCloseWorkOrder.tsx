@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { PAYMENT_TYPE_FORM_DESCRIPTIONS } from '@/utils/paymentTypes'
 import { PrimarySubmitButton } from '../Form'
@@ -19,20 +18,37 @@ const TableRow = (props) => {
   )
 }
 
-const SummaryCloseWorkOrder = ({
-  reference,
-  onJobSubmit,
-  notes,
-  completionDate,
-  changeStep,
-  reason,
-  operativeNames,
-  paymentType,
-  startDate,
-  files,
-  description,
-  followOnData = null,
-}) => {
+interface Props {
+  reference: string
+  onJobSubmit: () => Promise<void>
+  notes: string
+  completionDate: string
+  startDate: string
+  changeStep: () => void
+  reason: string
+  paymentType: string
+  description: string
+  files: any[]
+  operativeNames: string[]
+  followOnData: any
+}
+
+const SummaryCloseWorkOrder = (props: Props) => {
+  const {
+    reference,
+    onJobSubmit,
+    notes,
+    completionDate,
+    changeStep,
+    reason,
+    operativeNames,
+    paymentType,
+    startDate,
+    files,
+    description,
+    followOnData = null,
+  } = props
+
   const { handleSubmit } = useForm({})
 
   return (
@@ -174,20 +190,6 @@ const SummaryCloseWorkOrder = ({
       </form>
     </div>
   )
-}
-
-SummaryCloseWorkOrder.propTypes = {
-  reference: PropTypes.number.isRequired,
-  onJobSubmit: PropTypes.func.isRequired,
-  notes: PropTypes.string.isRequired,
-  completionDate: PropTypes.string,
-  startDate: PropTypes.string,
-  changeStep: PropTypes.func.isRequired,
-  reason: PropTypes.string.isRequired,
-  paymentType: PropTypes.string,
-  description: PropTypes.string,
-  files: PropTypes.array,
-  operativeNames: PropTypes.arrayOf(PropTypes.string),
 }
 
 export default SummaryCloseWorkOrder

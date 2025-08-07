@@ -6,12 +6,20 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
+    }
+
+    const appointmentDetails = {
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
+
     const note = { note: '' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -21,12 +29,18 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
+    }
+    const appointmentDetails = {
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -36,12 +50,18 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
+    }
+    const appointmentDetails = {
       operatives: [],
     }
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -51,12 +71,18 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
+    }
+    const appointmentDetails = {
       operatives: [{ name: 'Operative Name', jobPercentage: 50 }],
     }
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -66,6 +92,8 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
+    }
+    const appointmentDetails = {
       operatives: [
         { name: 'Operative One', jobPercentage: 50 },
         { name: 'Operative Two', jobPercentage: 50 },
@@ -74,7 +102,11 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -84,12 +116,18 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
+    }
+    const appointmentDetails = {
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -99,12 +137,18 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'CloseToBase',
+    }
+    const appointmentDetails = {
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -114,12 +158,18 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'Overtime',
+    }
+    const appointmentDetails = {
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -129,12 +179,18 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: null,
+    }
+    const appointmentDetails = {
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -144,15 +200,22 @@ describe('CompletedNoteContent component', () => {
     const workOrder = {
       closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
-      operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+
       uploadedFileCount: {
         totalFileCount: 8,
       },
     }
+    const appointmentDetails = {
+      operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+    }
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -163,7 +226,7 @@ describe('CompletedNoteContent component', () => {
       const workOrder = {
         closedDated: '2024-09-26T12:34:56',
         paymentType: null,
-        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+
         followOnRequest: {
           id: 31,
           requiredFollowOnTrades: ['Carpentry', 'Drainage'],
@@ -175,10 +238,17 @@ describe('CompletedNoteContent component', () => {
           additionalNotes: null,
         },
       }
+      const appointmentDetails = {
+        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+      }
       const note = { note: 'User comment' }
 
       const { asFragment } = render(
-        <CompletedNoteContent note={note} workOrder={workOrder} />
+        <CompletedNoteContent
+          note={note}
+          workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
+        />
       )
 
       expect(asFragment()).toMatchSnapshot()
@@ -188,7 +258,6 @@ describe('CompletedNoteContent component', () => {
       const workOrder = {
         closedDated: '2024-09-26T12:34:56',
         paymentType: null,
-        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
         followOnRequest: {
           id: 31,
           requiredFollowOnTrades: ['Plumbing', 'Electrical'],
@@ -200,10 +269,17 @@ describe('CompletedNoteContent component', () => {
           additionalNotes: null,
         },
       }
+      const appointmentDetails = {
+        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+      }
       const note = { note: 'User comment' }
 
       const { asFragment } = render(
-        <CompletedNoteContent note={note} workOrder={workOrder} />
+        <CompletedNoteContent
+          note={note}
+          workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
+        />
       )
 
       expect(asFragment()).toMatchSnapshot()
@@ -213,7 +289,6 @@ describe('CompletedNoteContent component', () => {
       const workOrder = {
         closedDated: '2024-09-26T12:34:56',
         paymentType: null,
-        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
         followOnRequest: {
           id: 31,
           requiredFollowOnTrades: ['Plumbing', 'Electrical'],
@@ -225,10 +300,17 @@ describe('CompletedNoteContent component', () => {
           additionalNotes: 'Some additonal notes about the work required',
         },
       }
+      const appointmentDetails = {
+        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+      }
       const note = { note: 'User comment' }
 
       const { asFragment } = render(
-        <CompletedNoteContent note={note} workOrder={workOrder} />
+        <CompletedNoteContent
+          note={note}
+          workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
+        />
       )
 
       expect(asFragment()).toMatchSnapshot()

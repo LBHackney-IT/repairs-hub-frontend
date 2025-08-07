@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import MobileWorkingTasksAndSorsTable from './TasksAndSors/MobileWorkingTasksAndSorsTable'
@@ -30,22 +29,47 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import PhotoViewList from './Photos/PhotoViewList'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import { Property } from '../../models/property'
+import { Tenure } from '../../models/tenure'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const VARIATION_PENDING_APPROVAL_STATUS = 'Variation Pending Approval'
 
-const MobileWorkingWorkOrder = ({
-  workOrderReference,
-  property,
-  workOrder,
-  tasksAndSors,
-  onFormSubmit,
-  currentUserPayrollNumber,
-  paymentType,
-  tenure,
-  photos,
-}) => {
-  const [error, setError] = useState()
-  const [loading, setLoading] = useState(false)
+interface Props {
+  workOrderReference: string
+  property: Property
+  workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
+  tasksAndSors: {
+    code: string
+    description: string
+    quantity: number
+    standardMinuteValue: number
+  }[]
+  onFormSubmit: (formData: any) => Promise<void>
+  error?: string
+  currentUserPayrollNumber: string
+  tenure: Tenure
+  paymentType: string
+  photos: object[]
+}
+
+const MobileWorkingWorkOrder = (props: Props) => {
+  const {
+    workOrderReference,
+    property,
+    workOrder,
+    appointmentDetails,
+    tasksAndSors,
+    onFormSubmit,
+    currentUserPayrollNumber,
+    paymentType,
+    tenure,
+    photos,
+  } = props
+
+  const [error, setError] = useState<string | null>()
+  const [loading, setLoading] = useState<boolean>(false)
 
   const handleStartJob = async () => {
     setError(null)
@@ -65,7 +89,7 @@ const MobileWorkingWorkOrder = ({
     })
       .then(() => {
         // update clientSide
-        workOrder.startTime = startTime
+        workOrder.startTime = startTime.toISOString()
       })
       .catch((e) => {
         console.error(e)
@@ -77,7 +101,7 @@ const MobileWorkingWorkOrder = ({
       })
   }
 
-  const operativesCount = workOrder.operatives.length
+  const operativesCount = appointmentDetails.operatives.length
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
@@ -92,7 +116,7 @@ const MobileWorkingWorkOrder = ({
         <Spinner />
       ) : (
         <>
-          <AppointmentHeader appointment={workOrder?.appointment} />
+          <AppointmentHeader appointment={appointmentDetails?.appointment} />
           <div className="govuk-!-margin-top-4">
             <BackButton />
           </div>
@@ -107,7 +131,7 @@ const MobileWorkingWorkOrder = ({
             <MobileWorkingWorkOrderDetails
               property={property}
               workOrder={workOrder}
-              tasksAndSors={tasksAndSors}
+              appointmentDetails={appointmentDetails}
               tenure={tenure}
             />
 
@@ -149,7 +173,7 @@ const MobileWorkingWorkOrder = ({
                 )}
                 {operativesCount > 1 && (
                   <OperativeList
-                    operatives={workOrder.operatives}
+                    operatives={appointmentDetails.operatives}
                     currentUserPayrollNumber={currentUserPayrollNumber}
                     workOrderReference={workOrderReference}
                     readOnly={readOnly}
@@ -204,7 +228,7 @@ const MobileWorkingWorkOrder = ({
 
                 {operativesCount > 1 && (
                   <OperativeList
-                    operatives={workOrder.operatives}
+                    operatives={appointmentDetails.operatives}
                     currentUserPayrollNumber={currentUserPayrollNumber}
                     workOrderReference={workOrderReference}
                     readOnly={readOnly}
@@ -272,24 +296,6 @@ const MobileWorkingWorkOrder = ({
       )}
     </>
   )
-}
-
-MobileWorkingWorkOrder.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
-  property: PropTypes.object.isRequired,
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  tasksAndSors: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string,
-      description: PropTypes.string,
-      quantity: PropTypes.number,
-      standardMinuteValue: PropTypes.number,
-    })
-  ).isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
-  error: PropTypes.string,
-  currentUserPayrollNumber: PropTypes.string.isRequired,
-  tenure: PropTypes.object,
 }
 
 export default MobileWorkingWorkOrder

@@ -6,18 +6,6 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/simple-feature-toggle',
-      },
-      {
-        body: {
-          enableNewAppointmentEndpoint: true,
-        },
-      }
-    ).as('feature-toggle')
-
-    cy.intercept(
-      {
-        method: 'GET',
         path: '/api/workOrders?*',
       },
       { body: [] }
@@ -82,7 +70,6 @@ describe('Closing a work order on behalf of an operative', () => {
       {
         body: {
           enableFollowOnIsEmergencyField: true,
-          enableNewAppointmentEndpoint: true,
         },
       }
     ).as('feature-toggle')

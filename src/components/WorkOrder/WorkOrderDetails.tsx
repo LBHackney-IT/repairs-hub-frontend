@@ -11,10 +11,12 @@ import FollowOnFlag from '../Flags/FollowOnFlag'
 import { Tenure } from '../../models/tenure'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Property } from '../../models/property'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface Props {
   property: Property
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
   tenure: Tenure
   setLocationAlerts: (alerts: CautionaryAlert[]) => void
   setPersonAlerts: (alerts: CautionaryAlert[]) => void
@@ -25,6 +27,7 @@ const WorkOrderDetails = (props: Props) => {
   const {
     property,
     workOrder,
+    appointmentDetails,
     tenure,
     printClickHandler,
     setLocationAlerts,
@@ -96,6 +99,7 @@ const WorkOrderDetails = (props: Props) => {
         <WorkOrderHeader
           propertyReference={property.propertyReference}
           workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
           address={property.address}
           subTypeDescription={property.hierarchyType.subTypeDescription}
           tenure={tenure}

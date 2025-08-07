@@ -1,17 +1,28 @@
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
 import SelectOperatives from './SelectOperatives'
+import { Operative } from '../../models/operativeModel'
 
-const OperativeForm = ({
-  onSubmit,
-  assignedOperativesToWorkOrder,
-  availableOperatives,
-  selectedPercentagesToShowOnEdit,
-  totalSMV,
-  currentUserPayrollNumber,
-}) => {
+interface Props {
+  onSubmit: (e: any) => void
+  totalSMV: number
+  assignedOperativesToWorkOrder: Operative[]
+  availableOperatives: Operative[]
+  currentUserPayrollNumber: string
+  selectedPercentagesToShowOnEdit: any[]
+}
+
+const OperativeForm = (props: Props) => {
+  const {
+    onSubmit,
+    assignedOperativesToWorkOrder,
+    availableOperatives,
+    selectedPercentagesToShowOnEdit,
+    totalSMV,
+    currentUserPayrollNumber,
+  } = props
+
   const { handleSubmit, register, errors, trigger, getValues } = useForm({})
 
   return (
@@ -42,11 +53,6 @@ const OperativeForm = ({
       </div>
     </>
   )
-}
-
-OperativeForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  totalSMV: PropTypes.number.isRequired,
 }
 
 export default OperativeForm

@@ -16,7 +16,7 @@ import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
-import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
@@ -139,7 +139,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         path: '/api/hub-user',
       })
 
-      const workOrderResponse = await getWorkOrder(reference, false)
+      const workOrderResponse = await getWorkOrderDetails(reference)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

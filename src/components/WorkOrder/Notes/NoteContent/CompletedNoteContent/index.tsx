@@ -2,20 +2,24 @@ import { WorkOrder } from '@/root/src/models/workOrder'
 import { Note } from '../../types'
 import generateMessage from './generateMessage'
 import { TabName } from '@/root/src/components/Tabs/tabNames'
+import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
 
 interface Props {
   note: Note
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
   setActiveTab: (tabName: TabName) => void
 }
 
-const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
+const CompletedNoteContent = (props: Props) => {
+  const { note, workOrder, setActiveTab, appointmentDetails } = props
+
   const completionDate = new Date(workOrder.closedDated)
 
   const statusMessage = generateMessage(
     note.note,
     completionDate,
-    workOrder.operatives,
+    appointmentDetails.operatives,
     workOrder.paymentType
   )
 

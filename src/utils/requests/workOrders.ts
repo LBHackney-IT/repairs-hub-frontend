@@ -1,25 +1,26 @@
-import {
-  fetchSimpleFeatureToggles,
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 
-export const getWorkOrderOld = async (
+export const getAppointmentDetails = async (
   workOrderReference: string
-): Promise<ApiResponseType<WorkOrder | null>> => {
+): Promise<ApiResponseType<WorkOrderAppointmentDetails | null>> => {
   try {
-    const workOrderData = await frontEndApiRequest({
+    const appointmentDetailsData = await frontEndApiRequest({
       method: 'get',
-      path: `/api/workOrders/${workOrderReference}`,
+      path: `/api/workOrders/appointments/${workOrderReference}`,
     })
+
+    const appointmentDetails = new WorkOrderAppointmentDetails(
+      appointmentDetailsData
+    )
 
     return {
       success: true,
-      response: new WorkOrder(workOrderData),
+      response: appointmentDetails,
       error: null,
     }
   } catch (e) {
@@ -37,40 +38,16 @@ export const getWorkOrderOld = async (
   }
 }
 
-export const getWorkOrder = async (
-  workOrderReference: string,
-  includeAppointmentData: boolean
+export const getWorkOrderDetails = async (
+  workOrderReference: string
 ): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
-    const featureToggleData = await fetchSimpleFeatureToggles()
-
-    if (!featureToggleData?.enableNewAppointmentEndpoint) {
-      // default to old endpoint if FT disabled
-      return await getWorkOrderOld(workOrderReference)
-    }
-
     const workOrderData = await frontEndApiRequest({
       method: 'get',
       path: `/api/workOrders/${workOrderReference}/new`,
     })
 
     const workOrder = new WorkOrder(workOrderData)
-
-    if (includeAppointmentData) {
-      const appointmentOperativeData: WorkOrderAppointmentDetails = await frontEndApiRequest(
-        {
-          method: 'get',
-          path: `/api/workOrders/appointments/${workOrderReference}`,
-        }
-      )
-
-      // map appointment/operative data from new endpoint
-      workOrder.appointment = appointmentOperativeData.appointment
-      workOrder.operatives = appointmentOperativeData.operatives
-      workOrder.externalAppointmentManagementUrl =
-        appointmentOperativeData.externalAppointmentManagementUrl
-      workOrder.plannerComments = appointmentOperativeData.plannerComments
-    }
 
     return {
       success: true,

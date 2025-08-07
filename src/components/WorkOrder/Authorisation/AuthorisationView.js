@@ -21,7 +21,7 @@ import {
   authorisationApprovedLinks,
   cancelWorkOrderLinks,
 } from '@/utils/successPageLinks'
-import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
@@ -80,7 +80,7 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference, false)
+      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
