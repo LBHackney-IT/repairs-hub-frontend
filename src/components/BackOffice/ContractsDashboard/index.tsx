@@ -35,7 +35,7 @@ const ContractsDashboard = () => {
     isLoading: contractorsIsLoading,
     error: contractorsError,
   } = useQuery(
-    ['contractors', { contractsExpiryFilterDate: '2020, 1, 1' }],
+    ['contractors', { contractsExpiryFilterDate: '2020, 0, 1' }],
     () =>
       backOfficeFetchContractors({
         contractsExpiryFilterDate: new Date(2020, 0, 1),
