@@ -1,0 +1,240 @@
+import { useState, useEffect, useContext } from 'react'
+import { useForm } from 'react-hook-form'
+import PropertyFlags from '../PropertyFlags'
+import BackButton from '../../Layout/BackButton'
+import {
+  PrimarySubmitButton,
+  CharacterCountLimitedTextArea,
+  TextInput,
+} from '../../Form'
+import Contacts from '../Contacts/Contacts'
+import WarningText from '../../Template/WarningText'
+import WarningInfoBox from '../../Template/WarningInfoBox'
+import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
+import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
+import { daysInHours } from '@/utils/time'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import Spinner from '@/components/Spinner'
+import ErrorMessage from '@/components/Errors/ErrorMessage'
+import RaiseWorkOrderFollowOn from '../RaiseWorkOrder/RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
+import UserContext from '../../UserContext'
+import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
+import { Address, HierarchyType } from '@/root/src/models/property'
+import { Tenure } from '@/root/src/models/tenure'
+import { Priority } from '@/root/src/models/priority'
+import { getPriorityObjectByCode } from './helpers'
+import RepairsFinderInput from './RepairsFinderInput'
+
+interface Props {
+  propertyReference: string
+  address: Address
+  hierarchyType: HierarchyType
+  canRaiseRepair: boolean
+  tenure: Tenure
+  priorities: Priority[]
+  onFormSubmit: (...args: any[]) => void
+  raiseLimit: string | null
+  setContractorReference: (reference: string) => void
+  setTradeCode: (tradeCode: string) => void
+}
+
+const RepairsFinderForm = (props: Props) => {
+  const {
+    propertyReference,
+    address,
+    hierarchyType,
+    canRaiseRepair,
+    tenure,
+    priorities,
+    onFormSubmit,
+    raiseLimit,
+    setContractorReference,
+    setTradeCode,
+  } = props
+
+  const { register, handleSubmit, errors, watch } = useForm()
+
+  const { user } = useContext(UserContext)
+
+  const [loading, setLoading] = useState(false)
+  const [legalDisrepairError, setLegalDisRepairError] = useState<string>()
+
+  const [totalCost, setTotalCost] = useState<number>()
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+  const overSpendLimit = totalCost > parseInt(raiseLimit)
+
+  const onSubmit = async (formData) => {
+    const priority = getPriorityObjectByCode(formData.priorityCode, priorities)
+
+    const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
+      ...formData,
+      propertyReference,
+      shortAddress: address.shortAddress,
+      postalCode: address.postalCode,
+      priorityDescription: priority.description,
+      daysToComplete: priority.daysToComplete,
+      hoursToComplete:
+        // Hours can't be derived for immediates as they have 0 days for completion
+        priority.priorityCode === IMMEDIATE_PRIORITY_CODE
+          ? 2
+          : daysInHours(priority.daysToComplete),
+    })
+
+    // follow-on parent
+    const parentWorkOrderId =
+      formData?.isFollowOn === 'true' && formData?.parentWorkOrder
+        ? formData.parentWorkOrder
+        : null
+
+    onFormSubmit(scheduleWorkOrderFormData, parentWorkOrderId)
+  }
+
+  const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/legalDisrepair/${propertyReference}`,
+    })
+      .then((isInLegalDisrepair) =>
+        setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
+      )
+      .catch((error) => {
+        console.error('Error loading legal disrepair status:', error.response)
+        setLegalDisRepairError(
+          `Error loading legal disrepair status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    setLoading(true)
+
+    getPropertyInfoOnLegalDisrepair(propertyReference)
+  }, [])
+
+  return (
+    <>
+      <BackButton />
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <span className="govuk-caption-l lbh-caption">New repair</span>
+          <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
+            {hierarchyType?.subTypeDescription}: {address?.addressLine}
+          </h1>
+
+          {loading && <Spinner />}
+
+          {isInLegalDisrepair && !loading && (
+            <WarningInfoBox
+              header="This property is currently under legal disrepair"
+              text="Before raising a work order you must call the Legal Disrepair Team"
+            />
+          )}
+
+          {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
+
+          <div className="lbh-body-s">
+            <PropertyFlags
+              canRaiseRepair={canRaiseRepair}
+              tenure={tenure}
+              propertyReference={propertyReference}
+            />
+          </div>
+          <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
+            Work order task details
+          </h2>
+          <form
+            role="form"
+            id="repair-request-form"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            {canAssignFollowOnRelationship(user) && (
+              <RaiseWorkOrderFollowOn
+                register={register}
+                errors={errors}
+                propertyReference={propertyReference}
+                watch={watch}
+              />
+            )}
+
+            <RepairsFinderInput
+              propertyReference={propertyReference}
+              register={register}
+              setTotalCost={setTotalCost}
+              setContractorReference={setContractorReference}
+              setTradeCode={setTradeCode}
+            />
+
+            <CharacterCountLimitedTextArea
+              name="descriptionOfWork"
+              label="Repair description"
+              required={true}
+              maxLength={230}
+              requiredText="Please enter a repair description"
+              register={register}
+              error={errors && errors.descriptionOfWork}
+            />
+
+            <Contacts tenureId={tenure?.id} />
+
+            <h2 className=" lbh-heading-h2">
+              Contact details for repair
+              <span className="govuk-caption-m">
+                Who should we contact for this repair?
+              </span>
+            </h2>
+
+            <TextInput
+              name="callerName"
+              label="Caller name"
+              required={true}
+              register={register({
+                required: 'Please add caller name',
+                maxLength: {
+                  value: 50,
+                  message:
+                    'You have exceeded the maximum amount of 50 characters',
+                },
+              })}
+              error={errors && errors.callerName}
+            />
+
+            <TextInput
+              name="contactNumber"
+              label="Telephone number"
+              required={true}
+              register={register({
+                required: 'Please add telephone number',
+                validate: (value) => {
+                  if (isNaN(value)) {
+                    return 'Telephone number should be a number and with no empty spaces'
+                  }
+                },
+                maxLength: {
+                  value: 11,
+                  message:
+                    'Please enter a valid UK telephone number (11 digits)',
+                },
+              })}
+              error={errors && errors.contactNumber}
+            />
+
+            {overSpendLimit && (
+              <WarningText
+                name="over-spend-limit"
+                text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation"
+              />
+            )}
+
+            <PrimarySubmitButton
+              id="submit-work-order-create"
+              label="Create work order"
+            />
+          </form>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default RepairsFinderForm

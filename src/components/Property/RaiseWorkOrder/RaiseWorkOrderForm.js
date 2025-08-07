@@ -23,8 +23,8 @@ import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
 import UserContext from '../../UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
-
-const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
+import Link from 'next/link'
+import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useFeatureToggles'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -67,6 +67,7 @@ const RaiseWorkOrderForm = ({
   })
 
   const { user } = useContext(UserContext)
+  const { simpleFeatureToggles } = useFeatureToggles()
 
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState()
@@ -211,6 +212,22 @@ const RaiseWorkOrderForm = ({
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>
 
+          {simpleFeatureToggles?.enableRepairsFinderIntegration && (
+            <WarningInfoBox
+              className="variant-warning govuk-!-margin-bottom-4"
+              header="Looking to use Repairs Finder?"
+              name="despatched-warning"
+              text={
+                <>
+                  <Link href="/properties/00023400/raise-repair/repairs-finder">
+                    Use our new form
+                  </Link>{' '}
+                  that works with Repairs Finder.
+                </>
+              }
+            />
+          )}
+
           {loading ? <Spinner /> : renderLegalDisrepair(isInLegalDisrepair)}
 
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
@@ -230,15 +247,14 @@ const RaiseWorkOrderForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {canAssignFollowOnRelationship(user) &&
-              NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED === 'true' && (
-                <RaiseWorkOrderFollowOn
-                  register={register}
-                  errors={errors}
-                  propertyReference={propertyReference}
-                  watch={watch}
-                />
-              )}
+            {canAssignFollowOnRelationship(user) && (
+              <RaiseWorkOrderFollowOn
+                register={register}
+                errors={errors}
+                propertyReference={propertyReference}
+                watch={watch}
+              />
+            )}
 
             <TradeContractorRateScheduleItemView
               register={register}

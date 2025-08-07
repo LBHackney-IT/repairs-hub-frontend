@@ -153,9 +153,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -415,9 +413,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 

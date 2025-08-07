@@ -1192,9 +1192,7 @@ describe('Raise repair form', () => {
 
     cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-    cy.get('.lbh-heading-h2')
-      .contains('Raise a work order on this dwelling')
-      .click()
+    cy.contains('a', 'Raise a work order on this dwelling').click()
 
     cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
 
@@ -1569,9 +1567,7 @@ describe('Raise repair form', () => {
 
       cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait([
         '@propertyRequest',
@@ -1580,12 +1576,10 @@ describe('Raise repair form', () => {
         '@propertyInLegalDisrepair',
       ])
 
-      cy.get('.warning-info-box').within(() => {
-        cy.contains('This property is currently under legal disrepair')
-        cy.contains(
-          'Before raising a work order you must call the Legal Disrepair Team'
-        )
-      })
+      cy.contains('This property is currently under legal disrepair')
+      cy.contains(
+        'Before raising a work order you must call the Legal Disrepair Team'
+      )
     })
   })
 
@@ -1606,9 +1600,7 @@ describe('Raise repair form', () => {
 
         cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-        cy.get('.lbh-heading-h2')
-          .contains('Raise a work order on this dwelling')
-          .click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait([
           '@propertyRequest',
@@ -1642,9 +1634,7 @@ describe('Raise repair form', () => {
 
       cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait([
         '@propertyRequest',

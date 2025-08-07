@@ -3,17 +3,17 @@ import 'cypress-audit/commands'
 
 describe('Closing a work order on behalf of an operative', () => {
   beforeEach(() => {
-    // cy.intercept(
-    //   {
-    //     method: 'GET',
-    //     path: '/api/simple-feature-toggle',
-    //   },
-    //   {
-    //     body: {
-    //       enableNewAppointmentEndpoint: true,
-    //     },
-    //   }
-    // ).as('feature-toggle')
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          enableNewAppointmentEndpoint: true,
+        },
+      }
+    ).as('feature-toggle')
 
     cy.intercept(
       {
@@ -46,6 +46,13 @@ describe('Closing a work order on behalf of an operative', () => {
         )
       })
       .as('workOrder')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
 
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
@@ -633,11 +640,20 @@ describe('Closing a work order on behalf of an operative', () => {
           workOrder.reference = 10000040
           workOrder.contractorReference = 'H10' // DLO contractor reference
           workOrder.canAssignOperative = true
-          workOrder.operatives = []
+          // workOrder.operatives = []
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           ).as('workOrder')
+        })
+
+        cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+          x.operatives = []
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+            { body: x }
+          ).as('appointmentDetails')
         })
 
         cy.intercept(
@@ -838,7 +854,15 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.reference = 10000040
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
-              workOrder.operatives = [
+
+              cy.intercept(
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { body: workOrder }
+              ).as('workOrder')
+            })
+
+            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+              x.operatives = [
                 {
                   id: 1,
                   name: 'Operative A',
@@ -852,10 +876,14 @@ describe('Closing a work order on behalf of an operative', () => {
                   name: 'Operative C',
                 },
               ]
+
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
-                { body: workOrder }
-              ).as('workOrder')
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
+                { body: x }
+              ).as('appointmentDetails')
             })
 
             cy.intercept(
@@ -1110,7 +1138,15 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
               workOrder.isSplit = true
-              workOrder.operatives = [
+
+              cy.intercept(
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { body: workOrder }
+              ).as('workOrder')
+            })
+
+            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+              x.operatives = [
                 {
                   id: 1,
                   jobPercentage: 40,
@@ -1122,10 +1158,14 @@ describe('Closing a work order on behalf of an operative', () => {
                   name: 'Operative B',
                 },
               ]
+
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
-                { body: workOrder }
-              ).as('workOrder')
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
+                { body: x }
+              ).as('appointmentDetails')
             })
 
             cy.intercept(
@@ -1252,11 +1292,23 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.reference = 10000040
               workOrder.contractorReference = 'H10' // DLO contractor reference
               workOrder.canAssignOperative = true
-              workOrder.operatives = []
+
               cy.intercept(
                 { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
+            })
+
+            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+              x.operatives = []
+
+              cy.intercept(
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
+                { body: x }
+              ).as('appointmentDetails')
             })
 
             cy.intercept(
@@ -1387,6 +1439,13 @@ describe('Closing a work order on behalf of an operative', () => {
             { body: workOrder }
           ).as('workOrder')
         })
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+          {
+            fixture: 'workOrderAppointments/noAppointment.json',
+          }
+        )
       })
 
       it('payment type and operative selection is not possible', () => {
@@ -1992,11 +2051,20 @@ describe('Closing a work order on behalf of an operative', () => {
           workOrder.reference = 10000040
           workOrder.contractorReference = 'H10' // DLO contractor reference
           workOrder.canAssignOperative = true
-          workOrder.operatives = []
+
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           ).as('workOrder')
+        })
+
+        cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+          x.operatives = []
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+            { body: x }
+          ).as('appointmentDetails')
         })
 
         cy.intercept(
@@ -2197,7 +2265,14 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.reference = 10000040
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
-              workOrder.operatives = [
+              cy.intercept(
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { body: workOrder }
+              ).as('workOrder')
+            })
+
+            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+              x.operatives = [
                 {
                   id: 1,
                   name: 'Operative A',
@@ -2211,10 +2286,14 @@ describe('Closing a work order on behalf of an operative', () => {
                   name: 'Operative C',
                 },
               ]
+
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
-                { body: workOrder }
-              ).as('workOrder')
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
+                { body: x }
+              ).as('appointmentDetails')
             })
 
             cy.intercept(
@@ -2469,7 +2548,15 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
               workOrder.isSplit = true
-              workOrder.operatives = [
+
+              cy.intercept(
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { body: workOrder }
+              ).as('workOrder')
+            })
+
+            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+              x.operatives = [
                 {
                   id: 1,
                   jobPercentage: 40,
@@ -2481,10 +2568,14 @@ describe('Closing a work order on behalf of an operative', () => {
                   name: 'Operative B',
                 },
               ]
+
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
-                { body: workOrder }
-              ).as('workOrder')
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
+                { body: x }
+              ).as('appointmentDetails')
             })
 
             cy.intercept(
@@ -2611,11 +2702,23 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.reference = 10000040
               workOrder.contractorReference = 'H10' // DLO contractor reference
               workOrder.canAssignOperative = true
-              workOrder.operatives = []
+
               cy.intercept(
                 { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
+            })
+
+            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+              x.operatives = []
+
+              cy.intercept(
+                {
+                  method: 'GET',
+                  path: '/api/workOrders/appointments/10000040',
+                },
+                { body: x }
+              ).as('appointmentDetails')
             })
 
             cy.intercept(
@@ -2746,6 +2849,13 @@ describe('Closing a work order on behalf of an operative', () => {
             { body: workOrder }
           ).as('workOrder')
         })
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+          {
+            fixture: 'workOrderAppointments/noAppointment.json',
+          }
+        )
       })
 
       it('payment type and operative selection is not possible', () => {
@@ -2913,6 +3023,13 @@ describe('Closing a work order on behalf of an operative', () => {
           { body: workOrder }
         ).as('workOrder')
       })
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
 
       cy.visit('/work-orders/10000040/close')
 

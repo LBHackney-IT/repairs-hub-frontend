@@ -25,7 +25,7 @@ const NewTaskForm = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(reference)
+      const workOrderResponse = await getWorkOrder(reference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

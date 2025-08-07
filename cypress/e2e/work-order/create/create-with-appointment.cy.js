@@ -138,9 +138,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -276,9 +274,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -493,9 +489,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.get('.lbh-heading-h2')
-          .contains('Raise a work order on this dwelling')
-          .click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -567,9 +561,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.get('.lbh-heading-h2')
-          .contains('Raise a work order on this dwelling')
-          .click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -623,9 +615,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.get('.lbh-heading-h2')
-          .contains('Raise a work order on this dwelling')
-          .click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -673,9 +663,7 @@ describe('Schedule appointment form', () => {
       it('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
         cy.visit('/properties/00012345')
 
-        cy.get('.lbh-heading-h2')
-          .contains('Raise a work order on this dwelling')
-          .click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
@@ -739,9 +727,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.get('.lbh-heading-h2')
-          .contains('Raise a work order on this dwelling')
-          .click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
