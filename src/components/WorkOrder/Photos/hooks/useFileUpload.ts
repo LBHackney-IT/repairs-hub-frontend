@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import uploadFiles from './uploadFiles'
 import validateFileUpload from './validateFileUpload'
-import fileUploadStatusLogger from './uploadFiles/fileUploadStatusLogger'
 
 const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
   const [loadingStatus, setLoadingStatus] = useState(null)
@@ -27,17 +26,12 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
 
     const description = e.target.description.value
 
-    const fileUploadCompleteCallback = fileUploadStatusLogger(
-      files.length,
-      setLoadingStatus
-    )
-
     const uploadResult = await uploadFiles(
       files,
       workOrderReference,
       description,
       'Uploaded directly to work order',
-      fileUploadCompleteCallback
+      setLoadingStatus
     )
 
     setLoadingStatus(null)

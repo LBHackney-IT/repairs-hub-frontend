@@ -12,18 +12,7 @@ function fileDetails(file: File) {
   }
 }
 
-export interface CompressResult {
-  success: boolean
-  file: File
-}
-
-async function compressWithBrowserImageCompression(
-  file: File
-): Promise<CompressResult> {
-  console.log(
-    'Compressing file with browser-image-compression',
-    fileDetails(file)
-  )
+async function compressWithBrowserImageCompression(file: File): Promise<File> {
   const compressionOptions: CompressionOptions = {
     maxSizeMB: 1,
     maxWidthOrHeight: 1920,
@@ -31,29 +20,26 @@ async function compressWithBrowserImageCompression(
     maxIteration: 1,
   }
   const compressedFile = await imageCompression(file, compressionOptions)
-  return { success: true, file: compressedFile }
+  return compressedFile
 }
 
-function compressWithCompressorJS(file: File): Promise<CompressResult> {
-  console.log('Compressing file with CompressorJS', fileDetails(file))
+function compressWithCompressorJS(file: File): Promise<File> {
   return new Promise((resolve, reject) => {
     new Compressor(file, {
       maxWidth: 1920,
       maxHeight: 1920,
       quality: 0.8,
-      success: (compressedFile: File) => {
-        resolve({ success: true, file: compressedFile })
-      },
+      success: (compressedFile: File) => resolve(compressedFile),
       error: (err) => reject(err),
     })
   })
 }
 
-export async function compressFile(file: File): Promise<CompressResult> {
+export async function compressFile(file: File): Promise<File> {
   const featureToggles = await fetchSimpleFeatureToggles()
 
   // Use browser-image-compression as default
-  let compressResult: CompressResult
+  let compressResult: File
 
   try {
     if (featureToggles.useCompressorJS) {
@@ -63,18 +49,21 @@ export async function compressFile(file: File): Promise<CompressResult> {
       compressResult = await compressWithBrowserImageCompression(file)
     }
   } catch (error) {
-    console.error('File compression failed:', error)
-    compressResult = {
-      success: false,
-      file: new File([file], file.name, {
-        type: file.type,
-        lastModified: file.lastModified,
-      }),
+    const compressLibrary = featureToggles.useCompressorJS ? 'CJS' : 'BIC'
+    let errorMessage = `File compression failed with ${compressLibrary} for "${file.name}":`
+    if (error instanceof ProgressEvent) {
+      // This error is thrown by browser-image-compression
+      const fileReaderError = (error.currentTarget as FileReader).error
+      errorMessage += ` ${fileReaderError}`
+      console.error(errorMessage)
+      throw new Error(errorMessage + ' Try re-uploading this file.')
     }
+    errorMessage += ` ${error instanceof Error ? error.message : error}`
+    console.error(errorMessage)
+    throw new Error(errorMessage)
   }
   console.log('compression result', {
-    success: compressResult.success,
-    ...fileDetails(compressResult.file),
+    ...fileDetails(compressResult),
   })
   return compressResult
 }

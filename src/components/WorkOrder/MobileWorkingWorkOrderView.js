@@ -20,7 +20,6 @@ import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from './Photos/hooks/uploadFiles'
 import { workOrderNoteFragmentForPaymentType } from '../../utils/paymentTypes'
 import SpinnerWithLabel from '../SpinnerWithLabel'
-import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusLogger'
 import { emitTagManagerEvent } from '@/utils/tagManager'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
@@ -200,18 +199,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       var filesToUpload = workOrderFiles.concat(followOnFiles)
 
       if (filesToUpload.length > 0) {
-        const fileUploadCompleteCallback = fileUploadStatusLogger(
-          filesToUpload.length,
-          setLoadingStatus
-        )
-
         if (workOrderFiles.length > 0) {
           const uploadResult = await uploadFiles(
             workOrderFiles,
             workOrderReference,
             data.workOrderPhotoDescription,
             'Closing work order',
-            fileUploadCompleteCallback
+            setLoadingStatus
           )
 
           if (!uploadResult.success) {
@@ -231,7 +225,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
             workOrderReference,
             data.followOnPhotoDescription,
             'Raising a follow on',
-            fileUploadCompleteCallback
+            setLoadingStatus
           )
 
           if (!uploadResult.success) {

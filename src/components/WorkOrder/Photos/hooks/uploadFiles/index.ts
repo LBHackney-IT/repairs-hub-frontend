@@ -2,6 +2,8 @@ import getPresignedUrls from './getPresignedUrls'
 import uploadFilesToS3 from './uploadFilesToS3'
 import completeUpload from './completeUpload'
 import { captureException } from '@sentry/nextjs'
+import fileUploadStatusLogger from './fileUploadStatusLogger'
+import { compressFile } from './compressFile'
 
 class FileUploadError extends Error {
   constructor(message: string) {
@@ -15,13 +17,15 @@ const uploadFiles = async (
   workOrderReference: string,
   description: string,
   uploadGroupLabel: string,
-  fileUploadCompleteCallback: () => void
+  setUploadStatus: (status: string | null) => void
 ): Promise<{
   success: boolean
   requestError?: string
 }> => {
   try {
-    // 1. get presigned urls
+    const statusLogger = fileUploadStatusLogger(files.length, setUploadStatus)
+
+    // 1. Get presigned urls
     const uploadUrlsResult = await getPresignedUrls(
       workOrderReference,
       files.length
@@ -31,16 +35,24 @@ const uploadFiles = async (
 
     const presignedUrls = uploadUrlsResult.result.links
 
-    // 2. Upload files to S3
+    // 2. Compress files in series to avoid overwhelming system resources
+    const compressedFiles: File[] = []
+    for (const file of files) {
+      const compressedFile = await compressFile(file)
+      compressedFiles.push(compressedFile)
+      statusLogger('Compress')
+    }
+
+    // 3. Upload files to S3
     const uploadFilesToS3Response = await uploadFilesToS3(
-      files,
+      compressedFiles,
       presignedUrls,
-      fileUploadCompleteCallback
+      () => statusLogger('Upload')
     )
     if (!uploadFilesToS3Response.success)
       throw new FileUploadError(uploadFilesToS3Response.error as string)
 
-    // 3. Complete upload
+    // 4. Complete upload
     const completeUploadResult = await completeUpload(
       workOrderReference,
       presignedUrls.map((x) => x.key),
