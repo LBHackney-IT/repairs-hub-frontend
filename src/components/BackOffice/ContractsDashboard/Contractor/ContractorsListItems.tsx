@@ -27,11 +27,11 @@ const ContractorsListItems = ({ contractors }: ContractorsListItemsProps) => {
         className="lbh-list mobile-working-work-order-list"
         data-test-id="contractors-list"
       >
-        {contractors.map((obj, index) => (
+        {contractors.map((contractor, index) => (
           <ContractorListItem
-            contractorReference={obj.contractorReference}
-            contractorName={obj.contractorName}
-            activeContractCount={obj.activeContractCount}
+            contractorReference={contractor.contractorReference}
+            contractorName={contractor.contractorName}
+            activeContractCount={contractor.activeContractCount}
             key={index}
           />
         ))}
