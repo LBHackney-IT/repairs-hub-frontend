@@ -21,9 +21,12 @@ const ContractorListItem = ({
       <li
         style={{
           cursor: 'pointer',
-          border: '5px solid #00664F',
+
           borderRadius: '20px',
           width: '85%',
+          ...(activeContractCount
+            ? { backgroundColor: '#D4EDDA', border: '5px solid #D4EDDA' }
+            : { backgroundColor: '#F0F0F0', border: '5px solid #F0F0F0' }),
         }}
         className={cx('govuk-!-margin-top-3', 'operative-work-order-list-item')}
       >
