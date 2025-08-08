@@ -2,6 +2,7 @@ import { useQuery } from 'react-query'
 
 import Layout from '../Layout'
 import Spinner from '../../Spinner'
+import WarningInfoBox from '../../Template/WarningInfoBox'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractListItems from './Contract/ContractListItems'
@@ -31,7 +32,7 @@ const ContractsDashboard = () => {
   )
 
   const {
-    data: contractorsData,
+    data: contractorData,
     isLoading: contractorsIsLoading,
     error: contractorsError,
   } = useQuery(
@@ -43,7 +44,7 @@ const ContractsDashboard = () => {
   )
 
   const contracts = contractData as Contract[] | null
-  const contractors = contractorsData as Contractor[] | null
+  const contractors = contractorData as Contractor[] | null
   const contractError = contractsError as Error | null
   const contractorError = contractorsError as Error | null
 
@@ -64,14 +65,19 @@ const ContractsDashboard = () => {
           <>
             <Spinner />
           </>
-        ) : (
-          contractsThatExpireWithinTwoMonths && (
-            <ContractListItems
-              contracts={contractsThatExpireWithinTwoMonths}
-              warningText="No contracts expiring in the next two months."
-              page="dashboard"
+        ) : contracts === null || contracts?.length === 0 ? (
+          <div style={{ width: '90%' }}>
+            <WarningInfoBox
+              header="No contracts found!"
+              text="No contracts expiring in the next two months."
+              name="no-contracts-found"
             />
-          )
+          </div>
+        ) : (
+          <ContractListItems
+            contracts={contractsThatExpireWithinTwoMonths}
+            page="dashboard"
+          />
         )}
         {contractError && (
           <ErrorMessage
@@ -92,6 +98,13 @@ const ContractsDashboard = () => {
           <>
             <Spinner />
           </>
+        ) : contractors?.length === 0 || contractors === null ? (
+          <div style={{ width: '85%' }}>
+            <WarningInfoBox
+              header="No contractors found!"
+              name="no-contractors-found"
+            />
+          </div>
         ) : (
           contractors && <ContractorsListItems contractors={contractors} />
         )}
