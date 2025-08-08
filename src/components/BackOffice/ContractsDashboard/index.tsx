@@ -31,6 +31,9 @@ const ContractsDashboard = () => {
       })
   )
 
+  // Date used to filter contractors by the expiry date of their contracts. If the date is 01/01/2020, only contractors with contracts that expired on or after that date, or will expire in the future, will be shown.
+  const CONTRACTS_CUTOFF_DATE = new Date(2020, 0, 1)
+
   const {
     data: contractorData,
     isLoading: contractorsIsLoading,
@@ -39,7 +42,7 @@ const ContractsDashboard = () => {
     ['contractors', { contractsExpiryFilterDate: '2020, 0, 1' }],
     () =>
       backOfficeFetchContractors({
-        contractsExpiryFilterDate: new Date(2020, 0, 1),
+        contractsExpiryFilterDate: CONTRACTS_CUTOFF_DATE,
       })
   )
 
