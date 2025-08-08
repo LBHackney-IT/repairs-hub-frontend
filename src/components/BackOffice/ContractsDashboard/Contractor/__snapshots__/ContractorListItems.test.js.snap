@@ -9,7 +9,7 @@ exports[`Contractors list items component should render the component 1`] = `
     >
       <li
         class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+        style="cursor: pointer; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240); border: 5px solid #f0f0f0;"
       >
         <div
           class="contract-details"
@@ -38,7 +38,7 @@ exports[`Contractors list items component should render the component 1`] = `
       </li>
       <li
         class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+        style="cursor: pointer; border-radius: 20px; width: 85%; background-color: rgb(212, 237, 218); border: 5px solid #d4edda;"
       >
         <div
           class="contract-details"
@@ -67,7 +67,7 @@ exports[`Contractors list items component should render the component 1`] = `
       </li>
       <li
         class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+        style="cursor: pointer; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240); border: 5px solid #f0f0f0;"
       >
         <div
           class="contract-details"
@@ -96,7 +96,7 @@ exports[`Contractors list items component should render the component 1`] = `
       </li>
       <li
         class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+        style="cursor: pointer; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240); border: 5px solid #f0f0f0;"
       >
         <div
           class="contract-details"
@@ -125,7 +125,7 @@ exports[`Contractors list items component should render the component 1`] = `
       </li>
       <li
         class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+        style="cursor: pointer; border-radius: 20px; width: 85%; background-color: rgb(212, 237, 218); border: 5px solid #d4edda;"
       >
         <div
           class="contract-details"
