@@ -12,7 +12,7 @@ function contractsRequest(mapper = null) {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?`,
+        path: `/api/backoffice/contracts?&isActive=true`,
       },
       mapper ? mapper(contracts) : contracts
     ).as('contractsRequest')
@@ -44,7 +44,7 @@ function modifiedContractsRequest() {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/backoffice/contracts?',
+        path: '/api/backoffice/contracts?&isActive=true',
       },
       contracts
     ).as('modifiedContractsRequest')
