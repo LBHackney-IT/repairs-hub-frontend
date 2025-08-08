@@ -1,0 +1,27 @@
+[
+  {
+    "contractorReference": "HHL",
+    "contractorName": "Herts Heritage Ltd",
+    "activeContractCount": 0
+  },
+  {
+    "contractorReference": "SYC",
+    "contractorName": "Sycous Limited",
+    "activeContractCount": 1
+  },
+  {
+    "contractorReference": "AEP",
+    "contractorName": "Axis Europe (X) PLC",
+    "activeContractCount": 0
+  },
+  {
+    "contractorReference": "CJL",
+    "contractorName": "Conrad Jacobs Ltd",
+    "activeContractCount": 0
+  },
+  {
+    "contractorReference": "H01",
+    "contractorName": "HH General Building Repair",
+    "activeContractCount": 1
+  }
+]

@@ -12,6 +12,24 @@ function contractsRequest() {
   ).as('contractsRequest')
 }
 
+function contractorsRequest() {
+  cy.fixture('contractors/contractsDashboardContractorData').then(
+    (contractors) => {
+      const alphabeticalContractors = contractors.sort((a, b) =>
+        a.contractorName.localeCompare(b.contractorName)
+      )
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+        },
+        alphabeticalContractors
+      ).as('contractorsRequest')
+    }
+  )
+}
+
 function activeContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
     const filtered = contracts.filter(
@@ -79,7 +97,9 @@ describe('contractor page - when user has data admin permissions', () => {
     cy.contains('a', 'Contracts Dashboard').click()
     cy.url().should('include', '/backoffice/contracts-dashboard')
     contractsRequest()
+    contractorsRequest()
     cy.wait('@contractsRequest')
+    cy.wait('@contractorsRequest')
     cy.get('[data-test-id="contractors-list"]')
       .contains('li', 'Sycous Limited')
       .click()

@@ -19,6 +19,24 @@ function contractsRequest(mapper = null) {
   })
 }
 
+function contractorsRequest() {
+  cy.fixture('contractors/contractsDashboardContractorData').then(
+    (contractors) => {
+      const alphabeticalContractors = contractors.sort((a, b) =>
+        a.contractorName.localeCompare(b.contractorName)
+      )
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+        },
+        alphabeticalContractors
+      ).as('contractorsRequest')
+    }
+  )
+}
+
 function modifiedContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
     contracts[3].terminationDate = monthsOffset(1, today).toISOString()
@@ -47,9 +65,13 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     cy.visit('/backoffice/contracts-dashboard')
   })
 
-  it('triggers a GET request on page load to retrieve all relevant contracts', () => {
+  it('triggers GET requests on page load to retrieve all relevant contracts and contractors', () => {
     contractsRequest()
+    contractorsRequest()
     cy.wait('@contractsRequest')
+      .its('request.method')
+      .should('deep.equal', 'GET')
+    cy.wait('@contractorsRequest')
       .its('request.method')
       .should('deep.equal', 'GET')
   })
@@ -59,6 +81,8 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     cy.contains('a', 'Contracts Dashboard').click()
     cy.url().should('include', '/backoffice/contracts-dashboard')
     contractsRequest()
+    contractorsRequest()
+    cy.wait('@contractorsRequest')
     cy.wait('@contractsRequest')
     cy.get('.govuk-back-link').click()
     cy.url().should('include', '/backoffice')
@@ -81,29 +105,29 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     })
   })
 
-  it('displays contractors that have relevant contracts in alphabetical order', () => {
-    modifiedContractsRequest()
-    cy.wait('@modifiedContractsRequest')
-    cy.get('@modifiedContractsRequest').then((interception) => {
-      const contracts = interception.response.body
-      const relevantContracts = contracts.filter(
-        (c) => c.terminationDate > '2020'
+  it('displays contractors in alphabetical order', () => {
+    contractorsRequest()
+    contractsRequest()
+    cy.wait('@contractorsRequest').then((interception) => {
+      const data = interception.response.body
+      const alphabeticalContractors = data.sort((a, b) =>
+        a.contractorName.localeCompare(b.contractorName)
       )
-      const contractors = new Set(
-        relevantContracts.map((contract) => {
-          return contract.contractorName
-        })
-      )
-      const sortedContractors = [...contractors].sort((a, b) =>
-        a.localeCompare(b)
-      )
+      const contractorsLength = data.length
+
       cy.get('[data-test-id="contractors-list"]')
         .children()
-        .should('have.length', contractors.size)
+        .should('have.length', contractorsLength)
       cy.get('[data-test-id="contractors-list"]')
         .children()
         .each(($el, index) => {
-          cy.wrap($el).invoke('text').should('equal', sortedContractors[index])
+          cy.wrap($el)
+            .invoke('text')
+            .should('contain', alphabeticalContractors[index].contractorName)
+            .should(
+              'contain',
+              alphabeticalContractors[index].activeContractCount
+            )
         })
     })
   })
@@ -127,25 +151,36 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
   })
 
   it('displays no contractors warning box when no contractors are found', () => {
+    contractsRequest()
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/backoffice/contracts?',
+        path:
+          '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
       },
-      { body: [] }
-    )
+      []
+    ).as('contractorsRequestEmpty')
+
     cy.get('[data-testid="no-contractors-found"]')
       .should('be.visible')
-      .should('contain', 'Problem loading contractors.')
+      .should('contain', 'No contractors found!')
   })
 
-  it('displays an error message if api params have no matching contracts', () => {
+  it('displays an error messages if api params have no matching data', () => {
     cy.intercept({
       method: 'GET',
-      path:
-        '/api/backoffice/contracts?isActive=blah&contractorReference=blah&sorCode=blah',
+      path: '/api/backoffice/contracts?isActive={hello}',
     }).as('contractErrorRequest')
 
-    cy.get('[data-testid="error-message"]').should('be.visible')
+    cy.intercept({
+      method: 'GET',
+      path: '/api/backoffice/contractors?hello',
+    }).as('contractorErrorRequest')
+
+    cy.get('[data-testid="error-message"]')
+      .should('have.length', 2)
+      .each(($el) => {
+        cy.wrap($el).should('be.visible')
+      })
   })
 })
