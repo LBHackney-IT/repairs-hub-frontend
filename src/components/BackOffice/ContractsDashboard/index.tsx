@@ -68,7 +68,8 @@ const ContractsDashboard = () => {
           <>
             <Spinner />
           </>
-        ) : contracts === null || contracts?.length === 0 ? (
+        ) : contractsThatExpireWithinTwoMonths === null ||
+          contractsThatExpireWithinTwoMonths?.length === 0 ? (
           <div style={{ width: '90%' }}>
             <WarningInfoBox
               header="No contracts found!"

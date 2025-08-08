@@ -163,7 +163,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
 
     cy.get('[data-testid="no-contractors-found"]')
       .should('be.visible')
-      .should('contain', 'Problem loading contractors.')
+      .should('contain', 'No contractors found!')
   })
 
   it('displays an error messages if api params have no matching data', () => {
