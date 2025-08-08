@@ -1,26 +1,11 @@
 import Contractor from '@/root/src/models/contractor'
 import ContractorListItem from './ContractorListItem'
-import WarningInfoBox from '../../../Template/WarningInfoBox'
 
 interface ContractorsListItemsProps {
   contractors: Contractor[]
 }
 
 const ContractorsListItems = ({ contractors }: ContractorsListItemsProps) => {
-  if (contractors.length === 0) {
-    return (
-      <>
-        <div style={{ width: '85%' }}>
-          <WarningInfoBox
-            header="No contractors found!"
-            text="Problem loading contractors."
-            name="no-contractors-found"
-          />
-        </div>
-      </>
-    )
-  }
-
   return (
     <div>
       <ol
