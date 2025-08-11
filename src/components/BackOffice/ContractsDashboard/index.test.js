@@ -11,6 +11,11 @@ jest.mock('react-query', () => ({
   }),
 }))
 
+jest.mock("./utils", () => ({
+  ...jest.requireActual("./utils"),
+  today: new Date("2025-08-08")
+}))
+
 describe('Contracts dashboard component', () => {
   it('should render the component', async () => {
     const { asFragment } = render(<ContractsDashboard />)
