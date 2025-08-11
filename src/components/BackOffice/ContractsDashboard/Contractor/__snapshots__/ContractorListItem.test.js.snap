@@ -4,7 +4,7 @@ exports[`Contractors list item component should render the component 1`] = `
 <DocumentFragment>
   <li
     class="govuk-!-margin-top-3 operative-work-order-list-item"
-    style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+    style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
   >
     <div
       class="contract-details"
@@ -14,6 +14,12 @@ exports[`Contractors list item component should render the component 1`] = `
       >
         Sycous Limited
       </h3>
+      <p>
+        Active contracts: 
+        <span
+          style="font-weight: 800;"
+        />
+      </p>
     </div>
     <div
       class="govuk-!-margin-0"
