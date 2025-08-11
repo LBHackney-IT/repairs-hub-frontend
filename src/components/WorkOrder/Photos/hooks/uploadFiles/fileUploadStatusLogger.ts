@@ -12,10 +12,18 @@ const fileUploadStatusLogger = (
   const fileUploadCompleteCallback = (action: 'Upload' | 'Compress') => {
     if (action == 'Compress') numberOfCompletedCompressions++
     if (action == 'Upload') numberOfCompletedUploads++
-    logCallback(
-      `Processing file(s): ${numberOfCompletedCompressions} of ${totalFiles} Compressed | ` +
-        `${numberOfCompletedUploads} of ${totalFiles} Uploaded`
-    )
+    const compressionIsInProgress =
+      numberOfCompletedUploads == 0 &&
+      numberOfCompletedCompressions < totalFiles
+    if (compressionIsInProgress)
+      logCallback(
+        `Processing file(s): ${numberOfCompletedCompressions} of ${totalFiles} Compressed`
+      )
+    else
+      logCallback(
+        `Processing file(s):
+        ${numberOfCompletedUploads} of ${totalFiles} Uploaded`
+      )
   }
 
   return fileUploadCompleteCallback
