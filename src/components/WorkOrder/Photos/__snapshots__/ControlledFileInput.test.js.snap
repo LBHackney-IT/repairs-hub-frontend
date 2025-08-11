@@ -62,6 +62,11 @@ exports[`ControlledFileInput component renders shows file previews 1`] = `
             src="mockResponseUrl"
           />
         </div>
+        <p
+          class="photoUploadPreview-filename"
+        >
+          test.png
+        </p>
         <button
           class="photoUploadPreview-removeButton"
           type="button"
@@ -123,6 +128,11 @@ exports[`ControlledFileInput component renders shows validation error 1`] = `
             src="mockResponseUrl"
           />
         </div>
+        <p
+          class="photoUploadPreview-filename"
+        >
+          test.png
+        </p>
         <button
           class="photoUploadPreview-removeButton"
           type="button"
