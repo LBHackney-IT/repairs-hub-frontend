@@ -6,7 +6,7 @@ function contractsRequest() {
   cy.intercept(
     {
       method: 'GET',
-      path: '/api/backoffice/contracts?',
+      path: '/api/backoffice/contracts?&isActive=true',
     },
     { fixture: 'contracts/contractsDashboard.json' }
   ).as('contractsRequest')

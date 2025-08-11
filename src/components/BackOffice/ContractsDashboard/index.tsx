@@ -22,10 +22,10 @@ const ContractsDashboard = () => {
     isLoading: contractsIsLoading,
     error: contractsError,
   } = useQuery(
-    ['contracts', { isActive: null, contractorReference: null, sorCode: null }],
+    ['contracts', { isActive: true, contractorReference: null, sorCode: null }],
     () =>
       fetchContracts({
-        isActive: null,
+        isActive: true,
         contractorReference: null,
         sorCode: null,
       })
