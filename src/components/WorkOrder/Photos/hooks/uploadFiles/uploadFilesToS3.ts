@@ -7,12 +7,15 @@ const uploadFilesToS3 = async (
   links: Link[],
   fileUploadCompleteCallback: () => void
 ): Promise<{ success: boolean; error?: unknown }> => {
-  // Upload in parallel for faster performance on good internet connections
   try {
+    // Upload in parallel for faster performance on good internet connections
     await Promise.all(
       files.map(async (compressedFile, i) => {
-        await uploadFileToS3(compressedFile, links[i])
-        fileUploadCompleteCallback()
+        try {
+          await uploadFileToS3(compressedFile, links[i])
+        } finally {
+          fileUploadCompleteCallback()
+        }
       })
     )
   } catch (error) {

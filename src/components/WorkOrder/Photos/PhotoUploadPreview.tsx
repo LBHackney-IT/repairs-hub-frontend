@@ -11,17 +11,17 @@ const PhotoUploadPreview = (props: Props) => {
 
   return (
     <div className="photoUploadPreview">
-      {files.map((x, index) => (
-        <div key={x.name} className="photoUploadPreview-container">
+      {files.map((file, index) => (
+        <div key={file.name} className="photoUploadPreview-container">
           <div className="photoUploadPreview-imageContainer">
             <img
               className="photoUploadPreview-image"
-              src={URL.createObjectURL(x)}
+              src={URL.createObjectURL(file)}
               alt="Preview Uploaded Image"
               id="file-preview"
             />
           </div>
-
+          <p className="photoUploadPreview-filename">{file.name}</p>
           <button
             className="photoUploadPreview-removeButton"
             type="button"
