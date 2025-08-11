@@ -59,8 +59,8 @@ const uploadFiles = async (
     if (!uploadFilesToS3Response.success)
       throw new FileUploadError(
         (uploadFilesToS3Response.error as string) +
-          ' ' +
-          compressionErrors?.[0]?.message
+          (compressionErrors.length &&
+            `| Compression error: ${compressionErrors?.[0]?.message}`)
       )
 
     // 4. Complete upload

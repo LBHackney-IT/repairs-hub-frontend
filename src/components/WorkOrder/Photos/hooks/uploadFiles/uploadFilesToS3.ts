@@ -48,7 +48,7 @@ const uploadFileToS3 = async (
           'with error',
           JSON.stringify({ name: err.name, message: err.message })
         )
-        throw err
+        throw Error('Failed to upload file: ' + err)
       })
   )
 
