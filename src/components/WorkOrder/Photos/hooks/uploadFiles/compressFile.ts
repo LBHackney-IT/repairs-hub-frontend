@@ -54,11 +54,10 @@ export async function compressFile(file: File): Promise<File> {
     if (error instanceof ProgressEvent) {
       // This error is thrown by browser-image-compression
       const fileReaderError = (error.currentTarget as FileReader).error
-      errorMessage += ` ${fileReaderError}`
-      console.error(errorMessage)
-      throw new Error(errorMessage + ' Try re-uploading this file.')
+      errorMessage += ` ${fileReaderError}. Try re-uploading this file.`
+    } else {
+      errorMessage += ` ${error?.message || error?.type || error}`
     }
-    errorMessage += ` ${error instanceof Error ? error.message : error}`
     console.error(errorMessage)
     throw new Error(errorMessage)
   }

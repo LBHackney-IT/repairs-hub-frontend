@@ -28,10 +28,7 @@ const uploadFilesToS3 = async (
 const uploadFileToS3 = async (
   file: File,
   link: Link
-): Promise<{
-  success: boolean
-  error?: unknown
-}> => {
+): Promise<{ success: boolean; error?: unknown }> => {
   // Need to destructure because these are non-enumerable properties
   const { name, size, type } = file
   const fileDetails = { name, size, type }
@@ -54,6 +51,10 @@ const uploadFileToS3 = async (
         throw err
       })
   )
+
+  if (!result.success) {
+    throw result.error
+  }
 
   return result
 }
