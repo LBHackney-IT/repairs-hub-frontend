@@ -36,21 +36,32 @@ const uploadFiles = async (
     const presignedUrls = uploadUrlsResult.result.links
 
     // 2. Compress files in series to avoid overwhelming system resources
-    const compressedFiles: File[] = []
+    const filesToUpload: File[] = []
+    const compressionErrors: Error[] = []
     for (const file of files) {
-      const compressedFile = await compressFile(file)
-      compressedFiles.push(compressedFile)
-      statusLogger('Compress')
+      try {
+        const compressedFile = await compressFile(file)
+        filesToUpload.push(compressedFile)
+      } catch (error) {
+        filesToUpload.push(file)
+        compressionErrors.push(error)
+      } finally {
+        statusLogger('Compress')
+      }
     }
 
     // 3. Upload files to S3
     const uploadFilesToS3Response = await uploadFilesToS3(
-      compressedFiles,
+      filesToUpload,
       presignedUrls,
       () => statusLogger('Upload')
     )
     if (!uploadFilesToS3Response.success)
-      throw new FileUploadError(uploadFilesToS3Response.error as string)
+      throw new FileUploadError(
+        (uploadFilesToS3Response.error as string) +
+          ' ' +
+          compressionErrors?.[0]?.message
+      )
 
     // 4. Complete upload
     const completeUploadResult = await completeUpload(
