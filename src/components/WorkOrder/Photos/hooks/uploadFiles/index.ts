@@ -25,6 +25,20 @@ const uploadFiles = async (
   try {
     const statusLogger = fileUploadStatusLogger(files.length, setUploadStatus)
 
+    // Ensure all files are readable
+    await Promise.all(
+      files.map(async (file) => {
+        try {
+          // Attempt to read the first kilobyte of the file to ensure it is valid and accessible
+          await file.slice(0, 1024).arrayBuffer()
+        } catch (err) {
+          const errorMessage = `Could not read the file "${file.name}". Please remove and re-select it. Error: ${err.message}`
+          console.error(errorMessage, err)
+          throw Error(errorMessage)
+        }
+      })
+    )
+
     // 1. Get presigned urls
     const uploadUrlsResult = await getPresignedUrls(
       workOrderReference,
