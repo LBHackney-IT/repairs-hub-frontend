@@ -18,6 +18,11 @@ exports[`PhotoUploadPreview component renders component 1`] = `
           src="mockResponseUrl"
         />
       </div>
+      <p
+        class="photoUploadPreview-filename"
+      >
+        file.png
+      </p>
       <button
         class="photoUploadPreview-removeButton"
         type="button"

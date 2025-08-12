@@ -18,7 +18,6 @@ import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 import SpinnerWithLabel from '../SpinnerWithLabel'
-import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
@@ -71,17 +70,12 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
     try {
       if (files.length > 0) {
-        const fileUploadCompleteCallback = fileUploadStatusLogger(
-          files.length,
-          setLoadingStatus
-        )
-
         const uploadResult = await uploadFiles(
           files,
           reference,
           description,
           'Closing work order',
-          fileUploadCompleteCallback
+          setLoadingStatus
         )
 
         if (!uploadResult.success) {

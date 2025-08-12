@@ -88,6 +88,11 @@
     height: 100%;
   }
 
+  &-filename {
+    margin: 0;
+    text-align: center;
+  }
+
   &-removeButton {
     flex-shrink: 0;
     flex-grow: 0;
