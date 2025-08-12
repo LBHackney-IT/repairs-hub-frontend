@@ -80,17 +80,12 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
 
     try {
       if (files.length > 0) {
-        const fileUploadCompleteCallback = fileUploadStatusLogger(
-          files.length,
-          setLoadingStatus
-        )
-
         const uploadResult = await uploadFiles(
           files,
           reference,
           description,
           'Closing work order',
-          fileUploadCompleteCallback
+          setLoadingStatus
         )
 
         if (!uploadResult.success) {
