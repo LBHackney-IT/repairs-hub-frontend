@@ -4,6 +4,7 @@ import { TabName } from '../tabNames'
 import { useContext } from 'react'
 import UserContext from '../../UserContext'
 import { canSeeRelatedWorkOrdersTab } from '@/root/src/utils/userPermissions'
+import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
 
 const tabsList: TabName[] = [
   TabName.TasksAndSors,
@@ -20,6 +21,7 @@ interface Props {
   tasksAndSors: any
   budgetCode: any
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
 }
 
 const WorkOrderViewTabs = (props: Props) => {
@@ -29,6 +31,7 @@ const WorkOrderViewTabs = (props: Props) => {
     tasksAndSors,
     budgetCode,
     workOrder,
+    appointmentDetails,
   } = props
 
   const { user } = useContext(UserContext)
@@ -46,6 +49,7 @@ const WorkOrderViewTabs = (props: Props) => {
       tasksAndSors={tasksAndSors}
       budgetCode={budgetCode}
       workOrder={workOrder}
+      appointmentDetails={appointmentDetails}
     />
   )
 }

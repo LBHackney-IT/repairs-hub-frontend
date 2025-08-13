@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import { WorkOrder } from '../../models/workOrder'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const tasksAndSors = [
   {
@@ -27,12 +28,6 @@ describe('PrintJobTicketDetails component', () => {
   it('Renders the PrintJobTicketDetails component', () => {
     const workOrderData = {
       reference: '100',
-      appointment: {
-        date: '2021-01-18T15:28:57.17811',
-        description: 'Appointment Description',
-        note: 'Some appointment note',
-      },
-      operatives: [{ name: 'operative 1' }, { name: 'operative 2' }],
       raisedBy: 'raisedBy',
       callerName: 'callerName',
       callerNumber: 'callerNumber',
@@ -40,12 +35,22 @@ describe('PrintJobTicketDetails component', () => {
       contractorReference: 'contractorReference',
       priority: 'priority',
       description: 'description',
+    }
+
+    const appointmentDetails = {
+      appointment: {
+        date: '2021-01-18T15:28:57.17811',
+        description: 'Appointment Description',
+        note: 'Some appointment note',
+      },
+      operatives: [{ name: 'operative 1' }, { name: 'operative 2' }],
       plannerComments: 'plannerComments',
     }
 
     const { asFragment } = render(
       <PrintJobTicketDetails
         workOrder={new WorkOrder(workOrderData)}
+        appointmentDetails={new WorkOrderAppointmentDetails(appointmentDetails)}
         property={property}
         tasksAndSors={tasksAndSors}
         locationAlerts={locationAlerts}
@@ -58,8 +63,6 @@ describe('PrintJobTicketDetails component', () => {
   it('Renders the PrintJobTicketDetails component with null values', () => {
     const workOrderData = {
       reference: '100',
-      appointment: null,
-      operatives: [],
       raisedBy: 'raisedBy',
       callerName: 'callerName',
       callerNumber: 'callerNumber',
@@ -67,12 +70,18 @@ describe('PrintJobTicketDetails component', () => {
       contractorReference: 'contractorReference',
       priority: 'priority',
       description: 'description',
+    }
+
+    const appointmentDetails = {
+      operatives: [],
+      appointment: null,
       plannerComments: 'plannerComments',
     }
 
     const { asFragment } = render(
       <PrintJobTicketDetails
         workOrder={new WorkOrder(workOrderData)}
+        appointmentDetails={new WorkOrderAppointmentDetails(appointmentDetails)}
         property={property}
         tasksAndSors={tasksAndSors}
         locationAlerts={locationAlerts}

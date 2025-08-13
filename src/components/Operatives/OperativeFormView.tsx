@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Spinner from '../Spinner'
@@ -7,18 +6,32 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import OperativeForm from './OperativeForm'
 import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
-import { getWorkOrder } from '../../utils/requests/workOrders'
+import {
+  getAppointmentDetails,
+  getWorkOrderDetails,
+} from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import { WorkOrder } from '../../models/workOrder'
+import { CurrentUser } from '../../types/variations/types'
+import { Operative } from '../../models/operativeModel'
 
-const OperativeFormView = ({ workOrderReference }) => {
+interface Props {
+  workOrderReference: string
+}
+
+const OperativeFormView = ({ workOrderReference }: Props) => {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [workOrder, setWorkOrder] = useState()
-  const [currentUser, setCurrentUser] = useState({})
-  const [availableOperatives, setAvailableOperatives] = useState([])
-  const [selectedOperatives, setSelectedOperatives] = useState([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>()
+
+  const [workOrder, setWorkOrder] = useState<WorkOrder>()
+
+  const [currentUser, setCurrentUser] = useState<CurrentUser>()
+  const [availableOperatives, setAvailableOperatives] = useState<Operative[]>(
+    []
+  )
+  const [selectedOperatives, setSelectedOperatives] = useState<Operative[]>([])
   const [
     selectedPercentagesToShowOnEdit,
     setSelectedPercentagesToShowOnEdit,
@@ -50,25 +63,28 @@ const OperativeFormView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const currentUser = await frontEndApiRequest({
+      const currentUser: CurrentUser = await frontEndApiRequest({
         method: 'get',
         path: '/api/hub-user',
       })
 
       setCurrentUser(currentUser)
 
-      const workOrderResponse = await getWorkOrder(workOrderReference, true)
-
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
-
+      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      if (!workOrderResponse.success) throw workOrderResponse.error
       const workOrder = workOrderResponse.response
 
       setWorkOrder(workOrder)
 
+      const appointmentDetailsResponse = await getAppointmentDetails(
+        workOrderReference
+      )
+      if (!appointmentDetailsResponse.success)
+        throw appointmentDetailsResponse.error
+      const appointmentDetails = appointmentDetailsResponse.response
+
       const sortedOperatives = sortOperativesWithPayrollFirst(
-        workOrder.operatives,
+        appointmentDetails.operatives,
         currentUser.operativePayrollNumber
       )
 
@@ -165,38 +181,29 @@ const OperativeFormView = ({ workOrderReference }) => {
     getOperatives(workOrderReference)
   }, [])
 
+  if (loading) {
+    return <Spinner />
+  }
+
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {!workOrder && error && <ErrorMessage label={error} />}
+      {!workOrder && error && <ErrorMessage label={error} />}
 
-          {workOrder && (
-            <>
-              <OperativeForm
-                reference={workOrder.reference}
-                onSubmit={onSubmit}
-                assignedOperativesToWorkOrder={selectedOperatives}
-                availableOperatives={availableOperatives}
-                selectedPercentagesToShowOnEdit={
-                  selectedPercentagesToShowOnEdit
-                }
-                totalSMV={workOrder.totalSMVs}
-                currentUserPayrollNumber={currentUser.operativePayrollNumber}
-              />
-              {error && <ErrorMessage label={error} />}
-            </>
-          )}
+      {workOrder && (
+        <>
+          <OperativeForm
+            onSubmit={onSubmit}
+            assignedOperativesToWorkOrder={selectedOperatives}
+            availableOperatives={availableOperatives}
+            selectedPercentagesToShowOnEdit={selectedPercentagesToShowOnEdit}
+            totalSMV={workOrder.totalSMVs}
+            currentUserPayrollNumber={currentUser.operativePayrollNumber}
+          />
+          {error && <ErrorMessage label={error} />}
         </>
       )}
     </>
   )
-}
-
-OperativeFormView.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
 }
 
 export default OperativeFormView

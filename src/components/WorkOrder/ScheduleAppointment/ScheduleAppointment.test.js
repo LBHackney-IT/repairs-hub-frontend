@@ -9,6 +9,7 @@ import UserContext from '../../UserContext'
 import { agent } from '@/root/factories/agent'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import ScheduleAppointment from './ScheduleAppointment'
+import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
 
 const workOrderData = {
   reference: 10000012,
@@ -28,6 +29,9 @@ const workOrderData = {
   callerName: 'Jill Smith',
   callerNumber: '07700 900999',
   contractorReference: 'H01',
+}
+
+const appointmentDetailsData = {
   appointment: null,
 }
 
@@ -44,12 +48,15 @@ describe('AppointmentDetails component', () => {
       handleExternalLinkOpen: jest.fn(),
     })
 
-    let workOrder = new WorkOrder(workOrderData)
+    const workOrder = new WorkOrder(workOrderData)
 
     const { asFragment } = render(
       <UserContext.Provider value={{ user: agent }}>
         <ScheduleAppointment
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           hasExistingAppointment={false}
           workOrderReference={workOrder.reference}
         />
@@ -66,12 +73,15 @@ describe('AppointmentDetails component', () => {
       handleExternalLinkOpen: jest.fn(),
     })
 
-    let workOrder = new WorkOrder(workOrderData)
+    const workOrder = new WorkOrder(workOrderData)
 
     const { asFragment } = render(
       <UserContext.Provider value={{ user: agent }}>
         <ScheduleAppointment
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           hasExistingAppointment={false}
           workOrderReference={workOrder.reference}
         />
@@ -88,12 +98,15 @@ describe('AppointmentDetails component', () => {
       handleExternalLinkOpen: jest.fn(),
     })
 
-    let workOrder = new WorkOrder(workOrderData)
+    const workOrder = new WorkOrder(workOrderData)
 
     const { asFragment } = render(
       <UserContext.Provider value={{ user: agent }}>
         <ScheduleAppointment
           workOrder={workOrder}
+          appointmentDetails={
+            new WorkOrderAppointmentDetails(appointmentDetailsData)
+          }
           hasExistingAppointment={false}
           workOrderReference={workOrder.reference}
         />

@@ -7,7 +7,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import SuccessPage from '../../SuccessPage/index'
 import { cancelWorkOrderLinks } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
-import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
@@ -37,7 +37,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
   const getCancelWorkOrderView = async () => {
     setError(null)
 
-    const workOrderResponse = await getWorkOrder(workOrderReference, false)
+    const workOrderResponse = await getWorkOrderDetails(workOrderReference)
 
     if (!workOrderResponse.success) {
       setWorkOrder(null)
