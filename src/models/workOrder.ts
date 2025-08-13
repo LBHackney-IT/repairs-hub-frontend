@@ -1,4 +1,3 @@
-import { formatISO, isSameDay } from 'date-fns'
 import {
   HIGH_PRIORITY_CODES,
   PRIORITY_CODES_REQUIRING_APPOINTMENTS,
@@ -9,15 +8,13 @@ import {
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
 } from '@/utils/statusCodes'
 import { FollowOnRequest } from './followOnRequest'
-import { Appointment } from './appointment'
-import { Operative } from './operativeModel'
 
 export class WorkOrder {
   reference: string
   description: string
-  externalAppointmentManagementUrl: string
+  // externalAppointmentManagementUrl: string
   startTime: string
-  appointment: Appointment
+  // appointment: Appointment
   status: string
   dateRaised: string
   tradeDescription: string
@@ -26,10 +23,11 @@ export class WorkOrder {
   contractorReference: string
   tradeCode: string
   target: string
+  totalSMVs: number
 
   closedDated: string
   paymentType: string
-  operatives: Operative[]
+  // operatives: Operative[]
   followOnRequest?: FollowOnRequest
   uploadedFileCount?: {
     totalFileCount: number
@@ -40,9 +38,12 @@ export class WorkOrder {
   raisedBy: string
   callerName: string
   callerNumber: string
-  plannerComments: string
+  // plannerComments: string
   propertyReference: string
   property: string
+
+  canAssignOperative: boolean
+  isSplit: boolean
 
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
@@ -77,40 +78,6 @@ export class WorkOrder {
 
   completionReason = () => {
     return this.status === 'Work Completed' ? 'Completed' : this.status
-  }
-
-  appointmentISODatePassed = () => {
-    if (
-      !this.appointment ||
-      !this.appointment.date ||
-      !this.appointment.start
-    ) {
-      return false
-    }
-
-    const currentISODate = formatISO(new Date(), { representation: 'date' })
-
-    const appointmentISODate = formatISO(
-      new Date(`${this.appointment.date}T${this.appointment.start}`),
-      { representation: 'date' }
-    )
-
-    return currentISODate >= appointmentISODate
-  }
-
-  appointmentIsToday = () => {
-    if (
-      !this.appointment ||
-      !this.appointment.date ||
-      !this.appointment.start
-    ) {
-      return false
-    } else {
-      return isSameDay(
-        new Date(),
-        new Date(`${this.appointment.date}T${this.appointment.start}`)
-      )
-    }
   }
 
   statusAllowsScheduling = () => {

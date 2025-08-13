@@ -4,6 +4,7 @@ import { WorkOrder } from '../../models/workOrder'
 import { TabName } from './tabNames'
 import classNames from 'classnames'
 import { TAB_REGISTRY } from './tabRegistry'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface Props {
   tabsList: TabName[]
@@ -12,6 +13,7 @@ interface Props {
   tasksAndSors?: any // not sure
   budgetCode?: any
   workOrder?: WorkOrder
+  appointmentDetails?: WorkOrderAppointmentDetails
   setActiveTab?: (tabName: TabName) => void
 }
 
@@ -23,6 +25,7 @@ const Tabs = (props: Props) => {
     tasksAndSors,
     budgetCode,
     workOrder,
+    appointmentDetails,
     setActiveTab,
   } = props
 
@@ -90,6 +93,7 @@ const Tabs = (props: Props) => {
           tasksAndSors={tasksAndSors}
           budgetCode={budgetCode}
           workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
           setActiveTab={setActiveTab}
         />
       </div>

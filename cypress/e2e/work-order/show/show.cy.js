@@ -5,15 +5,6 @@ import 'cypress-audit/commands'
 describe('Show work order page', () => {
   beforeEach(() => {
     cy.intercept(
-      { method: 'GET', path: '/api/simple-feature-toggle' },
-      {
-        body: {
-          enableNewAppointmentEndpoint: true,
-        },
-      }
-    ).as('featureToggle')
-
-    cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     ).as('property')
