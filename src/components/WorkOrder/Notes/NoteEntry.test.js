@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react'
 import NoteEntry from './NoteEntry'
-import Operatives from '../Operatives'
 
 describe('NoteEntry component', () => {
   it('should render note with image (repairs online)', () => {
@@ -17,7 +16,7 @@ describe('NoteEntry component', () => {
     }
 
     const { asFragment } = render(
-      <NoteEntry note={props.note} workOrder={{}} />
+      <NoteEntry note={props.note} workOrder={{}} appointmentDetails={{}} />
     )
     expect(asFragment()).toMatchSnapshot()
   })
@@ -36,7 +35,7 @@ describe('NoteEntry component', () => {
     }
 
     const { asFragment } = render(
-      <NoteEntry note={props.note} workOrder={{}} />
+      <NoteEntry note={props.note} workOrder={{}} appointmentDetails={{}} />
     )
     expect(asFragment()).toMatchSnapshot()
   })
@@ -54,18 +53,25 @@ describe('NoteEntry component', () => {
       },
       workOrder: {
         closedDated: '2021-01-23T16:28:57.17811',
+
+        paymentType: 'Bonus',
+      },
+      appointmentDetails: {
         operatives: [
           {
             name: 'Steve',
             jobPercentage: 15,
           },
         ],
-        paymentType: 'Bonus',
       },
     }
 
     const { asFragment } = render(
-      <NoteEntry note={props.note} workOrder={props.workOrder} />
+      <NoteEntry
+        note={props.note}
+        workOrder={props.workOrder}
+        appointmentDetails={props.appointmentDetails}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })

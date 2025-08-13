@@ -3,7 +3,8 @@ import ScheduleWarning from './ScheduleWarning'
 import { WorkOrder } from '../../models/workOrder'
 
 interface Props {
-  workOrder: WorkOrder
+  // workOrder: WorkOrder
+  externalAppointmentManagementUrl: string
   schedulerSessionId: string
   openLinkEventHandler: () => void
   hasExistingAppointment: boolean
@@ -12,7 +13,8 @@ interface Props {
 
 const ScheduleDRSAppointmentLink = (props: Props) => {
   const {
-    workOrder,
+    // workOrder,
+    externalAppointmentManagementUrl,
     schedulerSessionId,
     openLinkEventHandler,
     hasExistingAppointment,
@@ -22,7 +24,7 @@ const ScheduleDRSAppointmentLink = (props: Props) => {
   return (
     <>
       <Link
-        href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
+        href={`${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
       >
         <a
           className="lbh-link"

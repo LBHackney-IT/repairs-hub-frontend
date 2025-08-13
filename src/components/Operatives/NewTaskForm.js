@@ -8,7 +8,7 @@ import RateScheduleItem from '../WorkElement/RateScheduleItem'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
-import { getWorkOrder } from '../../utils/requests/workOrders'
+import { getWorkOrderDetails } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
@@ -25,7 +25,7 @@ const NewTaskForm = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(reference, false)
+      const workOrderResponse = await getWorkOrderDetails(reference)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

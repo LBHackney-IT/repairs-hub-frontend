@@ -7,6 +7,7 @@ import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
 import NotesView from '../WorkOrder/Notes/NotesView'
 import VariationSummaryTab from './VariationSummaryTab'
 import PhotosTab from '../WorkOrder/Photos/PhotosTab'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface TabComponentProps {
   propertyReference: string
@@ -14,6 +15,7 @@ interface TabComponentProps {
   tasksAndSors: any
   budgetCode: any
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
   tabName: string
   setActiveTab: (tab: string) => void
 }

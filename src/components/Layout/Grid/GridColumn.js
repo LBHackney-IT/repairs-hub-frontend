@@ -11,6 +11,7 @@ const GridColumn = (props) => {
 GridColumn.propTypes = {
   width: PropTypes.string.isRequired,
   children: PropTypes.node,
+  className: PropTypes.string,
 }
 
 export default GridColumn

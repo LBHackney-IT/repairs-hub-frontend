@@ -6,13 +6,14 @@ import {
 } from '@testing-library/react'
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import { WorkOrder } from '@/models/workOrder'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const axios = require('axios')
 
 jest.mock('axios', () => jest.fn())
 
 describe('MobileWorkingWorkOrderDetails component', () => {
-  let workOrderData = {
+  const workOrderData = {
     reference: 10000621,
     dateRaised: '2021-06-11T13:49:15.878796Z',
     lastUpdated: null,
@@ -27,6 +28,9 @@ describe('MobileWorkingWorkOrderDetails component', () => {
     tradeCode: 'PL',
     tradeDescription: 'Plumbing - PL',
     status: 'In Progress',
+  }
+
+  const appointmentDetailsData = {
     plannerComment: 'planner comment',
     appointment: {
       date: '2021-09-03',
@@ -95,6 +99,9 @@ describe('MobileWorkingWorkOrderDetails component', () => {
       <MobileWorkingWorkOrderDetails
         property={props.property}
         workOrder={new WorkOrder(workOrderData)}
+        appointmentDetails={
+          new WorkOrderAppointmentDetails(appointmentDetailsData)
+        }
         tenure={props.tenure}
         photos={[]}
       />

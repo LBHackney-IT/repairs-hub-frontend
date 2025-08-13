@@ -1,19 +1,18 @@
-import { WorkOrder } from '../../../models/workOrder'
 import ScheduleDRSAppointmentLink from '../ScheduleDRSAppointmentLink'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import Spinner from '../../Spinner'
 import { useDrsAppointmentScheduler } from './hooks/useDrsApppointmentScheduler'
+import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
 
 interface Props {
   hasExistingAppointment: boolean
-  workOrder: WorkOrder
-  externalAppointmentManagementUrl: string
+  appointmentDetails: WorkOrderAppointmentDetails
   workOrderReference: string
 }
 
 const ScheduleAppointment = ({
   hasExistingAppointment,
-  workOrder,
+  appointmentDetails,
   workOrderReference,
 }: Props) => {
   const {
@@ -49,8 +48,10 @@ const ScheduleAppointment = ({
       openLinkEventHandler={handleExternalLinkOpen}
       schedulerSessionId={schedulerSessionId}
       hasExistingAppointment={hasExistingAppointment}
-      appointmentIsToday={workOrder.appointmentIsToday()}
-      workOrder={workOrder}
+      appointmentIsToday={appointmentDetails.appointmentIsToday()}
+      externalAppointmentManagementUrl={
+        appointmentDetails.externalAppointmentManagementUrl
+      }
     />
   )
 }

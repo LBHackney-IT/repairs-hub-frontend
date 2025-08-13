@@ -268,6 +268,7 @@ SelectOperatives.propTypes = {
   register: PropTypes.func.isRequired,
   totalSMV: PropTypes.number.isRequired,
   jobIsSplitByOperative: PropTypes.bool.isRequired,
+  currentUserPayrollNumber: PropTypes.string,
 }
 
 export default SelectOperatives

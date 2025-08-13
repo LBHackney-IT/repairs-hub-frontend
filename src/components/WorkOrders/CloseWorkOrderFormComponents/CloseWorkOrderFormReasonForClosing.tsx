@@ -11,7 +11,8 @@ interface Props {
   watch: UseFormMethods['watch']
   defaultValues?: {
     reason: string
-    followOnStatus: 'active' | 'inactive'
+    followOnStatus: string
+    // followOnStatus: 'active' | 'inactive'
   }
   canRaiseAFollowOn: boolean
 }
