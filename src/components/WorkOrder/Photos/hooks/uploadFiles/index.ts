@@ -34,7 +34,7 @@ const uploadFiles = async (
         } catch (err) {
           const errorMessage = `Could not read the file "${file.name}". Please remove and re-select it. Error: ${err.message}`
           console.error(errorMessage, err)
-          throw Error(errorMessage)
+          throw new FileUploadError(errorMessage)
         }
       })
     )
