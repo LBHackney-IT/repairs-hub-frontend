@@ -5,24 +5,14 @@ import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import WarningText from '@/components/Template/WarningText'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { WorkOrderTasks } from '../../models/workOrderTasks'
+import { Property } from '../../models/propertyTenure'
 
 interface Props {
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
-  property: {
-    tmoName: string
-    address: {
-      addressLine: string
-      streetSuffix: string
-      postalCode: string
-    }
-  }
-  tasksAndSors: {
-    code: string
-    description: string
-    quantity: number
-    standardMinuteValue: number
-  }[]
+  property: Property
+  tasksAndSors: WorkOrderTasks[]
   locationAlerts: CautionaryAlert[]
   personAlerts: CautionaryAlert[]
 }

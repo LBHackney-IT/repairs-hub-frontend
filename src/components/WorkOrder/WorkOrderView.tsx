@@ -58,8 +58,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
-
-    setIsLoading(true)
+    setIsLoading(() => true)
 
     try {
       const [
@@ -113,7 +112,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
       }
     }
 
-    setIsLoading(false)
+    setIsLoading(()? false)
   }
 
   useEffect(() => {
