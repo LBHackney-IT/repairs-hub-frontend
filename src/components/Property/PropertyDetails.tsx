@@ -5,7 +5,7 @@ import { isCurrentTimeOutOfHours } from '@/utils/helpers/completionDateTimes'
 import Link from 'next/link'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import { Tenure } from '../../models/tenure'
-import { Property } from '../../models/property'
+import { Property } from '../../models/propertyTenure'
 
 interface PropertyDetailsProps {
   property: Property

@@ -10,7 +10,7 @@ import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
 import { Tenure } from '../../models/tenure'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import { Property } from '../../models/property'
+import { Property } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface Props {

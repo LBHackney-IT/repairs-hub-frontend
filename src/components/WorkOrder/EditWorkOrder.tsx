@@ -19,7 +19,7 @@ import {
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 import {
-  getPropertyData,
+  getPropertyTenureData,
   getContactDetails,
 } from '../../utils/requests/property'
 
@@ -65,7 +65,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
     setWorkOrder(workOrderResponse.response)
 
-    const propertyDataResponse = await getPropertyData(
+    const propertyDataResponse = await getPropertyTenureData(
       workOrderResponse.response.propertyReference
     )
 

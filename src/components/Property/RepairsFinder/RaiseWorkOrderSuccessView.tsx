@@ -4,7 +4,7 @@ import {
 } from '@/root/src/utils/successPageLinks'
 import SuccessPage from '../../SuccessPage'
 import Panel from '../../Template/Panel'
-import { Property } from '@/root/src/models/property'
+import { Property } from '@/root/src/models/propertyTenure'
 import { CurrentUser } from '@/root/src/types/variations/types'
 
 interface Props {

@@ -4,6 +4,7 @@ import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
+import { WorkOrderTasks } from '../../models/workOrderTasks'
 
 export const getAppointmentDetails = async (
   workOrderReference: string
@@ -90,6 +91,35 @@ export const editWorkOrder = async (
     return {
       success: true,
       response: null,
+      error: null,
+    }
+  } catch (e: any) {
+    console.error('An error has occurred:', e)
+
+    return {
+      success: false,
+      response: null,
+      error: new APIResponseError(
+        e.response?.status === 400
+          ? 'Invalid request data'
+          : formatRequestErrorMessage(e)
+      ),
+    }
+  }
+}
+
+export const getWorkOrderTasks = async (
+  workOrderReference: string
+): Promise<ApiResponseType<WorkOrderTasks[]>> => {
+  try {
+    const tasksResponse: WorkOrderTasks[] = await frontEndApiRequest({
+      method: 'get',
+      path: `/api/workOrders/${workOrderReference}/tasks`,
+    })
+
+    return {
+      success: true,
+      response: tasksResponse,
       error: null,
     }
   } catch (e: any) {

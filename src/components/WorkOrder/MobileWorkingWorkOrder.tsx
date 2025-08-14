@@ -29,7 +29,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import PhotoViewList from './Photos/PhotoViewList'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { Property } from '../../models/property'
+import { Property } from '../../models/propertyTenure'
 import { Tenure } from '../../models/tenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 

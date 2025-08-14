@@ -8,7 +8,7 @@ import Meta from '../Meta'
 import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { PropertyResponse } from '../../models/propertyResponse'
-import { Property } from '../../models/property'
+import { Property } from '../../models/propertyTenure'
 import { Tenure } from '../../models/tenure'
 
 const PropertyView = ({ propertyReference }) => {

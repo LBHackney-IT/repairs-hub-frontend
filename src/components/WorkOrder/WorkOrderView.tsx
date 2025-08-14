@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import { Tenure } from '../../models/tenure'
 import {
   getAppointmentDetails,
   getWorkOrderDetails,
+  getWorkOrderTasks,
 } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
-import { Property } from '../../models/property'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { getPropertyTenureData } from '../../utils/requests/property'
+import { Property, Tenure } from '../../models/propertyTenure'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -25,18 +25,18 @@ interface Props {
 }
 
 const WorkOrderView = ({ workOrderReference }: Props) => {
-  const [property, setProperty] = useState<Property>()
-
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
+
   const [
     appointmentDetails,
     setAppointmentDetails,
   ] = useState<WorkOrderAppointmentDetails>()
 
+  const [property, setProperty] = useState<Property>()
+  const [tenure, setTenure] = useState<Tenure>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
   const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
-  const [tenure, setTenure] = useState<Tenure>()
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
@@ -62,54 +62,48 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     setIsLoading(true)
 
     try {
-      const workOrderPromise = getWorkOrderDetails(workOrderReference)
-      const appointmentDetailsPromise = getAppointmentDetails(
-        workOrderReference
-      )
-
-      const tasksAndSorsPromise = frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
-
-      const workOrderResponse = await workOrderPromise
-
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
-
-      const workOrder = workOrderResponse.response
-
-      const appointmetDetailsResponse = await appointmentDetailsPromise
-
-      if (!appointmetDetailsResponse.success) {
-        throw appointmetDetailsResponse.error
-      }
-
-      const appointmentDetails = appointmetDetailsResponse.response
-
-      const propertyPromise = frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/${workOrder.propertyReference}`,
-      })
-
-      const [tasksAndSors, propertyObject] = await Promise.all([
-        tasksAndSorsPromise,
-        propertyPromise,
+      const [
+        workOrderResponse,
+        appointmetDetailsResponse,
+        tasksAndSorsResponse,
+      ] = await Promise.all([
+        getWorkOrderDetails(workOrderReference),
+        getAppointmentDetails(workOrderReference),
+        getWorkOrderTasks(workOrderReference),
       ])
 
+      if (!workOrderResponse.success) throw workOrderResponse.error
+      if (!appointmetDetailsResponse.success)
+        throw appointmetDetailsResponse.error
+      if (!tasksAndSorsResponse.success) throw tasksAndSorsResponse.error
+
+      setWorkOrder(new WorkOrder(workOrderResponse.response))
+      setAppointmentDetails(
+        new WorkOrderAppointmentDetails(appointmetDetailsResponse.response)
+      )
       setTasksAndSors(
-        sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
+        sortObjectsByDateKey(
+          tasksAndSorsResponse.response,
+          ['dateAdded'],
+          'dateAdded'
+        )
       )
 
-      setWorkOrder(new WorkOrder(workOrder))
-      setAppointmentDetails(new WorkOrderAppointmentDetails(appointmentDetails))
-      setProperty(propertyObject.property)
-      if (propertyObject.tenure) setTenure(propertyObject.tenure)
+      const propertyTenureResponse = await getPropertyTenureData(
+        workOrderResponse.response?.propertyReference
+      )
+      if (!propertyTenureResponse.success) throw propertyTenureResponse.error
+
+      setProperty(() => propertyTenureResponse.response.property)
+      if (propertyTenureResponse.response.tenure) {
+        setTenure(() => propertyTenureResponse.response.tenure)
+      }
     } catch (e) {
       setWorkOrder(null)
       setAppointmentDetails(null)
       setProperty(null)
+      setTenure(null)
+
       console.error('An error has occured:', e.response)
 
       if (e instanceof APIResponseError) {

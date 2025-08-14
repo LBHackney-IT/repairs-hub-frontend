@@ -1,4 +1,4 @@
-import { Property } from './property'
+import { Property } from './propertyTenure'
 import { Tenure } from './tenure'
 
 export interface PropertyResponse {
