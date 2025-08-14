@@ -317,7 +317,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
         property &&
         property.address &&
         property.hierarchyType &&
-        tenure &&
         workOrder && (
           <>
             <MobileWorkingWorkOrder
