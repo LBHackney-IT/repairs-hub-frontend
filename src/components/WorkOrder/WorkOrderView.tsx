@@ -112,7 +112,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
       }
     }
 
-    setIsLoading(()? false)
+    setIsLoading(() => false)
   }
 
   useEffect(() => {
