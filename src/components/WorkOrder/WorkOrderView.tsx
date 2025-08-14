@@ -17,6 +17,7 @@ import { formatRequestErrorMessage } from '../../utils/errorHandling/formatError
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { getPropertyTenureData } from '../../utils/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'
+import { useAppointmentDetails } from './hooks/useAppointmentDetails'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -24,13 +25,10 @@ interface Props {
   workOrderReference: string
 }
 
+
+
 const WorkOrderView = ({ workOrderReference }: Props) => {
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
-
-  const [
-    appointmentDetails,
-    setAppointmentDetails,
-  ] = useState<WorkOrderAppointmentDetails>()
 
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
@@ -40,7 +38,23 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
+  const {
+    appointmentDetails,
+    isLoading: loadingAppointmentDetails,
+    error: appointmentDetailsError,
+  } = useAppointmentDetails(workOrderReference)
+
   const printClickHandler = () => {
+
+
+
+    if (loadingAppointmentDetails || appointmentDetailsError) {
+      // we need to delay printing
+      return
+
+    }
+
+
     if (document.getElementById('rear-image')) {
       window.print()
     } else {
@@ -56,30 +70,20 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     }
   }
 
-  const getWorkOrderView = async (workOrderReference) => {
+  const getWorkOrderView = async (workOrderReference: string) => {
     setError(null)
     setIsLoading(() => true)
 
     try {
-      const [
-        workOrderResponse,
-        appointmetDetailsResponse,
-        tasksAndSorsResponse,
-      ] = await Promise.all([
+      const [workOrderResponse, tasksAndSorsResponse] = await Promise.all([
         getWorkOrderDetails(workOrderReference),
-        getAppointmentDetails(workOrderReference),
         getWorkOrderTasks(workOrderReference),
       ])
 
       if (!workOrderResponse.success) throw workOrderResponse.error
-      if (!appointmetDetailsResponse.success)
-        throw appointmetDetailsResponse.error
-      if (!tasksAndSorsResponse.success) throw tasksAndSorsResponse.error
-
       setWorkOrder(new WorkOrder(workOrderResponse.response))
-      setAppointmentDetails(
-        new WorkOrderAppointmentDetails(appointmetDetailsResponse.response)
-      )
+
+      if (!tasksAndSorsResponse.success) throw tasksAndSorsResponse.error
       setTasksAndSors(
         sortObjectsByDateKey(
           tasksAndSorsResponse.response,
@@ -98,11 +102,6 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         setTenure(() => propertyTenureResponse.response.tenure)
       }
     } catch (e) {
-      setWorkOrder(null)
-      setAppointmentDetails(null)
-      setProperty(null)
-      setTenure(null)
-
       console.error('An error has occured:', e.response)
 
       if (e instanceof APIResponseError) {
@@ -133,6 +132,8 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         property={property}
         workOrder={workOrder}
         appointmentDetails={appointmentDetails}
+        appointmentDetailsError={appointmentDetailsError}
+        loadingAppointmentDetails={loadingAppointmentDetails}
         tenure={tenure}
         printClickHandler={printClickHandler}
         setLocationAlerts={setLocationAlerts}
@@ -146,12 +147,16 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         budgetCode={workOrder?.budgetCode}
         workOrder={workOrder}
         appointmentDetails={appointmentDetails}
+        appointmentDetailsError={appointmentDetailsError}
+        loadingAppointmentDetails={loadingAppointmentDetails}
       />
 
       {/* Only displayed for print media */}
       <PrintJobTicketDetails
         workOrder={workOrder}
         appointmentDetails={appointmentDetails}
+        appointmentDetailsError={appointmentDetailsError}
+        loadingAppointmentDetails={loadingAppointmentDetails}
         property={property}
         tasksAndSors={tasksAndSors}
         locationAlerts={locationAlerts}

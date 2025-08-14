@@ -7,10 +7,14 @@ import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { WorkOrderTasks } from '../../models/workOrderTasks'
 import { Property } from '../../models/propertyTenure'
+import ErrorMessage from '../Errors/ErrorMessage'
+import Spinner from '../Spinner'
 
 interface Props {
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
   property: Property
   tasksAndSors: WorkOrderTasks[]
   locationAlerts: CautionaryAlert[]
@@ -21,6 +25,8 @@ const PrintJobTicketDetails = (props: Props) => {
   const {
     workOrder,
     appointmentDetails,
+    appointmentDetailsError,
+    loadingAppointmentDetails,
     property,
     locationAlerts,
     personAlerts,
@@ -35,6 +41,14 @@ const PrintJobTicketDetails = (props: Props) => {
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
+
+  if (loadingAppointmentDetails) {
+    return <Spinner />
+  }
+
+  if (appointmentDetailsError) {
+    return <ErrorMessage label={appointmentDetailsError} />
+  }
 
   return (
     <>

@@ -12,7 +12,7 @@ export const getAppointmentDetails = async (
   try {
     const appointmentDetailsData = await frontEndApiRequest({
       method: 'get',
-      path: `/api/workOrders/appointments/${workOrderReference}`,
+      path: `/api/workOrders/appointments/${workOrderReference}d`,
     })
 
     const appointmentDetails = new WorkOrderAppointmentDetails(
@@ -32,7 +32,7 @@ export const getAppointmentDetails = async (
       response: null,
       error: new APIResponseError(
         e.response?.status === 404
-          ? `Could not find a work order with reference ${workOrderReference}`
+          ? `Failed to fetch appointment details for work order with reference ${workOrderReference}`
           : formatRequestErrorMessage(e)
       ),
     }
