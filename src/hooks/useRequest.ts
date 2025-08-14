@@ -36,7 +36,7 @@ export const useRequest = <T, R>(
   }
 
   useEffect(() => {
-    if (validateParams && !validateParams()) return 
+    if (validateParams && !validateParams()) return
 
     executeRequest(params)
   }, [params])
