@@ -109,13 +109,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
       if (e instanceof APIResponseError) {
         setError(e.message)
       } else {
-        if (e.response?.status === 404) {
-          setError(
-            `Could not find a work order with reference ${workOrderReference}`
-          )
-        } else {
-          setError(formatRequestErrorMessage(e))
-        }
+        setError(formatRequestErrorMessage(e))
       }
     }
 
