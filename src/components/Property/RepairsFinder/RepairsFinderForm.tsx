@@ -19,8 +19,11 @@ import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from '../RaiseWorkOrder/RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
 import UserContext from '../../UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
-import { Address, HierarchyType } from '@/root/src/models/property'
-import { Tenure } from '@/root/src/models/tenure'
+import {
+  Address,
+  HierarchyType,
+  Tenure,
+} from '@/root/src/models/propertyTenure'
 import { Priority } from '@/root/src/models/priority'
 import { getPriorityObjectByCode } from './helpers'
 import RepairsFinderInput from './RepairsFinderInput'

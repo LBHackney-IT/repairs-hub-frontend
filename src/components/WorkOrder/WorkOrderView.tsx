@@ -8,13 +8,12 @@ import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import { Tenure } from '../../models/tenure'
 import {
   getAppointmentDetails,
   getWorkOrderDetails,
 } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
-import { Property } from '../../models/property'
+import { Property, Tenure } from '../../models/propertyTenure'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
