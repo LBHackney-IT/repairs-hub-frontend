@@ -28,8 +28,7 @@ import {
   getWorkOrderDetails,
 } from '../../utils/requests/workOrders'
 import { CurrentUser } from '../../types/variations/types'
-import { Property } from '../../models/propertyTenure'
-import { Tenure } from '../../models/tenure'
+import { Property, Tenure } from '../../models/propertyTenure'
 import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
@@ -317,7 +316,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
         property &&
         property.address &&
         property.hierarchyType &&
-        tenure &&
         workOrder && (
           <>
             <MobileWorkingWorkOrder

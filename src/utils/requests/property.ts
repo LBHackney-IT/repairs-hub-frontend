@@ -1,14 +1,13 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
-import { PropertyResponse } from '../../models/propertyResponse'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
-import { PropertyTenure } from '../../models/propertyTenure'
+import { PropertyTenureResponse } from '../../models/propertyTenure'
 
 export const getPropertyTenureData = async (
-  propertyReference: string
-): Promise<ApiResponseType<PropertyTenure>> => {
+  workOrderPropertyReference: string
+): Promise<ApiResponseType<PropertyTenureResponse>> => {
   try {
-    const propertyTenureData: PropertyTenure = await frontEndApiRequest({
+    const propertyData: PropertyTenureResponse = await frontEndApiRequest({
       method: 'get',
       path: `/api/properties/${propertyReference}`,
     })

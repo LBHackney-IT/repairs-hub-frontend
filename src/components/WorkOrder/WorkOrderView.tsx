@@ -12,6 +12,7 @@ import {
   getWorkOrderTasks,
 } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
+import { Property, Tenure } from '../../models/propertyTenure'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { getPropertyTenureData } from '../../utils/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'

@@ -3,13 +3,13 @@ import {
   serviceAPIRequest,
   authoriseServiceAPIRequest,
 } from '@/utils/serviceApiClient'
-import { PropertyResponse } from '@/root/src/models/propertyResponse'
+import { PropertyTenureResponse } from '@/root/src/models/propertyTenure'
 
 export default authoriseServiceAPIRequest(async (req, res, user) => {
   req.query = { path: ['properties', req.query.id] }
 
   try {
-    const data: PropertyResponse = await serviceAPIRequest(req)
+    const data: PropertyTenureResponse = await serviceAPIRequest(req)
 
     // redact contact information for contractor responses
     if (

@@ -9,8 +9,7 @@ import { useRouter } from 'next/router'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import { formatDateTime } from '../../utils/time'
 import Status from './Status'
-import { Property } from '../../models/propertyTenure'
-import { Tenure } from '../../models/tenure'
+import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface Props {
