@@ -12,7 +12,7 @@ export const getAppointmentDetails = async (
   try {
     const appointmentDetailsData = await frontEndApiRequest({
       method: 'get',
-      path: `/api/workOrders/appointments/${workOrderReference}d`,
+      path: `/api/workOrders/appointments/${workOrderReference}`,
     })
 
     const appointmentDetails = new WorkOrderAppointmentDetails(
