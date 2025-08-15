@@ -8,11 +8,18 @@ interface Props {
   notes: Note[]
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
   setActiveTab: (tabName: TabName) => void
 }
 
 const NotesTimeline = (props: Props) => {
-  const { notes, workOrder, setActiveTab, appointmentDetails } = props
+  const {
+    notes,
+    workOrder,
+    setActiveTab,
+    appointmentDetails,
+    appointmentDetailsError,
+  } = props
 
   if (notes.length === 0) {
     return <p className="lbh-body-s">There are no notes for this work order.</p>
@@ -31,6 +38,7 @@ const NotesTimeline = (props: Props) => {
               note={note}
               workOrder={workOrder}
               appointmentDetails={appointmentDetails}
+              appointmentDetailsError={appointmentDetailsError}
               setActiveTab={setActiveTab}
             />
           </li>

@@ -14,6 +14,9 @@ interface Props {
   budgetCode?: any
   workOrder?: WorkOrder
   appointmentDetails?: WorkOrderAppointmentDetails
+
+  appointmentDetailsError?: string | null
+  loadingAppointmentDetails?: boolean
 }
 
 const Tabs = (props: Props) => {
@@ -25,6 +28,8 @@ const Tabs = (props: Props) => {
     budgetCode,
     workOrder,
     appointmentDetails,
+    appointmentDetailsError,
+    loadingAppointmentDetails,
   } = props
 
   const router = useRouter()
@@ -92,6 +97,8 @@ const Tabs = (props: Props) => {
           budgetCode={budgetCode}
           workOrder={workOrder}
           appointmentDetails={appointmentDetails}
+          appointmentDetailsError={appointmentDetailsError}
+          loadingAppointmentDetails={loadingAppointmentDetails}
           setActiveTab={handleSelectTab}
         />
       </div>

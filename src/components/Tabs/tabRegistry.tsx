@@ -16,6 +16,9 @@ interface TabComponentProps {
   budgetCode: any
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
+
   tabName: string
   setActiveTab: (tab: string) => void
 }

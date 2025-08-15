@@ -22,6 +22,8 @@ interface Props {
   budgetCode: any
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
 }
 
 const WorkOrderViewTabs = (props: Props) => {
@@ -32,6 +34,8 @@ const WorkOrderViewTabs = (props: Props) => {
     budgetCode,
     workOrder,
     appointmentDetails,
+    appointmentDetailsError,
+    loadingAppointmentDetails,
   } = props
 
   const { user } = useContext(UserContext)
@@ -50,6 +54,8 @@ const WorkOrderViewTabs = (props: Props) => {
       budgetCode={budgetCode}
       workOrder={workOrder}
       appointmentDetails={appointmentDetails}
+      appointmentDetailsError={appointmentDetailsError}
+      loadingAppointmentDetails={loadingAppointmentDetails}
     />
   )
 }

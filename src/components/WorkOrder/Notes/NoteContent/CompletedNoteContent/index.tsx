@@ -3,25 +3,37 @@ import { Note } from '../../types'
 import generateMessage from './generateMessage'
 import { TabName } from '@/root/src/components/Tabs/tabNames'
 import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
+import ErrorMessage from '@/root/src/components/Errors/ErrorMessage'
 
 interface Props {
   note: Note
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
   setActiveTab: (tabName: TabName) => void
 }
 
 const CompletedNoteContent = (props: Props) => {
-  const { note, workOrder, setActiveTab, appointmentDetails } = props
+  const {
+    note,
+    workOrder,
+    setActiveTab,
+    appointmentDetails,
+    appointmentDetailsError,
+  } = props
 
   const completionDate = new Date(workOrder.closedDated)
 
   const statusMessage = generateMessage(
     note.note,
     completionDate,
-    appointmentDetails.operatives,
+    appointmentDetails?.operatives ?? [],
     workOrder.paymentType
   )
+
+  if (appointmentDetailsError) {
+    return <ErrorMessage label={appointmentDetailsError} />
+  }
 
   return (
     <>

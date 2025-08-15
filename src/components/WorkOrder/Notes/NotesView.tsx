@@ -15,6 +15,9 @@ interface Props {
   tabName: string
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
+
   setActiveTab: (tabName: TabName) => void
 }
 
@@ -25,6 +28,8 @@ const NotesView = (props: Props) => {
     workOrder,
     setActiveTab,
     appointmentDetails,
+    appointmentDetailsError,
+    loadingAppointmentDetails,
   } = props
 
   const [notes, setNotes] = useState([])
@@ -81,7 +86,7 @@ const NotesView = (props: Props) => {
     getNotesView(workOrderReference)
   }, [])
 
-  if (loading) return <Spinner />
+  if (loading || loadingAppointmentDetails) return <Spinner />
 
   return (
     <>
@@ -97,6 +102,7 @@ const NotesView = (props: Props) => {
           notes={notes}
           workOrder={workOrder}
           appointmentDetails={appointmentDetails}
+          appointmentDetailsError={appointmentDetailsError}
           setActiveTab={setActiveTab}
         />
       )}

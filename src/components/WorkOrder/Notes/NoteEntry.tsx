@@ -29,6 +29,7 @@ interface Props {
   note: Note
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
   setActiveTab: (tab: string) => void
 }
 
@@ -37,6 +38,7 @@ const NoteEntry = ({
   workOrder,
   setActiveTab,
   appointmentDetails,
+  appointmentDetailsError,
 }: Props) => {
   return (
     <>
@@ -48,6 +50,7 @@ const NoteEntry = ({
         note={note}
         workOrder={workOrder}
         appointmentDetails={appointmentDetails}
+        appointmentDetailsError={appointmentDetailsError}
         setActiveTab={setActiveTab}
       />
     </>
@@ -58,11 +61,13 @@ const NoteContent = ({
   note,
   workOrder,
   appointmentDetails,
+  appointmentDetailsError,
   setActiveTab,
 }: {
   note: Note
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
   setActiveTab: (tabName: TabName) => void
 }) => {
   if (
@@ -75,6 +80,7 @@ const NoteContent = ({
         note={note}
         workOrder={workOrder}
         appointmentDetails={appointmentDetails}
+        appointmentDetailsError={appointmentDetailsError}
         setActiveTab={setActiveTab}
       />
     )

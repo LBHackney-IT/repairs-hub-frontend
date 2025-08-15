@@ -4,17 +4,19 @@ import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { PropertyTenureResponse } from '../../models/propertyTenure'
 
 export const getPropertyTenureData = async (
-  workOrderPropertyReference: string
+  propertyReference: string
 ): Promise<ApiResponseType<PropertyTenureResponse>> => {
   try {
-    const propertyData: PropertyTenureResponse = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${workOrderPropertyReference}`,
-    })
+    const propertyTenureData: PropertyTenureResponse = await frontEndApiRequest(
+      {
+        method: 'get',
+        path: `/api/properties/${propertyReference}`,
+      }
+    )
 
     return {
       success: true,
-      response: propertyData,
+      response: propertyTenureData,
       error: null,
     }
   } catch (e) {
@@ -25,7 +27,7 @@ export const getPropertyTenureData = async (
       response: null,
       error: new APIResponseError(
         e.response?.status === 404
-          ? `Could not find a tenure id with reference ${workOrderPropertyReference}`
+          ? `Could not find a property with reference ${propertyReference}`
           : formatRequestErrorMessage(e)
       ),
     }
