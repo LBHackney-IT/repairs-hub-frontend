@@ -1,6 +1,3 @@
-// The API returns {property, tenure} in the same response
-// so they are grouped here
-
 export interface PropertyTenureResponse {
   property: Property
   tenure: Tenure

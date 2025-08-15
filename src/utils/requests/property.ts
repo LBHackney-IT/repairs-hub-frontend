@@ -4,13 +4,15 @@ import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { PropertyTenureResponse } from '../../models/propertyTenure'
 
 export const getPropertyTenureData = async (
-  workOrderPropertyReference: string
+  propertyReference: string
 ): Promise<ApiResponseType<PropertyTenureResponse>> => {
   try {
-    const propertyData: PropertyTenureResponse = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${propertyReference}`,
-    })
+    const propertyTenureData: PropertyTenureResponse = await frontEndApiRequest(
+      {
+        method: 'get',
+        path: `/api/properties/${propertyReference}`,
+      }
+    )
 
     return {
       success: true,

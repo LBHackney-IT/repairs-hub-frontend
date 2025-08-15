@@ -12,7 +12,6 @@ import {
   getWorkOrderTasks,
 } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
-import { Property, Tenure } from '../../models/propertyTenure'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { getPropertyTenureData } from '../../utils/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'
@@ -43,7 +42,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
 
   const printClickHandler = () => {
     if (loadingAppointmentDetails || appointmentDetailsError) {
-      // we need to delay printing
+      // disable print button when loading or error
       return
     }
 
@@ -145,6 +144,8 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
 
       {/* Only displayed for print media */}
       {!loadingAppointmentDetails && !appointmentDetailsError && (
+        // Conditionally renders printable component. Print is disabled
+        // if either of these are true
         <PrintJobTicketDetails
           workOrder={workOrder}
           appointmentDetails={appointmentDetails}
