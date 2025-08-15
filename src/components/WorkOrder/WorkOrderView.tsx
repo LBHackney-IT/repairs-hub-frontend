@@ -8,13 +8,11 @@ import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import {
-  getAppointmentDetails,
   getWorkOrderDetails,
   getWorkOrderTasks,
 } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { getPropertyTenureData } from '../../utils/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { useAppointmentDetails } from './hooks/useAppointmentDetails'
@@ -24,8 +22,6 @@ const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 interface Props {
   workOrderReference: string
 }
-
-
 
 const WorkOrderView = ({ workOrderReference }: Props) => {
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
@@ -45,15 +41,10 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
   } = useAppointmentDetails(workOrderReference)
 
   const printClickHandler = () => {
-
-
-
     if (loadingAppointmentDetails || appointmentDetailsError) {
       // we need to delay printing
       return
-
     }
-
 
     if (document.getElementById('rear-image')) {
       window.print()
@@ -152,16 +143,16 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
       />
 
       {/* Only displayed for print media */}
-      <PrintJobTicketDetails
-        workOrder={workOrder}
-        appointmentDetails={appointmentDetails}
-        appointmentDetailsError={appointmentDetailsError}
-        loadingAppointmentDetails={loadingAppointmentDetails}
-        property={property}
-        tasksAndSors={tasksAndSors}
-        locationAlerts={locationAlerts}
-        personAlerts={personAlerts}
-      />
+      {!loadingAppointmentDetails && !appointmentDetailsError && (
+        <PrintJobTicketDetails
+          workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
+          property={property}
+          tasksAndSors={tasksAndSors}
+          locationAlerts={locationAlerts}
+          personAlerts={personAlerts}
+        />
+      )}
     </>
   )
 }
