@@ -65,17 +65,17 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
     setWorkOrder(workOrderResponse.response)
 
-    const propertyDataResponse = await getPropertyTenureData(
+    const propertyTenureResponse = await getPropertyTenureData(
       workOrderResponse.response.propertyReference
     )
 
-    if (!propertyDataResponse.success) {
-      setError(propertyDataResponse.error.message)
+    if (!propertyTenureResponse.success) {
+      setError(propertyTenureResponse.error.message)
       setLoading(false)
       return
     }
 
-    const tenure = propertyDataResponse.response.tenure
+    const tenure = propertyTenureResponse.response.tenure
 
     if (tenure != null) {
       const contactDetailsResponse = await getContactDetails(tenure?.id)
