@@ -1,3 +1,8 @@
+export interface PropertyTenureResponse {
+  property: Property
+  tenure: Tenure
+}
+
 export interface Property {
   propertyReference: string
   address: Address
@@ -19,4 +24,11 @@ export interface HierarchyType {
   levelCode: string
   subTypeCode: string
   subTypeDescription: string
+}
+
+export type Tenure = {
+  typeCode: string
+  typeDescription: string
+  tenancyAgreementReference: string
+  id: string
 }

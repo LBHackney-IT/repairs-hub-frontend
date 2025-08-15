@@ -19,7 +19,7 @@ import {
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 import {
-  getPropertyData,
+  getPropertyTenureData,
   getContactDetails,
 } from '../../utils/requests/property'
 
@@ -65,17 +65,17 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
     setWorkOrder(workOrderResponse.response)
 
-    const propertyDataResponse = await getPropertyData(
+    const propertyTenureDataResponse = await getPropertyTenureData(
       workOrderResponse.response.propertyReference
     )
 
-    if (!propertyDataResponse.success) {
-      setError(propertyDataResponse.error.message)
+    if (!propertyTenureDataResponse.success) {
+      setError(propertyTenureDataResponse.error.message)
       setLoading(false)
       return
     }
 
-    const tenure = propertyDataResponse.response.tenure
+    const { tenure } = propertyTenureDataResponse.response
 
     if (tenure != null) {
       const contactDetailsResponse = await getContactDetails(tenure?.id)
