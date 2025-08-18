@@ -7,9 +7,11 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
 import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { PropertyResponse } from '../../models/propertyResponse'
-import { Property } from '../../models/property'
-import { Tenure } from '../../models/tenure'
+import {
+  Property,
+  PropertyTenureResponse,
+  Tenure,
+} from '../../models/propertyTenure'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState<Property>({} as Property)
@@ -23,7 +25,7 @@ const PropertyView = ({ propertyReference }) => {
     setError(null)
 
     try {
-      const data: PropertyResponse = await frontEndApiRequest({
+      const data: PropertyTenureResponse = await frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${propertyReference}`,
       })

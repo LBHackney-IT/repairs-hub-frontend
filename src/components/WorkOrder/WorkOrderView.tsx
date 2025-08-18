@@ -2,21 +2,20 @@ import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import { Tenure } from '../../models/tenure'
 import {
-  getAppointmentDetails,
   getWorkOrderDetails,
+  getWorkOrderTasks,
 } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
-import { Property } from '../../models/property'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { getPropertyTenureData } from '../../utils/requests/property'
+import { Property, Tenure } from '../../models/propertyTenure'
+import { useAppointmentDetails } from './hooks/useAppointmentDetails'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -25,22 +24,28 @@ interface Props {
 }
 
 const WorkOrderView = ({ workOrderReference }: Props) => {
-  const [property, setProperty] = useState<Property>()
-
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
-  const [
-    appointmentDetails,
-    setAppointmentDetails,
-  ] = useState<WorkOrderAppointmentDetails>()
 
+  const [property, setProperty] = useState<Property>()
+  const [tenure, setTenure] = useState<Tenure>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
   const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
-  const [tenure, setTenure] = useState<Tenure>()
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
+  const {
+    appointmentDetails,
+    isLoading: loadingAppointmentDetails,
+    error: appointmentDetailsError,
+  } = useAppointmentDetails(workOrderReference)
+
   const printClickHandler = () => {
+    if (loadingAppointmentDetails || appointmentDetailsError) {
+      // disable print button when loading or error
+      return
+    }
+
     if (document.getElementById('rear-image')) {
       window.print()
     } else {
@@ -56,76 +61,48 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     }
   }
 
-  const getWorkOrderView = async (workOrderReference) => {
+  const getWorkOrderView = async (workOrderReference: string) => {
     setError(null)
-
-    setIsLoading(true)
+    setIsLoading(() => true)
 
     try {
-      const workOrderPromise = getWorkOrderDetails(workOrderReference)
-      const appointmentDetailsPromise = getAppointmentDetails(
-        workOrderReference
-      )
-
-      const tasksAndSorsPromise = frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
-
-      const workOrderResponse = await workOrderPromise
-
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
-
-      const workOrder = workOrderResponse.response
-
-      const appointmetDetailsResponse = await appointmentDetailsPromise
-
-      if (!appointmetDetailsResponse.success) {
-        throw appointmetDetailsResponse.error
-      }
-
-      const appointmentDetails = appointmetDetailsResponse.response
-
-      const propertyPromise = frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/${workOrder.propertyReference}`,
-      })
-
-      const [tasksAndSors, propertyObject] = await Promise.all([
-        tasksAndSorsPromise,
-        propertyPromise,
+      const [workOrderResponse, tasksAndSorsResponse] = await Promise.all([
+        getWorkOrderDetails(workOrderReference),
+        getWorkOrderTasks(workOrderReference),
       ])
 
+      if (!workOrderResponse.success) throw workOrderResponse.error
+      setWorkOrder(new WorkOrder(workOrderResponse.response))
+
+      if (!tasksAndSorsResponse.success) throw tasksAndSorsResponse.error
       setTasksAndSors(
-        sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
+        sortObjectsByDateKey(
+          tasksAndSorsResponse.response,
+          ['dateAdded'],
+          'dateAdded'
+        )
       )
 
-      setWorkOrder(new WorkOrder(workOrder))
-      setAppointmentDetails(new WorkOrderAppointmentDetails(appointmentDetails))
-      setProperty(propertyObject.property)
-      if (propertyObject.tenure) setTenure(propertyObject.tenure)
+      const propertyTenureResponse = await getPropertyTenureData(
+        workOrderResponse.response?.propertyReference
+      )
+      if (!propertyTenureResponse.success) throw propertyTenureResponse.error
+
+      setProperty(() => propertyTenureResponse.response.property)
+      if (propertyTenureResponse.response.tenure) {
+        setTenure(() => propertyTenureResponse.response.tenure)
+      }
     } catch (e) {
-      setWorkOrder(null)
-      setAppointmentDetails(null)
-      setProperty(null)
       console.error('An error has occured:', e.response)
 
       if (e instanceof APIResponseError) {
         setError(e.message)
       } else {
-        if (e.response?.status === 404) {
-          setError(
-            `Could not find a work order with reference ${workOrderReference}`
-          )
-        } else {
-          setError(formatRequestErrorMessage(e))
-        }
+        setError(formatRequestErrorMessage(e))
       }
     }
 
-    setIsLoading(false)
+    setIsLoading(() => false)
   }
 
   useEffect(() => {
@@ -146,6 +123,8 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         property={property}
         workOrder={workOrder}
         appointmentDetails={appointmentDetails}
+        appointmentDetailsError={appointmentDetailsError}
+        loadingAppointmentDetails={loadingAppointmentDetails}
         tenure={tenure}
         printClickHandler={printClickHandler}
         setLocationAlerts={setLocationAlerts}
@@ -159,17 +138,23 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         budgetCode={workOrder?.budgetCode}
         workOrder={workOrder}
         appointmentDetails={appointmentDetails}
+        appointmentDetailsError={appointmentDetailsError}
+        loadingAppointmentDetails={loadingAppointmentDetails}
       />
 
       {/* Only displayed for print media */}
-      <PrintJobTicketDetails
-        workOrder={workOrder}
-        appointmentDetails={appointmentDetails}
-        property={property}
-        tasksAndSors={tasksAndSors}
-        locationAlerts={locationAlerts}
-        personAlerts={personAlerts}
-      />
+      {!loadingAppointmentDetails && !appointmentDetailsError && (
+        // Conditionally renders printable component. Print is disabled
+        // if either of these are true
+        <PrintJobTicketDetails
+          workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
+          property={property}
+          tasksAndSors={tasksAndSors}
+          locationAlerts={locationAlerts}
+          personAlerts={personAlerts}
+        />
+      )}
     </>
   )
 }

@@ -10,7 +10,7 @@ import {
   CautionaryAlert,
   CautionaryAlertsResponse,
 } from '@/root/src/models/cautionaryAlerts'
-import { Tenure } from '@/root/src/models/tenure'
+import { Tenure } from '@/root/src/models/propertyTenure'
 
 interface Props {
   canRaiseRepair: boolean

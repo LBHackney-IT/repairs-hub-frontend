@@ -1,20 +1,18 @@
 import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
 import PropertyFlags from '../Property/PropertyFlags'
 import WorkOrderInfo from './WorkOrderInfo'
-import AppointmentDetails from './AppointmentDetails'
-import Operatives from './Operatives'
-import { formatDateTime } from 'src/utils/time'
 import { WorkOrder } from '@/models/workOrder'
-import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
-import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import { Tenure } from '../../models/tenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { Tenure } from '../../models/propertyTenure'
+import WorkOrderAppointmentDetailsHeader from './WorkOrderAppointmentDetailsHeader'
 
 interface Props {
   propertyReference: string
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
   address: object
   subTypeDescription: string
   tenure: Tenure
@@ -28,6 +26,8 @@ const WorkOrderHeader = (props: Props) => {
     propertyReference,
     workOrder,
     appointmentDetails,
+    appointmentDetailsError,
+    loadingAppointmentDetails,
     address,
     subTypeDescription,
     tenure,
@@ -35,10 +35,6 @@ const WorkOrderHeader = (props: Props) => {
     setLocationAlerts,
     setPersonAlerts,
   } = props
-
-  const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
-    workOrder.status
-  )
 
   return (
     <div className="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6">
@@ -62,33 +58,12 @@ const WorkOrderHeader = (props: Props) => {
         <WorkOrderInfo workOrder={workOrder} />
       </div>
       <div className="govuk-grid-column-one-third">
-        <AppointmentDetails
-          workOrder={workOrder}
+        <WorkOrderAppointmentDetailsHeader
           appointmentDetails={appointmentDetails}
+          appointmentDetailsError={appointmentDetailsError}
+          loadingAppointmentDetails={loadingAppointmentDetails}
+          workOrder={workOrder}
         />
-        <div className="lbh-body-xs govuk-!-margin-top-1">
-          <span>Assigned to: {workOrder.owner}</span>
-        </div>
-        {workOrder.closedDated && (
-          <div className="lbh-body-xs">
-            <span>
-              <strong>
-                {workOrder.completionReason()}:{' '}
-                {formatDateTime(new Date(workOrder.closedDated))}
-              </strong>
-            </span>
-          </div>
-        )}
-
-        {'followOnRequest' in workOrder &&
-          workOrder.followOnRequest !== null && <FurtherWorkRequiredFlag />}
-
-        {appointmentDetails.operatives.length > 0 &&
-          ((appointmentDetails.appointment &&
-            appointmentDetails.appointmentISODatePassed()) ||
-            readOnly) && (
-            <Operatives operatives={appointmentDetails.operatives} />
-          )}
       </div>
     </div>
   )

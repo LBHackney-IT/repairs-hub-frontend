@@ -28,8 +28,7 @@ import {
   getWorkOrderDetails,
 } from '../../utils/requests/workOrders'
 import { CurrentUser } from '../../types/variations/types'
-import { Property } from '../../models/property'
-import { Tenure } from '../../models/tenure'
+import { Property, Tenure } from '../../models/propertyTenure'
 import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 

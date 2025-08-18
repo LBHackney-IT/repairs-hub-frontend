@@ -1,20 +1,22 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
-import { PropertyResponse } from '../../models/propertyResponse'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
+import { PropertyTenureResponse } from '../../models/propertyTenure'
 
-export const getPropertyData = async (
-  workOrderPropertyReference: string
-): Promise<ApiResponseType<PropertyResponse>> => {
+export const getPropertyTenureData = async (
+  propertyReference: string
+): Promise<ApiResponseType<PropertyTenureResponse>> => {
   try {
-    const propertyData: PropertyResponse = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${workOrderPropertyReference}`,
-    })
+    const propertyTenureData: PropertyTenureResponse = await frontEndApiRequest(
+      {
+        method: 'get',
+        path: `/api/properties/${propertyReference}`,
+      }
+    )
 
     return {
       success: true,
-      response: propertyData,
+      response: propertyTenureData,
       error: null,
     }
   } catch (e) {
@@ -25,7 +27,7 @@ export const getPropertyData = async (
       response: null,
       error: new APIResponseError(
         e.response?.status === 404
-          ? `Could not find a tenure id with reference ${workOrderPropertyReference}`
+          ? `Could not find a property with reference ${propertyReference}`
           : formatRequestErrorMessage(e)
       ),
     }

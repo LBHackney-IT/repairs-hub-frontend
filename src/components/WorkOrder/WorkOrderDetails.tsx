@@ -8,15 +8,16 @@ import MultiButton from '../Layout/MultiButton'
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
-import { Tenure } from '../../models/tenure'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import { Property } from '../../models/property'
+import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface Props {
   property: Property
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
+  appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
   tenure: Tenure
   setLocationAlerts: (alerts: CautionaryAlert[]) => void
   setPersonAlerts: (alerts: CautionaryAlert[]) => void
@@ -28,6 +29,8 @@ const WorkOrderDetails = (props: Props) => {
     property,
     workOrder,
     appointmentDetails,
+    appointmentDetailsError,
+    loadingAppointmentDetails,
     tenure,
     printClickHandler,
     setLocationAlerts,
@@ -40,7 +43,9 @@ const WorkOrderDetails = (props: Props) => {
     return WORK_ORDER_ACTIONS.filter((choice) => {
       if (choice.disabled) {
         return false
-      } else if (
+      }
+
+      if (
         choice.permittedRoles.some((role) => user.roles.includes(role)) &&
         choice.permittedStatuses.includes(workOrder.status)
       ) {
@@ -55,9 +60,9 @@ const WorkOrderDetails = (props: Props) => {
             printClickHandler()
           },
         }
-      } else {
-        return action
       }
+
+      return action
     })
   }
 
@@ -100,6 +105,8 @@ const WorkOrderDetails = (props: Props) => {
           propertyReference={property.propertyReference}
           workOrder={workOrder}
           appointmentDetails={appointmentDetails}
+          appointmentDetailsError={appointmentDetailsError}
+          loadingAppointmentDetails={loadingAppointmentDetails}
           address={property.address}
           subTypeDescription={property.hierarchyType.subTypeDescription}
           tenure={tenure}
