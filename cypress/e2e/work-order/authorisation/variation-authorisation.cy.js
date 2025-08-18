@@ -16,12 +16,7 @@ describe('Contract manager can authorise variation', () => {
     ).as('propertyRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
-      { fixture: 'workOrders/statusVariationPendingApproval.json' }
-    ).as('workOrderRequest')
-
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/statusVariationPendingApproval.json' }
     ).as('workOrderRequest')
 
@@ -124,7 +119,7 @@ describe('Contract manager can authorise variation', () => {
     cy.get('.lbh-list').within(() => {
       cy.contains(
         'Raise a new work order for 16 Pitcairn House St Thomass Square'
-      ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+      ).should('have.attr', 'href', '/properties/00012345/raise-repair')
 
       cy.contains('Manage work orders').should('have.attr', 'href', '/')
 
@@ -259,9 +254,7 @@ describe('Contract manager can authorise variation', () => {
       cy.contains('td', '10')
       cy.contains('td', '£190')
       cy.contains('td', '2')
-      cy.contains('td', '£38')
-
-      //New task
+      cy.contains('td', '£38') / task
       cy.contains('td', 'Reduced')
       cy.contains('td', 'DES5R007')
       cy.contains('p', 'Normal Call outs')
@@ -355,7 +348,7 @@ describe('Contract manager can authorise variation', () => {
     cy.get('.lbh-list').within(() => {
       cy.contains(
         'Raise a new work order for 16 Pitcairn House St Thomass Square'
-      ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+      ).should('have.attr', 'href', '/properties/00012345/raise-repair')
 
       cy.contains('Manage work orders').should('have.attr', 'href', '/')
 
@@ -427,9 +420,7 @@ describe('Contract manager can authorise variation', () => {
     cy.get('.updated-tasks-table td').contains('10')
     cy.get('.updated-tasks-table td').contains('£190')
     cy.get('.updated-tasks-table td').contains('2')
-    cy.get('.updated-tasks-table td').contains('£38')
-
-    //New task
+    cy.get('.updated-tasks-table td').contains('£38') / task
     cy.get('.updated-tasks-table td').contains('Reduced')
     cy.get('.updated-tasks-table td').contains('DES5R007')
     cy.get('.updated-tasks-table p').contains('Normal Call outs')

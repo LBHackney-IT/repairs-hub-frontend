@@ -7,7 +7,7 @@ describe('Pending variation tab on work-order page', () => {
     beforeEach(() => {
       // Stub requests
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/statusVariationPendingApproval.json' }
       )
 

@@ -45,7 +45,7 @@ export const getWorkOrderDetails = async (
   try {
     const workOrderData = await frontEndApiRequest({
       method: 'get',
-      path: `/api/workOrders/${workOrderReference}/new`,
+      path: `/api/workOrders/${workOrderReference}`,
     })
 
     const workOrder = new WorkOrder(workOrderData)

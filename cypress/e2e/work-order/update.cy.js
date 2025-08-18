@@ -14,7 +14,7 @@ describe('Updating a work order', () => {
         .then((workOrder) => {
           workOrder.reference = 10000040
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040/new' },
+            { method: 'GET', path: '/api/workOrders/10000040' },
             { body: workOrder }
           )
         })
@@ -490,7 +490,7 @@ describe('Updating a work order', () => {
             workOrder.reference = 10000040
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040/new' },
+              { method: 'GET', path: '/api/workOrders/10000040' },
               { body: workOrder }
             )
           })
@@ -705,7 +705,7 @@ describe('Updating a work order', () => {
         workOrder.totalSMVs = 76
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621/new' },
+          { method: 'GET', path: '/api/workOrders/10000621' },
           { body: workOrder }
         ).as('workOrderRequest')
       })
@@ -1136,7 +1136,7 @@ describe('Updating a work order', () => {
         workOrder.totalSMVs = 76
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621/new' },
+          { method: 'GET', path: '/api/workOrders/10000621' },
           { body: workOrder }
         ).as('workOrderRequestMultipleOperatives')
       })
