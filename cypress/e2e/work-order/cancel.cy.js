@@ -148,7 +148,7 @@ describe('Work order cancellations', () => {
         .contains(
           'Raise a new work order for 16 Pitcairn House St Thomass Square'
         )
-        .should('have.attr', 'href', '/properties/00012345/raise-repair')
+        .should('have.attr', 'href', '/properties/00012345/raise-repair/new')
 
       cy.get('.lbh-list')
         .contains('Start a new search')
