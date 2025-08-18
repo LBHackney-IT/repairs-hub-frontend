@@ -4,7 +4,7 @@ import 'cypress-audit/commands'
 
 context('when a variation is made', () => {
   beforeEach(() => {
-    cy.intercept('/api/workOrders/10000621/new', {
+    cy.intercept('/api/workOrders/10000621', {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
