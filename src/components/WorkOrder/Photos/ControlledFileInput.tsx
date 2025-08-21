@@ -59,13 +59,13 @@ const ControlledFileInput = (props: Props) => {
 
     const processedFiles: File[] = []
 
-    // Ensure all files are readable
+    // ensure all files are readable
     await ensureAllFilesReadable(selectedFiles)
 
     for (const file of selectedFiles) {
       setCompressedCount(processedFiles.length)
 
-      // If file is already cached, use the cached file
+      // if file is already cached, use the cached file
       try {
         const cached = await getCachedFile(file)
         if (cached) {
@@ -80,7 +80,7 @@ const ControlledFileInput = (props: Props) => {
         )
       }
 
-      // If the file is not already cached, compress and cache it
+      // if the file is not already cached, compress and cache it
       try {
         const compressed = await compressFile(file)
         processedFiles.push(compressed)
@@ -98,7 +98,7 @@ const ControlledFileInput = (props: Props) => {
     // replace previews with compressed/cached files once ready
     setFiles(processedFiles)
     setIsCompressing(false)
-    // reset progress state
+
     setTotalFilesToCompress(0)
     setCompressedCount(0)
   }

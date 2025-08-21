@@ -1,6 +1,16 @@
 import { useEffect } from 'react'
 
-const useUpdateFileInput = (files, inputRef) => {
+function blobToFile(blob: Blob): File {
+  const name = `photo-${Date.now()}`
+  const type = blob.type || 'application/octet-stream'
+  const lastModified = Date.now()
+  return new File([blob], name, { type, lastModified })
+}
+
+const useUpdateFileInput = (
+  inputRef: React.RefObject<HTMLInputElement>,
+  files: (File | Blob)[]
+) => {
   useEffect(() => {
     if (!files || files.length === 0) {
       if (inputRef.current) inputRef.current.value = ''
@@ -19,11 +29,7 @@ const useUpdateFileInput = (files, inputRef) => {
           (file && typeof file === 'object' && 'size' in file)
         ) {
           try {
-            const name = file.name || `photo-${Date.now()}`
-            const type = file.type || 'application/octet-stream'
-            const lastModified =
-              (file.lastModified && Number(file.lastModified)) || Date.now()
-            const fileObj = new File([file], name, { type, lastModified })
+            const fileObj = blobToFile(file)
             dataTransfer.items.add(fileObj)
             return
           } catch (convErr) {
