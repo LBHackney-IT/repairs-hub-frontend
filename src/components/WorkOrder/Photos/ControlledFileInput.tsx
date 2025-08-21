@@ -147,7 +147,7 @@ const ControlledFileInput = (props: Props) => {
 
       <>
         {files.length > 0 && (
-          <div>
+          <>
             <PhotoUploadPreview
               files={files}
               disabled={isLoading}
@@ -160,7 +160,7 @@ const ControlledFileInput = (props: Props) => {
                 />
               </div>
             )}
-          </div>
+          </>
         )}
       </>
     </div>
