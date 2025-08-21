@@ -11,7 +11,6 @@ import {
 } from './hooks/uploadFiles/cacheFile'
 import { compressFile } from './hooks/uploadFiles/compressFile'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
-import { FileUploadError } from './hooks/uploadFiles'
 import ensureAllFilesReadable from './hooks/uploadFiles/ensureAllFilesReadable'
 
 interface Props {
@@ -68,12 +67,13 @@ const ControlledFileInput = (props: Props) => {
     await ensureAllFilesReadable(selectedFiles)
 
     for (const file of selectedFiles) {
-      // If file is already compressed, use the cached file
+      setCompressedCount(processedFiles.length)
+
+      // If file is already cached, use the cached file
       try {
         const cached = await getCachedFile(fileCacheKey(file), file)
         if (cached) {
           processedFiles.push(cached)
-          setCompressedCount((c) => c + 1)
           continue
         }
       } catch (err) {
@@ -88,9 +88,7 @@ const ControlledFileInput = (props: Props) => {
       try {
         const compressed = await compressFile(file)
         processedFiles.push(compressed)
-        // store compressed file in session storage immediately
         await setCachedFile(fileCacheKey(file), compressed)
-        setCompressedCount((c) => c + 1)
       } catch (err) {
         console.error(
           'Compression failed, using original file:',
@@ -98,7 +96,6 @@ const ControlledFileInput = (props: Props) => {
           err
         )
         processedFiles.push(file)
-        setCompressedCount((c) => c + 1)
       }
     }
 
