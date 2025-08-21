@@ -1,4 +1,31 @@
 import { FileUploadError } from '.'
+import { openDB } from 'idb'
+import type { IDBPDatabase } from 'idb'
+
+const DB_NAME = 'repairs-hub-files'
+const STORE_NAME = 'files'
+const DB_VERSION = 1
+
+type StoredFile = {
+  blob: Blob
+  name: string
+  type: string
+  lastModified?: number
+}
+
+let cachedDb: IDBPDatabase | null = null
+
+async function getDb() {
+  if (cachedDb) return cachedDb
+  cachedDb = await openDB(DB_NAME, DB_VERSION, {
+    upgrade(db) {
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME)
+      }
+    },
+  })
+  return cachedDb
+}
 
 function fileDetails(file: File) {
   return {
@@ -8,22 +35,17 @@ function fileDetails(file: File) {
   }
 }
 
-async function dataURLtoFile(
-  dataUrl: string,
-  filename: string,
-  fileType: string
-): Promise<File> {
-  const res = await fetch(dataUrl)
-  const blob = await res.blob()
-  return new File([blob], filename, { type: fileType })
+export function fileCacheKey(file: File): string {
+  return `compressed-${file.name}`
 }
 
-function blobToDataURL(blob: Blob): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => resolve(reader.result as string)
-    reader.onerror = (error) => reject(error)
-    reader.readAsDataURL(blob)
+async function storedToFile(
+  stored: StoredFile,
+  fallbackName: string
+): Promise<File> {
+  return new File([stored.blob], stored.name || fallbackName, {
+    type: stored.type || 'application/octet-stream',
+    lastModified: stored.lastModified || Date.now(),
   })
 }
 
@@ -31,52 +53,64 @@ export async function getCachedFile(
   cacheKey: string,
   originalFile: File
 ): Promise<File | null> {
-  if (typeof window !== 'undefined' && window.sessionStorage) {
-    const cachedDataUrl = window.sessionStorage.getItem(cacheKey)
-    if (cachedDataUrl) {
-      try {
-        const cachedFile = await dataURLtoFile(
-          cachedDataUrl,
-          originalFile.name,
-          originalFile.type
-        )
-        console.log('Retrieved cached file:', fileDetails(cachedFile))
-        try {
-          // Attempt to read the first kilobyte of the file to ensure it is valid and accessible
-          await cachedFile.slice(0, 1024).arrayBuffer()
-        } catch (err) {
-          const errorMessage = `Could not read the file "${originalFile.name}". Please remove and re-select it. Error: ${err.message}`
-          console.error(errorMessage, err)
-          throw new FileUploadError(errorMessage)
-        }
-        return cachedFile
-      } catch (error) {
-        console.error('Error converting cached data URL to file:', error)
-        // If conversion fails, proceed to compress again
-      }
+  if (typeof window === 'undefined') return null
+
+  try {
+    const db = await getDb()
+    const stored = (await db.get(STORE_NAME, cacheKey)) as
+      | StoredFile
+      | undefined
+    if (!stored) return null
+
+    const cachedFile = await storedToFile(stored, originalFile.name)
+    console.log('Retrieved cached file:', fileDetails(cachedFile))
+
+    try {
+      // Attempt to read the first kilobyte of the file to ensure it is valid and accessible
+      await cachedFile.slice(0, 1024).arrayBuffer()
+    } catch (err) {
+      const errorMessage = `Could not read the file "${
+        originalFile.name
+      }". Please remove and re-select it. Error: ${(err as Error).message}`
+      console.error(errorMessage, err)
+      throw new FileUploadError(errorMessage)
     }
+
+    return cachedFile
+  } catch (err) {
+    console.error('Error reading from IndexedDB cache:', err)
+    return null
   }
-  return null
 }
 
 export async function setCachedFile(
   cacheKey: string,
   file: File
 ): Promise<void> {
-  if (typeof window !== 'undefined' && window.sessionStorage) {
-    try {
-      const dataUrl = await blobToDataURL(file)
-      window.sessionStorage.setItem(cacheKey, dataUrl)
-      console.log('Cached compressed file:', fileDetails(file))
-    } catch (error) {
-      console.error('Error caching file:', error)
+  if (typeof window === 'undefined') return
+
+  try {
+    const db = await getDb()
+    const toStore: StoredFile = {
+      blob: file,
+      name: file.name,
+      type: file.type,
+      lastModified: (file as File).lastModified || Date.now(),
     }
+    await db.put(STORE_NAME, toStore, cacheKey)
+    console.log('Cached compressed file in IndexedDB:', fileDetails(file))
+  } catch (err) {
+    console.error('Error caching file to IndexedDB:', err)
   }
 }
 
 export async function clearSessionStorage(): Promise<void> {
-  if (typeof window !== 'undefined' && window.sessionStorage) {
-    window.sessionStorage.clear()
-    console.log('Cleared all cached files')
+  if (typeof window === 'undefined') return
+  try {
+    const db = await getDb()
+    await db.clear(STORE_NAME)
+    console.log('Cleared all cached files from IndexedDB')
+  } catch (err) {
+    console.error('Error clearing IndexedDB cache:', err)
   }
 }

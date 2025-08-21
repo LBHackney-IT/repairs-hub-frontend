@@ -61,7 +61,8 @@
     "uuid": "^8.3.2",
     "xml2js": "^0.6.2",
     "xmldom": "^0.6.0",
-    "xpath": "^0.0.32"
+    "xpath": "^0.0.32",
+    "idb": "^7.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",

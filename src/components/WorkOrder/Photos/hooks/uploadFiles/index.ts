@@ -4,18 +4,20 @@ import completeUpload from './completeUpload'
 import { captureException } from '@sentry/nextjs'
 import fileUploadStatusLogger from './fileUploadStatusLogger'
 import { compressFile } from './compressFile'
-import { clearSessionStorage, getCachedFile, setCachedFile } from './cacheFile'
+import {
+  clearSessionStorage,
+  fileCacheKey,
+  getCachedFile,
+  setCachedFile,
+} from './cacheFile'
 import faultTolerantRequest from './faultTolerantRequest'
+import ensureAllFilesReadable from './ensureAllFilesReadable'
 
 export class FileUploadError extends Error {
   constructor(message: string) {
     super(message)
     this.name = 'FileUploadError'
   }
-}
-
-function fileCacheKey(file: File): string {
-  return `compressed-${file.name}-${file.size}`
 }
 
 const uploadFiles = async (
@@ -48,6 +50,14 @@ const uploadFiles = async (
     const compressionErrors: Error[] = []
     for (const file of filesToCompress) {
       try {
+        const cachedFile = await getCachedFile(fileCacheKey(file), file)
+        if (cachedFile) {
+          filesToUpload.push(cachedFile)
+          statusLogger('Compress')
+          console.log('Using cached file for ' + fileCacheKey(file))
+          continue
+        }
+        console.log('Cache miss for ' + fileCacheKey(file))
         const compressedFile = await compressFile(file)
         filesToUpload.push(compressedFile)
         faultTolerantRequest(() =>
@@ -72,6 +82,7 @@ const uploadFiles = async (
     const presignedUrls = uploadUrlsResult.result.links
 
     // 4. Upload files to S3
+    await ensureAllFilesReadable(filesToUpload)
     const uploadFilesToS3Response = await uploadFilesToS3(
       filesToUpload,
       presignedUrls,
