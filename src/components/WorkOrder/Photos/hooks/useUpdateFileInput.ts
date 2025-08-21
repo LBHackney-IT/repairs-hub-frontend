@@ -1,10 +1,18 @@
 import { useEffect } from 'react'
 
-function blobToFile(blob: Blob): File {
-  const name = `photo-${Date.now()}`
-  const type = blob.type || 'application/octet-stream'
-  const lastModified = Date.now()
-  return new File([blob], name, { type, lastModified })
+function blobToFile(blob: Blob): File | undefined {
+  try {
+    const name = `photo-${Date.now()}`
+    const type = blob.type || 'application/octet-stream'
+    const lastModified = Date.now()
+    return new File([blob], name, { type, lastModified })
+  } catch (convErr) {
+    console.warn(
+      'useUpdateFileInput: failed to convert Blob to File, skipping',
+      convErr,
+      blob
+    )
+  }
 }
 
 const useUpdateFileInput = (
@@ -24,24 +32,12 @@ const useUpdateFileInput = (
           dataTransfer.items.add(file)
           return
         }
-        if (
-          file instanceof Blob ||
-          (file && typeof file === 'object' && 'size' in file)
-        ) {
-          try {
-            const fileObj = blobToFile(file)
-            dataTransfer.items.add(fileObj)
-            return
-          } catch (convErr) {
-            console.warn(
-              'useUpdateFileInput: failed to convert Blob to File, skipping',
-              convErr,
-              file
-            )
-            return
-          }
+        // if we can't process it as a file, try converting from a blob
+        const fileObj = blobToFile(file)
+        if (fileObj) {
+          dataTransfer.items.add(fileObj)
+          return
         }
-        console.warn('useUpdateFileInput: skipping non-File entry', file)
       })
 
       if (inputRef.current) inputRef.current.files = dataTransfer.files
