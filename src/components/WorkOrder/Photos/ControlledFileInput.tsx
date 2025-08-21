@@ -39,7 +39,7 @@ const ControlledFileInput = (props: Props) => {
   const [compressedCount, setCompressedCount] = useState(0)
   const [totalFilesToCompress, setTotalFilesToCompress] = useState(0)
 
-  useUpdateFileInput(files, inputRef)
+  useUpdateFileInput(inputRef, files)
 
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Object.values(e.target.files || []) as File[]
