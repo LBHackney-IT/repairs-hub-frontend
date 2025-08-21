@@ -1,6 +1,6 @@
-import { FileUploadError } from '.'
 import { openDB } from 'idb'
 import type { IDBPDatabase } from 'idb'
+import ensureAllFilesReadable from './ensureAllFilesReadable'
 
 const DB_NAME = 'repairs-hub-files'
 const STORE_NAME = 'files'
@@ -11,6 +11,10 @@ type StoredFile = {
   name: string
   type: string
   lastModified?: number
+}
+
+function fileCacheKey(file: File): string {
+  return `compressed-${file.name}`
 }
 
 let cachedDb: IDBPDatabase | null = null
@@ -35,58 +39,44 @@ function fileDetails(file: File) {
   }
 }
 
-export function fileCacheKey(file: File): string {
-  return `compressed-${file.name}`
-}
-
-async function storedToFile(
-  stored: StoredFile,
-  fallbackName: string
-): Promise<File> {
+function storedToFile(stored: StoredFile, fallbackName: string): File {
   return new File([stored.blob], stored.name || fallbackName, {
     type: stored.type || 'application/octet-stream',
     lastModified: stored.lastModified || Date.now(),
   })
 }
 
-export async function getCachedFile(
-  cacheKey: string,
-  originalFile: File
-): Promise<File | null> {
+export async function getCachedFile(originalFile: File): Promise<File | null> {
   if (typeof window === 'undefined') return null
 
   try {
     const db = await getDb()
+    const cacheKey = fileCacheKey(originalFile)
     const stored = (await db.get(STORE_NAME, cacheKey)) as
       | StoredFile
       | undefined
     if (!stored) return null
 
-    const cachedFile = await storedToFile(stored, originalFile.name)
-    console.log('Retrieved cached file:', fileDetails(cachedFile))
+    const cachedFile = storedToFile(stored, originalFile.name)
+    console.log(
+      'Retrieved cached file:',
+      fileCacheKey(cachedFile),
+      fileDetails(cachedFile)
+    )
 
-    try {
-      // Attempt to read the first kilobyte of the file to ensure it is valid and accessible
-      await cachedFile.slice(0, 1024).arrayBuffer()
-    } catch (err) {
-      const errorMessage = `Could not read the file "${
-        originalFile.name
-      }". Please remove and re-select it. Error: ${(err as Error).message}`
-      console.error(errorMessage, err)
-      throw new FileUploadError(errorMessage)
-    }
+    await ensureAllFilesReadable([cachedFile])
 
     return cachedFile
   } catch (err) {
-    console.error('Error reading from IndexedDB cache:', err)
+    console.error(
+      `Error reading ${fileCacheKey(originalFile)} from IndexedDB cache:`,
+      err
+    )
     return null
   }
 }
 
-export async function setCachedFile(
-  cacheKey: string,
-  file: File
-): Promise<void> {
+export async function setCachedFile(file: File): Promise<void> {
   if (typeof window === 'undefined') return
 
   try {
@@ -97,6 +87,7 @@ export async function setCachedFile(
       type: file.type,
       lastModified: (file as File).lastModified || Date.now(),
     }
+    const cacheKey = fileCacheKey(file)
     await db.put(STORE_NAME, toStore, cacheKey)
     console.log('Cached compressed file in IndexedDB:', fileDetails(file))
   } catch (err) {

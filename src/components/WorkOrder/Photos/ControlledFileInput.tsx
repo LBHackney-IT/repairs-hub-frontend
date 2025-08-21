@@ -4,11 +4,7 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
 import classNames from 'classnames'
 import useUpdateFileInput from './hooks/useUpdateFileInput'
-import {
-  getCachedFile,
-  setCachedFile,
-  fileCacheKey,
-} from './hooks/uploadFiles/cacheFile'
+import { getCachedFile, setCachedFile } from './hooks/uploadFiles/cacheFile'
 import { compressFile } from './hooks/uploadFiles/compressFile'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ensureAllFilesReadable from './hooks/uploadFiles/ensureAllFilesReadable'
@@ -71,7 +67,7 @@ const ControlledFileInput = (props: Props) => {
 
       // If file is already cached, use the cached file
       try {
-        const cached = await getCachedFile(fileCacheKey(file), file)
+        const cached = await getCachedFile(file)
         if (cached) {
           processedFiles.push(cached)
           continue
@@ -88,7 +84,7 @@ const ControlledFileInput = (props: Props) => {
       try {
         const compressed = await compressFile(file)
         processedFiles.push(compressed)
-        await setCachedFile(fileCacheKey(file), compressed)
+        await setCachedFile(compressed)
       } catch (err) {
         console.error(
           'Compression failed, using original file:',

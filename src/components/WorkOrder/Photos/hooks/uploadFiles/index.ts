@@ -4,13 +4,7 @@ import completeUpload from './completeUpload'
 import { captureException } from '@sentry/nextjs'
 import fileUploadStatusLogger from './fileUploadStatusLogger'
 import { compressFile } from './compressFile'
-import {
-  clearSessionStorage,
-  fileCacheKey,
-  getCachedFile,
-  setCachedFile,
-} from './cacheFile'
-import faultTolerantRequest from './faultTolerantRequest'
+import { clearSessionStorage, getCachedFile, setCachedFile } from './cacheFile'
 import ensureAllFilesReadable from './ensureAllFilesReadable'
 
 export class FileUploadError extends Error {
@@ -25,7 +19,7 @@ const uploadFiles = async (
   workOrderReference: string,
   description: string,
   uploadGroupLabel: string,
-  setUploadStatus: (status: string | null) => void
+  setUploadStatus: (status: string) => void
 ): Promise<{
   success: boolean
   requestError?: string
@@ -33,45 +27,29 @@ const uploadFiles = async (
   try {
     const statusLogger = fileUploadStatusLogger(files.length, setUploadStatus)
 
-    // 1. Try to get cached files before compression
+    // 1. Get cached files to upload or compress and cache them
     const filesToUpload: File[] = []
-    const filesToCompress: File[] = []
-    for (const file of files) {
-      const cachedFile = await getCachedFile(fileCacheKey(file), file)
-      if (cachedFile) {
-        filesToUpload.push(cachedFile)
-        statusLogger('Compress')
-      } else {
-        filesToCompress.push(file)
-      }
-    }
-
-    // 2. Compress and cache files that were not cached
     const compressionErrors: Error[] = []
-    for (const file of filesToCompress) {
+
+    for (const file of files) {
       try {
-        const cachedFile = await getCachedFile(fileCacheKey(file), file)
-        if (cachedFile) {
-          filesToUpload.push(cachedFile)
-          statusLogger('Compress')
-          console.log('Using cached file for ' + fileCacheKey(file))
-          continue
+        let fileToUpload = await getCachedFile(file)
+
+        if (fileToUpload == null) {
+          fileToUpload = await compressFile(file)
+          await setCachedFile(fileToUpload)
         }
-        console.log('Cache miss for ' + fileCacheKey(file))
-        const compressedFile = await compressFile(file)
-        filesToUpload.push(compressedFile)
-        faultTolerantRequest(() =>
-          setCachedFile(fileCacheKey(file), compressedFile)
-        )
+
+        filesToUpload.push(fileToUpload)
       } catch (error) {
         filesToUpload.push(file)
-        compressionErrors.push(error)
+        compressionErrors.push(error as Error)
       } finally {
         statusLogger('Compress')
       }
     }
 
-    // 3. Get presigned urls
+    // 2. Get presigned urls
     const uploadUrlsResult = await getPresignedUrls(
       workOrderReference,
       filesToUpload.length
@@ -81,7 +59,7 @@ const uploadFiles = async (
 
     const presignedUrls = uploadUrlsResult.result.links
 
-    // 4. Upload files to S3
+    // 3. Upload files to S3
     await ensureAllFilesReadable(filesToUpload)
     const uploadFilesToS3Response = await uploadFilesToS3(
       filesToUpload,
@@ -95,7 +73,7 @@ const uploadFiles = async (
             `| Compression error: ${compressionErrors?.[0]?.message}`)
       )
 
-    // 5. Complete upload
+    // 4. Complete upload
     const completeUploadResult = await completeUpload(
       workOrderReference,
       presignedUrls.map((x) => x.key),
