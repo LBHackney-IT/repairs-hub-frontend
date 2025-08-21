@@ -1,30 +1,31 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
+/// <reference types="cypress" />
 import 'cypress-audit/commands'
+
+declare global {
+  // eslint-disable-next-line
+  namespace Cypress {
+    interface Chainable {
+      state(key: string): unknown
+      loginWithFollowOnAdminRole(): Chainable<void>
+      loginWithAgentRole(): Chainable<void>
+      loginWithContractorRole(): Chainable<void>
+      loginWithAgentAndContractorRole(): Chainable<void>
+      loginWithMultipleContractorRole(): Chainable<void>
+      loginWithContractManagerRole(): Chainable<void>
+      loginWithAuthorisationManagerRole(): Chainable<void>
+      loginWithOperativeRole(): Chainable<void>
+      loginWithOneJobAtATimeOperativeRole(): Chainable<void>
+      loginWithAgentAndBudgetCodeOfficerRole(): Chainable<void>
+      loginWithDataAdminRole(): Chainable<void>
+      requestsCountByUrl(url: string): Cypress.Chainable<number>
+      checkForTenureDetails(
+        tenure: string,
+        addressAlerts: string[],
+        contactAlerts: string[]
+      ): Cypress.Chainable<void>
+    }
+  }
+}
 
 Cypress.Commands.add('loginWithFollowOnAdminRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_FOLLOWON_ADMIN')
@@ -214,8 +215,10 @@ Cypress.Commands.add('loginWithDataAdminRole', () => {
 })
 
 Cypress.Commands.add('requestsCountByUrl', (url) =>
-  cy.wrap().then(() => {
-    const requests = cy.state('requests') || []
+  cy.wrap(null).then(() => {
+    const requests = (cy.state('requests') || []) as Array<{
+      xhr: { url: string }
+    }>
     return requests.filter((req) => req.xhr.url.match(new RegExp(`${url}`)))
       .length
   })
