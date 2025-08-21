@@ -27,18 +27,18 @@ const useUpdateFileInput = (
     try {
       const dataTransfer = new DataTransfer()
 
-      files.forEach((file) => {
+      for (const file of files) {
         if (file instanceof File) {
           dataTransfer.items.add(file)
-          return
+          continue
         }
         // if we can't process it as a file, try converting from a blob
         const fileObj = blobToFile(file)
         if (fileObj) {
           dataTransfer.items.add(fileObj)
-          return
+          continue
         }
-      })
+      }
 
       if (inputRef.current) inputRef.current.files = dataTransfer.files
     } catch (err) {
