@@ -114,12 +114,8 @@ describe('Photos', () => {
     cy.contains('.tabs-button', 'Photos').click()
 
     // 1. invalid file type
-
     cy.get('input[type="file"]').selectFile({
-      contents: Cypress.Buffer.from('file contents'),
-      fileName: 'file.txt',
-      mimeType: 'text/plain',
-      lastModified: Date.now(),
+      contents: 'cypress/fixtures/photos/notPhoto.txt',
     })
 
     cy.get('button').contains('Upload').click()

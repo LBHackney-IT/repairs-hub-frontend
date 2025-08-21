@@ -1,20 +1,5 @@
 import { useEffect } from 'react'
 
-function blobToFile(blob: Blob): File | undefined {
-  try {
-    const name = `photo-${Date.now()}`
-    const type = blob.type || 'application/octet-stream'
-    const lastModified = Date.now()
-    return new File([blob], name, { type, lastModified })
-  } catch (convErr) {
-    console.warn(
-      'useUpdateFileInput: failed to convert Blob to File, skipping',
-      convErr,
-      blob
-    )
-  }
-}
-
 const useUpdateFileInput = (
   inputRef: React.RefObject<HTMLInputElement>,
   files: (File | Blob)[]
@@ -30,12 +15,6 @@ const useUpdateFileInput = (
       for (const file of files) {
         if (file instanceof File) {
           dataTransfer.items.add(file)
-          continue
-        }
-        // if we can't process it as a file, try converting from a blob
-        const fileObj = blobToFile(file)
-        if (fileObj) {
-          dataTransfer.items.add(fileObj)
           continue
         }
       }
