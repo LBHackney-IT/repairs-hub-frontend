@@ -1,5 +1,5 @@
+/// <reference types="cypress" />
 import 'cypress-audit/commands'
-import 'cypress'
 
 declare global {
   // eslint-disable-next-line
