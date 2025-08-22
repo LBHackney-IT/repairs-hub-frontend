@@ -23,6 +23,7 @@ declare global {
         addressAlerts: string[],
         contactAlerts: string[]
       ): Cypress.Chainable<void>
+      ensureCompressedFileInIndexedDb(filename: string): Cypress.Chainable<void>
     }
   }
 }
@@ -246,3 +247,51 @@ Cypress.Commands.add(
     })
   }
 )
+
+Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
+  return cy.window().then((win) => {
+    const dbName = 'repairs-hub-files'
+    const tableName = 'files'
+    return new Cypress.Promise<void>((resolve, reject) => {
+      let attempts = 0
+      const maxAttempts = 5
+
+      function tryOpenDb() {
+        const dbRequest = win.indexedDB.open(dbName, 1)
+
+        dbRequest.onerror = () => reject(dbRequest.error)
+
+        dbRequest.onsuccess = () => {
+          const db = dbRequest.result
+          try {
+            const transaction = db.transaction(tableName, 'readonly')
+            const store = transaction.objectStore(tableName)
+            const getRequest = store.get(`compressed-${filename}`)
+
+            getRequest.onerror = () => reject(getRequest.error)
+            getRequest.onsuccess = () => {
+              const res = getRequest.result
+              if (!res && attempts < maxAttempts) {
+                attempts++
+                setTimeout(tryOpenDb, 1000)
+              } else {
+                expect(res).to.exist
+                expect(res.name || res.blob?.name).to.equal(filename)
+                resolve()
+              }
+            }
+          } catch (e) {
+            if (attempts < maxAttempts) {
+              attempts++
+              setTimeout(tryOpenDb, 1000)
+            } else {
+              reject(e)
+            }
+          }
+        }
+      }
+
+      tryOpenDb()
+    })
+  })
+})

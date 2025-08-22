@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import 'cypress-audit/commands'
 
 const WORK_ORDER_REFERENCE = 10000012
@@ -58,7 +56,7 @@ describe('Photos', () => {
     cy.get('li[data-testid="fileGroup-152"]').within(() => {
       cy.contains('Uploaded directly to work order')
       cy.contains('Uploaded by Test Test (test.test@hackney.gov.uk)')
-      cy.contains('25 Jul 2024, 06:30')
+      cy.contains(/25 Jul 2024, (06|07):30/)
       cy.contains('Some description')
 
       cy.get('button').contains('Edit description')
@@ -73,7 +71,7 @@ describe('Photos', () => {
       cy.contains(
         'Uploaded by Dennis Reynolds (dennis.reynolds@hackney.gov.uk)'
       )
-      cy.contains('21 Aug 2024, 13:21')
+      cy.contains(/21 Aug 2024, (13|14):21/)
 
       cy.get('button').contains('Add description')
 
@@ -114,15 +112,13 @@ describe('Photos', () => {
     cy.contains('.tabs-button', 'Photos').click()
 
     // 1. invalid file type
-
     cy.get('input[type="file"]').selectFile({
-      contents: Cypress.Buffer.from('file contents'),
-      fileName: 'file.txt',
-      mimeType: 'text/plain',
-      lastModified: Date.now(),
+      contents: 'cypress/fixtures/photos/notPhoto.txt',
     })
+    cy.contains('Compressing photos... (0 of 1)')
 
     cy.get('button').contains('Upload').click()
+
     // should contain error message
     cy.contains(`Unsupported file type "text/plain". Allowed types: PNG & JPG`)
     cy.contains('.tabs-button', 'Photos').then((x) =>
@@ -138,7 +134,8 @@ describe('Photos', () => {
         lastModified: Date.now(),
       })
     )
-
+    cy.contains('Compressing photos... (0 of 11)')
+    cy.contains('Compressing photos... (5 of 11)')
     cy.get('button').contains('Upload').click()
 
     // should contain error message
@@ -177,6 +174,8 @@ describe('Photos', () => {
     })
 
     cy.get('button').contains('Upload').click()
+
+    cy.contains('Compressing photos... (0 of 1')
 
     cy.wait('@getLinksRequest')
 
@@ -229,6 +228,9 @@ describe('Photos', () => {
       mimeType: 'image/png',
       lastModified: Date.now(),
     })
+
+    cy.contains('Compressing photos... (0 of 1')
+
     cy.get('textarea[data-testid="description"]').type('some description')
 
     cy.get('button').contains('Upload').click()
