@@ -115,8 +115,10 @@ describe('Photos', () => {
     cy.get('input[type="file"]').selectFile({
       contents: 'cypress/fixtures/photos/notPhoto.txt',
     })
+    cy.contains('Compressing photos... (0 of 1)')
 
     cy.get('button').contains('Upload').click()
+
     // should contain error message
     cy.contains(`Unsupported file type "text/plain". Allowed types: PNG & JPG`)
     cy.contains('.tabs-button', 'Photos').then((x) =>
@@ -132,7 +134,6 @@ describe('Photos', () => {
         lastModified: Date.now(),
       })
     )
-
     cy.get('button').contains('Upload').click()
 
     // should contain error message
@@ -140,6 +141,8 @@ describe('Photos', () => {
     cy.contains('.tabs-button', 'Photos').then((x) =>
       x.hasClass('govuk-form-group--error')
     )
+    cy.contains('Compressing photos... (0 of 11)')
+    cy.contains('Compressing photos... (5 of 11)')
 
     // 3. removing additional file clears error message
     cy.get('button').contains('Remove').last().click()
@@ -171,6 +174,8 @@ describe('Photos', () => {
     })
 
     cy.get('button').contains('Upload').click()
+
+    cy.contains('Compressing photos... (0 of 1')
 
     cy.wait('@getLinksRequest')
 
@@ -223,6 +228,9 @@ describe('Photos', () => {
       mimeType: 'image/png',
       lastModified: Date.now(),
     })
+
+    cy.contains('Compressing photos... (0 of 1')
+
     cy.get('textarea[data-testid="description"]').type('some description')
 
     cy.get('button').contains('Upload').click()
