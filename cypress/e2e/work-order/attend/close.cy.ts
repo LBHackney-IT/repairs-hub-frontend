@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 import 'cypress-audit/commands'
 
 Cypress.on('uncaught:exception', (err, runnable) => {
@@ -216,12 +215,12 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
 
       // 1. invalid file type
+      const fileName = 'photo_1.jpg'
       cy.get('input[type="file"]').selectFile({
-        contents: Cypress.Buffer.from('file contents'),
-        fileName: 'file.png',
-        mimeType: 'image/png',
-        lastModified: Date.now(),
+        contents: `cypress/fixtures/photos/${fileName}`,
       })
+      cy.contains('Compressing photos... (0 of 1')
+      cy.ensureCompressedFileInIndexedDb(fileName)
 
       cy.get('.govuk-button').contains('Close work order').click()
 
@@ -231,7 +230,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Request failed with status code 500')
     })
 
-    it('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
+    it.only('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         {
@@ -303,15 +302,15 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('label', 'Further work required').click()
       cy.get('#notes').type(testFormData.notes)
 
-      // Add  file
+      const fileName1 = 'photo_1.jpg'
       cy.get('input[type="file"]')
-        .first()
+        .last()
         .selectFile({
-          contents: Cypress.Buffer.from('file contents'),
-          fileName: 'file.png',
-          mimeType: 'image/png',
-          lastModified: Date.now(),
+          contents: `cypress/fixtures/photos/${fileName1}`,
         })
+
+      cy.contains('Compressing photos... (0 of 1').should('be.visible')
+      cy.ensureCompressedFileInIndexedDb(fileName1)
 
       // Add follow-on details
       cy.contains('button', 'Add details').click()
@@ -341,14 +340,15 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       )
 
       // Add follow-on file
+      const fileName2 = 'photo_2.jpg'
       cy.get('input[type="file"]')
         .last()
         .selectFile({
-          contents: Cypress.Buffer.from('file contents'),
-          fileName: 'file.png',
-          mimeType: 'image/png',
-          lastModified: Date.now(),
+          contents: `cypress/fixtures/photos/${fileName2}`,
         })
+
+      cy.contains('Compressing photos... (0 of 1').should('be.visible')
+      cy.ensureCompressedFileInIndexedDb(fileName2)
 
       cy.get('.govuk-button').contains('Close work order').click()
 

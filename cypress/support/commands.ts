@@ -23,6 +23,7 @@ declare global {
         addressAlerts: string[],
         contactAlerts: string[]
       ): Cypress.Chainable<void>
+      ensureCompressedFileInIndexedDb(filename: string): Cypress.Chainable<void>
     }
   }
 }
@@ -246,3 +247,34 @@ Cypress.Commands.add(
     })
   }
 )
+
+Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
+  return cy.window().then((win) => {
+    const dbName = 'repairs-hub-files'
+    const tableName = 'files'
+    return new Cypress.Promise<void>((resolve, reject) => {
+      const dbRequest = win.indexedDB.open(dbName, 1)
+
+      dbRequest.onerror = () => reject(dbRequest.error)
+
+      dbRequest.onsuccess = () => {
+        const db = dbRequest.result
+        try {
+          const transaction = db.transaction(tableName, 'readonly')
+          const store = transaction.objectStore(tableName)
+          const getRequest = store.get(`compressed-${filename}`)
+
+          getRequest.onerror = () => reject(getRequest.error)
+          getRequest.onsuccess = () => {
+            const res = getRequest.result
+            expect(res).to.exist
+            expect(res.name || res.blob?.name).to.equal(filename)
+            resolve()
+          }
+        } catch (e) {
+          reject(e)
+        }
+      }
+    })
+  })
+})
