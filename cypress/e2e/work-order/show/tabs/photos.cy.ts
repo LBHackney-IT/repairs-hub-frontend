@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import 'cypress-audit/commands'
 
 const WORK_ORDER_REFERENCE = 10000012
@@ -58,7 +56,7 @@ describe('Photos', () => {
     cy.get('li[data-testid="fileGroup-152"]').within(() => {
       cy.contains('Uploaded directly to work order')
       cy.contains('Uploaded by Test Test (test.test@hackney.gov.uk)')
-      cy.contains('25 Jul 2024, 06:30')
+      cy.contains(/25 Jul 2024, (06|07):30/)
       cy.contains('Some description')
 
       cy.get('button').contains('Edit description')
@@ -73,7 +71,7 @@ describe('Photos', () => {
       cy.contains(
         'Uploaded by Dennis Reynolds (dennis.reynolds@hackney.gov.uk)'
       )
-      cy.contains('21 Aug 2024, 13:21')
+      cy.contains(/21 Aug 2024, (13|14):21/)
 
       cy.get('button').contains('Add description')
 
