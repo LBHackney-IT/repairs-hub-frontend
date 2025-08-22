@@ -253,28 +253,45 @@ Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
     const dbName = 'repairs-hub-files'
     const tableName = 'files'
     return new Cypress.Promise<void>((resolve, reject) => {
-      const dbRequest = win.indexedDB.open(dbName, 1)
+      let attempts = 0
+      const maxAttempts = 5
 
-      dbRequest.onerror = () => reject(dbRequest.error)
+      function tryOpenDb() {
+        const dbRequest = win.indexedDB.open(dbName, 1)
 
-      dbRequest.onsuccess = () => {
-        const db = dbRequest.result
-        try {
-          const transaction = db.transaction(tableName, 'readonly')
-          const store = transaction.objectStore(tableName)
-          const getRequest = store.get(`compressed-${filename}`)
+        dbRequest.onerror = () => reject(dbRequest.error)
 
-          getRequest.onerror = () => reject(getRequest.error)
-          getRequest.onsuccess = () => {
-            const res = getRequest.result
-            expect(res).to.exist
-            expect(res.name || res.blob?.name).to.equal(filename)
-            resolve()
+        dbRequest.onsuccess = () => {
+          const db = dbRequest.result
+          try {
+            const transaction = db.transaction(tableName, 'readonly')
+            const store = transaction.objectStore(tableName)
+            const getRequest = store.get(`compressed-${filename}`)
+
+            getRequest.onerror = () => reject(getRequest.error)
+            getRequest.onsuccess = () => {
+              const res = getRequest.result
+              if (!res && attempts < maxAttempts) {
+                attempts++
+                setTimeout(tryOpenDb, 1000)
+              } else {
+                expect(res).to.exist
+                expect(res.name || res.blob?.name).to.equal(filename)
+                resolve()
+              }
+            }
+          } catch (e) {
+            if (attempts < maxAttempts) {
+              attempts++
+              setTimeout(tryOpenDb, 1000)
+            } else {
+              reject(e)
+            }
           }
-        } catch (e) {
-          reject(e)
         }
       }
+
+      tryOpenDb()
     })
   })
 })

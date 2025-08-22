@@ -134,6 +134,8 @@ describe('Photos', () => {
         lastModified: Date.now(),
       })
     )
+    cy.contains('Compressing photos... (0 of 11)')
+    cy.contains('Compressing photos... (5 of 11)')
     cy.get('button').contains('Upload').click()
 
     // should contain error message
@@ -141,8 +143,6 @@ describe('Photos', () => {
     cy.contains('.tabs-button', 'Photos').then((x) =>
       x.hasClass('govuk-form-group--error')
     )
-    cy.contains('Compressing photos... (0 of 11)')
-    cy.contains('Compressing photos... (5 of 11)')
 
     // 3. removing additional file clears error message
     cy.get('button').contains('Remove').last().click()
