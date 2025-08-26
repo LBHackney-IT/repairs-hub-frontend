@@ -4,10 +4,13 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
 import classNames from 'classnames'
 import useUpdateFileInput from './hooks/useUpdateFileInput'
-import { getCachedFile, setCachedFile } from './hooks/uploadFiles/cacheFile'
-import { compressFile } from './hooks/uploadFiles/compressFile'
+import {
+  cachedFileExists,
+  getCachedFile,
+  setCachedFile,
+} from './hooks/uploadFiles/cacheFile'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
-import ensureAllFilesReadable from './hooks/uploadFiles/ensureAllFilesReadable'
+import compressFile from './hooks/uploadFiles/compressFile'
 
 interface Props {
   files: File[]
@@ -42,65 +45,52 @@ const ControlledFileInput = (props: Props) => {
   useUpdateFileInput(inputRef, files)
 
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = Object.values(e.target.files || []) as File[]
+    const selectedFiles = Array.from(e.target.files || [])
 
     if (selectedFiles.length === 0) {
       setFiles([])
       return
     }
 
-    // show previews immediately using the original selected files
+    setIsCompressing(true)
+    setTotalFilesToCompress(selectedFiles.length)
+    setCompressedCount(0)
     setFiles(selectedFiles)
 
-    // compress/cache in background and then replace previews with compressed files
-    setIsCompressing(true)
-    setCompressedCount(0)
-    setTotalFilesToCompress(selectedFiles.length)
+    try {
+      const stableFiles: File[] = []
 
-    const processedFiles: File[] = []
+      // Process files one-by-one to avoid memory spikes
+      // Read each file into memory and create a stable copy away from the OS
+      for (const file of selectedFiles) {
+        const buffer = await file.arrayBuffer()
+        const stableFile = new File([buffer], file.name, { type: file.type })
+        stableFiles.push(stableFile)
+      }
 
-    // ensure all files are readable
-    await ensureAllFilesReadable(selectedFiles)
-
-    for (const file of selectedFiles) {
-      setCompressedCount(processedFiles.length)
-
-      // if file is already cached, use the cached file
-      try {
-        const cached = await getCachedFile(file)
-        if (cached) {
-          processedFiles.push(cached)
-          continue
+      for (const file of stableFiles) {
+        if (await cachedFileExists(file)) {
+          const cached = await getCachedFile(file)
+          if (cached) {
+            console.log('File already cached, skipping compression:', file.name)
+            setCompressedCount((prevCount) => prevCount + 1)
+            continue
+          }
         }
-      } catch (err) {
-        console.error(
-          'Error reading cached file, attempting to re-compress original file:',
-          file.name,
-          err
-        )
+        try {
+          const compressed = await compressFile(file)
+          setCachedFile(compressed)
+        } catch (error) {
+          console.error('Error compressing file:', error)
+          setCachedFile(file)
+        }
+        setCompressedCount((prevCount) => prevCount + 1)
       }
-
-      // if the file is not already cached, compress and cache it
-      try {
-        const compressed = await compressFile(file)
-        processedFiles.push(compressed)
-        await setCachedFile(compressed)
-      } catch (err) {
-        console.error(
-          'Compression failed, using original file:',
-          file.name,
-          err
-        )
-        processedFiles.push(file)
-      }
+    } catch (err) {
+      console.error('Error processing files:', err)
+    } finally {
+      setIsCompressing(false)
     }
-
-    // replace previews with compressed/cached files once ready
-    setFiles(processedFiles)
-    setIsCompressing(false)
-
-    setTotalFilesToCompress(0)
-    setCompressedCount(0)
   }
 
   return (
@@ -149,7 +139,7 @@ const ControlledFileInput = (props: Props) => {
             {isCompressing && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <SpinnerWithLabel
-                  label={`Compressing photos... (${compressedCount} of ${totalFilesToCompress})`}
+                  label={`Caching photos... (${compressedCount} of ${totalFilesToCompress})`}
                 />
               </div>
             )}

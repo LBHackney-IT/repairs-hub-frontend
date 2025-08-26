@@ -3,7 +3,7 @@ import uploadFilesToS3 from './uploadFilesToS3'
 import completeUpload from './completeUpload'
 import { captureException } from '@sentry/nextjs'
 import fileUploadStatusLogger from './fileUploadStatusLogger'
-import { compressFile } from './compressFile'
+import compressFile from './compressFile'
 import { clearSessionStorage, getCachedFile, setCachedFile } from './cacheFile'
 import ensureAllFilesReadable from './ensureAllFilesReadable'
 

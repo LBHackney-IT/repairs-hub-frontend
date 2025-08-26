@@ -35,7 +35,7 @@ function compressWithCompressorJS(file: File): Promise<File> {
   })
 }
 
-export async function compressFile(file: File): Promise<File> {
+async function compressFile(file: File): Promise<File> {
   const featureToggles = await fetchSimpleFeatureToggles()
 
   // Use browser-image-compression as default
@@ -66,3 +66,5 @@ export async function compressFile(file: File): Promise<File> {
   })
   return compressResult
 }
+
+export default compressFile
