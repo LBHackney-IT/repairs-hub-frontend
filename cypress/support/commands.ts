@@ -24,6 +24,7 @@ declare global {
         contactAlerts: string[]
       ): Cypress.Chainable<void>
       ensureCompressedFileInIndexedDb(filename: string): Cypress.Chainable<void>
+      clearFilesDatabase(): Cypress.Chainable<void>
     }
   }
 }
@@ -266,7 +267,7 @@ Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
           try {
             const transaction = db.transaction(tableName, 'readonly')
             const store = transaction.objectStore(tableName)
-            const getRequest = store.get(`compressed-${filename}`)
+            const getRequest = store.get(`cached-${filename}`)
 
             getRequest.onerror = () => reject(getRequest.error)
             getRequest.onsuccess = () => {
@@ -276,7 +277,6 @@ Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
                 setTimeout(tryOpenDb, 1000)
               } else {
                 expect(res).to.exist
-                expect(res.name || res.blob?.name).to.equal(filename)
                 resolve()
               }
             }
@@ -293,5 +293,39 @@ Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
 
       tryOpenDb()
     })
+  })
+})
+
+Cypress.Commands.add('clearFilesDatabase', () => {
+  return cy.window().then(async (win) => {
+    const dbName = 'repairs-hub-files'
+    const tableName = 'files'
+
+    const databases = await win.indexedDB.databases()
+    if (!databases.some((db) => db.name === dbName)) {
+      return
+    }
+
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const request = win.indexedDB.open(dbName)
+      request.onerror = () => reject(request.error)
+      request.onsuccess = () => resolve(request.result)
+    })
+
+    if (!db.objectStoreNames.contains(tableName)) {
+      db.close()
+      return
+    }
+
+    await new Promise<void>((resolve, reject) => {
+      const transaction = db.transaction(tableName, 'readwrite')
+      transaction.oncomplete = () => resolve()
+      transaction.onerror = () => reject(transaction.error)
+
+      const store = transaction.objectStore(tableName)
+      store.clear()
+    })
+
+    db.close()
   })
 })

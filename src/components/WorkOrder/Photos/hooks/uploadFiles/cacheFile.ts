@@ -1,20 +1,12 @@
 import { openDB } from 'idb'
 import type { IDBPDatabase } from 'idb'
-import ensureAllFilesReadable from './ensureAllFilesReadable'
 
 const DB_NAME = 'repairs-hub-files'
 const STORE_NAME = 'files'
 const DB_VERSION = 1
 
-type StoredFile = {
-  blob: Blob
-  name: string
-  type: string
-  lastModified?: number
-}
-
 function fileCacheKey(file: File): string {
-  return `compressed-${file.name}`
+  return `cached-${file.name}`
 }
 
 let cachedDb: IDBPDatabase | null = null
@@ -39,11 +31,21 @@ function fileDetails(file: File) {
   }
 }
 
-function storedToFile(stored: StoredFile, fallbackName: string): File {
-  return new File([stored.blob], stored.name || fallbackName, {
-    type: stored.type || 'application/octet-stream',
-    lastModified: stored.lastModified || Date.now(),
-  })
+export async function cachedFileExists(file: File): Promise<boolean> {
+  if (typeof window === 'undefined') return false
+
+  try {
+    const db = await getDb()
+    const cacheKey = fileCacheKey(file)
+    const allDbKeys = await db.getAllKeys(STORE_NAME)
+    return allDbKeys.includes(cacheKey)
+  } catch (err) {
+    console.error(
+      `Error checking existence of ${fileCacheKey(file)} in IndexedDB cache:`,
+      err
+    )
+    return false
+  }
 }
 
 export async function getCachedFile(originalFile: File): Promise<File | null> {
@@ -52,19 +54,10 @@ export async function getCachedFile(originalFile: File): Promise<File | null> {
   try {
     const db = await getDb()
     const cacheKey = fileCacheKey(originalFile)
-    const stored = (await db.get(STORE_NAME, cacheKey)) as
-      | StoredFile
-      | undefined
-    if (!stored) return null
+    const cachedFile = (await db.get(STORE_NAME, cacheKey)) as File | undefined
+    if (!cachedFile) return null
 
-    const cachedFile = storedToFile(stored, originalFile.name)
-    console.log(
-      'Retrieved cached file:',
-      fileCacheKey(cachedFile),
-      fileDetails(cachedFile)
-    )
-
-    await ensureAllFilesReadable([cachedFile])
+    console.log('Retrieved cached file:', cacheKey, fileDetails(cachedFile))
 
     return cachedFile
   } catch (err) {
@@ -80,22 +73,23 @@ export async function setCachedFile(file: File): Promise<void> {
   if (typeof window === 'undefined') return
 
   try {
-    const db = await getDb()
-    const toStore: StoredFile = {
-      blob: file,
-      name: file.name,
-      type: file.type,
-      lastModified: (file as File).lastModified || Date.now(),
-    }
     const cacheKey = fileCacheKey(file)
-    await db.put(STORE_NAME, toStore, cacheKey)
-    console.log('Cached compressed file in IndexedDB:', fileDetails(file))
+    const db = await getDb()
+
+    // if key already in cache - abort
+    const existing = await db.get(STORE_NAME, cacheKey)
+    if (existing) {
+      console.log('File already cached:', fileDetails(file))
+      return
+    }
+    await db.put(STORE_NAME, file, cacheKey)
+    console.log('Cached file in IndexedDB:', fileDetails(file))
   } catch (err) {
     console.error('Error caching file to IndexedDB:', err)
   }
 }
 
-export async function clearSessionStorage(): Promise<void> {
+export async function clearIndexedDb(): Promise<void> {
   if (typeof window === 'undefined') return
   try {
     const db = await getDb()
