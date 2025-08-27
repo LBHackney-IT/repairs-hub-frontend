@@ -1,17 +1,9 @@
 import { openDB } from 'idb'
 import type { IDBPDatabase } from 'idb'
-import ensureAllFilesReadable from './ensureAllFilesReadable'
 
 const DB_NAME = 'repairs-hub-files'
 const STORE_NAME = 'files'
 const DB_VERSION = 1
-
-type StoredFile = {
-  blob: Blob
-  name: string
-  type: string
-  lastModified?: number
-}
 
 function fileCacheKey(file: File): string {
   return `cached-${file.name}`
@@ -37,13 +29,6 @@ function fileDetails(file: File) {
     size: file.size,
     type: file.type,
   }
-}
-
-function storedToFile(stored: StoredFile, fallbackName: string): File {
-  return new File([stored.blob], stored.name || fallbackName, {
-    type: stored.type || 'application/octet-stream',
-    lastModified: stored.lastModified || Date.now(),
-  })
 }
 
 export async function cachedFileExists(file: File): Promise<boolean> {
@@ -73,8 +58,6 @@ export async function getCachedFile(originalFile: File): Promise<File | null> {
     if (!cachedFile) return null
 
     console.log('Retrieved cached file:', cacheKey, fileDetails(cachedFile))
-
-    await ensureAllFilesReadable([cachedFile])
 
     return cachedFile
   } catch (err) {
@@ -106,7 +89,7 @@ export async function setCachedFile(file: File): Promise<void> {
   }
 }
 
-export async function clearSessionStorage(): Promise<void> {
+export async function clearIndexedDb(): Promise<void> {
   if (typeof window === 'undefined') return
   try {
     const db = await getDb()

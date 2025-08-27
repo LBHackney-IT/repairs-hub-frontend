@@ -47,15 +47,10 @@ const ControlledFileInput = (props: Props) => {
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || [])
 
-    if (selectedFiles.length === 0) {
-      setFiles([])
-      return
-    }
-
+    setFiles([])
     setIsCompressing(true)
     setTotalFilesToCompress(selectedFiles.length)
     setCompressedCount(0)
-    setFiles(selectedFiles)
 
     try {
       const stableFiles: File[] = []
@@ -67,6 +62,7 @@ const ControlledFileInput = (props: Props) => {
         const stableFile = new File([buffer], file.name, { type: file.type })
         stableFiles.push(stableFile)
       }
+      setFiles(stableFiles)
 
       for (const file of stableFiles) {
         if (await cachedFileExists(file)) {

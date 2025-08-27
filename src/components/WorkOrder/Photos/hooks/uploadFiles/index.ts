@@ -4,7 +4,7 @@ import completeUpload from './completeUpload'
 import { captureException } from '@sentry/nextjs'
 import fileUploadStatusLogger from './fileUploadStatusLogger'
 import compressFile from './compressFile'
-import { clearSessionStorage, getCachedFile, setCachedFile } from './cacheFile'
+import { clearIndexedDb, getCachedFile, setCachedFile } from './cacheFile'
 import ensureAllFilesReadable from './ensureAllFilesReadable'
 
 export class FileUploadError extends Error {
@@ -84,7 +84,7 @@ const uploadFiles = async (
       throw new FileUploadError(completeUploadResult.error as string)
 
     // Clear cache
-    clearSessionStorage()
+    clearIndexedDb()
   } catch (error) {
     if (error instanceof FileUploadError)
       captureException('Failed to upload photos', {
