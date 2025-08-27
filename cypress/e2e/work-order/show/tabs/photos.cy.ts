@@ -115,7 +115,7 @@ describe('Photos', () => {
     cy.get('input[type="file"]').selectFile({
       contents: 'cypress/fixtures/photos/notPhoto.txt',
     })
-    cy.contains('Compressing photos... (0 of 1)')
+    cy.contains('Caching photos... (0 of 1)')
 
     cy.get('button').contains('Upload').click()
 
@@ -134,8 +134,8 @@ describe('Photos', () => {
         lastModified: Date.now(),
       })
     )
-    cy.contains('Compressing photos... (0 of 11)')
-    cy.contains('Compressing photos... (5 of 11)')
+    cy.contains('Caching photos... (0 of 11)')
+    cy.contains('Caching photos... (5 of 11)')
     cy.get('button').contains('Upload').click()
 
     // should contain error message
@@ -175,7 +175,7 @@ describe('Photos', () => {
 
     cy.get('button').contains('Upload').click()
 
-    cy.contains('Compressing photos... (0 of 1')
+    cy.contains('Caching photos... (0 of 1')
 
     cy.wait('@getLinksRequest')
 
