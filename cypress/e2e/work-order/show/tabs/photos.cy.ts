@@ -175,7 +175,7 @@ describe('Photos', () => {
 
     cy.get('button').contains('Upload').click()
 
-    cy.contains('Caching photos... (0 of 1')
+    cy.contains('Compressing photos... (0 of 1')
 
     cy.wait('@getLinksRequest')
 

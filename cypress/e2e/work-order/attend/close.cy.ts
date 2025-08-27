@@ -219,7 +219,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get('input[type="file"]').selectFile({
         contents: `cypress/fixtures/photos/${fileName}`,
       })
-      cy.contains('Compressing photos... (0 of 1')
+      cy.contains('Caching photos... (0 of 1')
       cy.ensureCompressedFileInIndexedDb(fileName)
 
       cy.get('.govuk-button').contains('Close work order').click()
