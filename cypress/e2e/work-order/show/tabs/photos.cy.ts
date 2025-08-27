@@ -175,7 +175,7 @@ describe('Photos', () => {
 
     cy.get('button').contains('Upload').click()
 
-    cy.contains('Compressing photos... (0 of 1')
+    cy.contains('Caching photos... (0 of 1')
 
     cy.wait('@getLinksRequest')
 
@@ -229,7 +229,7 @@ describe('Photos', () => {
       lastModified: Date.now(),
     })
 
-    cy.contains('Compressing photos... (0 of 1')
+    cy.contains('Caching photos... (0 of 1')
 
     cy.get('textarea[data-testid="description"]').type('some description')
 
