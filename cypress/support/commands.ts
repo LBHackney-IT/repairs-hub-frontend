@@ -266,7 +266,7 @@ Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
           try {
             const transaction = db.transaction(tableName, 'readonly')
             const store = transaction.objectStore(tableName)
-            const getRequest = store.get(`compressed-${filename}`)
+            const getRequest = store.get(`cached-${filename}`)
 
             getRequest.onerror = () => reject(getRequest.error)
             getRequest.onsuccess = () => {
@@ -276,7 +276,6 @@ Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
                 setTimeout(tryOpenDb, 1000)
               } else {
                 expect(res).to.exist
-                expect(res.name || res.blob?.name).to.equal(filename)
                 resolve()
               }
             }

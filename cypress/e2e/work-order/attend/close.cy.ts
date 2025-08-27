@@ -309,7 +309,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           contents: `cypress/fixtures/photos/${fileName1}`,
         })
 
-      cy.contains('Compressing photos... (0 of 1').should('be.visible')
+      cy.contains('Caching photos... (0 of 1').should('be.visible')
       cy.ensureCompressedFileInIndexedDb(fileName1)
 
       // Add follow-on details
@@ -347,7 +347,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           contents: `cypress/fixtures/photos/${fileName2}`,
         })
 
-      cy.contains('Compressing photos... (0 of 1').should('be.visible')
+      cy.contains('Caching photos... (0 of 1').should('be.visible')
       cy.ensureCompressedFileInIndexedDb(fileName2)
 
       cy.get('.govuk-button').contains('Close work order').click()
