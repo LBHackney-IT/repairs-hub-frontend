@@ -46,6 +46,8 @@ describe('Photos', () => {
     ).as('updateDescriptionRequest')
 
     cy.loginWithAgentRole()
+
+    cy.clearFilesDatabase()
   })
 
   it('shows a list of photos', () => {
@@ -167,10 +169,7 @@ describe('Photos', () => {
     cy.contains('.tabs-button', 'Photos').click()
 
     cy.get('input[type="file"]').selectFile({
-      contents: Cypress.Buffer.from('file contents'),
-      fileName: 'file.png',
-      mimeType: 'image/png',
-      lastModified: Date.now(),
+      contents: 'cypress/fixtures/photos/photo_1.jpg',
     })
 
     cy.get('button').contains('Upload').click()
