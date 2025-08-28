@@ -46,35 +46,6 @@ exports[`ControlledFileInput component renders shows file previews 1`] = `
       style="margin-top: 10px;"
       type="file"
     />
-    <div
-      class="photoUploadPreview"
-    >
-      <div
-        class="photoUploadPreview-container"
-      >
-        <div
-          class="photoUploadPreview-imageContainer"
-        >
-          <img
-            alt="Preview Uploaded Image"
-            class="photoUploadPreview-image"
-            id="file-preview"
-            src="mockResponseUrl"
-          />
-        </div>
-        <p
-          class="photoUploadPreview-filename"
-        >
-          test.png
-        </p>
-        <button
-          class="photoUploadPreview-removeButton"
-          type="button"
-        >
-          Remove
-        </button>
-      </div>
-    </div>
   </div>
 </DocumentFragment>
 `;
@@ -112,35 +83,6 @@ exports[`ControlledFileInput component renders shows validation error 1`] = `
       style="margin-top: 10px;"
       type="file"
     />
-    <div
-      class="photoUploadPreview"
-    >
-      <div
-        class="photoUploadPreview-container"
-      >
-        <div
-          class="photoUploadPreview-imageContainer"
-        >
-          <img
-            alt="Preview Uploaded Image"
-            class="photoUploadPreview-image"
-            id="file-preview"
-            src="mockResponseUrl"
-          />
-        </div>
-        <p
-          class="photoUploadPreview-filename"
-        >
-          test.png
-        </p>
-        <button
-          class="photoUploadPreview-removeButton"
-          type="button"
-        >
-          Remove
-        </button>
-      </div>
-    </div>
   </div>
 </DocumentFragment>
 `;
