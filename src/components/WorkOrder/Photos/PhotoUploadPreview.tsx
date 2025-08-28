@@ -29,11 +29,11 @@ const PhotoUploadPreview = (props: Props) => {
             onClick={() => {
               if (disabled) return
 
-              setFiles((prevFiles: File[]) => {
-                const newArr = [...prevFiles]
+              const newArr = [...files]
+              if (index >= 0 && index < newArr.length) {
                 newArr.splice(index, 1)
-                return newArr
-              })
+              }
+              setFiles(newArr)
             }}
           >
             Remove
