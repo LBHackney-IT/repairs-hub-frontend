@@ -41,6 +41,7 @@ const ControlledFileInput = (props: Props) => {
   const [isCompressing, setIsCompressing] = useState(false)
   const [compressedCount, setCompressedCount] = useState(0)
   const [totalFilesToCompress, setTotalFilesToCompress] = useState(0)
+  const [previewFiles, setPreviewFiles] = useState<File[]>([])
 
   useUpdateFileInput(inputRef, files)
 
@@ -48,6 +49,7 @@ const ControlledFileInput = (props: Props) => {
     const selectedFiles = Array.from(e.target.files || [])
 
     setFiles([])
+    setPreviewFiles([])
     setIsCompressing(true)
     setTotalFilesToCompress(selectedFiles.length)
     setCompressedCount(0)
@@ -69,6 +71,7 @@ const ControlledFileInput = (props: Props) => {
           const cached = await getCachedFile(file)
           if (cached) {
             console.log('File already cached, skipping compression:', file.name)
+            setPreviewFiles((prev) => [...prev, cached])
             setCompressedCount((prevCount) => prevCount + 1)
             continue
           }
@@ -76,9 +79,11 @@ const ControlledFileInput = (props: Props) => {
         try {
           const compressed = await compressFile(file)
           setCachedFile(compressed)
+          setPreviewFiles((prev) => [...prev, compressed])
         } catch (error) {
           console.error('Error compressing file:', error)
           setCachedFile(file)
+          setPreviewFiles((prev) => [...prev, file])
         }
         setCompressedCount((prevCount) => prevCount + 1)
       }
@@ -125,21 +130,26 @@ const ControlledFileInput = (props: Props) => {
       />
 
       <>
-        {files.length > 0 && (
+        {previewFiles.length > 0 && (
           <>
             <PhotoUploadPreview
-              files={files}
+              files={previewFiles}
               disabled={isLoading}
-              setFiles={setFiles}
+              setFiles={(newPreviewFiles: File[]) => {
+                setPreviewFiles(newPreviewFiles)
+                const keepNames = new Set(newPreviewFiles.map((f) => f.name))
+                const newFormFiles = files.filter((f) => keepNames.has(f.name))
+                setFiles(newFormFiles)
+              }}
             />
-            {isCompressing && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <SpinnerWithLabel
-                  label={`Caching photos... (${compressedCount} of ${totalFilesToCompress})`}
-                />
-              </div>
-            )}
           </>
+        )}
+        {isCompressing && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <SpinnerWithLabel
+              label={`Caching photos... (${compressedCount} of ${totalFilesToCompress})`}
+            />
+          </div>
         )}
       </>
     </div>
