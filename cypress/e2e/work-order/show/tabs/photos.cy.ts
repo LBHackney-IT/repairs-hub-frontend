@@ -128,13 +128,16 @@ describe('Photos', () => {
     )
 
     // 2. too many files
+    const photo1 = 'photo_1.jpg'
     cy.get('input[type="file"]').selectFile(
-      Array(11).fill({
-        contents: Cypress.Buffer.from('file contents'),
-        fileName: 'file.png',
-        mimeType: 'image/png',
-        lastModified: Date.now(),
-      })
+      Array(11)
+        .fill(null)
+        .map((_, i) => ({
+          contents: `cypress/fixtures/photos/${photo1}`,
+          fileName: `photo_${i + 1}.jpg`,
+          mimeType: 'image/jpeg',
+          lastModified: Date.now(),
+        }))
     )
     cy.contains('Caching photos... (0 of 11)')
     cy.contains('Caching photos... (5 of 11)')

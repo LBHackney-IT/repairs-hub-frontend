@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 
 import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
@@ -44,6 +44,51 @@ const ControlledFileInput = (props: Props) => {
   const [previewFiles, setPreviewFiles] = useState<File[]>([])
 
   useUpdateFileInput(inputRef, files)
+
+  useEffect(() => {
+    const syncPreviews = async () => {
+      if (files.length === 0) {
+        setPreviewFiles([])
+        return
+      }
+
+      const neededFiles = files.filter(
+        (file) => !previewFiles.some((pf) => pf.name === file.name)
+      )
+      const newPreviews: File[] = []
+
+      for (const file of neededFiles) {
+        if (await cachedFileExists(file)) {
+          const cached = await getCachedFile(file)
+          if (cached) {
+            newPreviews.push(cached)
+          } else {
+            try {
+              const compressed = await compressFile(file)
+              setCachedFile(compressed)
+              newPreviews.push(compressed)
+            } catch {
+              newPreviews.push(file)
+            }
+          }
+        } else {
+          try {
+            const compressed = await compressFile(file)
+            setCachedFile(compressed)
+            newPreviews.push(compressed)
+          } catch {
+            newPreviews.push(file)
+          }
+        }
+      }
+
+      if (newPreviews.length > 0) {
+        setPreviewFiles((prev) => [...prev, ...newPreviews])
+      }
+    }
+
+    syncPreviews()
+  }, [files, previewFiles])
 
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || [])
