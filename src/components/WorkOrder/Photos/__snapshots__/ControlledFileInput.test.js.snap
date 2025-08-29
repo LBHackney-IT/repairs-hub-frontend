@@ -21,9 +21,6 @@ exports[`ControlledFileInput component renders component when no files selected 
       style="margin-top: 10px;"
       type="file"
     />
-    <div
-      class="photoUploadPreview"
-    />
   </div>
 </DocumentFragment>
 `;
@@ -48,9 +45,6 @@ exports[`ControlledFileInput component renders shows file previews 1`] = `
       name="fileUpload"
       style="margin-top: 10px;"
       type="file"
-    />
-    <div
-      class="photoUploadPreview"
     />
   </div>
 </DocumentFragment>
@@ -88,9 +82,6 @@ exports[`ControlledFileInput component renders shows validation error 1`] = `
       name="fileUpload"
       style="margin-top: 10px;"
       type="file"
-    />
-    <div
-      class="photoUploadPreview"
     />
   </div>
 </DocumentFragment>

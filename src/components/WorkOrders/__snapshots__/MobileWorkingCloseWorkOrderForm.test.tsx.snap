@@ -106,9 +106,6 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
               style="margin-top: 10px;"
               type="file"
             />
-            <div
-              class="photoUploadPreview"
-            />
           </div>
         </div>
         <div

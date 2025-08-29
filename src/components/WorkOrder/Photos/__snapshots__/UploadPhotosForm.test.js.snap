@@ -33,9 +33,6 @@ exports[`UploadPhotosForm component renders component 1`] = `
             style="margin-top: 10px;"
             type="file"
           />
-          <div
-            class="photoUploadPreview"
-          />
         </div>
       </div>
     </div>

@@ -9,6 +9,8 @@ interface Props {
 const PhotoUploadPreview = (props: Props) => {
   const { files, setFiles, disabled = false } = props
 
+  if (files.length === 0) return null
+
   return (
     <div className="photoUploadPreview">
       {files.map((file, index) => (
