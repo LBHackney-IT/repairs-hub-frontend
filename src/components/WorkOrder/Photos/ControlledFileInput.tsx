@@ -131,7 +131,7 @@ const ControlledFileInput = (props: Props) => {
 
       <>
         <PhotoUploadPreview
-          files={previewFiles.length ? previewFiles : files}
+          files={previewFiles}
           disabled={isLoading}
           setFiles={(newPreviewFiles: File[]) => {
             setPreviewFiles(newPreviewFiles)

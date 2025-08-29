@@ -102,6 +102,10 @@ const MobileWorkingCloseWorkOrderForm = ({
     }
   }, [watch('reason')])
 
+  useEffect(() => {
+    trigger('workOrderFileUpload')
+  }, [workOrderFiles, followOnFiles])
+
   const selectedFurtherWorkRequired =
     watch('followOnStatus') === 'furtherWorkRequired'
 
@@ -165,6 +169,7 @@ const MobileWorkingCloseWorkOrderForm = ({
               register={register('workOrderFileUpload', {
                 validate: () => {
                   const validation = validateFileUpload(workOrderFiles)
+                  console.log({ validation })
 
                   if (validation === null) return true
                   return validation
