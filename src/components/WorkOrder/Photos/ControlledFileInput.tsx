@@ -45,13 +45,6 @@ const ControlledFileInput = (props: Props) => {
 
   useUpdateFileInput(inputRef, files)
 
-  useEffect(() => {
-    const neededFiles = files.filter(
-      (file) => !previewFiles.some((pf) => pf.name === file.name)
-    )
-    setPreviewFiles((prev) => [...prev, ...neededFiles])
-  }, [files, previewFiles])
-
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || [])
 
@@ -137,20 +130,16 @@ const ControlledFileInput = (props: Props) => {
       />
 
       <>
-        {previewFiles.length > 0 && (
-          <>
-            <PhotoUploadPreview
-              files={previewFiles}
-              disabled={isLoading}
-              setFiles={(newPreviewFiles: File[]) => {
-                setPreviewFiles(newPreviewFiles)
-                const keepNames = new Set(newPreviewFiles.map((f) => f.name))
-                const newFormFiles = files.filter((f) => keepNames.has(f.name))
-                setFiles(newFormFiles)
-              }}
-            />
-          </>
-        )}
+        <PhotoUploadPreview
+          files={previewFiles}
+          disabled={isLoading}
+          setFiles={(newPreviewFiles: File[]) => {
+            setPreviewFiles(newPreviewFiles)
+            const keepNames = new Set(newPreviewFiles.map((f) => f.name))
+            const newFormFiles = files.filter((f) => keepNames.has(f.name))
+            setFiles(newFormFiles)
+          }}
+        />
         {isCompressing && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <SpinnerWithLabel

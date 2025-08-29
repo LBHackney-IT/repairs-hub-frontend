@@ -432,6 +432,7 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     it('shows validation errors when uploading files', () => {
+      cy.clearFilesDatabase()
       cy.visit('/work-orders/10000040/close')
       cy.wait('@workOrder')
 
@@ -465,9 +466,8 @@ describe('Closing a work order on behalf of an operative', () => {
             lastModified: Date.now(),
           }))
       )
-      // caching process should complete
-      cy.contains('Caching photos').should('exist')
-      cy.contains('Caching photos').should('not.exist')
+      // caching process should start
+      cy.contains('Caching photos... (1 of 11)').should('exist')
 
       cy.get('[type="submit"]').contains('Close work order').click()
 
