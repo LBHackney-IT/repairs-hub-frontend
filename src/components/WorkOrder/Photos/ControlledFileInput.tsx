@@ -41,9 +41,26 @@ const ControlledFileInput = (props: Props) => {
   const [isCompressing, setIsCompressing] = useState(false)
   const [compressedCount, setCompressedCount] = useState(0)
   const [totalFilesToCompress, setTotalFilesToCompress] = useState(0)
-  const [previewFiles, setPreviewFiles] = useState<File[]>([])
+  const [previewFiles, setPreviewFiles] = useState<File[]>(files)
 
   useUpdateFileInput(inputRef, files)
+
+  useEffect(() => {
+    // if files but no preview files, generate preview files for files
+    // use cached if possible
+    const loadPreviews = async () => {
+      if (files.length > 0 && previewFiles.length === 0) {
+        const cachedPreviews = await Promise.all(
+          files.map(async (file) => {
+            const cached = await getCachedFile(file)
+            return cached || file
+          })
+        )
+        setPreviewFiles(cachedPreviews)
+      }
+    }
+    loadPreviews()
+  }, [files, previewFiles])
 
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || [])
