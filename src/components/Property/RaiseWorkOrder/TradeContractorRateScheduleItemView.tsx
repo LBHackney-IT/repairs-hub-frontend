@@ -10,8 +10,11 @@ import { canAssignBudgetCode } from '@/utils/userPermissions'
 import {
   MULTITRADE_TRADE_CODE,
   MULTITRADE_ENABLED_CONTRACTORS,
-  MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES,
 } from '@/utils/constants'
+import { getContractor } from '@/root/src/utils/requests/contractor'
+import { APIResponseError } from '@/root/src/types/requests/types'
+import Contractor from '@/root/src/models/contractor'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const TradeContractorRateScheduleItemView = ({
   trades,
@@ -38,12 +41,20 @@ const TradeContractorRateScheduleItemView = ({
   filterPriorities,
   formState,
 }) => {
-  const [getContractorsError, setGetContractorsError] = useState()
-  const [getSorCodesError, setGetSorCodesError] = useState()
-  const [getBudgetCodesError, setGetBudgetCodesError] = useState()
-  const [loadingContractors, setLoadingContractors] = useState(false)
-  const [loadingSorCodes, setLoadingSorCodes] = useState(false)
-  const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
+  const [getContractorsError, setGetContractorsError] = useState<
+    string | null
+  >()
+  const [getSorCodesError, setGetSorCodesError] = useState<string | null>()
+  const [getBudgetCodesError, setGetBudgetCodesError] = useState<
+    string | null
+  >()
+  const [loadingContractors, setLoadingContractors] = useState<boolean>(false)
+  const [loadingSorCodes, setLoadingSorCodes] = useState<boolean>(false)
+  const [loadingBudgetCodes, setLoadingBudgetCodes] = useState<boolean>(false)
+
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>()
+  const [contractor, setContractor] = useState<Contractor>()
 
   const [
     orderRequiresIncrementalSearch,
@@ -82,14 +93,47 @@ const TradeContractorRateScheduleItemView = ({
     }
   }
 
-  useEffect(() => {
-    checkIfIncrementalSearchRequired(contractorReference, tradeCode)
-  }, [])
+  const fetchContractor = async (contractorReference: string) => {
+    setError(null)
+    setIsLoading(true)
 
-  const checkIfIncrementalSearchRequired = async (contractorRef, tradeCode) => {
+    console.log({ contractorReference })
+
+    try {
+      const contractorResponse = await getContractor(contractorReference)
+      if (!contractorResponse.success) {
+        throw contractorResponse.error
+      }
+
+      setContractor(contractorResponse.response)
+    } catch (e) {
+      console.error('An error has occured:', e.response)
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(formatRequestErrorMessage(e))
+      }
+    }
+
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    console.log({ contractorReference })
+
+
+
+    fetchContractor(contractorReference)
+  }, [contractorReference])
+
+  useEffect(() => {
+    checkIfIncrementalSearchRequired(contractor)
+  }, [contractor])
+
+  const checkIfIncrementalSearchRequired = async (contractor: Contractor) => {
     const orderApplicable =
-      MULTITRADE_ENABLED_CONTRACTORS.includes(contractorRef) &&
-      tradeCode === MULTITRADE_TRADE_CODE
+      contractor?.multiTradeEnabled && tradeCode === MULTITRADE_TRADE_CODE
 
     if (!orderApplicable) {
       setOrderRequiresIncrementalSearch(false)
@@ -101,16 +145,17 @@ const TradeContractorRateScheduleItemView = ({
     return orderApplicable
   }
 
-  const prepareSORData = async (contractorRef, tradeCode) => {
-    const incrementalSearch = await checkIfIncrementalSearchRequired(
-      contractorRef,
-      tradeCode
-    )
+  const prepareSORData = async (contractor: Contractor, tradeCode: string) => {
+    const incrementalSearch = await checkIfIncrementalSearchRequired(contractor)
 
     if (incrementalSearch) {
       resetSORs()
     } else {
-      getSorCodesData(tradeCode, propertyReference, contractorRef)
+      getSorCodesData(
+        tradeCode,
+        propertyReference,
+        contractor.contractorReference
+      )
     }
   }
 
@@ -131,7 +176,7 @@ const TradeContractorRateScheduleItemView = ({
       } else {
         await prepareSORData(contractorRef, tradeCode)
       }
-      var ctr = contractorRef.toLowerCase()
+      const ctr = contractorRef.toLowerCase()
 
       if (ctr.includes('h02')) {
         filterPriorities('VOIDS')
@@ -155,14 +200,17 @@ const TradeContractorRateScheduleItemView = ({
         },
       })
 
+      setContractors(contractors)
+
       // Add multitrade contractors who don't have any MT SORs
       // (only Purdy, Axis and HHL already have some)
-      tradeCode === MULTITRADE_TRADE_CODE
-        ? setContractors([
-            ...contractors,
-            ...MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES,
-          ])
-        : setContractors(contractors)
+
+      // tradeCode === MULTITRADE_TRADE_CODE
+      //   ? setContractors([
+      //       ...contractors,
+      //       ...MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES,
+      //     ])
+      //   : setContractors(contractors)
     } catch (e) {
       setContractors([])
       setContractorReference('')
@@ -299,7 +347,7 @@ const TradeContractorRateScheduleItemView = ({
             setBudgetCodeId={setBudgetCodeId}
             register={register}
             afterValidBudgetCodeSelected={async () => {
-              await prepareSORData(contractorReference, tradeCode)
+              await prepareSORData(contractor, tradeCode)
             }}
           />
         </>

@@ -11,7 +11,6 @@ import { updateExistingTasksQuantities } from '@/utils/updateTasks'
 import { isSpendLimitReachedResponse } from '@/utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
 import WorkOrderUpdateSummary from './Summary'
-import { MULTITRADE_ENABLED_CONTRACTORS } from '@/utils/constants'
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
@@ -19,6 +18,7 @@ import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSOR
 import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { getContractor } from '@/root/src/utils/requests/contractor'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -47,8 +47,6 @@ const WorkOrderUpdateView = ({ reference }) => {
 
   const FORM_PAGE = 1
   const ADDING_MULTIPLE_SOR_PAGE = 2
-  // const SUMMARY_PAGE = 3
-  // const UPDATE_SUCCESS_PAGE = 4
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   //multiple SORs
@@ -115,10 +113,8 @@ const WorkOrderUpdateView = ({ reference }) => {
       },
     })
 
-  const incrementalSORSearchRequired = async (contractorRef) => {
-    const orderApplicable = MULTITRADE_ENABLED_CONTRACTORS.includes(
-      contractorRef
-    )
+  const incrementalSORSearchRequired = (contractor) => {
+    const orderApplicable = contractor?.multiTradeEnabled
 
     if (!orderApplicable) {
       setOrderRequiresIncrementalSearch(false)
@@ -152,8 +148,13 @@ const WorkOrderUpdateView = ({ reference }) => {
         path: `/api/workOrders/${reference}/tasks`,
       })
 
-      const multiTradeIncrementalSearch = await incrementalSORSearchRequired(
-        workOrder.contractorReference
+      const contractorResponse = await getContractor(contractorReference)
+      if (!contractorResponse.success) {
+        throw contractorResponse.error
+      }
+
+      const multiTradeIncrementalSearch = incrementalSORSearchRequired(
+        contractorResponse.response
       )
 
       if (!multiTradeIncrementalSearch) {
