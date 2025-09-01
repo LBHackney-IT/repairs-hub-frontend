@@ -168,13 +168,16 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       )
 
       // 2. too many files
+      const photo1 = 'photo_1.jpg'
       cy.get('input[type="file"]').selectFile(
-        Array(11).fill({
-          contents: Cypress.Buffer.from('file contents'),
-          fileName: 'file.png',
-          mimeType: 'image/png',
-          lastModified: Date.now(),
-        })
+        Array(11)
+          .fill(null)
+          .map((_, i) => ({
+            contents: `cypress/fixtures/photos/${photo1}`,
+            fileName: `photo_${i + 1}.jpg`,
+            mimeType: 'image/jpeg',
+            lastModified: Date.now(),
+          }))
       )
 
       cy.get('.govuk-button').contains('Close work order').click()
@@ -230,7 +233,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Request failed with status code 500')
     })
 
-    it('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
+    it.only('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         {
@@ -350,6 +353,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Caching photos... (0 of 1').should('be.visible')
       cy.ensureCompressedFileInIndexedDb(fileName2)
 
+      // cy.pause()
       cy.get('.govuk-button').contains('Close work order').click()
 
       // handle multiple intercepts

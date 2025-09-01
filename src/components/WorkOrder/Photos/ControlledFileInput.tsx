@@ -39,20 +39,29 @@ const ControlledFileInput = (props: Props) => {
 
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [isCompressing, setIsCompressing] = useState(false)
-  const [compressedCount, setCompressedCount] = useState(0)
   const [totalFilesToCompress, setTotalFilesToCompress] = useState(0)
+  const [compressedFiles, setCompressedFiles] = useState<File[]>([])
   const [previewFiles, setPreviewFiles] = useState<File[]>(files)
 
   useUpdateFileInput(inputRef, files)
+
+  useEffect(() => {
+    console.log({ previewFiles, files })
+    // for each filename use compressed when available,
+    const allFileNames = [...previewFiles, ...files].map((f) => f.name)
+    console.log('All file names:', allFileNames)
+
+    setPreviewFiles(files)
+  }, [files, compressedFiles])
 
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || [])
 
     setFiles([])
     setPreviewFiles([])
+    setCompressedFiles([])
     setIsCompressing(true)
     setTotalFilesToCompress(selectedFiles.length)
-    setCompressedCount(0)
 
     try {
       const stableFiles: File[] = []
@@ -72,7 +81,7 @@ const ControlledFileInput = (props: Props) => {
           if (cached) {
             console.log('File already cached, skipping compression:', file.name)
             setPreviewFiles((prev) => [...prev, cached])
-            setCompressedCount((prevCount) => prevCount + 1)
+            setCompressedFiles((prev) => [...prev, cached])
             continue
           }
         }
@@ -85,7 +94,7 @@ const ControlledFileInput = (props: Props) => {
           setCachedFile(file)
           setPreviewFiles((prev) => [...prev, file])
         }
-        setCompressedCount((prevCount) => prevCount + 1)
+        setCompressedFiles((prev) => [...prev, file])
       }
     } catch (err) {
       console.error('Error processing files:', err)
@@ -143,7 +152,7 @@ const ControlledFileInput = (props: Props) => {
         {isCompressing && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <SpinnerWithLabel
-              label={`Caching photos... (${compressedCount} of ${totalFilesToCompress})`}
+              label={`Caching photos... (${compressedFiles.length} of ${totalFilesToCompress})`}
             />
           </div>
         )}
