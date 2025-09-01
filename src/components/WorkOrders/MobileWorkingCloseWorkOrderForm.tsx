@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import { PrimarySubmitButton } from '../Form'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
@@ -89,11 +89,35 @@ const MobileWorkingCloseWorkOrderForm = ({
   const [followOnFiles, setFollowOnFiles] = useState<File[]>(
     presetValues.followOnFiles || []
   )
+  const [allWorkOrderFiles, setAllWorkOrderFiles] = useState<File[]>(
+    presetValues.workOrderFiles || []
+  )
+  const [allFollowOnFiles, setAllFollowOnFiles] = useState<File[]>(
+    presetValues.followOnFiles || []
+  )
+
+  const handleWorkOrderFilesSelected = useCallback((files: File[]) => {
+    setAllWorkOrderFiles(files)
+  }, [])
+
+  const handleFollowOnFilesSelected = useCallback((files: File[]) => {
+    setAllFollowOnFiles(files)
+  }, [])
+
+  const handleWorkOrderFileRemoved = useCallback((remainingFiles: File[]) => {
+    setAllWorkOrderFiles(remainingFiles)
+  }, [])
+
+  const handleFollowOnFileRemoved = useCallback((remainingFiles: File[]) => {
+    setAllFollowOnFiles(remainingFiles)
+  }, [])
 
   useEffect(() => {
     // Persist here because files not supported in useFormPersist
     setWorkOrderFiles(presetValues.workOrderFiles || [])
     setFollowOnFiles(presetValues.followOnFiles || [])
+    setAllWorkOrderFiles(presetValues.workOrderFiles || [])
+    setAllFollowOnFiles(presetValues.followOnFiles || [])
   }, [presetValues.workOrderFiles, presetValues.followOnFiles])
 
   useEffect(() => {
@@ -141,7 +165,7 @@ const MobileWorkingCloseWorkOrderForm = ({
       <form
         role="form"
         onSubmit={handleSubmit((data) => {
-          onSubmit(data, workOrderFiles, followOnFiles)
+          onSubmit(data, allWorkOrderFiles, allFollowOnFiles)
         })}
       >
         <div
@@ -164,11 +188,13 @@ const MobileWorkingCloseWorkOrderForm = ({
               hint="Add photos showing the repair you completed (up to 10 photos)"
               files={workOrderFiles}
               setFiles={setWorkOrderFiles}
+              onAllFilesSelected={handleWorkOrderFilesSelected}
+              onFileRemoved={handleWorkOrderFileRemoved}
               validationError={errors?.workOrderFileUpload?.message}
               isLoading={isLoading}
               register={register('workOrderFileUpload', {
                 validate: () => {
-                  const validation = validateFileUpload(workOrderFiles)
+                  const validation = validateFileUpload(allWorkOrderFiles)
                   console.log({ validation })
 
                   if (validation === null) return true
@@ -244,11 +270,13 @@ const MobileWorkingCloseWorkOrderForm = ({
                 hint="Add photos showing the follow on work needed (up to 10 photos)"
                 files={followOnFiles}
                 setFiles={setFollowOnFiles}
+                onAllFilesSelected={handleFollowOnFilesSelected}
+                onFileRemoved={handleFollowOnFileRemoved}
                 validationError={errors?.followOnFileUpload?.message}
                 isLoading={isLoading}
                 register={register('followOnFileUpload', {
                   validate: () => {
-                    const validation = validateFileUpload(followOnFiles)
+                    const validation = validateFileUpload(allFollowOnFiles)
 
                     if (validation === null) return true
                     return validation

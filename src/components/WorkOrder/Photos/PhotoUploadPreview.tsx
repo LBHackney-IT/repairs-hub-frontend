@@ -4,10 +4,11 @@ interface Props {
   files: File[]
   setFiles: Dispatch<SetStateAction<File[]>>
   disabled: boolean
+  onFileRemoved?: (files: File[]) => void
 }
 
 const PhotoUploadPreview = (props: Props) => {
-  const { files, setFiles, disabled = false } = props
+  const { files, setFiles, disabled = false, onFileRemoved } = props
 
   if (files.length === 0) return null
 
@@ -36,6 +37,7 @@ const PhotoUploadPreview = (props: Props) => {
                 newArr.splice(index, 1)
               }
               setFiles(newArr)
+              onFileRemoved?.(newArr)
             }}
           >
             Remove

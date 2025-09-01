@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 
 import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
@@ -22,6 +22,8 @@ interface Props {
   hint: string
   disabled?: boolean
   testId: string
+  onAllFilesSelected?: (files: File[]) => void
+  onFileRemoved?: (files: File[]) => void
 }
 
 const ControlledFileInput = (props: Props) => {
@@ -35,66 +37,59 @@ const ControlledFileInput = (props: Props) => {
     hint,
     disabled = false,
     testId,
+    onAllFilesSelected,
+    onFileRemoved,
   } = props
 
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [isCompressing, setIsCompressing] = useState(false)
   const [totalFilesToCompress, setTotalFilesToCompress] = useState(0)
-  const [compressedFiles, setCompressedFiles] = useState<File[]>([])
-  const [previewFiles, setPreviewFiles] = useState<File[]>(files)
+  const [processedCount, setProcessedCount] = useState(0)
 
   useUpdateFileInput(inputRef, files)
-
-  useEffect(() => {
-    console.log({ previewFiles, files })
-    // for each filename use compressed when available,
-    const allFileNames = [...previewFiles, ...files].map((f) => f.name)
-    console.log('All file names:', allFileNames)
-
-    setPreviewFiles(files)
-  }, [files, compressedFiles])
 
   const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || [])
 
-    setFiles([])
-    setPreviewFiles([])
-    setCompressedFiles([])
+    // Create stable File objects immediately to prevent link severance
+    const stableFiles: File[] = []
+    for (const file of selectedFiles) {
+      const buffer = await file.arrayBuffer()
+      const stableFile = new File([buffer], file.name, { type: file.type })
+      stableFiles.push(stableFile)
+    }
+
+    // Immediately notify parent of all selected files for upload
+    onAllFilesSelected?.(stableFiles)
+
     setIsCompressing(true)
-    setTotalFilesToCompress(selectedFiles.length)
+    setTotalFilesToCompress(stableFiles.length)
+    setProcessedCount(0)
+    setFiles([])
 
     try {
-      const stableFiles: File[] = []
-
       // Process files one-by-one to avoid memory spikes
-      // Read each file into memory and create a stable copy away from the OS
-      for (const file of selectedFiles) {
-        const buffer = await file.arrayBuffer()
-        const stableFile = new File([buffer], file.name, { type: file.type })
-        stableFiles.push(stableFile)
-      }
-      setFiles(stableFiles)
-
       for (const file of stableFiles) {
         if (await cachedFileExists(file)) {
           const cached = await getCachedFile(file)
           if (cached) {
-            console.log('File already cached, skipping compression:', file.name)
-            setPreviewFiles((prev) => [...prev, cached])
-            setCompressedFiles((prev) => [...prev, cached])
+            setFiles((prev) => [...prev, cached])
+            setProcessedCount((prev) => prev + 1)
             continue
           }
         }
+
+        // For new files, compress them before displaying
         try {
           const compressed = await compressFile(file)
           setCachedFile(compressed)
-          setPreviewFiles((prev) => [...prev, compressed])
+          setFiles((prev) => [...prev, compressed])
         } catch (error) {
           console.error('Error compressing file:', error)
-          setCachedFile(file)
-          setPreviewFiles((prev) => [...prev, file])
+          // If compression fails, still add the original file
+          setFiles((prev) => [...prev, file])
         }
-        setCompressedFiles((prev) => [...prev, file])
+        setProcessedCount((prev) => prev + 1)
       }
     } catch (err) {
       console.error('Error processing files:', err)
@@ -140,19 +135,15 @@ const ControlledFileInput = (props: Props) => {
 
       <>
         <PhotoUploadPreview
-          files={previewFiles}
+          files={files}
           disabled={isLoading}
-          setFiles={(newPreviewFiles: File[]) => {
-            setPreviewFiles(newPreviewFiles)
-            const keepNames = new Set(newPreviewFiles.map((f) => f.name))
-            const newFormFiles = files.filter((f) => keepNames.has(f.name))
-            setFiles(newFormFiles)
-          }}
+          setFiles={setFiles}
+          onFileRemoved={onFileRemoved}
         />
         {isCompressing && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <SpinnerWithLabel
-              label={`Caching photos... (${compressedFiles.length} of ${totalFilesToCompress})`}
+              label={`Compressing photos... (${processedCount} of ${totalFilesToCompress})`}
             />
           </div>
         )}
