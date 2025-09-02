@@ -111,6 +111,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
   context('during normal working hours', () => {
     beforeEach(() => {
       Cypress.env('IsCurrentOperativeOvertime', false)
+      cy.clearFilesDatabase()
     })
 
     it('shows a validation error when no reason is selected', () => {
