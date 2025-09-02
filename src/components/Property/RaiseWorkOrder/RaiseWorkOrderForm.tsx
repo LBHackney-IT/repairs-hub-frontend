@@ -197,11 +197,14 @@ const RaiseWorkOrderForm = (props: Props) => {
           delete errors.priorityCode
         }
 
-        const priortyObject = getPriorityObjectByDescription(description)
+        setPriorityCode(
+          getPriorityObjectByDescription(description)?.priorityCode
+        )
 
-        setPriorityCode(priortyObject.priorityCode)
-
-        setValue('priorityCode', priortyObject?.priorityCode)
+        setValue(
+          'priorityCode',
+          getPriorityObjectByDescription(description)?.priorityCode
+        )
       }
     } else {
       console.error(
