@@ -32,9 +32,7 @@ const PhotoUploadPreview = (props: Props) => {
               if (disabled) return
 
               setFiles((prevFiles: File[]) => {
-                const newArr = [...prevFiles]
-                newArr.splice(index, 1)
-                return newArr
+                return prevFiles.filter((f) => f.name !== file.name)
               })
             }}
           >
