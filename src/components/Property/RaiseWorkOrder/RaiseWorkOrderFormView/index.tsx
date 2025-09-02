@@ -277,7 +277,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
       <pre>{JSON.stringify(property, null, 2)}</pre>
 
-      {currentPage === RAISE_SUCCESS_PAGE && (
+      {currentPage === RAISE_SUCCESS_PAGE && workOrderReference && property && (
         <RaiseWorkOrderSuccessPage
           immediateOrEmergencyRepairText={immediateOrEmergencyRepairText}
           immediateOrEmergencyDLO={immediateOrEmergencyDLO}
@@ -294,7 +294,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         <AnnouncementMessage announcementMessage={announcementMessage} />
       )}
 
-      {currentPage === FORM_PAGE && (
+      {currentPage === FORM_PAGE && property && priorities && trades && (
         <RaiseWorkOrderForm
           propertyReference={propertyReference}
           property={property}
