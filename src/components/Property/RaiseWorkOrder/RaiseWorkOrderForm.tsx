@@ -1,5 +1,11 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect, useContext } from 'react'
+import {
+  useState,
+  useEffect,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from 'react'
 import { useForm } from 'react-hook-form'
 import PropertyFlags from '../PropertyFlags'
 import BackButton from '../../Layout/BackButton'
@@ -25,36 +31,79 @@ import UserContext from '../../UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 import Link from 'next/link'
 import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useFeatureToggles'
+import { Priority } from '@/root/src/models/priority'
+import { BudgetCode } from '@/root/src/models/budgetCode'
+import Contractor from '@/root/src/models/contractor'
+import { Trades } from '@/root/src/utils/requests/trades'
+import {
+  Address,
+  HierarchyType,
+  Tenure,
+} from '@/root/src/models/propertyTenure'
+import SorCode from '@/root/src/models/sorCode'
 
-const RaiseWorkOrderForm = ({
-  propertyReference,
-  address,
-  hierarchyType,
-  canRaiseRepair,
-  tenure,
-  priorities,
-  trades,
-  tradeCode,
-  setTradeCode,
-  contractors,
-  contractorReference,
-  setContractorReference,
-  setContractors,
-  budgetCodeId,
-  setBudgetCodeId,
-  budgetCodes,
-  setBudgetCodes,
-  sorCodeArrays,
-  setSorCodeArrays,
-  onFormSubmit,
-  raiseLimit,
-  setPageToMultipleSORs,
-  formState,
-  isPriorityEnabled,
-  isIncrementalSearchEnabled,
-  setIsIncrementalSearchEnabled,
-  setPriorities,
-}) => {
+interface Props {
+  propertyReference: string
+  address: Address
+  hierarchyType: HierarchyType
+  canRaiseRepair: boolean
+  tenure: Tenure
+  trades: Trades[]
+  contractors: Contractor[]
+  setContractors: Dispatch<SetStateAction<Contractor[]>>
+  budgetCodes: BudgetCode[]
+  setBudgetCodes: Dispatch<SetStateAction<BudgetCode[]>>
+  sorCodeArrays: SorCode[][]
+  setSorCodeArrays: Dispatch<SetStateAction<SorCode[][]>>
+  priorities: Priority[]
+  onFormSubmit: (formData: any, parentWorkOrderId?: string) => void
+  tradeCode: string
+  setTradeCode: Dispatch<SetStateAction<string>>
+  contractorReference: string
+  setContractorReference: Dispatch<SetStateAction<string>>
+  budgetCodeId: string | number
+  setBudgetCodeId: Dispatch<SetStateAction<string>>
+  setPageToMultipleSORs: Dispatch<SetStateAction<string>>
+  raiseLimit: string
+
+  formState: any
+  isPriorityEnabled: boolean
+  isIncrementalSearchEnabled: boolean
+  setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
+  // setPriorities,
+}
+
+const RaiseWorkOrderForm = (props: Props) => {
+  const {
+    propertyReference,
+    address,
+    hierarchyType,
+    canRaiseRepair,
+    tenure,
+    priorities,
+    trades,
+    tradeCode,
+    setTradeCode,
+    contractors,
+    contractorReference,
+    setContractorReference,
+    setContractors,
+    budgetCodeId,
+    setBudgetCodeId,
+    budgetCodes,
+    setBudgetCodes,
+    sorCodeArrays,
+    setSorCodeArrays,
+    onFormSubmit,
+    raiseLimit,
+    setPageToMultipleSORs,
+    formState,
+    isPriorityEnabled,
+    isIncrementalSearchEnabled,
+    setIsIncrementalSearchEnabled,
+    // setPriorities,
+  } = props
+
   const {
     register,
     handleSubmit,
@@ -69,12 +118,14 @@ const RaiseWorkOrderForm = ({
   const { user } = useContext(UserContext)
   const { simpleFeatureToggles } = useFeatureToggles()
 
-  const [loading, setLoading] = useState(false)
-  const [legalDisrepairError, setLegalDisRepairError] = useState()
-  const [priorityCode, setPriorityCode] = useState()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [legalDisrepairError, setLegalDisRepairError] = useState<
+    string | null
+  >()
+  const [priorityCode, setPriorityCode] = useState<number>()
 
   const [totalCost, setTotalCost] = useState('')
-  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState<boolean>()
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
@@ -120,7 +171,7 @@ const RaiseWorkOrderForm = ({
       .finally(() => setLoading(false))
   }
 
-  const getPriorityObjectByDescription = (description) => {
+  const getPriorityObjectByDescription = (description: string) => {
     return priorities.find((priority) => priority.description === description)
   }
 
@@ -132,13 +183,13 @@ const RaiseWorkOrderForm = ({
     setPriorityCode(code)
   }
 
-  const filterPriorities = (filterText) => {
-    setPriorities(
-      priorities.filter(function (pri) {
-        return pri.description.includes(filterText)
-      })
-    )
-  }
+  // const filterPriorities = (filterText) => {
+  //   setPriorities(
+  //     priorities.filter(function (pri) {
+  //       return pri.description.includes(filterText)
+  //     })
+  //   )
+  // }
 
   const updatePriority = (
     description,
@@ -167,14 +218,11 @@ const RaiseWorkOrderForm = ({
           delete errors.priorityCode
         }
 
-        setPriorityCode(
-          getPriorityObjectByDescription(description)?.priorityCode
-        )
+        const priortyObject = getPriorityObjectByDescription(description)
 
-        setValue(
-          'priorityCode',
-          getPriorityObjectByDescription(description)?.priorityCode
-        )
+        setPriorityCode(priortyObject.priorityCode)
+
+        setValue('priorityCode', priortyObject?.priorityCode)
       }
     } else {
       console.error(
@@ -273,15 +321,12 @@ const RaiseWorkOrderForm = ({
               sorCodeArrays={sorCodeArrays}
               setSorCodeArrays={setSorCodeArrays}
               propertyReference={propertyReference}
-              isContractorUpdatePage={false}
               updatePriority={updatePriority}
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
               setValue={setValue}
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
-              isIncrementalSearchEnabled={isIncrementalSearchEnabled}
-              setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
-              filterPriorities={filterPriorities}
+              filterPriorities={() => {}}
               formState={formState}
             />
 
@@ -364,31 +409,6 @@ const RaiseWorkOrderForm = ({
       </div>
     </>
   )
-}
-
-RaiseWorkOrderForm.propTypes = {
-  propertyReference: PropTypes.string.isRequired,
-  address: PropTypes.object.isRequired,
-  hierarchyType: PropTypes.object.isRequired,
-  canRaiseRepair: PropTypes.bool.isRequired,
-  tenure: PropTypes.object,
-  trades: PropTypes.array.isRequired,
-  contractors: PropTypes.array.isRequired,
-  setContractors: PropTypes.func.isRequired,
-  budgetCodes: PropTypes.array.isRequired,
-  setBudgetCodes: PropTypes.func.isRequired,
-  sorCodeArrays: PropTypes.array.isRequired,
-  setSorCodeArrays: PropTypes.func.isRequired,
-  priorities: PropTypes.array.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
-  tradeCode: PropTypes.string.isRequired,
-  setTradeCode: PropTypes.func.isRequired,
-  contractorReference: PropTypes.string.isRequired,
-  setContractorReference: PropTypes.func.isRequired,
-  budgetCodeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
-  setBudgetCodeId: PropTypes.func.isRequired,
-  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default RaiseWorkOrderForm
