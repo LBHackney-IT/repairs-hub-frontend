@@ -269,7 +269,7 @@ describe('Schedule appointment form', () => {
     })
 
     // when priority is Normal it is redirecting to schedule appointment page
-    it.only('Shows an appointment booking page right after work order is created with a normal priority', () => {
+    it('Shows an appointment booking page right after work order is created with a normal priority', () => {
       cy.visit('/properties/00012345')
 
       cy.wait(['@property'])
@@ -443,7 +443,7 @@ describe('Schedule appointment form', () => {
           otherType: 'addNote',
         })
 
-      // Fails here
+      //success form
       cy.contains('Work order created')
       cy.contains('Reference number')
 
