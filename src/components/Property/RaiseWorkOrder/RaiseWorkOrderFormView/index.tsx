@@ -30,6 +30,10 @@ interface Props {
   propertyReference: string
 }
 
+const FORM_PAGE = 1
+const ADDING_MULTIPLE_SOR_PAGE = 2
+const RAISE_SUCCESS_PAGE = 3
+
 const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
@@ -74,22 +78,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
   const [announcementMessage, setAnnouncementMessage] = useState('')
 
-  const FORM_PAGE = 1
-  const ADDING_MULTIPLE_SOR_PAGE = 2
-  const RAISE_SUCCESS_PAGE = 3
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
   const [isPriorityEnabled, setIsPriorityEnabled] = useState(false)
   const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
     false
   )
-
-  const isOutOfHoursGas = (contractorReference, tradeCode) => {
-    const gasBreakdownContractorReference = 'H04'
-    const oohTradeCode = 'OO'
-
-    if (contractorReference != gasBreakdownContractorReference) return false // contractor must be "H04"
-    return tradeCode == oohTradeCode
-  }
 
   const onFormSubmit = async (formData, parentWorkOrderId = null) => {
     setLoading(true)
@@ -101,49 +94,16 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         params['parentWorkOrderId'] = parentWorkOrderId
       }
 
-      const {
-        id,
-        statusCode,
-        externallyManagedAppointment,
-        externalAppointmentManagementUrl,
-      } = await frontEndApiRequest({
+      const scheduleWorkOrderResponse = await frontEndApiRequest({
         method: 'post',
         path: `/api/workOrders/schedule`,
         requestData: formData,
         params,
       })
-      setWorkOrderReference(id)
 
-      if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
-        setAuthorisationPendingApproval(true)
-      } else if (externallyManagedAppointment) {
-        // Emergency and immediate DLO repairs are sent directly to the Planners
-        // We display no link to open DRS
-        if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
-          setImmediateOrEmergencyRepairText(true)
-          setImmediateOrEmergencyDLO(true)
-        } else {
-          const schedulerSessionId = await getOrCreateSchedulerSessionId()
+      setWorkOrderReference(scheduleWorkOrderResponse.id)
 
-          setExternallyManagedAppointment(true)
-          setExternalAppointmentManagementUrl(
-            `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
-          )
-        }
-      } else if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
-        setImmediateOrEmergencyRepairText(true)
-      } else if (
-        PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
-          formData.priority.priorityCode
-        ) &&
-        !isOutOfHoursGas(contractorReference, tradeCode)
-      ) {
-        router.push({
-          pathname: `/work-orders/${id}/appointment/new`,
-          query: { newOrder: true },
-        })
-        return
-      }
+      await handleSetStatus(scheduleWorkOrderResponse, formData)
 
       setCurrentPage(RAISE_SUCCESS_PAGE)
     } catch (e) {
@@ -155,11 +115,65 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     setLoading(false)
   }
 
-  const getRaiseWorkOrderFormView = async (propertyReference) => {
+  const handleSetStatus = async (scheduleWorkOrderResponse, formData: any) => {
+    const {
+      id,
+      statusCode,
+      externallyManagedAppointment,
+      externalAppointmentManagementUrl,
+    } = scheduleWorkOrderResponse
+
+    if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
+      setAuthorisationPendingApproval(true)
+      return
+    }
+
+    if (externallyManagedAppointment) {
+      // Emergency and immediate DLO repairs are sent directly to the Planners
+      // We display no link to open DRS
+      if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
+        setImmediateOrEmergencyRepairText(true)
+        setImmediateOrEmergencyDLO(true)
+      } else {
+        const schedulerSessionId = await getOrCreateSchedulerSessionId()
+
+        setExternallyManagedAppointment(true)
+        setExternalAppointmentManagementUrl(
+          `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
+        )
+      }
+      return
+    }
+
+    if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
+      setImmediateOrEmergencyRepairText(true)
+      return
+    }
+
+    if (
+      PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
+        formData.priority.priorityCode
+      ) &&
+      !isOutOfHoursGas(contractorReference, tradeCode)
+    ) {
+      router.push({
+        pathname: `/work-orders/${id}/appointment/new`,
+        query: { newOrder: true },
+      })
+      return
+    }
+  }
+
+  const getRaiseWorkOrderFormView = async (propertyReference: string) => {
     setError(null)
 
     try {
-      const [propertyResponse, priorities, trades, user] = await Promise.all([
+      const [
+        propertyTenureResponse,
+        priorities,
+        trades,
+        user,
+      ] = await Promise.all([
         frontEndApiRequest({
           method: 'get',
           path: `/api/properties/${propertyReference}`,
@@ -178,8 +192,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         }),
       ])
 
-      setTenure(propertyResponse.tenure)
-      setProperty(propertyResponse.property)
+      setTenure(propertyTenureResponse.tenure)
+      setProperty(propertyTenureResponse.property)
+
       setPriorities(priorities)
       setTrades(trades)
       setCurrentUser(user)
@@ -209,14 +224,14 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         ...sorCodes.map((c) => [c]),
       ]
 
-      setSorCodeArrays(() => sorCodesInIncremental)
+      setSorCodeArrays(sorCodesInIncremental)
     } else {
       const sorCodesInNonIncremental = [
         ...sorCodeArrays,
         ...sorCodes.map(() => sorCodeArrays),
       ].filter((e) => e.length != 0)
 
-      setSorCodeArrays(() => sorCodesInNonIncremental)
+      setSorCodeArrays(sorCodesInNonIncremental)
     }
 
     setFormState((formState) => {
@@ -241,9 +256,15 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
       formState.rateScheduleItems = []
     }
 
-    return [
-      ...formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0]),
-    ]
+    return formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0])
+  }
+
+  const isOutOfHoursGas = (contractorReference: string, tradeCode: string) => {
+    const gasBreakdownContractorReference = 'H04'
+    const oohTradeCode = 'OO'
+
+    if (contractorReference != gasBreakdownContractorReference) return false // contractor must be "H04"
+    return tradeCode == oohTradeCode
   }
 
   if (loading) {
@@ -255,75 +276,69 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
       <RaiseWorkOrderFormMeta property={property} />
 
       {currentPage === RAISE_SUCCESS_PAGE && workOrderReference && property && (
-        <>
-          <SuccessPage
-            immediateOrEmergencyRepairText={immediateOrEmergencyRepairText}
-            immediateOrEmergencyDLO={immediateOrEmergencyDLO}
-            authorisationPendingApproval={authorisationPendingApproval}
-            workOrderReference={workOrderReference}
-            externallyManagedAppointment={externallyManagedAppointment}
-            property={property}
-            currentUser={currentUser}
-            externalAppointmentManagementUrl={externalAppointmentManagementUrl}
-          />
-        </>
+        <SuccessPage
+          immediateOrEmergencyRepairText={immediateOrEmergencyRepairText}
+          immediateOrEmergencyDLO={immediateOrEmergencyDLO}
+          authorisationPendingApproval={authorisationPendingApproval}
+          workOrderReference={workOrderReference}
+          externallyManagedAppointment={externallyManagedAppointment}
+          property={property}
+          currentUser={currentUser}
+          externalAppointmentManagementUrl={externalAppointmentManagementUrl}
+        />
       )}
 
       {announcementMessage && (
         <AnnouncementMessage announcementMessage={announcementMessage} />
       )}
 
-      {currentPage === FORM_PAGE &&
-        property &&
-        property.address &&
-        property.hierarchyType &&
-        property.canRaiseRepair &&
-        priorities &&
-        trades && (
-          <RaiseWorkOrderForm
-            propertyReference={propertyReference}
-            address={property.address}
-            hierarchyType={property.hierarchyType}
-            canRaiseRepair={property.canRaiseRepair}
-            tenure={tenure}
-            priorities={priorities}
-            trades={trades}
-            tradeCode={tradeCode}
-            setTradeCode={setTradeCode}
-            contractors={contractors}
-            contractorReference={contractorReference}
-            setContractorReference={setContractorReference}
-            setContractors={setContractors}
-            budgetCodeId={budgetCodeId}
-            setBudgetCodeId={setBudgetCodeId}
-            budgetCodes={budgetCodes}
-            setBudgetCodes={setBudgetCodes}
-            sorCodeArrays={sorCodeArrays}
-            setSorCodeArrays={setSorCodeArrays}
-            onFormSubmit={onFormSubmit}
-            raiseLimit={currentUser?.raiseLimit}
-            setPageToMultipleSORs={(formState) => {
-              setAnnouncementMessage('')
-              setFormState(formState)
-              setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-            }}
-            formState={formState}
-            isPriorityEnabled={isPriorityEnabled}
-            isIncrementalSearchEnabled={isIncrementalSearchEnabled}
-            setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
-          />
-        )}
+      {currentPage === FORM_PAGE && property && priorities && trades && (
+        <RaiseWorkOrderForm
+          propertyReference={propertyReference}
+          address={property?.address}
+          hierarchyType={property?.hierarchyType}
+          canRaiseRepair={property?.canRaiseRepair}
+          tenure={tenure}
+          priorities={priorities}
+          trades={trades}
+          tradeCode={tradeCode}
+          setTradeCode={setTradeCode}
+          contractors={contractors}
+          contractorReference={contractorReference}
+          setContractorReference={setContractorReference}
+          setContractors={setContractors}
+          budgetCodeId={budgetCodeId}
+          setBudgetCodeId={setBudgetCodeId}
+          budgetCodes={budgetCodes}
+          setBudgetCodes={setBudgetCodes}
+          sorCodeArrays={sorCodeArrays}
+          setSorCodeArrays={setSorCodeArrays}
+          onFormSubmit={onFormSubmit}
+          raiseLimit={currentUser?.raiseLimit}
+          setPageToMultipleSORs={(formState) => {
+            setAnnouncementMessage('')
+            setFormState(formState)
+            setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+          }}
+          formState={formState}
+          isPriorityEnabled={isPriorityEnabled}
+          isIncrementalSearchEnabled={isIncrementalSearchEnabled}
+          setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
+        />
+      )}
 
       {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
         <AddMultipleSORs
           currentSorCodes={getCurrentSORCodes()}
           setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
-          sorExistenceValidationCallback={createSorExistenceValidator(
-            tradeCode,
-            propertyReference,
-            contractorReference,
-            true
-          )}
+          sorExistenceValidationCallback={async () => {
+            await createSorExistenceValidator(
+              tradeCode,
+              propertyReference,
+              contractorReference,
+              true
+            )
+          }}
           setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
           setAnnouncementMessage={setAnnouncementMessage}
           setIsPriorityEnabled={setIsPriorityEnabled}

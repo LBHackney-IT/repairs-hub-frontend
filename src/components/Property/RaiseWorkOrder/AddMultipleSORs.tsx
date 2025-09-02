@@ -1,19 +1,29 @@
-import PropTypes from 'prop-types'
 import { TextArea, PrimarySubmitButton } from '../../Form'
 import { useForm } from 'react-hook-form'
 import { SorCodeValidator } from '@/utils/helpers/SorCodeValidator'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 
-const AddMultipleSORs = ({
-  currentSorCodes,
-  setPageBackToFormView,
-  sorExistenceValidationCallback,
-  setSorCodesFromBatchUpload,
-  setAnnouncementMessage,
-  setIsPriorityEnabled,
-}) => {
+interface Props {
+  currentSorCodes: any[]
+  setPageBackToFormView: () => void
+  sorExistenceValidationCallback: () => Promise<void>
+  setSorCodesFromBatchUpload: (sorCodes: any) => void
+  setAnnouncementMessage: Dispatch<SetStateAction<string>>
+  setIsPriorityEnabled: Dispatch<SetStateAction<boolean>>
+}
+
+const AddMultipleSORs = (props: Props) => {
+  const {
+    currentSorCodes,
+    setPageBackToFormView,
+    sorExistenceValidationCallback,
+    setSorCodesFromBatchUpload,
+    setAnnouncementMessage,
+    setIsPriorityEnabled,
+  } = props
+
   const { register, handleSubmit, errors } = useForm()
 
   const [validationErrors, setValidationErrors] = useState([])
@@ -112,14 +122,6 @@ const AddMultipleSORs = ({
       </form>
     </>
   )
-}
-
-AddMultipleSORs.propTypes = {
-  currentSorCodes: PropTypes.array.isRequired,
-  setPageBackToFormView: PropTypes.func.isRequired,
-  sorExistenceValidationCallback: PropTypes.func.isRequired,
-  setSorCodesFromBatchUpload: PropTypes.func.isRequired,
-  setAnnouncementMessage: PropTypes.func.isRequired,
 }
 
 export default AddMultipleSORs
