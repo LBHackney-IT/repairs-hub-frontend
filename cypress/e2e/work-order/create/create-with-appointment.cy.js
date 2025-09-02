@@ -115,7 +115,7 @@ describe('Schedule appointment form', () => {
       { body: '' }
     ).as('apiCheckjobStatus')
 
-    // cy.clock(now, ['Date'])
+    cy.clock(now, ['Date'])
   })
 
   describe('When the order is for a contractor whose appointments are managed in repairs hub', () => {
