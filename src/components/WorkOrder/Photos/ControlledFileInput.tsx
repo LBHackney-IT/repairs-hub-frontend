@@ -6,7 +6,6 @@ import classNames from 'classnames'
 import useUpdateFileInput from './hooks/useUpdateFileInput'
 import {
   cachedFileExists,
-  clearIndexedDb,
   getCachedFile,
   setCachedFile,
 } from './hooks/uploadFiles/cacheFile'
@@ -47,6 +46,20 @@ const ControlledFileInput = (props: Props) => {
   const [processedCount, setProcessedCount] = useState(0)
   const [previewFiles, setPreviewFiles] = useState<File[]>([])
 
+  useEffect(() => {
+    function fileNames(files: File[]): string {
+      return files.map((file) => file.name).join(', ')
+    }
+    console.log(
+      `Component mounted with files: ${fileNames(files)} | ${fileNames(
+        previewFiles
+      )}`
+    )
+    if (files.length > 0 && previewFiles.length === 0) {
+      setPreviewFiles(files)
+    }
+  }, [])
+
   // remove preview files if file was removed - by name
   useEffect(() => {
     setPreviewFiles((prev) =>
@@ -85,8 +98,6 @@ const ControlledFileInput = (props: Props) => {
 
     // Immediately notify parent of all selected files for upload
     setFiles(selectedFiles)
-
-    await clearIndexedDb() // FOR TESTING - REMOVE THIS!
 
     // Create stable File objects immediately to prevent link severance
     const stableFiles: File[] = []
@@ -169,9 +180,6 @@ const ControlledFileInput = (props: Props) => {
         {...registerFunction?.(registerField, {
           validate: () => {
             const validation = validateFileUpload(files)
-            console.log(
-              `Validating files ${files.length} validation: ${validation}`
-            )
 
             if (validation === null) return true
             return validation

@@ -233,7 +233,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Request failed with status code 500')
     })
 
-    it.only('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
+    it('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         {
