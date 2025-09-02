@@ -72,7 +72,7 @@ const MobileWorkingCloseWorkOrderForm = ({
     setValue,
   } = useForm<CloseWorkOrderValues>({
     shouldUnregister: false,
-    presetValues: presetValues,
+    defaultValues: presetValues,
   })
 
   useFormPersist(`closeWorkOrder_${workOrderReference}`, {
