@@ -46,15 +46,8 @@ const ControlledFileInput = (props: Props) => {
   const [processedCount, setProcessedCount] = useState(0)
   const [previewFiles, setPreviewFiles] = useState<File[]>([])
 
+  // when form is reset e.g. due to an error - keep the files
   useEffect(() => {
-    function fileNames(files: File[]): string {
-      return files.map((file) => file.name).join(', ')
-    }
-    console.log(
-      `Component mounted with files: ${fileNames(files)} | ${fileNames(
-        previewFiles
-      )}`
-    )
     if (files.length > 0 && previewFiles.length === 0) {
       setPreviewFiles(files)
     }
@@ -69,25 +62,14 @@ const ControlledFileInput = (props: Props) => {
 
   useUpdateFileInput(inputRef, files)
 
-  function addPreviewFileIfNew(file: File) {
-    setPreviewFiles((prev) => [...prev, file])
-    // remove duplicates
-    setPreviewFiles((prev) => {
-      const uniqueFiles = Array.from(
-        new Set(prev.map((f) => f.name))
-      ).map((name) => prev.find((f) => f.name === name))
-      return uniqueFiles
-    })
-  }
-
-  function addOrReplaceFile(file: File) {
+  function addFileIfNew(file: File) {
     setFiles((prev) => {
-      const existingIndex = prev.findIndex((f) => f.name === file.name)
-      const notFound = existingIndex === -1
-      if (notFound) {
-        return [...prev, file]
-      }
-      return prev
+      const fileExists = prev.some((p) => p.name === file.name)
+      return fileExists ? prev : [...prev, file]
+    })
+    setPreviewFiles((prev) => {
+      const fileExists = prev.some((p) => p.name === file.name)
+      return fileExists ? prev : [...prev, file]
     })
   }
 
@@ -99,27 +81,25 @@ const ControlledFileInput = (props: Props) => {
     // Immediately notify parent of all selected files for upload
     setFiles(selectedFiles)
 
-    // Create stable File objects immediately to prevent link severance
-    const stableFiles: File[] = []
-    for (const file of selectedFiles) {
-      const buffer = await file.arrayBuffer()
-      const stableFile = new File([buffer], file.name, { type: file.type })
-      stableFiles.push(stableFile)
-    }
-
     setIsCompressing(true)
-    setTotalFilesToCompress(stableFiles.length)
+    setTotalFilesToCompress(selectedFiles.length)
     setProcessedCount(0)
 
     try {
+      const stableFiles: File[] = []
       // Process files one-by-one to avoid memory spikes
+      // Read each file into memory and create a stable copy away from the OS
+      for (const file of selectedFiles) {
+        const buffer = await file.arrayBuffer()
+        const stableFile = new File([buffer], file.name, { type: file.type })
+        stableFiles.push(stableFile)
+      }
       for (const file of stableFiles) {
         if (await cachedFileExists(file)) {
           const cached = await getCachedFile(file)
           if (cached) {
-            addOrReplaceFile(cached)
+            addFileIfNew(cached)
             setProcessedCount((prev) => prev + 1)
-            addPreviewFileIfNew(cached)
             continue
           }
         }
@@ -128,13 +108,11 @@ const ControlledFileInput = (props: Props) => {
         try {
           const compressed = await compressFile(file)
           setCachedFile(compressed)
-          addOrReplaceFile(compressed)
-          addPreviewFileIfNew(compressed)
+          addFileIfNew(compressed)
         } catch (error) {
           console.error('Error compressing file:', error)
           // If compression fails, still add the original file
-          addOrReplaceFile(file)
-          addPreviewFileIfNew(file)
+          addFileIfNew(file)
         }
         setProcessedCount((prev) => prev + 1)
       }
