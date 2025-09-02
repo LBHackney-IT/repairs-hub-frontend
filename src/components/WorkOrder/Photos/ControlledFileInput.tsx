@@ -143,7 +143,7 @@ const ControlledFileInput = (props: Props) => {
         {isCompressing && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <SpinnerWithLabel
-              label={`Compressing photos... (${processedCount} of ${totalFilesToCompress})`}
+              label={`Caching photos... (${processedCount} of ${totalFilesToCompress})`}
             />
           </div>
         )}
