@@ -115,7 +115,7 @@ describe('Schedule appointment form', () => {
       { body: '' }
     ).as('apiCheckjobStatus')
 
-    cy.clock(now, ['Date'])
+    // cy.clock(now, ['Date'])
   })
 
   describe('When the order is for a contractor whose appointments are managed in repairs hub', () => {
@@ -269,7 +269,7 @@ describe('Schedule appointment form', () => {
     })
 
     // when priority is Normal it is redirecting to schedule appointment page
-    it('Shows an appointment booking page right after work order is created with a normal priority', () => {
+    it.only('Shows an appointment booking page right after work order is created with a normal priority', () => {
       cy.visit('/properties/00012345')
 
       cy.wait(['@property'])
@@ -443,7 +443,7 @@ describe('Schedule appointment form', () => {
           otherType: 'addNote',
         })
 
-      //success form
+      // Fails here
       cy.contains('Work order created')
       cy.contains('Reference number')
 

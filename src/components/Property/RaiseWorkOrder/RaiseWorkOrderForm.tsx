@@ -34,18 +34,12 @@ import { Priority } from '@/root/src/models/priority'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
 import { Trades } from '@/root/src/utils/requests/trades'
-import {
-  Address,
-  HierarchyType,
-  Tenure,
-} from '@/root/src/models/propertyTenure'
+import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
 
 interface Props {
   propertyReference: string
-  address: Address
-  hierarchyType: HierarchyType
-  canRaiseRepair: boolean
+  property: Property
   tenure: Tenure
   trades: Trades[]
   contractors: Contractor[]
@@ -74,9 +68,7 @@ interface Props {
 const RaiseWorkOrderForm = (props: Props) => {
   const {
     propertyReference,
-    address,
-    hierarchyType,
-    canRaiseRepair,
+    property,
     tenure,
     priorities,
     trades,
@@ -129,8 +121,8 @@ const RaiseWorkOrderForm = (props: Props) => {
     const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
       ...formData,
       propertyReference,
-      shortAddress: address.shortAddress,
-      postalCode: address.postalCode,
+      shortAddress: property?.address.shortAddress,
+      postalCode: property?.address.postalCode,
       priorityDescription: priority.description,
       daysToComplete: priority.daysToComplete,
       hoursToComplete:
@@ -235,9 +227,11 @@ const RaiseWorkOrderForm = (props: Props) => {
     getPropertyInfoOnLegalDisrepair(propertyReference)
 
     if (isPriorityEnabled) {
-      ;(document.getElementById(
+      const element = document.getElementById(
         'priorityCode'
-      ) as HTMLInputElement).disabled = false
+      ) as HTMLInputElement
+
+      if (element) element.disabled = false
     }
   }, [])
 
@@ -248,7 +242,8 @@ const RaiseWorkOrderForm = (props: Props) => {
         <div className="govuk-grid-column-two-thirds">
           <span className="govuk-caption-l lbh-caption">New repair</span>
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
-            {hierarchyType.subTypeDescription}: {address.addressLine}
+            {property?.hierarchyType.subTypeDescription}:{' '}
+            {property?.address.addressLine}
           </h1>
 
           {simpleFeatureToggles?.enableRepairsFinderIntegration && (
@@ -273,7 +268,7 @@ const RaiseWorkOrderForm = (props: Props) => {
 
           <div className="lbh-body-s">
             <PropertyFlags
-              canRaiseRepair={canRaiseRepair}
+              canRaiseRepair={property?.canRaiseRepair}
               tenure={tenure}
               propertyReference={propertyReference}
             />

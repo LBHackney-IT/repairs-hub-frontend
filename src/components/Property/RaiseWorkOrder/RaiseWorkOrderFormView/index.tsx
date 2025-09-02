@@ -23,8 +23,8 @@ import SorCode from '@/root/src/models/sorCode'
 import { Priority } from '@/root/src/models/priority'
 import { CurrentUser } from '@/root/src/types/variations/types'
 import RaiseWorkOrderFormMeta from './Meta'
-import SuccessPage from '../../../SuccessPage'
 import AnnouncementMessage from './AnnouncementMessage'
+import RaiseWorkOrderSuccessPage from './SuccessPage'
 
 interface Props {
   propertyReference: string
@@ -275,8 +275,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     <>
       <RaiseWorkOrderFormMeta property={property} />
 
-      {currentPage === RAISE_SUCCESS_PAGE && workOrderReference && property && (
-        <SuccessPage
+      <pre>{JSON.stringify(property, null, 2)}</pre>
+
+      {currentPage === RAISE_SUCCESS_PAGE && (
+        <RaiseWorkOrderSuccessPage
           immediateOrEmergencyRepairText={immediateOrEmergencyRepairText}
           immediateOrEmergencyDLO={immediateOrEmergencyDLO}
           authorisationPendingApproval={authorisationPendingApproval}
@@ -292,12 +294,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         <AnnouncementMessage announcementMessage={announcementMessage} />
       )}
 
-      {currentPage === FORM_PAGE && property && priorities && trades && (
+      {currentPage === FORM_PAGE && (
         <RaiseWorkOrderForm
           propertyReference={propertyReference}
-          address={property?.address}
-          hierarchyType={property?.hierarchyType}
-          canRaiseRepair={property?.canRaiseRepair}
+          property={property}
           tenure={tenure}
           priorities={priorities}
           trades={trades}

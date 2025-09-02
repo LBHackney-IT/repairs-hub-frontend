@@ -8,7 +8,7 @@ import SuccessPage from '@/components/SuccessPage'
 import Panel from '../../../Template/Panel'
 
 interface Props {
-  immediateOrEmergencyRepairText: string
+  immediateOrEmergencyRepairText: boolean
   immediateOrEmergencyDLO: boolean
   authorisationPendingApproval: boolean
   workOrderReference: string
