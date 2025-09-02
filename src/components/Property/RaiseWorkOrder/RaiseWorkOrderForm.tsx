@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import {
   useState,
   useEffect,
@@ -70,7 +69,6 @@ interface Props {
   isPriorityEnabled: boolean
   isIncrementalSearchEnabled: boolean
   setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
-  // setPriorities,
 }
 
 const RaiseWorkOrderForm = (props: Props) => {
@@ -99,9 +97,6 @@ const RaiseWorkOrderForm = (props: Props) => {
     setPageToMultipleSORs,
     formState,
     isPriorityEnabled,
-    isIncrementalSearchEnabled,
-    setIsIncrementalSearchEnabled,
-    // setPriorities,
   } = props
 
   const {
@@ -183,14 +178,6 @@ const RaiseWorkOrderForm = (props: Props) => {
     setPriorityCode(code)
   }
 
-  // const filterPriorities = (filterText) => {
-  //   setPriorities(
-  //     priorities.filter(function (pri) {
-  //       return pri.description.includes(filterText)
-  //     })
-  //   )
-  // }
-
   const updatePriority = (
     description,
     code,
@@ -246,8 +233,12 @@ const RaiseWorkOrderForm = (props: Props) => {
     setLoading(true)
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
-    isPriorityEnabled &&
-      (document.getElementById('priorityCode').disabled = false)
+
+    if (isPriorityEnabled) {
+      ;(document.getElementById(
+        'priorityCode'
+      ) as HTMLInputElement).disabled = false
+    }
   }, [])
 
   return (
