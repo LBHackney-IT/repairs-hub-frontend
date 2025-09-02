@@ -275,8 +275,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     <>
       <RaiseWorkOrderFormMeta property={property} />
 
-      <pre>{JSON.stringify(property, null, 2)}</pre>
-
       {currentPage === RAISE_SUCCESS_PAGE && workOrderReference && property && (
         <RaiseWorkOrderSuccessPage
           immediateOrEmergencyRepairText={immediateOrEmergencyRepairText}
