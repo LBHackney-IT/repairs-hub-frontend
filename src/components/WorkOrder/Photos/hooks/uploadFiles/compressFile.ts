@@ -61,9 +61,6 @@ async function compressFile(file: File): Promise<File> {
     console.error(errorMessage)
     throw new Error(errorMessage)
   }
-  console.log('compression result', {
-    ...fileDetails(compressResult),
-  })
   return compressResult
 }
 

@@ -86,7 +86,6 @@ export async function setCachedFile(file: File): Promise<void> {
       return
     }
     await db.put(STORE_NAME, file, cacheKey)
-    console.log('Cached file in IndexedDB:', fileDetails(file))
   } catch (err) {
     console.error('Error caching file to IndexedDB:', err)
   }
