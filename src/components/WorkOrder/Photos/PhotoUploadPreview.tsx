@@ -30,7 +30,12 @@ const PhotoUploadPreview = (props: Props) => {
             disabled={disabled}
             onClick={() => {
               if (disabled) return
-              setFiles((files) => files.filter((f) => f.name !== file.name))
+
+              setFiles((prevFiles: File[]) => {
+                const newArr = [...prevFiles]
+                newArr.splice(index, 1)
+                return newArr
+              })
             }}
           >
             Remove

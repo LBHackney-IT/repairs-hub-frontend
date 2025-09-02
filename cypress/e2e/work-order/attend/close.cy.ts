@@ -354,7 +354,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Caching photos... (0 of 1').should('be.visible')
       cy.ensureCompressedFileInIndexedDb(fileName2)
 
-      // cy.pause()
       cy.get('.govuk-button').contains('Close work order').click()
 
       // handle multiple intercepts

@@ -101,9 +101,10 @@ const MobileWorkingCloseWorkOrderForm = ({
     }
   }, [watch('reason')])
 
-  useEffect(() => {
-    trigger('workOrderFileUpload')
-  }, [workOrderFiles, followOnFiles])
+  // CHECK IF THIS IS NOT NEEDED
+  // useEffect(() => {
+  //   trigger('workOrderFileUpload')
+  // }, [workOrderFiles, followOnFiles])
 
   const selectedFurtherWorkRequired =
     watch('followOnStatus') === 'furtherWorkRequired'

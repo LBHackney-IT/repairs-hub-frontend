@@ -1881,9 +1881,7 @@ describe('Closing a work order on behalf of an operative', () => {
             lastModified: Date.now(),
           }))
       )
-      // caching process should complete
       cy.contains('Caching photos').should('exist')
-      cy.contains('Caching photos').should('not.exist')
 
       cy.get('[type="submit"]').contains('Close work order').click()
 

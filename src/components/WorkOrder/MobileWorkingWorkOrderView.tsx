@@ -12,9 +12,7 @@ import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import MobileWorkingCloseWorkOrderForm, {
-  CloseWorkOrderValues,
-} from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
+import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
 import { BONUS_PAYMENT_TYPE } from '@/utils/paymentTypes'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
