@@ -10,7 +10,7 @@ interface Props {
     onClick?: () => void
   }[]
   banner: any
-  warningText: string
+  warningText?: string
 }
 
 const SuccessPage = (props: Props) => {
