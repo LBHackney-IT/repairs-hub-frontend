@@ -331,14 +331,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         <AddMultipleSORs
           currentSorCodes={getCurrentSORCodes()}
           setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
-          sorExistenceValidationCallback={async () => {
-            await createSorExistenceValidator(
-              tradeCode,
-              propertyReference,
-              contractorReference,
-              true
-            )
-          }}
+          sorExistenceValidationCallback={createSorExistenceValidator(
+            tradeCode,
+            propertyReference,
+            contractorReference,
+            true
+          )}
           setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
           setAnnouncementMessage={setAnnouncementMessage}
           setIsPriorityEnabled={setIsPriorityEnabled}

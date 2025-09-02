@@ -8,7 +8,7 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 interface Props {
   currentSorCodes: any[]
   setPageBackToFormView: () => void
-  sorExistenceValidationCallback: () => Promise<void>
+  sorExistenceValidationCallback: any
   setSorCodesFromBatchUpload: (sorCodes: any) => void
   setAnnouncementMessage: Dispatch<SetStateAction<string>>
   setIsPriorityEnabled: Dispatch<SetStateAction<boolean>>
@@ -67,17 +67,6 @@ const AddMultipleSORs = (props: Props) => {
     setPerformingValidation(false)
   }
 
-  const renderErrorSummary = (errors) => {
-    const invalidSorCodes = errors.map((error) => `"${error.code}"`)
-
-    return (
-      <WarningInfoBox
-        header={`Invalid SOR code(s) entered: ${invalidSorCodes.join(' ')}`}
-        text=""
-      />
-    )
-  }
-
   return (
     <>
       <a
@@ -111,7 +100,14 @@ const AddMultipleSORs = (props: Props) => {
           placeholder="04500910&#10;49PLMAT2&#10;RTR03016"
         />
 
-        {validationErrors.length > 0 && renderErrorSummary(validationErrors)}
+        {validationErrors.length > 0 && (
+          <WarningInfoBox
+            header={`Invalid SOR code(s) entered: ${validationErrors
+              .map((error) => `"${error.code}"`)
+              .join(' ')}`}
+            text=""
+          />
+        )}
 
         <PrimarySubmitButton
           label="Submit"
