@@ -363,7 +363,8 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
               sorExistenceValidationCallback={createSorExistenceValidator(
                 workOrder.tradeCode,
                 workOrder.propertyReference,
-                workOrder.contractorReference
+                workOrder.contractorReference,
+                null
               )}
               setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
               setAnnouncementMessage={setAnnouncementMessage}
