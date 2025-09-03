@@ -83,7 +83,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     setTotalCost,
     setValue,
     setPageToMultipleSORs,
-    // filterPriorities,
     formState,
   } = props
 
@@ -126,8 +125,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       ?.code
 
     setBudgetCodes([])
-
-    console.log({ newTradeCode })
 
     if (newTradeCode?.length) {
       setTradeCode(newTradeCode)
@@ -184,8 +181,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
       setError(null)
       setIsLoading(true)
-
-      console.log({ contractorRef: contractorReference })
 
       const contractor = null
 
@@ -354,7 +349,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
         contractors={contractors}
         onContractorSelect={onContractorSelect}
         disabled={!tradeCode}
-        // tradeCode={tradeCode}
         register={register}
         errors={errors}
         apiError={getContractorsError}
@@ -396,7 +390,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
         })(budgetCodeApplicable(user))}
         register={register}
         errors={errors}
-        // isContractorUpdatePage={false}
         updatePriority={updatePriority}
         getPriorityObjectByCode={getPriorityObjectByCode}
         apiError={getSorCodesError}

@@ -315,7 +315,6 @@ const RaiseWorkOrderForm = (props: Props) => {
               setTotalCost={setTotalCost}
               setValue={setValue}
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
-              // filterPriorities={() => {}}
               formState={formState}
             />
 

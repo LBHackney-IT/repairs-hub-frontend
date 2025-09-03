@@ -192,8 +192,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         }),
       ])
 
-      console.log({ trades })
-
       setTenure(propertyTenureResponse.tenure)
       setProperty(propertyTenureResponse.property)
 
@@ -275,7 +273,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
   return (
     <>
-      <RaiseWorkOrderFormMeta property={property} />f
+      <RaiseWorkOrderFormMeta property={property} />
       {currentPage === RAISE_SUCCESS_PAGE && workOrderReference && property && (
         <RaiseWorkOrderSuccessPage
           immediateOrEmergencyRepairText={immediateOrEmergencyRepairText}
@@ -288,9 +286,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
           externalAppointmentManagementUrl={externalAppointmentManagementUrl}
         />
       )}
+
       {announcementMessage && (
         <AnnouncementMessage announcementMessage={announcementMessage} />
       )}
+
       {currentPage === FORM_PAGE && property && priorities && trades && (
         <RaiseWorkOrderForm
           propertyReference={propertyReference}
@@ -323,6 +323,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
           setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
         />
       )}
+
       {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
         <AddMultipleSORs
           currentSorCodes={getCurrentSORCodes()}
@@ -338,6 +339,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
           setIsPriorityEnabled={setIsPriorityEnabled}
         />
       )}
+
       {error && <ErrorMessage label={error} />}
     </>
   )

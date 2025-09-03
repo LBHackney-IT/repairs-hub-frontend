@@ -68,7 +68,6 @@ const WorkOrderUpdateForm = (props: Props) => {
         sorSearchRequest={sorSearchRequest}
         sorCodeArrays={sorCodeArrays}
         setSorCodeArrays={setSorCodeArrays}
-        // setValue={setValue}
         setPageToMultipleSORs={() => {
           setPageToMultipleSORs(getValues())
         }}
