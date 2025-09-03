@@ -8,7 +8,7 @@ const validateFileUpload = (files) => {
   if (files.length === 0) return null
 
   if (files.length > MAX_FILE_COUNT) {
-    return `You cannot attach more than ${MAX_FILE_COUNT} photos`
+    return `You cannot attach more than ${MAX_FILE_COUNT} photos. You attached ${files.length}.`
   }
 
   for (const file of files) {

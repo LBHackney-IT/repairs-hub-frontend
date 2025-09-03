@@ -104,6 +104,7 @@ const MobileWorkingCloseWorkOrderForm = ({
   // Show validation error immediately for quick feedback
   useEffect(() => {
     trigger('workOrderFileUpload')
+    trigger('followOnFileUpload')
   }, [workOrderFiles, followOnFiles])
 
   const selectedFurtherWorkRequired =

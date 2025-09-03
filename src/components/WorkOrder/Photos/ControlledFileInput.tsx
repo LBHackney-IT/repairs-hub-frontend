@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import useUpdateFileInput from './hooks/useUpdateFileInput'
 import {
   cachedFileExists,
+  clearIndexedDb,
   getCachedFile,
   setCachedFile,
 } from './hooks/uploadFiles/cacheFile'
@@ -60,6 +61,10 @@ const ControlledFileInput = (props: Props) => {
     )
   }, [files])
 
+  useEffect(() => {
+    console.log('Current files:', files.length, 'Current preview files:', previewFiles.length)
+  }, [files, previewFiles])
+
   useUpdateFileInput(inputRef, files)
 
   function addFileIfNew(file: File) {
@@ -80,6 +85,8 @@ const ControlledFileInput = (props: Props) => {
 
     // Immediately notify parent of all selected files for upload
     setFiles(selectedFiles)
+
+    // await clearIndexedDb(); // < FOR TESTING - REMOVE THIS!
 
     setIsCompressing(true)
     setTotalFilesToCompress(selectedFiles.length)
@@ -167,7 +174,7 @@ const ControlledFileInput = (props: Props) => {
 
       <PhotoUploadPreview
         files={previewFiles}
-        disabled={isLoading || isCompressing}
+        disabled={isLoading}
         setFiles={setFiles}
       />
       {isCompressing && (
