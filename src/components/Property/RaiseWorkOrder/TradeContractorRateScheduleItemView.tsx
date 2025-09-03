@@ -122,8 +122,6 @@ const TradeContractorRateScheduleItemView = ({
   useEffect(() => {
     console.log({ contractorReference })
 
-
-
     fetchContractor(contractorReference)
   }, [contractorReference])
 

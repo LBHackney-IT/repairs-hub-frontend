@@ -33,7 +33,7 @@ import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useF
 import { Priority } from '@/root/src/models/priority'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
-import { Trades } from '@/root/src/utils/requests/trades'
+import { TradeFilter } from '@/root/src/utils/requests/trades'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
 
@@ -41,7 +41,7 @@ interface Props {
   propertyReference: string
   property: Property
   tenure: Tenure
-  trades: Trades[]
+  trades: TradeFilter[]
   contractors: Contractor[]
   setContractors: Dispatch<SetStateAction<Contractor[]>>
   budgetCodes: BudgetCode[]

@@ -16,7 +16,7 @@ import router from 'next/router'
 import AddMultipleSORs from '../AddMultipleSORs'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
-import { Trades } from '@/root/src/utils/requests/trades'
+import { TradeFilter } from '@/root/src/utils/requests/trades'
 import Contractor from '@/root/src/models/contractor'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import SorCode from '@/root/src/models/sorCode'
@@ -38,7 +38,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
 
-  const [trades, setTrades] = useState<Trades[]>([])
+  const [trades, setTrades] = useState<TradeFilter[]>([])
   const [tradeCode, setTradeCode] = useState<string>('')
 
   const [contractors, setContractors] = useState<Contractor[]>([])
