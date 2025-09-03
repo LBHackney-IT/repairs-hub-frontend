@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import {
   PrimarySubmitButton,
   TextArea,
@@ -8,22 +7,43 @@ import { useForm } from 'react-hook-form'
 import OriginalRateScheduleItems from '../RateScheduleItems/OriginalRateScheduleItems'
 import LatestRateScheduleItems from '../RateScheduleItems/LatestRateScheduleItems'
 import AddedRateScheduleItems from '../RateScheduleItems/AddedRateScheduleItems'
-import { MULTITRADE_ENABLED_CONTRACTORS } from '@/utils/constants'
+import SorCode from '@/root/src/models/sorCode'
+import { Dispatch, SetStateAction } from 'react'
+import Contractor from '@/root/src/models/contractor'
 
-const WorkOrderUpdateForm = ({
-  latestTasks,
-  originalTasks,
-  addedTasks,
-  onGetToSummary,
-  setVariationReason,
-  variationReason,
-  contractorReference,
-  sorSearchRequest,
-  sorCodeArrays,
-  setSorCodeArrays,
-  formState,
-  setPageToMultipleSORs,
-}) => {
+interface Props {
+  latestTasks: SorCode[]
+  originalTasks: SorCode[]
+  addedTasks: SorCode[]
+  onGetToSummary: (e: any) => void
+  setVariationReason: Dispatch<SetStateAction<string>>
+  sorSearchRequest?: (searchText: any) => Promise<any>
+  variationReason: string
+  contractorReference: string
+  sorCodeArrays: SorCode[][]
+  setSorCodeArrays: Dispatch<SetStateAction<SorCode[][]>>
+  formState?: any // its not actually passed, so I will leave it
+  setPageToMultipleSORs: (formState: any) => void
+  contractor: Contractor
+}
+
+const WorkOrderUpdateForm = (props: Props) => {
+  const {
+    latestTasks,
+    originalTasks,
+    addedTasks,
+    onGetToSummary,
+    setVariationReason,
+    variationReason,
+    contractorReference,
+    sorSearchRequest,
+    sorCodeArrays,
+    setSorCodeArrays,
+    formState,
+    setPageToMultipleSORs,
+    contractor,
+  } = props
+
   const { register, handleSubmit, errors, setValue, getValues } = useForm({
     defaultValues: { ...formState },
   })
@@ -56,7 +76,7 @@ const WorkOrderUpdateForm = ({
             setPageToMultipleSORs(getValues())
           }}
         />
-        {MULTITRADE_ENABLED_CONTRACTORS.includes(contractorReference) ? (
+        {contractor?.multiTradeEnabled ? (
           <TextArea
             name="variationReason"
             value={variationReason}
@@ -87,19 +107,6 @@ const WorkOrderUpdateForm = ({
       </form>
     </>
   )
-}
-
-WorkOrderUpdateForm.propTypes = {
-  latestTasks: PropTypes.array.isRequired,
-  originalTasks: PropTypes.array.isRequired,
-  addedTasks: PropTypes.array.isRequired,
-  onGetToSummary: PropTypes.func.isRequired,
-  setVariationReason: PropTypes.func.isRequired,
-  sorSearchRequest: PropTypes.func,
-  variationReason: PropTypes.string.isRequired,
-  contractorReference: PropTypes.string.isRequired,
-  sorCodeArrays: PropTypes.array.isRequired,
-  setSorCodeArrays: PropTypes.func.isRequired,
 }
 
 export default WorkOrderUpdateForm

@@ -12,15 +12,11 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import BudgetCodeItemView from './BudgetCodeItemView'
 import UserContext from '@/components/UserContext'
 import { canAssignBudgetCode } from '@/utils/userPermissions'
-import {
-  MULTITRADE_TRADE_CODE,
-  MULTITRADE_ENABLED_CONTRACTORS,
-} from '@/utils/constants'
+import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
 import { getContractor } from '@/root/src/utils/requests/contractor'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import Contractor from '@/root/src/models/contractor'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
-// import { Trades } from '@/root/src/utils/requests/trades'
 import SorCode from '@/root/src/models/sorCode'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import { DeepMap, FieldError } from 'react-hook-form'
@@ -145,38 +141,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     }
   }
 
-  const fetchContractor = async (contractorReference: string) => {
-    setError(null)
-    setIsLoading(true)
-
-    console.log({ contractorReference })
-
-    try {
-      const contractorResponse = await getContractor(contractorReference)
-      if (!contractorResponse.success) {
-        throw contractorResponse.error
-      }
-
-      setContractor(contractorResponse.response)
-    } catch (e) {
-      console.error('An error has occured:', e.response)
-
-      if (e instanceof APIResponseError) {
-        setError(e.message)
-      } else {
-        setError(formatRequestErrorMessage(e))
-      }
-    }
-
-    setIsLoading(false)
-  }
-
-  // useEffect(() => {
-  //   console.log({ contractorReference })
-
-  //   fetchContractor(contractorReference)
-  // }, [contractorReference])
-
   useEffect(() => {
     checkIfIncrementalSearchRequired(contractor)
   }, [contractor])
@@ -211,26 +175,47 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
   const onContractorSelect = async (event) => {
     const contractorName = event.target.value.split(' - ')[0]
-    const contractorRef = contractors.filter(
+    const contractorReference = contractors.filter(
       (contractor) => contractor.contractorName === contractorName
     )[0]?.contractorReference
 
-    if (contractorRef?.length) {
-      setContractorReference(contractorRef)
+    if (contractorReference?.length) {
+      setContractorReference(contractorReference)
+
+      setError(null)
+      setIsLoading(true)
+
+      console.log({ contractorRef: contractorReference })
+
+      const contractor = null
+
+      try {
+        const contractorResponse = await getContractor(contractorReference)
+        if (!contractorResponse.success) {
+          throw contractorResponse.error
+        }
+
+        setContractor(contractorResponse.response)
+      } catch (e) {
+        console.error('An error has occured:', e.response)
+
+        if (e instanceof APIResponseError) {
+          setError(e.message)
+        } else {
+          setError(formatRequestErrorMessage(e))
+        }
+      }
+
+      setIsLoading(false)
 
       if (
         process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
         canAssignBudgetCode(user)
       ) {
-        getBudgetCodesData(contractorRef)
+        getBudgetCodesData(contractorReference)
       } else {
         await prepareSORData(contractor, tradeCode)
       }
-      // const ctr = contractorRef.toLowerCase()
-
-      // if (ctr.includes('h02')) {
-      //   filterPriorities('VOIDS')
-      // }
     } else {
       setContractorReference('')
     }
@@ -256,16 +241,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       console.log({ contractors })
 
       setContractors(contractors)
-
-      // Add multitrade contractors who don't have any MT SORs
-      // (only Purdy, Axis and HHL already have some)
-
-      // tradeCode === MULTITRADE_TRADE_CODE
-      //   ? setContractors([
-      //       ...contractors,
-      //       ...MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES,
-      //     ])
-      //   : setContractors(contractors)
     } catch (e) {
       setContractors([])
       setContractorReference('')
@@ -283,14 +258,16 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     setGetBudgetCodesError(null)
 
     try {
+      const params = {}
+
+      if (contractor && contractor?.multiTradeEnabled) {
+        params['contractorReference'] = contractorReference
+      }
+
       const budgetCodes = await frontEndApiRequest({
         method: 'get',
         path: '/api/workOrders/budget-codes',
-        params: {
-          ...(MULTITRADE_ENABLED_CONTRACTORS.includes(contractorReference)
-            ? { contractorReference: contractorReference }
-            : ''),
-        },
+        params,
       })
 
       setBudgetCodes(budgetCodes)
