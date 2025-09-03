@@ -57,9 +57,12 @@ export async function getCachedFile(originalFile: File): Promise<File | null> {
     const cachedFile = (await db.get(STORE_NAME, cacheKey)) as File | undefined
     if (!cachedFile) return null
 
-    console.log('Retrieved cached file:', cacheKey, fileDetails(cachedFile))
+    const originalName = cacheKey.replace('cached-', '')
+    const reconstructedFile = new File([cachedFile], originalName, {
+      type: cachedFile.type,
+    })
 
-    return cachedFile
+    return reconstructedFile
   } catch (err) {
     console.error(
       `Error reading ${fileCacheKey(originalFile)} from IndexedDB cache:`,
@@ -83,7 +86,6 @@ export async function setCachedFile(file: File): Promise<void> {
       return
     }
     await db.put(STORE_NAME, file, cacheKey)
-    console.log('Cached file in IndexedDB:', fileDetails(file))
   } catch (err) {
     console.error('Error caching file to IndexedDB:', err)
   }

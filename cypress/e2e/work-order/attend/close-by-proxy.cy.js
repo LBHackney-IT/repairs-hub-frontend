@@ -432,6 +432,7 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     it('shows validation errors when uploading files', () => {
+      cy.clearFilesDatabase()
       cy.visit('/work-orders/10000040/close')
       cy.wait('@workOrder')
 
@@ -454,14 +455,19 @@ describe('Closing a work order on behalf of an operative', () => {
       )
 
       // 2. too many files
+      const photo1 = 'photo_1.jpg'
       cy.get('input[type="file"]').selectFile(
-        Array(11).fill({
-          contents: Cypress.Buffer.from('file contents'),
-          fileName: 'file.png',
-          mimeType: 'image/png',
-          lastModified: Date.now(),
-        })
+        Array(11)
+          .fill()
+          .map((_, i) => ({
+            contents: `cypress/fixtures/photos/${photo1}`,
+            fileName: `photo_${i + 1}.jpg`,
+            mimeType: 'image/jpeg',
+            lastModified: Date.now(),
+          }))
       )
+      // caching process should start
+      cy.contains('Caching photos... (1 of 11)').should('exist')
 
       cy.get('[type="submit"]').contains('Close work order').click()
 
@@ -1846,12 +1852,11 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.visit('/work-orders/10000040/close')
       cy.wait('@workOrder')
 
+      const notPhoto = 'notPhoto.txt'
+      const photo1 = 'photo_1.jpg'
       // 1. invalid file type
       cy.get('input[type="file"]').selectFile({
-        contents: Cypress.Buffer.from('file contents'),
-        fileName: 'file.txt',
-        mimeType: 'text/plain',
-        lastModified: Date.now(),
+        contents: `cypress/fixtures/photos/${notPhoto}`,
       })
 
       cy.get('[type="submit"]').contains('Close work order').click()
@@ -1865,14 +1870,18 @@ describe('Closing a work order on behalf of an operative', () => {
       )
 
       // 2. too many files
+      // Create array of 11 identical photo files
       cy.get('input[type="file"]').selectFile(
-        Array(11).fill({
-          contents: Cypress.Buffer.from('file contents'),
-          fileName: 'file.png',
-          mimeType: 'image/png',
-          lastModified: Date.now(),
-        })
+        Array(11)
+          .fill()
+          .map((_, i) => ({
+            contents: `cypress/fixtures/photos/${photo1}`,
+            fileName: `photo_${i + 1}.jpg`,
+            mimeType: 'image/jpeg',
+            lastModified: Date.now(),
+          }))
       )
+      cy.contains('Caching photos').should('exist')
 
       cy.get('[type="submit"]').contains('Close work order').click()
 
