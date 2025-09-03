@@ -33,15 +33,15 @@ import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useF
 import { Priority } from '@/root/src/models/priority'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
-import { TradeFilter } from '@/root/src/utils/requests/trades'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
+import { Trade } from '@/root/src/models/trade'
 
 interface Props {
   propertyReference: string
   property: Property
   tenure: Tenure
-  trades: TradeFilter[]
+  trades: Trade[]
   contractors: Contractor[]
   setContractors: Dispatch<SetStateAction<Contractor[]>>
   budgetCodes: BudgetCode[]
@@ -315,7 +315,7 @@ const RaiseWorkOrderForm = (props: Props) => {
               setTotalCost={setTotalCost}
               setValue={setValue}
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
-              filterPriorities={() => {}}
+              // filterPriorities={() => {}}
               formState={formState}
             />
 

@@ -1,5 +1,10 @@
-import PropTypes from 'prop-types'
-import { useState, useContext, useEffect } from 'react'
+import {
+  useState,
+  useContext,
+  useEffect,
+  SetStateAction,
+  Dispatch,
+} from 'react'
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
@@ -15,32 +20,77 @@ import { getContractor } from '@/root/src/utils/requests/contractor'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import Contractor from '@/root/src/models/contractor'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+// import { Trades } from '@/root/src/utils/requests/trades'
+import SorCode from '@/root/src/models/sorCode'
+import { BudgetCode } from '@/root/src/models/budgetCode'
+import { DeepMap, FieldError } from 'react-hook-form'
+import { Priority } from '@/root/src/models/priority'
+import { Trade } from '@/root/src/models/trade'
 
-const TradeContractorRateScheduleItemView = ({
-  trades,
-  tradeCode,
-  setTradeCode,
-  contractors,
-  contractorReference,
-  setContractorReference,
-  setContractors,
-  budgetCodeId,
-  setBudgetCodeId,
-  budgetCodes,
-  setBudgetCodes,
-  sorCodeArrays,
-  setSorCodeArrays,
-  propertyReference,
-  register,
-  errors,
-  updatePriority,
-  getPriorityObjectByCode,
-  setTotalCost,
-  setValue,
-  setPageToMultipleSORs,
-  filterPriorities,
-  formState,
-}) => {
+interface Props {
+  trades: Trade[]
+  sorCodeArrays: SorCode[][]
+  setSorCodeArrays: Dispatch<SetStateAction<SorCode[][]>>
+  propertyReference: string
+  register: any
+  errors: DeepMap<any, FieldError>
+  updatePriority: (
+    description: any,
+    code: any,
+    rateScheduleItemsLength: any,
+    existingHigherPriorityCode: any
+  ) => void
+  getPriorityObjectByCode: (code: any) => Priority
+  tradeCode: string
+  setTradeCode: Dispatch<SetStateAction<string>>
+  contractorReference: string
+  setContractorReference: Dispatch<SetStateAction<string>>
+  budgetCodeId: string | number
+  setBudgetCodeId: Dispatch<SetStateAction<string>>
+  setPageToMultipleSORs: () => void
+  contractors: Contractor[]
+  setContractors: Dispatch<SetStateAction<Contractor[]>>
+  budgetCodes: BudgetCode[]
+  setBudgetCodes: Dispatch<SetStateAction<BudgetCode[]>>
+  setTotalCost: Dispatch<SetStateAction<string>>
+  setValue: (
+    name: string,
+    value: any,
+    config?: Partial<{
+      shouldValidate: boolean
+      shouldDirty: boolean
+    }>
+  ) => void
+  formState: any
+}
+
+const TradeContractorRateScheduleItemView = (props: Props) => {
+  const {
+    trades,
+    tradeCode,
+    setTradeCode,
+    contractors,
+    contractorReference,
+    setContractorReference,
+    setContractors,
+    budgetCodeId,
+    setBudgetCodeId,
+    budgetCodes,
+    setBudgetCodes,
+    sorCodeArrays,
+    setSorCodeArrays,
+    propertyReference,
+    register,
+    errors,
+    updatePriority,
+    getPriorityObjectByCode,
+    setTotalCost,
+    setValue,
+    setPageToMultipleSORs,
+    // filterPriorities,
+    formState,
+  } = props
+
   const [getContractorsError, setGetContractorsError] = useState<
     string | null
   >()
@@ -81,6 +131,8 @@ const TradeContractorRateScheduleItemView = ({
 
     setBudgetCodes([])
 
+    console.log({ newTradeCode })
+
     if (newTradeCode?.length) {
       setTradeCode(newTradeCode)
 
@@ -119,11 +171,11 @@ const TradeContractorRateScheduleItemView = ({
     setIsLoading(false)
   }
 
-  useEffect(() => {
-    console.log({ contractorReference })
+  // useEffect(() => {
+  //   console.log({ contractorReference })
 
-    fetchContractor(contractorReference)
-  }, [contractorReference])
+  //   fetchContractor(contractorReference)
+  // }, [contractorReference])
 
   useEffect(() => {
     checkIfIncrementalSearchRequired(contractor)
@@ -172,19 +224,22 @@ const TradeContractorRateScheduleItemView = ({
       ) {
         getBudgetCodesData(contractorRef)
       } else {
-        await prepareSORData(contractorRef, tradeCode)
+        await prepareSORData(contractor, tradeCode)
       }
-      const ctr = contractorRef.toLowerCase()
+      // const ctr = contractorRef.toLowerCase()
 
-      if (ctr.includes('h02')) {
-        filterPriorities('VOIDS')
-      }
+      // if (ctr.includes('h02')) {
+      //   filterPriorities('VOIDS')
+      // }
     } else {
       setContractorReference('')
     }
   }
 
-  const getContractorsData = async (propertyReference, tradeCode) => {
+  const getContractorsData = async (
+    propertyReference: string,
+    tradeCode: string
+  ) => {
     setLoadingContractors(true)
     setGetContractorsError(null)
 
@@ -197,6 +252,8 @@ const TradeContractorRateScheduleItemView = ({
           tradeCode: tradeCode,
         },
       })
+
+      console.log({ contractors })
 
       setContractors(contractors)
 
@@ -320,7 +377,7 @@ const TradeContractorRateScheduleItemView = ({
         contractors={contractors}
         onContractorSelect={onContractorSelect}
         disabled={!tradeCode}
-        tradeCode={tradeCode}
+        // tradeCode={tradeCode}
         register={register}
         errors={errors}
         apiError={getContractorsError}
@@ -362,7 +419,7 @@ const TradeContractorRateScheduleItemView = ({
         })(budgetCodeApplicable(user))}
         register={register}
         errors={errors}
-        isContractorUpdatePage={false}
+        // isContractorUpdatePage={false}
         updatePriority={updatePriority}
         getPriorityObjectByCode={getPriorityObjectByCode}
         apiError={getSorCodesError}
@@ -375,26 +432,6 @@ const TradeContractorRateScheduleItemView = ({
       />
     </>
   )
-}
-
-TradeContractorRateScheduleItemView.propTypes = {
-  trades: PropTypes.array.isRequired,
-  sorCodeArrays: PropTypes.array.isRequired,
-  setSorCodeArrays: PropTypes.func.isRequired,
-  propertyReference: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  updatePriority: PropTypes.func.isRequired,
-  getPriorityObjectByCode: PropTypes.func.isRequired,
-  tradeCode: PropTypes.string.isRequired,
-  setTradeCode: PropTypes.func.isRequired,
-  contractorReference: PropTypes.string.isRequired,
-  setContractorReference: PropTypes.func.isRequired,
-  budgetCodeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
-  setBudgetCodeId: PropTypes.func.isRequired,
-  setPageToMultipleSORs: PropTypes.func.isRequired,
-  filterPriorities: PropTypes.func.isRequired,
 }
 
 export default TradeContractorRateScheduleItemView

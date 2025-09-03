@@ -15,7 +15,7 @@ import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { getPropertyTenureData } from '../../utils/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'
-import { useAppointmentDetails } from './hooks/useAppointmentDetails'
+import { useAppointmentDetails } from '../../utils/requests/hooks/useAppointmentDetails'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
