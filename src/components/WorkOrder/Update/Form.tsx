@@ -19,7 +19,6 @@ interface Props {
   setVariationReason: Dispatch<SetStateAction<string>>
   sorSearchRequest?: (searchText: any) => Promise<any>
   variationReason: string
-  contractorReference: string
   sorCodeArrays: SorCode[][]
   setSorCodeArrays: Dispatch<SetStateAction<SorCode[][]>>
   formState?: any // its not actually passed, so I will leave it
@@ -35,7 +34,6 @@ const WorkOrderUpdateForm = (props: Props) => {
     onGetToSummary,
     setVariationReason,
     variationReason,
-    contractorReference,
     sorSearchRequest,
     sorCodeArrays,
     setSorCodeArrays,
@@ -44,68 +42,66 @@ const WorkOrderUpdateForm = (props: Props) => {
     contractor,
   } = props
 
-  const { register, handleSubmit, errors, setValue, getValues } = useForm({
+  const { register, handleSubmit, errors, getValues } = useForm({
     defaultValues: { ...formState },
   })
-  const isContractorUpdatePage = true
+
   return (
-    <>
-      <form
-        role="form"
-        id="repair-request-form"
-        onSubmit={handleSubmit(onGetToSummary)}
-      >
-        <OriginalRateScheduleItems originalTasks={originalTasks} />
+    <form
+      role="form"
+      id="repair-request-form"
+      onSubmit={handleSubmit(onGetToSummary)}
+    >
+      <OriginalRateScheduleItems originalTasks={originalTasks} />
 
-        <LatestRateScheduleItems
-          latestTasks={latestTasks}
-          register={register}
-          errors={errors}
-        />
+      <LatestRateScheduleItems
+        latestTasks={latestTasks}
+        register={register}
+        errors={errors}
+      />
 
-        <AddedRateScheduleItems
-          register={register}
-          errors={errors}
-          addedTasks={addedTasks}
-          isContractorUpdatePage={isContractorUpdatePage}
-          sorSearchRequest={sorSearchRequest}
-          sorCodeArrays={sorCodeArrays}
-          setSorCodeArrays={setSorCodeArrays}
-          // setValue={setValue}
-          setPageToMultipleSORs={() => {
-            setPageToMultipleSORs(getValues())
-          }}
+      <AddedRateScheduleItems
+        register={register}
+        errors={errors}
+        addedTasks={addedTasks}
+        isContractorUpdatePage={true}
+        sorSearchRequest={sorSearchRequest}
+        sorCodeArrays={sorCodeArrays}
+        setSorCodeArrays={setSorCodeArrays}
+        // setValue={setValue}
+        setPageToMultipleSORs={() => {
+          setPageToMultipleSORs(getValues())
+        }}
+      />
+      {contractor?.multiTradeEnabled ? (
+        <TextArea
+          name="variationReason"
+          value={variationReason}
+          label="Variation reason"
+          placeholder="Write a reason for the variation..."
+          required={true}
+          onChange={(event) => setVariationReason(event.target.value)}
+          register={register({
+            required: 'Please enter a reason',
+          })}
+          error={errors && errors.variationReason}
         />
-        {contractor?.multiTradeEnabled ? (
-          <TextArea
-            name="variationReason"
-            value={variationReason}
-            label="Variation reason"
-            placeholder="Write a reason for the variation..."
-            required={true}
-            onChange={(event) => setVariationReason(event.target.value)}
-            register={register({
-              required: 'Please enter a reason',
-            })}
-            error={errors && errors.variationReason}
-          />
-        ) : (
-          <CharacterCountLimitedTextArea
-            name="variationReason"
-            maxLength={250}
-            value={variationReason}
-            requiredText="Please enter a reason"
-            label="Variation reason"
-            placeholder="Write a reason for the variation..."
-            required={true}
-            register={register}
-            onChange={(event) => setVariationReason(event.target.value)}
-            error={errors && errors.variationReason}
-          />
-        )}
-        <PrimarySubmitButton label="Next" />
-      </form>
-    </>
+      ) : (
+        <CharacterCountLimitedTextArea
+          name="variationReason"
+          maxLength={250}
+          value={variationReason}
+          requiredText="Please enter a reason"
+          label="Variation reason"
+          placeholder="Write a reason for the variation..."
+          required={true}
+          register={register}
+          onChange={(event) => setVariationReason(event.target.value)}
+          error={errors && errors.variationReason}
+        />
+      )}
+      <PrimarySubmitButton label="Next" />
+    </form>
   )
 }
 

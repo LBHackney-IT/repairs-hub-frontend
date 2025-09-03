@@ -46,7 +46,6 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
   const [showUpdateSuccess, setShowUpdateSuccess] = useState<boolean>(false)
   const [overSpendLimit, setOverSpendLimit] = useState<boolean>()
   const [budgetCode, setBudgetCode] = useState<BudgetCode>()
-  const [contractorReference, setContractorReference] = useState<string>()
   const [
     orderRequiresIncrementalSearch,
     setOrderRequiresIncrementalSearch,
@@ -190,7 +189,6 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
       setBudgetCode(workOrder.budgetCode)
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
-      setContractorReference(workOrder.contractorReference)
     } catch (e) {
       setCurrentUser(null)
       setSorCodeArrays([[]])
@@ -325,7 +323,6 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
                 onGetToSummary={onGetToSummary}
                 setVariationReason={setVariationReason}
                 variationReason={variationReason}
-                contractorReference={contractorReference}
                 sorSearchRequest={
                   orderRequiresIncrementalSearch && sorSearchRequest
                 }
