@@ -222,6 +222,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
 
     try {
       const filesToUpload = workOrderFiles.concat(followOnFiles)
+      setCloseFormValues({
+        workOrderFiles: workOrderFiles,
+        followOnFiles: followOnFiles,
+      })
 
       if (filesToUpload.length > 0) {
         if (workOrderFiles.length > 0) {
@@ -236,10 +240,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
-            setCloseFormValues({
-              workOrderFiles: workOrderFiles,
-              followOnFiles: followOnFiles,
-            })
             return
           }
         }
@@ -256,10 +256,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
-            setCloseFormValues({
-              workOrderFiles: workOrderFiles,
-              followOnFiles: followOnFiles,
-            })
             return
           }
         }
@@ -296,15 +292,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
           localStorage.removeItem(key)
         }
       } // Clear cached form data
+      setCloseFormValues(null)
       router.push('/')
     } catch (e) {
       console.error(e)
       setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
-      setCloseFormValues({
-        workOrderFiles: workOrderFiles,
-        followOnFiles: followOnFiles,
-      })
     }
   }
 

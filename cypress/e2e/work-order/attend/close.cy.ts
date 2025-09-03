@@ -111,6 +111,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
   context('during normal working hours', () => {
     beforeEach(() => {
       Cypress.env('IsCurrentOperativeOvertime', false)
+      cy.clearFilesDatabase()
     })
 
     it('shows a validation error when no reason is selected', () => {
@@ -168,13 +169,16 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       )
 
       // 2. too many files
+      const photo1 = 'photo_1.jpg'
       cy.get('input[type="file"]').selectFile(
-        Array(11).fill({
-          contents: Cypress.Buffer.from('file contents'),
-          fileName: 'file.png',
-          mimeType: 'image/png',
-          lastModified: Date.now(),
-        })
+        Array(11)
+          .fill(null)
+          .map((_, i) => ({
+            contents: `cypress/fixtures/photos/${photo1}`,
+            fileName: `photo_${i + 1}.jpg`,
+            mimeType: 'image/jpeg',
+            lastModified: Date.now(),
+          }))
       )
 
       cy.get('.govuk-button').contains('Close work order').click()
