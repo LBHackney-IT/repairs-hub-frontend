@@ -5,7 +5,6 @@ import { PrimarySubmitButton } from '../Form'
 import React, { useState, useEffect } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
-import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
@@ -102,6 +101,11 @@ const MobileWorkingCloseWorkOrderForm = ({
     }
   }, [watch('reason')])
 
+  // Show validation error immediately for quick feedback
+  useEffect(() => {
+    trigger('workOrderFileUpload')
+  }, [workOrderFiles, followOnFiles])
+
   const selectedFurtherWorkRequired =
     watch('followOnStatus') === 'furtherWorkRequired'
 
@@ -162,14 +166,8 @@ const MobileWorkingCloseWorkOrderForm = ({
               setFiles={setWorkOrderFiles}
               validationError={errors?.workOrderFileUpload?.message}
               isLoading={isLoading}
-              register={register('workOrderFileUpload', {
-                validate: () => {
-                  const validation = validateFileUpload(workOrderFiles)
-
-                  if (validation === null) return true
-                  return validation
-                },
-              })}
+              registerFunction={register}
+              registerField="workOrderFileUpload"
               testId="WorkOrderPhotoUpload"
             />
 
@@ -241,14 +239,8 @@ const MobileWorkingCloseWorkOrderForm = ({
                 setFiles={setFollowOnFiles}
                 validationError={errors?.followOnFileUpload?.message}
                 isLoading={isLoading}
-                register={register('followOnFileUpload', {
-                  validate: () => {
-                    const validation = validateFileUpload(followOnFiles)
-
-                    if (validation === null) return true
-                    return validation
-                  },
-                })}
+                registerFunction={register}
+                registerField="followOnFileUpload"
                 testId="FollowOnPhotoUpload"
               />
               {followOnFiles.length > 0 && (
