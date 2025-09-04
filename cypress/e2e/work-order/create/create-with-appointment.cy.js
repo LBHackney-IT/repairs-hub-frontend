@@ -115,6 +115,11 @@ describe('Schedule appointment form', () => {
       { body: '' }
     ).as('apiCheckjobStatus')
 
+    cy.intercept(
+      { method: 'GET', path: '/api/contractors/*' },
+      { fixture: 'contractor/contractor.json' }
+    ).as('contractorRequest')
+
     cy.clock(now, ['Date'])
   })
 

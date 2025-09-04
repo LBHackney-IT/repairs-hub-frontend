@@ -36,6 +36,11 @@ describe('Raise repair form', () => {
     ).as('tradesRequest')
 
     cy.intercept(
+      { method: 'GET', path: '/api/contractors/*' },
+      { fixture: 'contractor/contractor.json' }
+    ).as('contractorRequest')
+
+    cy.intercept(
       {
         method: 'GET',
         path: '/api/workOrders?*',

@@ -6,6 +6,13 @@ import {
 } from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
+  beforeEach(() => {
+    cy.intercept(
+      { method: 'GET', path: '/api/contractors/*' },
+      { fixture: 'contractor/contractor.json' }
+    ).as('contractorRequest')
+  })
+
   context('As a contractor', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
@@ -39,7 +46,6 @@ describe('Updating a work order', () => {
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
-
       cy.intercept(
         { method: 'POST', path: '/api/jobStatusUpdate' },
         { body: '' }
