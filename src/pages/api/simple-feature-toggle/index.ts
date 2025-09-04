@@ -5,7 +5,6 @@ export interface SimpleFeatureToggleResponse {
   googleTagManagerEnabled: boolean
   enableFollowOnIsEmergencyField: boolean
   enableRepairsFinderIntegration: boolean
-  useCompressorJS: boolean
 }
 
 export default authoriseServiceAPIRequest(async (req, res) => {
@@ -17,8 +16,6 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
     enableRepairsFinderIntegration:
       process.env.REPAIRS_FINDER_INTEGRATION_ENABLED === 'true',
-
-    useCompressorJS: process.env.USE_COMPRESSOR_JS === 'true',
   }
 
   res.status(HttpStatus.StatusCodes.OK).json(data)

@@ -76,7 +76,6 @@ functions:
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
       FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.follow-on-is-emergency-field-enabled.${self:provider.stage}}
-      USE_COMPRESSOR_JS: ${self:custom.use-compressor-js.${self:provider.stage}}
       REPAIRS_FINDER_INTEGRATION_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/enable-repairs-finder-integration}
       TAG_MANAGER_ID: ${self:custom.tag-manager-id.${self:provider.stage}}
 
@@ -166,7 +165,3 @@ custom:
     development: true
     staging: true
     production: true
-  use-compressor-js:
-    development: true
-    staging: false
-    production: false
