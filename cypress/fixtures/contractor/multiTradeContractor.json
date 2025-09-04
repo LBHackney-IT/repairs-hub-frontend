@@ -4,5 +4,5 @@
   "useExternalScheduleManager": false,
   "canAssignOperative": false,
   "perTradeAvailability": true,
-  "multiTradeEnabled": false
+  "multiTradeEnabled": true
 }

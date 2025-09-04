@@ -182,26 +182,23 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       setError(null)
       setIsLoading(true)
 
-      const contractor = null
+      // const contractor = null
 
-      try {
-        const contractorResponse = await getContractor(contractorReference)
-        if (!contractorResponse.success) {
-          throw contractorResponse.error
-        }
+      const contractorResponse = await getContractor(contractorReference)
+      if (!contractorResponse.success) {
+        // throw contractorResponse.error
+        console.error('An error has occured:', contractorResponse.error)
 
-        setContractor(contractorResponse.response)
-      } catch (e) {
-        console.error('An error has occured:', e.response)
-
-        if (e instanceof APIResponseError) {
-          setError(e.message)
+        if (contractorResponse.error instanceof APIResponseError) {
+          setError(contractorResponse.error.message)
         } else {
-          setError(formatRequestErrorMessage(e))
+          setError(formatRequestErrorMessage(contractorResponse.error))
         }
       }
 
-      setIsLoading(false)
+      console.log({ contractorResponse })
+
+      setContractor(contractorResponse.response)
 
       if (
         process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
@@ -209,8 +206,10 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       ) {
         getBudgetCodesData(contractorReference)
       } else {
-        await prepareSORData(contractor, tradeCode)
+        await prepareSORData(contractorResponse.response, tradeCode)
       }
+
+      setIsLoading(false)
     } else {
       setContractorReference('')
     }
@@ -232,8 +231,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
           tradeCode: tradeCode,
         },
       })
-
-      console.log({ contractors })
 
       setContractors(contractors)
     } catch (e) {
