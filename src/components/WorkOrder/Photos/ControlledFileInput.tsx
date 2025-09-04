@@ -62,7 +62,12 @@ const ControlledFileInput = (props: Props) => {
   }, [files])
 
   useEffect(() => {
-    console.log('Current files:', files.length, 'Current preview files:', previewFiles.length)
+    console.log(
+      'Current files:',
+      files.length,
+      'Current preview files:',
+      previewFiles.length
+    )
   }, [files, previewFiles])
 
   useUpdateFileInput(inputRef, files)
