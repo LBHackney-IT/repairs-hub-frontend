@@ -176,43 +176,44 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       (contractor) => contractor.contractorName === contractorName
     )[0]?.contractorReference
 
-    if (contractorReference?.length) {
-      setContractorReference(contractorReference)
-
-      setError(null)
-      setIsLoading(true)
-
-      // const contractor = null
-
-      const contractorResponse = await getContractor(contractorReference)
-      if (!contractorResponse.success) {
-        // throw contractorResponse.error
-        console.error('An error has occured:', contractorResponse.error)
-
-        if (contractorResponse.error instanceof APIResponseError) {
-          setError(contractorResponse.error.message)
-        } else {
-          setError(formatRequestErrorMessage(contractorResponse.error))
-        }
-      }
-
-      console.log({ contractorResponse })
-
-      setContractor(contractorResponse.response)
-
-      if (
-        process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
-        canAssignBudgetCode(user)
-      ) {
-        getBudgetCodesData(contractorReference)
-      } else {
-        await prepareSORData(contractorResponse.response, tradeCode)
-      }
-
-      setIsLoading(false)
-    } else {
+    if (contractorReference?.length === 0) {
       setContractorReference('')
+
+      return
     }
+
+    setContractorReference(contractorReference)
+
+    setError(null)
+    setIsLoading(true)
+
+    const contractorResponse = await getContractor(contractorReference)
+    if (!contractorResponse.success) {
+      // throw contractorResponse.error
+      console.error('An error has occured:', contractorResponse.error)
+
+      if (contractorResponse.error instanceof APIResponseError) {
+        setError(contractorResponse.error.message)
+      } else {
+        setError(formatRequestErrorMessage(contractorResponse.error))
+      }
+      return
+    }
+
+    console.log({ contractorResponse })
+
+    setContractor(contractorResponse.response)
+
+    if (
+      process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
+      canAssignBudgetCode(user)
+    ) {
+      getBudgetCodesData(contractorReference)
+    } else {
+      await prepareSORData(contractorResponse.response, tradeCode)
+    }
+
+    setIsLoading(false)
   }
 
   const getContractorsData = async (

@@ -991,6 +991,18 @@ describe('Raise repair form', () => {
         { fixture: 'contractors/multiTradeContractors.json' }
       ).as('multiTradeContractorsRequest')
 
+      cy.fixture('contractor/contractor.json').then((contractor) => {
+        contractor.multiTradeEnabled = true
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path: `/api/contractors/*`,
+          },
+          { body: contractor }
+        ).as('contractorRequest')
+      })
+
       cy.loginWithAgentAndBudgetCodeOfficerRole()
     })
     ;[

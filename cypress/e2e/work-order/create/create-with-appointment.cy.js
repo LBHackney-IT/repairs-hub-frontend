@@ -486,6 +486,20 @@ describe('Schedule appointment form', () => {
         { method: 'GET', path: '/api/users/schedulerSession' },
         { body: { schedulerSessionId: 'SCHEDULER_SESSION_ID' } }
       )
+
+      cy.fixture('contractor/contractor.json').then((contractor) => {
+        contractor.useExternalScheduleManager = true
+        contractor.name = 'HH General Building Repair'
+        contractor.contractorReference = 'H01'
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path: `/api/contractors/*`,
+          },
+          { body: contractor }
+        ).as('contractorRequest')
+      })
     })
 
     describe('and the priority is Normal (N)', () => {

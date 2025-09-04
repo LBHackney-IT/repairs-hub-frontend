@@ -501,6 +501,18 @@ describe('Updating a work order', () => {
             )
           })
           .as('workOrder')
+
+        cy.fixture('contractor/contractor.json').then((contractor) => {
+          contractor.multiTradeEnabled = true
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path: `/api/contractors/*`,
+            },
+            { body: contractor }
+          ).as('contractorRequest')
+        })
       })
 
       it('does not have a character limit for the variation reason', () => {
