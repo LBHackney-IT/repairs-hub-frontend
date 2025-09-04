@@ -12,6 +12,7 @@ import {
 import SpinnerWithLabel from '../../SpinnerWithLabel'
 import compressFile from './hooks/uploadFiles/compressFile'
 import validateFileUpload from './hooks/validateFileUpload'
+import useUpdateFileInput from './hooks/useUpdateFileInput'
 
 interface Props {
   files: File[]
@@ -44,36 +45,18 @@ const ControlledFileInput = (props: Props) => {
   const [previewFiles, setPreviewFiles] = useState<File[]>([])
 
   useEffect(() => {
-    // clear the input value so that the same file can be re-uploaded if needed
-    if (inputRef.current) inputRef.current.value = ''
     // when form is reset e.g. due to an error - set the preview files from the files
     if (!files || files.length === 0) {
       setPreviewFiles([])
       return
     }
+    // if there are files but no preview files (e.g. after a form reset), set them
     if (files.length > 0 && previewFiles.length === 0) {
       setPreviewFiles(files)
     }
   }, [])
 
-  useEffect(() => {
-    console.log(
-      'Current files:',
-      files.length,
-      'Current preview files:',
-      previewFiles.length
-    )
-
-    // remove preview files if file was removed - by name
-    setPreviewFiles((prev) =>
-      prev.filter((f) => files.some((file) => file.name === f.name))
-    )
-
-    // Update the input's FileList to match the current files state
-    const dataTransfer = new DataTransfer()
-    files.forEach((file) => dataTransfer.items.add(file))
-    if (inputRef.current) inputRef.current.files = dataTransfer.files
-  }, [files, inputRef])
+  useUpdateFileInput({ files, setPreviewFiles, inputRef })
 
   function addFileIfNew(file: File) {
     setFiles((prev) => {
