@@ -8,11 +8,6 @@ async function compressFile(file: File): Promise<File> {
       useWebWorker: true,
       maxIteration: 1,
     })
-    console.log('compression result', {
-      name: file.name,
-      size: file.size,
-      type: file.type,
-    })
     return compressResult
   } catch (error) {
     let errorMessage = `File compression failed with BIC for "${file.name}":`

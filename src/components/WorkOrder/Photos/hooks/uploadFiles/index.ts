@@ -84,7 +84,7 @@ const uploadFiles = async (
       throw new FileUploadError(completeUploadResult.error as string)
 
     // Clear cache
-    clearIndexedDb()
+    await clearIndexedDb()
   } catch (error) {
     if (error instanceof FileUploadError)
       captureException('Failed to upload photos', {
