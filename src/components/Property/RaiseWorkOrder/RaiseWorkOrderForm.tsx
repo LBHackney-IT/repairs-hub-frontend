@@ -21,7 +21,6 @@ import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/r
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 import SelectPriority from './SelectPriority'
-import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
@@ -229,13 +228,13 @@ const RaiseWorkOrderForm = (props: Props) => {
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
 
-    if (isPriorityEnabled) {
-      const element = document.getElementById(
-        'priorityCode'
-      ) as HTMLInputElement
+    // if (isPriorityEnabled) {
+    //   const element = document.getElementById(
+    //     'priorityCode'
+    //   ) as HTMLInputElement
 
-      if (element) element.disabled = false
-    }
+    //   if (element) element.disabled = false
+    // }
   }, [])
 
   return (
@@ -324,7 +323,7 @@ const RaiseWorkOrderForm = (props: Props) => {
               register={register}
               errors={errors}
               priorityCode={priorityCode}
-              priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
+              isPriorityEnabled={isPriorityEnabled}
             />
 
             <CharacterCountLimitedTextArea
