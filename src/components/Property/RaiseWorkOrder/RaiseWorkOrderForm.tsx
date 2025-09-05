@@ -227,14 +227,6 @@ const RaiseWorkOrderForm = (props: Props) => {
     setLoading(true)
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
-
-    // if (isPriorityEnabled) {
-    //   const element = document.getElementById(
-    //     'priorityCode'
-    //   ) as HTMLInputElement
-
-    //   if (element) element.disabled = false
-    // }
   }, [])
 
   return (
