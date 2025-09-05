@@ -3,16 +3,15 @@ import { Dispatch, SetStateAction, useRef, useState, useEffect } from 'react'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
 import classNames from 'classnames'
+import useUpdateFileInput from './hooks/useUpdateFileInput'
 import {
   cachedFileExists,
-  clearIndexedDb,
   getCachedFile,
   setCachedFile,
 } from './hooks/uploadFiles/cacheFile'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
 import compressFile from './hooks/uploadFiles/compressFile'
 import validateFileUpload from './hooks/validateFileUpload'
-import useUpdateFileInput from './hooks/useUpdateFileInput'
 
 interface Props {
   files: File[]
@@ -72,12 +71,9 @@ const ControlledFileInput = (props: Props) => {
   const handleInput = async (e: React.FormEvent<HTMLInputElement>) => {
     setPreviewFiles([])
     const selectedFiles = Array.from(e.currentTarget.files || [])
-    console.log(`Selected files count: ${selectedFiles.length}`)
 
     // Immediately notify parent of all selected files for upload
     setFiles(selectedFiles)
-
-    // await clearIndexedDb() // < FOR TESTING - REMOVE THIS!
 
     const stableFiles: File[] = []
     try {
@@ -92,6 +88,7 @@ const ControlledFileInput = (props: Props) => {
       console.error('Error creating stable file copies:', err)
       stableFiles.push(...selectedFiles) // Fallback to original files
     }
+
     try {
       for (const file of stableFiles) {
         if (await cachedFileExists(file)) {
