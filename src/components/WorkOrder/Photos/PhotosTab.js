@@ -6,6 +6,7 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import UploadPhotosForm from './UploadPhotosForm'
 import PhotoViewList from './PhotoViewList'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { clearIndexedDb } from './hooks/uploadFiles/cacheFile'
 
 const PhotosTab = ({ workOrderReference }) => {
   const [photos, setPhotos] = useState([])
@@ -67,9 +68,10 @@ const PhotosTab = ({ workOrderReference }) => {
       <span className="photos-tab-upload">
         <UploadPhotosForm
           workOrderReference={workOrderReference}
-          onSuccess={() => {
+          onSuccess={async () => {
             // reload photos
             getPhotos(workOrderReference)
+            await clearIndexedDb()
           }}
         />
       </span>
