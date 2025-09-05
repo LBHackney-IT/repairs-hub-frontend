@@ -24,6 +24,7 @@ import {
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { Operative } from '../../models/operativeModel'
+import { clearIndexedDb } from '../WorkOrder/Photos/hooks/uploadFiles/cacheFile'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -228,7 +229,8 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
       followOnDataRequest
     )
 
-    makePostRequest(closeWorkOrderFormData, operativeAssignmentFormData)
+    await makePostRequest(closeWorkOrderFormData, operativeAssignmentFormData)
+    await clearIndexedDb()
   }
 
   const changeCurrentPage = () => {
