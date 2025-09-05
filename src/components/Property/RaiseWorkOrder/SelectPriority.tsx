@@ -81,7 +81,7 @@ const SelectPriority = (props: Props) => {
           value: priority.priorityCode.toString(),
         }))}
         onChange={onSelect}
-        disabled={isPriorityEnabled}
+        disabled={!isPriorityEnabled}
         required={true}
         register={register({
           required: 'Please select a priority',
