@@ -321,6 +321,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
           isPriorityEnabled={isPriorityEnabled}
           isIncrementalSearchEnabled={isIncrementalSearchEnabled}
           setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
+          enablePriorityField={() => setIsPriorityEnabled(true)}
         />
       )}
 

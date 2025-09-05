@@ -58,6 +58,7 @@ interface Props {
     }>
   ) => void
   formState: any
+  enablePriorityField: () => void
 }
 
 const TradeContractorRateScheduleItemView = (props: Props) => {
@@ -84,6 +85,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     setValue,
     setPageToMultipleSORs,
     formState,
+    enablePriorityField,
   } = props
 
   const [getContractorsError, setGetContractorsError] = useState<
@@ -397,6 +399,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
         sorSearchRequest={orderRequiresIncrementalSearch && sorSearchRequest}
         setPageToMultipleSORs={setPageToMultipleSORs}
         formState={formState}
+        enablePriorityField={enablePriorityField}
       />
     </>
   )

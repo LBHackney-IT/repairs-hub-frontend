@@ -62,6 +62,7 @@ interface Props {
   isPriorityEnabled: boolean
   isIncrementalSearchEnabled: boolean
   setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
+  enablePriorityField: () => void
 }
 
 const RaiseWorkOrderForm = (props: Props) => {
@@ -88,6 +89,7 @@ const RaiseWorkOrderForm = (props: Props) => {
     setPageToMultipleSORs,
     formState,
     isPriorityEnabled,
+    enablePriorityField,
   } = props
 
   const {
@@ -307,6 +309,7 @@ const RaiseWorkOrderForm = (props: Props) => {
               setValue={setValue}
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
               formState={formState}
+              enablePriorityField={enablePriorityField}
             />
 
             <SelectPriority

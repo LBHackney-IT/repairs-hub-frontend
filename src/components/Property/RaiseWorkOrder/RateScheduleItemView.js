@@ -19,6 +19,7 @@ const RateScheduleItemView = ({
   sorSearchRequest,
   setPageToMultipleSORs,
   formState,
+  enablePriorityField,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
@@ -84,6 +85,7 @@ const RateScheduleItemView = ({
 
   const onRateScheduleItemSelect = (index, code) => {
     // document.getElementById('priorityCode').disabled = false
+    enablePriorityField()
 
     const sorCodeObject = getSorCodeObject(code, index)
 
@@ -184,37 +186,6 @@ const RateScheduleItemView = ({
     }
   }
 
-  const rateScheduleItems = () => {
-    return arrayOfRateScheduleItemComponentIndexes.map((i) => {
-      return (
-        <Fragment key={`rateScheduleItem~${i}`}>
-          <RateScheduleItem
-            sorCodes={
-              sorSearchRequest ? sorCodeArrays[i] || [] : sorCodeArrays[0]
-            }
-            register={register}
-            errors={errors}
-            disabled={disabled}
-            key={i}
-            index={i}
-            onRateScheduleItemChange={onRateScheduleItemSelect}
-            onQuantityChange={onQuantityChange}
-            showRemoveRateScheduleItem={i > 0}
-            removeRateScheduleItem={removeRateScheduleItem}
-            sorSearchRequest={sorSearchRequest}
-            setSorCodes={(codes) =>
-              setSorCodeArrays((sorCodeArrays) => [
-                ...sorCodeArrays.slice(0, i),
-                codes,
-                ...sorCodeArrays.slice(i + 1),
-              ])
-            }
-          />
-        </Fragment>
-      )
-    })
-  }
-
   const changePageView = (e) => {
     e.preventDefault()
     setPageToMultipleSORs()
@@ -227,7 +198,32 @@ const RateScheduleItemView = ({
       ) : (
         <>
           <div>
-            {rateScheduleItems()}
+            {arrayOfRateScheduleItemComponentIndexes.map((i) => (
+              <Fragment key={`rateScheduleItem~${i}`}>
+                <RateScheduleItem
+                  sorCodes={
+                    sorSearchRequest ? sorCodeArrays[i] || [] : sorCodeArrays[0]
+                  }
+                  register={register}
+                  errors={errors}
+                  disabled={disabled}
+                  key={i}
+                  index={i}
+                  onRateScheduleItemChange={onRateScheduleItemSelect}
+                  onQuantityChange={onQuantityChange}
+                  showRemoveRateScheduleItem={i > 0}
+                  removeRateScheduleItem={removeRateScheduleItem}
+                  sorSearchRequest={sorSearchRequest}
+                  setSorCodes={(codes) =>
+                    setSorCodeArrays((sorCodeArrays) => [
+                      ...sorCodeArrays.slice(0, i),
+                      codes,
+                      ...sorCodeArrays.slice(i + 1),
+                    ])
+                  }
+                />
+              </Fragment>
+            ))}
             {apiError && <ErrorMessage label={apiError} />}
           </div>
           <div>
@@ -255,6 +251,7 @@ RateScheduleItemView.propTypes = {
   updatePriority: PropTypes.func.isRequired,
   getPriorityObjectByCode: PropTypes.func.isRequired,
   setPageToMultipleSORs: PropTypes.func.isRequired,
+  enablePriorityField: PropTypes.func.isRequired,
 }
 
 export default RateScheduleItemView
