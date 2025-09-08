@@ -18,7 +18,6 @@ import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/Follow
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
-import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import { canRaiseAFollowOn } from '../../utils/userPermissions'
 import UserContext from '../UserContext'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
@@ -196,14 +195,8 @@ const CloseWorkOrderForm = (props: Props) => {
             isLoading={isLoading}
             label="Photos"
             hint="Select all the photos you want to add (up to 10 photos)"
-            register={register('fileUpload', {
-              validate: () => {
-                const validation = validateFileUpload(files)
-
-                if (validation === null) return true
-                return validation
-              },
-            })}
+            registerFunction={register}
+            registerField="fileUpload"
             testId="PhotoUploadForm"
           />
 

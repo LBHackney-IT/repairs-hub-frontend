@@ -3,9 +3,11 @@ import uploadFilesToS3 from './uploadFilesToS3'
 import completeUpload from './completeUpload'
 import { captureException } from '@sentry/nextjs'
 import fileUploadStatusLogger from './fileUploadStatusLogger'
-import { compressFile } from './compressFile'
+import compressFile from './compressFile'
+import { getCachedFile, setCachedFile } from './cacheFile'
+import ensureAllFilesReadable from './ensureAllFilesReadable'
 
-class FileUploadError extends Error {
+export class FileUploadError extends Error {
   constructor(message: string) {
     super(message)
     this.name = 'FileUploadError'
@@ -17,7 +19,7 @@ const uploadFiles = async (
   workOrderReference: string,
   description: string,
   uploadGroupLabel: string,
-  setUploadStatus: (status: string | null) => void
+  setUploadStatus: (status: string) => void
 ): Promise<{
   success: boolean
   requestError?: string
@@ -25,46 +27,40 @@ const uploadFiles = async (
   try {
     const statusLogger = fileUploadStatusLogger(files.length, setUploadStatus)
 
-    // Ensure all files are readable
-    await Promise.all(
-      files.map(async (file) => {
-        try {
-          // Attempt to read the first kilobyte of the file to ensure it is valid and accessible
-          await file.slice(0, 1024).arrayBuffer()
-        } catch (err) {
-          const errorMessage = `Could not read the file "${file.name}". Please remove and re-select it. Error: ${err.message}`
-          console.error(errorMessage, err)
-          throw new FileUploadError(errorMessage)
-        }
-      })
-    )
+    // 1. Get cached files to upload or compress and cache them
+    const filesToUpload: File[] = []
+    const compressionErrors: Error[] = []
 
-    // 1. Get presigned urls
+    for (const file of files) {
+      try {
+        let fileToUpload = await getCachedFile(file)
+
+        if (fileToUpload == null) {
+          fileToUpload = await compressFile(file)
+          await setCachedFile(fileToUpload)
+        }
+
+        filesToUpload.push(fileToUpload)
+      } catch (error) {
+        filesToUpload.push(file)
+        compressionErrors.push(error as Error)
+      } finally {
+        statusLogger('Compress')
+      }
+    }
+
+    // 2. Get presigned urls
     const uploadUrlsResult = await getPresignedUrls(
       workOrderReference,
-      files.length
+      filesToUpload.length
     )
     if (!uploadUrlsResult.success)
       throw new FileUploadError(uploadUrlsResult.error as string)
 
     const presignedUrls = uploadUrlsResult.result.links
 
-    // 2. Compress files in series to avoid overwhelming system resources
-    const filesToUpload: File[] = []
-    const compressionErrors: Error[] = []
-    for (const file of files) {
-      try {
-        const compressedFile = await compressFile(file)
-        filesToUpload.push(compressedFile)
-      } catch (error) {
-        filesToUpload.push(file)
-        compressionErrors.push(error)
-      } finally {
-        statusLogger('Compress')
-      }
-    }
-
     // 3. Upload files to S3
+    await ensureAllFilesReadable(filesToUpload)
     const uploadFilesToS3Response = await uploadFilesToS3(
       filesToUpload,
       presignedUrls,

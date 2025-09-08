@@ -1,14 +1,27 @@
-import PropTypes from 'prop-types'
 import Link from 'next/link'
 import WarningText from '../Template/WarningText'
 
-const SuccessPage = ({ ...props }) => {
+interface Props {
+  links: {
+    href: string
+    text: string
+    rel?: string
+    target?: string
+    onClick?: () => void
+  }[]
+  banner: any
+  warningText?: string
+}
+
+const SuccessPage = (props: Props) => {
+  const { links, banner, warningText } = props
+
   return (
     <>
-      {props.banner}
-      {props.warningText && <WarningText text={props.warningText} />}
+      {banner}
+      {warningText && <WarningText text={warningText} />}
       <ul className="lbh-list lbh-!-margin-top-9">
-        {props.links.map((link, i) => {
+        {links.map((link, i) => {
           return (
             <li key={i}>
               <Link href={link.href}>
@@ -27,12 +40,6 @@ const SuccessPage = ({ ...props }) => {
       </ul>
     </>
   )
-}
-
-SuccessPage.propTypes = {
-  links: PropTypes.array.isRequired,
-  banner: PropTypes.any,
-  warningText: PropTypes.string,
 }
 
 export default SuccessPage
