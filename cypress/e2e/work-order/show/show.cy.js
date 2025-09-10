@@ -74,13 +74,7 @@ describe('Show work order page', () => {
     it('Shows various details about the work order, property and assigned contractor', () => {
       cy.visit('/work-orders/10000012')
 
-      cy.wait([
-        '@workOrderRequest',
-        '@property',
-        '@tasksRequest',
-        '@personAlerts',
-        '@locationAlerts',
-      ])
+      cy.wait(['@workOrderRequest', '@property', '@tasksRequest', '@alerts'])
       cy.intercept(
         {
           method: 'GET',
@@ -185,8 +179,7 @@ describe('Show work order page', () => {
               '@workOrderWithOperativesRequest',
               '@property',
               '@tasksRequest',
-              '@personAlerts',
-              '@locationAlerts',
+              '@alerts',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -208,8 +201,7 @@ describe('Show work order page', () => {
               '@workOrderWithOperativesRequest',
               '@property',
               '@tasksRequest',
-              '@personAlerts',
-              '@locationAlerts',
+              '@alerts',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -232,8 +224,7 @@ describe('Show work order page', () => {
             '@workOrderWithOperativesRequest',
             '@property',
             '@tasksRequest',
-            '@personAlerts',
-            '@locationAlerts',
+            '@alerts',
           ])
 
           cy.get('.appointment-details').contains('Appointment details')
@@ -307,13 +298,7 @@ describe('Show work order page', () => {
       it('Lists the orders in the history tab', () => {
         cy.visit('/work-orders/10000012')
 
-        cy.wait([
-          '@workOrderRequest',
-          '@property',
-          '@tasksRequest',
-          '@locationAlerts',
-          '@personAlerts',
-        ])
+        cy.wait(['@workOrderRequest', '@property', '@tasksRequest', '@alerts'])
 
         cy.contains('.tabs-button', 'Tasks and SORs')
         cy.contains('.tabs-button', 'Work orders history').click()
@@ -390,8 +375,8 @@ describe('Show work order page', () => {
         '@operativesWorkOrder',
         '@property',
         '@task',
-        '@locationAlerts',
-        '@personAlerts',
+
+        '@alerts',
         '@photosRequest',
       ])
 
@@ -468,8 +453,8 @@ describe('Show work order page', () => {
         '@operativesWorkOrder',
         '@property',
         '@task',
-        '@locationAlerts',
-        '@personAlerts',
+
+        '@alerts',
         '@photosRequest',
       ])
 
@@ -519,8 +504,8 @@ describe('Show work order page', () => {
         '@operativesWorkOrder',
         '@property',
         '@task',
-        '@locationAlerts',
-        '@personAlerts',
+
+        '@alerts',
         '@photosRequest',
       ])
 
@@ -589,12 +574,7 @@ describe('Show work order page', () => {
       it('contains a link to close the order', () => {
         cy.visit('/work-orders/10000012')
 
-        cy.wait([
-          '@workOrderRequest',
-          '@tasksRequest',
-          '@locationAlerts',
-          '@personAlerts',
-        ])
+        cy.wait(['@workOrderRequest', '@tasksRequest', '@personAlerts'])
 
         cy.get('[data-testid="details"]')
           .contains('Close')
@@ -608,12 +588,7 @@ describe('Show work order page', () => {
       it('contains a link to update the order', () => {
         cy.visit('/work-orders/10000012')
 
-        cy.wait([
-          '@workOrderRequest',
-          '@tasksRequest',
-          '@locationAlerts',
-          '@personAlerts',
-        ])
+        cy.wait(['@workOrderRequest', '@tasksRequest', '@personAlerts'])
 
         cy.get('[data-testid="details"]')
           .contains('Update')

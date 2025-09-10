@@ -427,12 +427,7 @@ describe('Show property', () => {
   describe('Tenures and Alerts', () => {
     it('shows Tenure and Alerts section', () => {
       cy.visit('/properties/00012345')
-      cy.wait([
-        '@property',
-        '@workOrdersHistory',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
+      cy.wait(['@property', '@workOrdersHistory', '@alerts'])
 
       cy.checkForTenureDetails(
         'Tenure: Secure',
@@ -452,7 +447,7 @@ describe('Show property', () => {
           {
             statusCode: 404,
             body: {
-              message: 'Cannot fetch location alerts',
+              message: 'Cannot fetch alerts',
             },
           }
         ).as('alertsError')
@@ -460,19 +455,13 @@ describe('Show property', () => {
 
       it('shows an error message in the place of the component', () => {
         cy.visit('/properties/00012345')
-        cy.wait([
-          '@property',
-          '@workOrdersHistory',
-          '@locationAlertsError',
-          '@personAlertsError',
-        ])
+        cy.wait(['@property', '@workOrdersHistory', '@alertsError'])
 
         // Some page content rendered
         cy.contains('Dwelling: 16 Pitcairn House')
 
         cy.get('.hackney-property-alerts').within(() => {
-          cy.contains('Cannot fetch location alerts')
-          cy.contains('Cannot fetch person alerts')
+          cy.contains('Cannot fetch alerts')
         })
       })
     })
