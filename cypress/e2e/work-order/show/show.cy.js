@@ -13,7 +13,7 @@ describe('Show work order page', () => {
       {
         method: 'GET',
         path:
-          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/00012345/location-alerts',
+          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/00012345/alerts',
       },
       {
         body: {
@@ -271,7 +271,7 @@ describe('Show work order page', () => {
           {
             method: 'GET',
             path:
-              '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/00089473/location-alerts',
+              '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/00089473/alerts',
           },
           {
             body: {
