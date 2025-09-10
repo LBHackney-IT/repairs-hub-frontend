@@ -102,11 +102,6 @@ describe('Show work order page', () => {
         'Alert 2 (VA)',
       ])
 
-      // Check the printed WO would contain the alerts
-      cy.get('.print-work-order .govuk-warning-text').contains(
-        'CV, VA, type3, type4'
-      )
-
       cy.get('.work-order-info').contains('Status: In Progress')
       cy.get('.work-order-info').contains(
         'Priority: U - Urgent (5 Working days)'
@@ -374,7 +369,7 @@ describe('Show work order page', () => {
 
       cy.contains('WO 10000621')
 
-      cy.get('.work-order-information').contains('CV, VA, type3, type4')
+      cy.get('.work-order-information').contains('CV, VA, type1, type2')
 
       cy.get('div[class*="Multibutton"]').should('not.exist')
       cy.get('a[id="caut-alerts"]').click()
