@@ -31,6 +31,7 @@ import { CurrentUser } from '../../types/variations/types'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { clearIndexedDb } from './Photos/hooks/uploadFiles/cacheFile'
 
 interface Props {
   workOrderReference: string
@@ -293,6 +294,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
         }
       } // Clear cached form data
       setCloseFormValues(null)
+      await clearIndexedDb()
       router.push('/')
     } catch (e) {
       console.error(e)
