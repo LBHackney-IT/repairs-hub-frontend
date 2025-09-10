@@ -22,22 +22,13 @@ interface Props {
 const MobileWorkingWorkOrderDetails = (props: Props) => {
   const { property, tenure, workOrder, appointmentDetails } = props
 
-  const [locationAlertsLoading, setLocationAlertsLoading] = useState<boolean>(
-    false
-  )
-  const [locationAlertsError, setLocationAlertsError] = useState<
-    string | null
-  >()
-  const [locationAlerts, setLocationAlerts] = useState([])
-
-  const [personAlertsLoading, setPersonAlertsLoading] = useState<boolean>(false)
-  const [personAlertsError, setPersonAlertsError] = useState<string | null>()
-  const [personAlerts, setPersonAlerts] = useState([])
+  const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
+  const [alerts, setAlerts] = useState([])
 
   const router = useRouter()
 
-  const getAllAlertTypes = () =>
-    getCautionaryAlertsType([...locationAlerts, ...personAlerts])
+  const getAllAlertTypes = () => getCautionaryAlertsType([...alerts])
 
   const cautContactURL = () => {
     router.push({
@@ -48,45 +39,25 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
     })
   }
 
-  const getLocationAlerts = (propertyReference) => {
+  const getAlerts = (tenureId, propertyReference) => {
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/${propertyReference}/location-alerts`,
+      path: `/api/properties/${tenureId}/${propertyReference}/alerts`,
     })
-      .then((data) => setLocationAlerts(data.alerts))
+      .then((data) => setAlerts(data.alerts))
       .catch((error) => {
         console.error('Error loading location alerts status:', error.response)
 
-        setLocationAlertsError(
-          `Error loading location alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        setAlertsError(
+          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
         )
       })
-      .finally(() => setLocationAlertsLoading(false))
-  }
-
-  const getPersonAlerts = (tenureId) => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${tenureId}/person-alerts`,
-    })
-      .then((data) => setPersonAlerts(data.alerts))
-      .catch((error) => {
-        console.error('Error loading person alerts status:', error.response)
-
-        setPersonAlertsError(
-          `Error loading person alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setPersonAlertsLoading(false))
+      .finally(() => setAlertsLoading(false))
   }
 
   useEffect(() => {
-    setLocationAlertsLoading(true)
-    getLocationAlerts(property.propertyReference)
-    if (tenure?.id) {
-      setPersonAlertsLoading(true)
-      getPersonAlerts(tenure.id)
-    }
+    setAlertsLoading(true)
+    getAlerts(tenure.id, property.propertyReference)
   }, [])
 
   return (
@@ -141,11 +112,8 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
           </>
         )}
         <div className="work-order-information">
-          {locationAlertsLoading && <Spinner resource="locationAlerts" />}
-          {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
-
-          {personAlertsLoading && <Spinner resource="personAlerts" />}
-          {personAlertsError && <ErrorMessage label={personAlertsError} />}
+          {alertsLoading && <Spinner resource="alerts" />}
+          {alertsError && <ErrorMessage label={alertsError} />}
 
           {getAllAlertTypes().length > 0 && (
             <GridRow className="govuk-!-margin-top-0">
