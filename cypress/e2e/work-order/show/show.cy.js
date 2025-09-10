@@ -97,17 +97,10 @@ describe('Show work order page', () => {
 
       cy.get('.property-details-main-section').contains('E9 6PT')
 
-      cy.checkForTenureDetails(
-        'Tenure: Secure',
-        [
-          'Address Alert: Location Alert 1 (CV)',
-          'Address Alert: Location Alert 2 (VA)',
-        ],
-        [
-          'Contact Alert: Person Alert 1 (type3)',
-          'Contact Alert: Person Alert 2 (type4)',
-        ]
-      )
+      cy.checkForTenureDetails('Tenure: Secure', [
+        'Alert 1 (CV)',
+        'Alert 2 (VA)',
+      ])
 
       // Check the printed WO would contain the alerts
       cy.get('.print-work-order .govuk-warning-text').contains(
@@ -269,11 +262,11 @@ describe('Show work order page', () => {
               alerts: [
                 {
                   type: 'CV',
-                  comments: 'Location Alert 1',
+                  comments: 'Alert 1',
                 },
                 {
                   type: 'VA',
-                  comments: 'Location Alert 2',
+                  comments: 'Alert 2',
                 },
               ],
             },
@@ -375,7 +368,6 @@ describe('Show work order page', () => {
         '@operativesWorkOrder',
         '@property',
         '@task',
-
         '@alerts',
         '@photosRequest',
       ])
@@ -574,7 +566,7 @@ describe('Show work order page', () => {
       it('contains a link to close the order', () => {
         cy.visit('/work-orders/10000012')
 
-        cy.wait(['@workOrderRequest', '@tasksRequest', '@personAlerts'])
+        cy.wait(['@workOrderRequest', '@tasksRequest', '@alerts'])
 
         cy.get('[data-testid="details"]')
           .contains('Close')
@@ -588,7 +580,7 @@ describe('Show work order page', () => {
       it('contains a link to update the order', () => {
         cy.visit('/work-orders/10000012')
 
-        cy.wait(['@workOrderRequest', '@tasksRequest', '@personAlerts'])
+        cy.wait(['@workOrderRequest', '@tasksRequest', '@alerts'])
 
         cy.get('[data-testid="details"]')
           .contains('Update')
