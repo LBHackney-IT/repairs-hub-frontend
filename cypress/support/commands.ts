@@ -20,8 +20,7 @@ declare global {
       requestsCountByUrl(url: string): Cypress.Chainable<number>
       checkForTenureDetails(
         tenure: string,
-        addressAlerts: string[],
-        contactAlerts: string[]
+        alerts: string[]
       ): Cypress.Chainable<void>
       ensureCompressedFileInIndexedDb(filename: string): Cypress.Chainable<void>
       clearFilesDatabase(): Cypress.Chainable<void>
