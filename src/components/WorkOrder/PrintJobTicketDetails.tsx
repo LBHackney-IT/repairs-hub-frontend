@@ -13,8 +13,7 @@ interface Props {
   appointmentDetails: WorkOrderAppointmentDetails
   property: Property
   tasksAndSors: WorkOrderTasks[]
-  locationAlerts: CautionaryAlert[]
-  personAlerts: CautionaryAlert[]
+  alerts: CautionaryAlert[]
 }
 
 const PrintJobTicketDetails = (props: Props) => {
@@ -22,15 +21,11 @@ const PrintJobTicketDetails = (props: Props) => {
     workOrder,
     appointmentDetails,
     property,
-    locationAlerts,
-    personAlerts,
+    alerts,
     tasksAndSors,
   } = props
 
-  const cautionaryAlertsType = getCautionaryAlertsType([
-    ...locationAlerts,
-    ...personAlerts,
-  ]).join(', ')
+  const cautionaryAlertsType = getCautionaryAlertsType([...alerts]).join(', ')
 
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status

@@ -17,8 +17,7 @@ interface Props {
   subTypeDescription: string
   tenure: Tenure
   canRaiseRepair: boolean
-  setLocationAlerts: (alerts: CautionaryAlert[]) => void
-  setPersonAlerts: (alerts: CautionaryAlert[]) => void
+  setAlerts: (alerts: CautionaryAlert[]) => void
 }
 
 const WorkOrderHeader = (props: Props) => {
@@ -32,8 +31,7 @@ const WorkOrderHeader = (props: Props) => {
     subTypeDescription,
     tenure,
     canRaiseRepair,
-    setLocationAlerts,
-    setPersonAlerts,
+    setAlerts,
   } = props
 
   return (
@@ -50,8 +48,7 @@ const WorkOrderHeader = (props: Props) => {
           tenure={tenure}
           canRaiseRepair={canRaiseRepair}
           propertyReference={propertyReference}
-          setParentLocationAlerts={setLocationAlerts}
-          setParentPersonAlerts={setPersonAlerts}
+          setParentAlerts={setAlerts}
         />
       </div>
       <div className="govuk-grid-column-one-third">
