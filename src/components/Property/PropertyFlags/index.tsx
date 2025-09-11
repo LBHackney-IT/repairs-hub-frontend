@@ -48,10 +48,10 @@ const PropertyFlags = (props: Props) => {
         setParentAlerts && setParentAlerts(data.alerts)
       })
       .catch((error) => {
-        console.error('Error loading location alerts status:', error.response)
+        console.error('Error loading alerts status:', error.response)
 
         setAlertsError(
-          `Error loading location alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
         )
       })
       .finally(() => setAlertsLoading(false))

@@ -46,7 +46,7 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
     })
       .then((data) => setAlerts(data.alerts))
       .catch((error) => {
-        console.error('Error loading location alerts status:', error.response)
+        console.error('Error loading alerts status:', error.response)
 
         setAlertsError(
           `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
