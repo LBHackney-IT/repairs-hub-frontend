@@ -6,7 +6,6 @@ import Spinner from '@/components/Spinner'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import { useRouter } from 'next/router'
-import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import { formatDateTime } from '../../utils/time'
 import Status from './Status'
 import { Property, Tenure } from '../../models/propertyTenure'
@@ -28,13 +27,18 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
 
   const router = useRouter()
 
-  const getAllAlertTypes = () => getCautionaryAlertsType([...alerts])
+  const cautionaryAlertsType = () => {
+    const cautionaryAlerts = alerts.map(
+      (cautionaryAlert) => cautionaryAlert.type
+    )
+    return [...new Set(cautionaryAlerts)].join(', ')
+  }
 
   const cautContactURL = () => {
     router.push({
       pathname: `/work-orders/cautionary-alerts`,
       query: {
-        cautContactCodes: getAllAlertTypes().join(', '),
+        cautContactCodes: cautionaryAlertsType(),
       },
     })
   }
@@ -115,7 +119,7 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
           {alertsLoading && <Spinner resource="alerts" />}
           {alertsError && <ErrorMessage label={alertsError} />}
 
-          {getAllAlertTypes().length > 0 && (
+          {cautionaryAlertsType().length > 0 && (
             <GridRow className="govuk-!-margin-top-0">
               <GridColumn width="one-half">
                 <a
@@ -136,7 +140,7 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
                     !
                   </span>
                   <strong className="govuk-warning-text__text person-alert--text">
-                    {getAllAlertTypes().join(', ')}
+                    {cautionaryAlertsType()}
                   </strong>
                 </div>
               </GridColumn>

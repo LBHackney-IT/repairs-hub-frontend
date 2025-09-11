@@ -1,7 +1,6 @@
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
-import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import WarningText from '@/components/Template/WarningText'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
@@ -25,7 +24,12 @@ const PrintJobTicketDetails = (props: Props) => {
     tasksAndSors,
   } = props
 
-  const cautionaryAlertsType = getCautionaryAlertsType([...alerts]).join(', ')
+  const cautionaryAlertsType = () => {
+    const cautionaryAlerts = alerts.map(
+      (cautionaryAlert) => cautionaryAlert.type
+    )
+    return [...new Set(cautionaryAlerts)].join(', ')
+  }
 
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
@@ -194,7 +198,7 @@ const PrintJobTicketDetails = (props: Props) => {
         </div>
       </div>
 
-      {cautionaryAlertsType && <WarningText text={cautionaryAlertsType} />}
+      {cautionaryAlertsType && <WarningText text={cautionaryAlertsType()} />}
 
       <hr />
 
