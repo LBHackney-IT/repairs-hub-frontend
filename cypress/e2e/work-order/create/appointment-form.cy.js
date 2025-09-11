@@ -98,7 +98,7 @@ describe('Schedule appointment form', () => {
           alerts: [],
         },
       }
-    ).as('locationAlerts')
+    ).as('alerts')
 
     cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
