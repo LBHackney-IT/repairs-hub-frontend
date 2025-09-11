@@ -87,7 +87,7 @@ const PropertyFlags = (props: Props) => {
         <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
       )}
 
-      {alertsLoading ? <Spinner resource="Alerts" /> : renderAlerts()}
+      {alertsLoading ? <Spinner resource="alerts" /> : renderAlerts()}
 
       {alertsError && <ErrorMessage label={alertsError} />}
 

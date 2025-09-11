@@ -12,7 +12,7 @@ exports[`PropertyFlags should render tenure and alerts 1`] = `
       Tenure: tenancyTypeDescription
     </li>
     <svg
-      data-testid="spinner-Alerts"
+      data-testid="spinner-alerts"
       height="50"
       stroke="#00703c"
       viewBox="0 0 42 42"
