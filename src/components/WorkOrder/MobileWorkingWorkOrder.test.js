@@ -125,10 +125,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -166,10 +163,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -219,10 +213,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
         />
       )
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -269,10 +260,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -317,10 +305,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -365,10 +350,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -493,10 +475,7 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -539,10 +518,7 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
         />
       )
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -667,10 +643,7 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })

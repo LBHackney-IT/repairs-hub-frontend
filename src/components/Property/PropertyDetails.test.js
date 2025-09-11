@@ -58,10 +58,7 @@ describe('PropertyDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -87,10 +84,7 @@ describe('PropertyDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })

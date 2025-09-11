@@ -72,7 +72,7 @@ exports[`PropertyFlags should render tenure and alerts 2`] = `
     <li
       class="bg-orange"
     >
-      Address Alert: Location Alert 1 (
+      Alert: Alert 1 (
       <strong>
         type1
       </strong>
@@ -81,7 +81,7 @@ exports[`PropertyFlags should render tenure and alerts 2`] = `
     <li
       class="bg-orange"
     >
-      Address Alert: Location Alert 2 (
+      Alert: Alert 2 (
       <strong>
         type2
       </strong>
@@ -91,24 +91,6 @@ exports[`PropertyFlags should render tenure and alerts 2`] = `
       class="bg-orange"
     >
       TMO: tmoName
-    </li>
-    <li
-      class="bg-orange"
-    >
-      Contact Alert: Person Alert 1 (
-      <strong>
-        type3
-      </strong>
-      )
-    </li>
-    <li
-      class="bg-orange"
-    >
-      Contact Alert: Person Alert 2 (
-      <strong>
-        type4
-      </strong>
-      )
     </li>
   </ul>
 </DocumentFragment>
