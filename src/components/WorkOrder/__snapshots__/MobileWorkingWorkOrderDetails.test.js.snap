@@ -246,7 +246,7 @@ exports[`MobileWorkingWorkOrderDetails component should render properly work ord
             <strong
               class="govuk-warning-text__text person-alert--text"
             >
-              type1, type2, type3, type4
+              type1, type2
             </strong>
           </div>
         </div>

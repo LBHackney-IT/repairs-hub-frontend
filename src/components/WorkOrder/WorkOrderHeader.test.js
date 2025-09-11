@@ -86,7 +86,7 @@ describe('WorkOrderHeader component', () => {
         </UserContext.Provider>
       )
       await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -111,7 +111,7 @@ describe('WorkOrderHeader component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -158,7 +158,7 @@ describe('WorkOrderHeader component', () => {
 
         await act(async () => {
           await waitForElementToBeRemoved([
-            screen.getByTestId('spinner-Alerts'),
+            screen.getByTestId('spinner-alerts'),
           ])
         })
         expect(asFragment()).toMatchSnapshot()
@@ -188,7 +188,7 @@ describe('WorkOrderHeader component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -229,7 +229,7 @@ describe('WorkOrderHeader component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-Alerts')])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
