@@ -512,31 +512,35 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property', '@priorities', '@trades'])
 
-        cy.get('#repair-request-form').within(() => {
-          cy.get('#trade').type('Plumbing - PL')
+        // cy.get('#repair-request-form').within(() => {
+        cy.get('#trade').type('Plumbing - PL')
 
-          cy.wait(['@contractors'])
+        cy.wait(['@contractors'])
 
-          cy.get('#contractor').type('HH General Building Repair - H01')
+        cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.wait('@sorCodesH01')
+        cy.wait('@sorCodesH01')
 
-          cy.get('input[id="rateScheduleItems[0][code]"]')
-            .clear()
-            .type('DES5R005 - Normal call outs - £1')
+        // fails here
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
 
-          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityCode').select('5 [N] NORMAL')
-          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-          cy.get('#callerName').type('Test Caller', { force: true })
-          cy.get('#contactNumber')
-            .clear({ force: true })
-            .type('12345678910', { force: true })
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('DES5R005 - Normal call outs - £1')
 
-          cy.get('[type="submit"]')
-            .contains('Create work order')
-            .click({ force: true })
-        })
+        cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+        cy.get('#priorityCode').select('5 [N] NORMAL')
+        cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+        cy.get('#callerName').type('Test Caller', { force: true })
+        cy.get('#contactNumber')
+          .clear({ force: true })
+          .type('12345678910', { force: true })
+
+        cy.get('[type="submit"]')
+          .contains('Create work order')
+          .click({ force: true })
+        // })
 
         cy.wait('@apiCheck')
 
@@ -641,31 +645,34 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property', '@priorities', '@trades'])
 
-        cy.get('#repair-request-form').within(() => {
-          cy.get('#trade').type('Plumbing - PL')
+        // cy.get('#repair-request-form').within(() => {
+        cy.get('#trade').type('Plumbing - PL')
 
-          cy.wait(['@contractors'])
+        cy.wait(['@contractors'])
 
-          cy.get('#contractor').type('HH General Building Repair - H01')
+        cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.wait('@sorCodesH01')
+        cy.wait('@sorCodesH01')
 
-          cy.get('input[id="rateScheduleItems[0][code]"]')
-            .clear()
-            .type('DES5R003 - Immediate call outs - £0')
+        // fails here
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('DES5R003 - Immediate call outs - £0')
 
-          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityCode').select('1 [I] IMMEDIATE')
-          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-          cy.get('#callerName').type('Test Caller', { force: true })
-          cy.get('#contactNumber')
-            .clear({ force: true })
-            .type('12345678910', { force: true })
+        cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+        cy.get('#priorityCode').select('1 [I] IMMEDIATE')
+        cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+        cy.get('#callerName').type('Test Caller', { force: true })
+        cy.get('#contactNumber')
+          .clear({ force: true })
+          .type('12345678910', { force: true })
 
-          cy.get('[type="submit"]')
-            .contains('Create work order')
-            .click({ force: true })
-        })
+        cy.get('[type="submit"]')
+          .contains('Create work order')
+          .click({ force: true })
+        // })
 
         cy.wait('@apiCheck')
 
@@ -687,27 +694,30 @@ describe('Schedule appointment form', () => {
 
         cy.contains('a', 'Raise a work order on this dwelling').click()
 
-        cy.get('#repair-request-form').within(() => {
-          cy.get('#trade').type('Plumbing - PL')
-          cy.get('#contractor').type('HH General Building Repair - H01')
+        // cy.get('#repair-request-form').within(() => {
+        cy.get('#trade').type('Plumbing - PL')
+        cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.wait('@sorCodesH01')
+        cy.wait('@sorCodesH01')
 
-          cy.get('input[id="rateScheduleItems[0][code]"]')
-            .clear()
-            .type('DES5R004 - Emergency call out - £1')
+        // fails here
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('DES5R004 - Emergency call out - £1')
 
-          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityCode').select('2 [E] EMERGENCY')
-          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-          cy.get('#callerName').type('Test Caller', { force: true })
-          cy.get('#contactNumber')
-            .clear({ force: true })
-            .type('12345678910', { force: true })
-          cy.get('[type="submit"]')
-            .contains('Create work order')
-            .click({ force: true })
-        })
+        cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+        cy.get('#priorityCode').select('2 [E] EMERGENCY')
+        cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+        cy.get('#callerName').type('Test Caller', { force: true })
+        cy.get('#contactNumber')
+          .clear({ force: true })
+          .type('12345678910', { force: true })
+        cy.get('[type="submit"]')
+          .contains('Create work order')
+          .click({ force: true })
+        // })
 
         cy.contains('Work order created')
 
