@@ -19,11 +19,12 @@ interface Props {
 }
 
 const MobileWorkingWorkOrderDetails = (props: Props) => {
-  const { property, tenure, workOrder, appointmentDetails } = props
+  const { property, workOrder, appointmentDetails } = props
 
   const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
   const [alertsError, setAlertsError] = useState<string | null>()
   const [alerts, setAlerts] = useState([])
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const router = useRouter()
 
@@ -98,6 +99,8 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
           numberOfLines="3"
           pTagClassName={'govuk-body govuk-!-margin-bottom-0'}
           linkClassName={'govuk-body'}
+          setIsExpanded={setIsExpanded}
+          isExpanded={isExpanded}
         />
 
         {!!workOrder?.startTime && (

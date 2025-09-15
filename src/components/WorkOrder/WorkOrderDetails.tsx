@@ -1,16 +1,22 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import UserContext from '../UserContext'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import WorkOrderHeader from './WorkOrderHeader'
 import { GridRow, GridColumn } from '../Layout/Grid'
 import BackButton from '../Layout/BackButton'
 import MultiButton from '../Layout/MultiButton'
-
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
-import { CautionaryAlert } from '../../models/cautionaryAlerts'
+import {
+  CautionaryAlert,
+  CautionaryAlertsResponse,
+} from '../../models/cautionaryAlerts'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import Spinner from '../Spinner'
+import Alerts from '../Property/Alerts'
+import ErrorMessage from '../Errors/ErrorMessage'
 
 interface Props {
   property: Property
@@ -19,7 +25,7 @@ interface Props {
   appointmentDetailsError: string | null
   loadingAppointmentDetails: boolean
   tenure: Tenure
-  setAlerts: (alerts: CautionaryAlert[]) => void
+  setParentAlerts: (alerts: CautionaryAlert[]) => void
   printClickHandler: () => void
 }
 
@@ -32,9 +38,13 @@ const WorkOrderDetails = (props: Props) => {
     loadingAppointmentDetails,
     tenure,
     printClickHandler,
-    setAlerts,
+    setParentAlerts,
   } = props
 
+  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
+  const [alertsLoading, setAlertsLoading] = useState(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
+  const [isExpanded, setIsExpanded] = useState(false)
   const { user } = useContext(UserContext)
 
   const workOrderActionMenu = () => {
@@ -65,6 +75,30 @@ const WorkOrderDetails = (props: Props) => {
   }
 
   const currentWorkOrderActionMenu = workOrderActionMenu()
+
+  const getAlerts = () => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/${property.propertyReference}/alerts`,
+    })
+      .then((data: CautionaryAlertsResponse) => {
+        setAlerts(data.alerts)
+        setParentAlerts && setParentAlerts(data.alerts)
+      })
+      .catch((error) => {
+        console.error('Error loading alerts status:', error.response)
+
+        setAlertsError(
+          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setAlertsLoading(false))
+  }
+
+  useEffect(() => {
+    setAlertsLoading(true)
+    getAlerts()
+  }, [])
 
   return (
     <>
@@ -98,6 +132,27 @@ const WorkOrderDetails = (props: Props) => {
         )}
 
         <p className="lbh-body-m">{workOrder.description}</p>
+        <ul
+          className="lbh-list hackney-property-alerts"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            marginBottom: '1em',
+            maxWidth: isExpanded ? '' : '30em',
+          }}
+        >
+          {alertsLoading && <Spinner resource="alerts" />}
+          {alerts?.length > 0 && (
+            <Alerts
+              alerts={alerts}
+              setIsExpanded={setIsExpanded}
+              isExpanded={isExpanded}
+            />
+          )}
+
+          {alertsError && <ErrorMessage label={alertsError} />}
+        </ul>
 
         <WorkOrderHeader
           propertyReference={property.propertyReference}
@@ -109,7 +164,6 @@ const WorkOrderDetails = (props: Props) => {
           subTypeDescription={property.hierarchyType.subTypeDescription}
           tenure={tenure}
           canRaiseRepair={property.canRaiseRepair}
-          setAlerts={setAlerts}
         />
       </div>
     </>
