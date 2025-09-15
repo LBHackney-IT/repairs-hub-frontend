@@ -101,7 +101,7 @@ describe('MobileWorkingWorkOrderDetails component', () => {
 
     expect(axios).toHaveBeenCalledWith({
       method: 'get',
-      url: '/api/properties/tenureId1/00012345/alerts',
+      url: '/api/properties/00012345/alerts',
     })
 
     expect(asFragment()).toMatchSnapshot()
