@@ -21,8 +21,7 @@ const property = {
   tmoName: 'tmoName',
 }
 
-const locationAlerts = []
-const personAlerts = []
+const alerts = []
 
 describe('PrintJobTicketDetails component', () => {
   it('Renders the PrintJobTicketDetails component', () => {
@@ -53,8 +52,7 @@ describe('PrintJobTicketDetails component', () => {
         appointmentDetails={new WorkOrderAppointmentDetails(appointmentDetails)}
         property={property}
         tasksAndSors={tasksAndSors}
-        locationAlerts={locationAlerts}
-        personAlerts={personAlerts}
+        alerts={alerts}
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -84,8 +82,7 @@ describe('PrintJobTicketDetails component', () => {
         appointmentDetails={new WorkOrderAppointmentDetails(appointmentDetails)}
         property={property}
         tasksAndSors={tasksAndSors}
-        locationAlerts={locationAlerts}
-        personAlerts={personAlerts}
+        alerts={alerts}
       />
     )
     expect(asFragment()).toMatchSnapshot()

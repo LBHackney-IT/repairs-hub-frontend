@@ -29,8 +29,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
   const [tasksAndSors, setTasksAndSors] = useState([])
-  const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
-  const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
+  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
@@ -127,8 +126,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         loadingAppointmentDetails={loadingAppointmentDetails}
         tenure={tenure}
         printClickHandler={printClickHandler}
-        setLocationAlerts={setLocationAlerts}
-        setPersonAlerts={setPersonAlerts}
+        setAlerts={setAlerts}
       />
 
       <WorkOrderViewTabs
@@ -151,8 +149,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
           appointmentDetails={appointmentDetails}
           property={property}
           tasksAndSors={tasksAndSors}
-          locationAlerts={locationAlerts}
-          personAlerts={personAlerts}
+          alerts={alerts}
         />
       )}
     </>

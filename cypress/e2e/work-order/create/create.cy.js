@@ -50,45 +50,23 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345/location-alerts',
+        path: '/api/properties/00012345/alerts',
       },
       {
         body: {
           alerts: [
             {
               type: 'type1',
-              comments: 'Location Alert 1',
-            },
-            {
-              type: 'type2',
-              comments: 'Location Alert 2',
-            },
-          ],
-        },
-      }
-    ).as('locationAlerts')
-
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
-      },
-      {
-        body: {
-          alerts: [
-            {
-              type: 'type3',
               comments: 'Person Alert 1',
             },
             {
-              type: 'type4',
+              type: 'type2',
               comments: 'Person Alert 2',
             },
           ],
         },
       }
-    ).as('personAlerts')
+    ).as('alerts')
 
     cy.intercept(
       {
@@ -220,24 +198,16 @@ describe('Raise repair form', () => {
       '@propertyRequest',
       '@sorPrioritiesRequest',
       '@tradesRequest',
-      '@personAlerts',
-      '@locationAlerts',
+      '@alerts',
     ])
 
     cy.get('.govuk-caption-l').contains('New repair')
     cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
 
-    cy.checkForTenureDetails(
-      'Tenure: Secure',
-      [
-        'Address Alert: Location Alert 1 (type1)',
-        'Address Alert: Location Alert 2 (type2)',
-      ],
-      [
-        'Contact Alert: Person Alert 1 (type3)',
-        'Contact Alert: Person Alert 2 (type4)',
-      ]
-    )
+    cy.checkForTenureDetails('Tenure: Secure', [
+      'Alert 1 (type1)',
+      'Alert 2 (type2)',
+    ])
 
     cy.wait(['@contactDetailsRequest'])
 

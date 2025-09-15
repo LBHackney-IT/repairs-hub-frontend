@@ -1,7 +1,7 @@
 import { filesize } from 'filesize'
 
 const allowedFileTypes = new Set(['image/png', 'image/jpeg'])
-const MAX_FILE_SIZE = 20000000
+const MAX_FILE_SIZE = 20_000_000
 const MAX_FILE_COUNT = 10
 
 const validateFileUpload = (files) => {

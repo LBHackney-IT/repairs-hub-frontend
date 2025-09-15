@@ -12,35 +12,20 @@ jest.mock('axios', () => jest.fn())
 
 describe('PropertyFlags', () => {
   it('should render tenure and alerts', async () => {
-    axios
-      .mockResolvedValueOnce({
-        data: {
-          alerts: [
-            {
-              type: 'type1',
-              comments: 'Location Alert 1',
-            },
-            {
-              type: 'type2',
-              comments: 'Location Alert 2',
-            },
-          ],
-        },
-      })
-      .mockResolvedValueOnce({
-        data: {
-          alerts: [
-            {
-              type: 'type3',
-              comments: 'Person Alert 1',
-            },
-            {
-              type: 'type4',
-              comments: 'Person Alert 2',
-            },
-          ],
-        },
-      })
+    axios.mockResolvedValueOnce({
+      data: {
+        alerts: [
+          {
+            type: 'type1',
+            comments: 'Alert 1',
+          },
+          {
+            type: 'type2',
+            comments: 'Alert 2',
+          },
+        ],
+      },
+    })
 
     const { asFragment } = render(
       <PropertyFlags
@@ -60,60 +45,36 @@ describe('PropertyFlags', () => {
     expect(asFragment()).toMatchSnapshot()
 
     await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
-      ])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
     })
 
-    expect(axios).toHaveBeenCalledTimes(2)
+    expect(axios).toHaveBeenCalledTimes(1)
 
     expect(axios).toHaveBeenCalledWith({
       method: 'get',
-      url: '/api/properties/1/location-alerts',
-    })
-
-    expect(axios).toHaveBeenCalledWith({
-      method: 'get',
-      url: '/api/properties/tenureId1/person-alerts',
+      url: '/api/properties/1/alerts',
     })
 
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('accepts optional callback functions and calls them on alert fetch', async () => {
-    axios
-      .mockResolvedValueOnce({
-        data: {
-          alerts: [
-            {
-              type: 'type1',
-              comments: 'Location Alert 1',
-            },
-            {
-              type: 'type2',
-              comments: 'Location Alert 2',
-            },
-          ],
-        },
-      })
-      .mockResolvedValueOnce({
-        data: {
-          alerts: [
-            {
-              type: 'type3',
-              comments: 'Person Alert 1',
-            },
-            {
-              type: 'type4',
-              comments: 'Person Alert 2',
-            },
-          ],
-        },
-      })
+    axios.mockResolvedValueOnce({
+      data: {
+        alerts: [
+          {
+            type: 'type1',
+            comments: 'Alert 1',
+          },
+          {
+            type: 'type2',
+            comments: 'Alert 2',
+          },
+        ],
+      },
+    })
 
-    const mockSetParentLocationAlerts = jest.fn()
-    const mockSetParentPersonAlerts = jest.fn()
+    const mockSetParentAlerts = jest.fn()
 
     render(
       <PropertyFlags
@@ -126,37 +87,22 @@ describe('PropertyFlags', () => {
           typeDescription: 'tenancyTypeDescription',
         }}
         propertyReference={'1'}
-        setParentLocationAlerts={mockSetParentLocationAlerts}
-        setParentPersonAlerts={mockSetParentPersonAlerts}
+        setParentAlerts={mockSetParentAlerts}
       />
     )
 
     await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
-      ])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
     })
 
-    expect(mockSetParentLocationAlerts).toHaveBeenCalledWith([
+    expect(mockSetParentAlerts).toHaveBeenCalledWith([
       {
         type: 'type1',
-        comments: 'Location Alert 1',
+        comments: 'Alert 1',
       },
       {
         type: 'type2',
-        comments: 'Location Alert 2',
-      },
-    ])
-
-    expect(mockSetParentPersonAlerts).toHaveBeenCalledWith([
-      {
-        type: 'type3',
-        comments: 'Person Alert 1',
-      },
-      {
-        type: 'type4',
-        comments: 'Person Alert 2',
+        comments: 'Alert 2',
       },
     ])
   })

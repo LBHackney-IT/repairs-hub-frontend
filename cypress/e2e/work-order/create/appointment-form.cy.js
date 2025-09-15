@@ -95,27 +95,14 @@ describe('Schedule appointment form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345/location-alerts',
+        path: '/api/properties/00012345/alerts',
       },
       {
         body: {
           alerts: [],
         },
       }
-    ).as('locationAlerts')
-
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
-      },
-      {
-        body: {
-          alerts: [],
-        },
-      }
-    ).as('personAlerts')
+    ).as('alerts')
 
     cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },

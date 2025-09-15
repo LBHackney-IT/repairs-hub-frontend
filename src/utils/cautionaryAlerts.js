@@ -113,8 +113,3 @@ export const CAUTIONARY_ALERTS = [
       'Tenant has requested termination of tenancy please refer calls to housing officer',
   },
 ]
-
-export const getCautionaryAlertsType = (alerts) => {
-  const cautionaryAlerts = alerts.map((cautionaryAlert) => cautionaryAlert.type)
-  return [...new Set(cautionaryAlerts)]
-}
