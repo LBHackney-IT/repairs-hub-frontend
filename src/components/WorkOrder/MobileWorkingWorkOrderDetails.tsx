@@ -43,10 +43,10 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
     })
   }
 
-  const getAlerts = (tenureId, propertyReference) => {
+  const getAlerts = (propertyReference) => {
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/${tenureId}/${propertyReference}/alerts`,
+      path: `/api/properties/${propertyReference}/alerts`,
     })
       .then((data) => setAlerts(data.alerts))
       .catch((error) => {
@@ -61,7 +61,7 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
 
   useEffect(() => {
     setAlertsLoading(true)
-    getAlerts(tenure.id, property.propertyReference)
+    getAlerts(property.propertyReference)
   }, [])
 
   return (

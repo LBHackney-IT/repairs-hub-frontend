@@ -38,10 +38,10 @@ const PropertyFlags = (props: Props) => {
   const [alertsLoading, setAlertsLoading] = useState(false)
   const [alertsError, setAlertsError] = useState<string | null>()
 
-  const getAlerts = (tenureId) => {
+  const getAlerts = () => {
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/${tenureId}/${propertyReference}/alerts`,
+      path: `/api/properties/${propertyReference}/alerts`,
     })
       .then((data: CautionaryAlertsResponse) => {
         setAlerts(data.alerts)
@@ -66,7 +66,6 @@ const PropertyFlags = (props: Props) => {
 
   useEffect(() => {
     setAlertsLoading(true)
-    getAlerts(tenure?.id)
   }, [])
 
   return (
