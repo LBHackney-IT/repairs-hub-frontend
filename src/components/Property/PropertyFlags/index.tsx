@@ -57,8 +57,6 @@ const PropertyFlags = (props: Props) => {
       .finally(() => setAlertsLoading(false))
   }
 
-  const renderAlerts = () => alerts.length > 0 && <Alerts alerts={alerts} />
-
   const showBoilerHouseDetails = () =>
     boilerHouseId !== '' &&
     boilerHouseId !== null &&
@@ -87,7 +85,8 @@ const PropertyFlags = (props: Props) => {
         <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
       )}
 
-      {alertsLoading ? <Spinner resource="alerts" /> : renderAlerts()}
+      {alertsLoading && <Spinner resource="alerts" />}
+      {alerts?.length > 0 && <Alerts alerts={alerts} />}
 
       {alertsError && <ErrorMessage label={alertsError} />}
 
