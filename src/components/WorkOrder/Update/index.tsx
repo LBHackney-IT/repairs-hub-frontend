@@ -215,20 +215,6 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
     ]
   }
 
-  const renderAnnouncement = () => {
-    return (
-      announcementMessage && (
-        <section className="lbh-page-announcement">
-          <div className="lbh-page-announcement__content">
-            <strong className="govuk-!-font-size-24">
-              {announcementMessage}
-            </strong>
-          </div>
-        </section>
-      )
-    )
-  }
-
   useEffect(() => {
     setLoading(true)
 
@@ -310,7 +296,16 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
             />
           )}
 
-          {renderAnnouncement()}
+          {announcementMessage && (
+            <section className="lbh-page-announcement">
+              <div className="lbh-page-announcement__content">
+                <strong className="govuk-!-font-size-24">
+                  {announcementMessage}
+                </strong>
+              </div>
+            </section>
+          )}
+
           {currentPage === FORM_PAGE && !showSummaryPage && !showUpdateSuccess && (
             <>
               <BackButton />

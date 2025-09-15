@@ -95,13 +95,14 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
   const [getBudgetCodesError, setGetBudgetCodesError] = useState<
     string | null
   >()
+  const [getContractorError, setGetContractorError] = useState<string | null>()
+
+  const [loadingContractor, setLoadingContractor] = useState<boolean>(false)
   const [loadingContractors, setLoadingContractors] = useState<boolean>(false)
   const [loadingSorCodes, setLoadingSorCodes] = useState<boolean>(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState<boolean>(false)
 
   // integrate loading pliz
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>()
   const [contractor, setContractor] = useState<Contractor>()
 
   const [
@@ -175,28 +176,36 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
   const onContractorSelect = async (event) => {
     const contractorName = event.target.value.split(' - ')[0]
-    const contractorReference = contractors.filter(
+
+    // Finds contractor from provided list
+    const contractorRef = contractors.filter(
       (contractor) => contractor.contractorName === contractorName
     )[0]?.contractorReference
 
-    if (contractorReference?.length === 0) {
+    if (!contractorRef?.length) {
+      // skips, contractor not found
       setContractorReference('')
       return
     }
 
-    setContractorReference(contractorReference)
+    setContractorReference(contractorRef)
 
-    setError(null)
-    setIsLoading(true)
+    setGetContractorError(null)
+    setLoadingContractor(true)
 
-    const contractorResponse = await getContractor(contractorReference)
+    const contractorResponse = await getContractor(contractorRef)
+
+    setLoadingContractor(false)
+
     if (!contractorResponse.success) {
       console.error('An error has occured:', contractorResponse.error)
 
       if (contractorResponse.error instanceof APIResponseError) {
-        setError(contractorResponse.error.message)
+        setGetContractorError(contractorResponse.error.message)
       } else {
-        setError(formatRequestErrorMessage(contractorResponse.error))
+        setGetContractorError(
+          formatRequestErrorMessage(contractorResponse.error)
+        )
       }
       return
     }
@@ -207,12 +216,12 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
       canAssignBudgetCode(user)
     ) {
-      getBudgetCodesData(contractorReference)
+      // gets budget codes
+      getBudgetCodesData(contractorRef)
     } else {
+      // gets sor codes
       await prepareSORData(contractorResponse.response, tradeCode)
     }
-
-    setIsLoading(false)
   }
 
   const getContractorsData = async (
@@ -348,7 +357,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
         disabled={!tradeCode}
         register={register}
         errors={errors}
-        apiError={getContractorsError}
+        apiError={getContractorsError || getContractorError}
       />
       <input
         id="contractorRef"
@@ -361,7 +370,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       {budgetCodeApplicable(user) && (
         <>
           <BudgetCodeItemView
-            loading={loadingBudgetCodes}
+            loading={loadingBudgetCodes || loadingContractor}
             errors={errors}
             apiError={getBudgetCodesError}
             disabled={!(tradeCode && contractorReference)}
@@ -377,7 +386,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       )}
 
       <RateScheduleItemView
-        loading={loadingSorCodes}
+        loading={loadingSorCodes || loadingContractor}
         disabled={((budgetCodeRequired) => {
           if (budgetCodeRequired) {
             return !(tradeCode && contractorReference && budgetCodeId)
