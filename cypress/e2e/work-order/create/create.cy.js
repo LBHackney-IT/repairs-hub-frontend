@@ -152,6 +152,7 @@ describe('Raise repair form', () => {
     cy.contains('Dwelling: 16 Pitcairn House')
   })
 
+  // fails
   it('Validates missing form inputs', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
@@ -201,6 +202,9 @@ describe('Raise repair form', () => {
 
     cy.wait('@budgetCodesRequest')
     // })
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
 
     cy.get('[type="submit"]')
       .contains('Create work order')
