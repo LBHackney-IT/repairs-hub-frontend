@@ -643,27 +643,14 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/properties/00012345/location-alerts',
+          path: '/api/properties/00012345/alerts',
         },
         {
           body: {
             alerts: [],
           },
         }
-      ).as('locationAlerts')
-
-      cy.intercept(
-        {
-          method: 'GET',
-          path:
-            '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
-        },
-        {
-          body: {
-            alerts: [],
-          },
-        }
-      ).as('personAlerts')
+      ).as('alerts')
 
       cy.intercept(
         {
@@ -673,31 +660,6 @@ describe('Updating a work order', () => {
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
-
-      cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/properties/00012345/location-alerts',
-        },
-        {
-          body: {
-            alerts: [],
-          },
-        }
-      ).as('locationAlerts')
-
-      cy.intercept(
-        {
-          method: 'GET',
-          path:
-            '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
-        },
-        {
-          body: {
-            alerts: [],
-          },
-        }
-      ).as('personAlerts')
 
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000621
