@@ -65,8 +65,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path:
-              '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/00012345/alerts',
+            path: '/api/properties/00012345/alerts',
           },
           { fixture: 'properties/alerts.json' }
         ).as('alerts')
