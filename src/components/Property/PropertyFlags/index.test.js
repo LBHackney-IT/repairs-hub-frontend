@@ -52,7 +52,7 @@ describe('PropertyFlags', () => {
 
     expect(axios).toHaveBeenCalledWith({
       method: 'get',
-      url: '/api/properties/tenureId1/1/alerts',
+      url: '/api/properties/1/alerts',
     })
 
     expect(asFragment()).toMatchSnapshot()
