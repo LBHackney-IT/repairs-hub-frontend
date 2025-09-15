@@ -156,6 +156,9 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@sorCodesPUR')
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
+
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
           .type('DES5R006 - Urgent call outs - £1')
