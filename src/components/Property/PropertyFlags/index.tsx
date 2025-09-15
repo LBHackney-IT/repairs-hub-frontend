@@ -66,6 +66,7 @@ const PropertyFlags = (props: Props) => {
 
   useEffect(() => {
     setAlertsLoading(true)
+    getAlerts()
   }, [])
 
   return (

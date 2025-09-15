@@ -34,7 +34,7 @@ describe('Starting my own work order', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/${propertyReference}/alerts`,
+        path: `/api/properties/${propertyReference}/alerts`,
       },
       {
         body: {
