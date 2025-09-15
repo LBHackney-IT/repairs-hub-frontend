@@ -422,7 +422,6 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property', '@priorities', '@trades'])
 
-      // cy.get('#repair-request-form').within(() => {
       cy.get('#trade').type('Plumbing - PL')
 
       cy.wait(['@contractors'])
@@ -449,7 +448,6 @@ describe('Schedule appointment form', () => {
       cy.get('[type="submit"]')
         .contains('Create work order')
         .click({ force: true })
-      // })
 
       cy.wait(['@apiCheck', '@availableAppointments'])
 

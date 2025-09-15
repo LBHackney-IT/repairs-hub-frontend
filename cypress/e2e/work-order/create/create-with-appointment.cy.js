@@ -515,7 +515,6 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property', '@priorities', '@trades'])
 
-        // cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
 
         cy.wait(['@contractors'])
@@ -524,7 +523,6 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@sorCodesH01')
 
-        // fails here
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
 
@@ -543,7 +541,6 @@ describe('Schedule appointment form', () => {
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
-        // })
 
         cy.wait('@apiCheck')
 
@@ -591,7 +588,6 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property', '@priorities', '@trades'])
 
-        // cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
 
         cy.wait(['@contractors'])
@@ -600,7 +596,6 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@sorCodesH01')
 
-        // fails here
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
         cy.get('input[id="rateScheduleItems[0][code]"]')
@@ -618,7 +613,6 @@ describe('Schedule appointment form', () => {
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
-        // })
 
         cy.wait('@apiCheck')
 
@@ -648,7 +642,6 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property', '@priorities', '@trades'])
 
-        // cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
 
         cy.wait(['@contractors'])
@@ -657,7 +650,6 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@sorCodesH01')
 
-        // fails here
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
         cy.get('input[id="rateScheduleItems[0][code]"]')
@@ -675,7 +667,6 @@ describe('Schedule appointment form', () => {
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
-        // })
 
         cy.wait('@apiCheck')
 
@@ -697,13 +688,11 @@ describe('Schedule appointment form', () => {
 
         cy.contains('a', 'Raise a work order on this dwelling').click()
 
-        // cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
         cy.get('#contractor').type('HH General Building Repair - H01')
 
         cy.wait('@sorCodesH01')
 
-        // fails here
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
         cy.get('input[id="rateScheduleItems[0][code]"]')
@@ -720,7 +709,6 @@ describe('Schedule appointment form', () => {
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
-        // })
 
         cy.contains('Work order created')
 

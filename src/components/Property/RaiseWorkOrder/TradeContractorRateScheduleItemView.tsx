@@ -99,6 +99,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
   const [loadingSorCodes, setLoadingSorCodes] = useState<boolean>(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState<boolean>(false)
 
+  // integrate loading pliz
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>()
   const [contractor, setContractor] = useState<Contractor>()
@@ -180,7 +181,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
     if (contractorReference?.length === 0) {
       setContractorReference('')
-
       return
     }
 
@@ -191,7 +191,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
     const contractorResponse = await getContractor(contractorReference)
     if (!contractorResponse.success) {
-      // throw contractorResponse.error
       console.error('An error has occured:', contractorResponse.error)
 
       if (contractorResponse.error instanceof APIResponseError) {
@@ -201,8 +200,6 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       }
       return
     }
-
-    console.log({ contractorResponse })
 
     setContractor(contractorResponse.response)
 

@@ -84,7 +84,6 @@ const RateScheduleItemView = ({
   }
 
   const onRateScheduleItemSelect = (index, code) => {
-    // document.getElementById('priorityCode').disabled = false
     enablePriorityField()
 
     const sorCodeObject = getSorCodeObject(code, index)
@@ -107,7 +106,7 @@ const RateScheduleItemView = ({
         ])
       }
 
-      let sortedByPriorityCode = rateScheduleItemPriorities.sort(
+      const sortedByPriorityCode = rateScheduleItemPriorities.sort(
         (a, b) => a.code - b.code
       )
       const existingHigherPriority = sortedByPriorityCode.find(

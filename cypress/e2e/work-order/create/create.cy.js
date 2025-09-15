@@ -193,7 +193,6 @@ describe('Raise repair form', () => {
       'Please enter a repair description'
     )
 
-    // cy.get('#repair-request-form').within(() => {
     cy.get('#trade').type('Plumbing - PL')
 
     cy.wait('@contractorsRequest')
@@ -201,7 +200,6 @@ describe('Raise repair form', () => {
     cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
     cy.wait('@budgetCodesRequest')
-    // })
 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
