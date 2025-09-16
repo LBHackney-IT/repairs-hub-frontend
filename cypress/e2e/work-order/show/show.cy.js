@@ -22,8 +22,9 @@ describe('Show work order page', () => {
               comments: 'Alert 1',
             },
             {
-              type: 'VA',
-              comments: 'Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
@@ -98,7 +99,8 @@ describe('Show work order page', () => {
 
       cy.checkForTenureDetails('Tenure: Secure', [
         'Alert 1 (CV)',
-        'Alert 2 (VA)',
+        'Specific Requirements (SPR)',
+        'Reason 1, very important',
       ])
 
       cy.get('.work-order-info').contains('Status: In Progress')
@@ -259,8 +261,9 @@ describe('Show work order page', () => {
                   comments: 'Alert 1',
                 },
                 {
-                  type: 'VA',
-                  comments: 'Alert 2',
+                  type: 'SPR',
+                  comments: 'Specific Requirements',
+                  reason: 'Reason 1, very important',
                 },
               ],
             },

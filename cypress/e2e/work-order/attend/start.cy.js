@@ -44,8 +44,9 @@ describe('Starting my own work order', () => {
               comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },

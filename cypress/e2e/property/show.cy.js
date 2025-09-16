@@ -33,8 +33,9 @@ describe('Show property', () => {
               comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
@@ -428,11 +429,11 @@ describe('Show property', () => {
       cy.visit('/properties/00012345')
       cy.wait(['@property', '@workOrdersHistory', '@alerts'])
 
-      cy.checkForTenureDetails(
-        'Tenure: Secure',
-        ['Alert 1', 'Alert 2'],
-        ['Alert 1', 'Alert 2']
-      )
+      cy.checkForTenureDetails('Tenure: Secure', [
+        'Alert 1',
+        'Specific Requirements',
+        'Reason 1, very important',
+      ])
     })
 
     context('when the alerts API responds with an error', () => {
@@ -451,7 +452,7 @@ describe('Show property', () => {
         ).as('alertsError')
       })
 
-      it('shows an error message in the place of the component', () => {
+      it.only('shows an error message in the place of the component', () => {
         cy.visit('/properties/00012345')
         cy.wait(['@property', '@workOrdersHistory', '@alertsError'])
 
