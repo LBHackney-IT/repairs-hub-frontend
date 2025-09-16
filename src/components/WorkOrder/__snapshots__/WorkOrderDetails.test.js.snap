@@ -320,7 +320,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -333,7 +333,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -822,7 +822,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -835,7 +835,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -1208,7 +1208,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -1221,7 +1221,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -1647,7 +1647,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -1660,7 +1660,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -1846,7 +1846,7 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -1859,7 +1859,7 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -2199,7 +2199,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -2212,7 +2212,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -2638,7 +2638,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -2651,7 +2651,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -3077,7 +3077,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -3090,7 +3090,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -3537,7 +3537,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -3550,7 +3550,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
@@ -3874,7 +3874,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         >
           Alert 1 
           <strong>
-            type1
+            (type1)
           </strong>
         </p>
       </li>
@@ -3887,7 +3887,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         >
           Alert 2 
           <strong>
-            type2
+            (type2)
           </strong>
         </p>
       </li>
