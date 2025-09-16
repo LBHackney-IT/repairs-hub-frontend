@@ -45,7 +45,7 @@ Alerts.propTypes = {
       alertId: PropTypes.string,
     })
   ).isRequired,
-  setIsExpanded: PropTypes.fun,
+  setIsExpanded: PropTypes.func,
   isExpanded: PropTypes.bool,
 }
 

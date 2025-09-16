@@ -458,7 +458,7 @@ describe('Show property', () => {
         // Some page content rendered
         cy.contains('Dwelling: 16 Pitcairn House')
 
-        cy.get('.hackney-property-alerts').within(() => {
+        cy.get('.hackney-property-alerts').each(() => {
           cy.contains('Cannot fetch alerts')
         })
       })

@@ -232,7 +232,7 @@ Cypress.Commands.add('checkForTenureDetails', (tenure, alerts) => {
   })
 
   // Alerts
-  cy.get('.hackney-property-alerts').within(() => {
+  cy.get('.hackney-property-alerts').each(() => {
     alerts.forEach((alert) => {
       cy.contains(alert)
     })
