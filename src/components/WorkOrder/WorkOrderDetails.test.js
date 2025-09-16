@@ -22,7 +22,16 @@ jest.mock('axios', () => jest.fn())
 describe('WorkOrderDetails component', () => {
   axios.mockResolvedValue({
     data: {
-      alerts: [],
+      alerts: [
+        {
+          type: 'type1',
+          comments: 'Alert 1',
+        },
+        {
+          type: 'type2',
+          comments: 'Alert 2',
+        },
+      ],
     },
   })
 
@@ -144,6 +153,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
+      expect(axios).toHaveBeenCalledTimes(1)
 
       // if work order is 648707 then it should render is as 00648707 (with leading zeroes)
       expect(asFragment()).toMatchSnapshot()
@@ -172,6 +182,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
+      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -211,6 +222,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
+      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -249,7 +261,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
-
+      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -293,6 +305,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
+      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -317,6 +330,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
+      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -355,6 +369,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
+      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -398,7 +413,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
-
+      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -422,7 +437,7 @@ describe('WorkOrderDetails component', () => {
       await act(async () => {
         await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
-
+      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
   })

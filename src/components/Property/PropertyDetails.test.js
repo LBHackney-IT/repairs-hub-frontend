@@ -1,9 +1,4 @@
-import {
-  render,
-  act,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react'
+import { render } from '@testing-library/react'
 import PropertyDetails from './PropertyDetails'
 
 const axios = require('axios')
@@ -57,10 +52,6 @@ describe('PropertyDetails component', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -83,9 +74,6 @@ describe('PropertyDetails component', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
   })

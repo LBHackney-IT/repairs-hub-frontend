@@ -2,7 +2,7 @@ import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
 import PropertyFlags from '../Property/PropertyFlags'
 import WorkOrderInfo from './WorkOrderInfo'
 import { WorkOrder } from '@/models/workOrder'
-import { CautionaryAlert } from '../../models/cautionaryAlerts'
+
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { Tenure } from '../../models/propertyTenure'
 import WorkOrderAppointmentDetailsHeader from './WorkOrderAppointmentDetailsHeader'
