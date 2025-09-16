@@ -16,7 +16,7 @@ const Alerts = ({ alerts, setIsExpanded, isExpanded }) => {
             key={index}
           >
             <p style={{ marginTop: 0 }}>
-              {alert.comments} <strong>{alert.type}</strong>
+              {alert.comments} <strong>({alert.type})</strong>
             </p>
             {alert.comments === 'Specific Requirements' && (
               <TruncateText
