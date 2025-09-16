@@ -23,6 +23,7 @@ import { daysInHours } from '@/utils/time'
 import SelectPriority from './SelectPriority'
 import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { getAlerts } from '@/root/src/utils/requests/property'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
@@ -233,29 +234,24 @@ const RaiseWorkOrderForm = (props: Props) => {
     )
   }
 
-  const getAlerts = () => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${propertyReference}/alerts`,
-    })
-      .then((data: CautionaryAlertsResponse) => {
-        setAlerts(data.alerts)
-      })
-      .catch((error) => {
-        console.error('Error loading alerts status:', error.response)
+  const fetchAlerts = async () => {
+    const alertsResponse = await getAlerts(property.propertyReference)
 
-        setAlertsError(
-          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setAlertsLoading(false))
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
   }
 
   useEffect(() => {
     setLoading(true)
     setAlertsLoading(true)
     getPropertyInfoOnLegalDisrepair(propertyReference)
-    getAlerts()
+    fetchAlerts()
 
     if (isPriorityEnabled) {
       const element = document.getElementById(

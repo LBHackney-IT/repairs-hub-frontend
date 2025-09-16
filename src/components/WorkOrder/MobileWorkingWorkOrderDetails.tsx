@@ -3,7 +3,7 @@ import { GridColumn, GridRow } from '../Layout/Grid'
 import TruncateText from '../Layout/TruncateText'
 import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { getAlerts } from '../../utils/requests/property'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import { useRouter } from 'next/router'
 import { formatDateTime } from '../../utils/time'
@@ -44,25 +44,22 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
     })
   }
 
-  const getAlerts = (propertyReference) => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${propertyReference}/alerts`,
-    })
-      .then((data) => setAlerts(data.alerts))
-      .catch((error) => {
-        console.error('Error loading alerts status:', error.response)
+  const fetchAlerts = async () => {
+    const alertsResponse = await getAlerts(property.propertyReference)
 
-        setAlertsError(
-          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setAlertsLoading(false))
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
   }
 
   useEffect(() => {
     setAlertsLoading(true)
-    getAlerts(property.propertyReference)
+    fetchAlerts()
   }, [])
 
   return (

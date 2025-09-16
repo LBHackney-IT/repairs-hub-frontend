@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+
 import PropTypes from 'prop-types'
 import PropertyDetailsAddress from './PropertyDetailsAddress'
 import PropertyFlags from './PropertyFlags'
 import Alerts from './Alerts'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
+import { getAlerts } from '../../utils/requests/property'
 
 const PropertyDetailsGrid = ({
   propertyReference,
@@ -22,27 +23,22 @@ const PropertyDetailsGrid = ({
   const [alertsError, setAlertsError] = useState()
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const getAlerts = () => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${propertyReference}/alerts`,
-    })
-      .then((data) => {
-        setAlerts(data.alerts)
-      })
-      .catch((error) => {
-        console.error('Error loading alerts status:', error.response)
+  const fetchAlerts = async () => {
+    const alertsResponse = await getAlerts(propertyReference)
 
-        setAlertsError(
-          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setAlertsLoading(false))
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
   }
 
   useEffect(() => {
     setAlertsLoading(true)
-    getAlerts()
+    fetchAlerts()
   }, [])
 
   return (
@@ -73,7 +69,6 @@ const PropertyDetailsGrid = ({
                 isExpanded={isExpanded}
               />
             )}
-
             {alertsError && <ErrorMessage label={alertsError} />}
           </ul>
           <PropertyFlags

@@ -14,6 +14,7 @@ import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/r
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { getAlerts } from '@/root/src/utils/requests/property'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from '../RaiseWorkOrder/RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
@@ -27,10 +28,7 @@ import {
 import { Priority } from '@/root/src/models/priority'
 import { getPriorityObjectByCode } from './helpers'
 import RepairsFinderInput from './RepairsFinderInput'
-import {
-  CautionaryAlert,
-  CautionaryAlertsResponse,
-} from '@/root/src/models/cautionaryAlerts'
+import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
 import Alerts from '../Alerts'
 
 interface Props {
@@ -119,23 +117,17 @@ const RepairsFinderForm = (props: Props) => {
       .finally(() => setLoading(false))
   }
 
-  const getAlerts = () => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${propertyReference}/alerts`,
-    })
-      .then((data: CautionaryAlertsResponse) => {
-        setAlerts(data.alerts)
-        // setParentAlerts && setParentAlerts(data.alerts)
-      })
-      .catch((error) => {
-        console.error('Error loading alerts status:', error.response)
+  const fetchAlerts = async () => {
+    const alertsResponse = await getAlerts(propertyReference)
 
-        setAlertsError(
-          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setAlertsLoading(false))
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
   }
 
   useEffect(() => {
@@ -143,7 +135,7 @@ const RepairsFinderForm = (props: Props) => {
     setAlertsLoading(true)
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
-    getAlerts()
+    fetchAlerts()
   }, [])
 
   return (

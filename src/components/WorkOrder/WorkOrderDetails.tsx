@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../UserContext'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import { getAlerts } from '../../utils/requests/property'
 import WorkOrderHeader from './WorkOrderHeader'
 import { GridRow, GridColumn } from '../Layout/Grid'
 import BackButton from '../Layout/BackButton'
@@ -8,10 +8,7 @@ import MultiButton from '../Layout/MultiButton'
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
-import {
-  CautionaryAlert,
-  CautionaryAlertsResponse,
-} from '../../models/cautionaryAlerts'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import Spinner from '../Spinner'
@@ -76,28 +73,22 @@ const WorkOrderDetails = (props: Props) => {
 
   const currentWorkOrderActionMenu = workOrderActionMenu()
 
-  const getAlerts = () => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${property.propertyReference}/alerts`,
-    })
-      .then((data: CautionaryAlertsResponse) => {
-        setAlerts(data.alerts)
-        setParentAlerts && setParentAlerts(data.alerts)
-      })
-      .catch((error) => {
-        console.error('Error loading alerts status:', error.response)
+  const fetchAlerts = async () => {
+    const alertsResponse = await getAlerts(property.propertyReference)
 
-        setAlertsError(
-          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setAlertsLoading(false))
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
   }
 
   useEffect(() => {
     setAlertsLoading(true)
-    getAlerts()
+    fetchAlerts()
   }, [])
 
   return (
