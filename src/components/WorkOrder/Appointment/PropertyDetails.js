@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getAlerts } from '../../utils/requests/property'
+import { getAlerts } from '@/root/src/utils/requests/property'
 import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 import PropertyFlags from '../../Property/PropertyFlags'
