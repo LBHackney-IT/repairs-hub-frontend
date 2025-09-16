@@ -52,11 +52,11 @@ describe('Raise repair form', () => {
           alerts: [
             {
               type: 'type1',
-              comments: 'Person Alert 1',
+              comments: 'Alert 1',
             },
             {
               type: 'type2',
-              comments: 'Person Alert 2',
+              comments: 'Alert 2',
             },
           ],
         },
