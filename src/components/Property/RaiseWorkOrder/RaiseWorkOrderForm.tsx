@@ -235,7 +235,7 @@ const RaiseWorkOrderForm = (props: Props) => {
   }
 
   const fetchAlerts = async () => {
-    const alertsResponse = await getAlerts(property.propertyReference)
+    const alertsResponse = await getAlerts(propertyReference)
 
     if (!alertsResponse.success) {
       setAlertsError(alertsResponse.error.message)
