@@ -41,11 +41,11 @@ describe('Starting my own work order', () => {
           alerts: [
             {
               type: 'type1',
-              comments: 'Location Alert 1',
+              comments: 'Alert 1',
             },
             {
               type: 'type2',
-              comments: 'Location Alert 2',
+              comments: 'Alert 2',
             },
           ],
         },
