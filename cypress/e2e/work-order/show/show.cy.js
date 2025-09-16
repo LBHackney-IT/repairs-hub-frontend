@@ -371,7 +371,7 @@ describe('Show work order page', () => {
 
       cy.contains('WO 10000621')
 
-      cy.get('.work-order-information').contains('CV, VA')
+      cy.get('.work-order-information').contains('CV, SPR')
 
       cy.get('div[class*="Multibutton"]').should('not.exist')
       cy.get('a[id="caut-alerts"]').click()
