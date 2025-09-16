@@ -10,6 +10,7 @@ import { formatDateTime } from '../../utils/time'
 import Status from './Status'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import Alerts from '../Property/Alerts'
 
 interface Props {
   property: Property
@@ -115,9 +116,30 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
             <p className="govuk-body">{appointmentDetails.plannerComments}</p>
           </>
         )}
-        <div className="work-order-information">
+        <ul
+          className="lbh-list hackney-property-alerts"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            marginBottom: '1em',
+            maxWidth: isExpanded ? '' : '30em',
+          }}
+        >
           {alertsLoading && <Spinner resource="alerts" />}
+          {alerts?.length > 0 && (
+            <Alerts
+              alerts={alerts}
+              setIsExpanded={setIsExpanded}
+              isExpanded={isExpanded}
+            />
+          )}
+
           {alertsError && <ErrorMessage label={alertsError} />}
+        </ul>
+        <div className="work-order-information">
+          {/* {alertsLoading && <Spinner resource="alerts" />}
+          {alertsError && <ErrorMessage label={alertsError} />} */}
 
           {cautionaryAlertsType().length > 0 && (
             <GridRow className="govuk-!-margin-top-0">
