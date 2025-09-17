@@ -452,7 +452,7 @@ describe('Show property', () => {
         ).as('alertsError')
       })
 
-      it.only('shows an error message in the place of the component', () => {
+      it('shows an error message in the place of the component', () => {
         cy.visit('/properties/00012345')
         cy.wait(['@property', '@workOrdersHistory', '@alertsError'])
 
