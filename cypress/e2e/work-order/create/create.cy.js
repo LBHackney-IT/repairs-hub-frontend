@@ -43,6 +43,11 @@ describe('Raise repair form', () => {
     ).as('tradesRequest')
 
     cy.intercept(
+      { method: 'GET', path: '/api/contractors/*' },
+      { fixture: 'contractor/contractor.json' }
+    ).as('contractorRequest')
+
+    cy.intercept(
       {
         method: 'GET',
         path: '/api/properties/00012345/alerts',
@@ -166,15 +171,16 @@ describe('Raise repair form', () => {
       'Please enter a repair description'
     )
 
-    cy.get('#repair-request-form').within(() => {
-      cy.get('#trade').type('Plumbing - PL')
+    cy.get('#trade').type('Plumbing - PL')
 
-      cy.wait('@contractorsRequest')
+    cy.wait('@contractorsRequest')
 
-      cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
+    cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
-      cy.wait('@budgetCodesRequest')
-    })
+    cy.wait('@budgetCodesRequest')
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
 
     cy.get('[type="submit"]')
       .contains('Create work order')
@@ -266,6 +272,8 @@ describe('Raise repair form', () => {
 
     cy.wait('@budgetCodesRequest')
 
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.get('[data-testid=budgetCode]').type('H2555 - 200031 - Lifts Breakdown')
 
     cy.wait(['@sorCodesRequest'])
@@ -957,6 +965,18 @@ describe('Raise repair form', () => {
         },
         { fixture: 'contractors/multiTradeContractors.json' }
       ).as('multiTradeContractorsRequest')
+
+      cy.fixture('contractor/contractor.json').then((contractor) => {
+        contractor.multiTradeEnabled = true
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path: `/api/contractors/*`,
+          },
+          { body: contractor }
+        ).as('contractorRequest')
+      })
 
       cy.loginWithAgentAndBudgetCodeOfficerRole()
     })

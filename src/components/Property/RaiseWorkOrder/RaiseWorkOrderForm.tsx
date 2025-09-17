@@ -21,7 +21,6 @@ import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/r
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 import SelectPriority from './SelectPriority'
-import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { getAlerts } from '@/root/src/utils/requests/property'
 import Spinner from '@/components/Spinner'
@@ -34,7 +33,6 @@ import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useF
 import { Priority } from '@/root/src/models/priority'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
-import { Trades } from '@/root/src/utils/requests/trades'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
 import {
@@ -42,12 +40,13 @@ import {
   CautionaryAlertsResponse,
 } from '@/root/src/models/cautionaryAlerts'
 import Alerts from '../Alerts'
+import { Trade } from '@/root/src/models/trade'
 
 interface Props {
   propertyReference: string
   property: Property
   tenure: Tenure
-  trades: Trades[]
+  trades: Trade[]
   contractors: Contractor[]
   setContractors: Dispatch<SetStateAction<Contractor[]>>
   budgetCodes: BudgetCode[]
@@ -69,6 +68,7 @@ interface Props {
   isPriorityEnabled: boolean
   isIncrementalSearchEnabled: boolean
   setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
+  enablePriorityField: () => void
 }
 
 const RaiseWorkOrderForm = (props: Props) => {
@@ -95,6 +95,7 @@ const RaiseWorkOrderForm = (props: Props) => {
     setPageToMultipleSORs,
     formState,
     isPriorityEnabled,
+    enablePriorityField,
   } = props
 
   const {
@@ -252,14 +253,6 @@ const RaiseWorkOrderForm = (props: Props) => {
     setAlertsLoading(true)
     getPropertyInfoOnLegalDisrepair(propertyReference)
     fetchAlerts()
-
-    if (isPriorityEnabled) {
-      const element = document.getElementById(
-        'priorityCode'
-      ) as HTMLInputElement
-
-      if (element) element.disabled = false
-    }
   }, [])
 
   return (
@@ -359,8 +352,8 @@ const RaiseWorkOrderForm = (props: Props) => {
               setTotalCost={setTotalCost}
               setValue={setValue}
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
-              filterPriorities={() => {}}
               formState={formState}
+              enablePriorityField={enablePriorityField}
             />
 
             <SelectPriority
@@ -369,7 +362,7 @@ const RaiseWorkOrderForm = (props: Props) => {
               register={register}
               errors={errors}
               priorityCode={priorityCode}
-              priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
+              isPriorityEnabled={isPriorityEnabled}
             />
 
             <CharacterCountLimitedTextArea

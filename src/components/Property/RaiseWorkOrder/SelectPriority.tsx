@@ -1,29 +1,42 @@
-import PropTypes from 'prop-types'
 import { Select } from '../../Form'
 import { useState } from 'react'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import {
   PLANNED_PRIORITY_CODE,
+  PRIORITY_CODES_WITHOUT_DRS,
   VOIDS_MAJOR_PRIORITY_CODE,
   VOIDS_MINOR_PRIORITY_CODE,
 } from '@/utils/helpers/priorities'
+import { Priority } from '@/root/src/models/priority'
+import { DeepMap, FieldError } from 'react-hook-form'
 
-const SelectPriority = ({
-  priorities,
-  onPrioritySelect,
-  register,
-  errors,
-  priorityCode,
-  priorityCodesWithoutDrs,
-}) => {
+interface Props {
+  priorities: Priority[]
+  onPrioritySelect: (code: any) => void
+  register: any
+  errors: DeepMap<any, FieldError>
+  priorityCode: number
+  isPriorityEnabled: boolean
+}
+
+const SelectPriority = (props: Props) => {
+  const {
+    isPriorityEnabled,
+    priorities,
+    onPrioritySelect,
+    register,
+    errors,
+    priorityCode,
+  } = props
+
   const [drsScheduled, setDrsScheduled] = useState(
-    priorityCodesWithoutDrs.includes(priorityCode)
+    PRIORITY_CODES_WITHOUT_DRS.includes(priorityCode)
   )
   const [selectedPriority, setSelectedPriority] = useState(priorityCode)
 
   const onSelect = (e) => {
     const selectedCode = parseInt(e.target.value)
-    setDrsScheduled(priorityCodesWithoutDrs.includes(selectedCode))
+    setDrsScheduled(PRIORITY_CODES_WITHOUT_DRS.includes(selectedCode))
     onPrioritySelect(selectedCode)
     setSelectedPriority(selectedCode)
   }
@@ -68,7 +81,7 @@ const SelectPriority = ({
           value: priority.priorityCode.toString(),
         }))}
         onChange={onSelect}
-        disabled={true}
+        disabled={!isPriorityEnabled}
         required={true}
         register={register({
           required: 'Please select a priority',
@@ -90,14 +103,6 @@ const SelectPriority = ({
       )}
     </>
   )
-}
-
-SelectPriority.propTypes = {
-  priorities: PropTypes.array.isRequired,
-  onPrioritySelect: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  priorityCode: PropTypes.number,
 }
 
 export default SelectPriority

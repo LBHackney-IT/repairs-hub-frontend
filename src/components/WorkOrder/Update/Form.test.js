@@ -59,7 +59,14 @@ describe('WorkOrderUpdateForm component', () => {
         onGetToSummary={props.onGetToSummary}
         setVariationReason={props.setVariationReason}
         variationReason={props.variationReason}
-        contractorReference={PURDY_CONTRACTOR_REFERENCE}
+        contractor={{
+          contractorReference: 'PCL',
+          contractorName: 'Purdy',
+          useExternalScheduleManager: false,
+          canAssignOperative: false,
+          perTradeAvailability: false,
+          multiTradeEnabled: true,
+        }}
         sorCodeArrays={[
           [
             {
