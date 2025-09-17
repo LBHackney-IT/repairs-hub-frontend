@@ -482,9 +482,6 @@ describe('Updating a work order', () => {
       cy.get('.lbh-list li')
         .contains('Manage work orders')
         .should('have.attr', 'href', '/')
-
-      // Run lighthouse audit for accessibility report
-      //  cy.audit()
     })
 
     context('for a Purdy order', () => {

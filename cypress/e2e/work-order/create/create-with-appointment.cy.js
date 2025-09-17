@@ -272,8 +272,6 @@ describe('Schedule appointment form', () => {
       cy.get('.lbh-list li')
         .contains('Start a new search')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     // when priority is Normal it is redirecting to schedule appointment page
@@ -463,9 +461,6 @@ describe('Schedule appointment form', () => {
       cy.contains('a', 'View work order')
       cy.contains('a', 'Back to 16 Pitcairn House')
       cy.contains('a', 'Start a new search')
-
-      // Run lighthouse audit for accessibility report
-      //  cy.audit()
     })
   })
 

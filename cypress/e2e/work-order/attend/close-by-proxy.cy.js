@@ -289,8 +289,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.lbh-list li')
         .contains('Manage work orders')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     it('allows valid inputs, shows a confirmation page, allows editing and and submits the form including a no access reason', () => {
@@ -366,8 +364,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.lbh-list li')
         .contains('Manage work orders')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     it('sends request to /starttime when startTime selected', () => {
@@ -427,8 +423,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.lbh-list li')
         .contains('Manage work orders')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     it('shows validation errors when uploading files', () => {
@@ -1104,8 +1098,6 @@ describe('Closing a work order on behalf of an operative', () => {
               })
 
             cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
-
-            //  cy.audit()
           })
         })
 
@@ -1273,8 +1265,6 @@ describe('Closing a work order on behalf of an operative', () => {
               })
 
             cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
-
-            //  cy.audit()
           })
         })
 
@@ -1414,8 +1404,6 @@ describe('Closing a work order on behalf of an operative', () => {
               })
 
             cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
-
-            //  cy.audit()
           })
         })
       })
@@ -1706,8 +1694,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.lbh-list li')
         .contains('Manage work orders')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     it('allows valid inputs, shows a confirmation page, allows editing and and submits the form including a no access reason', () => {
@@ -1783,8 +1769,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.lbh-list li')
         .contains('Manage work orders')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     it('sends request to /starttime when startTime selected', () => {
@@ -1844,8 +1828,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.lbh-list li')
         .contains('Manage work orders')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     it('shows validation errors when uploading files', () => {
@@ -2517,8 +2499,6 @@ describe('Closing a work order on behalf of an operative', () => {
               })
 
             cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
-
-            //  cy.audit()
           })
         })
 
@@ -2686,8 +2666,6 @@ describe('Closing a work order on behalf of an operative', () => {
               })
 
             cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
-
-            //  cy.audit()
           })
         })
 
@@ -2827,8 +2805,6 @@ describe('Closing a work order on behalf of an operative', () => {
               })
 
             cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
-
-            //  cy.audit()
           })
         })
       })
