@@ -74,6 +74,7 @@ const WorkOrderDetails = (props: Props) => {
   const currentWorkOrderActionMenu = workOrderActionMenu()
 
   const fetchAlerts = async () => {
+    setAlertsLoading(true)
     const alertsResponse = await getAlerts(property.propertyReference)
 
     if (!alertsResponse.success) {
@@ -87,7 +88,6 @@ const WorkOrderDetails = (props: Props) => {
   }
 
   useEffect(() => {
-    setAlertsLoading(true)
     fetchAlerts()
   }, [])
 

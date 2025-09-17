@@ -118,6 +118,7 @@ const RepairsFinderForm = (props: Props) => {
   }
 
   const fetchAlerts = async () => {
+    setAlertsLoading(true)
     const alertsResponse = await getAlerts(propertyReference)
 
     if (!alertsResponse.success) {
@@ -132,7 +133,6 @@ const RepairsFinderForm = (props: Props) => {
 
   useEffect(() => {
     setLoading(true)
-    setAlertsLoading(true)
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
     fetchAlerts()

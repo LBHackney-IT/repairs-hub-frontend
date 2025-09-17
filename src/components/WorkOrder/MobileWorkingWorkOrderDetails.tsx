@@ -46,6 +46,7 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
   }
 
   const fetchAlerts = async () => {
+    setAlertsLoading(true)
     const alertsResponse = await getAlerts(property.propertyReference)
 
     if (!alertsResponse.success) {
@@ -59,7 +60,6 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
   }
 
   useEffect(() => {
-    setAlertsLoading(true)
     fetchAlerts()
   }, [])
 

@@ -233,6 +233,7 @@ const RaiseWorkOrderForm = (props: Props) => {
   }
 
   const fetchAlerts = async () => {
+    setAlertsLoading(true)
     const alertsResponse = await getAlerts(propertyReference)
 
     if (!alertsResponse.success) {
@@ -247,7 +248,6 @@ const RaiseWorkOrderForm = (props: Props) => {
 
   useEffect(() => {
     setLoading(true)
-    setAlertsLoading(true)
     getPropertyInfoOnLegalDisrepair(propertyReference)
     fetchAlerts()
   }, [])
