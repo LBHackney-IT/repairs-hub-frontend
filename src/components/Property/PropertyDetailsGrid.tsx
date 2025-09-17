@@ -7,6 +7,19 @@ import Alerts from './Alerts'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { getAlerts } from '../../utils/requests/property'
+import { Address, Tenure } from '../../models/propertyTenure'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
+
+interface PropertyDetailsGridProps {
+  propertyReference: string
+  boilerHouseId: string
+  address: Address
+  subTypeDescription: string
+  tenure: Tenure
+  hasLinkToProperty: boolean
+  canRaiseRepair: boolean
+  tmoName: string
+}
 
 const PropertyDetailsGrid = ({
   propertyReference,
@@ -17,13 +30,14 @@ const PropertyDetailsGrid = ({
   hasLinkToProperty,
   canRaiseRepair,
   tmoName,
-}) => {
-  const [alerts, setAlerts] = useState([])
-  const [alertsLoading, setAlertsLoading] = useState(false)
-  const [alertsError, setAlertsError] = useState()
-  const [isExpanded, setIsExpanded] = useState(false)
+}: PropertyDetailsGridProps) => {
+  const [alerts, setAlerts] = useState<CautionaryAlert[] | []>([])
+  const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
   const fetchAlerts = async () => {
+    setAlertsLoading(true)
     const alertsResponse = await getAlerts(propertyReference)
 
     if (!alertsResponse.success) {
@@ -37,7 +51,6 @@ const PropertyDetailsGrid = ({
   }
 
   useEffect(() => {
-    setAlertsLoading(true)
     fetchAlerts()
   }, [])
 
@@ -81,17 +94,6 @@ const PropertyDetailsGrid = ({
       </div>
     </div>
   )
-}
-
-PropertyDetailsGrid.propTypes = {
-  propertyReference: PropTypes.string,
-  boilerHouseId: PropTypes.string.isRequired,
-  address: PropTypes.object.isRequired,
-  subTypeDescription: PropTypes.string,
-  tenure: PropTypes.object.isRequired,
-  hasLinkToProperty: PropTypes.bool,
-  canRaiseRepair: PropTypes.bool,
-  tmoName: PropTypes.string,
 }
 
 export default PropertyDetailsGrid
