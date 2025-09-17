@@ -187,7 +187,7 @@ describe('Home page', () => {
               cy.contains('th', 'Trade')
               cy.contains('th', 'Description')
             })
-            
+
             // Check the first row
             cy.get('[data-ref=10000040]').within(() => {
               cy.contains('10000040')
