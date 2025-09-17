@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react'
 import { getAlerts } from '@/root/src/utils/requests/property'
-import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 import PropertyFlags from '../../Property/PropertyFlags'
 import Alerts from '../../Property/Alerts'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import Spinner from '../../Spinner'
+import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
+import { Address, Tenure } from '@/root/src/models/propertyTenure'
+
+interface PropertyDetailsProps {
+  address: Address
+  subTypeDescription: string
+  tenure: Tenure
+  canRaiseRepair: boolean
+  propertyReference: string
+  boilerHouseId: string
+}
 
 const PropertyDetails = ({
   address,
@@ -14,13 +24,14 @@ const PropertyDetails = ({
   canRaiseRepair,
   propertyReference,
   boilerHouseId,
-}) => {
-  const [alerts, setAlerts] = useState([])
-  const [alertsLoading, setAlertsLoading] = useState(false)
-  const [alertsError, setAlertsError] = useState()
-  const [isExpanded, setIsExpanded] = useState(false)
+}: PropertyDetailsProps) => {
+  const [alerts, setAlerts] = useState<CautionaryAlert[] | []>([])
+  const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
   const fetchAlerts = async () => {
+    setAlertsLoading(true)
     const alertsResponse = await getAlerts(propertyReference)
 
     if (!alertsResponse.success) {
@@ -34,7 +45,6 @@ const PropertyDetails = ({
   }
 
   useEffect(() => {
-    setAlertsLoading(true)
     fetchAlerts()
   }, [])
 
@@ -69,21 +79,11 @@ const PropertyDetails = ({
         <PropertyFlags
           tenure={tenure}
           canRaiseRepair={canRaiseRepair}
-          propertyReference={propertyReference}
           boilerHouseId={boilerHouseId}
         />
       </GridColumn>
     </GridRow>
   )
-}
-
-PropertyDetails.propTypes = {
-  address: PropTypes.object.isRequired,
-  subTypeDescription: PropTypes.string.isRequired,
-  tenure: PropTypes.object.isRequired,
-  canRaiseRepair: PropTypes.bool.isRequired,
-  propertyReference: PropTypes.string.isRequired,
-  boilerHouseId: PropTypes.string,
 }
 
 export default PropertyDetails
