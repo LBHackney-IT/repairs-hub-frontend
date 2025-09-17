@@ -138,9 +138,6 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
           {alertsError && <ErrorMessage label={alertsError} />}
         </ul>
         <div className="work-order-information">
-          {/* {alertsLoading && <Spinner resource="alerts" />}
-          {alertsError && <ErrorMessage label={alertsError} />} */}
-
           {cautionaryAlertsType().length > 0 && (
             <GridRow className="govuk-!-margin-top-0">
               <GridColumn width="one-half">
