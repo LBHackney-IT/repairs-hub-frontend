@@ -78,7 +78,6 @@ describe('SelectPriority component', () => {
     ],
 
     priorityCode: 2,
-    priorityCodesWithoutDrs: PRIORITY_CODES_WITHOUT_DRS,
     onPrioritySelect: jest.fn(),
     register: jest.fn(),
   }
@@ -89,9 +88,9 @@ describe('SelectPriority component', () => {
         priorities={props.priorities}
         onPrioritySelect={props.onPrioritySelect}
         priorityCode={props.priorityCode}
-        priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
         errors={{}}
+        isPriorityEnabled={false}
       />
     )
     fireEvent.change(getByTestId('priorityCode'), { target: { value: 9 } })
@@ -107,9 +106,9 @@ describe('SelectPriority component', () => {
         priorities={props.priorities}
         onPrioritySelect={props.onPrioritySelect}
         priorityCode={props.priorityCode}
-        priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
         errors={{}}
+        isPriorityEnabled={false}
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -120,9 +119,9 @@ describe('SelectPriority component', () => {
         priorities={props.priorities}
         onPrioritySelect={props.onPrioritySelect}
         priorityCode={9}
-        priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
         errors={{}}
+        isPriorityEnabled={false}
       />
     )
 
@@ -137,9 +136,9 @@ describe('SelectPriority component', () => {
         priorities={props.priorities}
         onPrioritySelect={props.onPrioritySelect}
         priorityCode={props.priorityCode}
-        priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
         errors={{}}
+        isPriorityEnabled={false}
       />
     )
     fireEvent.change(getByTestId('priorityCode'), { target: { value: 15 } })
@@ -155,9 +154,9 @@ describe('SelectPriority component', () => {
         priorities={props.priorities}
         onPrioritySelect={props.onPrioritySelect}
         priorityCode={props.priorityCode}
-        priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
         errors={{}}
+        isPriorityEnabled={false}
       />
     )
     fireEvent.change(getByTestId('priorityCode'), { target: { value: 200 } })

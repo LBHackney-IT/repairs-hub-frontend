@@ -64,35 +64,20 @@ describe('MobileWorkingWorkOrderDetails component', () => {
     },
   }
 
-  axios
-    .mockResolvedValueOnce({
-      data: {
-        alerts: [
-          {
-            type: 'type1',
-            comments: 'Location Alert 1',
-          },
-          {
-            type: 'type2',
-            comments: 'Location Alert 2',
-          },
-        ],
-      },
-    })
-    .mockResolvedValueOnce({
-      data: {
-        alerts: [
-          {
-            type: 'type3',
-            comments: 'Person Alert 1',
-          },
-          {
-            type: 'type4',
-            comments: 'Person Alert 2',
-          },
-        ],
-      },
-    })
+  axios.mockResolvedValueOnce({
+    data: {
+      alerts: [
+        {
+          type: 'type1',
+          comments: 'Alert 1',
+        },
+        {
+          type: 'type2',
+          comments: 'Alert 2',
+        },
+      ],
+    },
+  })
 
   it('should render properly work order', async () => {
     const { asFragment } = render(
@@ -109,22 +94,14 @@ describe('MobileWorkingWorkOrderDetails component', () => {
     expect(asFragment()).toMatchSnapshot()
 
     await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
-      ])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
     })
 
-    expect(axios).toHaveBeenCalledTimes(2)
+    expect(axios).toHaveBeenCalledTimes(1)
 
     expect(axios).toHaveBeenCalledWith({
       method: 'get',
-      url: '/api/properties/00012345/location-alerts',
-    })
-
-    expect(axios).toHaveBeenCalledWith({
-      method: 'get',
-      url: '/api/properties/tenureId1/person-alerts',
+      url: '/api/properties/00012345/alerts',
     })
 
     expect(asFragment()).toMatchSnapshot()

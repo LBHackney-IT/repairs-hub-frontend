@@ -120,10 +120,7 @@ describe('WorkOrderDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -145,10 +142,7 @@ describe('WorkOrderDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
 
       // if work order is 648707 then it should render is as 00648707 (with leading zeroes)
@@ -176,10 +170,7 @@ describe('WorkOrderDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -218,10 +209,7 @@ describe('WorkOrderDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -259,10 +247,7 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -306,10 +291,7 @@ describe('WorkOrderDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -333,10 +315,7 @@ describe('WorkOrderDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -374,10 +353,7 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
       expect(asFragment()).toMatchSnapshot()
     })
@@ -420,10 +396,7 @@ describe('WorkOrderDetails component', () => {
       )
 
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -447,10 +420,7 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
       await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
+        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
       })
 
       expect(asFragment()).toMatchSnapshot()
