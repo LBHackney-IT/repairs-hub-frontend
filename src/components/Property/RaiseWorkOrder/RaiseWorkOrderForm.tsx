@@ -35,10 +35,7 @@ import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
-import {
-  CautionaryAlert,
-  CautionaryAlertsResponse,
-} from '@/root/src/models/cautionaryAlerts'
+import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
 import Alerts from '../Alerts'
 import { Trade } from '@/root/src/models/trade'
 
