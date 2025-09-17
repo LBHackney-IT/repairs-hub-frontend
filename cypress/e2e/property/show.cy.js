@@ -233,9 +233,6 @@ describe('Show property', () => {
           cy.contains('Work complete')
           cy.contains('The oldest repair')
         })
-
-        // Run lighthouse audit for accessibility report
-        //  cy.audit()
       })
     })
 

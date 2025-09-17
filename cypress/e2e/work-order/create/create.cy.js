@@ -779,9 +779,6 @@ describe('Raise repair form', () => {
     cy.get('.lbh-list li')
       .contains('Start a new search')
       .should('have.attr', 'href', '/')
-
-    // Run lighthouse audit for accessibility report
-    //  cy.audit()
   })
 
   it('Hides follow-on fields when user doesnt have permissions', () => {
