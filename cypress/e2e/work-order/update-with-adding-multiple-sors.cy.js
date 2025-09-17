@@ -25,6 +25,11 @@ describe('Updating a work order', () => {
         .as('taskListRequest')
 
       cy.intercept(
+        { method: 'GET', path: '/api/contractors/*' },
+        { fixture: 'contractor/contractor.json' }
+      ).as('contractorRequest')
+
+      cy.intercept(
         {
           method: 'GET',
           path:

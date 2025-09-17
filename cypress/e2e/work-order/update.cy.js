@@ -6,6 +6,13 @@ import {
 } from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
+  beforeEach(() => {
+    cy.intercept(
+      { method: 'GET', path: '/api/contractors/*' },
+      { fixture: 'contractor/contractor.json' }
+    ).as('contractorRequest')
+  })
+
   context('As a contractor', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
@@ -39,7 +46,6 @@ describe('Updating a work order', () => {
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
-
       cy.intercept(
         { method: 'POST', path: '/api/jobStatusUpdate' },
         { body: '' }
@@ -495,6 +501,18 @@ describe('Updating a work order', () => {
             )
           })
           .as('workOrder')
+
+        cy.fixture('contractor/contractor.json').then((contractor) => {
+          contractor.multiTradeEnabled = true
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path: `/api/contractors/*`,
+            },
+            { body: contractor }
+          ).as('contractorRequest')
+        })
       })
 
       it('does not have a character limit for the variation reason', () => {
