@@ -22,8 +22,6 @@ describe('Authentication', () => {
       cy.get('.lbh-body').contains(
         'Please sign in with your Hackney email account.'
       )
-
-      //  cy.audit()
     })
   })
 
