@@ -59,6 +59,10 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
@@ -327,6 +331,10 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
@@ -702,6 +710,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
@@ -960,6 +972,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
@@ -1249,6 +1265,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
@@ -1604,6 +1624,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
@@ -1924,6 +1948,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
@@ -2182,6 +2210,10 @@ exports[`MobileWorkingWorkOrder component with single operative when the current
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
@@ -2451,6 +2483,10 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
       >
         11 Jun 2023, 13:49
       </p>
+      <ul
+        class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      />
       <div
         class="work-order-information"
       >
