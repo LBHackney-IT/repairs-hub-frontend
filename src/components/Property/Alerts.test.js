@@ -43,8 +43,7 @@ describe('Alerts component', () => {
         comments: 'Specific Requirements',
         startDate: '09/01/2025',
         endDate: null,
-        reason:
-          'Taking up the whole of the characters to see what it looks like Taking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it looks likeTaking up the whole of the characters to see what it l',
+        reason: 'Specific requirement alert',
         alertId: '73cf5a20-628e-47a0-9c42-c814e307baf5',
       },
     ]
