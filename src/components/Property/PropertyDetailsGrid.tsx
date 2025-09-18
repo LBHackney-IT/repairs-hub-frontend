@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-
-import PropTypes from 'prop-types'
 import PropertyDetailsAddress from './PropertyDetailsAddress'
 import PropertyFlags from './PropertyFlags'
 import Alerts from './Alerts'
@@ -76,11 +74,22 @@ const PropertyDetailsGrid = ({
           >
             {alertsLoading && <Spinner resource="alerts" />}
             {alerts?.length > 0 && (
-              <Alerts
-                alerts={alerts}
-                setIsExpanded={setIsExpanded}
-                isExpanded={isExpanded}
-              />
+              <ul
+                className="lbh-list hackney-property-alerts"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  marginBottom: '1em',
+                  maxWidth: isExpanded ? '' : '30em',
+                }}
+              >
+                <Alerts
+                  alerts={alerts}
+                  setIsExpanded={setIsExpanded}
+                  isExpanded={isExpanded}
+                />
+              </ul>
             )}
             {alertsError && <ErrorMessage label={alertsError} />}
           </ul>

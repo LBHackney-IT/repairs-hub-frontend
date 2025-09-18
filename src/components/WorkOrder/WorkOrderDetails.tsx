@@ -105,27 +105,26 @@ const WorkOrderDetails = (props: Props) => {
         )}
 
         <p className="lbh-body-m">{workOrder.description}</p>
-        <ul
-          className="lbh-list hackney-property-alerts"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            marginBottom: '1em',
-            maxWidth: isExpanded ? '' : '30em',
-          }}
-        >
-          {alertsLoading && <Spinner resource="alerts" />}
-          {alerts?.length > 0 && (
+        {alertsLoading && <Spinner resource="alerts" />}
+        {alerts?.length > 0 && (
+          <ul
+            className="lbh-list hackney-property-alerts"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              marginBottom: '1em',
+              maxWidth: isExpanded ? '' : '30em',
+            }}
+          >
             <Alerts
               alerts={alerts}
               setIsExpanded={setIsExpanded}
               isExpanded={isExpanded}
             />
-          )}
-
-          {alertsError && <ErrorMessage label={alertsError} />}
-        </ul>
+          </ul>
+        )}
+        {alertsError && <ErrorMessage label={alertsError} />}
 
         <WorkOrderHeader
           propertyReference={property.propertyReference}

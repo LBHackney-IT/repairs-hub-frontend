@@ -160,27 +160,28 @@ const RepairsFinderForm = (props: Props) => {
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
           <div className="lbh-body-s">
-            <ul
-              className="lbh-list hackney-property-alerts"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '1em',
-                maxWidth: isExpanded ? '' : '30em',
-              }}
-            >
-              {alertsLoading && <Spinner resource="alerts" />}
-              {alerts?.length > 0 && (
+            {alertsLoading && <Spinner resource="alerts" />}
+            {alerts?.length > 0 && (
+              <ul
+                className="lbh-list hackney-property-alerts"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  marginBottom: '1em',
+                  maxWidth: isExpanded ? '' : '30em',
+                }}
+              >
                 <Alerts
                   alerts={alerts}
                   setIsExpanded={setIsExpanded}
                   isExpanded={isExpanded}
                 />
-              )}
+              </ul>
+            )}
 
-              {alertsError && <ErrorMessage label={alertsError} />}
-            </ul>
+            {alertsError && <ErrorMessage label={alertsError} />}
+
             <PropertyFlags canRaiseRepair={canRaiseRepair} tenure={tenure} />
           </div>
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
