@@ -10,35 +10,20 @@ const axios = require('axios')
 jest.mock('axios', () => jest.fn())
 
 describe('PropertyDetails component', () => {
-  axios
-    .mockResolvedValueOnce({
-      data: {
-        alerts: [
-          {
-            type: 'type1',
-            comments: 'Location Alert 1',
-          },
-          {
-            type: 'type2',
-            comments: 'Location Alert 2',
-          },
-        ],
-      },
-    })
-    .mockResolvedValueOnce({
-      data: {
-        alerts: [
-          {
-            type: 'type3',
-            comments: 'Person Alert 1',
-          },
-          {
-            type: 'type4',
-            comments: 'Person Alert 2',
-          },
-        ],
-      },
-    })
+  axios.mockResolvedValueOnce({
+    data: {
+      alerts: [
+        {
+          type: 'type1',
+          comments: 'Alert 1',
+        },
+        {
+          type: 'type2',
+          comments: 'Alert 2',
+        },
+      ],
+    },
+  })
 
   const props = {
     property: {
@@ -74,10 +59,7 @@ describe('PropertyDetails component', () => {
     )
 
     await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
-      ])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
     })
 
     expect(asFragment()).toMatchSnapshot()

@@ -36,6 +36,11 @@ describe('Raise repair form', () => {
     ).as('tradesRequest')
 
     cy.intercept(
+      { method: 'GET', path: '/api/contractors/*' },
+      { fixture: 'contractor/contractor.json' }
+    ).as('contractorRequest')
+
+    cy.intercept(
       {
         method: 'GET',
         path: '/api/workOrders?*',
@@ -116,6 +121,9 @@ describe('Raise repair form', () => {
         })
 
         cy.wait('@dummyCodes')
+
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500)
 
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
           '00000005 - shortDescription5 - £1',

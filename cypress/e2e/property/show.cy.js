@@ -23,45 +23,23 @@ describe('Show property', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345/location-alerts',
+        path: '/api/properties/00012345/alerts',
       },
       {
         body: {
           alerts: [
             {
               type: 'type1',
-              comments: 'Location Alert 1',
+              comments: 'Alert 1',
             },
             {
               type: 'type2',
-              comments: 'Location Alert 2',
+              comments: 'Alert 2',
             },
           ],
         },
       }
-    ).as('locationAlerts')
-
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
-      },
-      {
-        body: {
-          alerts: [
-            {
-              type: 'type3',
-              comments: 'Person Alert 1',
-            },
-            {
-              type: 'type4',
-              comments: 'Person Alert 2',
-            },
-          ],
-        },
-      }
-    ).as('personAlerts')
+    ).as('alerts')
   })
 
   it('displays property details', () => {
@@ -448,23 +426,12 @@ describe('Show property', () => {
   describe('Tenures and Alerts', () => {
     it('shows Tenure and Alerts section', () => {
       cy.visit('/properties/00012345')
-      cy.wait([
-        '@property',
-        '@workOrdersHistory',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
+      cy.wait(['@property', '@workOrdersHistory', '@alerts'])
 
       cy.checkForTenureDetails(
         'Tenure: Secure',
-        [
-          'Address Alert: Location Alert 1 (type1)',
-          'Address Alert: Location Alert 2 (type2)',
-        ],
-        [
-          'Contact Alert: Person Alert 1 (type3)',
-          'Contact Alert: Person Alert 2 (type4)',
-        ]
+        ['Alert 1', 'Alert 2'],
+        ['Alert 1', 'Alert 2']
       )
     })
 
@@ -473,46 +440,26 @@ describe('Show property', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/properties/00012345/location-alerts',
+            path: '/api/properties/00012345/alerts',
           },
           {
             statusCode: 404,
             body: {
-              message: 'Cannot fetch location alerts',
+              message: 'Cannot fetch alerts',
             },
           }
-        ).as('locationAlertsError')
-
-        cy.intercept(
-          {
-            method: 'GET',
-            path:
-              '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
-          },
-          {
-            statusCode: 404,
-            body: {
-              message: 'Cannot fetch person alerts',
-            },
-          }
-        ).as('personAlertsError')
+        ).as('alertsError')
       })
 
       it('shows an error message in the place of the component', () => {
         cy.visit('/properties/00012345')
-        cy.wait([
-          '@property',
-          '@workOrdersHistory',
-          '@locationAlertsError',
-          '@personAlertsError',
-        ])
+        cy.wait(['@property', '@workOrdersHistory', '@alertsError'])
 
         // Some page content rendered
         cy.contains('Dwelling: 16 Pitcairn House')
 
         cy.get('.hackney-property-alerts').within(() => {
-          cy.contains('Cannot fetch location alerts')
-          cy.contains('Cannot fetch person alerts')
+          cy.contains('Cannot fetch alerts')
         })
       })
     })

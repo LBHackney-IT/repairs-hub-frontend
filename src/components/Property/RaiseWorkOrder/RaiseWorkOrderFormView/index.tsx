@@ -16,7 +16,6 @@ import router from 'next/router'
 import AddMultipleSORs from '../AddMultipleSORs'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
-import { Trades } from '@/root/src/utils/requests/trades'
 import Contractor from '@/root/src/models/contractor'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import SorCode from '@/root/src/models/sorCode'
@@ -25,6 +24,7 @@ import { CurrentUser } from '@/root/src/types/variations/types'
 import RaiseWorkOrderFormMeta from './Meta'
 import AnnouncementMessage from './AnnouncementMessage'
 import RaiseWorkOrderSuccessPage from './SuccessPage'
+import { Trade } from '@/root/src/models/trade'
 
 interface Props {
   propertyReference: string
@@ -38,7 +38,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
 
-  const [trades, setTrades] = useState<Trades[]>([])
+  const [trades, setTrades] = useState<Trade[]>([])
   const [tradeCode, setTradeCode] = useState<string>('')
 
   const [contractors, setContractors] = useState<Contractor[]>([])
@@ -274,7 +274,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   return (
     <>
       <RaiseWorkOrderFormMeta property={property} />
-
       {currentPage === RAISE_SUCCESS_PAGE && workOrderReference && property && (
         <RaiseWorkOrderSuccessPage
           immediateOrEmergencyRepairText={immediateOrEmergencyRepairText}
@@ -322,6 +321,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
           isPriorityEnabled={isPriorityEnabled}
           isIncrementalSearchEnabled={isIncrementalSearchEnabled}
           setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
+          enablePriorityField={() => setIsPriorityEnabled(true)}
         />
       )}
 
