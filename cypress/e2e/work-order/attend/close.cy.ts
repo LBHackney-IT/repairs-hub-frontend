@@ -45,11 +45,12 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           alerts: [
             {
               type: 'type1',
-              comments: 'Location Alert 1',
+              comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Location Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },

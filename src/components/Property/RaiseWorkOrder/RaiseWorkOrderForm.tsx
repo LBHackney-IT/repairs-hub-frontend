@@ -22,6 +22,7 @@ import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 import SelectPriority from './SelectPriority'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { getAlerts } from '@/root/src/utils/requests/property'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
@@ -34,6 +35,8 @@ import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
+import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
+import Alerts from '../Alerts'
 import { Trade } from '@/root/src/models/trade'
 
 interface Props {
@@ -106,6 +109,10 @@ const RaiseWorkOrderForm = (props: Props) => {
   const { user } = useContext(UserContext)
   const { simpleFeatureToggles } = useFeatureToggles()
 
+  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
+  const [alertsLoading, setAlertsLoading] = useState(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
+  const [isExpanded, setIsExpanded] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState<
     string | null
@@ -225,10 +232,24 @@ const RaiseWorkOrderForm = (props: Props) => {
     )
   }
 
+  const fetchAlerts = async () => {
+    setAlertsLoading(true)
+    const alertsResponse = await getAlerts(propertyReference)
+
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
+  }
+
   useEffect(() => {
     setLoading(true)
-
     getPropertyInfoOnLegalDisrepair(propertyReference)
+    fetchAlerts()
   }, [])
 
   return (
@@ -263,10 +284,30 @@ const RaiseWorkOrderForm = (props: Props) => {
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
           <div className="lbh-body-s">
+            {alertsLoading && <Spinner resource="alerts" />}
+            {alerts?.length > 0 && (
+              <ul
+                className="lbh-list hackney-property-alerts"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  marginBottom: '1em',
+                  maxWidth: isExpanded ? '' : '30em',
+                }}
+              >
+                <Alerts
+                  alerts={alerts}
+                  setIsExpanded={setIsExpanded}
+                  isExpanded={isExpanded}
+                />
+              </ul>
+            )}
+
+            {alertsError && <ErrorMessage label={alertsError} />}
             <PropertyFlags
               canRaiseRepair={property?.canRaiseRepair}
               tenure={tenure}
-              propertyReference={propertyReference}
             />
           </div>
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">

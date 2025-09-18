@@ -33,8 +33,9 @@ describe('Show property', () => {
               comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
@@ -425,11 +426,11 @@ describe('Show property', () => {
       cy.visit('/properties/00012345')
       cy.wait(['@property', '@workOrdersHistory', '@alerts'])
 
-      cy.checkForTenureDetails(
-        'Tenure: Secure',
-        ['Alert 1', 'Alert 2'],
-        ['Alert 1', 'Alert 2']
-      )
+      cy.checkForTenureDetails('Tenure: Secure', [
+        'Alert 1',
+        'Specific Requirements',
+        'Reason 1, very important',
+      ])
     })
 
     context('when the alerts API responds with an error', () => {
@@ -455,7 +456,7 @@ describe('Show property', () => {
         // Some page content rendered
         cy.contains('Dwelling: 16 Pitcairn House')
 
-        cy.get('.hackney-property-alerts').within(() => {
+        cy.get('.hackney-property-alerts').each(() => {
           cy.contains('Cannot fetch alerts')
         })
       })

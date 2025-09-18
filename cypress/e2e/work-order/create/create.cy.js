@@ -57,11 +57,12 @@ describe('Raise repair form', () => {
           alerts: [
             {
               type: 'type1',
-              comments: 'Person Alert 1',
+              comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Person Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
@@ -206,7 +207,8 @@ describe('Raise repair form', () => {
 
     cy.checkForTenureDetails('Tenure: Secure', [
       'Alert 1 (type1)',
-      'Alert 2 (type2)',
+      'Specific Requirements (SPR)',
+      'Reason 1, very important',
     ])
 
     cy.wait(['@contactDetailsRequest'])
