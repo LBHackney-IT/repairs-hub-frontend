@@ -18,23 +18,45 @@ describe('Boiler house flag', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345/alerts',
+        path: '/api/properties/00012345/location-alerts',
       },
       {
         body: {
           alerts: [
             {
               type: 'type1',
-              comments: 'Alert 1',
+              comments: 'Location Alert 1',
             },
             {
               type: 'type2',
-              comments: 'Alert 2',
+              comments: 'Location Alert 2',
             },
           ],
         },
       }
-    ).as('alerts')
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type3',
+              comments: 'Person Alert 1',
+            },
+            {
+              type: 'type4',
+              comments: 'Person Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('personAlerts')
   })
 
   it('doesnt show boilerHouse flag', () => {

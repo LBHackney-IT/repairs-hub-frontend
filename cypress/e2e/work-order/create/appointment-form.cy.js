@@ -51,11 +51,6 @@ describe('Schedule appointment form', () => {
     ).as('trades')
 
     cy.intercept(
-      { method: 'GET', path: '/api/contractors/*' },
-      { fixture: 'contractor/contractor.json' }
-    ).as('contractorRequest')
-
-    cy.intercept(
       { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
       { body: { propertyIsInLegalDisrepair: false } }
     ).as('propertyIsNotInLegalDisrepair')
@@ -95,14 +90,27 @@ describe('Schedule appointment form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345/alerts',
+        path: '/api/properties/00012345/location-alerts',
       },
       {
         body: {
           alerts: [],
         },
       }
-    ).as('alerts')
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+      },
+      {
+        body: {
+          alerts: [],
+        },
+      }
+    ).as('personAlerts')
 
     cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
@@ -409,32 +417,31 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property', '@priorities', '@trades'])
 
-      cy.get('#trade').type('Plumbing - PL')
+      cy.get('#repair-request-form').within(() => {
+        cy.get('#trade').type('Plumbing - PL')
 
-      cy.wait(['@contractors'])
+        cy.wait(['@contractors'])
 
-      cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
-      cy.wait('@sorCodes')
+        cy.wait('@sorCodes')
 
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('DES5R005 - Normal call outs - £1')
 
-      cy.get('input[id="rateScheduleItems[0][code]"]')
-        .clear()
-        .type('DES5R005 - Normal call outs - £1')
+        cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+        cy.get('#priorityCode').select('5 [N] NORMAL')
+        cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+        cy.get('#callerName').type('Bob Leek', { force: true })
 
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-      cy.get('#priorityCode').select('5 [N] NORMAL')
-      cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-      cy.get('#callerName').type('Bob Leek', { force: true })
-
-      cy.get('#contactNumber')
-        .clear({ force: true })
-        .type('07788659111', { force: true })
-      cy.get('[type="submit"]')
-        .contains('Create work order')
-        .click({ force: true })
+        cy.get('#contactNumber')
+          .clear({ force: true })
+          .type('07788659111', { force: true })
+        cy.get('[type="submit"]')
+          .contains('Create work order')
+          .click({ force: true })
+      })
 
       cy.wait(['@apiCheck', '@availableAppointments'])
 

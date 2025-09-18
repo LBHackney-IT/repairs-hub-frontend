@@ -38,7 +38,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/properties/${propertyReference}/alerts`,
+        path: `/api/properties/${propertyReference}/location-alerts`,
       },
       {
         body: {
@@ -54,7 +54,29 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           ],
         },
       }
-    ).as('alerts')
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type3',
+              comments: 'Person Alert 1',
+            },
+            {
+              type: 'type4',
+              comments: 'Person Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('personAlerts')
 
     cy.intercept(
       { method: 'GET', path: `/api/workOrders/${workOrderReference}/tasks` },
@@ -100,7 +122,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('Payment type').should('not.exist')
@@ -121,7 +144,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('button', 'Confirm').click()
@@ -187,7 +211,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('button', 'Confirm').click()
@@ -270,7 +295,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('button', 'Confirm').click()
@@ -437,7 +463,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('button', 'Confirm').click()
@@ -505,7 +532,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('button', 'Confirm').click()
@@ -583,7 +611,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('Payment type').should('not.exist')
@@ -648,7 +677,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('Payment type').should('not.exist')
@@ -715,7 +745,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('button', 'Confirm').click()
@@ -739,7 +770,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('button', 'Confirm').click()
@@ -835,7 +867,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         '@propertyRequest',
         '@tasksRequest',
         '@photosRequest',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
       ])
 
       cy.contains('button', 'Confirm').click()
@@ -941,7 +974,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       '@propertyRequest',
       '@tasksRequest',
       '@photosRequest',
-      '@alerts',
+      '@locationAlerts',
+      '@personAlerts',
     ])
 
     cy.contains('button', 'Confirm').click()
@@ -1046,7 +1080,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       '@propertyRequest',
       '@tasksRequest',
       '@photosRequest',
-      '@alerts',
+      '@locationAlerts',
+      '@personAlerts',
     ])
 
     cy.contains('button', 'Confirm').click()
@@ -1151,7 +1186,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       '@propertyRequest',
       '@tasksRequest',
       '@photosRequest',
-      '@alerts',
+      '@locationAlerts',
+      '@personAlerts',
     ])
 
     cy.contains('button', 'Confirm').click()
@@ -1217,7 +1253,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           '@propertyRequest',
           '@tasksRequest',
           '@photosRequest',
-          '@alerts',
+          '@locationAlerts',
+          '@personAlerts',
         ])
 
         cy.contains('Payment type')
@@ -1291,7 +1328,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           '@propertyRequest',
           '@tasksRequest',
           '@photosRequest',
-          '@alerts',
+          '@locationAlerts',
+          '@personAlerts',
         ])
 
         cy.contains('Payment type')
@@ -1369,7 +1407,8 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           '@propertyRequest',
           '@tasksRequest',
           '@photosRequest',
-          '@alerts',
+          '@locationAlerts',
+          '@personAlerts',
         ])
 
         cy.contains('Payment type')

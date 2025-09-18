@@ -12,23 +12,45 @@ describe('Show work order page', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345/alerts',
+        path: '/api/properties/00012345/location-alerts',
       },
       {
         body: {
           alerts: [
             {
               type: 'CV',
-              comments: 'Alert 1',
+              comments: 'Location Alert 1',
             },
             {
               type: 'VA',
-              comments: 'Alert 2',
+              comments: 'Location Alert 2',
             },
           ],
         },
       }
-    ).as('alerts')
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type3',
+              comments: 'Person Alert 1',
+            },
+            {
+              type: 'type4',
+              comments: 'Person Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('personAlerts')
   })
 
   context('When Agent is logged in', () => {
@@ -73,7 +95,13 @@ describe('Show work order page', () => {
     it('Shows various details about the work order, property and assigned contractor', () => {
       cy.visit('/work-orders/10000012')
 
-      cy.wait(['@workOrderRequest', '@property', '@tasksRequest', '@alerts'])
+      cy.wait([
+        '@workOrderRequest',
+        '@property',
+        '@tasksRequest',
+        '@personAlerts',
+        '@locationAlerts',
+      ])
       cy.intercept(
         {
           method: 'GET',
@@ -96,10 +124,22 @@ describe('Show work order page', () => {
 
       cy.get('.property-details-main-section').contains('E9 6PT')
 
-      cy.checkForTenureDetails('Tenure: Secure', [
-        'Alert 1 (CV)',
-        'Alert 2 (VA)',
-      ])
+      cy.checkForTenureDetails(
+        'Tenure: Secure',
+        [
+          'Address Alert: Location Alert 1 (CV)',
+          'Address Alert: Location Alert 2 (VA)',
+        ],
+        [
+          'Contact Alert: Person Alert 1 (type3)',
+          'Contact Alert: Person Alert 2 (type4)',
+        ]
+      )
+
+      // Check the printed WO would contain the alerts
+      cy.get('.print-work-order .govuk-warning-text').contains(
+        'CV, VA, type3, type4'
+      )
 
       cy.get('.work-order-info').contains('Status: In Progress')
       cy.get('.work-order-info').contains(
@@ -166,7 +206,8 @@ describe('Show work order page', () => {
               '@workOrderWithOperativesRequest',
               '@property',
               '@tasksRequest',
-              '@alerts',
+              '@personAlerts',
+              '@locationAlerts',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -188,7 +229,8 @@ describe('Show work order page', () => {
               '@workOrderWithOperativesRequest',
               '@property',
               '@tasksRequest',
-              '@alerts',
+              '@personAlerts',
+              '@locationAlerts',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -211,7 +253,8 @@ describe('Show work order page', () => {
             '@workOrderWithOperativesRequest',
             '@property',
             '@tasksRequest',
-            '@alerts',
+            '@personAlerts',
+            '@locationAlerts',
           ])
 
           cy.get('.appointment-details').contains('Appointment details')
@@ -248,24 +291,45 @@ describe('Show work order page', () => {
         cy.intercept(
           {
             method: 'GET',
-            path:
-              '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/00089473/alerts',
+            path: '/api/properties/00089473/location-alerts',
           },
           {
             body: {
               alerts: [
                 {
                   type: 'CV',
-                  comments: 'Alert 1',
+                  comments: 'Location Alert 1',
                 },
                 {
                   type: 'VA',
-                  comments: 'Alert 2',
+                  comments: 'Location Alert 2',
                 },
               ],
             },
           }
-        ).as('alerts')
+        ).as('locationAlerts')
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+          },
+          {
+            body: {
+              alerts: [
+                {
+                  type: 'type3',
+                  comments: 'Person Alert 1',
+                },
+                {
+                  type: 'type4',
+                  comments: 'Person Alert 2',
+                },
+              ],
+            },
+          }
+        ).as('personAlerts')
 
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000040/tasks' },
@@ -285,7 +349,13 @@ describe('Show work order page', () => {
       it('Lists the orders in the history tab', () => {
         cy.visit('/work-orders/10000012')
 
-        cy.wait(['@workOrderRequest', '@property', '@tasksRequest', '@alerts'])
+        cy.wait([
+          '@workOrderRequest',
+          '@property',
+          '@tasksRequest',
+          '@locationAlerts',
+          '@personAlerts',
+        ])
 
         cy.contains('.tabs-button', 'Tasks and SORs')
         cy.contains('.tabs-button', 'Work orders history').click()
@@ -362,13 +432,14 @@ describe('Show work order page', () => {
         '@operativesWorkOrder',
         '@property',
         '@task',
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
         '@photosRequest',
       ])
 
       cy.contains('WO 10000621')
 
-      cy.get('.work-order-information').contains('CV, VA')
+      cy.get('.work-order-information').contains('CV, VA, type3, type4')
 
       cy.get('div[class*="Multibutton"]').should('not.exist')
       cy.get('a[id="caut-alerts"]').click()
@@ -439,8 +510,8 @@ describe('Show work order page', () => {
         '@operativesWorkOrder',
         '@property',
         '@task',
-
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
         '@photosRequest',
       ])
 
@@ -490,8 +561,8 @@ describe('Show work order page', () => {
         '@operativesWorkOrder',
         '@property',
         '@task',
-
-        '@alerts',
+        '@locationAlerts',
+        '@personAlerts',
         '@photosRequest',
       ])
 
@@ -560,7 +631,12 @@ describe('Show work order page', () => {
       it('contains a link to close the order', () => {
         cy.visit('/work-orders/10000012')
 
-        cy.wait(['@workOrderRequest', '@tasksRequest', '@alerts'])
+        cy.wait([
+          '@workOrderRequest',
+          '@tasksRequest',
+          '@locationAlerts',
+          '@personAlerts',
+        ])
 
         cy.get('[data-testid="details"]')
           .contains('Close')
@@ -574,7 +650,12 @@ describe('Show work order page', () => {
       it('contains a link to update the order', () => {
         cy.visit('/work-orders/10000012')
 
-        cy.wait(['@workOrderRequest', '@tasksRequest', '@alerts'])
+        cy.wait([
+          '@workOrderRequest',
+          '@tasksRequest',
+          '@locationAlerts',
+          '@personAlerts',
+        ])
 
         cy.get('[data-testid="details"]')
           .contains('Update')

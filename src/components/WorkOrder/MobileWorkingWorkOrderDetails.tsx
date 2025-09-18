@@ -6,6 +6,7 @@ import Spinner from '@/components/Spinner'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import { useRouter } from 'next/router'
+import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import { formatDateTime } from '../../utils/time'
 import Status from './Status'
 import { Property, Tenure } from '../../models/propertyTenure'
@@ -21,47 +22,71 @@ interface Props {
 const MobileWorkingWorkOrderDetails = (props: Props) => {
   const { property, tenure, workOrder, appointmentDetails } = props
 
-  const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
-  const [alertsError, setAlertsError] = useState<string | null>()
-  const [alerts, setAlerts] = useState([])
+  const [locationAlertsLoading, setLocationAlertsLoading] = useState<boolean>(
+    false
+  )
+  const [locationAlertsError, setLocationAlertsError] = useState<
+    string | null
+  >()
+  const [locationAlerts, setLocationAlerts] = useState([])
+
+  const [personAlertsLoading, setPersonAlertsLoading] = useState<boolean>(false)
+  const [personAlertsError, setPersonAlertsError] = useState<string | null>()
+  const [personAlerts, setPersonAlerts] = useState([])
 
   const router = useRouter()
 
-  const cautionaryAlertsType = () => {
-    const cautionaryAlerts = alerts.map(
-      (cautionaryAlert) => cautionaryAlert.type
-    )
-    return [...new Set(cautionaryAlerts)].join(', ')
-  }
+  const getAllAlertTypes = () =>
+    getCautionaryAlertsType([...locationAlerts, ...personAlerts])
 
   const cautContactURL = () => {
     router.push({
       pathname: `/work-orders/cautionary-alerts`,
       query: {
-        cautContactCodes: cautionaryAlertsType(),
+        cautContactCodes: getAllAlertTypes().join(', '),
       },
     })
   }
 
-  const getAlerts = (propertyReference) => {
+  const getLocationAlerts = (propertyReference) => {
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/${propertyReference}/alerts`,
+      path: `/api/properties/${propertyReference}/location-alerts`,
     })
-      .then((data) => setAlerts(data.alerts))
+      .then((data) => setLocationAlerts(data.alerts))
       .catch((error) => {
-        console.error('Error loading alerts status:', error.response)
+        console.error('Error loading location alerts status:', error.response)
 
-        setAlertsError(
-          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        setLocationAlertsError(
+          `Error loading location alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
         )
       })
-      .finally(() => setAlertsLoading(false))
+      .finally(() => setLocationAlertsLoading(false))
+  }
+
+  const getPersonAlerts = (tenureId) => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/${tenureId}/person-alerts`,
+    })
+      .then((data) => setPersonAlerts(data.alerts))
+      .catch((error) => {
+        console.error('Error loading person alerts status:', error.response)
+
+        setPersonAlertsError(
+          `Error loading person alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setPersonAlertsLoading(false))
   }
 
   useEffect(() => {
-    setAlertsLoading(true)
-    getAlerts(property.propertyReference)
+    setLocationAlertsLoading(true)
+    getLocationAlerts(property.propertyReference)
+    if (tenure?.id) {
+      setPersonAlertsLoading(true)
+      getPersonAlerts(tenure.id)
+    }
   }, [])
 
   return (
@@ -116,10 +141,13 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
           </>
         )}
         <div className="work-order-information">
-          {alertsLoading && <Spinner resource="alerts" />}
-          {alertsError && <ErrorMessage label={alertsError} />}
+          {locationAlertsLoading && <Spinner resource="locationAlerts" />}
+          {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
 
-          {cautionaryAlertsType().length > 0 && (
+          {personAlertsLoading && <Spinner resource="personAlerts" />}
+          {personAlertsError && <ErrorMessage label={personAlertsError} />}
+
+          {getAllAlertTypes().length > 0 && (
             <GridRow className="govuk-!-margin-top-0">
               <GridColumn width="one-half">
                 <a
@@ -140,7 +168,7 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
                     !
                   </span>
                   <strong className="govuk-warning-text__text person-alert--text">
-                    {cautionaryAlertsType()}
+                    {getAllAlertTypes().join(', ')}
                   </strong>
                 </div>
               </GridColumn>

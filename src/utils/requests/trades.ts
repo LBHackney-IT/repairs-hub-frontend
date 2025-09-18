@@ -2,14 +2,12 @@ import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
 
-export type TradeFilter = {
+export type Trades = {
   key: string
   description: string
 }
 
-export const getTradeFilters = async (): Promise<
-  ApiResponseType<TradeFilter[]>
-> => {
+export const getTrades = async (): Promise<ApiResponseType<Trades[]>> => {
   try {
     const workOrderFilters = await frontEndApiRequest({
       method: 'get',

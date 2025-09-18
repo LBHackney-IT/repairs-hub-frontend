@@ -214,25 +214,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
         </table>
       </div>
     </div>
-    <div
-      class="govuk-warning-text lbh-warning-text"
-    >
-      <span
-        aria-hidden="true"
-        class="govuk-warning-text__icon"
-      >
-        !
-      </span>
-      <strong
-        class="govuk-warning-text__text"
-      >
-        <span
-          class="govuk-warning-text__assistive"
-        >
-          Warning
-        </span>
-      </strong>
-    </div>
     <hr />
     <div
       class="govuk-!-margin-top-4"
@@ -564,25 +545,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
           </tbody>
         </table>
       </div>
-    </div>
-    <div
-      class="govuk-warning-text lbh-warning-text"
-    >
-      <span
-        aria-hidden="true"
-        class="govuk-warning-text__icon"
-      >
-        !
-      </span>
-      <strong
-        class="govuk-warning-text__text"
-      >
-        <span
-          class="govuk-warning-text__assistive"
-        >
-          Warning
-        </span>
-      </strong>
     </div>
     <hr />
     <div

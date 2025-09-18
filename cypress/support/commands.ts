@@ -20,7 +20,8 @@ declare global {
       requestsCountByUrl(url: string): Cypress.Chainable<number>
       checkForTenureDetails(
         tenure: string,
-        alerts: string[]
+        addressAlerts: string[],
+        contactAlerts: string[]
       ): Cypress.Chainable<void>
       ensureCompressedFileInIndexedDb(filename: string): Cypress.Chainable<void>
       clearFilesDatabase(): Cypress.Chainable<void>
@@ -225,19 +226,28 @@ Cypress.Commands.add('requestsCountByUrl', (url) =>
   })
 )
 
-Cypress.Commands.add('checkForTenureDetails', (tenure, alerts) => {
-  // Tenure
-  cy.get('.hackney-property-alerts li.bg-dark-green').within(() => {
-    cy.contains(tenure)
-  })
-
-  // Alerts
-  cy.get('.hackney-property-alerts').within(() => {
-    alerts.forEach((alert) => {
-      cy.contains(alert)
+Cypress.Commands.add(
+  'checkForTenureDetails',
+  (tenure, addressAlerts, contactAlerts) => {
+    // Tenure
+    cy.get('.hackney-property-alerts li.bg-dark-green').within(() => {
+      cy.contains(tenure)
     })
-  })
-})
+
+    // Alerts
+    cy.get('.hackney-property-alerts').within(() => {
+      // Location alerts
+      addressAlerts.forEach((alert) => {
+        cy.contains(alert)
+      })
+
+      // Person alerts
+      contactAlerts.forEach((alert) => {
+        cy.contains(alert)
+      })
+    })
+  }
+)
 
 Cypress.Commands.add('ensureCompressedFileInIndexedDb', (filename: string) => {
   return cy.window().then((win) => {

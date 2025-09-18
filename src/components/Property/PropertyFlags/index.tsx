@@ -18,7 +18,8 @@ interface Props {
   tmoName?: string
   propertyReference: string
   boilerHouseId?: string
-  setParentAlerts?: (alerts: CautionaryAlert[]) => void
+  setParentLocationAlerts?: (alerts: CautionaryAlert[]) => void
+  setParentPersonAlerts?: (alerts: CautionaryAlert[]) => void
 }
 
 //Properties with TMO names set to this value aren't actually TMOs
@@ -31,31 +32,67 @@ const PropertyFlags = (props: Props) => {
     tmoName,
     propertyReference,
     boilerHouseId,
-    setParentAlerts,
+    setParentLocationAlerts,
+    setParentPersonAlerts,
   } = props
 
-  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
-  const [alertsLoading, setAlertsLoading] = useState(false)
-  const [alertsError, setAlertsError] = useState<string | null>()
+  const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
+  const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
+  const [locationAlertsError, setLocationAlertsError] = useState<
+    string | null
+  >()
 
-  const getAlerts = () => {
+  const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
+  const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
+  const [personAlertsError, setPersonAlertsError] = useState<string | null>()
+
+  const getLocationAlerts = () => {
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/${propertyReference}/alerts`,
+      path: `/api/properties/${propertyReference}/location-alerts`,
     })
       .then((data: CautionaryAlertsResponse) => {
-        setAlerts(data.alerts)
-        setParentAlerts && setParentAlerts(data.alerts)
+        setLocationAlerts(data.alerts)
+        setParentLocationAlerts && setParentLocationAlerts(data.alerts)
       })
       .catch((error) => {
-        console.error('Error loading alerts status:', error.response)
+        console.error('Error loading location alerts status:', error.response)
 
-        setAlertsError(
-          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        setLocationAlertsError(
+          `Error loading location alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
         )
       })
-      .finally(() => setAlertsLoading(false))
+      .finally(() => setLocationAlertsLoading(false))
   }
+
+  const getPersonAlerts = (tenureId) => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/${tenureId}/person-alerts`,
+    })
+      .then((data: CautionaryAlertsResponse) => {
+        setPersonAlerts(data.alerts)
+        setParentPersonAlerts && setParentPersonAlerts(data.alerts)
+      })
+      .catch((error) => {
+        console.error('Error loading person alerts status:', error.response)
+
+        setPersonAlertsError(
+          `Error loading person alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setPersonAlertsLoading(false))
+  }
+
+  const renderLocationAlerts = () =>
+    locationAlerts.length > 0 && (
+      <Alerts alerts={locationAlerts} alertType="Address" />
+    )
+
+  const renderPersonAlerts = () =>
+    personAlerts.length > 0 && (
+      <Alerts alerts={personAlerts} alertType="Contact" />
+    )
 
   const showBoilerHouseDetails = () =>
     boilerHouseId !== '' &&
@@ -63,8 +100,13 @@ const PropertyFlags = (props: Props) => {
     boilerHouseId !== undefined
 
   useEffect(() => {
-    setAlertsLoading(true)
-    getAlerts()
+    setLocationAlertsLoading(true)
+    getLocationAlerts()
+
+    if (tenure?.id) {
+      setPersonAlertsLoading(true)
+      getPersonAlerts(tenure.id)
+    }
   }, [])
 
   return (
@@ -85,14 +127,24 @@ const PropertyFlags = (props: Props) => {
         <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
       )}
 
-      {alertsLoading && <Spinner resource="alerts" />}
-      {alerts?.length > 0 && <Alerts alerts={alerts} />}
+      {locationAlertsLoading ? (
+        <Spinner resource="locationAlerts" />
+      ) : (
+        renderLocationAlerts()
+      )}
 
-      {alertsError && <ErrorMessage label={alertsError} />}
+      {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
 
       {tmoName && tmoName !== TMO_HACKNEY_DEFAULT && (
         <TenureDetail text="TMO" detail={tmoName} />
       )}
+
+      {personAlertsLoading ? (
+        <Spinner resource="personAlerts" />
+      ) : (
+        renderPersonAlerts()
+      )}
+      {personAlertsError && <ErrorMessage label={personAlertsError} />}
     </ul>
   )
 }

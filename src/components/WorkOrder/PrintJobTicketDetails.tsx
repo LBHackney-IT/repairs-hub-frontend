@@ -1,6 +1,7 @@
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
+import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import WarningText from '@/components/Template/WarningText'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
@@ -12,7 +13,8 @@ interface Props {
   appointmentDetails: WorkOrderAppointmentDetails
   property: Property
   tasksAndSors: WorkOrderTasks[]
-  alerts: CautionaryAlert[]
+  locationAlerts: CautionaryAlert[]
+  personAlerts: CautionaryAlert[]
 }
 
 const PrintJobTicketDetails = (props: Props) => {
@@ -20,16 +22,15 @@ const PrintJobTicketDetails = (props: Props) => {
     workOrder,
     appointmentDetails,
     property,
-    alerts,
+    locationAlerts,
+    personAlerts,
     tasksAndSors,
   } = props
 
-  const cautionaryAlertsType = () => {
-    const cautionaryAlerts = alerts.map(
-      (cautionaryAlert) => cautionaryAlert.type
-    )
-    return [...new Set(cautionaryAlerts)].join(', ')
-  }
+  const cautionaryAlertsType = getCautionaryAlertsType([
+    ...locationAlerts,
+    ...personAlerts,
+  ]).join(', ')
 
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
@@ -198,7 +199,7 @@ const PrintJobTicketDetails = (props: Props) => {
         </div>
       </div>
 
-      {cautionaryAlertsType && <WarningText text={cautionaryAlertsType()} />}
+      {cautionaryAlertsType && <WarningText text={cautionaryAlertsType} />}
 
       <hr />
 
