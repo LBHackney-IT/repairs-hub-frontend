@@ -13,7 +13,7 @@ export const useAppointmentDetails = (workOrderReference: string) => {
 
   const fetchAppointmentDetails = async () => {
     setError(null)
-    setIsLoading(true)
+    setIsLoading(() => true)
 
     const appointmentDetailsResponse = await getAppointmentDetails(
       workOrderReference
@@ -25,7 +25,7 @@ export const useAppointmentDetails = (workOrderReference: string) => {
       setAppointmentDetails(appointmentDetailsResponse.response)
     }
 
-    setIsLoading(false)
+    setIsLoading(() => false)
   }
 
   useEffect(() => {

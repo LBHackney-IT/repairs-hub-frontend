@@ -6,13 +6,6 @@ import {
 } from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
-  beforeEach(() => {
-    cy.intercept(
-      { method: 'GET', path: '/api/contractors/*' },
-      { fixture: 'contractor/contractor.json' }
-    ).as('contractorRequest')
-  })
-
   context('As a contractor', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
@@ -46,6 +39,7 @@ describe('Updating a work order', () => {
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
+
       cy.intercept(
         { method: 'POST', path: '/api/jobStatusUpdate' },
         { body: '' }
@@ -501,18 +495,6 @@ describe('Updating a work order', () => {
             )
           })
           .as('workOrder')
-
-        cy.fixture('contractor/contractor.json').then((contractor) => {
-          contractor.multiTradeEnabled = true
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/contractors/*`,
-            },
-            { body: contractor }
-          ).as('contractorRequest')
-        })
       })
 
       it('does not have a character limit for the variation reason', () => {
@@ -661,14 +643,27 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/properties/00012345/alerts',
+          path: '/api/properties/00012345/location-alerts',
         },
         {
           body: {
             alerts: [],
           },
         }
-      ).as('alerts')
+      ).as('locationAlerts')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('personAlerts')
 
       cy.intercept(
         {
@@ -678,6 +673,31 @@ describe('Updating a work order', () => {
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/properties/00012345/location-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('locationAlerts')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('personAlerts')
 
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000621

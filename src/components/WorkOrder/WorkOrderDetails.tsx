@@ -19,7 +19,8 @@ interface Props {
   appointmentDetailsError: string | null
   loadingAppointmentDetails: boolean
   tenure: Tenure
-  setAlerts: (alerts: CautionaryAlert[]) => void
+  setLocationAlerts: (alerts: CautionaryAlert[]) => void
+  setPersonAlerts: (alerts: CautionaryAlert[]) => void
   printClickHandler: () => void
 }
 
@@ -32,7 +33,8 @@ const WorkOrderDetails = (props: Props) => {
     loadingAppointmentDetails,
     tenure,
     printClickHandler,
-    setAlerts,
+    setLocationAlerts,
+    setPersonAlerts,
   } = props
 
   const { user } = useContext(UserContext)
@@ -109,7 +111,8 @@ const WorkOrderDetails = (props: Props) => {
           subTypeDescription={property.hierarchyType.subTypeDescription}
           tenure={tenure}
           canRaiseRepair={property.canRaiseRepair}
-          setAlerts={setAlerts}
+          setLocationAlerts={setLocationAlerts}
+          setPersonAlerts={setPersonAlerts}
         />
       </div>
     </>

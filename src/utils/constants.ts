@@ -1,2 +1,0 @@
-export const PURDY_CONTRACTOR_REFERENCE = 'PUR'
-export const MULTITRADE_TRADE_CODE = 'MU'

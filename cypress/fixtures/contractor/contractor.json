@@ -1,8 +1,0 @@
-{
-  "contractorReference": "PUR",
-  "contractorName": "Purdy Contracts (P) Ltd",
-  "useExternalScheduleManager": false,
-  "canAssignOperative": false,
-  "perTradeAvailability": true,
-  "multiTradeEnabled": false
-}

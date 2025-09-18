@@ -3,7 +3,7 @@ import { Checkbox, DataList } from '../../Form'
 import { useState, useEffect } from 'react'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
-import { getTradeFilters } from '@/root/src/utils/requests/trades'
+import { getTrades } from '@/root/src/utils/requests/trades'
 
 const maxLength = 100
 const codesToFilter = new Set(
@@ -73,7 +73,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
   }, [])
 
   const fetchTrades = async () => {
-    const tradesResponse = await getTradeFilters()
+    const tradesResponse = await getTrades()
     if (!tradesResponse.success) {
       setError(tradesResponse.error.message)
       return
