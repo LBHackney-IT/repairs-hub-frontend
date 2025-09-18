@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import UserContext from '../UserContext'
-import { getAlerts } from '../../utils/requests/property'
 import WorkOrderHeader from './WorkOrderHeader'
 import { GridRow, GridColumn } from '../Layout/Grid'
 import BackButton from '../Layout/BackButton'
@@ -22,7 +21,9 @@ interface Props {
   appointmentDetailsError: string | null
   loadingAppointmentDetails: boolean
   tenure: Tenure
-  setParentAlerts: (alerts: CautionaryAlert[]) => void
+  alertsLoading: boolean
+  alertsError: string | null
+  alerts: CautionaryAlert[]
   printClickHandler: () => void
 }
 
@@ -35,12 +36,11 @@ const WorkOrderDetails = (props: Props) => {
     loadingAppointmentDetails,
     tenure,
     printClickHandler,
-    setParentAlerts,
+    alerts,
+    alertsLoading,
+    alertsError,
   } = props
 
-  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
-  const [alertsLoading, setAlertsLoading] = useState(false)
-  const [alertsError, setAlertsError] = useState<string | null>()
   const [isExpanded, setIsExpanded] = useState(false)
   const { user } = useContext(UserContext)
 
@@ -72,24 +72,6 @@ const WorkOrderDetails = (props: Props) => {
   }
 
   const currentWorkOrderActionMenu = workOrderActionMenu()
-
-  const fetchAlerts = async () => {
-    setAlertsLoading(true)
-    const alertsResponse = await getAlerts(property.propertyReference)
-
-    if (!alertsResponse.success) {
-      setAlertsError(alertsResponse.error.message)
-      setAlertsLoading(false)
-      return
-    }
-
-    setAlerts(alertsResponse.response.alerts)
-    setAlertsLoading(false)
-  }
-
-  useEffect(() => {
-    fetchAlerts()
-  }, [])
 
   return (
     <>

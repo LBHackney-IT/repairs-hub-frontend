@@ -1,9 +1,4 @@
-import {
-  render,
-  act,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react'
+import { render } from '@testing-library/react'
 import UserContext from '../UserContext'
 import WorkOrderDetails from './WorkOrderDetails'
 import MultiButton from '../Layout/MultiButton'
@@ -15,26 +10,9 @@ import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { WorkOrder } from '@/models/workOrder'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
-const axios = require('axios')
-
 jest.mock('axios', () => jest.fn())
 
 describe('WorkOrderDetails component', () => {
-  axios.mockResolvedValue({
-    data: {
-      alerts: [
-        {
-          type: 'type1',
-          comments: 'Alert 1',
-        },
-        {
-          type: 'type2',
-          comments: 'Alert 2',
-        },
-      ],
-    },
-  })
-
   const workOrderData = {
     reference: 10000012,
     dateRaised: '2021-01-18T15:28:57.17811',
@@ -128,9 +106,6 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -149,11 +124,6 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
-
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
 
       // if work order is 648707 then it should render is as 00648707 (with leading zeroes)
       expect(asFragment()).toMatchSnapshot()
@@ -179,10 +149,6 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -219,10 +185,6 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -258,10 +220,7 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
+
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -302,10 +261,6 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -327,10 +282,6 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -366,10 +317,7 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
+
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -410,10 +358,6 @@ describe('WorkOrderDetails component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -434,10 +378,7 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
-      })
-      expect(axios).toHaveBeenCalledTimes(1)
+
       expect(asFragment()).toMatchSnapshot()
     })
   })

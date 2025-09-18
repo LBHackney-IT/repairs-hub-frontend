@@ -13,7 +13,7 @@ import {
 } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { getPropertyTenureData } from '../../utils/requests/property'
+import { getAlerts, getPropertyTenureData } from '../../utils/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { useAppointmentDetails } from '../../utils/requests/hooks/useAppointmentDetails'
 
@@ -29,7 +29,9 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
   const [tasksAndSors, setTasksAndSors] = useState([])
-  const [alerts, setParentAlerts] = useState<CautionaryAlert[]>([])
+  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
+  const [alertsLoading, setAlertsLoading] = useState(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
@@ -104,9 +106,27 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     setIsLoading(() => false)
   }
 
+  const fetchAlerts = async () => {
+    setAlertsLoading(true)
+    const alertsResponse = await getAlerts(property?.propertyReference)
+
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
+  }
+
   useEffect(() => {
     getWorkOrderView(workOrderReference)
   }, [])
+
+  useEffect(() => {
+    fetchAlerts()
+  }, [property?.propertyReference])
 
   if (isLoading) {
     return <Spinner />
@@ -126,7 +146,9 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         loadingAppointmentDetails={loadingAppointmentDetails}
         tenure={tenure}
         printClickHandler={printClickHandler}
-        setParentAlerts={setParentAlerts}
+        alerts={alerts}
+        alertsLoading={alertsLoading}
+        alertsError={alertsError}
       />
 
       <WorkOrderViewTabs
