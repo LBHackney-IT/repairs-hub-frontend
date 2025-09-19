@@ -39,6 +39,12 @@ functions:
         - 'build/_next/*.json'
         - 'build/_next/server/**'
         - 'build/_next/static/**'
+        - 'node_modules/@sentry/nextjs/**'
+        - 'node_modules/@sentry/core/**'
+        - 'node_modules/@sentry/utils/**'
+        - 'node_modules/@sentry/webpack-plugin/**'
+        - 'node_modules/@sentry/node/**'
+        - 'node_modules/@sentry/tracing/**'
     events:
       - http: ANY /
       - http: ANY /{proxy+}
