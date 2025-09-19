@@ -17,18 +17,17 @@ provider:
     apiGateway: true
   logs:
     restApi: true
-    
-package:
-  individually: true
-  exclude:
-    - ./**
-
+  
 functions:
   repairs-hub-frontend:
     name: ${self:service}-${self:provider.stage}
     handler: src/lambda.handler
     package:
-      include:
+      individually: true
+      exclude:
+        - ./**
+      patterns:
+        # Include
         - src/lambda.js
         - next.config.js
         - public/**
@@ -36,13 +35,25 @@ functions:
         - 'build/_next/*.json'
         - 'build/_next/server/**'
         - 'build/_next/static/**'
-        - node_modules/**
-        - '!node_modules/@next/swc-darwin-arm64'
-        - '!node_modules/@next/swc-darwin-x64'
-        - '!node_modules/@next/swc-linux-x64-gnu'
-        - '!node_modules/@next/swc-win32-x64-msvc'
-        - '!node_modules/@sentry/cli/sentry-cli'
-        - '!node_modules/leaflet'
+        - 'node_modules/**'
+        # Exclude
+        - '!node_modules/@next/swc-darwin*/**'
+        - '!node_modules/@next/swc-win32*/**'  
+        - '!node_modules/@next/swc-freebsd*/**'
+        - '!node_modules/@next/swc-android*/**'
+        - '!node_modules/@next/swc-linux-x64-musl*/**'
+        - '!node_modules/@types/**'
+        - '!node_modules/browserslist/**'
+        - '!node_modules/caniuse-lite/**'
+        - '!node_modules/@aws-sdk/**'
+        - '!node_modules/@babel/***'
+        - '!node_modules/sass/**'
+        - '!node_modules/@rollup/**'
+        - '!node_modules/rollup/**'
+        - '!node_modules/leaflet/**'
+        - '!node_modules/sass/**'
+        - '!node_modules/dotenv/**'
+
     events:
       - http: ANY /
       - http: ANY /{proxy+}
