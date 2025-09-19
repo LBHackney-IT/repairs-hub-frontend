@@ -28,6 +28,9 @@ async function headers() {
 
 const moduleExports = {
   distDir: 'build/_next',
+  productionBrowserSourceMaps: false,
+  swcMinify: true,
+  target: 'serverless',
   experimental: {
     forceSwcTransforms: true,
   },
