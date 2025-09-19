@@ -125,6 +125,8 @@ jobs:
             rm -rf node_modules/@next/swc-win32*
             rm -rf node_modules/@next/swc-freebsd*
             rm -rf node_modules/@next/swc-android*
+            rm -rf node_modules/@next/swc-linux-x64-musl*
+            rm -rf node_modules/@next/env*
 
 
             rm -rf node_modules/@types/*
