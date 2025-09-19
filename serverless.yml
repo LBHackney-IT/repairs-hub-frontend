@@ -26,6 +26,20 @@ package:
   exclude:
     - ./**
 
+custom:
+  includeDependencies:
+    forceInclude:
+      - next
+      - restana
+      - serve-static
+      - path  # Built-in Node.js module, but good to be explicit
+      - aws-xray-sdk
+      - aws-xray-sdk-express  # XRay express middleware
+      - serverless-http
+      # Plus any dependencies these packages need
+      - react
+      - react-dom
+
 functions:
   repairs-hub-frontend:
     name: ${self:service}-${self:provider.stage}
