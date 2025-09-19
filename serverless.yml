@@ -32,11 +32,10 @@ custom:
       - next
       - restana
       - serve-static
-      - path  # Built-in Node.js module, but good to be explicit
+      - path  
       - aws-xray-sdk
-      - aws-xray-sdk-express  # XRay express middleware
+      - aws-xray-sdk-express
       - serverless-http
-      # Plus any dependencies these packages need
       - react
       - react-dom
 
