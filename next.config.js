@@ -1,5 +1,9 @@
 const { withSentryConfig } = require('@sentry/nextjs')
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 const cspHeader = `
   frame-ancestors 'none';
 `
@@ -48,4 +52,6 @@ const sentryWebpackPluginOptions = {
   silent: !(NODE_ENV === 'production'),
 }
 
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+module.exports = withBundleAnalyzer(
+  withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+)
