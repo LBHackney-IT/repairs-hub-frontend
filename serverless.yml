@@ -18,10 +18,10 @@ provider:
   logs:
     restApi: true
     
-package:
-  individually: true
-  exclude:
-    - ./**
+# package:
+#   individually: true
+#   exclude:
+#     - ./**
 
 layers:
   heavyDeps:
