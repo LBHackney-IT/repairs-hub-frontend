@@ -32,8 +32,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true',
+          path: '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')

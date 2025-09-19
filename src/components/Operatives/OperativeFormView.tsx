@@ -32,10 +32,8 @@ const OperativeFormView = ({ workOrderReference }: Props) => {
     []
   )
   const [selectedOperatives, setSelectedOperatives] = useState<Operative[]>([])
-  const [
-    selectedPercentagesToShowOnEdit,
-    setSelectedPercentagesToShowOnEdit,
-  ] = useState([])
+  const [selectedPercentagesToShowOnEdit, setSelectedPercentagesToShowOnEdit] =
+    useState([])
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
 

@@ -105,10 +105,8 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
   // integrate loading pliz
   const [contractor, setContractor] = useState<Contractor>()
 
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState(false)
+  const [orderRequiresIncrementalSearch, setOrderRequiresIncrementalSearch] =
+    useState(false)
 
   const { user } = useContext(UserContext)
 

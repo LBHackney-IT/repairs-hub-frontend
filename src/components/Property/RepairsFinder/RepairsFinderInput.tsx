@@ -47,18 +47,14 @@ const RepairsFinderInput = (props: Props) => {
     setTradeCode,
   } = props
 
-  const [
-    repairsApiResponse,
-    setRepairsApiResponse,
-  ] = useState<MatchingSorCode | null>(null)
+  const [repairsApiResponse, setRepairsApiResponse] =
+    useState<MatchingSorCode | null>(null)
 
   const [xmlContent, setXmlContent] = useState<string>(DEFAULT_VALUE)
 
   const [error, setError] = useState<string | null>(null)
-  const [
-    extractedXmlData,
-    setExtractedXmlData,
-  ] = useState<RepairsFinderExtractedData | null>(null)
+  const [extractedXmlData, setExtractedXmlData] =
+    useState<RepairsFinderExtractedData | null>(null)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 

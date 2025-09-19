@@ -40,8 +40,7 @@ describe('Contract manager can authorise variation', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
       },
       { body: [] }
     ).as('workOrdersRequest')

@@ -21,8 +21,7 @@ function contractorsRequest() {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+          path: '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
         },
         alphabeticalContractors
       ).as('contractorsRequest')
@@ -139,8 +138,7 @@ describe('contractor page - when user has data admin permissions', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
+          path: '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
         },
         { body: [] }
       )
@@ -159,8 +157,7 @@ describe('contractor page - when user has data admin permissions', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
+          path: '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
         },
         { body: [] }
       )
@@ -178,16 +175,14 @@ describe('contractor page - when user has data admin permissions', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
+          path: '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
         },
         { body: [] }
       )
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
+          path: '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
         },
         { body: [] }
       )
@@ -210,8 +205,7 @@ describe('contractor page - when user has data admin permissions', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+          path: '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
         },
         {
           body: [
@@ -264,8 +258,7 @@ describe('contractor page - when user has data admin permissions', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+          path: '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
         },
         {
           body: [],
@@ -285,8 +278,7 @@ describe('contractor page - when user has data admin permissions', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+          path: '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
         },
         {
           forceNetworkError: true,

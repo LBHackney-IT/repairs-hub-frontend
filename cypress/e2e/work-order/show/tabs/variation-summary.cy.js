@@ -25,8 +25,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
         },
         { body: [] }
       )
@@ -363,8 +362,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
         },
         { body: [] }
       )
@@ -405,8 +403,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
         },
         { body: [] }
       )
@@ -447,8 +444,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
         },
         { body: [] }
       )

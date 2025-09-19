@@ -30,23 +30,17 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
 
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
-  const [
-    authorisationPendingApproval,
-    setAuthorisationPendingApproval,
-  ] = useState(false)
-  const [
-    externallyManagedAppointment,
-    setExternallyManagedAppointment,
-  ] = useState(false)
+  const [authorisationPendingApproval, setAuthorisationPendingApproval] =
+    useState(false)
+  const [externallyManagedAppointment, setExternallyManagedAppointment] =
+    useState(false)
   const [
     externalAppointmentManagementUrl,
     setExternalAppointmentManagementUrl,
   ] = useState<string>()
 
-  const [
-    immediateOrEmergencyRepairText,
-    setImmediateOrEmergencyRepairText,
-  ] = useState(false)
+  const [immediateOrEmergencyRepairText, setImmediateOrEmergencyRepairText] =
+    useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
   const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)

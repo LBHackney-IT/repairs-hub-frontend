@@ -16,13 +16,8 @@ interface Props {
 }
 
 const PrintJobTicketDetails = (props: Props) => {
-  const {
-    workOrder,
-    appointmentDetails,
-    property,
-    alerts,
-    tasksAndSors,
-  } = props
+  const { workOrder, appointmentDetails, property, alerts, tasksAndSors } =
+    props
 
   const cautionaryAlertsType = () => {
     const cautionaryAlerts = alerts.map(

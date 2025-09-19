@@ -28,9 +28,8 @@ const AppointmentView = ({ workOrderReference, successText }) => {
   const [comments, setComments] = useState('')
   const [dateSelected, setDateSelected] = useState('')
   const [slot, setSlot] = useState('')
-  const [scheduleAppointmentSuccess, setScheduleAppointmentSuccess] = useState(
-    false
-  )
+  const [scheduleAppointmentSuccess, setScheduleAppointmentSuccess] =
+    useState(false)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()

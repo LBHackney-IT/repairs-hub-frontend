@@ -53,36 +53,27 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   const [formState, setFormState] = useState<any>({})
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>()
-  const [
-    authorisationPendingApproval,
-    setAuthorisationPendingApproval,
-  ] = useState<boolean>(false)
-  const [
-    externallyManagedAppointment,
-    setExternallyManagedAppointment,
-  ] = useState<boolean>(false)
+  const [authorisationPendingApproval, setAuthorisationPendingApproval] =
+    useState<boolean>(false)
+  const [externallyManagedAppointment, setExternallyManagedAppointment] =
+    useState<boolean>(false)
   const [
     externalAppointmentManagementUrl,
     setExternalAppointmentManagementUrl,
   ] = useState<string>()
-  const [
-    immediateOrEmergencyRepairText,
-    setImmediateOrEmergencyRepairText,
-  ] = useState<boolean>(false)
+  const [immediateOrEmergencyRepairText, setImmediateOrEmergencyRepairText] =
+    useState<boolean>(false)
   const [workOrderReference, setWorkOrderReference] = useState<string>()
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
-  const [
-    immediateOrEmergencyDLO,
-    setImmediateOrEmergencyDLO,
-  ] = useState<boolean>(false)
+  const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] =
+    useState<boolean>(false)
 
   const [announcementMessage, setAnnouncementMessage] = useState('')
 
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
   const [isPriorityEnabled, setIsPriorityEnabled] = useState(false)
-  const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
-    false
-  )
+  const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] =
+    useState(false)
 
   const onFormSubmit = async (formData, parentWorkOrderId = null) => {
     setLoading(true)
@@ -168,29 +159,25 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     setError(null)
 
     try {
-      const [
-        propertyTenureResponse,
-        priorities,
-        trades,
-        user,
-      ] = await Promise.all([
-        frontEndApiRequest({
-          method: 'get',
-          path: `/api/properties/${propertyReference}`,
-        }),
-        frontEndApiRequest({
-          method: 'get',
-          path: `/api/schedule-of-rates/priorities`,
-        }),
-        frontEndApiRequest({
-          method: 'get',
-          path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
-        }),
-        frontEndApiRequest({
-          method: 'get',
-          path: '/api/hub-user',
-        }),
-      ])
+      const [propertyTenureResponse, priorities, trades, user] =
+        await Promise.all([
+          frontEndApiRequest({
+            method: 'get',
+            path: `/api/properties/${propertyReference}`,
+          }),
+          frontEndApiRequest({
+            method: 'get',
+            path: `/api/schedule-of-rates/priorities`,
+          }),
+          frontEndApiRequest({
+            method: 'get',
+            path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
+          }),
+          frontEndApiRequest({
+            method: 'get',
+            path: '/api/hub-user',
+          }),
+        ])
 
       setTenure(propertyTenureResponse.tenure)
       setProperty(propertyTenureResponse.property)

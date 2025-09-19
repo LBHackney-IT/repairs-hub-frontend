@@ -70,9 +70,8 @@ const CloseWorkOrders = () => {
       newErrors.closedDate = 'The closed date cannot be in the future'
     }
 
-    const strippedWorkOrderReferences = formatWorkOrderReferences(
-      workOrderReferences
-    )
+    const strippedWorkOrderReferences =
+      formatWorkOrderReferences(workOrderReferences)
     const invalidWorkOrderReferences = getInvalidWorkOrderReferences(
       strippedWorkOrderReferences
     )

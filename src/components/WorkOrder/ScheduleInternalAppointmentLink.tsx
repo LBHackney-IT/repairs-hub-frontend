@@ -8,11 +8,8 @@ interface Props {
 }
 
 const ScheduleInternalAppointmentLink = (props: Props) => {
-  const {
-    workOrderReference,
-    hasExistingAppointment,
-    appointmentIsToday,
-  } = props
+  const { workOrderReference, hasExistingAppointment, appointmentIsToday } =
+    props
 
   const href = hasExistingAppointment
     ? `/work-orders/${workOrderReference}/appointment/edit`

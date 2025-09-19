@@ -28,12 +28,11 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const variationResponse: VariationResponseObject = await frontEndApiRequest(
-        {
+      const variationResponse: VariationResponseObject =
+        await frontEndApiRequest({
           method: 'get',
           path: `/api/workOrders/${workOrderReference}/variation-tasks`,
-        }
-      )
+        })
 
       setVariation(variationResponse.variation)
 

@@ -43,26 +43,21 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
-  const [
-    appointmentDetails,
-    setAppointmentDetails,
-  ] = useState<WorkOrderAppointmentDetails>()
+  const [appointmentDetails, setAppointmentDetails] =
+    useState<WorkOrderAppointmentDetails>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [tenure, setTenure] = useState<Tenure>()
   const [photos, setPhotos] = useState([])
 
-  const [
-    featureToggles,
-    setFeatureToggles,
-  ] = useState<SimpleFeatureToggleResponse>()
+  const [featureToggles, setFeatureToggles] =
+    useState<SimpleFeatureToggleResponse>()
 
   const [loadingStatus, setLoadingStatus] = useState<string | null>(null)
   const [error, setError] = useState<string | null>()
 
   const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
-  const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
-    false
-  )
+  const [workOrderProgressedToClose, setWorkOrderProgressedToClose] =
+    useState(false)
   const [closeFormValues, setCloseFormValues] = useState({})
 
   const getWorkOrderView = async (workOrderReference) => {

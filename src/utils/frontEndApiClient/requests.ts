@@ -34,14 +34,15 @@ export const frontEndApiRequest = async ({
   return data
 }
 
-export const fetchSimpleFeatureToggles: () => Promise<SimpleFeatureToggleResponse> = async () => {
-  const featureToggleData = await frontEndApiRequest({
-    method: 'get',
-    path: '/api/simple-feature-toggle',
-  })
+export const fetchSimpleFeatureToggles: () => Promise<SimpleFeatureToggleResponse> =
+  async () => {
+    const featureToggleData = await frontEndApiRequest({
+      method: 'get',
+      path: '/api/simple-feature-toggle',
+    })
 
-  return featureToggleData
-}
+    return featureToggleData
+  }
 
 export const fetchFeatureToggles = async () => {
   try {

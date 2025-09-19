@@ -95,16 +95,10 @@ const RaiseWorkOrderForm = (props: Props) => {
     enablePriorityField,
   } = props
 
-  const {
-    register,
-    handleSubmit,
-    errors,
-    setValue,
-    getValues,
-    watch,
-  } = useForm({
-    defaultValues: { ...formState },
-  })
+  const { register, handleSubmit, errors, setValue, getValues, watch } =
+    useForm({
+      defaultValues: { ...formState },
+    })
 
   const { user } = useContext(UserContext)
   const { simpleFeatureToggles } = useFeatureToggles()
@@ -185,8 +179,9 @@ const RaiseWorkOrderForm = (props: Props) => {
     existingHigherPriorityCode
   ) => {
     if (existingHigherPriorityCode) {
-      description = getPriorityObjectByCode(existingHigherPriorityCode)
-        ?.description
+      description = getPriorityObjectByCode(
+        existingHigherPriorityCode
+      )?.description
     }
 
     if (getPriorityObjectByDescription(description)) {

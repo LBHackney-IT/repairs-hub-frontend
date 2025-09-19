@@ -33,8 +33,7 @@ describe('Managing work order appointments', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+        path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
       },
       { body: [] }
     )

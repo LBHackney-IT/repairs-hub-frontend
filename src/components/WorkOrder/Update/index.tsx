@@ -39,17 +39,13 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState<SorCode[]>([])
   const [showSummaryPage, setShowSummaryPage] = useState<boolean>(false)
-  const [
-    showAdditionalRateScheduleItems,
-    setShowAdditionalRateScheduleItems,
-  ] = useState<boolean>(false)
+  const [showAdditionalRateScheduleItems, setShowAdditionalRateScheduleItems] =
+    useState<boolean>(false)
   const [showUpdateSuccess, setShowUpdateSuccess] = useState<boolean>(false)
   const [overSpendLimit, setOverSpendLimit] = useState<boolean>()
   const [budgetCode, setBudgetCode] = useState<BudgetCode>()
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState<boolean>()
+  const [orderRequiresIncrementalSearch, setOrderRequiresIncrementalSearch] =
+    useState<boolean>()
 
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
@@ -306,32 +302,36 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
             </section>
           )}
 
-          {currentPage === FORM_PAGE && !showSummaryPage && !showUpdateSuccess && (
-            <>
-              <BackButton />
-              <h1 className="lbh-heading-h1">Update work order: {reference}</h1>
+          {currentPage === FORM_PAGE &&
+            !showSummaryPage &&
+            !showUpdateSuccess && (
+              <>
+                <BackButton />
+                <h1 className="lbh-heading-h1">
+                  Update work order: {reference}
+                </h1>
 
-              <WorkOrderUpdateForm
-                latestTasks={tasks}
-                originalTasks={originalTasks}
-                addedTasks={addedTasks}
-                onGetToSummary={onGetToSummary}
-                setVariationReason={setVariationReason}
-                variationReason={variationReason}
-                sorSearchRequest={
-                  orderRequiresIncrementalSearch && sorSearchRequest
-                }
-                sorCodeArrays={sorCodeArrays}
-                setSorCodeArrays={setSorCodeArrays}
-                setPageToMultipleSORs={(formState) => {
-                  setAnnouncementMessage('')
-                  setFormState(formState)
-                  setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-                }}
-                contractor={contractor}
-              />
-            </>
-          )}
+                <WorkOrderUpdateForm
+                  latestTasks={tasks}
+                  originalTasks={originalTasks}
+                  addedTasks={addedTasks}
+                  onGetToSummary={onGetToSummary}
+                  setVariationReason={setVariationReason}
+                  variationReason={variationReason}
+                  sorSearchRequest={
+                    orderRequiresIncrementalSearch && sorSearchRequest
+                  }
+                  sorCodeArrays={sorCodeArrays}
+                  setSorCodeArrays={setSorCodeArrays}
+                  setPageToMultipleSORs={(formState) => {
+                    setAnnouncementMessage('')
+                    setFormState(formState)
+                    setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                  }}
+                  contractor={contractor}
+                />
+              </>
+            )}
           {showSummaryPage && !showUpdateSuccess && (
             <WorkOrderUpdateSummary
               latestTasks={tasks}

@@ -57,10 +57,8 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
   const [selectedOperatives, setSelectedOperatives] = useState<Operative[]>([])
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
-  const [
-    selectedPercentagesToShowOnEdit,
-    setSelectedPercentagesToShowOnEdit,
-  ] = useState([])
+  const [selectedPercentagesToShowOnEdit, setSelectedPercentagesToShowOnEdit] =
+    useState([])
 
   const [followOnData, setFollowOnData] = useState(null)
 

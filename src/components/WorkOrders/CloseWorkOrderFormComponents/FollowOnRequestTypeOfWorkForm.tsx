@@ -40,10 +40,8 @@ const FollowOnRequestTypeOfWorkForm = (
     isGrid,
   } = props
 
-  const [
-    simpleFeatureToggles,
-    setSimpleFeatureToggles,
-  ] = useState<SimpleFeatureToggleResponse>()
+  const [simpleFeatureToggles, setSimpleFeatureToggles] =
+    useState<SimpleFeatureToggleResponse>()
 
   useEffect(() => {
     fetchSimpleFeatureToggles().then((fetchedFeatureToggles) => {

@@ -28,8 +28,7 @@ function contractorsRequest() {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+          path: '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
         },
         alphabeticalContractors
       ).as('contractorsRequest')
@@ -155,8 +154,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+        path: '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
       },
       []
     ).as('contractorsRequestEmpty')

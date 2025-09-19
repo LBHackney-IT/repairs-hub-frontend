@@ -3,10 +3,8 @@ import { getAppointmentDetails } from '@/root/src/utils/requests/workOrders'
 import { useEffect, useState } from 'react'
 
 export const useAppointmentDetails = (workOrderReference: string) => {
-  const [
-    appointmentDetails,
-    setAppointmentDetails,
-  ] = useState<WorkOrderAppointmentDetails>()
+  const [appointmentDetails, setAppointmentDetails] =
+    useState<WorkOrderAppointmentDetails>()
 
   const [error, setError] = useState<string | null>()
   const [isLoading, setIsLoading] = useState<boolean>(false)

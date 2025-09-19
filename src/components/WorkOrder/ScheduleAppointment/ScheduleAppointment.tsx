@@ -15,12 +15,8 @@ const ScheduleAppointment = ({
   appointmentDetails,
   workOrderReference,
 }: Props) => {
-  const {
-    schedulerSessionId,
-    isLoading,
-    error,
-    handleExternalLinkOpen,
-  } = useDrsAppointmentScheduler(workOrderReference)
+  const { schedulerSessionId, isLoading, error, handleExternalLinkOpen } =
+    useDrsAppointmentScheduler(workOrderReference)
 
   if (isLoading) {
     return (

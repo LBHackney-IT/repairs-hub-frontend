@@ -67,10 +67,11 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
       return withRedirect && redirectToLogin(res)
     }
 
-    const { name, email, groups = [] } = jsonwebtoken.verify(
-      token,
-      HACKNEY_JWT_SECRET
-    )
+    const {
+      name,
+      email,
+      groups = [],
+    } = jsonwebtoken.verify(token, HACKNEY_JWT_SECRET)
 
     const user = buildUser(name, email, groups)
 
