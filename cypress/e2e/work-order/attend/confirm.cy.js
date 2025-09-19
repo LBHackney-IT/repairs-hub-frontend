@@ -17,7 +17,7 @@ describe('confirm close work order without a photo', () => {
   })
 
   it('shows status of closed work order', () => {
-    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
@@ -29,7 +29,7 @@ describe('confirm close work order without a photo', () => {
   })
 
   it('shows status of no access work order', () => {
-    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/noAccessWorkOrder.json',
     }).as('noAccessWorkOrderRequest')
 
@@ -44,7 +44,7 @@ describe('confirm close work order without a photo', () => {
   })
 
   it('validates the form', () => {
-    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
@@ -78,7 +78,7 @@ describe('confirm close work order without a photo', () => {
   })
 
   it('submits the form', () => {
-    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
@@ -109,7 +109,7 @@ describe('confirm close work order without a photo', () => {
   })
 
   it('skips the form', () => {
-    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 

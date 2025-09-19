@@ -78,7 +78,7 @@ describe('Show property', () => {
     context('when many repairs have been raised on the property', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrder')
 

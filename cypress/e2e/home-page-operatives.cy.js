@@ -44,7 +44,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621/new',
+          path: '/api/workOrders/10000621',
         },
         {
           fixture: 'operatives/workOrder.json',
@@ -365,7 +365,7 @@ context('When a one job at a time operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621/new',
+          path: '/api/workOrders/10000621',
         },
         {
           fixture: 'operatives/workOrder.json',

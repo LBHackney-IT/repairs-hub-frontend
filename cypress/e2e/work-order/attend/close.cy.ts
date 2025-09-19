@@ -11,7 +11,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
   const propertyReference = '00012345'
 
   beforeEach(() => {
-    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
@@ -824,7 +824,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040/new' },
+          { method: 'GET', path: '/api/workOrders/10000040' },
           { body: workOrder }
         ).as('workOrder')
       })
@@ -930,7 +930,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       workOrder.canAssignOperative = false
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040/new' },
+        { method: 'GET', path: '/api/workOrders/10000040' },
         { body: workOrder }
       ).as('workOrder')
     })
@@ -1035,7 +1035,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       workOrder.canAssignOperative = false
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040/new' },
+        { method: 'GET', path: '/api/workOrders/10000040' },
         { body: workOrder }
       ).as('workOrder')
     })
@@ -1140,7 +1140,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       workOrder.canAssignOperative = false
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040/new' },
+        { method: 'GET', path: '/api/workOrders/10000040' },
         { body: workOrder }
       ).as('workOrder')
     })

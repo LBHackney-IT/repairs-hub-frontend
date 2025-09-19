@@ -37,7 +37,7 @@ describe('Show work order page', () => {
       cy.loginWithAgentRole()
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
       cy.intercept(
@@ -119,7 +119,7 @@ describe('Show work order page', () => {
     context('When the work order has been assigned operatives', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrderWithOperativesRequest')
 
@@ -238,7 +238,7 @@ describe('Show work order page', () => {
         ).as('workOrdersHistoryRequest')
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040/new' },
+          { method: 'GET', path: '/api/workOrders/10000040' },
           { fixture: 'workOrders/priorityImmediate.json' }
         ).as('historicalWorkOrderRequest')
 
@@ -328,7 +328,7 @@ describe('Show work order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621/new',
+          path: '/api/workOrders/10000621',
         },
         {
           fixture: 'operatives/workOrder.json',
@@ -514,7 +514,7 @@ describe('Show work order page', () => {
   describe('Work order actions', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
 
@@ -536,7 +536,7 @@ describe('Show work order page', () => {
         cy.loginWithContractorRole()
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrderRequest')
 
@@ -599,7 +599,7 @@ describe('Show work order page', () => {
     cy.loginWithContractorRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrderRequest-10000012')
 
