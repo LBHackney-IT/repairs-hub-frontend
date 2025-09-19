@@ -160,8 +160,15 @@ jobs:
 
             du -sh ./node_modules/@next/*/ 2>/dev/null | sort -hr
 
+            du -sh .
+            du -sh build/
+            du -sh public/
+            du -sh node_modules/
+            du -sh src/
 
             npx --yes serverless deploy --stage development
+            
+            ls -lh .serverless/*.zip
 
   build-deploy-staging:
     executor: node-executor
