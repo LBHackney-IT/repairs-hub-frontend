@@ -1,4 +1,4 @@
-let reporterRules = require('./reporter-rules.json')
+// let reporterRules = require('./reporter-rules.json')
 
 module.exports = {
   collectCoverageFrom: [
@@ -29,7 +29,7 @@ module.exports = {
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   reporters: [
-    ['jest-clean-console-reporter', { rules: reporterRules }],
+    // ['jest-clean-console-reporter', { rules: reporterRules }],
     'default',
   ],
 }
