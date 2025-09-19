@@ -36,8 +36,9 @@ functions:
     #   - { Ref: HeavyDepsLambdaLayer }
     package:
       individually: true
-      patterns:
+      exclude:
         - ./**
+      patterns:
         # Include
         - src/lambda.js
         - next.config.js
