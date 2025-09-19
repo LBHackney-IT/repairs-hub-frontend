@@ -30,6 +30,6 @@ module.exports = {
   },
   reporters: [
     ['jest-clean-console-reporter', { rules: reporterRules }],
-    '@jest/reporters/build/SummaryReporter',
+    'default',
   ],
 }
