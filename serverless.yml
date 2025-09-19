@@ -37,6 +37,7 @@ functions:
     package:
       individually: true
       patterns:
+        - ./**
         # Include
         - src/lambda.js
         - next.config.js
