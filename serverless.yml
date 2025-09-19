@@ -17,23 +17,11 @@ provider:
     apiGateway: true
   logs:
     restApi: true
-    
-# package:
-#   individually: true
-#   exclude:
-#     - ./**
-
-# layers:
-#   heavyDeps:
-#     path: layer
-#     name: repairs-hub-deps-${self:provider.stage}
-
+  
 functions:
   repairs-hub-frontend:
     name: ${self:service}-${self:provider.stage}
     handler: src/lambda.handler
-    # layers:
-    #   - { Ref: HeavyDepsLambdaLayer }
     package:
       individually: true
       exclude:
