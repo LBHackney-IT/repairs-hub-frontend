@@ -137,13 +137,9 @@ jobs:
             rm -rf node_modules/sass/*
             rm -rf node_modules/dotenv/*
 
-            # du -sh ./node_modules/*/ 2>/dev/null | sort -hr
-
             # view size of /@next
 
-            # du -sh ./node_modules/@next/_next/*/ 2>/dev/null | sort -hr
-
-            du -sh ./build/* 2>/dev/null | sort -hr
+            du -sh ./build/_next/* 2>/dev/null | sort -hr
 
             npx --yes serverless deploy --stage development
             
