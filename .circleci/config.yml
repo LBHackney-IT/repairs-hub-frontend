@@ -126,22 +126,8 @@ jobs:
             rm -rf node_modules/@next/swc-freebsd*
             rm -rf node_modules/@next/swc-android*
             rm -rf node_modules/@next/swc-linux-x64-musl*
-            # rm -rf node_modules/@next/env*
 
-
-            # rm -rf node_modules/@types/*
-            rm -rf node_modules/date-fns/*
-            # rm -rf node_modules/browserslist/*
-            # rm -rf node_modules/caniuse-lite/*
-            # rm -rf node_modules/react-query/*
-            rm -rf node_modules/xml2js/*
-            rm -rf node_modules/govuk-frontend/*
-            # rm -rf node_modules/underscore/*
             rm -rf node_modules/@popperjs/*
-            rm -rf node_modules/lbh-frontend/*
-            # rm -rf node_modules/tippy.js/*
-            rm -rf node_modules/react-hook-form/*
-            # rm -rf node_modules/dayjs/*
             rm -rf node_modules/@aws-sdk/*
             rm -rf node_modules/@babel/**
             rm -rf node_modules/sass/*
@@ -149,22 +135,13 @@ jobs:
             rm -rf node_modules/rollup/*
             rm -rf node_modules/leaflet/*
             rm -rf node_modules/sass/*
-            # rm -rf node_modules/mockdate/*
             rm -rf node_modules/dotenv/*
-            # rm -rf node_modules/path/*
 
             # du -sh ./node_modules/*/ 2>/dev/null | sort -hr
-
 
             # view size of /@next
 
             # du -sh ./node_modules/@next/_next/*/ 2>/dev/null | sort -hr
-
-            # du -sh .
-            # du -sh build/
-            # du -sh public/
-            # du -sh node_modules/
-            # du -sh src/
 
             du -sh ./build/* 2>/dev/null | sort -hr
 
