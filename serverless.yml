@@ -45,6 +45,11 @@ functions:
         - 'node_modules/@sentry/webpack-plugin/**'
         - 'node_modules/@sentry/node/**'
         - 'node_modules/@sentry/tracing/**'
+        - 'node_modules/@opentelemetry/api/**'
+        - 'node_modules/@opentelemetry/core/**'
+        - 'node_modules/@opentelemetry/sdk-trace-base/**'
+        - 'node_modules/@opentelemetry/context-async-hooks/**'
+        - 'node_modules/@opentelemetry/instrumentation/**'
     events:
       - http: ANY /
       - http: ANY /{proxy+}
