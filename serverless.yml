@@ -23,10 +23,10 @@ provider:
 #   exclude:
 #     - ./**
 
-layers:
-  heavyDeps:
-    path: layer
-    name: repairs-hub-deps-${self:provider.stage}
+# layers:
+#   heavyDeps:
+#     path: layer
+#     name: repairs-hub-deps-${self:provider.stage}
 
 functions:
   repairs-hub-frontend:
@@ -44,6 +44,20 @@ functions:
         - 'build/_next/server/**'
         - 'build/_next/static/**'
         - 'node_modules/**'
+      exclude:
+        - '!node_modules/@types/**'
+        - '!node_modules/@babel/**' 
+        - '!node_modules/sass/**'
+        - '!node_modules/@rollup/**'
+        - '!node_modules/rollup/**'
+        - '!node_modules/leaflet/**'
+        - '!node_modules/**/*.md'
+        - '!node_modules/**/LICENSE*'
+        - '!node_modules/**/test/**'
+        - '!node_modules/**/__tests__/**'
+        - '!node_modules/**/*.d.ts'
+        - '!node_modules/**/*.map'
+
 
     events:
       - http: ANY /

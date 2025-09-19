@@ -122,13 +122,13 @@ jobs:
 
             du -sh ./node_modules/*/ 2>/dev/null | sort -hr
 
-            # Create layer 
-            mkdir -p layer/nodejs/node_modules
+            # # Create layer 
+            # mkdir -p layer/nodejs/node_modules
 
-            # Move large dependencies to node layer
-            mv node_modules/@sentry layer/nodejs/node_modules/
-            mv node_modules/@opentelemetry layer/nodejs/node_modules/
-            mv node_modules/require-in-the-middle layer/nodejs/node_modules/
+            # # Move large dependencies to node layer
+            # mv node_modules/@sentry layer/nodejs/node_modules/
+            # mv node_modules/@opentelemetry layer/nodejs/node_modules/
+            # mv node_modules/require-in-the-middle layer/nodejs/node_modules/
 
             npx --yes serverless deploy --stage development
 
