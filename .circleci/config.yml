@@ -114,7 +114,7 @@ jobs:
             export NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID=$WARRANTIES_SPREADSHEET_ID
             
             # Build application
-            yarn build --debug
+            yarn build
 
             # Fetch production dependencies
             rm -rf node_modules
@@ -130,7 +130,7 @@ jobs:
             # mv node_modules/@opentelemetry layer/nodejs/node_modules/
             # mv node_modules/require-in-the-middle layer/nodejs/node_modules/
 
-            npx --yes serverless deploy --stage development --debug
+            npx --yes serverless deploy --stage development
 
   build-deploy-staging:
     executor: node-executor
