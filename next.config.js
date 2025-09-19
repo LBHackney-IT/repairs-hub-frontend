@@ -30,7 +30,7 @@ const moduleExports = {
   distDir: 'build/_next',
   productionBrowserSourceMaps: false,
   swcMinify: true,
-  target: 'serverless',
+  // target: 'serverless',
   experimental: {
     forceSwcTransforms: true,
   },
