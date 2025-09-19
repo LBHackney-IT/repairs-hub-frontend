@@ -26,10 +26,17 @@ package:
   exclude:
     - ./**
 
+layers:
+  heavyDeps:
+    path: layer
+    name: repairs-hub-deps-${self:provider.stage}
+
 functions:
   repairs-hub-frontend:
     name: ${self:service}-${self:provider.stage}
     handler: src/lambda.handler
+    layers:
+      - { Ref: HeavyDepsLambdaLayer }
     package:
       include:
         - src/lambda.js

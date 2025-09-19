@@ -112,9 +112,22 @@ jobs:
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_MMH_FRONTEND_URL=$NEXT_PUBLIC_MMH_FRONTEND_URL_DEVELOPMENT
             export NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID=$WARRANTIES_SPREADSHEET_ID
-            ANALYZE=true yarn build
+            
+            # Build application
+            yarn build
+
+            # Fetch production dependencies
             rm -rf node_modules
             yarn install --production --frozen-lockfile
+
+            # Create layer 
+            mkdir -p layer/nodejs/node_modules
+
+            # Move large dependencies to node layer
+            mv node_modules/@sentry layer/nodejs/node_modules/
+            mv node_modules/@opentelemetry layer/nodejs/node_modules/
+            mv node_modules/require-in-the-middle layer/nodejs/node_modules/
+
             npx --yes serverless deploy --stage development
 
   build-deploy-staging:
