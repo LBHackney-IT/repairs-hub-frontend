@@ -50,6 +50,8 @@ functions:
         - 'node_modules/@opentelemetry/sdk-trace-base/**'
         - 'node_modules/@opentelemetry/context-async-hooks/**'
         - 'node_modules/@opentelemetry/instrumentation/**'
+        - 'node_modules/@opentelemetry/instrumentation-http/**'
+
     events:
       - http: ANY /
       - http: ANY /{proxy+}
@@ -183,17 +185,17 @@ custom:
       - serverless-http
       - react
       - react-dom
-      - '@sentry/nextjs'
-      - '@sentry/core'
-      - '@sentry/utils'
-      - '@sentry/webpack-plugin'
-      - '@sentry/node'
-      - '@sentry/tracing'
-      - '@opentelemetry/api'
-      - '@opentelemetry/core'
-      - '@opentelemetry/sdk-trace-base'
-      - '@opentelemetry/context-async-hooks'
-      - '@opentelemetry/instrumentation'
+      # - '@sentry/nextjs'
+      # - '@sentry/core'
+      # - '@sentry/utils'
+      # - '@sentry/webpack-plugin'
+      # - '@sentry/node'
+      # - '@sentry/tracing'
+      # - '@opentelemetry/api'
+      # - '@opentelemetry/core'
+      # - '@opentelemetry/sdk-trace-base'
+      # - '@opentelemetry/context-async-hooks'
+      # - '@opentelemetry/instrumentation'
 
     forceExclude:
       - cypress
