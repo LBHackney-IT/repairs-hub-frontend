@@ -120,30 +120,12 @@ jobs:
             rm -rf node_modules
             yarn install --production --frozen-lockfile
 
-            # Manual deletes - not sure if excludes is working
-            rm -rf node_modules/@next/swc-darwin*
-            rm -rf node_modules/@next/swc-win32*
-            rm -rf node_modules/@next/swc-freebsd*
-            rm -rf node_modules/@next/swc-android*
-            rm -rf node_modules/@next/swc-linux-x64-musl*
-
-            rm -rf node_modules/@popperjs/*
-            rm -rf node_modules/@aws-sdk/*
-            rm -rf node_modules/@babel/**
-            rm -rf node_modules/sass/*
-            rm -rf node_modules/@rollup/*
-            rm -rf node_modules/rollup/*
-            rm -rf node_modules/leaflet/*
-            rm -rf node_modules/sass/*
-            rm -rf node_modules/dotenv/*
-
             # view size of /@next
-
-            du -sh ./build/_next/* 2>/dev/null | sort -hr
-
             npx --yes serverless deploy --stage development
             
-            ls -lh .serverless/*.zip
+            # Keep in case of later build size issues
+            # du -sh ./build/_next/* 2>/dev/null | sort -hr
+            # ls -lh .serverless/*.zip
 
   build-deploy-staging:
     executor: node-executor
