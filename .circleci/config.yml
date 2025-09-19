@@ -114,7 +114,7 @@ jobs:
             export NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID=$WARRANTIES_SPREADSHEET_ID
             
             # Build application
-            yarn build
+            yarn build --debug
 
             # Fetch production dependencies
             rm -rf node_modules
