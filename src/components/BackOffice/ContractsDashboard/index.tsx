@@ -31,6 +31,23 @@ const ContractsDashboard = () => {
       })
   )
 
+  const {
+    data: expiredContractData,
+    isLoading: expiredContractsIsLoading,
+    error: expiredContractsError,
+  } = useQuery(
+    [
+      'contracts',
+      { isActive: false, contractorReference: null, sorCode: null },
+    ],
+    () =>
+      fetchContracts({
+        isActive: false,
+        contractorReference: null,
+        sorCode: null,
+      })
+  )
+
   // Date used to filter contractors by the expiry date of their contracts. If the date is 01/01/2020, only contractors with contracts that expired on or after that date, or will expire in the future, will be shown.
   const CONTRACTS_CUTOFF_DATE = new Date(2020, 0, 1)
 
@@ -45,15 +62,22 @@ const ContractsDashboard = () => {
         contractsExpiryFilterDate: CONTRACTS_CUTOFF_DATE,
       })
   )
-
   const contracts = contractData as Contract[] | null
   const contractors = contractorData as Contractor[] | null
+  const expiredContracts = expiredContractData as Contract[] | null
   const contractError = contractsError as Error | null
   const contractorError = contractorsError as Error | null
+  const expiredContractError = expiredContractsError as Error | null
 
   const contractsThatExpireWithinTwoMonths = filterContractsByExpiryDate(
     contracts,
     2,
+    today
+  )
+
+  const recentlyExpiredContracts = filterContractsByExpiryDate(
+    expiredContracts,
+    -1,
     today
   )
 
@@ -90,6 +114,41 @@ const ContractsDashboard = () => {
                 ? contractError.message
                 : typeof contractError === 'string'
                 ? contractError
+                : 'An unexpected error occurred'
+            }
+          />
+        )}
+
+        <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
+          Contracts that have recently expired:
+        </h3>
+
+        {expiredContractsIsLoading ? (
+          <>
+            <Spinner />
+          </>
+        ) : recentlyExpiredContracts === null ||
+          recentlyExpiredContracts?.length === 0 ? (
+          <div style={{ width: '90%' }}>
+            <WarningInfoBox
+              header="No contracts found!"
+              text="No contracts have expired in the last month."
+              name="no-contracts-found"
+            />
+          </div>
+        ) : (
+          <ContractListItems
+            contracts={recentlyExpiredContracts}
+            page="dashboard"
+          />
+        )}
+        {expiredContractError && (
+          <ErrorMessage
+            label={
+              expiredContractError instanceof Error
+                ? expiredContractError.message
+                : typeof expiredContractError === 'string'
+                ? expiredContractError
                 : 'An unexpected error occurred'
             }
           />

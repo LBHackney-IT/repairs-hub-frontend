@@ -8,6 +8,17 @@ interface ContractListItemProps {
 }
 
 const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
+  const dateDiffRoundedUp = () => {
+    const todayTimestamp = new Date().getTime()
+
+    const contractTerminationTimeStamp = new Date(
+      contract.terminationDate
+    ).getTime()
+    const diffTime = Math.abs(todayTimestamp - contractTerminationTimeStamp)
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    return diffDays
+  }
+
   return (
     <>
       <li
@@ -59,8 +70,21 @@ const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
             <>
               <p>{contract.contractorName}</p>
               <p>
-                <span style={{ fontWeight: '600' }}>Expires:</span>{' '}
-                {dateToStr(contract.terminationDate)}
+                {contract.terminationDate < new Date().toISOString() ? (
+                  <>
+                    Expired:{' '}
+                    <span style={{ fontWeight: '600' }}>
+                      {dateDiffRoundedUp()} days ago
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    Expires:{' '}
+                    <span style={{ fontWeight: '600' }}>
+                      {dateToStr(contract.terminationDate)}
+                    </span>
+                  </>
+                )}
               </p>
             </>
           )}
