@@ -29,7 +29,7 @@ describe('Closing a work order on behalf of an operative', () => {
         workOrder.paymentType = null
         workOrder.startTime = null
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040/new' },
+          { method: 'GET', path: '/api/workOrders/10000040' },
           { body: workOrder }
         )
       })
@@ -629,7 +629,7 @@ describe('Closing a work order on behalf of an operative', () => {
           workOrder.canAssignOperative = true
           // workOrder.operatives = []
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040/new' },
+            { method: 'GET', path: '/api/workOrders/10000040' },
             { body: workOrder }
           ).as('workOrder')
         })
@@ -843,7 +843,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.totalSMVs = 76
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { method: 'GET', path: '/api/workOrders/10000040' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -1125,7 +1125,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.isSplit = true
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { method: 'GET', path: '/api/workOrders/10000040' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -1277,7 +1277,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.canAssignOperative = true
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { method: 'GET', path: '/api/workOrders/10000040' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -1416,7 +1416,7 @@ describe('Closing a work order on behalf of an operative', () => {
           workOrder.canAssignOperative = false
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040/new' },
+            { method: 'GET', path: '/api/workOrders/10000040' },
             { body: workOrder }
           ).as('workOrder')
         })
@@ -2031,7 +2031,7 @@ describe('Closing a work order on behalf of an operative', () => {
           workOrder.canAssignOperative = true
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040/new' },
+            { method: 'GET', path: '/api/workOrders/10000040' },
             { body: workOrder }
           ).as('workOrder')
         })
@@ -2244,7 +2244,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { method: 'GET', path: '/api/workOrders/10000040' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -2526,7 +2526,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.isSplit = true
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { method: 'GET', path: '/api/workOrders/10000040' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -2678,7 +2678,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.canAssignOperative = true
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { method: 'GET', path: '/api/workOrders/10000040' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -2817,7 +2817,7 @@ describe('Closing a work order on behalf of an operative', () => {
           workOrder.canAssignOperative = false
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040/new' },
+            { method: 'GET', path: '/api/workOrders/10000040' },
             { body: workOrder }
           ).as('workOrder')
         })
@@ -2991,7 +2991,7 @@ describe('Closing a work order on behalf of an operative', () => {
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040/new' },
+          { method: 'GET', path: '/api/workOrders/10000040' },
           { body: workOrder }
         ).as('workOrder')
       })
@@ -3104,7 +3104,7 @@ describe('Closing a work order on behalf of an operative', () => {
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040/new' },
+          { method: 'GET', path: '/api/workOrders/10000040' },
           { body: workOrder }
         ).as('workOrder')
       })

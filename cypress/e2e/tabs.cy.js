@@ -10,7 +10,7 @@ describe('Tabs component', () => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10005254/new' },
+      { method: 'GET', path: '/api/workOrders/10005254' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrderRequest')
 
