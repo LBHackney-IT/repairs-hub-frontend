@@ -153,6 +153,12 @@ jobs:
 
             du -sh ./node_modules/*/ 2>/dev/null | sort -hr
 
+
+            # view size of /@next
+
+            du -sh ./node_modules/@next/*/ 2>/dev/null | sort -hr
+
+
             npx --yes serverless deploy --stage development
 
   build-deploy-staging:
