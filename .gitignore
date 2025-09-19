@@ -52,7 +52,6 @@ cypress/results
 .sentryclirc
 
 # Version control
-yarn.lock
 package-lock.json
 
 .idea
