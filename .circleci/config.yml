@@ -166,7 +166,7 @@ jobs:
             # du -sh node_modules/
             # du -sh src/
 
-            du -sh ./build*/ 2>/dev/null | sort -hr
+            du -sh ./build/* 2>/dev/null | sort -hr
 
             npx --yes serverless deploy --stage development
             
