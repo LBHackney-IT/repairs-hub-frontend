@@ -57,7 +57,10 @@ functions:
         - '!node_modules/**/__tests__/**'
         - '!node_modules/**/*.d.ts'
         - '!node_modules/**/*.map'
-
+        - '!node_modules/sass/**'
+        - '!node_modules/mockdate/**'
+        - '!node_modules/dotenv/**'
+        - '!node_modules/path/**'
 
     events:
       - http: ANY /
