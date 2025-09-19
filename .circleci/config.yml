@@ -153,18 +153,20 @@ jobs:
             rm -rf node_modules/dotenv/*
             rm -rf node_modules/path/*
 
-            du -sh ./node_modules/*/ 2>/dev/null | sort -hr
+            # du -sh ./node_modules/*/ 2>/dev/null | sort -hr
 
 
             # view size of /@next
 
-            du -sh ./node_modules/@next/*/ 2>/dev/null | sort -hr
+            # du -sh ./node_modules/@next/*/ 2>/dev/null | sort -hr
 
-            du -sh .
-            du -sh build/
-            du -sh public/
-            du -sh node_modules/
-            du -sh src/
+            # du -sh .
+            # du -sh build/
+            # du -sh public/
+            # du -sh node_modules/
+            # du -sh src/
+
+            du -sh ./build*/ 2>/dev/null | sort -hr
 
             npx --yes serverless deploy --stage development
             
