@@ -187,6 +187,14 @@ custom:
       - '@sentry/core'
       - '@sentry/utils'
       - '@sentry/webpack-plugin'
+      - '@sentry/node'
+      - '@sentry/tracing'
+      - '@opentelemetry/api'
+      - '@opentelemetry/core'
+      - '@opentelemetry/sdk-trace-base'
+      - '@opentelemetry/context-async-hooks'
+      - '@opentelemetry/instrumentation'
+
     forceExclude:
       - cypress
       - '@testing-library/**'
