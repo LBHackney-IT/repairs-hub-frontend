@@ -101,6 +101,7 @@
     "node-mocks-http": "^1.10.0",
     "prettier": "^2.2.1",
     "sass": "^1.29.0",
+    "serverless-plugin-include-dependencies": "^6.1.1",
     "start-server-and-test": "2",
     "timezone-mock": "^1.3.6",
     "typescript": "^5.5.4"

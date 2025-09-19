@@ -18,6 +18,9 @@ provider:
   logs:
     restApi: true
     
+plugins:
+  - serverless-plugin-include-dependencies
+      
 package:
   individually: true
   exclude:
