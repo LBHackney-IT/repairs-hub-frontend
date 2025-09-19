@@ -18,9 +18,6 @@ provider:
   logs:
     restApi: true
     
-plugins:
-  - serverless-plugin-include-dependencies
-
 package:
   individually: true
   exclude:
@@ -47,32 +44,11 @@ functions:
         - 'build/_next/server/**'
         - 'build/_next/static/**'
         - 'node_modules/**'
-        # - 'node_modules/@sentry/nextjs/**'
-        # - 'node_modules/@sentry/core/**'
-        # - 'node_modules/@sentry/utils/**'
-        # - 'node_modules/@sentry/webpack-plugin/**'
-        # - 'node_modules/@sentry/node/**'
-        # - 'node_modules/@sentry/tracing/**'
-        # # - 'node_modules/@opentelemetry/api/**'
-        # # - 'node_modules/@opentelemetry/core/**'
-        # # - 'node_modules/@opentelemetry/sdk-trace-base/**'
-        # # - 'node_modules/@opentelemetry/context-async-hooks/**'
-        # # - 'node_modules/@opentelemetry/instrumentation/**'
-        # # - 'node_modules/@opentelemetry/instrumentation-http/**'
-        # - 'node_modules/@opentelemetry/**'
       exclude:
         - '!node_modules/@next/swc-darwin*/**'
         - '!node_modules/@next/swc-win32*/**'
         - '!node_modules/@next/swc-freebsd*/**'
         - '!node_modules/@next/swc-android*/**'
-        - '!node_modules/@types/**'          
-        - '!node_modules/detective-typescript/**' 
-        - '!node_modules/@babel/**'               
-        - '!node_modules/sass/**'                
-        - '!node_modules/@rollup/**'             
-        - '!node_modules/rollup/**'              
-        - '!node_modules/leaflet/**'     
-
 
     events:
       - http: ANY /
@@ -196,38 +172,3 @@ custom:
     development: true
     staging: true
     production: true
-  includeDependencies:
-    forceInclude:
-      - next
-      - restana
-      - serve-static
-      - path  
-      - aws-xray-sdk
-      - aws-xray-sdk-express
-      - serverless-http
-      - react
-      - react-dom
-      # - '@sentry/nextjs'
-      # - '@sentry/core'
-      # - '@sentry/utils'
-      # - '@sentry/webpack-plugin'
-      # - '@sentry/node'
-      # - '@sentry/tracing'
-      # - '@opentelemetry/api'
-      # - '@opentelemetry/core'
-      # - '@opentelemetry/sdk-trace-base'
-      # - '@opentelemetry/context-async-hooks'
-      # - '@opentelemetry/instrumentation'
-
-    forceExclude:
-      - cypress
-      - '@testing-library/**'
-      - jest
-      - eslint
-      - '@types/**'
-      - mocha*
-      - '@sentry/cli/**'
-      - '@next/swc-darwin*'
-      - '@next/swc-win32*'
-      - '@next/swc-android*'
-      - fsevents
