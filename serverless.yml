@@ -172,3 +172,19 @@ custom:
       - serverless-http
       - react
       - react-dom
+      - '@sentry/nextjs'
+      - '@sentry/core'
+      - '@sentry/utils'
+      - '@sentry/webpack-plugin'
+    forceExclude:
+      - cypress
+      - '@testing-library/**'
+      - jest
+      - eslint
+      - '@types/**'
+      - mocha*
+      - '@sentry/cli/**'
+      - '@next/swc-darwin*'
+      - '@next/swc-win32*'
+      - '@next/swc-android*'
+      - fsevents
