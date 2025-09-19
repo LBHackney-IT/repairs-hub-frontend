@@ -26,19 +26,6 @@ package:
   exclude:
     - ./**
 
-custom:
-  includeDependencies:
-    forceInclude:
-      - next
-      - restana
-      - serve-static
-      - path  
-      - aws-xray-sdk
-      - aws-xray-sdk-express
-      - serverless-http
-      - react
-      - react-dom
-
 functions:
   repairs-hub-frontend:
     name: ${self:service}-${self:provider.stage}
@@ -174,3 +161,14 @@ custom:
     development: true
     staging: true
     production: true
+  includeDependencies:
+    forceInclude:
+      - next
+      - restana
+      - serve-static
+      - path  
+      - aws-xray-sdk
+      - aws-xray-sdk-express
+      - serverless-http
+      - react
+      - react-dom
