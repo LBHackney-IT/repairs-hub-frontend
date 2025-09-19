@@ -20,11 +20,16 @@ const axios = require('axios')
 jest.mock('axios', () => jest.fn())
 
 describe('WorkOrderDetails component', () => {
-  axios.mockResolvedValue({
-    data: {
-      alerts: [],
+  const alerts = [
+    {
+      type: 'type1',
+      comments: 'Alert 1',
     },
-  })
+    {
+      type: 'type2',
+      comments: 'Alert 2',
+    },
+  ]
 
   const workOrderData = {
     reference: 10000012,
@@ -85,6 +90,8 @@ describe('WorkOrderDetails component', () => {
       typeDescription: 'Secure',
       tenancyAgreementReference: 'tenancyAgreementRef1',
     },
+    alertsLoading: false,
+    alertsError: null,
   }
 
   describe('when logged in as an agent', () => {
@@ -115,16 +122,13 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -140,16 +144,12 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
-
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
 
       // if work order is 648707 then it should render is as 00648707 (with leading zeroes)
       expect(asFragment()).toMatchSnapshot()
@@ -171,16 +171,13 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -213,16 +210,13 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -255,15 +249,12 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
 
       expect(asFragment()).toMatchSnapshot()
     })
@@ -301,16 +292,13 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -328,16 +316,13 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -370,15 +355,13 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
+
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -415,16 +398,12 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
-
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
 
       expect(asFragment()).toMatchSnapshot()
     })
@@ -443,15 +422,12 @@ describe('WorkOrderDetails component', () => {
             tasksAndSors={[]}
             tenure={props.tenure}
             hasLinkToProperty={true}
+            alerts={alerts}
+            alertsLoading={props.alertsLoading}
+            alertsError={props.alertsError}
           />
         </UserContext.Provider>
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
 
       expect(asFragment()).toMatchSnapshot()
     })

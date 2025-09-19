@@ -34,45 +34,24 @@ describe('Starting my own work order', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/properties/${propertyReference}/location-alerts`,
+        path: `/api/properties/${propertyReference}/alerts`,
       },
       {
         body: {
           alerts: [
             {
               type: 'type1',
-              comments: 'Location Alert 1',
+              comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Location Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
       }
-    ).as('locationAlerts')
-
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
-      },
-      {
-        body: {
-          alerts: [
-            {
-              type: 'type3',
-              comments: 'Person Alert 1',
-            },
-            {
-              type: 'type4',
-              comments: 'Person Alert 2',
-            },
-          ],
-        },
-      }
-    ).as('personAlerts')
+    ).as('alerts')
 
     cy.intercept(
       { method: 'GET', path: `/api/workOrders/${workOrderReference}/tasks` },
@@ -101,8 +80,7 @@ describe('Starting my own work order', () => {
       '@workOrderRequest',
       '@propertyRequest',
       '@tasksRequest',
-      '@locationAlerts',
-      '@personAlerts',
+      '@alerts',
       '@photosRequest',
     ])
 

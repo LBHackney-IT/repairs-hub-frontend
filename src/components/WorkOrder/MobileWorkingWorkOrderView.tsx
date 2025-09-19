@@ -31,6 +31,7 @@ import { CurrentUser } from '../../types/variations/types'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { clearIndexedDb } from './Photos/hooks/uploadFiles/cacheFile'
 
 interface Props {
   workOrderReference: string
@@ -222,6 +223,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
 
     try {
       const filesToUpload = workOrderFiles.concat(followOnFiles)
+      setCloseFormValues({
+        workOrderFiles: workOrderFiles,
+        followOnFiles: followOnFiles,
+      })
 
       if (filesToUpload.length > 0) {
         if (workOrderFiles.length > 0) {
@@ -236,10 +241,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
-            setCloseFormValues({
-              workOrderFiles: workOrderFiles,
-              followOnFiles: followOnFiles,
-            })
             return
           }
         }
@@ -256,10 +257,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
-            setCloseFormValues({
-              workOrderFiles: workOrderFiles,
-              followOnFiles: followOnFiles,
-            })
             return
           }
         }
@@ -296,15 +293,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
           localStorage.removeItem(key)
         }
       } // Clear cached form data
+      setCloseFormValues(null)
+      await clearIndexedDb()
       router.push('/')
     } catch (e) {
       console.error(e)
       setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
-      setCloseFormValues({
-        workOrderFiles: workOrderFiles,
-        followOnFiles: followOnFiles,
-      })
     }
   }
 

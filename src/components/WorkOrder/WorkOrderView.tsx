@@ -13,9 +13,9 @@ import {
 } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { getPropertyTenureData } from '../../utils/requests/property'
+import { getAlerts, getPropertyTenureData } from '../../utils/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'
-import { useAppointmentDetails } from './hooks/useAppointmentDetails'
+import { useAppointmentDetails } from '../../utils/requests/hooks/useAppointmentDetails'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -29,8 +29,9 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
   const [tasksAndSors, setTasksAndSors] = useState([])
-  const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
-  const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
+  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
+  const [alertsLoading, setAlertsLoading] = useState(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
@@ -105,9 +106,27 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     setIsLoading(() => false)
   }
 
+  const fetchAlerts = async () => {
+    setAlertsLoading(true)
+    const alertsResponse = await getAlerts(property?.propertyReference)
+
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
+  }
+
   useEffect(() => {
     getWorkOrderView(workOrderReference)
   }, [])
+
+  useEffect(() => {
+    fetchAlerts()
+  }, [property?.propertyReference])
 
   if (isLoading) {
     return <Spinner />
@@ -127,8 +146,9 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         loadingAppointmentDetails={loadingAppointmentDetails}
         tenure={tenure}
         printClickHandler={printClickHandler}
-        setLocationAlerts={setLocationAlerts}
-        setPersonAlerts={setPersonAlerts}
+        alerts={alerts}
+        alertsLoading={alertsLoading}
+        alertsError={alertsError}
       />
 
       <WorkOrderViewTabs
@@ -151,8 +171,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
           appointmentDetails={appointmentDetails}
           property={property}
           tasksAndSors={tasksAndSors}
-          locationAlerts={locationAlerts}
-          personAlerts={personAlerts}
+          alerts={alerts}
         />
       )}
     </>

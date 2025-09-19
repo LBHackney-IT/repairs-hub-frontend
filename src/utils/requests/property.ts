@@ -2,6 +2,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { PropertyTenureResponse } from '../../models/propertyTenure'
+import { CautionaryAlertsResponse } from '../../models/cautionaryAlerts'
 
 export const getPropertyTenureData = async (
   propertyReference: string
@@ -63,6 +64,34 @@ export const getContactDetails = async (
       error: new APIResponseError(
         e.response?.status === 404
           ? `Could not find a contact with reference ${tenureId}`
+          : formatRequestErrorMessage(e)
+      ),
+    }
+  }
+}
+
+export const getAlerts = async (
+  propertyReference
+): Promise<ApiResponseType<CautionaryAlertsResponse>> => {
+  try {
+    const alerts = await frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/${propertyReference}/alerts`,
+    })
+
+    return {
+      success: true,
+      response: alerts,
+      error: null,
+    }
+  } catch (e) {
+    console.error('Error loading alerts status:', e.response)
+    return {
+      success: false,
+      response: null,
+      error: new APIResponseError(
+        e.response?.status === 404
+          ? `Error loading alerts status: ${e.response?.status} with message: ${e.response?.data?.message}`
           : formatRequestErrorMessage(e)
       ),
     }

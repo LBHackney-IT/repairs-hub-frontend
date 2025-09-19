@@ -82,9 +82,6 @@ describe('Notes', () => {
         typeCode: '0',
         otherType: 'addNote',
       })
-
-    // Run lighthouse audit for accessibility report
-    //  cy.audit()
   })
 
   it('Displays notes as a timeline', () => {

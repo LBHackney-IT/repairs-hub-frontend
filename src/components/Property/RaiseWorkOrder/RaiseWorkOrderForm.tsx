@@ -1,5 +1,10 @@
-import PropTypes from 'prop-types'
-import { useState, useEffect, useContext } from 'react'
+import {
+  useState,
+  useEffect,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from 'react'
 import { useForm } from 'react-hook-form'
 import PropertyFlags from '../PropertyFlags'
 import BackButton from '../../Layout/BackButton'
@@ -16,8 +21,8 @@ import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/r
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 import SelectPriority from './SelectPriority'
-import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { getAlerts } from '@/root/src/utils/requests/property'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
@@ -25,36 +30,71 @@ import UserContext from '../../UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 import Link from 'next/link'
 import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useFeatureToggles'
+import { Priority } from '@/root/src/models/priority'
+import { BudgetCode } from '@/root/src/models/budgetCode'
+import Contractor from '@/root/src/models/contractor'
+import { Property, Tenure } from '@/root/src/models/propertyTenure'
+import SorCode from '@/root/src/models/sorCode'
+import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
+import Alerts from '../Alerts'
+import { Trade } from '@/root/src/models/trade'
 
-const RaiseWorkOrderForm = ({
-  propertyReference,
-  address,
-  hierarchyType,
-  canRaiseRepair,
-  tenure,
-  priorities,
-  trades,
-  tradeCode,
-  setTradeCode,
-  contractors,
-  contractorReference,
-  setContractorReference,
-  setContractors,
-  budgetCodeId,
-  setBudgetCodeId,
-  budgetCodes,
-  setBudgetCodes,
-  sorCodeArrays,
-  setSorCodeArrays,
-  onFormSubmit,
-  raiseLimit,
-  setPageToMultipleSORs,
-  formState,
-  isPriorityEnabled,
-  isIncrementalSearchEnabled,
-  setIsIncrementalSearchEnabled,
-  setPriorities,
-}) => {
+interface Props {
+  propertyReference: string
+  property: Property
+  tenure: Tenure
+  trades: Trade[]
+  contractors: Contractor[]
+  setContractors: Dispatch<SetStateAction<Contractor[]>>
+  budgetCodes: BudgetCode[]
+  setBudgetCodes: Dispatch<SetStateAction<BudgetCode[]>>
+  sorCodeArrays: SorCode[][]
+  setSorCodeArrays: Dispatch<SetStateAction<SorCode[][]>>
+  priorities: Priority[]
+  onFormSubmit: (formData: any, parentWorkOrderId?: string) => void
+  tradeCode: string
+  setTradeCode: Dispatch<SetStateAction<string>>
+  contractorReference: string
+  setContractorReference: Dispatch<SetStateAction<string>>
+  budgetCodeId: string | number
+  setBudgetCodeId: Dispatch<SetStateAction<string>>
+  setPageToMultipleSORs: Dispatch<SetStateAction<string>>
+  raiseLimit: string
+
+  formState: any
+  isPriorityEnabled: boolean
+  isIncrementalSearchEnabled: boolean
+  setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
+  enablePriorityField: () => void
+}
+
+const RaiseWorkOrderForm = (props: Props) => {
+  const {
+    propertyReference,
+    property,
+    tenure,
+    priorities,
+    trades,
+    tradeCode,
+    setTradeCode,
+    contractors,
+    contractorReference,
+    setContractorReference,
+    setContractors,
+    budgetCodeId,
+    setBudgetCodeId,
+    budgetCodes,
+    setBudgetCodes,
+    sorCodeArrays,
+    setSorCodeArrays,
+    onFormSubmit,
+    raiseLimit,
+    setPageToMultipleSORs,
+    formState,
+    isPriorityEnabled,
+    enablePriorityField,
+  } = props
+
   const {
     register,
     handleSubmit,
@@ -69,12 +109,18 @@ const RaiseWorkOrderForm = ({
   const { user } = useContext(UserContext)
   const { simpleFeatureToggles } = useFeatureToggles()
 
-  const [loading, setLoading] = useState(false)
-  const [legalDisrepairError, setLegalDisRepairError] = useState()
-  const [priorityCode, setPriorityCode] = useState()
+  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
+  const [alertsLoading, setAlertsLoading] = useState(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [legalDisrepairError, setLegalDisRepairError] = useState<
+    string | null
+  >()
+  const [priorityCode, setPriorityCode] = useState<number>()
 
   const [totalCost, setTotalCost] = useState('')
-  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState<boolean>()
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
@@ -83,8 +129,8 @@ const RaiseWorkOrderForm = ({
     const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
       ...formData,
       propertyReference,
-      shortAddress: address.shortAddress,
-      postalCode: address.postalCode,
+      shortAddress: property?.address.shortAddress,
+      postalCode: property?.address.postalCode,
       priorityDescription: priority.description,
       daysToComplete: priority.daysToComplete,
       hoursToComplete:
@@ -120,7 +166,7 @@ const RaiseWorkOrderForm = ({
       .finally(() => setLoading(false))
   }
 
-  const getPriorityObjectByDescription = (description) => {
+  const getPriorityObjectByDescription = (description: string) => {
     return priorities.find((priority) => priority.description === description)
   }
 
@@ -130,14 +176,6 @@ const RaiseWorkOrderForm = ({
 
   const onPrioritySelect = (code) => {
     setPriorityCode(code)
-  }
-
-  const filterPriorities = (filterText) => {
-    setPriorities(
-      priorities.filter(function (pri) {
-        return pri.description.includes(filterText)
-      })
-    )
   }
 
   const updatePriority = (
@@ -194,12 +232,24 @@ const RaiseWorkOrderForm = ({
     )
   }
 
+  const fetchAlerts = async () => {
+    setAlertsLoading(true)
+    const alertsResponse = await getAlerts(propertyReference)
+
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
+  }
+
   useEffect(() => {
     setLoading(true)
-
     getPropertyInfoOnLegalDisrepair(propertyReference)
-    isPriorityEnabled &&
-      (document.getElementById('priorityCode').disabled = false)
+    fetchAlerts()
   }, [])
 
   return (
@@ -209,7 +259,8 @@ const RaiseWorkOrderForm = ({
         <div className="govuk-grid-column-two-thirds">
           <span className="govuk-caption-l lbh-caption">New repair</span>
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
-            {hierarchyType.subTypeDescription}: {address.addressLine}
+            {property?.hierarchyType.subTypeDescription}:{' '}
+            {property?.address.addressLine}
           </h1>
 
           {simpleFeatureToggles?.enableRepairsFinderIntegration && (
@@ -233,10 +284,30 @@ const RaiseWorkOrderForm = ({
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
           <div className="lbh-body-s">
+            {alertsLoading && <Spinner resource="alerts" />}
+            {alerts?.length > 0 && (
+              <ul
+                className="lbh-list hackney-property-alerts"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  marginBottom: '1em',
+                  maxWidth: isExpanded ? '' : '30em',
+                }}
+              >
+                <Alerts
+                  alerts={alerts}
+                  setIsExpanded={setIsExpanded}
+                  isExpanded={isExpanded}
+                />
+              </ul>
+            )}
+
+            {alertsError && <ErrorMessage label={alertsError} />}
             <PropertyFlags
-              canRaiseRepair={canRaiseRepair}
+              canRaiseRepair={property?.canRaiseRepair}
               tenure={tenure}
-              propertyReference={propertyReference}
             />
           </div>
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
@@ -273,16 +344,13 @@ const RaiseWorkOrderForm = ({
               sorCodeArrays={sorCodeArrays}
               setSorCodeArrays={setSorCodeArrays}
               propertyReference={propertyReference}
-              isContractorUpdatePage={false}
               updatePriority={updatePriority}
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
               setValue={setValue}
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
-              isIncrementalSearchEnabled={isIncrementalSearchEnabled}
-              setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
-              filterPriorities={filterPriorities}
               formState={formState}
+              enablePriorityField={enablePriorityField}
             />
 
             <SelectPriority
@@ -291,7 +359,7 @@ const RaiseWorkOrderForm = ({
               register={register}
               errors={errors}
               priorityCode={priorityCode}
-              priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
+              isPriorityEnabled={isPriorityEnabled}
             />
 
             <CharacterCountLimitedTextArea
@@ -364,31 +432,6 @@ const RaiseWorkOrderForm = ({
       </div>
     </>
   )
-}
-
-RaiseWorkOrderForm.propTypes = {
-  propertyReference: PropTypes.string.isRequired,
-  address: PropTypes.object.isRequired,
-  hierarchyType: PropTypes.object.isRequired,
-  canRaiseRepair: PropTypes.bool.isRequired,
-  tenure: PropTypes.object,
-  trades: PropTypes.array.isRequired,
-  contractors: PropTypes.array.isRequired,
-  setContractors: PropTypes.func.isRequired,
-  budgetCodes: PropTypes.array.isRequired,
-  setBudgetCodes: PropTypes.func.isRequired,
-  sorCodeArrays: PropTypes.array.isRequired,
-  setSorCodeArrays: PropTypes.func.isRequired,
-  priorities: PropTypes.array.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
-  tradeCode: PropTypes.string.isRequired,
-  setTradeCode: PropTypes.func.isRequired,
-  contractorReference: PropTypes.string.isRequired,
-  setContractorReference: PropTypes.func.isRequired,
-  budgetCodeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
-  setBudgetCodeId: PropTypes.func.isRequired,
-  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default RaiseWorkOrderForm

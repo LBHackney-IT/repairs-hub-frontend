@@ -43,47 +43,31 @@ describe('Raise repair form', () => {
     ).as('tradesRequest')
 
     cy.intercept(
+      { method: 'GET', path: '/api/contractors/*' },
+      { fixture: 'contractor/contractor.json' }
+    ).as('contractorRequest')
+
+    cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345/location-alerts',
+        path: '/api/properties/00012345/alerts',
       },
       {
         body: {
           alerts: [
             {
               type: 'type1',
-              comments: 'Location Alert 1',
+              comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Location Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
       }
-    ).as('locationAlerts')
-
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
-      },
-      {
-        body: {
-          alerts: [
-            {
-              type: 'type3',
-              comments: 'Person Alert 1',
-            },
-            {
-              type: 'type4',
-              comments: 'Person Alert 2',
-            },
-          ],
-        },
-      }
-    ).as('personAlerts')
+    ).as('alerts')
 
     cy.intercept(
       {
@@ -187,15 +171,16 @@ describe('Raise repair form', () => {
       'Please enter a repair description'
     )
 
-    cy.get('#repair-request-form').within(() => {
-      cy.get('#trade').type('Plumbing - PL')
+    cy.get('#trade').type('Plumbing - PL')
 
-      cy.wait('@contractorsRequest')
+    cy.wait('@contractorsRequest')
 
-      cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
+    cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
-      cy.wait('@budgetCodesRequest')
-    })
+    cy.wait('@budgetCodesRequest')
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
 
     cy.get('[type="submit"]')
       .contains('Create work order')
@@ -214,24 +199,17 @@ describe('Raise repair form', () => {
       '@propertyRequest',
       '@sorPrioritiesRequest',
       '@tradesRequest',
-      '@personAlerts',
-      '@locationAlerts',
+      '@alerts',
     ])
 
     cy.get('.govuk-caption-l').contains('New repair')
     cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
 
-    cy.checkForTenureDetails(
-      'Tenure: Secure',
-      [
-        'Address Alert: Location Alert 1 (type1)',
-        'Address Alert: Location Alert 2 (type2)',
-      ],
-      [
-        'Contact Alert: Person Alert 1 (type3)',
-        'Contact Alert: Person Alert 2 (type4)',
-      ]
-    )
+    cy.checkForTenureDetails('Tenure: Secure', [
+      'Alert 1 (type1)',
+      'Specific Requirements (SPR)',
+      'Reason 1, very important',
+    ])
 
     cy.wait(['@contactDetailsRequest'])
 
@@ -294,6 +272,8 @@ describe('Raise repair form', () => {
 
     cy.wait('@budgetCodesRequest')
 
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.get('[data-testid=budgetCode]').type('H2555 - 200031 - Lifts Breakdown')
 
     cy.wait(['@sorCodesRequest'])
@@ -801,9 +781,6 @@ describe('Raise repair form', () => {
     cy.get('.lbh-list li')
       .contains('Start a new search')
       .should('have.attr', 'href', '/')
-
-    // Run lighthouse audit for accessibility report
-    //  cy.audit()
   })
 
   it('Hides follow-on fields when user doesnt have permissions', () => {
@@ -985,6 +962,18 @@ describe('Raise repair form', () => {
         },
         { fixture: 'contractors/multiTradeContractors.json' }
       ).as('multiTradeContractorsRequest')
+
+      cy.fixture('contractor/contractor.json').then((contractor) => {
+        contractor.multiTradeEnabled = true
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path: `/api/contractors/*`,
+          },
+          { body: contractor }
+        ).as('contractorRequest')
+      })
 
       cy.loginWithAgentAndBudgetCodeOfficerRole()
     })

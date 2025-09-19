@@ -9,6 +9,8 @@ interface Props {
 const PhotoUploadPreview = (props: Props) => {
   const { files, setFiles, disabled = false } = props
 
+  if (files.length === 0) return null
+
   return (
     <div className="photoUploadPreview">
       {files.map((file, index) => (
@@ -30,9 +32,7 @@ const PhotoUploadPreview = (props: Props) => {
               if (disabled) return
 
               setFiles((prevFiles: File[]) => {
-                const newArr = [...prevFiles]
-                newArr.splice(index, 1)
-                return newArr
+                return prevFiles.filter((f) => f.name !== file.name)
               })
             }}
           >

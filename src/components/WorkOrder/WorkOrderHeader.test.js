@@ -1,9 +1,4 @@
-import {
-  render,
-  act,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react'
+import { render } from '@testing-library/react'
 import WorkOrderHeader from './WorkOrderHeader'
 import UserContext from '../UserContext'
 import { agent } from 'factories/agent'
@@ -11,17 +6,9 @@ import { WorkOrder } from '@/models/workOrder'
 import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
-const axios = require('axios')
-
 jest.mock('axios', () => jest.fn())
 
 describe('WorkOrderHeader component', () => {
-  axios.mockResolvedValue({
-    data: {
-      alerts: [],
-    },
-  })
-
   const workOrderData = {
     reference: 10000012,
     dateRaised: '2021-01-18T15:28:57.17811',
@@ -85,12 +72,6 @@ describe('WorkOrderHeader component', () => {
           />
         </UserContext.Provider>
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
 
       expect(asFragment()).toMatchSnapshot()
     })
@@ -113,12 +94,6 @@ describe('WorkOrderHeader component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -162,12 +137,6 @@ describe('WorkOrderHeader component', () => {
           </UserContext.Provider>
         )
 
-        await act(async () => {
-          await waitForElementToBeRemoved([
-            screen.getByTestId('spinner-locationAlerts'),
-            screen.getByTestId('spinner-personAlerts'),
-          ])
-        })
         expect(asFragment()).toMatchSnapshot()
       })
     })
@@ -194,12 +163,6 @@ describe('WorkOrderHeader component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -238,12 +201,6 @@ describe('WorkOrderHeader component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
       expect(asFragment()).toMatchSnapshot()
     })
   })

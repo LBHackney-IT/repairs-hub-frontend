@@ -65,19 +65,10 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path:
-              '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+            path: '/api/properties/00012345/alerts',
           },
-          { fixture: 'properties/personAlerts.json' }
-        ).as('personAlerts')
-
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/properties/00012345/location-alerts',
-          },
-          { fixture: 'properties/locationAlerts.json' }
-        ).as('locationAlerts')
+          { fixture: 'properties/alerts.json' }
+        ).as('alerts')
       })
 
       it('allows me to edit the work order and adds the updated description to the notes', () => {

@@ -1,19 +1,29 @@
-import PropTypes from 'prop-types'
 import { TextArea, PrimarySubmitButton } from '../../Form'
 import { useForm } from 'react-hook-form'
 import { SorCodeValidator } from '@/utils/helpers/SorCodeValidator'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 
-const AddMultipleSORs = ({
-  currentSorCodes,
-  setPageBackToFormView,
-  sorExistenceValidationCallback,
-  setSorCodesFromBatchUpload,
-  setAnnouncementMessage,
-  setIsPriorityEnabled,
-}) => {
+interface Props {
+  currentSorCodes: any[]
+  setPageBackToFormView: () => void
+  sorExistenceValidationCallback: any
+  setSorCodesFromBatchUpload: (sorCodes: any) => void
+  setAnnouncementMessage: Dispatch<SetStateAction<string>>
+  setIsPriorityEnabled: Dispatch<SetStateAction<boolean>>
+}
+
+const AddMultipleSORs = (props: Props) => {
+  const {
+    currentSorCodes,
+    setPageBackToFormView,
+    sorExistenceValidationCallback,
+    setSorCodesFromBatchUpload,
+    setAnnouncementMessage,
+    setIsPriorityEnabled,
+  } = props
+
   const { register, handleSubmit, errors } = useForm()
 
   const [validationErrors, setValidationErrors] = useState([])
@@ -57,17 +67,6 @@ const AddMultipleSORs = ({
     setPerformingValidation(false)
   }
 
-  const renderErrorSummary = (errors) => {
-    const invalidSorCodes = errors.map((error) => `"${error.code}"`)
-
-    return (
-      <WarningInfoBox
-        header={`Invalid SOR code(s) entered: ${invalidSorCodes.join(' ')}`}
-        text=""
-      />
-    )
-  }
-
   return (
     <>
       <a
@@ -101,7 +100,14 @@ const AddMultipleSORs = ({
           placeholder="04500910&#10;49PLMAT2&#10;RTR03016"
         />
 
-        {validationErrors.length > 0 && renderErrorSummary(validationErrors)}
+        {validationErrors.length > 0 && (
+          <WarningInfoBox
+            header={`Invalid SOR code(s) entered: ${validationErrors
+              .map((error) => `"${error.code}"`)
+              .join(' ')}`}
+            text=""
+          />
+        )}
 
         <PrimarySubmitButton
           label="Submit"
@@ -112,14 +118,6 @@ const AddMultipleSORs = ({
       </form>
     </>
   )
-}
-
-AddMultipleSORs.propTypes = {
-  currentSorCodes: PropTypes.array.isRequired,
-  setPageBackToFormView: PropTypes.func.isRequired,
-  sorExistenceValidationCallback: PropTypes.func.isRequired,
-  setSorCodesFromBatchUpload: PropTypes.func.isRequired,
-  setAnnouncementMessage: PropTypes.func.isRequired,
 }
 
 export default AddMultipleSORs

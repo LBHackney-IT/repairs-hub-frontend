@@ -1,16 +1,18 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import UserContext from '../UserContext'
 import WorkOrderHeader from './WorkOrderHeader'
 import { GridRow, GridColumn } from '../Layout/Grid'
 import BackButton from '../Layout/BackButton'
 import MultiButton from '../Layout/MultiButton'
-
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import Spinner from '../Spinner'
+import Alerts from '../Property/Alerts'
+import ErrorMessage from '../Errors/ErrorMessage'
 
 interface Props {
   property: Property
@@ -19,8 +21,9 @@ interface Props {
   appointmentDetailsError: string | null
   loadingAppointmentDetails: boolean
   tenure: Tenure
-  setLocationAlerts: (alerts: CautionaryAlert[]) => void
-  setPersonAlerts: (alerts: CautionaryAlert[]) => void
+  alertsLoading: boolean
+  alertsError: string | null
+  alerts: CautionaryAlert[]
   printClickHandler: () => void
 }
 
@@ -33,10 +36,12 @@ const WorkOrderDetails = (props: Props) => {
     loadingAppointmentDetails,
     tenure,
     printClickHandler,
-    setLocationAlerts,
-    setPersonAlerts,
+    alerts,
+    alertsLoading,
+    alertsError,
   } = props
 
+  const [isExpanded, setIsExpanded] = useState(false)
   const { user } = useContext(UserContext)
 
   const workOrderActionMenu = () => {
@@ -100,6 +105,26 @@ const WorkOrderDetails = (props: Props) => {
         )}
 
         <p className="lbh-body-m">{workOrder.description}</p>
+        {alertsLoading && <Spinner resource="alerts" />}
+        {alerts?.length > 0 && (
+          <ul
+            className="lbh-list hackney-property-alerts"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              marginBottom: '1em',
+              maxWidth: isExpanded ? '' : '30em',
+            }}
+          >
+            <Alerts
+              alerts={alerts}
+              setIsExpanded={setIsExpanded}
+              isExpanded={isExpanded}
+            />
+          </ul>
+        )}
+        {alertsError && <ErrorMessage label={alertsError} />}
 
         <WorkOrderHeader
           propertyReference={property.propertyReference}
@@ -111,8 +136,6 @@ const WorkOrderDetails = (props: Props) => {
           subTypeDescription={property.hierarchyType.subTypeDescription}
           tenure={tenure}
           canRaiseRepair={property.canRaiseRepair}
-          setLocationAlerts={setLocationAlerts}
-          setPersonAlerts={setPersonAlerts}
         />
       </div>
     </>

@@ -1,20 +1,29 @@
-import { Dispatch, SetStateAction, useRef } from 'react'
+import { Dispatch, SetStateAction, useRef, useState, useEffect } from 'react'
 
 import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
 import classNames from 'classnames'
 import useUpdateFileInput from './hooks/useUpdateFileInput'
+import {
+  cachedFileExists,
+  getCachedFile,
+  setCachedFile,
+} from './hooks/uploadFiles/cacheFile'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
+import compressFile from './hooks/uploadFiles/compressFile'
+import validateFileUpload from './hooks/validateFileUpload'
 
 interface Props {
   files: File[]
   setFiles: Dispatch<SetStateAction<File[]>>
   validationError: string
   isLoading: boolean
-  register: any
   label: string
   hint: string
   disabled?: boolean
   testId: string
+  registerFunction?: CallableFunction
+  registerField?: string
 }
 
 const ControlledFileInput = (props: Props) => {
@@ -23,17 +32,90 @@ const ControlledFileInput = (props: Props) => {
     setFiles,
     validationError,
     isLoading,
-    register,
     label,
     hint,
-    disabled = false,
+    disabled,
     testId,
+    registerFunction,
+    registerField,
   } = props
 
-  const inputRef = useRef()
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const [previewFiles, setPreviewFiles] = useState<File[]>([])
 
-  // extracted to enable mocking
-  useUpdateFileInput(files, inputRef)
+  useEffect(() => {
+    // when form is reset e.g. due to an error - set the preview files from the files
+    if (!files || files.length === 0) {
+      setPreviewFiles([])
+      return
+    }
+    // if there are files but no preview files (e.g. after a form reset), set them
+    if (files.length > 0 && previewFiles.length === 0) {
+      setPreviewFiles(files)
+    }
+  }, [])
+
+  useUpdateFileInput({ files, setPreviewFiles, inputRef })
+
+  function addFileIfNew(file: File) {
+    setFiles((prev) => {
+      const fileExists = prev.some((p) => p.name === file.name)
+      return fileExists ? prev : [...prev, file]
+    })
+    setPreviewFiles((prev) => {
+      const fileExists = prev.some((p) => p.name === file.name)
+      return fileExists ? prev : [...prev, file]
+    })
+  }
+
+  const handleInput = async (e: React.FormEvent<HTMLInputElement>) => {
+    setPreviewFiles([])
+    const selectedFiles = Array.from(e.currentTarget.files || [])
+
+    // Immediately notify parent of all selected files for upload
+    setFiles(selectedFiles)
+
+    const stableFiles: File[] = []
+    try {
+      // Process files one-by-one to avoid memory spikes
+      // Read each file into memory and create a stable copy away from the OS
+      for (const file of selectedFiles) {
+        const buffer = await file.arrayBuffer()
+        const stableFile = new File([buffer], file.name, { type: file.type })
+        stableFiles.push(stableFile)
+      }
+    } catch (err) {
+      console.error('Error creating stable file copies:', err)
+      stableFiles.push(...selectedFiles) // Fallback to original files
+    }
+
+    try {
+      for (const file of stableFiles) {
+        if (await cachedFileExists(file)) {
+          const cached = await getCachedFile(file)
+          if (cached) {
+            addFileIfNew(cached)
+            continue
+          }
+        }
+
+        // For new files, compress them before displaying
+        try {
+          const compressed = await compressFile(file)
+          setCachedFile(compressed)
+          addFileIfNew(compressed)
+        } catch (error) {
+          console.error('Error compressing file:', error)
+          // If compression fails, still add the original file
+          addFileIfNew(file)
+        }
+      }
+    } catch (err) {
+      console.error('Error processing files:', err)
+      // On error, fallback to adding stable files as-is
+      stableFiles.forEach((file) => addFileIfNew(file))
+    }
+  }
 
   return (
     <div>
@@ -49,6 +131,7 @@ const ControlledFileInput = (props: Props) => {
       </span>
 
       {validationError && <ErrorMessage label={validationError} />}
+
       <input
         disabled={disabled}
         ref={inputRef}
@@ -62,24 +145,32 @@ const ControlledFileInput = (props: Props) => {
         type="file"
         multiple
         accept=".jpg, .jpeg, .png"
-        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setFiles(Object.values(e.target.files))
-        }}
         style={{
           marginTop: '10px',
         }}
-        {...register}
+        onChange={handleInput}
+        {...registerFunction?.(registerField, {
+          validate: () => {
+            const validation = validateFileUpload(files)
+
+            if (validation === null) return true
+            return validation
+          },
+        })}
       />
 
-      <>
-        {files.length > 0 && (
-          <PhotoUploadPreview
-            files={files}
-            disabled={isLoading}
-            setFiles={setFiles}
+      <PhotoUploadPreview
+        files={previewFiles}
+        disabled={isLoading}
+        setFiles={setFiles}
+      />
+      {previewFiles.length < files.length && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <SpinnerWithLabel
+            label={`Caching photos... (${previewFiles.length} of ${files.length})`}
           />
-        )}
-      </>
+        </div>
+      )}
     </div>
   )
 }
