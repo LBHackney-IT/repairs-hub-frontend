@@ -120,7 +120,7 @@ jobs:
             rm -rf node_modules
             yarn install --production --frozen-lockfile
 
-            yarn dlx node-modules-size
+            npx node-modules-size
 
             # Create layer 
             mkdir -p layer/nodejs/node_modules
