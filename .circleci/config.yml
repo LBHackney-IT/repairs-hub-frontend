@@ -133,7 +133,7 @@ jobs:
             rm -rf node_modules/date-fns/*
             rm -rf node_modules/browserslist/*
             rm -rf node_modules/caniuse-lite/*
-            rm -rf node_modules/react-query/*
+            # rm -rf node_modules/react-query/*
             rm -rf node_modules/xml2js/*
             rm -rf node_modules/govuk-frontend/*
             rm -rf node_modules/underscore/*

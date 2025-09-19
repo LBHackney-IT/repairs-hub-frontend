@@ -57,7 +57,7 @@ functions:
         - '!node_modules/date-fns/**'
         - '!node_modules/browserslist/**'
         - '!node_modules/caniuse-lite/**'
-        - '!node_modules/react-query/**'
+        # - '!node_modules/react-query/**'
         - '!node_modules/xml2js/**'
         - '!node_modules/govuk-frontend/**'
         - '!node_modules/underscore/**'
