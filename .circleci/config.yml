@@ -158,7 +158,7 @@ jobs:
 
             # view size of /@next
 
-            # du -sh ./node_modules/@next/*/ 2>/dev/null | sort -hr
+            # du -sh ./node_modules/@next/_next/*/ 2>/dev/null | sort -hr
 
             # du -sh .
             # du -sh build/
