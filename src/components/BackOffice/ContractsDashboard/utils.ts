@@ -18,10 +18,18 @@ export const filterContractsByExpiryDate = (
   const contractExpiryCutOffDate = monthsOffset(months, baseComparisonDate)
 
   const filteredContracts = contracts?.filter((contract) => {
-    return (
-      new Date(contract.terminationDate) > baseComparisonDate &&
-      new Date(contract.terminationDate) < contractExpiryCutOffDate
-    )
+    if (months > 0) {
+      return (
+        new Date(contract.terminationDate) > baseComparisonDate &&
+        new Date(contract.terminationDate) < contractExpiryCutOffDate
+      )
+    }
+    if (months < 0) {
+      return (
+        new Date(contract.terminationDate) < baseComparisonDate &&
+        new Date(contract.terminationDate) > contractExpiryCutOffDate
+      )
+    }
   })
   return filteredContracts
 }
