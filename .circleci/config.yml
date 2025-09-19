@@ -120,15 +120,13 @@ jobs:
             rm -rf node_modules
             yarn install --production --frozen-lockfile
 
+            # Manual deletes - not sure if excludes is working
+            rm -rf node_modules/@next/swc-darwin*
+            rm -rf node_modules/@next/swc-win32*
+            rm -rf node_modules/@next/swc-freebsd*
+            rm -rf node_modules/@next/swc-android*
+
             du -sh ./node_modules/*/ 2>/dev/null | sort -hr
-
-            # # Create layer 
-            # mkdir -p layer/nodejs/node_modules
-
-            # # Move large dependencies to node layer
-            # mv node_modules/@sentry layer/nodejs/node_modules/
-            # mv node_modules/@opentelemetry layer/nodejs/node_modules/
-            # mv node_modules/require-in-the-middle layer/nodejs/node_modules/
 
             npx --yes serverless deploy --stage development
 
