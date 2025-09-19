@@ -44,11 +44,6 @@ functions:
         - 'build/_next/server/**'
         - 'build/_next/static/**'
         - 'node_modules/**'
-      exclude:
-        - '!node_modules/@next/swc-darwin*/**'
-        - '!node_modules/@next/swc-win32*/**'
-        - '!node_modules/@next/swc-freebsd*/**'
-        - '!node_modules/@next/swc-android*/**'
 
     events:
       - http: ANY /
