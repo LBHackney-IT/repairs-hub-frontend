@@ -35,6 +35,7 @@ functions:
     # layers:
     #   - { Ref: HeavyDepsLambdaLayer }
     package:
+      individually: true
       patterns:
         # Include
         - src/lambda.js
