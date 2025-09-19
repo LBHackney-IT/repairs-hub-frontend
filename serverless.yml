@@ -53,7 +53,7 @@ functions:
         # # - 'node_modules/@opentelemetry/instrumentation/**'
         # # - 'node_modules/@opentelemetry/instrumentation-http/**'
         # - 'node_modules/@opentelemetry/**'
-      exclue:
+      exclude:
         - '!node_modules/@next/swc-darwin*/**'
         - '!node_modules/@next/swc-win32*/**'
         - '!node_modules/@next/swc-freebsd*/**'
