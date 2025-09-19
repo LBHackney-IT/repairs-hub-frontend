@@ -130,7 +130,7 @@ jobs:
             # mv node_modules/@opentelemetry layer/nodejs/node_modules/
             # mv node_modules/require-in-the-middle layer/nodejs/node_modules/
 
-            npx --yes serverless deploy --stage development
+            npx --yes serverless deploy --stage development --debug
 
   build-deploy-staging:
     executor: node-executor
