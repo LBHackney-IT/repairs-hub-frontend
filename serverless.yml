@@ -41,6 +41,7 @@ functions:
         - '!node_modules/@next/swc-win32*/**'  
         - '!node_modules/@next/swc-freebsd*/**'
         - '!node_modules/@next/swc-android*/**'
+        - '!node_modules/@next/swc-linux-x64-musl*/**'
         - '!node_modules/@types/**'
         - '!node_modules/browserslist/**'
         - '!node_modules/caniuse-lite/**'
