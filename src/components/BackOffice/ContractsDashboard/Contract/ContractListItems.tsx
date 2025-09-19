@@ -18,9 +18,11 @@ const ContractListItems = (props: Props) => {
 
   return (
     <>
-      <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
-        {heading}
-      </h3>
+      {heading && (
+        <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
+          {heading}
+        </h3>
+      )}
 
       {(contracts === null || contracts?.length === 0) && (
         <div style={{ width: '90%' }}>
