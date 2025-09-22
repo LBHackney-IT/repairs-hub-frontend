@@ -25,12 +25,6 @@ module.exports = (on, config) => {
 
   let testTitle
 
-  on('before:browser:launch', (browser = {}, launchOptions) => {
-    // prepareAudit(launchOptions)
-
-    return launchOptions
-  })
-
   on('task', {
     getTestTitle(message) {
       testTitle = message
