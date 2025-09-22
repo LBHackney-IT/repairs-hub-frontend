@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
 const operativeId = 'hu0001'
 context('When an operative is logged in', () => {
   beforeEach(() => {

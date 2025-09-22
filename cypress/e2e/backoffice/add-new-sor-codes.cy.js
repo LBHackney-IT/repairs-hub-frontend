@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 function contractorsRequest() {
   cy.intercept(
     { method: 'GET', path: '/api/contractors?getAllContractors=true' },

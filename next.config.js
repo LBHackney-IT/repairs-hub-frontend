@@ -28,9 +28,8 @@ async function headers() {
 
 const moduleExports = {
   distDir: 'build/_next',
-  experimental: {
-    forceSwcTransforms: true,
-  },
+  productionBrowserSourceMaps: false,
+  swcMinify: true,
   images: {
     domains: ['utfs.io'],
   },

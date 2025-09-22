@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Show work order page', () => {
   beforeEach(() => {
     cy.intercept(

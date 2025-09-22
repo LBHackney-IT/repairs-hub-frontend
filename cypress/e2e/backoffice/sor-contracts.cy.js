@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('SOR-Contracts - when user unauthorized', () => {
   it("shows access denied when user doesn't have correct permissions", () => {
     cy.loginWithOperativeRole()

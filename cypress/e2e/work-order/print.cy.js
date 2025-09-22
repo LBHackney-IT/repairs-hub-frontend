@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Printing', () => {
   beforeEach(() => {
     cy.loginWithContractorRole()

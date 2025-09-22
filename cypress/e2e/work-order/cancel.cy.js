@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 // Mock date
 const now = new Date('Mon Jan 18 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 

@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Pending variation tab on work-order page', () => {
   context('work order status is Variation Pending approval', () => {
     beforeEach(() => {

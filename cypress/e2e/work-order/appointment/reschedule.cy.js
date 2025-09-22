@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 import {
   STATUS_IN_PROGRESS,
   STATUS_NO_ACCESS,

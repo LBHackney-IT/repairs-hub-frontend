@@ -1,9 +1,6 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
 /// <reference types="cypress" />
-
-import 'cypress-audit/commands'
 
 describe('Tabs component', () => {
   beforeEach(() => {

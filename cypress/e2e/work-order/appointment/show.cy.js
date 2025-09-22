@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Managing work order appointments', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()

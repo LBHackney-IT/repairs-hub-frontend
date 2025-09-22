@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Property page - legal disrepair', () => {
   context('When property is in legal disrepair', () => {
     beforeEach(() => {

@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Boiler house flag', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()

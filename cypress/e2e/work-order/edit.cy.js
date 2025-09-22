@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import 'cypress-audit/commands'
+
 describe('Editing a work order description', () => {
   context('As an authorisation manager', () => {
     beforeEach(() => {

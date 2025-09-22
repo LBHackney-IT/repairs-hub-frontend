@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 context('when a variation is made', () => {
   beforeEach(() => {
     cy.intercept('/api/workOrders/10000621', {
