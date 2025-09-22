@@ -33,10 +33,7 @@ describe('Contractors list item component', () => {
     it('should render a contract that expires within two months with relevant fields', () => {
       const mockContract = {
         contractReference: '127-127-1277',
-        terminationDate: monthsOffset(
-          1,
-          ninthOfJulyTwentyTwentyFive
-        ).toISOString(),
+        terminationDate: '2025-08-09T15:38:48.061Z',
         effectiveDate: '2023-09-15T23:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',
