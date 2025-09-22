@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Global navigation links', () => {
   describe('when the viewport is for mobile', () => {
     context('and logged in as Agent', () => {

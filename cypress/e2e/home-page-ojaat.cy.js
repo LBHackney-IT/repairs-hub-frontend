@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Home page - one job at a time', () => {
   context('When a one job at a time operative is logged in', () => {
     beforeEach(() => {

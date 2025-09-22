@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Notes', () => {
   beforeEach(() => {
     // Stub requests

@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Property page - under warranty', () => {
   context('When property is under warranty', () => {
     beforeEach(() => {

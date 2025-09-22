@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Tasks and SORs', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()

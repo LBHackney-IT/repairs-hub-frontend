@@ -80,7 +80,6 @@
     "@typescript-eslint/parser": "^8.0.1",
     "babel-jest": "26",
     "cypress": "13",
-    "cypress-audit": "1.1.0",
     "cypress-dotenv": "^1.2.2",
     "cypress-dotenv-flow": "^1.2.2",
     "cypress-multi-reporters": "^2.0.4",
