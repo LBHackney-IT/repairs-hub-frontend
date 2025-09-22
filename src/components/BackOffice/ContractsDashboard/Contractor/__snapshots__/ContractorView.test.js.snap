@@ -56,7 +56,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          8 Aug 2025
+          9 Aug 2025
         </p>
       </div>
     </li>
@@ -332,7 +332,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          8 May 2025
+          11 May 2025
         </p>
       </div>
     </li>
@@ -370,7 +370,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          8 May 2025
+          11 May 2025
         </p>
       </div>
     </li>
@@ -408,7 +408,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          8 May 2025
+          11 May 2025
         </p>
       </div>
     </li>
@@ -537,7 +537,7 @@ exports[`Contracts dashboard component should render component with sor code con
           <p
             style="color: red;"
           >
-            Expired: 8 May 2025
+            Expired: 11 May 2025
           </p>
         </div>
       </li>
@@ -602,7 +602,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          8 Aug 2025
+          9 Aug 2025
         </p>
       </div>
     </li>
@@ -878,7 +878,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          8 May 2025
+          11 May 2025
         </p>
       </div>
     </li>
@@ -916,7 +916,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          8 May 2025
+          11 May 2025
         </p>
       </div>
     </li>
@@ -954,7 +954,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          8 May 2025
+          11 May 2025
         </p>
       </div>
     </li>

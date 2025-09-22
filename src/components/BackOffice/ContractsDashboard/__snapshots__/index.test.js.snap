@@ -42,7 +42,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           <span
             style="font-weight: 600;"
           >
-            8 Aug 2025
+            9 Aug 2025
           </span>
         </p>
       </div>
@@ -67,7 +67,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           <span
             style="font-weight: 600;"
           >
-            8 Aug 2025
+            9 Aug 2025
           </span>
         </p>
       </div>
