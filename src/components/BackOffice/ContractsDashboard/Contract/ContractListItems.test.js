@@ -12,7 +12,7 @@ import {
 
 describe('Contractors list items component', () => {
   beforeAll(() => {
-    MockDate.set('2025-07-09T15:38:48.061Z')
+    MockDate.set('2025-07-09')
   })
 
   afterAll(() => {

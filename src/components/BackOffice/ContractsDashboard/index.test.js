@@ -16,7 +16,7 @@ jest.mock('./utils', () => ({
 
 describe('Contracts dashboard component', () => {
   it('should render the component', async () => {
-    MockDate.set('2025-07-10T15:38:48.061Z')
+    MockDate.set('2025-07-10')
     useQuery.mockImplementationOnce(() => ({
       data: mockContracts,
       isLoading: false,

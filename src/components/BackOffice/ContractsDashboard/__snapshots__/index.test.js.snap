@@ -102,7 +102,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           <span
             style="font-weight: 600;"
           >
-            3 days ago
+            2 days ago
           </span>
         </p>
       </div>
