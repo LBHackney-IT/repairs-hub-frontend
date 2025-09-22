@@ -16,12 +16,20 @@
  * @type {Cypress.PluginConfig}
  */
 const dotenvFlowPlugin = require('cypress-dotenv-flow')
+const fs = require('fs')
+const path = require('path')
 
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
   let testTitle
+
+  on('before:browser:launch', (browser = {}, launchOptions) => {
+    // prepareAudit(launchOptions)
+
+    return launchOptions
+  })
 
   on('task', {
     getTestTitle(message) {

@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress'
+// import { prepareAudit } from 'cypress-audit'
 import dotenvFlowPlugin from 'cypress-dotenv-flow'
 
 export default defineConfig({
@@ -9,6 +10,12 @@ export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       let testTitle
+
+      on('before:browser:launch', (browser = {}, launchOptions) => {
+        // prepareAudit(launchOptions)
+
+        return launchOptions
+      })
 
       on('task', {
         getTestTitle(message) {
