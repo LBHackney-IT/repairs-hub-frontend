@@ -19,7 +19,7 @@
     "test:e2e": "NODE_ENV=test yarn start-test http://localhost:5001 cy:run",
     "e2e:audit": "NODE_ENV=test yarn start-test http://localhost:5001 cy:run:audit",
     "cy:run": "yarn cypress run --browser chrome --headless",
-    "cy:run:audit": "yarn cypress run --browser chrome --headless --env runAudit=true",
+    "cy:run:audit": "yarn cypress run --browser chrome --headless",
     "cy:open": "yarn cypress open --browser chrome",
     "clear-eslint-cache": "yarn eslint --cache --cache-location node_modules/.cache/.eslintcache --fix"
   },

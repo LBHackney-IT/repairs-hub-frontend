@@ -59,7 +59,7 @@ jobs:
           name: Force install
           command: yarn cypress install --force
       - run:
-          name: Run E2E With Lighthouse Audit
+          name: Run E2E Tests
           command: |
             export NEXT_PUBLIC_ENV_NAME=test
             export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
