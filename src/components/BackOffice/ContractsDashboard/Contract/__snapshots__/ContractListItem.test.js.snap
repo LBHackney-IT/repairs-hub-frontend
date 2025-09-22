@@ -12,7 +12,7 @@ exports[`Contractors list item component Contractor page should render a contrac
       <h5
         style="white-space: nowrap;"
       >
-        127-127-1277
+        126-126-1266
       </h5>
       <p>
         <span
@@ -36,7 +36,7 @@ exports[`Contractors list item component Contractor page should render a contrac
         >
           Expires: 
         </span>
-        9 Jan 2026
+        8 Aug 2025
       </p>
     </div>
   </li>
@@ -61,12 +61,12 @@ exports[`Contractors list item component Dashboard page should render a contract
         Sycous Limited
       </p>
       <p>
+        Expires: 
         <span
           style="font-weight: 600;"
         >
-          Expires:
+          8 Aug 2025
         </span>
-         9 Aug 2025
       </p>
     </div>
   </li>
@@ -90,7 +90,7 @@ exports[`Contractors list item component sorSearch should render a contract that
       <p
         style="color: red;"
       >
-        Expired: 9 May 2025
+        Expired: 8 May 2025
       </p>
     </div>
   </li>

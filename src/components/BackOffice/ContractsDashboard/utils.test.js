@@ -5,15 +5,16 @@ import {
 } from './mockContractsData'
 import {
   monthsOffset,
-  filterContractsByExpiryDate,
+  filterActiveContractsByExpiryDate,
+  filterInactiveContractsByExpiryDate,
   filterRelativeInactiveContracts,
 } from './utils'
 
-describe('filter contracts by expiry date', () => {
+describe('filter active contracts by expiry date', () => {
   it('returns contracts that will expire in the next two months', () => {
     const contracts = mockContracts
 
-    const response = filterContractsByExpiryDate(
+    const response = filterActiveContractsByExpiryDate(
       contracts,
       2,
       ninthOfJulyTwentyTwentyFive
@@ -45,6 +46,31 @@ describe('filter contracts by expiry date', () => {
         isRaisable: true,
         sorCount: 0,
         sorCost: 0,
+      },
+    ])
+  })
+})
+
+describe('filter inactive contracts by expiry date', () => {
+  it('returns contracts that have expired in the last month', () => {
+    const contracts = mockInactiveContracts
+
+    const response = filterInactiveContractsByExpiryDate(
+      contracts,
+      -1,
+      ninthOfJulyTwentyTwentyFive
+    )
+
+    expect(response).toStrictEqual([
+      {
+        contractReference: '166-166-16666',
+        terminationDate: '2025-07-08T00:00:00Z',
+        effectiveDate: '2020-01-04T00:00:00Z',
+        contractorReference: 'SYC',
+        contractorName: 'Sycous Limited',
+        isRaisable: true,
+        sorCount: 20,
+        sorCost: 5958.38,
       },
     ])
   })
@@ -88,6 +114,16 @@ describe('relativeInactiveContracts', () => {
           -2,
           ninthOfJulyTwentyTwentyFive
         ).toISOString(),
+        effectiveDate: '2020-01-04T00:00:00Z',
+        contractorReference: 'SYC',
+        contractorName: 'Sycous Limited',
+        isRaisable: true,
+        sorCount: 20,
+        sorCost: 5958.38,
+      },
+      {
+        contractReference: '166-166-16666',
+        terminationDate: '2025-07-08T00:00:00Z',
         effectiveDate: '2020-01-04T00:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',

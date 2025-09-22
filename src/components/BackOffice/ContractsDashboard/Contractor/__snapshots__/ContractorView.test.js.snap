@@ -32,6 +32,44 @@ exports[`Contracts dashboard component should render component with sor code con
         <h5
           style="white-space: nowrap;"
         >
+          126-126-1266
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £0.00
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           0
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expired: 
+          </span>
+          8 Aug 2025
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="1"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
           127-127-1277
         </h5>
         <p>
@@ -61,7 +99,7 @@ exports[`Contracts dashboard component should render component with sor code con
       </div>
     </li>
     <li
-      data-id="1"
+      data-id="2"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -99,7 +137,7 @@ exports[`Contracts dashboard component should render component with sor code con
       </div>
     </li>
     <li
-      data-id="2"
+      data-id="3"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -137,7 +175,7 @@ exports[`Contracts dashboard component should render component with sor code con
       </div>
     </li>
     <li
-      data-id="3"
+      data-id="4"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -175,7 +213,7 @@ exports[`Contracts dashboard component should render component with sor code con
       </div>
     </li>
     <li
-      data-id="4"
+      data-id="5"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -213,7 +251,7 @@ exports[`Contracts dashboard component should render component with sor code con
       </div>
     </li>
     <li
-      data-id="5"
+      data-id="6"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -294,7 +332,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          9 May 2025
+          8 May 2025
         </p>
       </div>
     </li>
@@ -332,7 +370,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          9 May 2025
+          8 May 2025
         </p>
       </div>
     </li>
@@ -370,7 +408,45 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          9 May 2025
+          8 May 2025
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="3"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          166-166-16666
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £5,958.38
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           20
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expired: 
+          </span>
+          8 Jul 2025
         </p>
       </div>
     </li>
@@ -461,7 +537,7 @@ exports[`Contracts dashboard component should render component with sor code con
           <p
             style="color: red;"
           >
-            Expired: 9 May 2025
+            Expired: 8 May 2025
           </p>
         </div>
       </li>
@@ -502,6 +578,44 @@ exports[`Contracts dashboard component should render the component without displ
         <h5
           style="white-space: nowrap;"
         >
+          126-126-1266
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £0.00
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           0
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expired: 
+          </span>
+          8 Aug 2025
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="1"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
           127-127-1277
         </h5>
         <p>
@@ -531,7 +645,7 @@ exports[`Contracts dashboard component should render the component without displ
       </div>
     </li>
     <li
-      data-id="1"
+      data-id="2"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -569,7 +683,7 @@ exports[`Contracts dashboard component should render the component without displ
       </div>
     </li>
     <li
-      data-id="2"
+      data-id="3"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -607,7 +721,7 @@ exports[`Contracts dashboard component should render the component without displ
       </div>
     </li>
     <li
-      data-id="3"
+      data-id="4"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -645,7 +759,7 @@ exports[`Contracts dashboard component should render the component without displ
       </div>
     </li>
     <li
-      data-id="4"
+      data-id="5"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -683,7 +797,7 @@ exports[`Contracts dashboard component should render the component without displ
       </div>
     </li>
     <li
-      data-id="5"
+      data-id="6"
       style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
@@ -764,7 +878,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          9 May 2025
+          8 May 2025
         </p>
       </div>
     </li>
@@ -802,7 +916,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          9 May 2025
+          8 May 2025
         </p>
       </div>
     </li>
@@ -840,7 +954,45 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          9 May 2025
+          8 May 2025
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="3"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          166-166-16666
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £5,958.38
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           20
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expired: 
+          </span>
+          8 Jul 2025
         </p>
       </div>
     </li>

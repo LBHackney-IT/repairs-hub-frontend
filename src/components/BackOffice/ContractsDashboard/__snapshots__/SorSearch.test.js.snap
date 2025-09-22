@@ -88,7 +88,7 @@ exports[`SorSearch component should render contracts with sor code that has been
           <p
             style="color: red;"
           >
-            Expired: 9 May 2025
+            Expired: 8 May 2025
           </p>
         </div>
       </li>

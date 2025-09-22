@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react'
+import MockDate from 'mockdate'
 
-import { filterContractsByExpiryDate } from '../utils'
+import { filterActiveContractsByExpiryDate } from '../utils'
 
 import ContractListItems from './ContractListItems'
 
@@ -10,6 +11,14 @@ import {
 } from '../mockContractsData'
 
 describe('Contractors list items component', () => {
+  beforeAll(() => {
+    MockDate.set('2025-07-09T15:38:48.061Z')
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
+
   it('should render active contracts with relevant fields', async () => {
     const { asFragment } = render(
       <ContractListItems
@@ -37,7 +46,8 @@ describe('Contractors list items component', () => {
   })
 
   it('should render contracts that expire in two months with relevant fields', async () => {
-    const contractsThatExpireInTwoMonths = filterContractsByExpiryDate(
+    MockDate.set('2025-07-09T15:38:48.061Z')
+    const contractsThatExpireInTwoMonths = filterActiveContractsByExpiryDate(
       mockActiveContracts,
       2,
       new Date('2025-07-09T15:38:48.061Z')
@@ -51,5 +61,6 @@ describe('Contractors list items component', () => {
       />
     )
     expect(asFragment()).toMatchSnapshot()
+    MockDate.reset()
   })
 })

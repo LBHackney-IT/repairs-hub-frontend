@@ -237,6 +237,16 @@ export const mockContracts = [
 
 export const mockActiveContracts = [
   {
+    contractReference: '126-126-1266',
+    terminationDate: monthsOffset(1, ninthOfJulyTwentyTwentyFive).toISOString(),
+    effectiveDate: '2023-09-15T23:00:00Z',
+    contractorReference: 'SYC',
+    contractorName: 'Sycous Limited',
+    isRaisable: true,
+    sorCount: 0,
+    sorCost: 0,
+  },
+  {
     contractReference: '127-127-1277',
     terminationDate: monthsOffset(6, ninthOfJulyTwentyTwentyFive).toISOString(),
     effectiveDate: '2023-09-15T23:00:00Z',
@@ -352,6 +362,16 @@ export const mockInactiveContracts = [
       -2,
       ninthOfJulyTwentyTwentyFive
     ).toISOString(),
+    effectiveDate: '2020-01-04T00:00:00Z',
+    contractorReference: 'SYC',
+    contractorName: 'Sycous Limited',
+    isRaisable: true,
+    sorCount: 20,
+    sorCost: 5958.38,
+  },
+  {
+    contractReference: '166-166-16666',
+    terminationDate: '2025-07-08T00:00:00Z',
     effectiveDate: '2020-01-04T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',

@@ -11,7 +11,11 @@ import {
   backOfficeFetchContractors,
 } from '@/root/src/components/BackOffice/requests'
 
-import { filterContractsByExpiryDate, today } from './utils'
+import {
+  filterActiveContractsByExpiryDate,
+  filterInactiveContractsByExpiryDate,
+  today,
+} from './utils'
 
 import Contract from '@/root/src/models/contract'
 import Contractor from '@/root/src/models/contractor'
@@ -62,6 +66,7 @@ const ContractsDashboard = () => {
         contractsExpiryFilterDate: CONTRACTS_CUTOFF_DATE,
       })
   )
+
   const contracts = contractData as Contract[] | null
   const contractors = contractorData as Contractor[] | null
   const expiredContracts = expiredContractData as Contract[] | null
@@ -69,13 +74,13 @@ const ContractsDashboard = () => {
   const contractorError = contractorsError as Error | null
   const expiredContractError = expiredContractsError as Error | null
 
-  const contractsThatExpireWithinTwoMonths = filterContractsByExpiryDate(
+  const contractsThatExpireWithinTwoMonths = filterActiveContractsByExpiryDate(
     contracts,
     2,
     today
   )
 
-  const recentlyExpiredContracts = filterContractsByExpiryDate(
+  const recentlyExpiredContracts = filterInactiveContractsByExpiryDate(
     expiredContracts,
     -1,
     today
