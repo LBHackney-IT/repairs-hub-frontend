@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Home page', () => {
   context('When an agent is logged in', () => {
     beforeEach(() => {

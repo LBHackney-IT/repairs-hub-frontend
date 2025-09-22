@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Authentication', () => {
   context('When the user is not signed in', () => {
     it('Redirects attempts to visit other URLs and shows the sign in page', () => {

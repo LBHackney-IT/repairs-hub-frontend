@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Search', () => {
   const totalPageSize = Cypress.env('NEXT_PUBLIC_PROPERTIES_PAGE_SIZE')
   const totalResults = totalPageSize + 1

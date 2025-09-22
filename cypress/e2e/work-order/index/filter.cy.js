@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Filter work orders', () => {
   beforeEach(() => {
     cy.intercept(

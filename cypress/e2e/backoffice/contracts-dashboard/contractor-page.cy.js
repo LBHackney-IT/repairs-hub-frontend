@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 function contractsRequest() {
   cy.intercept(
     {

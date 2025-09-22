@@ -1,5 +1,3 @@
-import 'cypress-audit/commands'
-
 const WORK_ORDER_REFERENCE = 10000012
 
 describe('Photos', () => {

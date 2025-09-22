@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Close-WorkOrders - when user unauthorized', () => {
   it("Shows access denied when user doesn't have correct permissions", () => {
     cy.loginWithOperativeRole()

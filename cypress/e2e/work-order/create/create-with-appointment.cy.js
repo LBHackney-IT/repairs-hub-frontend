@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
 import {
   EMERGENCY_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
