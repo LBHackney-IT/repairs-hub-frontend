@@ -6,10 +6,7 @@ import ContractListItem from './ContractListItem'
 import {
   mockActiveContracts,
   mockInactiveContracts,
-  ninthOfJulyTwentyTwentyFive,
 } from '../mockContractsData'
-
-import { monthsOffset } from '../utils'
 
 describe('Contractors list item component', () => {
   beforeAll(() => {
