@@ -4,7 +4,6 @@ import {
   mockInactiveContracts,
 } from './mockContractsData'
 import {
-  monthsOffset,
   filterActiveContractsByExpiryDate,
   filterInactiveContractsByExpiryDate,
   filterRelativeInactiveContracts,

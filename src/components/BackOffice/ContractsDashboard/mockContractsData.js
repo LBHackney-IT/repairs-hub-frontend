@@ -1,5 +1,3 @@
-import { monthsOffset } from './utils'
-
 export const ninthOfJulyTwentyTwentyFive = new Date('2025-07-09T15:38:48.061Z')
 
 export const mockContracts = [
