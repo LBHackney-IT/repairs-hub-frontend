@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import 'cypress-audit/commands'
+export {}
 
 declare global {
   // eslint-disable-next-line
@@ -232,7 +232,7 @@ Cypress.Commands.add('checkForTenureDetails', (tenure, alerts) => {
   })
 
   // Alerts
-  cy.get('.hackney-property-alerts').within(() => {
+  cy.get('.hackney-property-alerts').each(() => {
     alerts.forEach((alert) => {
       cy.contains(alert)
     })

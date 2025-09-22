@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Show work order page', () => {
   beforeEach(() => {
     cy.intercept(
@@ -22,8 +20,9 @@ describe('Show work order page', () => {
               comments: 'Alert 1',
             },
             {
-              type: 'VA',
-              comments: 'Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
@@ -36,7 +35,7 @@ describe('Show work order page', () => {
       cy.loginWithAgentRole()
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
       cy.intercept(
@@ -98,7 +97,8 @@ describe('Show work order page', () => {
 
       cy.checkForTenureDetails('Tenure: Secure', [
         'Alert 1 (CV)',
-        'Alert 2 (VA)',
+        'Specific Requirements (SPR)',
+        'Reason 1, very important',
       ])
 
       cy.get('.work-order-info').contains('Status: In Progress')
@@ -117,7 +117,7 @@ describe('Show work order page', () => {
     context('When the work order has been assigned operatives', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrderWithOperativesRequest')
 
@@ -236,7 +236,7 @@ describe('Show work order page', () => {
         ).as('workOrdersHistoryRequest')
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040/new' },
+          { method: 'GET', path: '/api/workOrders/10000040' },
           { fixture: 'workOrders/priorityImmediate.json' }
         ).as('historicalWorkOrderRequest')
 
@@ -248,8 +248,7 @@ describe('Show work order page', () => {
         cy.intercept(
           {
             method: 'GET',
-            path:
-              '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/00089473/alerts',
+            path: '/api/properties/00089473/alerts',
           },
           {
             body: {
@@ -259,8 +258,9 @@ describe('Show work order page', () => {
                   comments: 'Alert 1',
                 },
                 {
-                  type: 'VA',
-                  comments: 'Alert 2',
+                  type: 'SPR',
+                  comments: 'Specific Requirements',
+                  reason: 'Reason 1, very important',
                 },
               ],
             },
@@ -326,7 +326,7 @@ describe('Show work order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621/new',
+          path: '/api/workOrders/10000621',
         },
         {
           fixture: 'operatives/workOrder.json',
@@ -368,7 +368,13 @@ describe('Show work order page', () => {
 
       cy.contains('WO 10000621')
 
-      cy.get('.work-order-information').contains('CV, VA')
+      cy.get('.lbh-list > :nth-child(1)').contains('Alert 1 (CV)')
+      cy.get('.lbh-list > :nth-child(2)').contains(
+        'Specific Requirements (SPR)'
+      )
+      cy.get('.lbh-list > :nth-child(2)').contains('Reason 1, very important')
+
+      cy.get('.work-order-information').contains('CV, SPR')
 
       cy.get('div[class*="Multibutton"]').should('not.exist')
       cy.get('a[id="caut-alerts"]').click()
@@ -378,9 +384,9 @@ describe('Show work order page', () => {
       cy.get('[data-row-id=15] .text-dark-red').contains('CV')
       cy.get('[data-row-id=15] .text-dark-red').contains('No Lone Visits')
 
-      cy.get('[data-row-id=23] .text-dark-red').contains('VA')
-      cy.get('[data-row-id=23] .text-dark-red').contains(
-        'Verbal Abuse or Threat of'
+      cy.get('[data-row-id=19] .text-dark-red').contains('SPR')
+      cy.get('[data-row-id=19] .text-dark-red').contains(
+        'Specific Requirements'
       )
     })
 
@@ -506,7 +512,7 @@ describe('Show work order page', () => {
   describe('Work order actions', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
 
@@ -528,7 +534,7 @@ describe('Show work order page', () => {
         cy.loginWithContractorRole()
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrderRequest')
 
@@ -591,7 +597,7 @@ describe('Show work order page', () => {
     cy.loginWithContractorRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrderRequest-10000012')
 

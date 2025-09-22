@@ -1,9 +1,6 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
 /// <reference types="cypress" />
-
-import 'cypress-audit/commands'
 
 describe('Related work orders', () => {
   describe('When user is not a contractor', () => {
@@ -11,7 +8,7 @@ describe('Related work orders', () => {
       cy.loginWithAgentRole()
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       )
 
@@ -93,7 +90,7 @@ describe('Related work orders', () => {
       cy.loginWithContractorRole()
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
 

@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Notes', () => {
   beforeEach(() => {
     // Stub requests
@@ -18,12 +16,7 @@ describe('Notes', () => {
       { fixture: 'workOrders/workOrders.json' }
     )
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
-      { fixture: 'workOrders/workOrder.json' }
-    )
-
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
     )
 
@@ -87,9 +80,6 @@ describe('Notes', () => {
         typeCode: '0',
         otherType: 'addNote',
       })
-
-    // Run lighthouse audit for accessibility report
-    //  cy.audit()
   })
 
   it('Displays notes as a timeline', () => {

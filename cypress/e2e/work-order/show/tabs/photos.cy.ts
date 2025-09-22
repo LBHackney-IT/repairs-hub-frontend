@@ -1,5 +1,3 @@
-import 'cypress-audit/commands'
-
 const WORK_ORDER_REFERENCE = 10000012
 
 describe('Photos', () => {
@@ -10,7 +8,7 @@ describe('Photos', () => {
     )
 
     cy.intercept(
-      { method: 'GET', path: `/api/workOrders/${WORK_ORDER_REFERENCE}/new` },
+      { method: 'GET', path: `/api/workOrders/${WORK_ORDER_REFERENCE}` },
       { fixture: 'workOrders/workOrder.json' }
     )
 

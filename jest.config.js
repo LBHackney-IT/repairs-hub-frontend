@@ -1,5 +1,3 @@
-let reporterRules = require('./reporter-rules.json')
-
 module.exports = {
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
@@ -14,7 +12,7 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!(lbh-frontend)/)',
+    '/node_modules/(?!(lbh-frontend|axios)/)',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
   moduleDirectories: ['node_modules', '.'],
@@ -28,8 +26,5 @@ module.exports = {
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
-  reporters: [
-    ['jest-clean-console-reporter', { rules: reporterRules }],
-    '@jest/reporters/build/SummaryReporter',
-  ],
+  reporters: ['default'],
 }

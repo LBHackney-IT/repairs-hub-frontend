@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 // Mock date
 const now = new Date('Fri Jan 22 2021 18:27:20 GMT+0000 (Greenwich Mean Time)')
 
@@ -22,7 +20,7 @@ describe('Authorisation workflow for a work order', () => {
     ).as('propertyRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/statusAuthorisationPendingApproval.json' }
     ).as('workOrderRequest')
 
@@ -121,8 +119,6 @@ describe('Authorisation workflow for a work order', () => {
       cy.get('.lbh-list li')
         .contains('Start a new search')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     it('Authorises work order', () => {
@@ -184,7 +180,7 @@ describe('Authorisation workflow for a work order', () => {
 
     it('No link to authorise work order if status is not authorisation pending approval', () => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('nonPendingWorkOrderRequest')
 

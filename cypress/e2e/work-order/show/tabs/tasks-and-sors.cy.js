@@ -1,13 +1,11 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Tasks and SORs', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
     )
 
@@ -117,8 +115,6 @@ describe('Tasks and SORs', () => {
       cy.contains('Budget code – Subjective:')
       cy.contains('H2555 - 200108 Gutter Clearance')
     })
-
-    //  cy.audit()
   })
 
   it('Navigate directly to tasks and sors tab', () => {
@@ -135,7 +131,5 @@ describe('Tasks and SORs', () => {
       cy.get('.govuk-table th').contains('Cost (est.)')
       cy.get('.govuk-table th').contains('Total SMV')
     })
-
-    //  cy.audit()
   })
 })

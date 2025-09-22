@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Home page', () => {
   context('When an agent is logged in', () => {
     beforeEach(() => {
@@ -14,8 +12,6 @@ describe('Home page', () => {
       cy.get('.govuk-label').contains(
         'Search by work order reference, postcode or address'
       )
-
-      // cy.audit()
     })
   })
 
@@ -73,16 +69,12 @@ describe('Home page', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Next').should('not.exist')
             })
-            // Run lighthouse audit for accessibility report
-            // cy.audit()
           })
 
           it('does not display previous button', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Previous').should('not.exist')
             })
-            // Run lighthouse audit for accessibility report
-            // cy.audit()
           })
         }
       )
@@ -143,16 +135,12 @@ describe('Home page', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Next').should('not.exist')
             })
-
-            // cy.audit()
           })
 
           it('does not display previous button', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Previous').should('not.exist')
             })
-
-            // cy.audit()
           })
         }
       )
@@ -197,6 +185,7 @@ describe('Home page', () => {
               cy.contains('th', 'Trade')
               cy.contains('th', 'Description')
             })
+
             // Check the first row
             cy.get('[data-ref=10000040]').within(() => {
               cy.contains('10000040')
@@ -213,16 +202,12 @@ describe('Home page', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Next').should('not.exist')
             })
-
-            // cy.audit()
           })
 
           it('does not display previous button', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Previous').should('not.exist')
             })
-
-            // cy.audit()
           })
         }
       )
@@ -286,16 +271,12 @@ describe('Home page', () => {
               cy.get('.page-navigation').within(() => {
                 cy.contains('Next').should('not.exist')
               })
-
-              // cy.audit()
             })
 
             it('does not display previous button', () => {
               cy.get('.page-navigation').within(() => {
                 cy.contains('Previous').should('not.exist')
               })
-
-              // cy.audit()
             })
           }
         )

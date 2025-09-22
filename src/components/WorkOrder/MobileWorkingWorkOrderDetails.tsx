@@ -3,13 +3,14 @@ import { GridColumn, GridRow } from '../Layout/Grid'
 import TruncateText from '../Layout/TruncateText'
 import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { getAlerts } from '../../utils/requests/property'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import { useRouter } from 'next/router'
 import { formatDateTime } from '../../utils/time'
 import Status from './Status'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import Alerts from '../Property/Alerts'
 
 interface Props {
   property: Property
@@ -19,11 +20,12 @@ interface Props {
 }
 
 const MobileWorkingWorkOrderDetails = (props: Props) => {
-  const { property, tenure, workOrder, appointmentDetails } = props
+  const { property, workOrder, appointmentDetails } = props
 
   const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
   const [alertsError, setAlertsError] = useState<string | null>()
   const [alerts, setAlerts] = useState([])
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const router = useRouter()
 
@@ -43,25 +45,22 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
     })
   }
 
-  const getAlerts = (propertyReference) => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${propertyReference}/alerts`,
-    })
-      .then((data) => setAlerts(data.alerts))
-      .catch((error) => {
-        console.error('Error loading alerts status:', error.response)
+  const fetchAlerts = async () => {
+    setAlertsLoading(true)
+    const alertsResponse = await getAlerts(property.propertyReference)
 
-        setAlertsError(
-          `Error loading alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setAlertsLoading(false))
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
   }
 
   useEffect(() => {
-    setAlertsLoading(true)
-    getAlerts(property.propertyReference)
+    fetchAlerts()
   }, [])
 
   return (
@@ -98,6 +97,8 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
           numberOfLines="3"
           pTagClassName={'govuk-body govuk-!-margin-bottom-0'}
           linkClassName={'govuk-body'}
+          setIsExpanded={setIsExpanded}
+          isExpanded={isExpanded}
         />
 
         {!!workOrder?.startTime && (
@@ -115,10 +116,30 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
             <p className="govuk-body">{appointmentDetails.plannerComments}</p>
           </>
         )}
-        <div className="work-order-information">
-          {alertsLoading && <Spinner resource="alerts" />}
-          {alertsError && <ErrorMessage label={alertsError} />}
 
+        {alertsLoading && <Spinner resource="alerts" />}
+        {alerts?.length > 0 && (
+          <ul
+            className="lbh-list hackney-property-alerts"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              marginBottom: '1em',
+              maxWidth: isExpanded ? '' : '30em',
+            }}
+          >
+            <Alerts
+              alerts={alerts}
+              setIsExpanded={setIsExpanded}
+              isExpanded={isExpanded}
+            />
+          </ul>
+        )}
+
+        {alertsError && <ErrorMessage label={alertsError} />}
+
+        <div className="work-order-information">
           {cautionaryAlertsType().length > 0 && (
             <GridRow className="govuk-!-margin-top-0">
               <GridColumn width="one-half">

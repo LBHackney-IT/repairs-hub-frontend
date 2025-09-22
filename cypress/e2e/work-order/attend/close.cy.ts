@@ -1,5 +1,3 @@
-import 'cypress-audit/commands'
-
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
@@ -11,7 +9,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
   const propertyReference = '00012345'
 
   beforeEach(() => {
-    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
@@ -45,11 +43,12 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           alerts: [
             {
               type: 'type1',
-              comments: 'Location Alert 1',
+              comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Location Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
@@ -823,7 +822,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040/new' },
+          { method: 'GET', path: '/api/workOrders/10000040' },
           { body: workOrder }
         ).as('workOrder')
       })
@@ -929,7 +928,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       workOrder.canAssignOperative = false
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040/new' },
+        { method: 'GET', path: '/api/workOrders/10000040' },
         { body: workOrder }
       ).as('workOrder')
     })
@@ -1034,7 +1033,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       workOrder.canAssignOperative = false
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040/new' },
+        { method: 'GET', path: '/api/workOrders/10000040' },
         { body: workOrder }
       ).as('workOrder')
     })
@@ -1139,7 +1138,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       workOrder.canAssignOperative = false
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040/new' },
+        { method: 'GET', path: '/api/workOrders/10000040' },
         { body: workOrder }
       ).as('workOrder')
     })

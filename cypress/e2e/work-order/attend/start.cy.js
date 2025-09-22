@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-import 'cypress-audit/commands'
 
 describe('Starting my own work order', () => {
   const now = new Date('Friday June 11 2021 13:49:15Z')
@@ -7,7 +6,7 @@ describe('Starting my own work order', () => {
   const propertyReference = '00012345'
 
   beforeEach(() => {
-    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrderWithoutStartTime.json',
     }).as('workOrderRequest')
 
@@ -41,11 +40,12 @@ describe('Starting my own work order', () => {
           alerts: [
             {
               type: 'type1',
-              comments: 'Location Alert 1',
+              comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Location Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
