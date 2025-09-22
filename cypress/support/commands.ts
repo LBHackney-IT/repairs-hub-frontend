@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import 'cypress/types/cypress'
 
 declare global {
   // eslint-disable-next-line
