@@ -125,6 +125,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
   }, [])
 
   useEffect(() => {
+    if (!property?.propertyReference) return
     fetchAlerts()
   }, [property?.propertyReference])
 
