@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
 import {
   EMERGENCY_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
@@ -62,7 +61,7 @@ describe('Schedule appointment form', () => {
     ).as('trades')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10102030/new' },
+      { method: 'GET', path: '/api/workOrders/10102030' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrder')
 
@@ -272,8 +271,6 @@ describe('Schedule appointment form', () => {
       cy.get('.lbh-list li')
         .contains('Start a new search')
         .should('have.attr', 'href', '/')
-
-      //  cy.audit()
     })
 
     // when priority is Normal it is redirecting to schedule appointment page
@@ -463,9 +460,6 @@ describe('Schedule appointment form', () => {
       cy.contains('a', 'View work order')
       cy.contains('a', 'Back to 16 Pitcairn House')
       cy.contains('a', 'Start a new search')
-
-      // Run lighthouse audit for accessibility report
-      //  cy.audit()
     })
   })
 

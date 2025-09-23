@@ -2,7 +2,7 @@ import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
 import PropertyFlags from '../Property/PropertyFlags'
 import WorkOrderInfo from './WorkOrderInfo'
 import { WorkOrder } from '@/models/workOrder'
-import { CautionaryAlert } from '../../models/cautionaryAlerts'
+
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { Tenure } from '../../models/propertyTenure'
 import WorkOrderAppointmentDetailsHeader from './WorkOrderAppointmentDetailsHeader'
@@ -17,7 +17,6 @@ interface Props {
   subTypeDescription: string
   tenure: Tenure
   canRaiseRepair: boolean
-  setAlerts: (alerts: CautionaryAlert[]) => void
 }
 
 const WorkOrderHeader = (props: Props) => {
@@ -31,7 +30,6 @@ const WorkOrderHeader = (props: Props) => {
     subTypeDescription,
     tenure,
     canRaiseRepair,
-    setAlerts,
   } = props
 
   return (
@@ -43,13 +41,7 @@ const WorkOrderHeader = (props: Props) => {
           subTypeDescription={subTypeDescription}
           hasLinkToProperty={true}
         />
-
-        <PropertyFlags
-          tenure={tenure}
-          canRaiseRepair={canRaiseRepair}
-          propertyReference={propertyReference}
-          setParentAlerts={setAlerts}
-        />
+        <PropertyFlags tenure={tenure} canRaiseRepair={canRaiseRepair} />
       </div>
       <div className="govuk-grid-column-one-third">
         <WorkOrderInfo workOrder={workOrder} />

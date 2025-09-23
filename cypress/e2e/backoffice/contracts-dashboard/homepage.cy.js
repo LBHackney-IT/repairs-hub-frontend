@@ -5,8 +5,6 @@ import {
 
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 function contractsRequest(mapper = null) {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
     cy.intercept(

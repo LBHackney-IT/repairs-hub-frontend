@@ -7,9 +7,10 @@ const TruncateText = ({
   numberOfLines,
   pTagClassName,
   linkClassName,
+  setIsExpanded,
+  isExpanded,
 }) => {
   const [textOverflow, setTextOverflow] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
 
   const onShowMoreClick = (e) => {
     e.preventDefault()
@@ -72,6 +73,8 @@ TruncateText.propTypes = {
   numberOfLines: PropTypes.string.isRequired,
   pTagClassName: PropTypes.string,
   linkClassName: PropTypes.string,
+  setIsExpanded: PropTypes.func,
+  isExpanded: PropTypes.bool,
 }
 
 export default TruncateText

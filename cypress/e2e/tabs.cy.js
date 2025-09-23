@@ -1,16 +1,13 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
 /// <reference types="cypress" />
-
-import 'cypress-audit/commands'
 
 describe('Tabs component', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10005254/new' },
+      { method: 'GET', path: '/api/workOrders/10005254' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrderRequest')
 

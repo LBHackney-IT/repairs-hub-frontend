@@ -307,6 +307,37 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -778,6 +809,37 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -1133,6 +1195,37 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -1541,6 +1634,37 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -1709,6 +1833,37 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -2031,6 +2186,37 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
     >
       This is a migrated repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -2439,6 +2625,37 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -2847,6 +3064,37 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -3276,6 +3524,37 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >
@@ -3582,6 +3861,37 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
     >
       This is an urgent repair description
     </p>
+    <ul
+      class="lbh-list hackney-property-alerts"
+      style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+    >
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 1 
+          <strong>
+            (type1)
+          </strong>
+        </p>
+      </li>
+      <li
+        class="bg-orange"
+        style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+      >
+        <p
+          style="margin-top: 0px;"
+        >
+          Alert 2 
+          <strong>
+            (type2)
+          </strong>
+        </p>
+      </li>
+    </ul>
     <div
       class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
     >

@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 import {
   STATUS_IN_PROGRESS,
   STATUS_NO_ACCESS,
@@ -62,7 +60,7 @@ describe('Rescheduling work order appointments', () => {
     context('When the work order is not in a closed state', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           {
             fixture: 'workOrders/withAppointment.json',
           }
@@ -88,7 +86,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_IN_PROGRESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012/new' },
+              { method: 'GET', path: '/api/workOrders/10000012' },
               { body: workOrder }
             )
           })
@@ -186,7 +184,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_NO_ACCESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012/new' },
+              { method: 'GET', path: '/api/workOrders/10000012' },
               { body: workOrder }
             )
           })
@@ -207,7 +205,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_NO_ACCESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012/new' },
+              { method: 'GET', path: '/api/workOrders/10000012' },
               { body: workOrder }
             )
           })
@@ -236,7 +234,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_IN_PROGRESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012/new' },
+              { method: 'GET', path: '/api/workOrders/10000012' },
               { body: workOrder }
             )
           })
@@ -303,7 +301,7 @@ describe('Rescheduling work order appointments', () => {
               workOrder.status = STATUS_NO_ACCESS.description
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000012/new' },
+                { method: 'GET', path: '/api/workOrders/10000012' },
                 { body: workOrder }
               )
             })

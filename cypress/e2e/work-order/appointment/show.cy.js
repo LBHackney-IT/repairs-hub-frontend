@@ -1,13 +1,11 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Managing work order appointments', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
     )
 
@@ -70,7 +68,7 @@ describe('Managing work order appointments', () => {
             workOrder.priority = '1 [I] IMMEDIATE'
             workOrder.priorityCode = 1
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012/new' },
+              { method: 'GET', path: '/api/workOrders/10000012' },
               { body: workOrder }
             )
           }
@@ -101,7 +99,7 @@ describe('Managing work order appointments', () => {
             workOrder.contractorReference = 'H04'
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012/new' },
+              { method: 'GET', path: '/api/workOrders/10000012' },
               { body: workOrder }
             )
           }
@@ -124,7 +122,7 @@ describe('Managing work order appointments', () => {
     context('For a lower priority work order (Urgent or Normal)', () => {
       it('Shows a link to schedule an appointment via DRS Web Booking Manager', () => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/externallyManagedAppointment.json' }
         )
 
@@ -165,7 +163,7 @@ describe('Managing work order appointments', () => {
   context('When the work order has an existing appointment', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/withAppointment.json' }
       )
 
@@ -190,7 +188,7 @@ describe('Managing work order appointments', () => {
   context('When the work order has an immediate priority', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/priorityImmediate.json' }
       )
     })

@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Home page - one job at a time', () => {
   context('When a one job at a time operative is logged in', () => {
     beforeEach(() => {
@@ -40,7 +38,7 @@ describe('Home page - one job at a time', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000621/new',
+            path: '/api/workOrders/10000621',
           },
           {
             fixture: 'operatives/workOrder.json',
@@ -122,7 +120,7 @@ describe('Home page - one job at a time', () => {
           cy.intercept(
             {
               method: 'GET',
-              path: '/api/workOrders/10000621/new',
+              path: '/api/workOrders/10000621',
             },
             {
               fixture: 'operatives/workOrder.json',

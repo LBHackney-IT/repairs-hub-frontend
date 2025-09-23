@@ -1,13 +1,11 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Printing', () => {
   beforeEach(() => {
     cy.loginWithContractorRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
     )
     cy.intercept(

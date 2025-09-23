@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-import 'cypress-audit/commands'
 
 describe('Contract manager can authorise variation', () => {
   beforeEach(() => {
@@ -16,12 +15,7 @@ describe('Contract manager can authorise variation', () => {
     ).as('propertyRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
-      { fixture: 'workOrders/statusVariationPendingApproval.json' }
-    ).as('workOrderRequest')
-
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/statusVariationPendingApproval.json' }
     ).as('workOrderRequest')
 

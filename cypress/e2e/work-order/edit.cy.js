@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import 'cypress-audit/commands'
+
 describe('Editing a work order description', () => {
   context('As an authorisation manager', () => {
     beforeEach(() => {
@@ -9,7 +9,7 @@ describe('Editing a work order description', () => {
     describe('When tenure is null', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrderRequest')
 
@@ -36,7 +36,7 @@ describe('Editing a work order description', () => {
     describe(`When I don't trigger any errors`, () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
 
@@ -86,7 +86,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012/new',
+            path: '/api/workOrders/10000012',
           },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
@@ -130,7 +130,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012/new',
+            path: '/api/workOrders/10000012',
           },
           { fixture: 'workOrders/editedWorkOrder.json' }
         ).as('editedWorkOrder')
@@ -169,7 +169,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012/new',
+            path: '/api/workOrders/10000012',
           },
           { fixture: 'workOrders/editedWorkOrder.json' }
         ).as('editedWorkOrder')
@@ -185,7 +185,7 @@ describe('Editing a work order description', () => {
     describe('When I trigger errors', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
         cy.intercept(
@@ -269,7 +269,7 @@ describe('Editing a work order description', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/new' },
+        { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrderToEdit.json' }
       ).as('workOrder')
       cy.visit('/work-orders/10000012/edit')

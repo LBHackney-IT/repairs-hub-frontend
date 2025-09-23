@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
 const operativeId = 'hu0001'
 context('When an operative is logged in', () => {
   beforeEach(() => {
@@ -44,7 +43,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621/new',
+          path: '/api/workOrders/10000621',
         },
         {
           fixture: 'operatives/workOrder.json',
@@ -365,7 +364,7 @@ context('When a one job at a time operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621/new',
+          path: '/api/workOrders/10000621',
         },
         {
           fixture: 'operatives/workOrder.json',

@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import 'cypress-audit/commands'
+
 import {
   MULTITRADE_TRADE_CODE,
   PURDY_CONTRACTOR_REFERENCE,
@@ -21,7 +21,7 @@ describe('Updating a work order', () => {
         .then((workOrder) => {
           workOrder.reference = 10000040
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040/new' },
+            { method: 'GET', path: '/api/workOrders/10000040' },
             { body: workOrder }
           )
         })
@@ -482,9 +482,6 @@ describe('Updating a work order', () => {
       cy.get('.lbh-list li')
         .contains('Manage work orders')
         .should('have.attr', 'href', '/')
-
-      // Run lighthouse audit for accessibility report
-      //  cy.audit()
     })
 
     context('for a Purdy order', () => {
@@ -496,7 +493,7 @@ describe('Updating a work order', () => {
             workOrder.reference = 10000040
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040/new' },
+              { method: 'GET', path: '/api/workOrders/10000040' },
               { body: workOrder }
             )
           })
@@ -685,7 +682,7 @@ describe('Updating a work order', () => {
         workOrder.totalSMVs = 76
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621/new' },
+          { method: 'GET', path: '/api/workOrders/10000621' },
           { body: workOrder }
         ).as('workOrderRequest')
       })
@@ -1116,7 +1113,7 @@ describe('Updating a work order', () => {
         workOrder.totalSMVs = 76
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621/new' },
+          { method: 'GET', path: '/api/workOrders/10000621' },
           { body: workOrder }
         ).as('workOrderRequestMultipleOperatives')
       })

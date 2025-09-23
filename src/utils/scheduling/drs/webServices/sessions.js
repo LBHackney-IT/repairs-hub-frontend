@@ -1,5 +1,5 @@
 import { soapRequest } from '../../../soapRequestClient'
-import { DOMParser } from 'xmldom'
+import { DOMParser } from '@xmldom/xmldom'
 import xpath from 'xpath'
 
 const {

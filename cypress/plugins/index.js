@@ -15,22 +15,9 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-const { lighthouse, prepareAudit } = require('cypress-audit')
 const dotenvFlowPlugin = require('cypress-dotenv-flow')
 const fs = require('fs')
 const path = require('path')
-
-const storeData = async (data, filepath) => {
-  try {
-    const dirpath = path.dirname(filepath)
-    await fs.promises.mkdir(dirpath, { recursive: true })
-    // Paste JSON file into https://googlechrome.github.io/lighthouse/viewer/
-    // for Lighthouse Report
-    fs.writeFile(filepath, JSON.stringify(data))
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
@@ -38,30 +25,12 @@ module.exports = (on, config) => {
 
   let testTitle
 
-  on('before:browser:launch', (browser = {}, launchOptions) => {
-    prepareAudit(launchOptions)
-
-    return launchOptions
-  })
-
   on('task', {
     getTestTitle(message) {
       testTitle = message
 
       return null
     },
-  })
-
-  on('task', {
-    lighthouse: lighthouse((report) => {
-      const requestedUrl = report.lhr.requestedUrl.replace(config.baseUrl, '')
-      const filepath = path.resolve(
-        'cypress',
-        `reports/lighthouse/${requestedUrl || 'home-page'} (${testTitle}).json`
-      )
-
-      storeData(report, filepath)
-    }),
   })
 
   config = dotenvFlowPlugin(config)

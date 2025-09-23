@@ -15,30 +15,43 @@ exports[`PropertyDetails component should render properly 1`] = `
       </h1>
       <ul
         class="lbh-list hackney-property-alerts"
+        style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
+      >
+        <li
+          class="bg-orange"
+          style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+        >
+          <p
+            style="margin-top: 0px;"
+          >
+            Alert 1 
+            <strong>
+              (type1)
+            </strong>
+          </p>
+        </li>
+        <li
+          class="bg-orange"
+          style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+        >
+          <p
+            style="margin-top: 0px;"
+          >
+            Alert 2 
+            <strong>
+              (type2)
+            </strong>
+          </p>
+        </li>
+      </ul>
+      <ul
+        class="lbh-list hackney-property-alerts"
         style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
       >
         <li
           class="bg-dark-green"
         >
           Tenure: Secure
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Alert: Alert 1 (
-          <strong>
-            type1
-          </strong>
-          )
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Alert: Alert 2 (
-          <strong>
-            type2
-          </strong>
-          )
         </li>
       </ul>
     </div>

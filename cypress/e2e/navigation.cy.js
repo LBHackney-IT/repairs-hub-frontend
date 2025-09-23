@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Global navigation links', () => {
   describe('when the viewport is for mobile', () => {
     context('and logged in as Agent', () => {
@@ -91,8 +89,6 @@ describe('Global navigation links', () => {
       cy.get('#signout')
         .contains('Sign out')
         .should('have.attr', 'href', '/logout')
-
-      //  cy.audit()
     })
   })
 })

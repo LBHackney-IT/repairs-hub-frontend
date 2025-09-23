@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
-
 describe('Show property', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
@@ -33,8 +31,9 @@ describe('Show property', () => {
               comments: 'Alert 1',
             },
             {
-              type: 'type2',
-              comments: 'Alert 2',
+              type: 'SPR',
+              comments: 'Specific Requirements',
+              reason: 'Reason 1, very important',
             },
           ],
         },
@@ -77,7 +76,7 @@ describe('Show property', () => {
     context('when many repairs have been raised on the property', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrder')
 
@@ -233,9 +232,6 @@ describe('Show property', () => {
           cy.contains('Work complete')
           cy.contains('The oldest repair')
         })
-
-        // Run lighthouse audit for accessibility report
-        //  cy.audit()
       })
     })
 
@@ -428,11 +424,11 @@ describe('Show property', () => {
       cy.visit('/properties/00012345')
       cy.wait(['@property', '@workOrdersHistory', '@alerts'])
 
-      cy.checkForTenureDetails(
-        'Tenure: Secure',
-        ['Alert 1', 'Alert 2'],
-        ['Alert 1', 'Alert 2']
-      )
+      cy.checkForTenureDetails('Tenure: Secure', [
+        'Alert 1',
+        'Specific Requirements',
+        'Reason 1, very important',
+      ])
     })
 
     context('when the alerts API responds with an error', () => {
@@ -458,7 +454,7 @@ describe('Show property', () => {
         // Some page content rendered
         cy.contains('Dwelling: 16 Pitcairn House')
 
-        cy.get('.hackney-property-alerts').within(() => {
+        cy.get('.hackney-property-alerts').each(() => {
           cy.contains('Cannot fetch alerts')
         })
       })

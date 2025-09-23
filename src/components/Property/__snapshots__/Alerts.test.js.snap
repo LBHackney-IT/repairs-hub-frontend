@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alerts component should render comment, type and reason for a Specific Requirement alert and comment and type for other alerts 1`] = `
+<DocumentFragment>
+  <li
+    class="bg-orange"
+    style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+  >
+    <p
+      style="margin-top: 0px;"
+    >
+      Other 
+      <strong>
+        (OIT)
+      </strong>
+    </p>
+  </li>
+  <li
+    class="bg-orange"
+    style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+  >
+    <p
+      style="margin-top: 0px;"
+    >
+      Specific Requirements 
+      <strong>
+        (SPR)
+      </strong>
+    </p>
+    <p
+      class="lbh-body-s text-!-white truncate-description truncate-line-3"
+    >
+      Specific requirement alert
+    </p>
+  </li>
+</DocumentFragment>
+`;
+
+exports[`Alerts component should render only comment and type when there are not any Specific Requirements alerts 1`] = `
+<DocumentFragment>
+  <li
+    class="bg-orange"
+    style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+  >
+    <p
+      style="margin-top: 0px;"
+    >
+      Other 
+      <strong>
+        (OIT)
+      </strong>
+    </p>
+  </li>
+  <li
+    class="bg-orange"
+    style="padding: 0.5rem; overflow: hidden; border-radius: 10px;"
+  >
+    <p
+      style="margin-top: 0px;"
+    >
+      Hello 
+      <strong>
+        (OIT)
+      </strong>
+    </p>
+  </li>
+</DocumentFragment>
+`;
