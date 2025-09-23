@@ -190,15 +190,15 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       .should('contain', 'No contracts expiring in the next two months.')
   })
 
-  it.only('displays no contracts warning box when no contracts have expired in the last month', () => {
-    const dateInOneYear = new Date(
+  it('displays no contracts warning box when no contracts have expired in the last month', () => {
+    const dateTwoMonthsAgo = new Date(
       new Date().setMonth(new Date().getMonth() - 2)
     )
 
     inactiveContractsRequest((x) => {
       return x.map((c) => ({
         ...c,
-        terminationDate: dateInOneYear,
+        terminationDate: dateTwoMonthsAgo,
       }))
     })
 
