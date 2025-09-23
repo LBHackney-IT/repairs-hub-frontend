@@ -1,16 +1,22 @@
 import { render } from '@testing-library/react'
+import MockDate from 'mockdate'
 
 import ContractListItem from './ContractListItem'
 
 import {
   mockActiveContracts,
   mockInactiveContracts,
-  ninthOfJulyTwentyTwentyFive,
 } from '../mockContractsData'
 
-import { monthsOffset } from '../utils'
-
 describe('Contractors list item component', () => {
+  beforeAll(() => {
+    MockDate.set('2025-07-09')
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
+
   describe('Contractor page', () => {
     it('should render a contract with relevant fields', async () => {
       const mockContract = mockActiveContracts[0]
@@ -24,10 +30,7 @@ describe('Contractors list item component', () => {
     it('should render a contract that expires within two months with relevant fields', () => {
       const mockContract = {
         contractReference: '127-127-1277',
-        terminationDate: monthsOffset(
-          1,
-          ninthOfJulyTwentyTwentyFive
-        ).toISOString(),
+        terminationDate: '2025-08-09T15:38:48.061Z',
         effectiveDate: '2023-09-15T23:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',
