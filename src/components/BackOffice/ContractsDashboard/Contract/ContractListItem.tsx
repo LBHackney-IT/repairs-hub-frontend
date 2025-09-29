@@ -1,5 +1,5 @@
 import Contract from '@/root/src/models/contract'
-import { dateToStr } from '@/root/src/utils/date'
+import ContractExpiryDisplay from './ContractExpiryDisplay'
 
 interface ContractListItemProps {
   contract: Contract
@@ -8,17 +8,6 @@ interface ContractListItemProps {
 }
 
 const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
-  const dateDiffRoundedUp = () => {
-    const todayTimestamp = new Date().getTime()
-
-    const contractTerminationTimeStamp = new Date(
-      contract.terminationDate
-    ).getTime()
-    const diffTime = Math.abs(todayTimestamp - contractTerminationTimeStamp)
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    return diffDays
-  }
-
   return (
     <>
       <li
@@ -56,47 +45,20 @@ const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
                 <span style={{ fontWeight: '600' }}>SOR Count:</span>{' '}
                 {contract.sorCount}
               </p>
-              <p>
-                <span style={{ fontWeight: '600' }}>
-                  {contract.terminationDate < new Date().toISOString()
-                    ? `Expired: `
-                    : `Expires: `}
-                </span>
-                {dateToStr(contract.terminationDate)}
-              </p>
+              <ContractExpiryDisplay contract={contract} page={page} />
             </>
           )}
+
           {page === 'dashboard' && (
             <>
               <p>{contract.contractorName}</p>
-              <p>
-                {contract.terminationDate < new Date().toISOString() ? (
-                  <>
-                    Expired:{' '}
-                    <span style={{ fontWeight: '600' }}>
-                      {dateDiffRoundedUp()} days ago
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    Expires:{' '}
-                    <span style={{ fontWeight: '600' }}>
-                      {dateToStr(contract.terminationDate)}
-                    </span>
-                  </>
-                )}
-              </p>
+              <ContractExpiryDisplay contract={contract} page={page} />
             </>
           )}
+
           {page === 'sorSearch' && (
             <>
-              {contract.terminationDate < new Date().toISOString() ? (
-                <p style={{ color: 'red' }}>
-                  Expired: {dateToStr(contract.terminationDate)}
-                </p>
-              ) : (
-                <p style={{ color: 'green' }}>Active</p>
-              )}
+              <ContractExpiryDisplay contract={contract} page={page} />
             </>
           )}
         </div>
