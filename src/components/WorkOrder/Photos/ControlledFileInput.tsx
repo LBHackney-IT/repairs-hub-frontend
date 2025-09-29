@@ -25,6 +25,7 @@ interface Props {
   testId: string
   registerFunction?: CallableFunction
   registerField?: string
+  workOrderReference: string
 }
 
 const ControlledFileInput = (props: Props) => {
@@ -39,6 +40,7 @@ const ControlledFileInput = (props: Props) => {
     testId,
     registerFunction,
     registerField,
+    workOrderReference,
   } = props
 
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -46,7 +48,7 @@ const ControlledFileInput = (props: Props) => {
 
   const cwLogger = useCloudwatchLogger(
     'PHOTOS',
-    `ControlledFileInput ${registerField || ''}`
+    `ControlledFileInput ${registerField || ''} | ${workOrderReference}`
   )
 
   useEffect(() => {

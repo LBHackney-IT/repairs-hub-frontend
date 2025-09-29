@@ -57,6 +57,7 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
               hint="Select all the photos you want to add (up to 10 photos)"
               testId="PhotoUploadForm"
               cwLogger={cwLogger}
+              workOrderReference={workOrderReference}
             />
 
             {files.length > 0 && (

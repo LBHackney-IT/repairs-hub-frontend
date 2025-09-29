@@ -198,6 +198,7 @@ const CloseWorkOrderForm = (props: Props) => {
             registerFunction={register}
             registerField="fileUpload"
             testId="PhotoUploadForm"
+            workOrderReference={reference}
           />
 
           {files.length > 0 && (

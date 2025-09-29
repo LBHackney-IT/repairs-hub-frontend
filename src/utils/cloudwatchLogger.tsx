@@ -32,7 +32,7 @@ const useCloudwatchLogger = (
   prefix?: string,
   currentUser?: CurrentUser
 ) => {
-  const [user, setUser] = useState<CurrentUser | null>(currentUser)
+  const [user, setUser] = useState<CurrentUser | null>(null)
 
   useEffect(() => {
     if (currentUser) {
@@ -43,11 +43,11 @@ const useCloudwatchLogger = (
       method: 'get',
       path: '/api/hub-user',
     })
-      .then(({ data }: { data: CurrentUser }) => {
-        setUser(data)
+      .then((user) => {
+        setUser(user)
       })
-      .catch((error) => {
-        console.error('Failed to fetch user:', error)
+      .catch(() => {
+        setUser(null)
       })
   }, [])
 

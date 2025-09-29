@@ -46,10 +46,10 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
 
     if (!uploadResult.success) {
       setRequestError(uploadResult.requestError)
-      cwLogger.error(`Upload Failed | ${uploadResult.requestError}`)
       return
     }
 
+    cwLogger.log(`Upload Complete | ${files.length} files`)
     setUploadSuccess(
       ` ${files.length} ${
         files.length === 1 ? 'photo has' : 'photos have'

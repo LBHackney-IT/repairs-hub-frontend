@@ -84,9 +84,6 @@ const uploadFiles = async (
     )
     if (!completeUploadResult.success)
       throw new FileUploadError(completeUploadResult.error as string)
-    cwLogger.log(
-      `Successfully uploaded ${filesToUpload.length} files for work order ${workOrderReference}`
-    )
   } catch (error) {
     if (error instanceof FileUploadError) {
       cwLogger.error(error.message)
