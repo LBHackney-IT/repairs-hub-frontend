@@ -32,20 +32,21 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
 
     const description = e.target.description.value
 
-    cwLogger.logMessage(`Uploading | ${files.length} files`)
+    cwLogger.log(`Uploading | ${files.length} files`)
     const uploadResult = await uploadFiles(
       files,
       workOrderReference,
       description,
       'Uploaded directly to work order',
-      setLoadingStatus
+      setLoadingStatus,
+      cwLogger
     )
 
     setLoadingStatus(null)
 
     if (!uploadResult.success) {
       setRequestError(uploadResult.requestError)
-      await cwLogger.logMessage(`Upload Failed | ${uploadResult.requestError}`)
+      await cwLogger.error(`Upload Failed | ${uploadResult.requestError}`)
       return
     }
 

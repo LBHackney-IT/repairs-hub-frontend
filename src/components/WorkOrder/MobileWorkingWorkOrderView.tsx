@@ -182,7 +182,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
   ) => {
     setLoadingStatus('Completing workorder')
     const filesToUpload = workOrderFiles.concat(followOnFiles)
-    await cwLogger.logMessage(
+    cwLogger.log(
       `Completing work order | ${filesToUpload.length} files to upload`
     )
 
@@ -237,7 +237,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
         followOnFiles: followOnFiles,
       })
 
-      await cwLogger.logMessage(`Uploading | ${filesToUpload.length} files`)
+      cwLogger.log(`Uploading | ${filesToUpload.length} files`)
 
       const fileGroups: { files: File[]; description: string }[] = [
         { files: workOrderFiles, description: data.workOrderPhotoDescription },
@@ -251,23 +251,25 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
               workOrderReference,
               data.workOrderPhotoDescription,
               group.description,
-              setLoadingStatus
+              setLoadingStatus,
+              cwLogger
             )
 
             if (!uploadResult.success) {
               setError(uploadResult.requestError)
               setLoadingStatus(null)
-              cwLogger.logMessage(
-                `Upload Error | ${filesToUpload.length} files | ${uploadResult.requestError}`
+              const fileSummary = group.files
+                .map((f: File) => `${f.name} (${Math.round(f.size / 1000)} KB)`)
+                .join(', ')
+              await cwLogger.error(
+                `Upload Error | ${filesToUpload.length} files | ${fileSummary} | ${uploadResult.requestError}`
               )
               return
             }
           }
         }
+        cwLogger.log(`Upload Success | ${filesToUpload.length} files uploaded`)
       }
-      cwLogger.logMessage(
-        `Upload Success | ${filesToUpload.length} files uploaded`
-      )
       setLoadingStatus('Completing workorder')
       await frontEndApiRequest({
         method: 'post',
@@ -275,9 +277,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
         requestData: closeWorkOrderFormData,
       })
 
-      // Log photo upload count
       if (filesToUpload.length > 0) {
-        await cwLogger.logMessage(`Work Order Close Success`)
+        await cwLogger.log(
+          `Closed work order successfully with ${filesToUpload.length} photos`
+        )
       }
 
       const isNoAccess = data.reason === 'No Access'

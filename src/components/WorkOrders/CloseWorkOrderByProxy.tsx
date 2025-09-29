@@ -88,7 +88,8 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
           reference,
           description,
           'Closing work order',
-          setLoadingStatus
+          setLoadingStatus,
+          cwLogger
         )
 
         if (!uploadResult.success) {
@@ -125,8 +126,9 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
         requestData: workOrderCompleteFormData,
       })
 
-      if (files.length > 0)
-        await cwLogger.logMessage(`${files.length} files uploaded`)
+      if (files.length > 0) {
+        cwLogger.log(`${files.length} files uploaded`)
+      }
 
       setCurrentPage(CONFIRMATION_PAGE)
       setLoadingStatus(null)

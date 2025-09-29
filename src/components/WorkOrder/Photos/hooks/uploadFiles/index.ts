@@ -6,6 +6,7 @@ import fileUploadStatusLogger from './fileUploadStatusLogger'
 import compressFile from './compressFile'
 import { getCachedFile, setCachedFile } from './cacheFile'
 import ensureAllFilesReadable from './ensureAllFilesReadable'
+import useCloudwatchLogger from '@/root/src/utils/cloudwatchLogger'
 
 export class FileUploadError extends Error {
   constructor(message: string) {
@@ -19,7 +20,8 @@ const uploadFiles = async (
   workOrderReference: string,
   description: string,
   uploadGroupLabel: string,
-  setUploadStatus: (status: string) => void
+  setUploadStatus: (status: string) => void,
+  cwLogger: ReturnType<typeof useCloudwatchLogger>
 ): Promise<{
   success: boolean
   requestError?: string
@@ -82,8 +84,12 @@ const uploadFiles = async (
     )
     if (!completeUploadResult.success)
       throw new FileUploadError(completeUploadResult.error as string)
+    cwLogger.log(
+      `Successfully uploaded ${filesToUpload.length} files for work order ${workOrderReference}`
+    )
   } catch (error) {
-    if (error instanceof FileUploadError)
+    if (error instanceof FileUploadError) {
+      await cwLogger.error(error.message)
       captureException('Failed to upload photos', {
         tags: {
           section: 'File upload',
@@ -100,6 +106,7 @@ const uploadFiles = async (
           message: error.message,
         },
       })
+    }
     return {
       success: false,
       requestError: error.message || 'An error occurred while uploading files',
