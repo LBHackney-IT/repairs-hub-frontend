@@ -1,5 +1,6 @@
 import { createMocks } from 'node-mocks-http'
 import handler from './logging'
+import { StatusCodes } from 'http-status-codes'
 
 describe('/api/logging', () => {
   it('should accept POST requests with a message string', async () => {
@@ -12,10 +13,6 @@ describe('/api/logging', () => {
 
     await handler(req, res)
 
-    expect(res._getStatusCode()).toBe(200)
-    expect(JSON.parse(res._getData())).toEqual({
-      success: true,
-      message: 'Message logged successfully',
-    })
+    expect(res._getStatusCode()).toBe(StatusCodes.NO_CONTENT)
   })
 })

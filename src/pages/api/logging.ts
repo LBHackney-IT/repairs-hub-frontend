@@ -17,10 +17,7 @@ const loggingHandler = async function handler(req, res) {
 
   logger.info(message)
 
-  res.status(StatusCodes.OK).json({
-    success: true,
-    message: 'Message logged successfully',
-  })
+  res.status(StatusCodes.NO_CONTENT).end()
 }
 
 export default loggingHandler

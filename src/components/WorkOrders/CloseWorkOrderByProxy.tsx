@@ -25,6 +25,7 @@ import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { Operative } from '../../models/operativeModel'
 import { clearIndexedDb } from '../WorkOrder/Photos/hooks/uploadFiles/cacheFile'
+import useCloudwatchLogger from '../../utils/cloudwatchLogger'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -71,6 +72,8 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(FORM_PAGE)
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
+
+  const cwLogger = useCloudwatchLogger('PHOTOS', `By Proxy | ${reference}`)
 
   const makePostRequest = async (
     workOrderCompleteFormData,
@@ -121,6 +124,9 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
         path: `/api/workOrderComplete`,
         requestData: workOrderCompleteFormData,
       })
+
+      if (files.length > 0)
+        await cwLogger.logMessage(`${files.length} files uploaded`)
 
       setCurrentPage(CONFIRMATION_PAGE)
       setLoadingStatus(null)
