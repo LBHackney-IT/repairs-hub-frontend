@@ -13,7 +13,7 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
 
   const cwLogger = useCloudwatchLogger(
     'PHOTOS',
-    `Photos Tab | ${workOrderReference}`
+    `PhotosTab | ${workOrderReference}`
   )
 
   const handleSubmit = async (e) => {
@@ -46,7 +46,7 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
 
     if (!uploadResult.success) {
       setRequestError(uploadResult.requestError)
-      await cwLogger.error(`Upload Failed | ${uploadResult.requestError}`)
+      cwLogger.error(`Upload Failed | ${uploadResult.requestError}`)
       return
     }
 

@@ -97,7 +97,7 @@ const ControlledFileInput = (props: Props) => {
         stableFiles.push(stableFile)
       }
     } catch (err) {
-      await cwLogger.error(
+      cwLogger.error(
         `Error creating stable file copies for ${registerField}: ${err}`
       )
       // On error, fallback to using the original selected files
@@ -115,7 +115,7 @@ const ControlledFileInput = (props: Props) => {
             }
           }
         } catch (err) {
-          await cwLogger.error(
+          cwLogger.error(
             `Error retrieving cached file ${file.name} for preview: ${err}`
           )
         }
@@ -126,7 +126,7 @@ const ControlledFileInput = (props: Props) => {
           setCachedFile(compressed)
           addFileIfNew(compressed)
         } catch (error) {
-          await cwLogger.error(
+          cwLogger.error(
             `Error compressing file ${file.name} for preview: ${error}`
           )
           // If compression fails, still add the original file
@@ -134,7 +134,7 @@ const ControlledFileInput = (props: Props) => {
         }
       }
     } catch (err) {
-      await cwLogger.error(
+      cwLogger.error(
         `Error processing files for preview for ${registerField}: ${err}`
       )
       // On error, fallback to adding stable files as-is

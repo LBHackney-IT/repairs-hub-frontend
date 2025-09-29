@@ -1,7 +1,6 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { CurrentUser } from '../types/variations/types'
-import { useQuery } from 'react-query'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 type Category = 'PHOTOS' | 'WORK_ORDERS' | 'APPOINTMENTS' // Extend as needed
 
@@ -28,52 +27,60 @@ async function sendLogMessage(message: string): Promise<void> {
  * @param category - The category of the log message (e.g., 'PHOTOS', 'WORK_ORDERS')
  * @param prefix - Optional prefix to add to each log message for context
  */
-const useCloudwatchLogger = (category: Category, prefix?: string) => {
-  const { data: user } = useQuery<CurrentUser>('currentUser', () =>
+const useCloudwatchLogger = (
+  category: Category,
+  prefix?: string,
+  currentUser?: CurrentUser
+) => {
+  const [user, setUser] = useState<CurrentUser | null>(currentUser)
+
+  useEffect(() => {
+    if (currentUser) {
+      setUser(currentUser)
+      return
+    }
     frontEndApiRequest({
       method: 'get',
       path: '/api/hub-user',
     })
-  )
+      .then(({ data }: { data: CurrentUser }) => {
+        setUser(data)
+      })
+      .catch((error) => {
+        console.error('Failed to fetch user:', error)
+      })
+  }, [])
 
   // Formats the log message with user email, category, and optional prefix
-  function _buildMessage(message: string, isError: boolean = false): string {
-    const emailSplit = user?.email?.split('@')?.[0]?.trim() || 'unknown'
-    const prefixText = prefix ? `${prefix} |` : ''
-    const errorTag = isError ? 'ERROR |' : ''
-    const formatted = `[${category}] ${prefixText} ${errorTag} ${emailSplit} | ${message}`
-      .replace(/\s+/g, ' ')
-      .trim()
-    return formatted
-  }
-
-  const _sendLogMessage = useCallback(
-    async (message: string): Promise<void> => {
-      try {
-        await sendLogMessage(message)
-      } catch (error) {
-        console.error('Logger error:', error)
-      }
+  const _buildMessage = useCallback(
+    (message: string, isError: boolean = false): string => {
+      const emailSplit = user?.email?.split('@')?.[0]?.trim() || 'unknown'
+      const prefixText = prefix ? `${prefix} |` : ''
+      const errorTag = isError ? 'ERROR |' : ''
+      const formatted = `[${category}] ${prefixText} ${errorTag} ${emailSplit} | ${message}`
+        .replace(/\s+/g, ' ')
+        .trim()
+      return formatted
     },
-    [category, prefix, user?.email]
+    [user?.email, category, prefix]
   )
 
   const log = useCallback(
-    async (message: string): Promise<void> => {
+    (message: string): void => {
       const logMessage = _buildMessage(message, false)
       console.log(logMessage)
-      await _sendLogMessage(logMessage)
+      sendLogMessage(logMessage)
     },
-    [_sendLogMessage]
+    [_buildMessage]
   )
 
   const error = useCallback(
-    async (message: string): Promise<void> => {
+    (message: string): void => {
       const logMessage = _buildMessage(message, true)
       console.error(logMessage)
-      await _sendLogMessage(logMessage)
+      sendLogMessage(logMessage)
     },
-    [_sendLogMessage]
+    [_buildMessage]
   )
 
   return { log, error }

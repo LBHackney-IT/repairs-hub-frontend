@@ -89,7 +89,7 @@ const uploadFiles = async (
     )
   } catch (error) {
     if (error instanceof FileUploadError) {
-      await cwLogger.error(error.message)
+      cwLogger.error(error.message)
       captureException('Failed to upload photos', {
         tags: {
           section: 'File upload',

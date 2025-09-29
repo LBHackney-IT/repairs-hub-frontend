@@ -73,7 +73,7 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
 
-  const cwLogger = useCloudwatchLogger('PHOTOS', `By Proxy | ${reference}`)
+  const cwLogger = useCloudwatchLogger('PHOTOS', `ByProxy | ${reference}`)
 
   const makePostRequest = async (
     workOrderCompleteFormData,

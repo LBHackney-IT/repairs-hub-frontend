@@ -68,7 +68,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
 
   const cwLogger = useCloudwatchLogger(
     'PHOTOS',
-    `Mobile | ${workOrderReference}`
+    `Mobile | ${workOrderReference}`,
+    currentUser
   )
 
   const getWorkOrderView = async (workOrderReference) => {
@@ -261,7 +262,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
               const fileSummary = group.files
                 .map((f: File) => `${f.name} (${Math.round(f.size / 1000)} KB)`)
                 .join(', ')
-              await cwLogger.error(
+              cwLogger.error(
                 `Upload Error | ${filesToUpload.length} files | ${fileSummary} | ${uploadResult.requestError}`
               )
               return
@@ -278,7 +279,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
       })
 
       if (filesToUpload.length > 0) {
-        await cwLogger.log(
+        cwLogger.log(
           `Closed work order successfully with ${filesToUpload.length} photos`
         )
       }
