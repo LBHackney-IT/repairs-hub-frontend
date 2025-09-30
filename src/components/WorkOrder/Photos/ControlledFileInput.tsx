@@ -79,11 +79,11 @@ const ControlledFileInput = (props: Props) => {
   const handleInput = async (e: React.FormEvent<HTMLInputElement>) => {
     setPreviewFiles([])
     const selectedFiles = Array.from(e.currentTarget.files || [])
-    const totalSizeKb = Math.round(
+    const totalSizeKB = Math.round(
       selectedFiles.reduce((acc, file) => acc + file.size, 0) / 1024
     )
     cwLogger.log(
-      `Selected ${selectedFiles.length} files with size ${totalSizeKb} KB`
+      `Selected ${selectedFiles.length} files with size ${totalSizeKB} KB`
     )
 
     // Immediately notify parent of all selected files for upload
