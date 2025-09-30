@@ -5,10 +5,11 @@ import WarningInfoBox from '../../../Template/WarningInfoBox'
 import ErrorMessage from '../../../Errors/ErrorMessage'
 
 interface ContractSectionProps {
-  heading: string
+  heading?: string
+  subHeading?: string
   contracts: Contract[]
   isLoading: boolean
-  warningText: string
+  warningText: string | JSX.Element
   error: Error
   page: string
   activeStatus?: string
@@ -16,6 +17,7 @@ interface ContractSectionProps {
 
 const ContractSection = ({
   heading,
+  subHeading,
   contracts,
   isLoading,
   warningText,
@@ -35,15 +37,27 @@ const ContractSection = ({
         </>
       )}
 
-      {contracts === null || contracts?.length === 0 ? (
-        <div style={{ width: '90%' }}>
-          <WarningInfoBox
-            header="No contracts found!"
-            text={warningText}
-            name="no-contracts-found"
-          />
-        </div>
-      ) : (
+      {page === 'sorSearch' && contracts !== null && contracts?.length > 0 && (
+        <>
+          <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
+            {subHeading}
+          </h3>
+          <ContractListItems contracts={contracts} page="sorSearch" />
+        </>
+      )}
+
+      {contracts === null ||
+        (contracts?.length === 0 && (
+          <div style={{ width: '90%' }}>
+            <WarningInfoBox
+              header="No contracts found!"
+              text={warningText}
+              name="no-contracts-found"
+            />
+          </div>
+        ))}
+
+      {page !== 'sorSearch' && contracts?.length > 0 && (
         <ContractListItems
           contracts={contracts}
           page={page}
