@@ -142,17 +142,54 @@ exports[`SorSearch component should render no contracts found 1`] = `
         </form>
       </div>
     </section>
-    <p
-      class="lbh-body"
+    <div
+      style="width: 90%;"
     >
-      No contracts with 
-      <span
-        style="font-weight: 600;"
+      <div
+        class="warning-info-box govuk-inset-text lbh-inset-text"
+        data-testid="no-contracts-found"
       >
-        12
-      </span>
-       SOR code 
-    </p>
+        <div
+          class="lbh-warning-text govuk-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
+          >
+            !
+          </span>
+          <div
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            <p
+              class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+            >
+              No contracts found!
+            </p>
+            <p
+              class="lbh-body-xs govuk-!-margin-top-1"
+            />
+            <p
+              class="lbh-body"
+            >
+              No contracts with 
+              <span
+                style="font-weight: 600;"
+              >
+                12
+              </span>
+               SOR code
+            </p>
+            <p />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;

@@ -2,11 +2,6 @@
 
 exports[`Contractors list items component should render active contracts with relevant fields 1`] = `
 <DocumentFragment>
-  <h3
-    class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-  >
-    Active Contracts:
-  </h3>
   <ol
     data-test-id="active-contracts-list"
     style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
@@ -283,11 +278,6 @@ exports[`Contractors list items component should render active contracts with re
 
 exports[`Contractors list items component should render contracts that expire in two months with relevant fields 1`] = `
 <DocumentFragment>
-  <h3
-    class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-  >
-    Contracts due to expire soon:
-  </h3>
   <ol
     data-test-id="contract-list"
     style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
@@ -323,11 +313,6 @@ exports[`Contractors list items component should render contracts that expire in
 
 exports[`Contractors list items component should render inactive contracts with relevant fields 1`] = `
 <DocumentFragment>
-  <h3
-    class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-  >
-    Inactive Contracts:
-  </h3>
   <ol
     data-test-id="active-contracts-list"
     style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
