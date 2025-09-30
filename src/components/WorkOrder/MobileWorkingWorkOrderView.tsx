@@ -240,11 +240,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
 
       cwLogger.log(`Uploading | ${filesToUpload.length} files`)
 
-      const fileGroups: {
-        files: File[]
-        description: string
-        label: string
-      }[] = [
+      const fileGroups = [
         {
           files: workOrderFiles,
           description: data.workOrderPhotoDescription,
