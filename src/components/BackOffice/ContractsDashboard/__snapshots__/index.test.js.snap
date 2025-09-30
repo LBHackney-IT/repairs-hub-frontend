@@ -18,6 +18,9 @@ exports[`Contracts dashboard component should render the component 1`] = `
   >
     Contracts due to expire soon:
   </h3>
+  <h3
+    class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+  />
   <ol
     data-test-id="contract-list"
     style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
@@ -78,6 +81,9 @@ exports[`Contracts dashboard component should render the component 1`] = `
   >
     Contracts that have recently expired:
   </h3>
+  <h3
+    class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+  />
   <ol
     data-test-id="contract-list"
     style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"

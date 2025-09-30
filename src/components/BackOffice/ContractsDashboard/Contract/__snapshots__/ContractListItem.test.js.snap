@@ -31,12 +31,12 @@ exports[`Contractors list item component Contractor page should render a contrac
          0
       </p>
       <p>
+        Expires: 
         <span
           style="font-weight: 600;"
         >
-          Expires: 
+          9 Aug 2025
         </span>
-        9 Aug 2025
       </p>
     </div>
   </li>
