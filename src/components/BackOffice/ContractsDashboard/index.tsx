@@ -5,7 +5,7 @@ import Spinner from '../../Spinner'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
-import ContractListItems from './Contract/ContractListItems'
+import ContractSection from './Contract/ContractSection'
 import {
   fetchContracts,
   backOfficeFetchContractors,
@@ -89,75 +89,23 @@ const ContractsDashboard = () => {
   return (
     <Layout title="Contracts Dashboard">
       <>
-        <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
-          Contracts due to expire soon:
-        </h3>
+        <ContractSection
+          heading="Contracts due to expire soon:"
+          contracts={contractsThatExpireWithinTwoMonths}
+          isLoading={contractsIsLoading}
+          warningText="No contracts expiring in the next two months."
+          error={contractError}
+          page="dashboard"
+        />
 
-        {contractsIsLoading ? (
-          <>
-            <Spinner />
-          </>
-        ) : contractsThatExpireWithinTwoMonths === null ||
-          contractsThatExpireWithinTwoMonths?.length === 0 ? (
-          <div style={{ width: '90%' }}>
-            <WarningInfoBox
-              header="No contracts found!"
-              text="No contracts expiring in the next two months."
-              name="no-contracts-found"
-            />
-          </div>
-        ) : (
-          <ContractListItems
-            contracts={contractsThatExpireWithinTwoMonths}
-            page="dashboard"
-          />
-        )}
-        {contractError && (
-          <ErrorMessage
-            label={
-              contractError instanceof Error
-                ? contractError.message
-                : typeof contractError === 'string'
-                ? contractError
-                : 'An unexpected error occurred'
-            }
-          />
-        )}
-
-        <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
-          Contracts that have recently expired:
-        </h3>
-
-        {expiredContractsIsLoading ? (
-          <>
-            <Spinner />
-          </>
-        ) : recentlyExpiredContracts === null ||
-          recentlyExpiredContracts?.length === 0 ? (
-          <div style={{ width: '90%' }}>
-            <WarningInfoBox
-              header="No contracts found!"
-              text="No contracts have expired in the last month."
-              name="no-contracts-found"
-            />
-          </div>
-        ) : (
-          <ContractListItems
-            contracts={recentlyExpiredContracts}
-            page="dashboard"
-          />
-        )}
-        {expiredContractError && (
-          <ErrorMessage
-            label={
-              expiredContractError instanceof Error
-                ? expiredContractError.message
-                : typeof expiredContractError === 'string'
-                ? expiredContractError
-                : 'An unexpected error occurred'
-            }
-          />
-        )}
+        <ContractSection
+          heading="Contracts that have recently expired:"
+          contracts={recentlyExpiredContracts}
+          isLoading={expiredContractsIsLoading}
+          warningText="No contracts expiring in the next two months."
+          error={expiredContractError}
+          page="dashboard"
+        />
 
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
           Contractors:
