@@ -2,7 +2,6 @@ import Spinner from '../../Spinner'
 import { Button, TextArea } from '../../Form'
 import useFileUpload from './hooks/useFileUpload'
 import ControlledFileInput from './ControlledFileInput'
-import useCloudwatchLogger from '@/root/src/utils/cloudwatchLogger'
 
 const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
   const {
@@ -14,11 +13,6 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
     loadingStatus,
     requestError,
   } = useFileUpload(workOrderReference, onSuccess)
-
-  const cwLogger = useCloudwatchLogger(
-    'PHOTOS',
-    `${workOrderReference} | UploadPhotosForm`
-  )
 
   return (
     <>
@@ -56,7 +50,6 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
               label="Photo upload"
               hint="Select all the photos you want to add (up to 10 photos)"
               testId="PhotoUploadForm"
-              cwLogger={cwLogger}
               workOrderReference={workOrderReference}
             />
 
