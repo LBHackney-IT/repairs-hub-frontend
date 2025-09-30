@@ -21,6 +21,12 @@ jest.mock('@/root/src/utils/frontEndApiClient/requests', () => ({
       enableFollowOnIsEmergencyField: true,
     })
   ),
+  frontEndApiRequest: jest.fn(() =>
+    Promise.resolve({
+      email: 'test@test.com',
+      name: 'Test User',
+    })
+  ),
 }))
 jest.mock('../WorkOrder/Photos/hooks/validateFileUpload', () => ({
   __esModule: true,

@@ -12,6 +12,7 @@ import {
 import SpinnerWithLabel from '../../SpinnerWithLabel'
 import compressFile from './hooks/uploadFiles/compressFile'
 import validateFileUpload from './hooks/validateFileUpload'
+import useCloudwatchLogger from '@/root/src/utils/cloudwatchLogger'
 
 interface Props {
   files: File[]
@@ -24,6 +25,7 @@ interface Props {
   testId: string
   registerFunction?: CallableFunction
   registerField?: string
+  workOrderReference: string
 }
 
 const ControlledFileInput = (props: Props) => {
@@ -38,10 +40,16 @@ const ControlledFileInput = (props: Props) => {
     testId,
     registerFunction,
     registerField,
+    workOrderReference,
   } = props
 
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [previewFiles, setPreviewFiles] = useState<File[]>([])
+
+  const cwLogger = useCloudwatchLogger(
+    'PHOTOS',
+    `ControlledFileInput ${registerField || ''} | ${workOrderReference}`
+  )
 
   useEffect(() => {
     // when form is reset e.g. due to an error - set the preview files from the files
@@ -71,6 +79,12 @@ const ControlledFileInput = (props: Props) => {
   const handleInput = async (e: React.FormEvent<HTMLInputElement>) => {
     setPreviewFiles([])
     const selectedFiles = Array.from(e.currentTarget.files || [])
+    const totalSizeKB = Math.round(
+      selectedFiles.reduce((acc, file) => acc + file.size, 0) / 1024
+    )
+    cwLogger.log(
+      `Selected ${selectedFiles.length} files with size ${totalSizeKB} KB`
+    )
 
     // Immediately notify parent of all selected files for upload
     setFiles(selectedFiles)
@@ -85,18 +99,26 @@ const ControlledFileInput = (props: Props) => {
         stableFiles.push(stableFile)
       }
     } catch (err) {
-      console.error('Error creating stable file copies:', err)
+      cwLogger.error(
+        `Error creating stable file copies for ${registerField}: ${err}`
+      )
       stableFiles.push(...selectedFiles) // Fallback to original files
     }
 
     try {
       for (const file of stableFiles) {
-        if (await cachedFileExists(file)) {
-          const cached = await getCachedFile(file)
-          if (cached) {
-            addFileIfNew(cached)
-            continue
+        try {
+          if (await cachedFileExists(file)) {
+            const cached = await getCachedFile(file)
+            if (cached) {
+              addFileIfNew(cached)
+              continue
+            }
           }
+        } catch (err) {
+          cwLogger.error(
+            `Error retrieving cached file ${file.name} for preview: ${err}`
+          )
         }
 
         // For new files, compress them before displaying
@@ -105,16 +127,21 @@ const ControlledFileInput = (props: Props) => {
           setCachedFile(compressed)
           addFileIfNew(compressed)
         } catch (error) {
-          console.error('Error compressing file:', error)
+          cwLogger.error(
+            `Error compressing file ${file.name} for preview: ${error}`
+          )
           // If compression fails, still add the original file
           addFileIfNew(file)
         }
       }
     } catch (err) {
-      console.error('Error processing files:', err)
+      cwLogger.error(
+        `Error processing files for preview for ${registerField}: ${err}`
+      )
       // On error, fallback to adding stable files as-is
       stableFiles.forEach((file) => addFileIfNew(file))
     }
+    cwLogger.log(`Set ${stableFiles.length} preview files`)
   }
 
   return (

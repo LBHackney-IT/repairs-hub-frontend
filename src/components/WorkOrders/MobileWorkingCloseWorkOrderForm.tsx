@@ -174,6 +174,7 @@ const MobileWorkingCloseWorkOrderForm = ({
               registerFunction={register}
               registerField="workOrderFileUpload"
               testId="WorkOrderPhotoUpload"
+              workOrderReference={workOrderReference}
             />
 
             {workOrderFiles.length > 0 && (
@@ -247,6 +248,7 @@ const MobileWorkingCloseWorkOrderForm = ({
                 registerFunction={register}
                 registerField="followOnFileUpload"
                 testId="FollowOnPhotoUpload"
+                workOrderReference={workOrderReference}
               />
               {followOnFiles.length > 0 && (
                 <TextArea
