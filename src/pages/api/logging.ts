@@ -1,23 +1,8 @@
 import { StatusCodes } from 'http-status-codes'
 import logger from 'loglevel'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-const loggingHandler = async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(StatusCodes.METHOD_NOT_ALLOWED).json({
-      error: 'Method not allowed. Only POST requests are accepted.',
-    })
-  }
-
-  const { message } = req.body
-  if (!message || typeof message !== 'string') {
-    return res.status(StatusCodes.BAD_REQUEST).json({
-      error: 'Message must be a string',
-    })
-  }
-
-  logger.info(message)
-
+export default (req: NextApiRequest, res: NextApiResponse) => {
+  logger.info(req.body)
   res.status(StatusCodes.NO_CONTENT).end()
 }
-
-export default loggingHandler
