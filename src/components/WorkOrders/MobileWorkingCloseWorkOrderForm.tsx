@@ -83,17 +83,17 @@ const MobileWorkingCloseWorkOrderForm = ({
 
   // Restore fields from presetValues if they exist
   const [workOrderFiles, setWorkOrderFiles] = useState<File[]>(
-    presetValues?.workOrderFiles || []
+    presetValues.workOrderFiles || []
   )
   const [followOnFiles, setFollowOnFiles] = useState<File[]>(
-    presetValues?.followOnFiles || []
+    presetValues.followOnFiles || []
   )
 
   useEffect(() => {
     // Persist here because files not supported in useFormPersist
-    setWorkOrderFiles(presetValues?.workOrderFiles || [])
-    setFollowOnFiles(presetValues?.followOnFiles || [])
-  }, [presetValues?.workOrderFiles, presetValues?.followOnFiles])
+    setWorkOrderFiles(presetValues.workOrderFiles || [])
+    setFollowOnFiles(presetValues.followOnFiles || [])
+  }, [presetValues.workOrderFiles, presetValues.followOnFiles])
 
   useEffect(() => {
     if (watch('reason') !== 'Work Order Completed') {
@@ -117,7 +117,6 @@ const MobileWorkingCloseWorkOrderForm = ({
   const [currentPage, setCurrentPage] = useState(PAGES.WORK_ORDER_STATUS)
 
   const viewFollowOnDetailsPage = () => {
-    // validate first page before moving to second
     trigger([...FIELD_NAMES_ON_FIRST_PAGE])
 
     if (

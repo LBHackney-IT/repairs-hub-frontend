@@ -102,8 +102,7 @@ const ControlledFileInput = (props: Props) => {
       cwLogger.error(
         `Error creating stable file copies for ${registerField}: ${err}`
       )
-      // On error, fallback to using the original selected files
-      stableFiles.push(...selectedFiles)
+      stableFiles.push(...selectedFiles) // Fallback to original files
     }
 
     try {
