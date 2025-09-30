@@ -102,7 +102,7 @@ const ContractsDashboard = () => {
           heading="Contracts that have recently expired:"
           contracts={recentlyExpiredContracts}
           isLoading={expiredContractsIsLoading}
-          warningText="No contracts expiring in the next two months."
+          warningText="No contracts have expired in the last month."
           error={expiredContractError}
           page="dashboard"
         />
