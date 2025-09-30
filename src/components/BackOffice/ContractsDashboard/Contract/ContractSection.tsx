@@ -37,13 +37,21 @@ const ContractSection = ({
         </>
       )}
 
-      {page === 'sorSearch' && contracts !== null && contracts?.length > 0 && (
+      {page === 'sorSearch' && contracts && contracts?.length > 0 && (
         <>
           <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
             {subHeading}
           </h3>
           <ContractListItems contracts={contracts} page="sorSearch" />
         </>
+      )}
+
+      {page !== 'sorSearch' && contracts && contracts?.length > 0 && (
+        <ContractListItems
+          contracts={contracts}
+          page={page}
+          activeStatus={activeStatus}
+        />
       )}
 
       {contracts === null ||
@@ -56,14 +64,6 @@ const ContractSection = ({
             />
           </div>
         ))}
-
-      {page !== 'sorSearch' && contracts?.length > 0 && (
-        <ContractListItems
-          contracts={contracts}
-          page={page}
-          activeStatus={activeStatus}
-        />
-      )}
 
       {error && (
         <ErrorMessage
