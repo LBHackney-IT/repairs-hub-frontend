@@ -7,10 +7,6 @@ const completeUpload = async (
   description: string,
   uploadGroupLabel: string
 ) => {
-  const testSkip = true
-  if (testSkip) {
-    return { success: true, result: {} }
-  }
   const requestOperation = async () => {
     const result = await frontEndApiRequest({
       method: 'post',

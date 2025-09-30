@@ -240,36 +240,46 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
 
       cwLogger.log(`Uploading | ${filesToUpload.length} files`)
 
-      const fileGroups: { files: File[]; description: string }[] = [
-        { files: workOrderFiles, description: data.workOrderPhotoDescription },
-        { files: followOnFiles, description: data.followOnPhotoDescription },
+      const fileGroups: {
+        files: File[]
+        description: string
+        label: string
+      }[] = [
+        {
+          files: workOrderFiles,
+          description: data.workOrderPhotoDescription,
+          label: 'Closing work order',
+        },
+        {
+          files: followOnFiles,
+          description: data.followOnPhotoDescription,
+          label: 'Raising follow-on',
+        },
       ]
-      if (filesToUpload.length > 0) {
-        for (const group of fileGroups) {
-          if (group.files.length > 0) {
-            const uploadResult = await uploadFiles(
-              group.files,
-              workOrderReference,
-              data.workOrderPhotoDescription,
-              group.description,
-              setLoadingStatus,
-              cwLogger
-            )
+      for (const group of fileGroups) {
+        if (group.files.length == 0) continue
 
-            if (!uploadResult.success) {
-              setError(uploadResult.requestError)
-              setLoadingStatus(null)
-              const fileSummary = group.files
-                .map((f: File) => `${f.name} (${Math.round(f.size / 1000)} KB)`)
-                .join(', ')
-              cwLogger.error(
-                `Upload Error | ${filesToUpload.length} files | ${fileSummary} | ${uploadResult.requestError}`
-              )
-              return
-            }
-          }
+        const uploadResult = await uploadFiles(
+          group.files,
+          workOrderReference,
+          group.description,
+          group.label,
+          setLoadingStatus,
+          cwLogger
+        )
+
+        if (!uploadResult.success) {
+          setError(uploadResult.requestError)
+          setLoadingStatus(null)
+          const fileSummary = group.files
+            .map((f: File) => `${f.name} (${Math.round(f.size / 1000)} KB)`)
+            .join(', ')
+          cwLogger.error(
+            `Upload Error | ${filesToUpload.length} files | ${fileSummary} | ${uploadResult.requestError}`
+          )
+          return
         }
-        cwLogger.log(`Upload Success | ${filesToUpload.length} files uploaded`)
+        cwLogger.log(`Upload Success | ${group.files.length} files uploaded`)
       }
       setLoadingStatus('Completing workorder')
       await frontEndApiRequest({
