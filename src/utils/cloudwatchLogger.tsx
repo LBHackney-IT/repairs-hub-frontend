@@ -1,6 +1,6 @@
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { CurrentUser } from '../types/variations/types'
 import { useCallback, useEffect, useState } from 'react'
+import { frontEndApiRequest } from './frontEndApiClient/requests'
 
 type Category = 'PHOTOS' | 'WORK_ORDERS' | 'APPOINTMENTS' // Extend as needed
 
