@@ -50,6 +50,7 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
               label="Photo upload"
               hint="Select all the photos you want to add (up to 10 photos)"
               testId="PhotoUploadForm"
+              workOrderReference={workOrderReference}
             />
 
             {files.length > 0 && (

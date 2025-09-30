@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import uploadFiles from './uploadFiles'
 import validateFileUpload from './validateFileUpload'
+import useCloudwatchLogger from '@/root/src/utils/cloudwatchLogger'
 
 const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
   const [loadingStatus, setLoadingStatus] = useState(null)
@@ -9,6 +10,11 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
   const [uploadSuccess, setUploadSuccess] = useState(null)
 
   const [files, setFiles] = useState<File[]>([])
+
+  const cwLogger = useCloudwatchLogger(
+    'PHOTOS',
+    `PhotosTab | ${workOrderReference}`
+  )
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -26,12 +32,14 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
 
     const description = e.target.description.value
 
+    cwLogger.log(`Uploading | ${files.length} files`)
     const uploadResult = await uploadFiles(
       files,
       workOrderReference,
       description,
       'Uploaded directly to work order',
-      setLoadingStatus
+      setLoadingStatus,
+      cwLogger
     )
 
     setLoadingStatus(null)
@@ -41,6 +49,7 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
       return
     }
 
+    cwLogger.log(`Upload Complete | ${files.length} files`)
     setUploadSuccess(
       ` ${files.length} ${
         files.length === 1 ? 'photo has' : 'photos have'
