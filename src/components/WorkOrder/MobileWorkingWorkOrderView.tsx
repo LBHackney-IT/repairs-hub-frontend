@@ -32,6 +32,7 @@ import { Property, Tenure } from '../../models/propertyTenure'
 import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { clearIndexedDb } from './Photos/hooks/uploadFiles/cacheFile'
+import useCloudwatchLogger from '../../utils/cloudwatchLogger'
 
 interface Props {
   workOrderReference: string
@@ -64,6 +65,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
     false
   )
   const [closeFormValues, setCloseFormValues] = useState({})
+
+  const cwLogger = useCloudwatchLogger(
+    'PHOTOS',
+    `Mobile | ${workOrderReference}`,
+    currentUser
+  )
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
@@ -175,6 +182,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
     followOnFiles
   ) => {
     setLoadingStatus('Completing workorder')
+    const filesToUpload = workOrderFiles.concat(followOnFiles)
+    cwLogger.log(
+      `Completing work order | ${filesToUpload.length} files to upload`
+    )
 
     let followOnRequest = null
 
@@ -222,52 +233,62 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
     )
 
     try {
-      const filesToUpload = workOrderFiles.concat(followOnFiles)
       setCloseFormValues({
         workOrderFiles: workOrderFiles,
         followOnFiles: followOnFiles,
       })
 
-      if (filesToUpload.length > 0) {
-        if (workOrderFiles.length > 0) {
-          const uploadResult = await uploadFiles(
-            workOrderFiles,
-            workOrderReference,
-            data.workOrderPhotoDescription,
-            'Closing work order',
-            setLoadingStatus
+      cwLogger.log(`Uploading | ${filesToUpload.length} files`)
+
+      const fileGroups = [
+        {
+          files: workOrderFiles,
+          description: data.workOrderPhotoDescription,
+          label: 'Closing work order',
+        },
+        {
+          files: followOnFiles,
+          description: data.followOnPhotoDescription,
+          label: 'Raising follow-on',
+        },
+      ]
+      for (const group of fileGroups) {
+        if (group.files.length == 0) continue
+
+        const uploadResult = await uploadFiles(
+          group.files,
+          workOrderReference,
+          group.description,
+          group.label,
+          setLoadingStatus,
+          cwLogger
+        )
+
+        if (!uploadResult.success) {
+          setError(uploadResult.requestError)
+          setLoadingStatus(null)
+          const fileSummary = group.files
+            .map((f: File) => `${f.name} (${Math.round(f.size / 1000)} KB)`)
+            .join(', ')
+          cwLogger.error(
+            `Upload Error | ${filesToUpload.length} files | ${fileSummary} | ${uploadResult.requestError}`
           )
-
-          if (!uploadResult.success) {
-            setError(uploadResult.requestError)
-            setLoadingStatus(null)
-            return
-          }
+          return
         }
-
-        if (followOnFiles.length > 0) {
-          const uploadResult = await uploadFiles(
-            followOnFiles,
-            workOrderReference,
-            data.followOnPhotoDescription,
-            'Raising a follow on',
-            setLoadingStatus
-          )
-
-          if (!uploadResult.success) {
-            setError(uploadResult.requestError)
-            setLoadingStatus(null)
-            return
-          }
-        }
+        cwLogger.log(`Upload Success | ${group.files.length} files uploaded`)
       }
-
       setLoadingStatus('Completing workorder')
       await frontEndApiRequest({
         method: 'post',
         path: `/api/workOrderComplete`,
         requestData: closeWorkOrderFormData,
       })
+
+      if (filesToUpload.length > 0) {
+        cwLogger.log(
+          `Closed work order successfully with ${filesToUpload.length} photos`
+        )
+      }
 
       const isNoAccess = data.reason === 'No Access'
 

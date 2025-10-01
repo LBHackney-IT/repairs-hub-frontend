@@ -1,5 +1,5 @@
 import Contract from '@/root/src/models/contract'
-import { dateToStr } from '@/root/src/utils/date'
+import ContractExpiryDisplay from './ContractExpiryDisplay'
 
 interface ContractListItemProps {
   contract: Contract
@@ -45,34 +45,20 @@ const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
                 <span style={{ fontWeight: '600' }}>SOR Count:</span>{' '}
                 {contract.sorCount}
               </p>
-              <p>
-                <span style={{ fontWeight: '600' }}>
-                  {contract.terminationDate < new Date().toISOString()
-                    ? `Expired: `
-                    : `Expires: `}
-                </span>
-                {dateToStr(contract.terminationDate)}
-              </p>
+              <ContractExpiryDisplay contract={contract} page={page} />
             </>
           )}
+
           {page === 'dashboard' && (
             <>
               <p>{contract.contractorName}</p>
-              <p>
-                <span style={{ fontWeight: '600' }}>Expires:</span>{' '}
-                {dateToStr(contract.terminationDate)}
-              </p>
+              <ContractExpiryDisplay contract={contract} page={page} />
             </>
           )}
+
           {page === 'sorSearch' && (
             <>
-              {contract.terminationDate < new Date().toISOString() ? (
-                <p style={{ color: 'red' }}>
-                  Expired: {dateToStr(contract.terminationDate)}
-                </p>
-              ) : (
-                <p style={{ color: 'green' }}>Active</p>
-              )}
+              <ContractExpiryDisplay contract={contract} page={page} />
             </>
           )}
         </div>

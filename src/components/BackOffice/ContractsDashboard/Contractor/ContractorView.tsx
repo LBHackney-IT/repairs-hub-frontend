@@ -3,10 +3,9 @@ import { useMemo, useState } from 'react'
 import { fetchContracts } from '../../requests'
 
 import Layout from '../../Layout'
-import Spinner from '../../../Spinner'
 import SorSearch from '../SorSearch'
 
-import ContractListItems from '../Contract/ContractListItems'
+import ContractSection from '../Contract/ContractSection'
 
 import { filterRelativeInactiveContracts } from '../utils'
 
@@ -90,36 +89,29 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
     e.preventDefault()
     refetchSorContracts()
   }
+
   return (
     <Layout title={`${contractorName} ${contractorReference}`}>
-      {activeContractsLoading ? (
-        <Spinner />
-      ) : (
-        activeContracts && (
-          <ContractListItems
-            contracts={activeContracts}
-            heading="Active contracts:"
-            warningText={`No active contracts found for ${contractorName}.`}
-            error={activeContractsError}
-            page="contractor"
-            activeStatus="active"
-          />
-        )
-      )}
-      {inactiveContractsLoading ? (
-        <Spinner />
-      ) : (
-        relativeInactiveContracts && (
-          <ContractListItems
-            contracts={relativeInactiveContracts}
-            heading="Inactive contracts (from 2020):"
-            warningText={`No inactive contracts found for ${contractorName}.`}
-            error={inactiveContractsError}
-            page="contractor"
-            activeStatus="inactive"
-          />
-        )
-      )}
+      <ContractSection
+        contracts={activeContracts}
+        heading="Active contracts:"
+        isLoading={activeContractsLoading}
+        warningText={`No active contracts found for ${contractorName}.`}
+        error={activeContractsError}
+        page="contractor"
+        activeStatus="active"
+      />
+
+      <ContractSection
+        contracts={relativeInactiveContracts}
+        heading="Inactive contracts (from 2020):"
+        isLoading={inactiveContractsLoading}
+        warningText={`No inactive contracts found for ${contractorName}.`}
+        error={inactiveContractsError}
+        page="contractor"
+        activeStatus="inactive"
+      />
+
       <SorSearch
         searchHeadingText={'Check an SOR code'}
         searchLabelText={`Find out which ${contractorName} contracts an SOR code exists in`}

@@ -17,6 +17,18 @@ function contractsRequest(mapper = null) {
   })
 }
 
+function inactiveContractsRequest(mapper = null) {
+  cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
+    cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/backoffice/contracts?&isActive=false`,
+      },
+      mapper ? mapper(contracts) : contracts
+    ).as('inactiveContractsRequest')
+  })
+}
+
 function contractorsRequest() {
   cy.fixture('contractors/contractsDashboardContractorData').then(
     (contractors) => {
@@ -35,7 +47,7 @@ function contractorsRequest() {
   )
 }
 
-function modifiedContractsRequest() {
+function modifiedActiveContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
     contracts[3].terminationDate = monthsOffset(1, today).toISOString()
     contracts[4].terminationDate = monthsOffset(2, today).toISOString()
@@ -45,7 +57,20 @@ function modifiedContractsRequest() {
         path: '/api/backoffice/contracts?&isActive=true',
       },
       contracts
-    ).as('modifiedContractsRequest')
+    ).as('modifiedActiveContractsRequest')
+  })
+}
+
+function modifiedInactiveContractsRequest() {
+  cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
+    contracts[3].terminationDate = monthsOffset(-1, today).toISOString()
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/backoffice/contracts?&isActive=false',
+      },
+      contracts
+    ).as('modifiedInactiveContractsRequest')
   })
 }
 
@@ -87,9 +112,9 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
   })
 
   it('displays contracts that are expiring in the next two months', () => {
-    modifiedContractsRequest()
-    cy.wait('@modifiedContractsRequest')
-    cy.get('@modifiedContractsRequest').then((interception) => {
+    modifiedActiveContractsRequest()
+    cy.wait('@modifiedActiveContractsRequest')
+    cy.get('@modifiedActiveContractsRequest').then((interception) => {
       const contracts = interception.response.body
       const contractsExpiringInTwoMonths = contracts.filter((contract) => {
         return (
@@ -100,6 +125,23 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       cy.get('[data-test-id="contract-list"]')
         .children()
         .should('have.length', contractsExpiringInTwoMonths.length)
+    })
+  })
+
+  it('displays contracts that expired within the last month', () => {
+    modifiedInactiveContractsRequest()
+    cy.wait('@modifiedInactiveContractsRequest')
+    cy.get('@modifiedInactiveContractsRequest').then((interception) => {
+      const contracts = interception.response.body
+      const contractsExpiredInLastMonth = contracts.filter((contract) => {
+        return (
+          new Date(contract.terminationDate) < today &&
+          new Date(contract.terminationDate) > monthsOffset(-1, today)
+        )
+      })
+      cy.get('[data-test-id="contract-list"]')
+        .children()
+        .should('have.length', contractsExpiredInLastMonth.length)
     })
   })
 
@@ -148,6 +190,24 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       .should('contain', 'No contracts expiring in the next two months.')
   })
 
+  it('displays no contracts warning box when no contracts have expired in the last month', () => {
+    const dateTwoMonthsAgo = new Date(
+      new Date().setMonth(new Date().getMonth() - 2)
+    )
+
+    inactiveContractsRequest((x) => {
+      return x.map((c) => ({
+        ...c,
+        terminationDate: dateTwoMonthsAgo,
+      }))
+    })
+
+    cy.wait('@inactiveContractsRequest')
+    cy.get('[data-testid="no-contracts-found"]')
+      .should('be.visible')
+      .should('contain', 'No contracts have expired in the last month.')
+  })
+
   it('displays no contractors warning box when no contractors are found', () => {
     contractsRequest()
     cy.intercept(
@@ -176,7 +236,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     }).as('contractorErrorRequest')
 
     cy.get('[data-testid="error-message"]')
-      .should('have.length', 2)
+      .should('have.length', 3)
       .each(($el) => {
         cy.wrap($el).should('be.visible')
       })

@@ -12,6 +12,7 @@ export const dateToStr = (date) =>
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    timeZone: 'UTC',
   })
 
 export const sortObjectsByDateKey = (objects, dateFields, dateKeyToSortBy) => {

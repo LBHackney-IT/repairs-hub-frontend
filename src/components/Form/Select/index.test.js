@@ -6,6 +6,7 @@ describe('Select component', () => {
     label: 'Foo select',
     name: 'fooSelect',
     options: ['foo', 'bar'],
+    error: {},
   }
 
   it('should render properly', () => {
