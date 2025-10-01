@@ -10,17 +10,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     message = req.body.toString('utf8')
     try {
       const parsed = JSON.parse(message)
-      console.log('Parsed log message as Buffer:', parsed)
       message = parsed.message || message
     } catch {
       // If parsing fails, use the raw string
     }
   } else if (typeof req.body === 'object' && req.body !== null) {
     message = req.body.message || JSON.stringify(req.body)
-    console.log('Parsed log message as object:', req.body)
   } else {
     message = String(req.body || 'No message provided')
-    console.log('Parsed log message as string:', message)
   }
 
   console.log(message)
