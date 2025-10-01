@@ -237,19 +237,20 @@ workflows:
       - e2e
       - assume-role-development:
           context: api-assume-role-housing-development-context
-          # requires:
-          #   - tests
-            # - e2e (temporarily disabled to speed up dev cycle)
+          requires:
+            - tests
+            - e2e
           filters:
             branches:
-              only:
-                - develop
-                - fix-logging
+              only: develop
       - build-deploy-development:
           requires:
             - assume-role-development
           context:
             - "Serverless Framework"
+          filters:
+            branches:
+              only: develop
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
