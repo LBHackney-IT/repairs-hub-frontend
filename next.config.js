@@ -34,6 +34,11 @@ const moduleExports = {
     domains: ['utfs.io'],
   },
   headers: () => headers(),
+  experimental: {
+    // Added to suppress Sentry-related warnings for Next.js 12.3.4 compatibility
+    instrumentationHook: true,
+    serverComponentsExternalPackages: [],
+  },
 }
 
 const { NODE_ENV, SENTRY_RELEASE } = process.env
