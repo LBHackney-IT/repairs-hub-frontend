@@ -1,26 +1,11 @@
 import { StatusCodes } from 'http-status-codes'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '1mb',
-    },
-  },
-}
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   let message: string
 
-  console.log('BEFORE PARSING:')
-  const msgBefore =
-    typeof req.body === 'string' ? req.body : JSON.stringify(req.body)
-  console.log('LOGGING_ENDPOINT_HIT:', msgBefore)
-  console.error('LOGGING_ENDPOINT_ERROR:', msgBefore)
-  process.stdout.write(`STDOUT: ${msgBefore}\n`)
-  process.stderr.write(`STDERR: ${msgBefore}\n`)
-
   // Handle different body formats (Buffer, object, string)
+  // Will be Buffer on AWS Lambda and object/string on local dev
   if (Buffer.isBuffer(req.body)) {
     message = req.body.toString('utf8')
     try {
@@ -35,15 +20,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     message = String(req.body || 'No message provided')
   }
 
-  // Log the message
-  console.log('AFTER PARSING:')
-  console.log('LOGGING_ENDPOINT_HIT:', message)
-  console.error('LOGGING_ENDPOINT_ERROR:', message)
-  process.stdout.write(`STDOUT: ${message}\n`)
-  process.stderr.write(`STDERR: ${message}\n`)
-
-  // Force console flush before responding
-  await new Promise((resolve) => process.nextTick(resolve))
+  console.log(message)
+  // await new Promise((resolve) => process.nextTick(resolve))
 
   res.status(StatusCodes.NO_CONTENT).end()
 }
