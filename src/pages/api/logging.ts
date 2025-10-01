@@ -13,10 +13,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let message: string
 
   console.log('BEFORE PARSING:')
-  console.log('LOGGING_ENDPOINT_HIT:', message)
-  console.error('LOGGING_ENDPOINT_ERROR:', message)
-  process.stdout.write(`STDOUT: ${message}\n`)
-  process.stderr.write(`STDERR: ${message}\n`)
+  const msgBefore =
+    typeof req.body === 'string' ? req.body : JSON.stringify(req.body)
+  console.log('LOGGING_ENDPOINT_HIT:', msgBefore)
+  console.error('LOGGING_ENDPOINT_ERROR:', msgBefore)
+  process.stdout.write(`STDOUT: ${msgBefore}\n`)
+  process.stderr.write(`STDERR: ${msgBefore}\n`)
 
   // Handle different body formats (Buffer, object, string)
   if (Buffer.isBuffer(req.body)) {
