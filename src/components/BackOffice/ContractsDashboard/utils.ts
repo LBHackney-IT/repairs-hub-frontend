@@ -10,7 +10,7 @@ export function monthsOffset(months: number, baseComparisonDate: Date) {
   )
 }
 
-export const filterContractsByExpiryDate = (
+export const filterActiveContractsByExpiryDate = (
   contracts: Contract[],
   months: number,
   baseComparisonDate: Date
@@ -23,6 +23,23 @@ export const filterContractsByExpiryDate = (
       new Date(contract.terminationDate) < contractExpiryCutOffDate
     )
   })
+  return filteredContracts
+}
+
+export const filterInactiveContractsByExpiryDate = (
+  contracts: Contract[],
+  months: number,
+  baseComparisonDate: Date
+) => {
+  const contractExpiryCutOffDate = monthsOffset(months, baseComparisonDate)
+
+  const filteredContracts = contracts?.filter((contract) => {
+    return (
+      new Date(contract.terminationDate) < baseComparisonDate &&
+      new Date(contract.terminationDate) > contractExpiryCutOffDate
+    )
+  })
+
   return filteredContracts
 }
 

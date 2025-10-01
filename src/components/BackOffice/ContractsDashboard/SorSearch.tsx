@@ -2,11 +2,8 @@ import Meta from '../../Meta'
 
 import Contract from '@/root/src/models/contract'
 
-import ContractListItems from './Contract/ContractListItems'
-
 import { PrimarySubmitButton } from '../../Form'
-import Spinner from '../../Spinner'
-import ErrorMessage from '../../Errors/ErrorMessage'
+import ContractSection from './Contract/ContractSection'
 
 interface SorSearchProps {
   searchHeadingText: string
@@ -63,36 +60,19 @@ const SorSearch = ({
           </div>
         </section>
 
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            {contracts !== null && contracts?.length > 0 && (
-              <ContractListItems
-                contracts={contracts}
-                heading={`${sorCode} found in the following ${contractorName} contracts`}
-                page="sorSearch"
-              />
-            )}
-            {contracts !== null && contracts?.length === 0 && (
-              <p className="lbh-body">
-                No contracts with{' '}
-                <span style={{ fontWeight: 600 }}>{sorCode}</span> SOR code{' '}
-              </p>
-            )}
-            {error && (
-              <ErrorMessage
-                label={
-                  error instanceof Error
-                    ? error.message
-                    : typeof error === 'string'
-                    ? error
-                    : 'An unexpected error occurred'
-                }
-              />
-            )}
-          </>
-        )}
+        <ContractSection
+          subHeading={`${sorCode} found in the following ${contractorName} contracts`}
+          contracts={contracts}
+          isLoading={isLoading}
+          warningText={
+            <p className="lbh-body">
+              No contracts with{' '}
+              <span style={{ fontWeight: 600 }}>{sorCode}</span> SOR code
+            </p>
+          }
+          error={error}
+          page="sorSearch"
+        />
       </div>
     </>
   )

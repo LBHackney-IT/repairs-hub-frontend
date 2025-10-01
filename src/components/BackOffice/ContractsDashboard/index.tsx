@@ -5,13 +5,17 @@ import Spinner from '../../Spinner'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
-import ContractListItems from './Contract/ContractListItems'
+import ContractSection from './Contract/ContractSection'
 import {
   fetchContracts,
   backOfficeFetchContractors,
 } from '@/root/src/components/BackOffice/requests'
 
-import { filterContractsByExpiryDate, today } from './utils'
+import {
+  filterActiveContractsByExpiryDate,
+  filterInactiveContractsByExpiryDate,
+  today,
+} from './utils'
 
 import Contract from '@/root/src/models/contract'
 import Contractor from '@/root/src/models/contractor'
@@ -26,6 +30,23 @@ const ContractsDashboard = () => {
     () =>
       fetchContracts({
         isActive: true,
+        contractorReference: null,
+        sorCode: null,
+      })
+  )
+
+  const {
+    data: expiredContractData,
+    isLoading: expiredContractsIsLoading,
+    error: expiredContractsError,
+  } = useQuery(
+    [
+      'contracts',
+      { isActive: false, contractorReference: null, sorCode: null },
+    ],
+    () =>
+      fetchContracts({
+        isActive: false,
         contractorReference: null,
         sorCode: null,
       })
@@ -48,52 +69,43 @@ const ContractsDashboard = () => {
 
   const contracts = contractData as Contract[] | null
   const contractors = contractorData as Contractor[] | null
+  const expiredContracts = expiredContractData as Contract[] | null
   const contractError = contractsError as Error | null
   const contractorError = contractorsError as Error | null
+  const expiredContractError = expiredContractsError as Error | null
 
-  const contractsThatExpireWithinTwoMonths = filterContractsByExpiryDate(
+  const contractsThatExpireWithinTwoMonths = filterActiveContractsByExpiryDate(
     contracts,
     2,
+    today
+  )
+
+  const recentlyExpiredContracts = filterInactiveContractsByExpiryDate(
+    expiredContracts,
+    -1,
     today
   )
 
   return (
     <Layout title="Contracts Dashboard">
       <>
-        <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
-          Contracts due to expire soon:
-        </h3>
+        <ContractSection
+          heading="Contracts due to expire soon:"
+          contracts={contractsThatExpireWithinTwoMonths}
+          isLoading={contractsIsLoading}
+          warningText="No contracts expiring in the next two months."
+          error={contractError}
+          page="dashboard"
+        />
 
-        {contractsIsLoading ? (
-          <>
-            <Spinner />
-          </>
-        ) : contractsThatExpireWithinTwoMonths === null ||
-          contractsThatExpireWithinTwoMonths?.length === 0 ? (
-          <div style={{ width: '90%' }}>
-            <WarningInfoBox
-              header="No contracts found!"
-              text="No contracts expiring in the next two months."
-              name="no-contracts-found"
-            />
-          </div>
-        ) : (
-          <ContractListItems
-            contracts={contractsThatExpireWithinTwoMonths}
-            page="dashboard"
-          />
-        )}
-        {contractError && (
-          <ErrorMessage
-            label={
-              contractError instanceof Error
-                ? contractError.message
-                : typeof contractError === 'string'
-                ? contractError
-                : 'An unexpected error occurred'
-            }
-          />
-        )}
+        <ContractSection
+          heading="Contracts that have recently expired:"
+          contracts={recentlyExpiredContracts}
+          isLoading={expiredContractsIsLoading}
+          warningText="No contracts have expired in the last month."
+          error={expiredContractError}
+          page="dashboard"
+        />
 
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
           Contractors:

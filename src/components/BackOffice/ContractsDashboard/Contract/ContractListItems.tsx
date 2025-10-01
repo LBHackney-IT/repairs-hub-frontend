@@ -6,7 +6,6 @@ import ErrorMessage from '../../../Errors/ErrorMessage'
 
 interface Props {
   contracts: Contract[]
-  heading?: string
   warningText?: string
   error?: Error | string | null
   page: string
@@ -14,14 +13,10 @@ interface Props {
 }
 
 const ContractListItems = (props: Props) => {
-  const { contracts, heading, warningText, error, page, activeStatus } = props
+  const { contracts, warningText, error, page, activeStatus } = props
 
   return (
     <>
-      <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
-        {heading}
-      </h3>
-
       {(contracts === null || contracts?.length === 0) && (
         <div style={{ width: '90%' }}>
           <WarningInfoBox
