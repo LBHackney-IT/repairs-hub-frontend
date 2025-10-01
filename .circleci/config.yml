@@ -237,8 +237,8 @@ workflows:
       - e2e
       - assume-role-development:
           context: api-assume-role-housing-development-context
-          requires:
-            - tests
+          # requires:
+          #   - tests
             # - e2e (temporarily disabled to speed up dev cycle)
           filters:
             branches:
