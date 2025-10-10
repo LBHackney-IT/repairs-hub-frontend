@@ -71,16 +71,16 @@ export const WORK_ORDER_ACTIONS = [
     ],
     permittedStatuses: WORK_ORDERS_STATUSES,
   },
-  {
-    href: 'edit',
-    title: 'Edit',
-    description: 'Edit Work Order',
-    permittedRoles: [
-      AGENT_ROLE,
-      AUTHORISATION_MANAGER_ROLE,
-      CONTRACT_MANAGER_ROLE,
-      DATA_ADMIN_ROLE,
-    ],
-    permittedStatuses: WORK_ORDERS_STATUSES,
-  },
+  // {
+  //   href: 'edit',
+  //   title: 'Edit',
+  //   description: 'Edit Work Order',
+  //   permittedRoles: [
+  //     AGENT_ROLE,
+  //     AUTHORISATION_MANAGER_ROLE,
+  //     CONTRACT_MANAGER_ROLE,
+  //     DATA_ADMIN_ROLE,
+  //   ],
+  //   permittedStatuses: WORK_ORDERS_STATUSES,
+  // },
 ]

@@ -1,7 +1,9 @@
 /// <reference types="cypress" />
 
+// Tests disabled
+
 describe('Editing a work order description', () => {
-  context('As an authorisation manager', () => {
+  context.skip('As an authorisation manager', () => {
     beforeEach(() => {
       cy.loginWithAuthorisationManagerRole()
     })
@@ -265,7 +267,7 @@ describe('Editing a work order description', () => {
     })
   })
 
-  context('As an operative', () => {
+  context.skip('As an operative', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
       cy.intercept(
