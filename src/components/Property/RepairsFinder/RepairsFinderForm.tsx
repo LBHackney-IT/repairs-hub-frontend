@@ -192,6 +192,15 @@ const RepairsFinderForm = (props: Props) => {
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
+            
+            <RepairsFinderInput
+              propertyReference={propertyReference}
+              register={register}
+              setTotalCost={setTotalCost}
+              setContractorReference={setContractorReference}
+              setTradeCode={setTradeCode}
+            />
+
             {canAssignFollowOnRelationship(user) && (
               <RaiseWorkOrderFollowOn
                 register={register}
@@ -200,14 +209,6 @@ const RepairsFinderForm = (props: Props) => {
                 watch={watch}
               />
             )}
-
-            <RepairsFinderInput
-              propertyReference={propertyReference}
-              register={register}
-              setTotalCost={setTotalCost}
-              setContractorReference={setContractorReference}
-              setTradeCode={setTradeCode}
-            />
 
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"

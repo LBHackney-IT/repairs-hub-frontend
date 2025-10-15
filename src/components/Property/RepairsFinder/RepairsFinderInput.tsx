@@ -5,6 +5,8 @@ import { TextArea } from '../../Form'
 import { Table, TBody } from '../../Layout/Table'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { extractXmlData, RepairsFinderExtractedData } from './helpers'
+import Link from 'next/link'
+import WarningInfoBox from '../../Template/WarningInfoBox'
 
 // Placeholder for testing
 const DEFAULT_VALUE = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME></WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink top is loose</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>20060020</SOR_CODE><PRIORITY>A3</PRIORITY><QUANTITY>1</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>Sink top is loose - sadfsdf</SOR_COMMENTS><SOR_CLASS></SOR_CLASS></SOR></RF_INFO>`
@@ -118,6 +120,18 @@ const RepairsFinderInput = (props: Props) => {
 
   return (
     <>
+
+     <WarningInfoBox
+              className="variant-warning govuk-!-margin-bottom-4"
+              header="Looking to use Repairs Finder?"
+              name="despatched-warning"
+              text={
+                <>
+                 Visit <a className='lbh-link' target='_blank' href="https://product-test.necsws.com/cgi-bin/hackney_rftr_launchalone.pl">Repairs Finder</a> to diagnose the repair, then paste the code below.
+                </>
+              }
+            />
+
       <TextArea
         name="xmlContent"
         value={xmlContent}
