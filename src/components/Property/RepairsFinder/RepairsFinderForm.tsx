@@ -198,6 +198,7 @@ const RepairsFinderForm = (props: Props) => {
               setTotalCost={setTotalCost}
               setContractorReference={setContractorReference}
               setTradeCode={setTradeCode}
+              priorities={priorities}
             />
 
             {canAssignFollowOnRelationship(user) && (

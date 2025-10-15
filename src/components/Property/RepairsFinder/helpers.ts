@@ -12,8 +12,10 @@ export const isOutOfHoursGas = (
 }
 
 export const getPriorityObjectByCode = (
-  code: number,
+  code: number | string,
   priorities: Priority[]
 ) => {
-  return priorities.find((priority) => priority.priorityCode == code)
+  return priorities.find(
+    (priority) => priority.priorityCode == (code as number)
+  )
 }
