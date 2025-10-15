@@ -192,7 +192,6 @@ const RepairsFinderForm = (props: Props) => {
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            
             <RepairsFinderInput
               propertyReference={propertyReference}
               register={register}

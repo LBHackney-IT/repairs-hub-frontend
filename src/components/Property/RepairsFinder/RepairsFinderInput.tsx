@@ -1,36 +1,13 @@
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { useEffect, useState } from 'react'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
 import { TextArea } from '../../Form'
 import { Table, TBody } from '../../Layout/Table'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { extractXmlData, RepairsFinderExtractedData } from './helpers'
-import Link from 'next/link'
 import WarningInfoBox from '../../Template/WarningInfoBox'
+import { useRepairsFinderInput } from './useRepairsFinderInput'
 
-// Placeholder for testing
-const DEFAULT_VALUE = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME></WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink top is loose</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>20060020</SOR_CODE><PRIORITY>A3</PRIORITY><QUANTITY>1</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>Sink top is loose - sadfsdf</SOR_COMMENTS><SOR_CLASS></SOR_CLASS></SOR></RF_INFO>`
-
-interface MatchingSorCode {
-  sorCode: {
-    code: string
-    shortDescription: string
-    longDescription: string
-    priority: {
-      priorityCode: number
-      description: string
-    }
-    cost: number
-    standardMinuteValue: number
-    displayPriority: number
-  }
-  tradeCode: string
-  trade: string
-  contractReference: string
-  contractorReference: string
-  contractor: string
-  hasPropertyContract: boolean
-}
+// const DEFAULT_VALUE = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME></WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink top is loose</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>20060020</SOR_CODE><PRIORITY>A3</PRIORITY><QUANTITY>1</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>Sink top is loose - sadfsdf</SOR_COMMENTS><SOR_CLASS></SOR_CLASS></SOR></RF_INFO>`
+const DEFAULT_VALUE = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME>H01</WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink taps are broken</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>20060030</SOR_CODE><PRIORITY>2</PRIORITY><QUANTITY>1</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>Sink taps are broken - test</SOR_COMMENTS><SOR_CLASS>M52</SOR_CLASS></SOR></RF_INFO>`
 
 interface Props {
   propertyReference: string
@@ -49,97 +26,63 @@ const RepairsFinderInput = (props: Props) => {
     setTradeCode,
   } = props
 
-  const [
-    repairsApiResponse,
-    setRepairsApiResponse,
-  ] = useState<MatchingSorCode | null>(null)
+  const [textInput, setTextInput] = useState<string>(DEFAULT_VALUE)
 
-  const [xmlContent, setXmlContent] = useState<string>(DEFAULT_VALUE)
-
-  const [error, setError] = useState<string | null>(null)
-  const [
-    extractedXmlData,
-    setExtractedXmlData,
-  ] = useState<RepairsFinderExtractedData | null>(null)
-
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  useEffect(() => {
-    handleSearchCode()
-  }, [xmlContent])
-
-  const handleSearchCode = async () => {
-    setError(() => null)
-    setExtractedXmlData(() => null)
-    setRepairsApiResponse(() => null)
-
-    const extractedData = await extractXmlData(xmlContent)
-
-    setExtractedXmlData(() => extractedData)
-    if (extractedData == null) return
-
-    setIsLoading(() => true)
-    setRepairsApiResponse(() => null)
-
-    try {
-      const response: MatchingSorCode = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/repairs-finder/matching-sor-codes',
-        params: {
-          sorCode: extractedData.sorCode,
-          tradeCode: extractedData.tradeCode,
-          contractorReference: extractedData.contractorReference,
-          propertyReference: propertyReference,
-        },
-      })
-
-      const totalCost =
-        response?.sorCode?.cost * parseInt(extractedData?.quantity)
-
-      setTotalCost(totalCost)
-      setContractorReference(extractedData.contractorReference)
-      setTradeCode(extractedData.tradeCode)
-
-      // timeout makes it look cooler
-      setTimeout(() => {
-        setIsLoading(() => false)
-        setRepairsApiResponse(() => response)
-      }, 2000)
-    } catch (e) {
-      console.error(e.message)
-      setIsLoading(() => false)
-      setError('Something went wrong validating sorCode. Please try again')
-    }
-  }
-
-  const onSetXmlCode = (e) => {
+  const onTextInput = (e) => {
     e.preventDefault()
 
-    setXmlContent(() => e.target.value)
+    setTextInput(() => e.target.value)
   }
+
+  const {
+    extractedXmlData,
+    error,
+    isLoading,
+    matchingSorCode,
+  } = useRepairsFinderInput(textInput, propertyReference)
+
+  useEffect(() => {
+    if (matchingSorCode == null) return
+
+    const totalCost =
+      matchingSorCode?.sorCode?.cost * parseInt(extractedXmlData?.quantity)
+
+    setTotalCost(totalCost)
+    setContractorReference(extractedXmlData.contractorReference)
+    setTradeCode(matchingSorCode.tradeCode)
+  }, [matchingSorCode])
 
   return (
     <>
-
-     <WarningInfoBox
-              className="variant-warning govuk-!-margin-bottom-4"
-              header="Looking to use Repairs Finder?"
-              name="despatched-warning"
-              text={
-                <>
-                 Visit <a className='lbh-link' target='_blank' href="https://product-test.necsws.com/cgi-bin/hackney_rftr_launchalone.pl">Repairs Finder</a> to diagnose the repair, then paste the code below.
-                </>
-              }
-            />
+      <WarningInfoBox
+        className="variant-warning govuk-!-margin-bottom-4"
+        header="Looking to use Repairs Finder?"
+        name="despatched-warning"
+        text={
+          <>
+            Visit{' '}
+            <a
+              className="lbh-link"
+              target="_blank"
+              href="https://product-test.necsws.com/cgi-bin/hackney_rftr_launchalone.pl"
+              rel="noreferrer"
+            >
+              Repairs Finder
+            </a>{' '}
+            to diagnose the repair, then paste the code below.
+          </>
+        }
+      />
 
       <TextArea
         name="xmlContent"
-        value={xmlContent}
+        value={textInput}
         label="Repairs finder code"
         hint="Please paste the code from Repairs Finder"
         required
-        error={!extractedXmlData && { message: 'Invalid code format' }}
-        onInput={onSetXmlCode}
+        error={!!error && error}
+        // error={!extractedXmlData && { message: 'Invalid code format' }}
+        onInput={onTextInput}
         rows={6}
       />
 
@@ -152,37 +95,37 @@ const RepairsFinderInput = (props: Props) => {
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Trade</td>
             <td className="govuk-table__cell">
-              {repairsApiResponse === null
+              {matchingSorCode === null
                 ? '-'
-                : `${repairsApiResponse?.trade} - ${repairsApiResponse?.tradeCode}`}
+                : `${matchingSorCode?.trade} - ${matchingSorCode?.tradeCode}`}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Contractor</td>
             <td className="govuk-table__cell">
-              {repairsApiResponse === null
+              {matchingSorCode === null
                 ? '-'
-                : `${repairsApiResponse?.contractor}`}
+                : `${matchingSorCode?.contractor}`}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">SOR code</td>
             <td className="govuk-table__cell">
-              {repairsApiResponse === null
+              {matchingSorCode === null
                 ? '-'
-                : `${repairsApiResponse?.sorCode?.cost} - ${repairsApiResponse?.sorCode?.shortDescription}`}
+                : `${matchingSorCode?.sorCode?.cost} - ${matchingSorCode?.sorCode?.shortDescription}`}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Quantity</td>
             <td className="govuk-table__cell">
-              {repairsApiResponse === null ? '-' : extractedXmlData?.quantity}
+              {matchingSorCode === null ? '-' : extractedXmlData?.quantity}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Priority</td>
             <td className="govuk-table__cell">
-              {repairsApiResponse === null ? '-' : extractedXmlData?.priority}
+              {matchingSorCode === null ? '-' : extractedXmlData?.priority}
             </td>
           </tr>
         </TBody>
@@ -194,7 +137,7 @@ const RepairsFinderInput = (props: Props) => {
         name="trade"
         type="hidden"
         ref={register}
-        value={repairsApiResponse?.trade}
+        value={matchingSorCode?.trade}
       />
 
       <input
@@ -202,7 +145,7 @@ const RepairsFinderInput = (props: Props) => {
         name="tradeCode"
         type="hidden"
         ref={register}
-        value={repairsApiResponse?.tradeCode}
+        value={matchingSorCode?.tradeCode}
       />
 
       {/* Contractor */}
@@ -211,7 +154,7 @@ const RepairsFinderInput = (props: Props) => {
         name="contractor"
         type="hidden"
         ref={register}
-        value={`${repairsApiResponse?.contractor} - ${repairsApiResponse?.contractorReference}`}
+        value={`${matchingSorCode?.contractor} - ${matchingSorCode?.contractorReference}`}
       />
 
       <input
@@ -219,28 +162,28 @@ const RepairsFinderInput = (props: Props) => {
         name="contractorRef"
         type="hidden"
         ref={register}
-        value={repairsApiResponse?.contractorReference}
+        value={matchingSorCode?.contractorReference}
       />
 
       {/* SOR code fields */}
       <input
         id={`rateScheduleItems[${0}][code]`}
         name={`rateScheduleItems[${0}][code]`}
-        value={`${repairsApiResponse?.sorCode?.code} - ${repairsApiResponse?.sorCode?.shortDescription} - £${repairsApiResponse?.sorCode?.cost}`}
+        value={`${matchingSorCode?.sorCode?.code} - ${matchingSorCode?.sorCode?.shortDescription} - £${matchingSorCode?.sorCode?.cost}`}
         type="hidden"
         ref={register}
       />
       <input
         id={`rateScheduleItems[${0}][description]`}
         name={`rateScheduleItems[${0}][description]`}
-        value={repairsApiResponse?.sorCode?.shortDescription}
+        value={matchingSorCode?.sorCode?.shortDescription}
         type="hidden"
         ref={register}
       />
       <input
         id={`rateScheduleItems[${0}][cost]`}
         name={`rateScheduleItems[${0}][cost]`}
-        value={repairsApiResponse?.sorCode?.cost}
+        value={matchingSorCode?.sorCode?.cost}
         type="hidden"
         ref={register}
       />
