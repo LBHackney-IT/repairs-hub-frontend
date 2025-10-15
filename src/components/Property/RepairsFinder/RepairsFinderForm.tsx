@@ -58,7 +58,7 @@ const RepairsFinderForm = (props: Props) => {
     setTradeCode,
   } = props
 
-  const { register, handleSubmit, errors, watch } = useForm()
+  const { register, handleSubmit, errors, watch, setValue } = useForm()
 
   const { user } = useContext(UserContext)
 
@@ -73,6 +73,10 @@ const RepairsFinderForm = (props: Props) => {
   const [alertsLoading, setAlertsLoading] = useState(false)
   const [alertsError, setAlertsError] = useState<string | null>()
   const [isExpanded, setIsExpanded] = useState(false)
+
+  const setDescription = (description: string) => {
+    setValue('descriptionOfWork', description)
+  }
 
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode, priorities)
@@ -199,6 +203,7 @@ const RepairsFinderForm = (props: Props) => {
               setContractorReference={setContractorReference}
               setTradeCode={setTradeCode}
               priorities={priorities}
+              setDescription={setDescription}
             />
 
             {canAssignFollowOnRelationship(user) && (

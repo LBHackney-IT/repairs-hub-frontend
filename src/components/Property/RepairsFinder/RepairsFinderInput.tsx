@@ -18,6 +18,7 @@ interface Props {
   setContractorReference: (reference: string) => void
   setTradeCode: (tradeCode: string) => void
   priorities: Priority[]
+  setDescription: (description: string) => void
 }
 
 const RepairsFinderInput = (props: Props) => {
@@ -28,6 +29,7 @@ const RepairsFinderInput = (props: Props) => {
     setContractorReference,
     setTradeCode,
     priorities,
+    setDescription
   } = props
 
   const [textInput, setTextInput] = useState<string>(DEFAULT_VALUE)
@@ -44,6 +46,14 @@ const RepairsFinderInput = (props: Props) => {
     isLoading,
     matchingSorCode,
   } = useRepairsFinderInput(textInput, propertyReference)
+
+  useEffect(() => {
+    const comments = extractedXmlData?.comments
+
+    console.log({ comments})
+
+    setDescription(comments)
+  }, [extractedXmlData])
 
   useEffect(() => {
     if (matchingSorCode == null) return
