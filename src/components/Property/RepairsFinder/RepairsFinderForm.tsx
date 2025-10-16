@@ -2,11 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import PropertyFlags from '../PropertyFlags'
 import BackButton from '../../Layout/BackButton'
-import {
-  PrimarySubmitButton,
-  CharacterCountLimitedTextArea,
-  TextInput,
-} from '../../Form'
+import { PrimarySubmitButton, TextInput } from '../../Form'
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
 import WarningInfoBox from '../../Template/WarningInfoBox'
@@ -73,10 +69,6 @@ const RepairsFinderForm = (props: Props) => {
   const [alertsLoading, setAlertsLoading] = useState(false)
   const [alertsError, setAlertsError] = useState<string | null>()
   const [isExpanded, setIsExpanded] = useState(false)
-
-  const setDescription = (description: string) => {
-    setValue('descriptionOfWork', description)
-  }
 
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode, priorities)
@@ -196,16 +188,6 @@ const RepairsFinderForm = (props: Props) => {
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <RepairsFinderInput
-              propertyReference={propertyReference}
-              register={register}
-              setTotalCost={setTotalCost}
-              setContractorReference={setContractorReference}
-              setTradeCode={setTradeCode}
-              priorities={priorities}
-              setDescription={setDescription}
-            />
-
             {canAssignFollowOnRelationship(user) && (
               <RaiseWorkOrderFollowOn
                 register={register}
@@ -215,14 +197,13 @@ const RepairsFinderForm = (props: Props) => {
               />
             )}
 
-            <CharacterCountLimitedTextArea
-              name="descriptionOfWork"
-              label="Repair description"
-              required={true}
-              maxLength={230}
-              requiredText="Please enter a repair description"
+            <RepairsFinderInput
+              propertyReference={propertyReference}
               register={register}
-              error={errors && errors.descriptionOfWork}
+              setTotalCost={setTotalCost}
+              setContractorReference={setContractorReference}
+              setTradeCode={setTradeCode}
+              priorities={priorities}
             />
 
             <Contacts tenureId={tenure?.id} />

@@ -18,7 +18,6 @@ interface Props {
   setContractorReference: (reference: string) => void
   setTradeCode: (tradeCode: string) => void
   priorities: Priority[]
-  setDescription: (description: string) => void
 }
 
 const RepairsFinderInput = (props: Props) => {
@@ -29,7 +28,6 @@ const RepairsFinderInput = (props: Props) => {
     setContractorReference,
     setTradeCode,
     priorities,
-    setDescription
   } = props
 
   const [textInput, setTextInput] = useState<string>(DEFAULT_VALUE)
@@ -46,14 +44,6 @@ const RepairsFinderInput = (props: Props) => {
     isLoading,
     matchingSorCode,
   } = useRepairsFinderInput(textInput, propertyReference)
-
-  useEffect(() => {
-    const comments = extractedXmlData?.comments
-
-    console.log({ comments})
-
-    setDescription(comments)
-  }, [extractedXmlData])
 
   useEffect(() => {
     if (matchingSorCode == null) return
@@ -95,7 +85,6 @@ const RepairsFinderInput = (props: Props) => {
         hint="Please paste the code from Repairs Finder"
         required
         error={!!error && error}
-        // error={!extractedXmlData && { message: 'Invalid code format' }}
         onInput={onTextInput}
         rows={6}
       />
@@ -147,8 +136,23 @@ const RepairsFinderInput = (props: Props) => {
                   )?.description}
             </td>
           </tr>
+          <tr className="govuk-table__row">
+            <td className="govuk-table__cell">Description</td>
+            <td className="govuk-table__cell">
+              {matchingSorCode === null ? '-' : extractedXmlData?.comments}
+            </td>
+          </tr>
         </TBody>
       </Table>
+
+      {/* Description */}
+      <input
+        id="descriptionOfWork"
+        name="descriptionOfWork"
+        type="hidden"
+        ref={register}
+        value={extractedXmlData?.comments}
+      />
 
       {/* Trade */}
       <input
