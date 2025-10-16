@@ -84,7 +84,7 @@ const RepairsFinderInput = (props: Props) => {
         label="Repairs finder code"
         hint="Please paste the code from Repairs Finder"
         required
-        error={!!error && error}
+        error={!!error && { message: error }}
         onInput={onTextInput}
         rows={6}
       />
