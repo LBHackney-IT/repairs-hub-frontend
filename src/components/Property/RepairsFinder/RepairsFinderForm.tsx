@@ -26,6 +26,7 @@ import { getPriorityObjectByCode } from './helpers'
 import RepairsFinderInput from './RepairsFinderInput'
 import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
 import Alerts from '../Alerts'
+import { useIsOverSpendLimit } from './useIsOverSpendLimit'
 
 interface Props {
   propertyReference: string
@@ -39,6 +40,7 @@ interface Props {
   setContractorReference: (reference: string) => void
   setTradeCode: (tradeCode: string) => void
 }
+
 
 const RepairsFinderForm = (props: Props) => {
   const {
@@ -54,16 +56,16 @@ const RepairsFinderForm = (props: Props) => {
     setTradeCode,
   } = props
 
-  const { register, handleSubmit, errors, watch, setValue } = useForm()
+  const { register, handleSubmit, errors, watch } = useForm()
 
   const { user } = useContext(UserContext)
 
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState<string>()
 
-  const [totalCost, setTotalCost] = useState<number>()
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
-  const overSpendLimit = totalCost > parseInt(raiseLimit)
+
+  const [overSpendLimit, setTotalCost] = useIsOverSpendLimit(raiseLimit)
 
   const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
   const [alertsLoading, setAlertsLoading] = useState(false)
