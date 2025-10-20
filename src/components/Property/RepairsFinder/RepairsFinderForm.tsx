@@ -41,7 +41,6 @@ interface Props {
   setTradeCode: (tradeCode: string) => void
 }
 
-
 const RepairsFinderForm = (props: Props) => {
   const {
     propertyReference,
@@ -56,7 +55,7 @@ const RepairsFinderForm = (props: Props) => {
     setTradeCode,
   } = props
 
-  const { register, handleSubmit, errors, watch } = useForm()
+  const { register, handleSubmit, errors, watch, setError, trigger, formState: { isSubmitted} } = useForm()
 
   const { user } = useContext(UserContext)
 
@@ -202,10 +201,13 @@ const RepairsFinderForm = (props: Props) => {
             <RepairsFinderInput
               propertyReference={propertyReference}
               register={register}
+              errors={errors}
               setTotalCost={setTotalCost}
               setContractorReference={setContractorReference}
               setTradeCode={setTradeCode}
               priorities={priorities}
+              trigger={trigger}
+              isSubmitted={isSubmitted}
             />
 
             <Contacts tenureId={tenure?.id} />

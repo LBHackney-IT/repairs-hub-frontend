@@ -5,5 +5,10 @@ export const useIsOverSpendLimit = (raiseLimit: string) => {
 
   const overSpendLimit = totalCost > parseInt(raiseLimit)
 
-  return [overSpendLimit, setTotalCost]
+  return [
+    overSpendLimit,
+    (cost: number) => {
+      setTotalCost(cost)
+    },
+  ]
 }

@@ -24,14 +24,28 @@ export const useRepairsFinderInput = (
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
+  const [touched, setTouched] = useState<boolean>(false)
+
+  // console.log("Side effect")
+
   useEffect(() => {
+    // console.log({ touched })
+
+    if (!touched) {
+      setTouched(true)
+      return
+    }
+
     handleInputChange()
   }, [textInput])
 
   const handleInputChange = async () => {
-    setError(null)
+    console.log("handle change")
     setExtractedXmlData(null)
     setMatchingSorCode(null)
+
+        setError(null)
+
 
     const extractedData = await extractXmlData(textInput)
     setExtractedXmlData(extractedData)
@@ -40,8 +54,11 @@ export const useRepairsFinderInput = (
 
     if (extractedData == null) {
       setError('Invalid code format')
+      console.log("is invaldi")
       return
     }
+
+    // setError(null)
 
     setIsLoading(true)
 
@@ -60,10 +77,13 @@ export const useRepairsFinderInput = (
       setTimeout(() => {
         setIsLoading(false)
         setMatchingSorCode(response)
+        // setError(null)
       }, 2000)
     } catch (e) {
       console.error(e.message)
       setIsLoading(false)
+
+      // console.log({ e }, e.message, e.response?.data)
 
       if (e?.message) {
         setError(e.message)
@@ -125,5 +145,6 @@ export const useRepairsFinderInput = (
     error,
     isLoading,
     matchingSorCode,
+    touched
   }
 }
