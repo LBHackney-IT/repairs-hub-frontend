@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query'
 
-import Layout from '../Layout'
-import Spinner from '../../Spinner'
-import WarningInfoBox from '../../Template/WarningInfoBox'
-import ErrorMessage from '../../Errors/ErrorMessage'
+import Layout from '../BackOffice/Layout'
+import Spinner from '../Spinner'
+import WarningInfoBox from '../Template/WarningInfoBox'
+import ErrorMessage from '../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractSection from './Contract/ContractSection'
 import {

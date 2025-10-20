@@ -1,7 +1,7 @@
 import {
   monthsOffset,
   today,
-} from '@/root/src/components/BackOffice/ContractsDashboard/utils'
+} from '@/root/src/components/ContractsDashboard/utils'
 
 /// <reference types="cypress" />
 
