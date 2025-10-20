@@ -68,7 +68,7 @@ function inactiveContractsRequest() {
 describe('contractor page - when user unauthorised', () => {
   it("shows access denied when user doesn't have correct permissions", () => {
     cy.loginWithOperativeRole()
-    cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+    cy.visit('/contractors/SYC?contractorName=Sycous+Limited')
     cy.contains('Access denied')
   })
 })
@@ -79,7 +79,7 @@ describe('contractor page - when user has data admin permissions', () => {
   })
 
   it('triggers a GET requests on page load to retrieve all relevant contracts', () => {
-    cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+    cy.visit('/contractors/SYC?contractorName=Sycous+Limited')
     activeContractsRequest()
     inactiveContractsRequest()
     cy.wait('@activeContractsRequest')
@@ -90,10 +90,10 @@ describe('contractor page - when user has data admin permissions', () => {
       .should('deep.equal', 'GET')
   })
 
-  it('goes from backoffice to contracts dashboard to contractor page to contract dashboard then back to backoffice', () => {
-    cy.visit('/backoffice')
+  it('goes from homepage to contracts dashboard to contractor page to contract dashboard then back to homepage', () => {
+    cy.visit('/')
     cy.contains('a', 'Contracts Dashboard').click()
-    cy.url().should('include', '/backoffice/contracts-dashboard')
+    cy.url().should('include', '/contracts-dashboard')
     contractsRequest()
     contractorsRequest()
     cy.wait('@contractsRequest')
@@ -105,16 +105,16 @@ describe('contractor page - when user has data admin permissions', () => {
     inactiveContractsRequest()
     cy.wait('@activeContractsRequest')
     cy.wait('@inactiveContractsRequest')
-    cy.url().should('include', 'backoffice/contractors/SYC')
+    cy.url().should('include', '/contractors/SYC')
     cy.get('.govuk-back-link').click()
-    cy.url().should('include', '/backoffice/contracts-dashboard')
+    cy.url().should('include', '/contracts-dashboard')
     cy.get('.govuk-back-link').click()
-    cy.url().should('include', '/backoffice')
+    cy.url().should('include', '/')
   })
 
   describe('Active and inactive contracts', () => {
     it('should display correct amount of active and inactive contracts related to the contractor', () => {
-      cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+      cy.visit('/contractors/SYC?contractorName=Sycous+Limited')
       activeContractsRequest()
       inactiveContractsRequest()
       cy.wait('@activeContractsRequest').then((interception) => {
@@ -132,7 +132,7 @@ describe('contractor page - when user has data admin permissions', () => {
     })
 
     it('displays inactive contracts and no active contracts warning boxes when no active contracts are found', () => {
-      cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+      cy.visit('/contractors/SYC?contractorName=Sycous+Limited')
       inactiveContractsRequest()
       cy.intercept(
         {
@@ -152,7 +152,7 @@ describe('contractor page - when user has data admin permissions', () => {
     })
 
     it('displays active contracts and no inactive contracts warning boxes when no active contracts are found', () => {
-      cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+      cy.visit('/contractors/SYC?contractorName=Sycous+Limited')
       activeContractsRequest()
       cy.intercept(
         {
@@ -172,7 +172,7 @@ describe('contractor page - when user has data admin permissions', () => {
     })
 
     it('displays no active and inactive contracts warning boxes when no active and inactive contracts are found', () => {
-      cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+      cy.visit('/contractors/SYC?contractorName=Sycous+Limited')
       cy.intercept(
         {
           method: 'GET',
@@ -200,7 +200,7 @@ describe('contractor page - when user has data admin permissions', () => {
 
   describe('sor code search', () => {
     it('searches for an sor code and displays contracts that have it', () => {
-      cy.visit('/backoffice/contractors/SYC?contractorName=Syc')
+      cy.visit('/contractors/SYC?contractorName=Syc')
       activeContractsRequest()
       inactiveContractsRequest()
       cy.get('[data-testid="input-search"]').type('ABC1240')
@@ -254,7 +254,7 @@ describe('contractor page - when user has data admin permissions', () => {
       })
     })
     it('searches for an sor code and displays no contracts have that sor code message', () => {
-      cy.visit('/backoffice/contractors/SYC?contractorName=Syc')
+      cy.visit('/contractors/SYC?contractorName=Syc')
       activeContractsRequest()
       inactiveContractsRequest()
       cy.get('[data-testid="input-search"]').type('ABC1240')
@@ -275,7 +275,7 @@ describe('contractor page - when user has data admin permissions', () => {
     })
 
     it('displays error when sor request does not contain sor code', () => {
-      cy.visit('/backoffice/contractors/SYC?contractorName=Syc')
+      cy.visit('/contractors/SYC?contractorName=Syc')
       activeContractsRequest()
       inactiveContractsRequest()
       cy.get('[data-testid="input-search"]').type('ABC1240')
