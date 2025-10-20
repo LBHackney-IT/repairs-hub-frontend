@@ -5,6 +5,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
   ALL_ROLES,
+  DATA_ADMIN_ROLE,
 } from './user'
 
 const HEADER_LINKS = [
@@ -41,6 +42,12 @@ const HEADER_LINKS = [
     id: 'support-page',
     description: 'Support',
     permittedRoles: [OPERATIVE_ROLE],
+  },
+  {
+    href: '/contracts-dashboard',
+    id: 'contracts-dashboard',
+    description: 'Contracts Dashboard',
+    permittedRoles: [DATA_ADMIN_ROLE],
   },
   {
     href: '/logout',
