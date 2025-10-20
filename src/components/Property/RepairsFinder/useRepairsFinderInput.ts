@@ -40,12 +40,11 @@ export const useRepairsFinderInput = (
   }, [textInput])
 
   const handleInputChange = async () => {
-    console.log("handle change")
+    console.log('handle change')
     setExtractedXmlData(null)
     setMatchingSorCode(null)
 
-        setError(null)
-
+    setError(null)
 
     const extractedData = await extractXmlData(textInput)
     setExtractedXmlData(extractedData)
@@ -54,7 +53,7 @@ export const useRepairsFinderInput = (
 
     if (extractedData == null) {
       setError('Invalid code format')
-      console.log("is invaldi")
+      console.log('is invaldi')
       return
     }
 
@@ -145,6 +144,6 @@ export const useRepairsFinderInput = (
     error,
     isLoading,
     matchingSorCode,
-    touched
+    touched,
   }
 }

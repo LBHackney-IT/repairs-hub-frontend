@@ -108,7 +108,6 @@ describe('Raise repair with Repairs Finder', () => {
     cy.clock(now, ['Date'])
   })
 
-
   it('Raises a repair', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
@@ -130,7 +129,6 @@ describe('Raise repair with Repairs Finder', () => {
     cy.contains('New repair')
     cy.contains('Dwelling: 16 Pitcairn House')
   })
-
 
   // it('Doesnt throw error when tenure is null', () => {
   //   cy.loginWithAgentAndBudgetCodeOfficerRole()

@@ -55,7 +55,15 @@ const RepairsFinderForm = (props: Props) => {
     setTradeCode,
   } = props
 
-  const { register, handleSubmit, errors, watch, setError, trigger, formState: { isSubmitted} } = useForm()
+  const {
+    register,
+    handleSubmit,
+    errors,
+    watch,
+    setError,
+    trigger,
+    formState: { isSubmitted },
+  } = useForm()
 
   const { user } = useContext(UserContext)
 
