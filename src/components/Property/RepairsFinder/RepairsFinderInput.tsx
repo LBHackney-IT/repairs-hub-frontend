@@ -43,11 +43,11 @@ const RepairsFinderInput = (props: Props) => {
     error,
     isLoading,
     matchingSorCode,
-    touched,
+    touched
   } = useRepairsFinderInput(textInput, propertyReference)
 
   useEffect(() => {
-    if (!isSubmitted && !touched) return
+    if (!isSubmitted && !touched) return 
     trigger('xmlContent')
   }, [error, trigger, isSubmitted])
 
@@ -84,10 +84,6 @@ const RepairsFinderInput = (props: Props) => {
         }
       />
 
-      {/* <p>
-        Error: {error} {errors?.xmlContent}
-      </p> */}
-
       <TextArea
         name="xmlContent"
         label="Repairs finder code"
@@ -96,21 +92,13 @@ const RepairsFinderInput = (props: Props) => {
         register={register({
           required: 'Please enter a code',
           validate: () => {
-            console.log('Valudate', { error })
-
             return error || true
           },
         })}
-        // error={!!error && { message: error }}
         error={errors && errors?.xmlContent}
-        // error={"YEE"}
         onInput={(e) => setTextInput(e.target.value)}
         rows={6}
       />
-
-      {/* <pre>{JSON.stringify(errors?.xmlContent?.message, null, 2)}</pre> */}
-
-      {/* {error && <ErrorMessage label={error} />} */}
 
       <div>{isLoading && <SpinnerWithLabel label="Validating code.." />}</div>
 

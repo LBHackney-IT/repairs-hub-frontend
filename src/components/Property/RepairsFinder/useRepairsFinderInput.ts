@@ -26,11 +26,7 @@ export const useRepairsFinderInput = (
 
   const [touched, setTouched] = useState<boolean>(false)
 
-  // console.log("Side effect")
-
   useEffect(() => {
-    // console.log({ touched })
-
     if (!touched) {
       setTouched(true)
       return
@@ -40,7 +36,6 @@ export const useRepairsFinderInput = (
   }, [textInput])
 
   const handleInputChange = async () => {
-    console.log('handle change')
     setExtractedXmlData(null)
     setMatchingSorCode(null)
 
@@ -49,15 +44,13 @@ export const useRepairsFinderInput = (
     const extractedData = await extractXmlData(textInput)
     setExtractedXmlData(extractedData)
 
-    console.info({ extractedData })
 
-    if (extractedData == null) {
+    if (extractedData == null || !validateData(extractedData)) {
       setError('Invalid code format')
-      console.log('is invaldi')
       return
     }
 
-    // setError(null)
+
 
     setIsLoading(true)
 
@@ -110,6 +103,7 @@ export const useRepairsFinderInput = (
 
       const contractorReference = result.result.RF_INFO.WORK_PROGRAMME[0]
 
+
       return {
         sorCode,
         priority,
@@ -121,6 +115,26 @@ export const useRepairsFinderInput = (
       console.error(error)
       return null
     }
+  }
+
+  const validateData = (data: RepairsFinderExtractedData) => {
+
+    // console.log("validate", { data })
+
+    if (checkIfNullOrEmpty(data.contractorReference)) return false;
+    if (checkIfNullOrEmpty(data.sorCode)) return false;
+    if (checkIfNullOrEmpty(data.priority)) return false;
+    if (checkIfNullOrEmpty(data.quantity)) return false;
+    if (checkIfNullOrEmpty(data.comments)) return false;
+
+    // console.log("is valid")
+
+    return true
+  }
+
+  const checkIfNullOrEmpty = (value: string) => {
+    if (value == "" || value == null) return true
+    return false
   }
 
   const parseXML = (xml: string) =>
