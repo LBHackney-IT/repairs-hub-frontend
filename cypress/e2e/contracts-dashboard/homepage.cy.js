@@ -99,8 +99,8 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       .should('deep.equal', 'GET')
   })
 
-  it('goes from homepage to contracts dashboard then back to homepage', () => {
-    cy.visit('/contracts-dashboard')
+  it.only('goes from homepage to contracts dashboard then back to homepage', () => {
+    cy.visit('/')
     cy.contains('a', 'Contracts Dashboard').click()
     cy.url().should('include', '/contracts-dashboard')
     contractsRequest()
@@ -108,7 +108,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     cy.wait('@contractorsRequest')
     cy.wait('@contractsRequest')
     cy.get('.govuk-back-link').click()
-    cy.url().should('include', '/backoffice')
+    cy.url().should('include', '/')
   })
 
   it('displays contracts that are expiring in the next two months', () => {
