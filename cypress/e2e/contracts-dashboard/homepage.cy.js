@@ -77,7 +77,7 @@ function modifiedInactiveContractsRequest() {
 describe('Contracts dashboard - when user unauthorised', () => {
   it("shows access denied when user doesn't have correct permissions", () => {
     cy.loginWithOperativeRole()
-    cy.visit('/backoffice/contracts-dashboard')
+    cy.visit('/contracts-dashboard')
     cy.contains('Access denied')
   })
 })
@@ -85,7 +85,7 @@ describe('Contracts dashboard - when user unauthorised', () => {
 describe('Contracts dashboard page - when user has data admin permissions', () => {
   beforeEach(() => {
     cy.loginWithDataAdminRole()
-    cy.visit('/backoffice/contracts-dashboard')
+    cy.visit('/contracts-dashboard')
   })
 
   it('triggers GET requests on page load to retrieve all relevant contracts and contractors', () => {
@@ -99,10 +99,10 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       .should('deep.equal', 'GET')
   })
 
-  it('goes from backoffice to contracts dashboard then back to backoffice', () => {
-    cy.visit('/backoffice')
+  it('goes from homepage to contracts dashboard then back to homepage', () => {
+    cy.visit('/contracts-dashboard')
     cy.contains('a', 'Contracts Dashboard').click()
-    cy.url().should('include', '/backoffice/contracts-dashboard')
+    cy.url().should('include', '/contracts-dashboard')
     contractsRequest()
     contractorsRequest()
     cy.wait('@contractorsRequest')
