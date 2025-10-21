@@ -138,7 +138,7 @@ describe('Raise repair with Repairs Finder', () => {
       }
     ).as('matchingCodesRequest')
 
-    cy.clock(now, ['Date'])
+    // cy.clock(now, ['Date'])
   })
 
   it('Raises a repair', () => {
@@ -380,7 +380,7 @@ describe('Raise repair with Repairs Finder', () => {
     cy.get('.govuk-table').contains('00000666666')
   })
 
-  it.only('Submits work order task details to raise a work order', () => {
+  it('Submits work order task details to raise a work order', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
     cy.visit('/properties/00012345/raise-repair/repairs-finder')
@@ -543,7 +543,7 @@ describe('Raise repair with Repairs Finder', () => {
             rateScheduleItem: [
               {
                 customCode: '20060030',
-                customName: 'EKITCHEN PLUMBING REPAIRS',
+                customName: 'KITCHEN PLUMBING REPAIRS',
                 quantity: { amount: [1] },
               },
             ],
@@ -551,7 +551,7 @@ describe('Raise repair with Repairs Finder', () => {
               {
                 code: 'SP',
                 customCode: 'PL',
-                customName: 'Plumbing - PL',
+                customName: 'Plumbing',
               },
             ],
           },

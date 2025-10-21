@@ -22,6 +22,14 @@ interface Props {
   propertyReference: string
 }
 
+interface ScheduleRepairResponse {
+  id: string
+  statusCode: number
+  statusCodeDescription: string
+  externallyManagedAppointment: boolean
+  externalAppointmentManagementUrl: string
+}
+
 const RepairsFinderFormView = ({ propertyReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
@@ -47,9 +55,12 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
     immediateOrEmergencyRepairText,
     setImmediateOrEmergencyRepairText,
   ] = useState(false)
-  const [workOrderReference, setWorkOrderReference] = useState()
+  const [workOrderReference, setWorkOrderReference] = useState<string>()
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
-  const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
+  const [
+    immediateOrEmergencyDLO,
+    setImmediateOrEmergencyDLO,
+  ] = useState<boolean>(false)
 
   const [contractorReference, setContractorReference] = useState<string>()
   const [tradeCode, setTradeCode] = useState<string>()
@@ -61,6 +72,20 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
   const onFormSubmit = async (formData, parentWorkOrderId = null) => {
     setLoading(true)
 
+    const scheduleResponse = await scheduleRepair(formData, parentWorkOrderId)
+
+    if (scheduleResponse == null) {
+      // an error occured
+      return
+    }
+
+    await updateStateForSuccessPage(formData, scheduleResponse)
+    setCurrentPage(RAISE_SUCCESS_PAGE)
+
+    setLoading(false)
+  }
+
+  const scheduleRepair = async (formData, parentWorkOrderId = null) => {
     try {
       const params = {}
 
@@ -68,74 +93,76 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
         params['parentWorkOrderId'] = parentWorkOrderId
       }
 
-      const {
-        id,
-        statusCode,
-        externallyManagedAppointment,
-        externalAppointmentManagementUrl,
-      } = await frontEndApiRequest({
-        method: 'post',
-        path: `/api/workOrders/schedule`,
-        requestData: formData,
-        params,
-      })
-      setWorkOrderReference(id)
-
-      if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
-        setAuthorisationPendingApproval(true)
-        setCurrentPage(RAISE_SUCCESS_PAGE)
-        return
-      }
-
-      if (externallyManagedAppointment) {
-        // Emergency and immediate DLO repairs are sent directly to the Planners
-        // We display no link to open DRS
-        if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
-          setImmediateOrEmergencyRepairText(true)
-          setImmediateOrEmergencyDLO(true)
-        } else {
-          const schedulerSessionId = await getOrCreateSchedulerSessionId()
-
-          setExternallyManagedAppointment(true)
-          setExternalAppointmentManagementUrl(
-            `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
-          )
+      const scheduleResponse: ScheduleRepairResponse = await frontEndApiRequest(
+        {
+          method: 'post',
+          path: `/api/workOrders/schedule`,
+          requestData: formData,
+          params,
         }
-        setCurrentPage(RAISE_SUCCESS_PAGE)
-        return
-      }
+      )
 
-      if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
-        setImmediateOrEmergencyRepairText(true)
-        setCurrentPage(RAISE_SUCCESS_PAGE)
-        return
-      }
+      setWorkOrderReference(scheduleResponse.id)
 
-      if (
-        PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
-          formData.priority.priorityCode
-        ) &&
-        !isOutOfHoursGas(contractorReference, tradeCode)
-      ) {
-        router.push({
-          pathname: `/work-orders/${id}/appointment/new`,
-          query: { newOrder: true },
-        })
-        return
-      }
-
-      setCurrentPage(RAISE_SUCCESS_PAGE)
+      return scheduleResponse
     } catch (e) {
       console.error(e)
 
       setError(formatRequestErrorMessage(e))
+      return null
     }
-
-    setLoading(false)
   }
 
-  const getRaiseWorkOrderFormView = async (propertyReference) => {
+  const updateStateForSuccessPage = async (
+    formData: any,
+    scheduleResponse: ScheduleRepairResponse
+  ) => {
+    const { statusCode, id } = scheduleResponse
+
+    if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
+      setAuthorisationPendingApproval(true)
+      return
+    }
+
+    if (externallyManagedAppointment) {
+      // Emergency and immediate DLO repairs are sent directly to the Planners
+      // We display no link to open DRS
+      if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
+        setImmediateOrEmergencyRepairText(true)
+        setImmediateOrEmergencyDLO(true)
+      } else {
+        const schedulerSessionId = await getOrCreateSchedulerSessionId()
+
+        setExternallyManagedAppointment(true)
+        setExternalAppointmentManagementUrl(
+          `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
+        )
+      }
+      return
+    }
+
+    if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
+      setImmediateOrEmergencyRepairText(true)
+      setCurrentPage(RAISE_SUCCESS_PAGE)
+      return
+    }
+
+    if (
+      PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
+        formData.priority.priorityCode
+      ) &&
+      !isOutOfHoursGas(contractorReference, tradeCode)
+    ) {
+      router.push({
+        pathname: `/work-orders/${id}/appointment/new`,
+        query: { newOrder: true },
+      })
+    }
+  }
+
+  const getRaiseWorkOrderFormView = async (propertyReference: string) => {
     setError(null)
+    setLoading(true)
 
     try {
       const [propertyResponse, priorities, user] = await Promise.all([
@@ -168,8 +195,6 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
   }
 
   useEffect(() => {
-    setLoading(true)
-
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
