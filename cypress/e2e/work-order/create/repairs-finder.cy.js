@@ -2,18 +2,6 @@
 
 import { EMERGENCY_PRIORITY_CODE } from '../../../../src/utils/helpers/priorities'
 
-cy.intercept(
-  {
-    method: 'GET',
-    path: '/api/simple-feature-toggle',
-  },
-  {
-    body: {
-      enableRepairsFinderIntegration: true,
-    },
-  }
-).as('feature-toggle')
-
 describe('Raise repair with Repairs Finder', () => {
   beforeEach(() => {
     cy.intercept(
@@ -134,6 +122,18 @@ describe('Raise repair with Repairs Finder', () => {
         },
       }
     ).as('matchingCodesRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          enableRepairsFinderIntegration: true,
+        },
+      }
+    ).as('feature-toggle')
 
     // cy.clock(now, ['Date'])
   })
