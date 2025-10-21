@@ -101,6 +101,15 @@ const RepairsFinderInput = (props: Props) => {
 
       <div>{isLoading && <SpinnerWithLabel label="Validating code.." />}</div>
 
+      {matchingSorCode?.hasPropertyContract === false && (
+        <WarningInfoBox
+          className="variant-error govuk-!-margin-bottom-4"
+          header="Repair cannot be raised on this property"
+          name="despatched-warning"
+          text={`The selected work order cannot be raised against this property. `}
+        />
+      )}
+
       <Table className="original-tasks-table">
         <TBody>
           <tr className="govuk-table__row">

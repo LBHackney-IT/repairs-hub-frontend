@@ -21,6 +21,21 @@
     padding-left: 38px;
   }
 
+  &.variant-error {
+    border-color: #dc2626;
+    background-color: #fee2e2;
+
+    p {
+      // color: #422006;
+      color: #991b1b;
+    }
+
+    span {
+      background: #dc2626;
+      color: #fee2e2;
+    }
+  }
+
   &.variant-warning {
     border-color: #eab308;
     background-color: #fef9c3;

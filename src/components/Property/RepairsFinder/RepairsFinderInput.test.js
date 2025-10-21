@@ -86,29 +86,28 @@ describe('RepairsFinderInput', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-//    it('Should render input', async () => {
+  //    it('Should render input', async () => {
 
-//     const invalidCode = "sdlksdfj"
+  //     const invalidCode = "sdlksdfj"
 
-//     const { asFragment } = render(
-//       <Wrapper>
-//         {({ register, errors, trigger }) => (
-//           <RepairsFinderInput
-//             propertyReference={'1234'}
-//             register={register}
-//             errors={errors}
-//             setTotalCost={() => {}}
-//             setContractorReference={() => {}}
-//             setTradeCode={() => {}}
-//             priorities={priorities}
-//             trigger={trigger}
-//             isSubmitted={true}
-//           />
-//         )}
-//       </Wrapper>
-//     )
+  //     const { asFragment } = render(
+  //       <Wrapper>
+  //         {({ register, errors, trigger }) => (
+  //           <RepairsFinderInput
+  //             propertyReference={'1234'}
+  //             register={register}
+  //             errors={errors}
+  //             setTotalCost={() => {}}
+  //             setContractorReference={() => {}}
+  //             setTradeCode={() => {}}
+  //             priorities={priorities}
+  //             trigger={trigger}
+  //             isSubmitted={true}
+  //           />
+  //         )}
+  //       </Wrapper>
+  //     )
 
-//     expect(asFragment()).toMatchSnapshot()
-//   })
-
+  //     expect(asFragment()).toMatchSnapshot()
+  //   })
 })

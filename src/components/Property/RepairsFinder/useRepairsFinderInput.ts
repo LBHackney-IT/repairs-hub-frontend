@@ -62,6 +62,10 @@ export const useRepairsFinderInput = (
       setTimeout(() => {
         setIsLoading(false)
         setMatchingSorCode(response)
+
+        if (response?.hasPropertyContract === false) {
+          setError('Repair of this type cannot be raised on this property')
+        }
       }, 2000)
     } catch (e) {
       console.error(e.message)
