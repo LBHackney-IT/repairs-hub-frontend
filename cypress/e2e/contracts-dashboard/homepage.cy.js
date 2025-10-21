@@ -63,7 +63,9 @@ function modifiedActiveContractsRequest() {
 
 function modifiedInactiveContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
-    contracts[3].terminationDate = monthsOffset(-1, today).toISOString()
+    const yesterday = new Date(today)
+    yesterday.setDate(today.getDate() - 1)
+    contracts[3].terminationDate = yesterday
     cy.intercept(
       {
         method: 'GET',
