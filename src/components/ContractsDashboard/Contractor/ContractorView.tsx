@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { useMemo, useState } from 'react'
-import { fetchContracts } from '../../BackOffice/requests'
+import { fetchContracts } from '../requests'
 
 import Layout from '../../BackOffice/Layout'
 import SorSearch from '../SorSearch'
