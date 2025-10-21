@@ -1,8 +1,8 @@
 import {
-  act,
   render,
-  screen,
+  act,
   waitForElementToBeRemoved,
+  screen,
 } from '@testing-library/react'
 
 import PropertyDetails from './PropertyDetails'
@@ -60,9 +60,7 @@ describe('PropertyDetails component', () => {
     )
 
     await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-propertyFlags'),
-      ])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
     })
 
     expect(asFragment()).toMatchSnapshot()

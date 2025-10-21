@@ -1,6 +1,6 @@
 import {
-  act,
   render,
+  act,
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react'
@@ -94,9 +94,7 @@ describe('MobileWorkingWorkOrderDetails component', () => {
     expect(asFragment()).toMatchSnapshot()
 
     await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-propertyFlags'),
-      ])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
     })
 
     expect(axios).toHaveBeenCalledTimes(1)
