@@ -66,13 +66,10 @@ export const useRepairsFinderInput = (
       setTimeout(() => {
         setIsLoading(false)
         setMatchingSorCode(response)
-        // setError(null)
       }, 2000)
     } catch (e) {
       console.error(e.message)
       setIsLoading(false)
-
-      // console.log({ e }, e.message, e.response?.data)
 
       if (e?.message) {
         setError(e.message)
@@ -114,15 +111,11 @@ export const useRepairsFinderInput = (
   }
 
   const validateData = (data: RepairsFinderExtractedData) => {
-    // console.log("validate", { data })
-
     if (checkIfNullOrEmpty(data.contractorReference)) return false
     if (checkIfNullOrEmpty(data.sorCode)) return false
     if (checkIfNullOrEmpty(data.priority)) return false
     if (checkIfNullOrEmpty(data.quantity)) return false
     if (checkIfNullOrEmpty(data.comments)) return false
-
-    // console.log("is valid")
 
     return true
   }
