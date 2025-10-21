@@ -99,7 +99,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       .should('deep.equal', 'GET')
   })
 
-  it.only('goes from homepage to contracts dashboard then back to homepage', () => {
+  it('goes from homepage to contracts dashboard then back to homepage', () => {
     cy.visit('/')
     cy.contains('a', 'Contracts Dashboard').click()
     cy.url().should('include', '/contracts-dashboard')
