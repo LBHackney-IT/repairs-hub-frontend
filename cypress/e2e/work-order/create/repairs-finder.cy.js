@@ -1,13 +1,18 @@
 /// <reference types="cypress" />
 
-import { closeSync } from 'fs'
-import {
-  EMERGENCY_PRIORITY_CODE,
-  IMMEDIATE_PRIORITY_CODE,
-  NORMAL_PRIORITY_CODE,
-} from '../../../../src/utils/helpers/priorities'
+import { EMERGENCY_PRIORITY_CODE } from '../../../../src/utils/helpers/priorities'
 
-const now = new Date('2022-02-11T12:00:00')
+cy.intercept(
+  {
+    method: 'GET',
+    path: '/api/simple-feature-toggle',
+  },
+  {
+    body: {
+      enableRepairsFinderIntegration: true,
+    },
+  }
+).as('feature-toggle')
 
 describe('Raise repair with Repairs Finder', () => {
   beforeEach(() => {
