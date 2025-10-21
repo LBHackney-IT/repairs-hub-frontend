@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
-import { parseString } from 'xml2js'
-import {
-  MatchingSorCode,
-  RepairsFinderExtractedData,
-  RepairsFinderXmlResponse,
-} from './types'
+import { MatchingSorCode, RepairsFinderExtractedData } from './types'
+import extractRepairsOnlineXml from './extractRepairsOnlineXml'
 
 export const useRepairsFinderInput = (
   textInput: string,
@@ -36,18 +32,18 @@ export const useRepairsFinderInput = (
   }, [textInput])
 
   const handleInputChange = async () => {
-    setExtractedXmlData(null)
     setMatchingSorCode(null)
 
-    setError(null)
+    const { error, result, success } = await extractRepairsOnlineXml(textInput)
 
-    const extractedData = await extractXmlData(textInput)
-    setExtractedXmlData(extractedData)
-
-    if (extractedData == null || !validateData(extractedData)) {
-      setError('Invalid code format')
+    if (!success) {
+      setExtractedXmlData(null)
+      setError(error)
       return
     }
+
+    setError(null)
+    setExtractedXmlData(result)
 
     setIsLoading(true)
 
@@ -56,8 +52,8 @@ export const useRepairsFinderInput = (
         method: 'get',
         path: '/api/repairs-finder/matching-sor-codes',
         params: {
-          sorCode: extractedData.sorCode,
-          contractorReference: extractedData.contractorReference,
+          sorCode: result.sorCode,
+          contractorReference: result.contractorReference,
           propertyReference: propertyReference,
         },
       })
@@ -79,67 +75,6 @@ export const useRepairsFinderInput = (
       setError('Something went wrong validating sorCode. Please try again')
     }
   }
-
-  const extractXmlData = async (
-    xmlContent: string
-  ): Promise<RepairsFinderExtractedData> => {
-    try {
-      const result = await parseXML(xmlContent)
-
-      if (!result.success) return null
-
-      const {
-        PRIORITY: [priority],
-        QUANTITY: [quantity],
-        SOR_CODE: [sorCode],
-        SOR_COMMENTS: [comments],
-      } = result.result.RF_INFO.SOR[0]
-
-      const contractorReference = result.result.RF_INFO.WORK_PROGRAMME[0]
-
-      return {
-        sorCode,
-        priority,
-        quantity,
-        comments,
-        contractorReference,
-      }
-    } catch (error) {
-      console.error(error)
-      return null
-    }
-  }
-
-  const validateData = (data: RepairsFinderExtractedData) => {
-    if (checkIfNullOrEmpty(data.contractorReference)) return false
-    if (checkIfNullOrEmpty(data.sorCode)) return false
-    if (checkIfNullOrEmpty(data.priority)) return false
-    if (checkIfNullOrEmpty(data.quantity)) return false
-    if (checkIfNullOrEmpty(data.comments)) return false
-
-    return true
-  }
-
-  const checkIfNullOrEmpty = (value: string) => {
-    if (value == '' || value == null) return true
-    return false
-  }
-
-  const parseXML = (xml: string) =>
-    new Promise<{
-      success: boolean
-      error: Error
-      result: RepairsFinderXmlResponse
-    }>((resolve) => {
-      parseString(xml, (err, result) => {
-        if (err) {
-          resolve({ success: false, error: err, result: null })
-          return
-        }
-
-        resolve({ success: true, error: null, result })
-      })
-    })
 
   return {
     extractedXmlData,
