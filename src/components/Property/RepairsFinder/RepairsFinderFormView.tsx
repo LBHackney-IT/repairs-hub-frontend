@@ -85,8 +85,8 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
         setAuthorisationPendingApproval(true)
         setCurrentPage(RAISE_SUCCESS_PAGE)
         return
-      } 
-      
+      }
+
       if (externallyManagedAppointment) {
         // Emergency and immediate DLO repairs are sent directly to the Planners
         // We display no link to open DRS
@@ -103,14 +103,14 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
         }
         setCurrentPage(RAISE_SUCCESS_PAGE)
         return
-      } 
-      
+      }
+
       if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
         setImmediateOrEmergencyRepairText(true)
         setCurrentPage(RAISE_SUCCESS_PAGE)
         return
-      } 
-      
+      }
+
       if (
         PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
           formData.priority.priorityCode
@@ -203,19 +203,19 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
       )}
 
       {currentPage === FORM_PAGE && (
-          <RepairsFinderForm
-            propertyReference={propertyReference}
-            address={property?.address}
-            hierarchyType={property?.hierarchyType}
-            canRaiseRepair={property?.canRaiseRepair}
-            tenure={tenure}
-            priorities={priorities}
-            onFormSubmit={onFormSubmit}
-            raiseLimit={currentUser?.raiseLimit}
-            setContractorReference={setContractorReference}
-            setTradeCode={setTradeCode}
-          />
-        )}
+        <RepairsFinderForm
+          propertyReference={propertyReference}
+          address={property?.address}
+          hierarchyType={property?.hierarchyType}
+          canRaiseRepair={property?.canRaiseRepair}
+          tenure={tenure}
+          priorities={priorities}
+          onFormSubmit={onFormSubmit}
+          raiseLimit={currentUser?.raiseLimit}
+          setContractorReference={setContractorReference}
+          setTradeCode={setTradeCode}
+        />
+      )}
 
       {error && <ErrorMessage label={error} />}
     </>
