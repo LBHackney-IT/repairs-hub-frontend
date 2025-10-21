@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import BackButton from '../../Layout/BackButton'
 import { PrimarySubmitButton, TextInput } from '../../Form'
@@ -7,9 +6,6 @@ import WarningText from '../../Template/WarningText'
 import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
-import RaiseWorkOrderFollowOn from '../RaiseWorkOrder/RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
-import UserContext from '../../UserContext'
-import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 import {
   Address,
   HierarchyType,
@@ -52,12 +48,9 @@ const RepairsFinderForm = (props: Props) => {
     register,
     handleSubmit,
     errors,
-    watch,
     trigger,
     formState: { isSubmitted },
   } = useForm()
-
-  const { user } = useContext(UserContext)
 
   const [overSpendLimit, setTotalCost] = useIsOverSpendLimit(raiseLimit)
 
@@ -78,13 +71,7 @@ const RepairsFinderForm = (props: Props) => {
           : daysInHours(priority.daysToComplete),
     })
 
-    // follow-on parent
-    const parentWorkOrderId =
-      formData?.isFollowOn === 'true' && formData?.parentWorkOrder
-        ? formData.parentWorkOrder
-        : null
-
-    onFormSubmit(scheduleWorkOrderFormData, parentWorkOrderId)
+    onFormSubmit(scheduleWorkOrderFormData)
   }
 
   return (
@@ -111,15 +98,6 @@ const RepairsFinderForm = (props: Props) => {
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {canAssignFollowOnRelationship(user) && (
-              <RaiseWorkOrderFollowOn
-                register={register}
-                errors={errors}
-                propertyReference={propertyReference}
-                watch={watch}
-              />
-            )}
-
             <RepairsFinderInput
               propertyReference={propertyReference}
               register={register}

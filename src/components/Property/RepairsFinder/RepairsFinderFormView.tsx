@@ -69,10 +69,10 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
   const RAISE_SUCCESS_PAGE = 3
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
-  const onFormSubmit = async (formData, parentWorkOrderId = null) => {
+  const onFormSubmit = async (formData) => {
     setLoading(true)
 
-    const scheduleResponse = await scheduleRepair(formData, parentWorkOrderId)
+    const scheduleResponse = await scheduleRepair(formData)
 
     if (scheduleResponse == null) {
       // an error occured
@@ -85,20 +85,14 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
     setLoading(false)
   }
 
-  const scheduleRepair = async (formData, parentWorkOrderId = null) => {
+  const scheduleRepair = async (formData) => {
     try {
-      const params = {}
-
-      if (parentWorkOrderId != null) {
-        params['parentWorkOrderId'] = parentWorkOrderId
-      }
-
       const scheduleResponse: ScheduleRepairResponse = await frontEndApiRequest(
         {
           method: 'post',
           path: `/api/workOrders/schedule`,
           requestData: formData,
-          params,
+          params: {},
         }
       )
 
