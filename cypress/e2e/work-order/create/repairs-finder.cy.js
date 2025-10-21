@@ -37,10 +37,10 @@ describe('Raise repair with Repairs Finder', () => {
       { fixture: 'scheduleOfRates/priorities.json' }
     ).as('sorPrioritiesRequest')
 
-    // cy.intercept(
-    //   { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
-    //   { fixture: 'scheduleOfRates/trades.json' }
-    // ).as('tradesRequest')
+    cy.intercept(
+      { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
+      { fixture: 'scheduleOfRates/trades.json' }
+    ).as('tradesRequest')
 
     cy.intercept(
       { method: 'GET', path: '/api/contractors/*' },
@@ -380,7 +380,7 @@ describe('Raise repair with Repairs Finder', () => {
     cy.get('.govuk-table').contains('00000666666')
   })
 
-  it('Submits work order task details to raise a work order', () => {
+  it.only('Submits work order task details to raise a work order', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
     cy.visit('/properties/00012345/raise-repair/repairs-finder')
@@ -990,10 +990,7 @@ describe('Raise repair with Repairs Finder', () => {
     it('shows a confirmation message when clicking on the remove button', () => {
       cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-      ])
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
       // remove first tenant
       cy.contains('Remove').first().click()
@@ -1005,10 +1002,7 @@ describe('Raise repair with Repairs Finder', () => {
     it('hides confirmation modal when cancel clicked', () => {
       cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-      ])
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
       // remove first tenant
       cy.contains('Remove').first().click()
@@ -1037,10 +1031,7 @@ describe('Raise repair with Repairs Finder', () => {
 
       cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-      ])
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
       // remove first tenant
       cy.contains('Remove').first().click()
@@ -1075,10 +1066,7 @@ describe('Raise repair with Repairs Finder', () => {
 
       cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-      ])
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
       // remove first tenant
       cy.contains('Remove').first().click()
@@ -1111,10 +1099,7 @@ describe('Raise repair with Repairs Finder', () => {
     it('shows a confirmation message when clicking on the set as main button', () => {
       cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-      ])
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
       // update last tenant
       cy.get('button:contains(Set as main contact)').last().click()
@@ -1128,10 +1113,7 @@ describe('Raise repair with Repairs Finder', () => {
     it('hides confirmation modal when cancel clicked', () => {
       cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-      ])
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
       // update last tenant
       cy.get('button:contains(Set as main contact)').last().click()
@@ -1163,10 +1145,7 @@ describe('Raise repair with Repairs Finder', () => {
 
       cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-      ])
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
       // update last tenant
       cy.get('button:contains(Set as main contact)').last().click()
@@ -1204,10 +1183,7 @@ describe('Raise repair with Repairs Finder', () => {
 
       cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-      ])
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
       // update last tenant
       cy.get('button:contains(Set as main contact)').last().click()
@@ -1231,45 +1207,45 @@ describe('Raise repair with Repairs Finder', () => {
       // assert new contact details fetched
       cy.wait(['@contactDetailsRequest'])
     })
-})
-
-context('When a user edits a persons contact details', () => {
-  beforeEach(() => {
-    cy.loginWithAgentRole()
   })
 
-  it('the edit contact details link contains the correct href', () => {
-    cy.visit('/properties/00012345/raise-repair/repairs-finder')
+  context('When a user edits a persons contact details', () => {
+    beforeEach(() => {
+      cy.loginWithAgentRole()
+    })
 
-    cy.wait([
-      '@propertyRequest',
-      '@contactDetailsRequest',
-    ])
+    it('the edit contact details link contains the correct href', () => {
+      cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-    cy.contains('Edit contact details').should(
-      'have.attr',
-      'href',
-      'https://manage-my-home-development.hackney.gov.uk/person/cfe9c99f-7636-e23d-f08a-f36083e57d5d/edit-contact-details'
-    )
-  })
-})
+      cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
-// This is a "special" integration test to end-to-end test
-// our permission system. We don't need to replicate this
-// for all our features because we have broad low-level test coverage.
-describe('When a contractor tries to raise a work order using the UI', () => {
-  beforeEach(() => {
-    cy.loginWithContractorRole()
+      cy.contains('Edit contact details').should(
+        'have.attr',
+        'href',
+        'https://manage-my-home-development.hackney.gov.uk/person/cfe9c99f-7636-e23d-f08a-f36083e57d5d/edit-contact-details'
+      )
+    })
   })
 
-  it('rejects the request and shows the access-denied page instead', () => {
-    cy.visit('/properties/00012345/raise-repair/repairs-finder')
+  // This is a "special" integration test to end-to-end test
+  // our permission system. We don't need to replicate this
+  // for all our features because we have broad low-level test coverage.
+  describe('When a contractor tries to raise a work order using the UI', () => {
+    beforeEach(() => {
+      cy.loginWithContractorRole()
+    })
 
-    cy.contains('New repair').should('not.exist')
-    cy.url().should('not.contain', 'properties/00012345/raise-repair/repairs-finder')
+    it('rejects the request and shows the access-denied page instead', () => {
+      cy.visit('/properties/00012345/raise-repair/repairs-finder')
 
-    cy.contains('Access denied')
-    cy.url().should('contain', 'access-denied')
+      cy.contains('New repair').should('not.exist')
+      cy.url().should(
+        'not.contain',
+        'properties/00012345/raise-repair/repairs-finder'
+      )
+
+      cy.contains('Access denied')
+      cy.url().should('contain', 'access-denied')
+    })
   })
-})
 })

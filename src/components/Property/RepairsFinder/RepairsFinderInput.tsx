@@ -43,11 +43,11 @@ const RepairsFinderInput = (props: Props) => {
     error,
     isLoading,
     matchingSorCode,
-    touched
+    touched,
   } = useRepairsFinderInput(textInput, propertyReference)
 
   useEffect(() => {
-    if (!isSubmitted && !touched) return 
+    if (!isSubmitted && !touched) return
     trigger('xmlContent')
   }, [error, trigger, isSubmitted])
 

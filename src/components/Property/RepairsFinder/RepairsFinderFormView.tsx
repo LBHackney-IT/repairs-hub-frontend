@@ -81,8 +81,6 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
       })
       setWorkOrderReference(id)
 
-      console.log("onSubmit", { statusCode})
-
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
         setAuthorisationPendingApproval(true)
       } else if (externallyManagedAppointment) {

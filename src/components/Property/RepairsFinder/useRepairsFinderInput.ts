@@ -44,13 +44,10 @@ export const useRepairsFinderInput = (
     const extractedData = await extractXmlData(textInput)
     setExtractedXmlData(extractedData)
 
-
     if (extractedData == null || !validateData(extractedData)) {
       setError('Invalid code format')
       return
     }
-
-
 
     setIsLoading(true)
 
@@ -103,7 +100,6 @@ export const useRepairsFinderInput = (
 
       const contractorReference = result.result.RF_INFO.WORK_PROGRAMME[0]
 
-
       return {
         sorCode,
         priority,
@@ -118,14 +114,13 @@ export const useRepairsFinderInput = (
   }
 
   const validateData = (data: RepairsFinderExtractedData) => {
-
     // console.log("validate", { data })
 
-    if (checkIfNullOrEmpty(data.contractorReference)) return false;
-    if (checkIfNullOrEmpty(data.sorCode)) return false;
-    if (checkIfNullOrEmpty(data.priority)) return false;
-    if (checkIfNullOrEmpty(data.quantity)) return false;
-    if (checkIfNullOrEmpty(data.comments)) return false;
+    if (checkIfNullOrEmpty(data.contractorReference)) return false
+    if (checkIfNullOrEmpty(data.sorCode)) return false
+    if (checkIfNullOrEmpty(data.priority)) return false
+    if (checkIfNullOrEmpty(data.quantity)) return false
+    if (checkIfNullOrEmpty(data.comments)) return false
 
     // console.log("is valid")
 
@@ -133,7 +128,7 @@ export const useRepairsFinderInput = (
   }
 
   const checkIfNullOrEmpty = (value: string) => {
-    if (value == "" || value == null) return true
+    if (value == '' || value == null) return true
     return false
   }
 
