@@ -117,7 +117,7 @@ describe('RaiseWorkOrderForm component', () => {
     )
 
     await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-undefined')])
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -153,7 +153,7 @@ describe('RaiseWorkOrderForm component', () => {
     )
 
     await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-undefined')])
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -220,7 +220,7 @@ describe('RaiseWorkOrderForm component', () => {
     )
 
     await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-undefined')])
     })
 
     expect(asFragment()).toMatchSnapshot()

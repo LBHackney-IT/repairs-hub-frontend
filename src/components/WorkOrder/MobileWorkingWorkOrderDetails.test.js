@@ -94,7 +94,7 @@ describe('MobileWorkingWorkOrderDetails component', () => {
     expect(asFragment()).toMatchSnapshot()
 
     await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-undefined')])
     })
 
     expect(axios).toHaveBeenCalledTimes(1)
