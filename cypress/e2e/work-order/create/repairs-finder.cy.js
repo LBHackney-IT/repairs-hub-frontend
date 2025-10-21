@@ -80,14 +80,6 @@ describe('Raise repair with Repairs Finder', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/workOrders/budget-codes*',
-      },
-      { fixture: 'scheduleOfRates/budgetCodes.json' }
-    ).as('budgetCodesRequest')
-
-    cy.intercept(
-      {
-        method: 'GET',
         path:
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=*&isRaisable=true',
       },
@@ -293,7 +285,6 @@ describe('Raise repair with Repairs Finder', () => {
             ],
           },
         },
-        // budgetCode: { id: '4' },
         multiTradeWorkOrder: false,
       })
     })
@@ -600,7 +591,6 @@ describe('Raise repair with Repairs Finder', () => {
             ],
           },
         },
-        // budgetCode: { id: '4' },
         multiTradeWorkOrder: false,
       })
     })
@@ -851,45 +841,6 @@ describe('Raise repair with Repairs Finder', () => {
       .contains('Start a new search')
       .should('have.attr', 'href', '/')
   })
-
-  // context('as a user with an agent role only', () => {
-  //   beforeEach(() => {
-  //     cy.loginWithAgentRole()
-  //   })
-
-  //   it('does not allow budget code selection', () => {
-  //     cy.visit('/properties/00012345/raise-repair/repairs-finder')
-
-  //     cy.wait(['@propertyRequest', '@contactDetailsRequest'])
-
-  //     cy.get('#trade').type('Plumbing - PL')
-
-  //     cy.wait('@contractorsRequest')
-
-  //     cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
-
-  //     cy.get('[data-testid=budgetCode]').should('not.exist')
-
-  //     cy.get('input[id="rateScheduleItems[0][code]"]').clear()
-  //     cy.get('input[id="rateScheduleItems[0][code]"]').type(
-  //       'DES5R003 - Immediate call outs - £0'
-  //     )
-
-  //     cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
-  //     cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
-
-  //     cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
-
-  //     cy.get('[data-testid=callerName]').type('Test Caller')
-  //     cy.get('[data-testid=contactNumber]').type('12345678910')
-
-  //     cy.get('[type="submit"]').contains('Create work order').click()
-
-  //     cy.wait('@apiCheck').then(({ request }) => {
-  //       cy.wrap(request.body).should('not.have.property', 'budgetCode')
-  //     })
-  //   })
-  // })
 
   context('When property is in legal disrepair', () => {
     beforeEach(() => {
