@@ -60,7 +60,6 @@ const RepairsFinderForm = (props: Props) => {
     handleSubmit,
     errors,
     watch,
-    setError,
     trigger,
     formState: { isSubmitted },
   } = useForm()
@@ -210,7 +209,7 @@ const RepairsFinderForm = (props: Props) => {
               propertyReference={propertyReference}
               register={register}
               errors={errors}
-              setTotalCost={setTotalCost}
+              setTotalCost={setTotalCost as (cost: number) => void}
               setContractorReference={setContractorReference}
               setTradeCode={setTradeCode}
               priorities={priorities}
