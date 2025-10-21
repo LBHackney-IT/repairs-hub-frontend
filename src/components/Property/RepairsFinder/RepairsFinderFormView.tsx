@@ -83,7 +83,11 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
 
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
         setAuthorisationPendingApproval(true)
-      } else if (externallyManagedAppointment) {
+        setCurrentPage(RAISE_SUCCESS_PAGE)
+        return
+      } 
+      
+      if (externallyManagedAppointment) {
         // Emergency and immediate DLO repairs are sent directly to the Planners
         // We display no link to open DRS
         if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
@@ -97,9 +101,17 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
             `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
           )
         }
-      } else if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
+        setCurrentPage(RAISE_SUCCESS_PAGE)
+        return
+      } 
+      
+      if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
         setImmediateOrEmergencyRepairText(true)
-      } else if (
+        setCurrentPage(RAISE_SUCCESS_PAGE)
+        return
+      } 
+      
+      if (
         PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
           formData.priority.priorityCode
         ) &&
@@ -190,10 +202,7 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
         />
       )}
 
-      {currentPage === FORM_PAGE &&
-        property !== null &&
-        property?.canRaiseRepair &&
-        priorities !== null && (
+      {currentPage === FORM_PAGE && (
           <RepairsFinderForm
             propertyReference={propertyReference}
             address={property?.address}
