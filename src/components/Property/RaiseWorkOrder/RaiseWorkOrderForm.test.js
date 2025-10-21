@@ -1,6 +1,9 @@
-import { render, screen } from '@testing-library/react'
-import { waitFor } from '@testing-library/dom'
-
+import {
+  act,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -113,8 +116,8 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await waitFor(() => {
-      expect(screen.queryByTestId('spinner-undefined')).not.toBeInTheDocument()
+    await act(async () => {
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -149,8 +152,8 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await waitFor(() => {
-      expect(screen.queryByTestId('spinner-undefined')).not.toBeInTheDocument()
+    await act(async () => {
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-propertyFlags')])
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -216,8 +219,8 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await waitFor(() => {
-      expect(screen.queryByTestId('spinner-undefined')).not.toBeInTheDocument()
+    await act(async () => {
+      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
     })
 
     expect(asFragment()).toMatchSnapshot()

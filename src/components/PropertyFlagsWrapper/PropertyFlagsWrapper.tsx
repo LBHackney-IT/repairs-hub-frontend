@@ -28,7 +28,7 @@ const PropertyFlagsWrapper = (props: Props) => {
 
   return (
     <>
-      {loading && <Spinner />}
+      {loading && <Spinner resource='propertyFlags' />}
 
       {isInLegalDisrepair && !loading && (
         <WarningInfoBox
