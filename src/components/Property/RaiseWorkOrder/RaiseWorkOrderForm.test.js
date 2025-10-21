@@ -116,8 +116,8 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-undefined')])
+    await waitFor(() => {
+      expect(screen.queryByTestId('spinner-undefined')).not.toBeInTheDocument()
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -152,8 +152,8 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-undefined')])
+    await waitFor(() => {
+      expect(screen.queryByTestId('spinner-undefined')).not.toBeInTheDocument()
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -219,8 +219,8 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-undefined')])
+    await waitFor(() => {
+      expect(screen.queryByTestId('spinner-undefined')).not.toBeInTheDocument()
     })
 
     expect(asFragment()).toMatchSnapshot()
