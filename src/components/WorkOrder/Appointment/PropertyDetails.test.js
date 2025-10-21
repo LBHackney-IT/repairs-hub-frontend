@@ -1,5 +1,9 @@
-import { render, screen } from '@testing-library/react'
-import { waitFor } from '@testing-library/dom'
+import {
+  act,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 
 import PropertyDetails from './PropertyDetails'
 const axios = require('axios')
@@ -55,8 +59,10 @@ describe('PropertyDetails component', () => {
       />
     )
 
-    await waitFor(() => {
-      expect(screen.queryByTestId('spinner-undefined')).not.toBeInTheDocument()
+    await act(async () => {
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-propertyFlags'),
+      ])
     })
 
     expect(asFragment()).toMatchSnapshot()
