@@ -1,9 +1,6 @@
-import {
-  render,
-  act,
-  waitForElementToBeRemoved,
-  screen,
-} from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import { waitFor } from '@testing-library/dom'
+
 import PropertyDetails from './PropertyDetails'
 const axios = require('axios')
 

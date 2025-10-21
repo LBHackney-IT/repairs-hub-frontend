@@ -1,9 +1,6 @@
-import {
-  render,
-  act,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import { waitFor } from '@testing-library/dom'
+
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import { WorkOrder } from '@/models/workOrder'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
