@@ -4,7 +4,7 @@ function contractsRequest() {
   cy.intercept(
     {
       method: 'GET',
-      path: '/api/backoffice/contracts?&isActive=true',
+      path: '/api/backoffice/contracts?isActive=true',
     },
     { fixture: 'contracts/contractsDashboard.json' }
   ).as('contractsRequest')
@@ -20,7 +20,7 @@ function contractorsRequest() {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+            '/api/backoffice/contractors?contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
         },
         alphabeticalContractors
       ).as('contractorsRequest')
@@ -39,7 +39,7 @@ function activeContractsRequest() {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?&isActive=true&contractorReference=SYC`,
+        path: `/api/backoffice/contracts?isActive=true&contractorReference=SYC`,
       },
       filtered
     ).as('activeContractsRequest')
@@ -58,7 +58,7 @@ function inactiveContractsRequest() {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?&isActive=false&contractorReference=SYC`,
+        path: `/api/backoffice/contracts?isActive=false&contractorReference=SYC`,
       },
       filtered
     ).as('inactiveContractsRequest')
@@ -138,7 +138,7 @@ describe('contractor page - when user has data admin permissions', () => {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
+            '/api/backoffice/contracts?isActive=true&contractorReference=SYC',
         },
         { body: [] }
       )
@@ -158,7 +158,7 @@ describe('contractor page - when user has data admin permissions', () => {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
+            '/api/backoffice/contracts?isActive=false&contractorReference=SYC',
         },
         { body: [] }
       )
@@ -177,7 +177,7 @@ describe('contractor page - when user has data admin permissions', () => {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
+            '/api/backoffice/contracts?isActive=true&contractorReference=SYC',
         },
         { body: [] }
       )
@@ -185,7 +185,7 @@ describe('contractor page - when user has data admin permissions', () => {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
+            '/api/backoffice/contracts?isActive=false&contractorReference=SYC',
         },
         { body: [] }
       )
@@ -209,7 +209,7 @@ describe('contractor page - when user has data admin permissions', () => {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+            '/api/backoffice/contracts?contractorReference=SYC&sorCode=ABC1240',
         },
         {
           body: [
@@ -263,7 +263,7 @@ describe('contractor page - when user has data admin permissions', () => {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+            '/api/backoffice/contracts?contractorReference=SYC&sorCode=ABC1240',
         },
         {
           body: [],
@@ -284,7 +284,7 @@ describe('contractor page - when user has data admin permissions', () => {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+            '/api/backoffice/contracts?contractorReference=SYC&sorCode=ABC1240',
         },
         {
           forceNetworkError: true,

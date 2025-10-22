@@ -10,7 +10,7 @@ function contractsRequest(mapper = null) {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?&isActive=true`,
+        path: `/api/backoffice/contracts?isActive=true`,
       },
       mapper ? mapper(contracts) : contracts
     ).as('contractsRequest')
@@ -22,7 +22,7 @@ function inactiveContractsRequest(mapper = null) {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?&isActive=false`,
+        path: `/api/backoffice/contracts?isActive=false`,
       },
       mapper ? mapper(contracts) : contracts
     ).as('inactiveContractsRequest')
@@ -39,7 +39,7 @@ function contractorsRequest() {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+            '/api/backoffice/contractors?contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
         },
         alphabeticalContractors
       ).as('contractorsRequest')
@@ -54,7 +54,7 @@ function modifiedActiveContractsRequest() {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/backoffice/contracts?&isActive=true',
+        path: '/api/backoffice/contracts?isActive=true',
       },
       contracts
     ).as('modifiedActiveContractsRequest')
@@ -69,7 +69,7 @@ function modifiedInactiveContractsRequest() {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/backoffice/contracts?&isActive=false',
+        path: '/api/backoffice/contracts?isActive=false',
       },
       contracts
     ).as('modifiedInactiveContractsRequest')
@@ -216,7 +216,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       {
         method: 'GET',
         path:
-          '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+          '/api/backoffice/contractors?contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
       },
       []
     ).as('contractorsRequestEmpty')
