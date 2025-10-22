@@ -14,7 +14,7 @@ export const fetchContracts = async ({
 }: FetchContractsArguments): Promise<Contract[] | null> => {
   const params = {}
 
-  if (typeof isActive === 'boolean') params['isActive'] = isActive
+  if (isActive !== null && isActive !== undefined) params['isActive'] = isActive
   if (contractorReference !== null && contractorReference !== '')
     params['contractorReference'] = contractorReference
   if (sorCode !== null && sorCode !== '') params['sorCode'] = sorCode
