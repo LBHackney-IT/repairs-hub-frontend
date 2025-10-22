@@ -18,10 +18,6 @@ const links = [
     description: 'DRS Sync Retry',
     link: '/backoffice/drs-sync',
   },
-  {
-    description: 'Contracts Dashboard',
-    link: '/backoffice/contracts-dashboard',
-  },
 ]
 
 const BackOfficeDashboard = () => {
