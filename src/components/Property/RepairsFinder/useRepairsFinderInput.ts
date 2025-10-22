@@ -59,20 +59,29 @@ export const useRepairsFinderInput = (
       })
 
       // timeout makes it look cooler
-      setTimeout(() => {
-        setIsLoading(false)
-        setMatchingSorCode(response)
+      await new Promise<void>((resolve) => {
+        setTimeout(() => {
+          setMatchingSorCode(response)
 
-        if (response?.hasPropertyContract === false) {
-          setError('Repair of this type cannot be raised on this property')
-        }
-      }, 2000)
+          if (response?.hasPropertyContract === false) {
+            setError('Repair of this type cannot be raised on this property')
+          }
+
+          setIsLoading(false)
+          resolve()
+        }, 750)
+      })
     } catch (e) {
-      console.error(e.message)
+      console.error(e?.message)
       setIsLoading(false)
 
+      if (e?.response?.data?.message) {
+        setError(e.response.data.message)
+        return
+      }
+
       if (e?.message) {
-        setError(e.message)
+        setError(e?.message)
         return
       }
 

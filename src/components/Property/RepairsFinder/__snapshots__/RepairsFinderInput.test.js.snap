@@ -232,3 +232,493 @@ exports[`RepairsFinderInput Should render input 1`] = `
   </form>
 </DocumentFragment>
 `;
+
+exports[`RepairsFinderInput Should show error when invalid code 1`] = `
+<DocumentFragment>
+  <form>
+    <div
+      class="warning-info-box govuk-inset-text lbh-inset-text variant-warning govuk-!-margin-bottom-4"
+      data-testid="despatched-warning"
+    >
+      <div
+        class="lbh-warning-text govuk-warning-text"
+      >
+        <span
+          aria-hidden="true"
+          class="govuk-warning-text__icon"
+        >
+          !
+        </span>
+        <div
+          class="govuk-warning-text__text"
+        >
+          <span
+            class="govuk-warning-text__assistive"
+          >
+            Warning
+          </span>
+          <p
+            class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+          >
+            Looking to use Repairs Finder?
+          </p>
+          <p
+            class="lbh-body-xs govuk-!-margin-top-1"
+          >
+            Visit 
+            <a
+              class="lbh-link"
+              href="https://product-test.necsws.com/cgi-bin/hackney_rftr_launchalone.pl"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Repairs Finder
+            </a>
+             to diagnose the repair, then paste the code below.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group govuk-form-group--error"
+      id="xmlContent-form-group"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="xmlContent"
+      >
+        Repairs finder code
+        <span
+          class="govuk-required"
+        >
+          *
+        </span>
+      </label>
+      <span
+        class="govuk-hint lbh-hint"
+        id="xmlContent-hint"
+      >
+        Please paste the code from Repairs Finder
+      </span>
+      <span
+        class="govuk-error-message lbh-error-message"
+        data-error-id=""
+        data-testid="error-message"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         Invalid code format
+      </span>
+      <textarea
+        aria-describedby="xmlContent-hint xmlContent-error"
+        class="govuk-textarea lbh-textarea govuk-textarea--error"
+        data-testid="xmlContent"
+        id="xmlContent"
+        name="xmlContent"
+        rows="6"
+      />
+    </div>
+    <div />
+    <table
+      class="govuk-table lbh-table original-tasks-table"
+    >
+      <tbody
+        class="govuk-table__body"
+      >
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Trade
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Contractor
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            SOR code
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Quantity
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Priority
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Description
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <input
+      id="descriptionOfWork"
+      name="descriptionOfWork"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="trade"
+      name="trade"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="tradeCode"
+      name="tradeCode"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="contractor"
+      name="contractor"
+      type="hidden"
+      value="undefined - undefined"
+    />
+    <input
+      id="contractorRef"
+      name="contractorRef"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="rateScheduleItems[0][code]"
+      name="rateScheduleItems[0][code]"
+      type="hidden"
+      value="undefined - undefined - £undefined"
+    />
+    <input
+      id="rateScheduleItems[0][description]"
+      name="rateScheduleItems[0][description]"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="rateScheduleItems[0][cost]"
+      name="rateScheduleItems[0][cost]"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="rateScheduleItems[0][quantity]"
+      name="rateScheduleItems[0][quantity]"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="priorityCode"
+      name="priorityCode"
+      type="hidden"
+      value=""
+    />
+  </form>
+</DocumentFragment>
+`;
+
+exports[`RepairsFinderInput Should show error when match not found 1`] = `
+<DocumentFragment>
+  <form>
+    <div
+      class="warning-info-box govuk-inset-text lbh-inset-text variant-warning govuk-!-margin-bottom-4"
+      data-testid="despatched-warning"
+    >
+      <div
+        class="lbh-warning-text govuk-warning-text"
+      >
+        <span
+          aria-hidden="true"
+          class="govuk-warning-text__icon"
+        >
+          !
+        </span>
+        <div
+          class="govuk-warning-text__text"
+        >
+          <span
+            class="govuk-warning-text__assistive"
+          >
+            Warning
+          </span>
+          <p
+            class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+          >
+            Looking to use Repairs Finder?
+          </p>
+          <p
+            class="lbh-body-xs govuk-!-margin-top-1"
+          >
+            Visit 
+            <a
+              class="lbh-link"
+              href="https://product-test.necsws.com/cgi-bin/hackney_rftr_launchalone.pl"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Repairs Finder
+            </a>
+             to diagnose the repair, then paste the code below.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group govuk-form-group--error"
+      id="xmlContent-form-group"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="xmlContent"
+      >
+        Repairs finder code
+        <span
+          class="govuk-required"
+        >
+          *
+        </span>
+      </label>
+      <span
+        class="govuk-hint lbh-hint"
+        id="xmlContent-hint"
+      >
+        Please paste the code from Repairs Finder
+      </span>
+      <span
+        class="govuk-error-message lbh-error-message"
+        data-error-id=""
+        data-testid="error-message"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         Failed to matching SOR code matching 11111111, H01
+      </span>
+      <textarea
+        aria-describedby="xmlContent-hint xmlContent-error"
+        class="govuk-textarea lbh-textarea govuk-textarea--error"
+        data-testid="xmlContent"
+        id="xmlContent"
+        name="xmlContent"
+        rows="6"
+      />
+    </div>
+    <div />
+    <table
+      class="govuk-table lbh-table original-tasks-table"
+    >
+      <tbody
+        class="govuk-table__body"
+      >
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Trade
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Contractor
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            SOR code
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Quantity
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Priority
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            Description
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            -
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <input
+      id="descriptionOfWork"
+      name="descriptionOfWork"
+      type="hidden"
+      value="Z2CPOVGmCa4hPJvCynsltqdYv3hWDja5xVG7ZrhPlspA2vJFU5Zkl4NgS4s0wbZzDJL1x763uPk52R84ZjQUeYNiYREKD3xxSw3S6tPhe4AAwjwZjDaZQyg1dYv8TdsvUypFPHR8M3nA2WsXZKPlQBvcGrmq"
+    />
+    <input
+      id="trade"
+      name="trade"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="tradeCode"
+      name="tradeCode"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="contractor"
+      name="contractor"
+      type="hidden"
+      value="undefined - undefined"
+    />
+    <input
+      id="contractorRef"
+      name="contractorRef"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="rateScheduleItems[0][code]"
+      name="rateScheduleItems[0][code]"
+      type="hidden"
+      value="undefined - undefined - £undefined"
+    />
+    <input
+      id="rateScheduleItems[0][description]"
+      name="rateScheduleItems[0][description]"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="rateScheduleItems[0][cost]"
+      name="rateScheduleItems[0][cost]"
+      type="hidden"
+      value=""
+    />
+    <input
+      id="rateScheduleItems[0][quantity]"
+      name="rateScheduleItems[0][quantity]"
+      type="hidden"
+      value="87"
+    />
+    <input
+      id="priorityCode"
+      name="priorityCode"
+      type="hidden"
+      value="Xrjwksf"
+    />
+  </form>
+</DocumentFragment>
+`;

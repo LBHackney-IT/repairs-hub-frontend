@@ -58,11 +58,11 @@ const extractXmlData = async (
 }
 
 const validateData = (data: RepairsFinderExtractedData) => {
-  if (checkIfNullOrEmpty(data.contractorReference)) return false
-  if (checkIfNullOrEmpty(data.sorCode)) return false
-  if (checkIfNullOrEmpty(data.priority)) return false
-  if (checkIfNullOrEmpty(data.quantity)) return false
-  if (checkIfNullOrEmpty(data.comments)) return false
+  if (checkIfNullOrEmpty(data?.contractorReference)) return false
+  if (checkIfNullOrEmpty(data?.sorCode)) return false
+  if (checkIfNullOrEmpty(data?.priority)) return false
+  if (checkIfNullOrEmpty(data?.quantity)) return false
+  if (checkIfNullOrEmpty(data?.comments)) return false
 
   return true
 }
