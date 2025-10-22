@@ -1,6 +1,4 @@
 import { render, screen, act, within, waitFor } from '@testing-library/react'
-import { faker } from '@faker-js/faker'
-
 import RepairsFinderInput from './RepairsFinderInput'
 import { FormProvider, useForm } from 'react-hook-form'
 import userEvent from '@testing-library/user-event'
@@ -64,6 +62,17 @@ const Wrapper = ({ children }) => {
     </FormProvider>
   )
 }
+
+const priority = priorities.find((x) => (x.description = '[N] NORMAL'))
+const priorityCode = priority.priorityCode
+const priorityDescription = priority.description
+
+const quantity = 1
+const code = 'FAKE0012'
+const comments = 'Soem comments blah blah blah blah'
+const contractorReference = 'H02'
+
+const validCode = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME>${contractorReference}</WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink taps are broken</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>${code}</SOR_CODE><PRIORITY>${priorityCode}</PRIORITY><QUANTITY>${quantity}</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>${comments}</SOR_COMMENTS><SOR_CLASS>M52</SOR_CLASS></SOR></RF_INFO>`
 
 describe('RepairsFinderInput', () => {
   it('Should render input', async () => {
@@ -149,16 +158,6 @@ describe('RepairsFinderInput', () => {
       </Wrapper>
     )
 
-    const priority = faker.string.alpha({ length: { min: 2, max: 10 } })
-    const quantity = faker.number.int({ min: 1, max: 100 })
-    const code = faker.string.alphanumeric(8)
-    const comments = faker.string.alphanumeric({
-      length: { min: 10, max: 200 },
-    })
-    const contractorReference = faker.string.alphanumeric(3)
-
-    const validCode = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME>${contractorReference}</WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink taps are broken</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>${code}</SOR_CODE><PRIORITY>${priority}</PRIORITY><QUANTITY>${quantity}</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>${comments}</SOR_COMMENTS><SOR_CLASS>M52</SOR_CLASS></SOR></RF_INFO>`
-
     act(() => {
       userEvent.type(screen.getByTestId('xmlContent'), validCode)
     })
@@ -173,7 +172,7 @@ describe('RepairsFinderInput', () => {
   })
 
   it('Should show error when no property contract', async () => {
-    const { asFragment } = axios.mockResolvedValueOnce({
+    axios.mockResolvedValueOnce({
       status: 200,
       data: {
         sorCode: {
@@ -197,7 +196,7 @@ describe('RepairsFinderInput', () => {
       },
     })
 
-    render(
+    const { asFragment } = render(
       <Wrapper>
         {({ register, errors, trigger }) => (
           <RepairsFinderInput
@@ -214,16 +213,6 @@ describe('RepairsFinderInput', () => {
         )}
       </Wrapper>
     )
-
-    const priority = faker.string.alpha({ length: { min: 2, max: 10 } })
-    const quantity = faker.number.int({ min: 1, max: 100 })
-    const code = faker.string.alphanumeric(8)
-    const comments = faker.string.alphanumeric({
-      length: { min: 10, max: 200 },
-    })
-    const contractorReference = faker.string.alphanumeric(3)
-
-    const validCode = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME>${contractorReference}</WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink taps are broken</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>${code}</SOR_CODE><PRIORITY>${priority}</PRIORITY><QUANTITY>${quantity}</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>${comments}</SOR_COMMENTS><SOR_CLASS>M52</SOR_CLASS></SOR></RF_INFO>`
 
     act(() => {
       userEvent.type(screen.getByTestId('xmlContent'), validCode)
@@ -287,18 +276,6 @@ describe('RepairsFinderInput', () => {
       </Wrapper>
     )
 
-    const priorityCode = faker.helpers.arrayElement(
-      priorities.map((x) => x.priorityCode)
-    )
-    const quantity = faker.number.int({ min: 1, max: 100 })
-    const code = faker.string.alphanumeric(8)
-    const comments = faker.string.alphanumeric({
-      length: { min: 10, max: 200 },
-    })
-    const contractorReference = faker.string.alphanumeric(3)
-
-    const validCode = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME>${contractorReference}</WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink taps are broken</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>${code}</SOR_CODE><PRIORITY>${priorityCode}</PRIORITY><QUANTITY>${quantity}</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>${comments}</SOR_COMMENTS><SOR_CLASS>M52</SOR_CLASS></SOR></RF_INFO>`
-
     act(() => {
       userEvent.type(screen.getByTestId('xmlContent'), validCode)
     })
@@ -324,10 +301,10 @@ describe('RepairsFinderInput', () => {
     ).toBeInTheDocument()
     expect(await within(table).findByText(quantity)).toBeInTheDocument()
     expect(await within(table).findByText(comments)).toBeInTheDocument()
+    expect(
+      await within(table).findByText(priorityDescription)
+    ).toBeInTheDocument()
 
-    const expectedPriority = priorities.find(
-      (x) => x.priorityCode == priorityCode
-    ).description
-    expect(await within(table).findByText(expectedPriority)).toBeInTheDocument()
+    expect(asFragment()).toMatchSnapshot()
   })
 })
