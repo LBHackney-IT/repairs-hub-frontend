@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { MatchingSorCode, RepairsFinderExtractedData } from './types'
-import extractRepairsOnlineXml from './extractRepairsOnlineXml'
+import extractRepairsFinderXml from './extractRepairsFinderXml'
 
 export const useRepairsFinderInput = (
   textInput: string,
@@ -34,7 +34,7 @@ export const useRepairsFinderInput = (
   const handleInputChange = async () => {
     setMatchingSorCode(null)
 
-    const { error, result, success } = await extractRepairsOnlineXml(textInput)
+    const { error, result, success } = await extractRepairsFinderXml(textInput)
 
     if (!success) {
       setExtractedXmlData(null)

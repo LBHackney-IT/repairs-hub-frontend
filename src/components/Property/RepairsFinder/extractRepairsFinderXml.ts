@@ -7,7 +7,7 @@ interface ExtractResponse {
   result: RepairsFinderExtractedData | null
 }
 
-const extractRepairsOnlineXml = async (
+const extractRepairsFinderXml = async (
   textInput: string
 ): Promise<ExtractResponse> => {
   const extractedData = await extractXmlData(textInput)
@@ -88,4 +88,4 @@ const parseXML = (xml: string) =>
     })
   })
 
-export default extractRepairsOnlineXml
+export default extractRepairsFinderXml
