@@ -45,7 +45,7 @@ export const fetchContractors = async ({
 
   const contractors = await frontEndApiRequest({
     method: 'get',
-    path: '/api/backoffice/contractors?',
+    path: '/api/backoffice/contractors',
     params: params,
   })
 
