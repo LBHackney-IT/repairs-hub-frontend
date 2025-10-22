@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 
-import { fetchContractors } from '@root/src/utils/requests/contractor'
+import { fetchContractors } from '../../../utils/requests/contractor'
 import { fetchContracts } from '@/root/src/utils/requests/contract'
 
 const useSelectContract = () => {
