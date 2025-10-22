@@ -6,7 +6,8 @@ import WarningInfoBox from '../Template/WarningInfoBox'
 import ErrorMessage from '../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractSection from './Contract/ContractSection'
-import { fetchContracts, contractsDashboardFetchContractors } from './requests'
+import { fetchContractors } from '@/root/src/utils/requests/contractor'
+import { fetchContracts } from '@/root/src/utils/requests/contract'
 
 import {
   filterActiveContractsByExpiryDate,
@@ -59,7 +60,7 @@ const ContractsDashboard = () => {
   } = useQuery(
     ['contractors', { contractsExpiryFilterDate: '2020, 0, 1' }],
     () =>
-      contractsDashboardFetchContractors({
+      fetchContractors({
         contractsExpiryFilterDate: CONTRACTS_CUTOFF_DATE,
       })
   )

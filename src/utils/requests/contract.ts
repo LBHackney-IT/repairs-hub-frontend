@@ -1,26 +1,5 @@
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import Contract from '@/models/contract'
-import Contractor from '@/models/contractor'
-
-interface FetchContractorsArguments {
-  contractsExpiryFilterDate: Date
-}
-
-export const contractsDashboardFetchContractors = async ({
-  contractsExpiryFilterDate,
-}: FetchContractorsArguments): Promise<Contractor[] | null> => {
-  const params = {}
-  if (contractsExpiryFilterDate !== null)
-    params['contractsExpiryFilterDate'] = contractsExpiryFilterDate
-
-  const contractors = await frontEndApiRequest({
-    method: 'get',
-    path: '/api/backoffice/contractors?',
-    params: params,
-  })
-
-  return contractors
-}
+import { frontEndApiRequest } from '../frontEndApiClient/requests'
+import Contract from '../../models/contract'
 
 interface FetchContractsArguments {
   isActive: boolean | undefined
