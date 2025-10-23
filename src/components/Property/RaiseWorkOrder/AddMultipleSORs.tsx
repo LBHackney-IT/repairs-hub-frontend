@@ -24,7 +24,7 @@ const AddMultipleSORs = (props: Props) => {
     setIsPriorityEnabled,
   } = props
 
-  const { register, handleSubmit, errors, setError } = useForm()
+  const { register, handleSubmit, errors } = useForm()
 
   const [validationErrors, setValidationErrors] = useState([])
 

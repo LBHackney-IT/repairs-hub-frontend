@@ -221,20 +221,23 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
         />
       )}
 
-      {currentPage === FORM_PAGE && (
-        <RepairsFinderForm
-          propertyReference={propertyReference}
-          address={property?.address}
-          hierarchyType={property?.hierarchyType}
-          canRaiseRepair={property?.canRaiseRepair}
-          tenure={tenure}
-          priorities={priorities}
-          onFormSubmit={onFormSubmit}
-          raiseLimit={currentUser?.raiseLimit}
-          setContractorReference={setContractorReference}
-          setTradeCode={setTradeCode}
-        />
-      )}
+      {currentPage === FORM_PAGE &&
+        property !== null &&
+        property?.canRaiseRepair &&
+        priorities !== null && (
+          <RepairsFinderForm
+            propertyReference={propertyReference}
+            address={property?.address}
+            hierarchyType={property?.hierarchyType}
+            canRaiseRepair={property?.canRaiseRepair}
+            tenure={tenure}
+            priorities={priorities}
+            onFormSubmit={onFormSubmit}
+            raiseLimit={currentUser?.raiseLimit}
+            setContractorReference={setContractorReference}
+            setTradeCode={setTradeCode}
+          />
+        )}
 
       {error && <ErrorMessage label={error} />}
     </>
