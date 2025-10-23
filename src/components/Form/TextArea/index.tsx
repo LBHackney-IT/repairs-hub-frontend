@@ -4,7 +4,7 @@ import { FieldError } from 'react-hook-form'
 
 interface Props {
   label: string
-  hint?: string
+  hint?: string | JSX.Element
   name: string
   value?: string
   rows?: number

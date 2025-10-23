@@ -61,11 +61,10 @@ const RepairsFinderInput = (props: Props) => {
 
   return (
     <>
-      <WarningInfoBox
-        className="variant-warning govuk-!-margin-bottom-4"
-        header="Looking to use Repairs Finder?"
-        name="despatched-warning"
-        text={
+      <TextArea
+        name="xmlContent"
+        label="Repairs finder code"
+        hint={
           <>
             Visit{' '}
             <a
@@ -79,12 +78,6 @@ const RepairsFinderInput = (props: Props) => {
             to diagnose the repair, then paste the code below.
           </>
         }
-      />
-
-      <TextArea
-        name="xmlContent"
-        label="Repairs finder code"
-        hint="Please paste the code from Repairs Finder"
         required={true}
         register={register({
           required: 'Please enter a code',
