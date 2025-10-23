@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-export {}
+export { }
 
 declare global {
   // eslint-disable-next-line
