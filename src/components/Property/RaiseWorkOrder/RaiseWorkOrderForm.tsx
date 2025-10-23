@@ -9,7 +9,6 @@ import {
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
-import WarningInfoBox from '../../Template/WarningInfoBox'
 import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
@@ -17,7 +16,6 @@ import SelectPriority from './SelectPriority'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
 import UserContext from '../../UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
-import Link from 'next/link'
 import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useFeatureToggles'
 import { Priority } from '@/root/src/models/priority'
 import { BudgetCode } from '@/root/src/models/budgetCode'
@@ -191,22 +189,6 @@ const RaiseWorkOrderForm = (props: Props) => {
             {property?.hierarchyType.subTypeDescription}:{' '}
             {property?.address.addressLine}
           </h1>
-
-          {/* {simpleFeatureToggles?.enableRepairsFinderIntegration && (
-            <WarningInfoBox
-              className="variant-warning govuk-!-margin-bottom-4"
-              header="Looking to use Repairs Finder?"
-              name="despatched-warning"
-              text={
-                <>
-                  <Link href="/properties/00023400/raise-repair/repairs-finder">
-                    Use our new form
-                  </Link>{' '}
-                  that works with Repairs Finder.
-                </>
-              }
-            />
-          )} */}
 
           <PropertyFlagsWrapper
             canRaiseRepair={property?.canRaiseRepair}
