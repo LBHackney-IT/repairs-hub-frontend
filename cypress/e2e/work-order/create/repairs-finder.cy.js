@@ -123,17 +123,17 @@ describe('Raise repair with Repairs Finder', () => {
       }
     ).as('matchingCodesRequest')
 
-    cy.intercept(
-      {
-        method: 'GET',
-        path: '/api/simple-feature-toggle',
-      },
-      {
-        body: {
-          enableRepairsFinderIntegration: true,
-        },
-      }
-    ).as('feature-toggle')
+    // cy.intercept(
+    //   {
+    //     method: 'GET',
+    //     path: '/api/simple-feature-toggle',
+    //   },
+    //   {
+    //     body: {
+    //       enableRepairsFinderIntegration: true,
+    //     },
+    //   }
+    // ).as('feature-toggle')
 
     // cy.clock(now, ['Date'])
   })

@@ -192,7 +192,7 @@ const RaiseWorkOrderForm = (props: Props) => {
             {property?.address.addressLine}
           </h1>
 
-          {simpleFeatureToggles?.enableRepairsFinderIntegration && (
+          {/* {simpleFeatureToggles?.enableRepairsFinderIntegration && (
             <WarningInfoBox
               className="variant-warning govuk-!-margin-bottom-4"
               header="Looking to use Repairs Finder?"
@@ -206,7 +206,7 @@ const RaiseWorkOrderForm = (props: Props) => {
                 </>
               }
             />
-          )}
+          )} */}
 
           <PropertyFlagsWrapper
             canRaiseRepair={property?.canRaiseRepair}
