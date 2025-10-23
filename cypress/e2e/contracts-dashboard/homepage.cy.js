@@ -86,7 +86,7 @@ describe('Contracts dashboard - when user unauthorised', () => {
 
 describe('Contracts dashboard page - when user has contract admin permissions', () => {
   beforeEach(() => {
-    cy.loginWithDataAdminRole()
+    cy.loginWithContractAdminRole()
     cy.visit('/contracts-dashboard')
   })
 
