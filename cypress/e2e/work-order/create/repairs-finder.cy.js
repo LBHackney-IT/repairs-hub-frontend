@@ -738,10 +738,7 @@ describe('Raise repair with Repairs Finder', () => {
 
         cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-        cy.contains(
-          'a',
-          'Raise work order with Repairs Finder'
-        ).click()
+        cy.contains('a', 'Raise work order with Repairs Finder').click()
 
         cy.wait(['@propertyRequest', '@sorPrioritiesRequest'])
 
