@@ -91,7 +91,7 @@ const RepairsFinderForm = (props: Props) => {
           />
 
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
-          Work order details
+            Work order details
           </h2>
           <form
             role="form"

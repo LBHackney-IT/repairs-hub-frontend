@@ -8,6 +8,8 @@ import { Priority } from '@/root/src/models/priority'
 import { getPriorityObjectByCode } from './helpers'
 import { DeepMap, FieldError, FieldValues } from 'react-hook-form'
 
+const REPAIRS_FINDER_LINK = process.env.NEXT_PUBLIC_REPAIRS_FINDER_LINK
+
 interface Props {
   propertyReference: string
   register: any
@@ -70,7 +72,7 @@ const RepairsFinderInput = (props: Props) => {
             <a
               className="lbh-link"
               target="_blank"
-              href="https://product-test.necsws.com/cgi-bin/hackney_rftr_launchalone.pl"
+              href={REPAIRS_FINDER_LINK}
               rel="noreferrer"
             >
               Repairs Finder
