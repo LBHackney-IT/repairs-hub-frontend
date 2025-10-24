@@ -1,0 +1,56 @@
+.raiseWorkOrderLink {
+  text-decoration: none;
+  margin-bottom: 10px;
+  display: block;
+
+  outline: none !important;
+
+  &-container {
+    border: 2px solid hsl(180, 2%, 92%);
+    background: hsl(180, 2%, 97%);
+    border-radius: 5px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-title {
+    color: hsl(180, 2%, 10%);
+  }
+
+  &-description {
+    color: hsl(180, 2%, 20%);
+    margin-top: 10px;
+  }
+
+  &-arrow-icon {
+    border-color: hsl(180, 2%, 20%);
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    * {
+      //   color: blue !important;
+    }
+
+    .raiseWorkOrderLink-title {
+      text-decoration: underline;
+      color: hsl(180, 2%, 20%);
+    }
+
+    .raiseWorkOrderLink-description {
+      color: hsl(180, 2%, 30%);
+    }
+
+    .raiseWorkOrderLink-container {
+      border-color: hsl(180, 2%, 88%);
+    }
+
+    .raiseWorkOrderLink-arrow-icon {
+      border-color: hsl(180, 2%, 40%);
+    }
+  }
+}

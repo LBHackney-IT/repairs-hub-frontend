@@ -8,6 +8,8 @@ import { Priority } from '@/root/src/models/priority'
 import { getPriorityObjectByCode } from './helpers'
 import { DeepMap, FieldError, FieldValues } from 'react-hook-form'
 
+const REPAIRS_FINDER_LINK = process.env.NEXT_PUBLIC_REPAIRS_FINDER_LINK
+
 interface Props {
   propertyReference: string
   register: any
@@ -61,17 +63,16 @@ const RepairsFinderInput = (props: Props) => {
 
   return (
     <>
-      <WarningInfoBox
-        className="variant-warning govuk-!-margin-bottom-4"
-        header="Looking to use Repairs Finder?"
-        name="despatched-warning"
-        text={
+      <TextArea
+        name="xmlContent"
+        label="Repairs finder code"
+        hint={
           <>
             Visit{' '}
             <a
               className="lbh-link"
               target="_blank"
-              href="https://product-test.necsws.com/cgi-bin/hackney_rftr_launchalone.pl"
+              href={REPAIRS_FINDER_LINK}
               rel="noreferrer"
             >
               Repairs Finder
@@ -79,12 +80,6 @@ const RepairsFinderInput = (props: Props) => {
             to diagnose the repair, then paste the code below.
           </>
         }
-      />
-
-      <TextArea
-        name="xmlContent"
-        label="Repairs finder code"
-        hint="Please paste the code from Repairs Finder"
         required={true}
         register={register({
           required: 'Please enter a code',
