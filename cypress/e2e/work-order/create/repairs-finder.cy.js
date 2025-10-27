@@ -123,17 +123,17 @@ describe('Raise repair with Repairs Finder', () => {
       }
     ).as('matchingCodesRequest')
 
-    cy.intercept(
-      {
-        method: 'GET',
-        path: '/api/simple-feature-toggle',
-      },
-      {
-        body: {
-          enableRepairsFinderIntegration: true,
-        },
-      }
-    ).as('feature-toggle')
+    // cy.intercept(
+    //   {
+    //     method: 'GET',
+    //     path: '/api/simple-feature-toggle',
+    //   },
+    //   {
+    //     body: {
+    //       enableRepairsFinderIntegration: true,
+    //     },
+    //   }
+    // ).as('feature-toggle')
 
     // cy.clock(now, ['Date'])
   })
@@ -382,7 +382,7 @@ describe('Raise repair with Repairs Finder', () => {
     cy.visit('/properties/00012345/raise-repair/repairs-finder')
     cy.wait(['@propertyRequest', '@contactDetailsRequest'])
 
-    cy.get('.lbh-heading-h2').contains('Work order task details')
+    cy.get('.lbh-heading-h2').contains('Work order details')
 
     cy.contains('New repair')
     cy.contains('Dwelling: 16 Pitcairn House')
@@ -710,7 +710,7 @@ describe('Raise repair with Repairs Finder', () => {
 
       cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-      cy.contains('a', 'Import work order details from Repairs Finder').click()
+      cy.contains('a', 'Raise work order with Repairs Finder').click()
 
       cy.wait(['@propertyRequest', '@sorPrioritiesRequest'])
 
@@ -738,10 +738,7 @@ describe('Raise repair with Repairs Finder', () => {
 
         cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-        cy.contains(
-          'a',
-          'Import work order details from Repairs Finder'
-        ).click()
+        cy.contains('a', 'Raise work order with Repairs Finder').click()
 
         cy.wait(['@propertyRequest', '@sorPrioritiesRequest'])
 
@@ -770,7 +767,7 @@ describe('Raise repair with Repairs Finder', () => {
 
       cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-      cy.contains('a', 'Import work order details from Repairs Finder').click()
+      cy.contains('a', 'Raise work order with Repairs Finder').click()
 
       cy.wait(['@propertyRequest', '@sorPrioritiesRequest'])
 
