@@ -73,9 +73,9 @@ describe('contractor page - when user unauthorised', () => {
   })
 })
 
-describe('contractor page - when user has data admin permissions', () => {
+describe('contractor page - when user has contract admin permissions', () => {
   beforeEach(() => {
-    cy.loginWithDataAdminRole()
+    cy.loginWithContractAdminRole()
   })
 
   it('triggers a GET requests on page load to retrieve all relevant contracts', () => {

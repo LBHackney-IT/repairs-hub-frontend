@@ -17,6 +17,7 @@ declare global {
       loginWithOneJobAtATimeOperativeRole(): Chainable<void>
       loginWithAgentAndBudgetCodeOfficerRole(): Chainable<void>
       loginWithDataAdminRole(): Chainable<void>
+      loginWithContractAdminRole(): Chainable<void>
       requestsCountByUrl(url: string): Cypress.Chainable<number>
       checkForTenureDetails(
         tenure: string,
@@ -201,6 +202,23 @@ Cypress.Commands.add('loginWithAgentAndBudgetCodeOfficerRole', () => {
 Cypress.Commands.add('loginWithDataAdminRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_DATA_ADMIN')
 
+  cy.getCookies().should('be.empty')
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hubUser/user.json' }
+  )
+})
+
+Cypress.Commands.add('loginWithContractAdminRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACT_ADMIN')
+  cy.log(gssoTestKey)
   cy.getCookies().should('be.empty')
   cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
   cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
