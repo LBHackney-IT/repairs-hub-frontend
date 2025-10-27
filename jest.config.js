@@ -12,7 +12,7 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!(lbh-frontend|axios)/)',
+    '/node_modules/(?!(lbh-frontend|axios|@faker-js)/)',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
   moduleDirectories: ['node_modules', '.'],

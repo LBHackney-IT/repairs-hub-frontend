@@ -7,8 +7,6 @@ export const usePropertyBoilerHouse = (boilerHouseId) => {
   const [boilerHouseError, setBoilerHouseError] = useState()
 
   useEffect(() => {
-    console.log('Fetching boilerHouse details')
-
     frontEndApiRequest({
       method: 'get',
       path: `/api/properties/guid-pk/${boilerHouseId}`,
