@@ -15,4 +15,4 @@ const contractAdminFactory = Factory.define(() => ({
   hasAnyPermissions: true,
 }))
 
-export const dataAdmin = contractAdminFactory.build()
+export const contractAdmin = contractAdminFactory.build()
