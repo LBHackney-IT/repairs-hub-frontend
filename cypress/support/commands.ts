@@ -218,7 +218,6 @@ Cypress.Commands.add('loginWithDataAdminRole', () => {
 
 Cypress.Commands.add('loginWithContractAdminRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACT_ADMIN')
-  cy.log(gssoTestKey)
   cy.getCookies().should('be.empty')
   cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
   cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
