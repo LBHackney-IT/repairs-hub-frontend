@@ -90,7 +90,7 @@ describe('Contracts dashboard page - when user has contract admin permissions', 
     cy.visit('/contracts-dashboard')
   })
 
-  it.only('triggers GET requests on page load to retrieve all relevant contracts and contractors', () => {
+  it('triggers GET requests on page load to retrieve all relevant contracts and contractors', () => {
     contractsRequest()
     contractorsRequest()
     cy.wait('@contractsRequest')
