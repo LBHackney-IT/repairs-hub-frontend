@@ -4,7 +4,6 @@ import {
   waitForElementToBeRemoved,
   screen,
 } from '@testing-library/react'
-
 import PropertyDetails from './PropertyDetails'
 const axios = require('axios')
 

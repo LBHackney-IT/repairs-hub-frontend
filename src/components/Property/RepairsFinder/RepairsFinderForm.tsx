@@ -1,11 +1,25 @@
+import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
+import PropertyFlags from '../PropertyFlags'
 import BackButton from '../../Layout/BackButton'
-import { PrimarySubmitButton, TextInput } from '../../Form'
+import {
+  PrimarySubmitButton,
+  CharacterCountLimitedTextArea,
+  TextInput,
+} from '../../Form'
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
+import WarningInfoBox from '../../Template/WarningInfoBox'
 import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { getAlerts } from '@/root/src/utils/requests/property'
+import Spinner from '@/components/Spinner'
+import ErrorMessage from '@/components/Errors/ErrorMessage'
+import RaiseWorkOrderFollowOn from '../RaiseWorkOrder/RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
+import UserContext from '../../UserContext'
+import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 import {
   Address,
   HierarchyType,
@@ -14,8 +28,8 @@ import {
 import { Priority } from '@/root/src/models/priority'
 import { getPriorityObjectByCode } from './helpers'
 import RepairsFinderInput from './RepairsFinderInput'
-import { useIsOverSpendLimit } from './useIsOverSpendLimit'
-import PropertyFlagsWrapper from '../../PropertyFlagsWrapper/PropertyFlagsWrapper'
+import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
+import Alerts from '../Alerts'
 
 interface Props {
   propertyReference: string
@@ -44,15 +58,21 @@ const RepairsFinderForm = (props: Props) => {
     setTradeCode,
   } = props
 
-  const {
-    register,
-    handleSubmit,
-    errors,
-    trigger,
-    formState: { isSubmitted },
-  } = useForm()
+  const { register, handleSubmit, errors, watch } = useForm()
 
-  const [overSpendLimit, setTotalCost] = useIsOverSpendLimit(raiseLimit)
+  const { user } = useContext(UserContext)
+
+  const [loading, setLoading] = useState(false)
+  const [legalDisrepairError, setLegalDisRepairError] = useState<string>()
+
+  const [totalCost, setTotalCost] = useState<number>()
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+  const overSpendLimit = totalCost > parseInt(raiseLimit)
+
+  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
+  const [alertsLoading, setAlertsLoading] = useState(false)
+  const [alertsError, setAlertsError] = useState<string | null>()
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode, priorities)
@@ -71,8 +91,52 @@ const RepairsFinderForm = (props: Props) => {
           : daysInHours(priority.daysToComplete),
     })
 
-    onFormSubmit(scheduleWorkOrderFormData)
+    // follow-on parent
+    const parentWorkOrderId =
+      formData?.isFollowOn === 'true' && formData?.parentWorkOrder
+        ? formData.parentWorkOrder
+        : null
+
+    onFormSubmit(scheduleWorkOrderFormData, parentWorkOrderId)
   }
+
+  const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/legalDisrepair/${propertyReference}`,
+    })
+      .then((isInLegalDisrepair) =>
+        setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
+      )
+      .catch((error) => {
+        console.error('Error loading legal disrepair status:', error.response)
+        setLegalDisRepairError(
+          `Error loading legal disrepair status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setLoading(false))
+  }
+
+  const fetchAlerts = async () => {
+    setAlertsLoading(true)
+    const alertsResponse = await getAlerts(propertyReference)
+
+    if (!alertsResponse.success) {
+      setAlertsError(alertsResponse.error.message)
+      setAlertsLoading(false)
+      return
+    }
+
+    setAlerts(alertsResponse.response.alerts)
+    setAlertsLoading(false)
+  }
+
+  useEffect(() => {
+    setLoading(true)
+
+    getPropertyInfoOnLegalDisrepair(propertyReference)
+    fetchAlerts()
+  }, [])
 
   return (
     <>
@@ -84,30 +148,75 @@ const RepairsFinderForm = (props: Props) => {
             {hierarchyType?.subTypeDescription}: {address?.addressLine}
           </h1>
 
-          <PropertyFlagsWrapper
-            canRaiseRepair={canRaiseRepair}
-            tenure={tenure}
-            propertyReference={propertyReference}
-          />
+          {loading && <Spinner />}
 
+          {isInLegalDisrepair && !loading && (
+            <WarningInfoBox
+              header="This property is currently under legal disrepair"
+              text="Before raising a work order you must call the Legal Disrepair Team"
+            />
+          )}
+
+          {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
+
+          <div className="lbh-body-s">
+            {alertsLoading && <Spinner resource="alerts" />}
+            {alerts?.length > 0 && (
+              <ul
+                className="lbh-list hackney-property-alerts"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  marginBottom: '1em',
+                  maxWidth: isExpanded ? '' : '30em',
+                }}
+              >
+                <Alerts
+                  alerts={alerts}
+                  setIsExpanded={setIsExpanded}
+                  isExpanded={isExpanded}
+                />
+              </ul>
+            )}
+
+            {alertsError && <ErrorMessage label={alertsError} />}
+
+            <PropertyFlags canRaiseRepair={canRaiseRepair} tenure={tenure} />
+          </div>
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
-            Work order details
+            Work order task details
           </h2>
           <form
             role="form"
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
+            {canAssignFollowOnRelationship(user) && (
+              <RaiseWorkOrderFollowOn
+                register={register}
+                errors={errors}
+                propertyReference={propertyReference}
+                watch={watch}
+              />
+            )}
+
             <RepairsFinderInput
               propertyReference={propertyReference}
               register={register}
-              errors={errors}
-              setTotalCost={setTotalCost as (cost: number) => void}
+              setTotalCost={setTotalCost}
               setContractorReference={setContractorReference}
               setTradeCode={setTradeCode}
-              priorities={priorities}
-              trigger={trigger}
-              isSubmitted={isSubmitted}
+            />
+
+            <CharacterCountLimitedTextArea
+              name="descriptionOfWork"
+              label="Repair description"
+              required={true}
+              maxLength={230}
+              requiredText="Please enter a repair description"
+              register={register}
+              error={errors && errors.descriptionOfWork}
             />
 
             <Contacts tenureId={tenure?.id} />

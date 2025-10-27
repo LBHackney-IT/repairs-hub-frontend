@@ -102,6 +102,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
   const [loadingSorCodes, setLoadingSorCodes] = useState<boolean>(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState<boolean>(false)
 
+  // integrate loading pliz
   const [contractor, setContractor] = useState<Contractor>()
 
   const [

@@ -1,8 +1,8 @@
 import Contract from '@/root/src/models/contract'
 import ContractListItems from './ContractListItems'
-import Spinner from '../../Spinner'
-import WarningInfoBox from '../../Template/WarningInfoBox'
-import ErrorMessage from '../../Errors/ErrorMessage'
+import Spinner from '../../../Spinner'
+import WarningInfoBox from '../../../Template/WarningInfoBox'
+import ErrorMessage from '../../../Errors/ErrorMessage'
 
 interface ContractSectionProps {
   heading?: string

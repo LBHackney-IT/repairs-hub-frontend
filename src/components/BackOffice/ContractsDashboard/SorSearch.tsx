@@ -1,8 +1,8 @@
-import Meta from '../Meta'
+import Meta from '../../Meta'
 
 import Contract from '@/root/src/models/contract'
 
-import { PrimarySubmitButton } from '../Form'
+import { PrimarySubmitButton } from '../../Form'
 import ContractSection from './Contract/ContractSection'
 
 interface SorSearchProps {

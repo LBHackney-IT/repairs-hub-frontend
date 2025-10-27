@@ -1,8 +1,8 @@
 import Contract from '@/root/src/models/contract'
 
-import WarningInfoBox from '../../Template/WarningInfoBox'
+import WarningInfoBox from '../../../Template/WarningInfoBox'
 import ContractListItem from './ContractListItem'
-import ErrorMessage from '../../Errors/ErrorMessage'
+import ErrorMessage from '../../../Errors/ErrorMessage'
 
 interface Props {
   contracts: Contract[]

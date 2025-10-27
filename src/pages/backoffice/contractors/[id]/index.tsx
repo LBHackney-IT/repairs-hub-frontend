@@ -1,5 +1,5 @@
 import Meta from '@/components/Meta'
-import ContractorView from '@/root/src/components/ContractsDashboard/Contractor/ContractorView'
+import ContractorView from '@/root/src/components/BackOffice/ContractsDashboard/Contractor/ContractorView'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import {
   AGENT_ROLE,

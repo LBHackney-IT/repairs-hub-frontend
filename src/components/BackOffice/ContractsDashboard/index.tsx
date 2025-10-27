@@ -1,13 +1,15 @@
 import { useQuery } from 'react-query'
 
-import Layout from '../BackOffice/Layout'
-import Spinner from '../Spinner'
-import WarningInfoBox from '../Template/WarningInfoBox'
-import ErrorMessage from '../Errors/ErrorMessage'
+import Layout from '../Layout'
+import Spinner from '../../Spinner'
+import WarningInfoBox from '../../Template/WarningInfoBox'
+import ErrorMessage from '../../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractSection from './Contract/ContractSection'
-import { fetchContractors } from '@/root/src/utils/requests/contractor'
-import { fetchContracts } from '@/root/src/utils/requests/contract'
+import {
+  fetchContracts,
+  backOfficeFetchContractors,
+} from '@/root/src/components/BackOffice/requests'
 
 import {
   filterActiveContractsByExpiryDate,
@@ -60,7 +62,7 @@ const ContractsDashboard = () => {
   } = useQuery(
     ['contractors', { contractsExpiryFilterDate: '2020, 0, 1' }],
     () =>
-      fetchContractors({
+      backOfficeFetchContractors({
         contractsExpiryFilterDate: CONTRACTS_CUTOFF_DATE,
       })
   )

@@ -1,7 +1,7 @@
 import { DATA_ADMIN_ROLE } from '@/utils/user'
 import Meta from '../../components/Meta'
 import { getQueryProps } from '../../utils/helpers/serverSideProps'
-import ContractsDashboard from '../../components/ContractsDashboard'
+import ContractsDashboard from '../../components/BackOffice/ContractsDashboard'
 
 const ContractsDashboardPage = () => {
   return (

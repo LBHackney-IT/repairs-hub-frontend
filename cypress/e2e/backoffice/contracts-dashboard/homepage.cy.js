@@ -1,7 +1,7 @@
 import {
   monthsOffset,
   today,
-} from '@/root/src/components/ContractsDashboard/utils'
+} from '@/root/src/components/BackOffice/ContractsDashboard/utils'
 
 /// <reference types="cypress" />
 
@@ -10,7 +10,7 @@ function contractsRequest(mapper = null) {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?isActive=true`,
+        path: `/api/backoffice/contracts?&isActive=true`,
       },
       mapper ? mapper(contracts) : contracts
     ).as('contractsRequest')
@@ -22,7 +22,7 @@ function inactiveContractsRequest(mapper = null) {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?isActive=false`,
+        path: `/api/backoffice/contracts?&isActive=false`,
       },
       mapper ? mapper(contracts) : contracts
     ).as('inactiveContractsRequest')
@@ -39,7 +39,7 @@ function contractorsRequest() {
         {
           method: 'GET',
           path:
-            '/api/backoffice/contractors?contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+            '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
         },
         alphabeticalContractors
       ).as('contractorsRequest')
@@ -54,7 +54,7 @@ function modifiedActiveContractsRequest() {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/backoffice/contracts?isActive=true',
+        path: '/api/backoffice/contracts?&isActive=true',
       },
       contracts
     ).as('modifiedActiveContractsRequest')
@@ -63,13 +63,11 @@ function modifiedActiveContractsRequest() {
 
 function modifiedInactiveContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
-    const yesterday = new Date(today)
-    yesterday.setDate(today.getDate() - 1)
-    contracts[3].terminationDate = yesterday
+    contracts[3].terminationDate = monthsOffset(-1, today).toISOString()
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/backoffice/contracts?isActive=false',
+        path: '/api/backoffice/contracts?&isActive=false',
       },
       contracts
     ).as('modifiedInactiveContractsRequest')
@@ -79,7 +77,7 @@ function modifiedInactiveContractsRequest() {
 describe('Contracts dashboard - when user unauthorised', () => {
   it("shows access denied when user doesn't have correct permissions", () => {
     cy.loginWithOperativeRole()
-    cy.visit('/contracts-dashboard')
+    cy.visit('/backoffice/contracts-dashboard')
     cy.contains('Access denied')
   })
 })
@@ -87,7 +85,7 @@ describe('Contracts dashboard - when user unauthorised', () => {
 describe('Contracts dashboard page - when user has data admin permissions', () => {
   beforeEach(() => {
     cy.loginWithDataAdminRole()
-    cy.visit('/contracts-dashboard')
+    cy.visit('/backoffice/contracts-dashboard')
   })
 
   it('triggers GET requests on page load to retrieve all relevant contracts and contractors', () => {
@@ -101,16 +99,16 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       .should('deep.equal', 'GET')
   })
 
-  it('goes from homepage to contracts dashboard then back to homepage', () => {
-    cy.visit('/')
+  it('goes from backoffice to contracts dashboard then back to backoffice', () => {
+    cy.visit('/backoffice')
     cy.contains('a', 'Contracts Dashboard').click()
-    cy.url().should('include', '/contracts-dashboard')
+    cy.url().should('include', '/backoffice/contracts-dashboard')
     contractsRequest()
     contractorsRequest()
     cy.wait('@contractorsRequest')
     cy.wait('@contractsRequest')
     cy.get('.govuk-back-link').click()
-    cy.url().should('include', '/')
+    cy.url().should('include', '/backoffice')
   })
 
   it('displays contracts that are expiring in the next two months', () => {
@@ -216,7 +214,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       {
         method: 'GET',
         path:
-          '/api/backoffice/contractors?contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
+          '/api/backoffice/contractors?&contractsExpiryFilterDate=2020-01-01T00:00:00.000Z',
       },
       []
     ).as('contractorsRequestEmpty')
