@@ -48,13 +48,29 @@ const extractXmlData = async (
       sorCode,
       priority,
       quantity,
-      comments,
+      comments: formatComments(comments),
       contractorReference,
     }
   } catch (error) {
     console.error(error)
     return null
   }
+}
+
+const formatComments = (comments: string) => {
+  // Need to remove the text added before the users comment
+  // Example format "Foul drain is blocked - user comments"
+
+  // 1. split by the hyphen
+  const splitComments = comments.split(' - ')
+
+  if (splitComments.length === 1) return comments
+
+  // 2. remove first element (the comment could include other hyphens)
+  splitComments.shift()
+
+  // 3. rejoin comments if still split
+  return splitComments.join(' - ')
 }
 
 const validateData = (data: RepairsFinderExtractedData) => {

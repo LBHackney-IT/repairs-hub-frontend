@@ -122,20 +122,6 @@ describe('Raise repair with Repairs Finder', () => {
         },
       }
     ).as('matchingCodesRequest')
-
-    // cy.intercept(
-    //   {
-    //     method: 'GET',
-    //     path: '/api/simple-feature-toggle',
-    //   },
-    //   {
-    //     body: {
-    //       enableRepairsFinderIntegration: true,
-    //     },
-    //   }
-    // ).as('feature-toggle')
-
-    // cy.clock(now, ['Date'])
   })
 
   it('Raises a repair', () => {
@@ -195,7 +181,7 @@ describe('Raise repair with Repairs Finder', () => {
     cy.contains('2 [E] EMERGENCY')
 
     cy.contains('Description')
-    cy.contains('Sink taps are broken - test')
+    cy.contains('test')
 
     cy.contains('Invalid code format').should('not.exist')
 
@@ -221,7 +207,7 @@ describe('Raise repair with Repairs Finder', () => {
 
       cy.wrap(request.body).should('deep.equal', {
         reference: [{ id: referenceIdUuid }],
-        descriptionOfWork: 'Sink taps are broken - test',
+        descriptionOfWork: 'test',
         priority: {
           priorityCode: EMERGENCY_PRIORITY_CODE,
           priorityDescription: '2 [E] EMERGENCY',
@@ -454,12 +440,9 @@ describe('Raise repair with Repairs Finder', () => {
     cy.contains('2 [E] EMERGENCY')
 
     cy.contains('Description')
-    cy.contains('Sink taps are broken - test')
+    cy.contains('test')
 
     cy.contains('Invalid code format').should('not.exist')
-
-    // cy.get('[data-testid="callerName"]').type('John Smith')
-    // cy.get('[data-testid="contactNumber"]').type('1111')
 
     // No warning if within raise limit
     cy.get('[data-testid=over-spend-limit]').should('not.exist')
@@ -526,7 +509,7 @@ describe('Raise repair with Repairs Finder', () => {
 
       cy.wrap(request.body).should('deep.equal', {
         reference: [{ id: referenceIdUuid }],
-        descriptionOfWork: 'Sink taps are broken - test',
+        descriptionOfWork: 'test',
         priority: {
           priorityCode: EMERGENCY_PRIORITY_CODE,
           priorityDescription: '2 [E] EMERGENCY',
