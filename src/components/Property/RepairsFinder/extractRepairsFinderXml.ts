@@ -64,6 +64,8 @@ const formatComments = (comments: string) => {
   // 1. split by the hyphen
   const splitComments = comments.split(' - ')
 
+  if (splitComments.length === 1) return comments
+
   // 2. remove first element (the comment could include other hyphens)
   splitComments.shift()
 
