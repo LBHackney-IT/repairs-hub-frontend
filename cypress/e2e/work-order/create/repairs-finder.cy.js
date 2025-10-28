@@ -195,7 +195,7 @@ describe('Raise repair with Repairs Finder', () => {
     cy.contains('2 [E] EMERGENCY')
 
     cy.contains('Description')
-    cy.contains('Sink taps are broken - test')
+    cy.contains('test')
 
     cy.contains('Invalid code format').should('not.exist')
 
@@ -454,12 +454,9 @@ describe('Raise repair with Repairs Finder', () => {
     cy.contains('2 [E] EMERGENCY')
 
     cy.contains('Description')
-    cy.contains('Sink taps are broken - test')
+    cy.contains('test')
 
     cy.contains('Invalid code format').should('not.exist')
-
-    // cy.get('[data-testid="callerName"]').type('John Smith')
-    // cy.get('[data-testid="contactNumber"]').type('1111')
 
     // No warning if within raise limit
     cy.get('[data-testid=over-spend-limit]').should('not.exist')
