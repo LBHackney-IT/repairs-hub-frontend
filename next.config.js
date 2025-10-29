@@ -33,6 +33,9 @@ const moduleExports = {
   images: {
     domains: ['utfs.io'],
   },
+  experimental: {
+    forceSwcTransforms: true,
+  },
   headers: () => headers(),
 }
 
