@@ -122,14 +122,18 @@ jobs:
             rm -rf node_modules
             yarn install --production --frozen-lockfile
 
-            du -sh ./build/_next/* 2>/dev/null | sort -hr
+            # du -sh ./build/_next/* 2>/dev/null | sort -hr
+
+            # Create a dry-run package without deploying
+            npx serverless package --stage development
 
 
-            npx --yes serverless deploy --stage development
+
+            # npx --yes serverless deploy --stage development
             
             du -sh .serverless/* | sort -hr
             unzip -l .serverless/*.zip | tail -20  # See largest files
-            
+
   build-deploy-staging:
     executor: node-executor
     steps:
