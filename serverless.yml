@@ -51,6 +51,8 @@ functions:
         - '!node_modules/@next/swc-win32-x64-msvc'
         - '!node_modules/@next/swc-linux-x64-musl*/**'
 
+        - '!node_modules/@next/swc-linux-x64-gnu/**'
+
         - '!node_modules/@sentry'
 
         # - '!node_modules/xml2js/**'
