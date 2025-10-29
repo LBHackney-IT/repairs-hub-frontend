@@ -118,8 +118,8 @@ jobs:
             # Build application
             yarn build
 
-            du -sh .next/* | sort -hr
-            du -sh node_modules/* | sort -hr | head -20
+            # du -sh .next/* | sort -hr
+            # du -sh node_modules/* | sort -hr | head -20
 
             # Fetch production dependencies
             rm -rf node_modules
@@ -130,12 +130,18 @@ jobs:
             # Create a dry-run package without deploying
             npx serverless package --stage development
 
+            # After serverless package, check the zip contents
+            unzip -l .serverless/repairs-hub-frontend.zip | head -50
+            unzip -l .serverless/repairs-hub-frontend.zip | grep -E "(node_modules|\.next)" | head -30
+
+            # Get size breakdown
+            unzip -l .serverless/repairs-hub-frontend.zip | awk '{print $4}' | grep '/' | cut -d'/' -f1 | sort | uniq -c | sort -rn
 
 
-            # npx --yes serverless deploy --stage development
+            # # npx --yes serverless deploy --stage development
             
-            du -sh .serverless/* | sort -hr
-            unzip -l .serverless/*.zip | tail -20  # See largest files
+            # du -sh .serverless/* | sort -hr
+            # unzip -l .serverless/*.zip | tail -20  # See largest files
 
   build-deploy-staging:
     executor: node-executor
