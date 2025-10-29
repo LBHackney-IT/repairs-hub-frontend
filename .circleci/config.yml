@@ -118,8 +118,11 @@ jobs:
             # Build application
             yarn build
 
-            # du -sh .next/* | sort -hr
-            # du -sh node_modules/* | sort -hr | head -20
+            find build/_next -name "*.map" -type f | wc -l
+            find build/_next -name "*.map" -type f -exec du -ch {} + | tail -1
+
+            # Specifically check server chunks
+            ls -lh build/_next/server/chunks/*.map 2>/dev/null | wc -l
 
             # Fetch production dependencies
             rm -rf node_modules
@@ -130,22 +133,11 @@ jobs:
             # Create a dry-run package without deploying
             npx serverless package --stage development
 
-            # After serverless package, check the zip contents
-            unzip -l .serverless/repairs-hub-frontend.zip | head -50
-            unzip -l .serverless/repairs-hub-frontend.zip | grep -E "(node_modules|\.next)" | head -30
+            # Get total size of .map files in your zip
+            unzip -l .serverless/repairs-hub-frontend.zip | grep "\.map$" | awk '{sum+=$1} END {print "Source maps total:", sum/1024/1024, "MB"}'
 
-            # Get size breakdown
-            unzip -l .serverless/repairs-hub-frontend.zip | awk '{print $4}' | grep '/' | cut -d'/' -f1 | sort | uniq -c | sort -rn
-
-
-            # Get total size breakdown by file type
-            unzip -l .serverless/repairs-hub-frontend.zip | awk '{if ($4 ~ /\.map$/) map+=$1; else if ($4 ~ /\.js$/) js+=$1; else if ($4 ~ /node_modules/) nm+=$1; else other+=$1} END {print "JS:", js/1024/1024 "MB"; print "Maps:", map/1024/1024 "MB"; print "node_modules:", nm/1024/1024 "MB"; print "Other:", other/1024/1024 "MB"}'
-
-            # Count files by extension
-            unzip -l .serverless/repairs-hub-frontend.zip | awk '{print $4}' | grep -o '\.[^.]*$' | sort | uniq -c | sort -rn
-
-            # Check if node_modules is included
-            unzip -l .serverless/repairs-hub-frontend.zip | grep "node_modules" | wc -l
+            # Get total size without .map files
+            unzip -l .serverless/repairs-hub-frontend.zip | grep -v "\.map$" | awk '{sum+=$1} END {print "Without maps:", sum/1024/1024, "MB"}'
 
 
             # # npx --yes serverless deploy --stage development
