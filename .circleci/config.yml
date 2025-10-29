@@ -118,6 +118,9 @@ jobs:
             # Build application
             yarn build
 
+            du -sh .next/* | sort -hr
+            du -sh node_modules/* | sort -hr | head -20
+
             # Fetch production dependencies
             rm -rf node_modules
             yarn install --production --frozen-lockfile
