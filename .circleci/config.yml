@@ -117,7 +117,7 @@ jobs:
 
             yarn build
 
-            ls -lh build/_next/server/chunks/*.map 2>/dev/null | wc -l
+            # ls -lh build/_next/server/chunks/*.map 2>/dev/null | wc -l
 
             # Fetch production dependencies
             rm -rf node_modules
