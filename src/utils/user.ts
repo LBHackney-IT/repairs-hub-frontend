@@ -6,6 +6,7 @@ export const AUTHORISATION_MANAGER_ROLE = 'authorisation_manager'
 export const OPERATIVE_ROLE = 'operative'
 export const BUDGET_CODE_OFFICER_ROLE = 'budget_code_officer'
 export const DATA_ADMIN_ROLE = 'data_admin'
+export const CONTRACT_ADMIN_ROLE = 'contract_admin'
 export const FOLLOWON_ADMIN_ROLE = 'followon_admin'
 
 export const ALL_ROLES = [
@@ -16,6 +17,7 @@ export const ALL_ROLES = [
   OPERATIVE_ROLE,
   BUDGET_CODE_OFFICER_ROLE,
   DATA_ADMIN_ROLE,
+  CONTRACT_ADMIN_ROLE,
   FOLLOWON_ADMIN_ROLE,
   DLO_CONTRACTOR_ROLE,
 ]
@@ -31,6 +33,7 @@ export const buildUser = (
     OPERATIVES_GOOGLE_GROUPNAME,
     BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME,
     DATA_ADMIN_GOOGLE_GROUPNAME,
+    CONTRACT_ADMIN_GOOGLE_GROUPNAME,
     FOLLOWON_ADMIN_GOOGLE_GROUPNAME,
     DLO_CONTRACTOR_GOOGLE_GROUPNAME,
   } = process.env
@@ -80,6 +83,10 @@ export const buildUser = (
         roles.add(DATA_ADMIN_ROLE)
       }
 
+      if (isContractAdminGroupName(groupName)) {
+        roles.add(CONTRACT_ADMIN_ROLE)
+      }
+
       if (isFollowOnAdminGroupName(groupName)) {
         roles.add(FOLLOWON_ADMIN_ROLE)
       }
@@ -112,6 +119,9 @@ export const buildUser = (
   const isDataAdminGroupName = (groupName: string) =>
     groupName === DATA_ADMIN_GOOGLE_GROUPNAME
 
+  const isContractAdminGroupName = (groupName: string) =>
+    groupName === CONTRACT_ADMIN_GOOGLE_GROUPNAME
+
   const isFollowOnAdminGroupName = (groupName: string) =>
     groupName === FOLLOWON_ADMIN_GOOGLE_GROUPNAME
 
@@ -128,6 +138,7 @@ export const buildUser = (
       isOperativeGroupName(groupName) ||
       isBudgetCodeOfficerGroupName(groupName) ||
       isDataAdminGroupName(groupName) ||
+      isContractAdminGroupName(groupName) ||
       isFollowOnAdminGroupName(groupName)
   )
 
@@ -159,6 +170,7 @@ export const buildUser = (
     hasAnyPermissions: roles.length > 0,
     hasBudgetCodeOfficerPermissions: hasRole(BUDGET_CODE_OFFICER_ROLE),
     hasDataAdminPermissions: hasRole(DATA_ADMIN_ROLE),
+    hasContractAdminPermissions: hasRole(CONTRACT_ADMIN_ROLE),
     hasFollowOnAdminPermissions: hasRole(FOLLOWON_ADMIN_ROLE),
   }
 }
