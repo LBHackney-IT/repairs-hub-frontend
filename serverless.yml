@@ -57,7 +57,7 @@ functions:
         - '!build/**/*.map'
         - '!build/_next/**/*.map'
         - '!node_modules/typescript/**'
-        - '!node_modules/@sentry/cli*/**'
+        # - '!node_modules/@sentry/cli*/**'
         - '!node_modules/axe-core/**'
         - '!node_modules/csstype/**'
         - '!node_modules/language-subtag-registry/**'

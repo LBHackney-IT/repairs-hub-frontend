@@ -117,30 +117,12 @@ jobs:
 
             yarn build
 
-            ls -lh build/_next/server/chunks/*.map 2>/dev/null | wc -l
-
             # Fetch production dependencies
             rm -rf node_modules
             yarn install --production --frozen-lockfile
 
-            # Create a dry-run package without deploying
-            npx serverless package --stage development
-
-            # # Get detailed breakdown
-            # echo "=== Package Analysis ==="
-            # ls -lh .serverless/repairs-hub-frontend.zip
-
-            # echo "=== Top 30 largest files ==="
-            # unzip -l .serverless/repairs-hub-frontend.zip | sort -k1 -rn | head -30
-
-            # echo "=== node_modules size ==="
-            # unzip -l .serverless/repairs-hub-frontend.zip | grep "node_modules" | awk '{sum+=$1} END {print "node_modules total:", sum/1024/1024, "MB"}'
-
-            # echo "=== File type breakdown ==="
-            # unzip -l .serverless/repairs-hub-frontend.zip | awk '{print $4}' | grep -o '\.[^.]*$' | sort | uniq -c | sort -rn | head -20
-
-            # echo "=== Largest node_modules folders ==="
-            # unzip -l .serverless/repairs-hub-frontend.zip | grep "node_modules" | awk '{split($4,a,"/"); if(a[2]!="" && a[3]!="") mod=a[2]"/"a[3]; else if(a[2]!="") mod=a[2]; sum[mod]+=$1} END {for(m in sum) print sum[m]/1024/1024 " MB", m}' | sort -rn | head -20
+            # # Create a dry-run package without deploying
+            # npx serverless package --stage development
 
             npx --yes serverless deploy --stage development
                         
