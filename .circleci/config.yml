@@ -140,7 +140,7 @@ jobs:
             unzip -l .serverless/repairs-hub-frontend.zip | grep -v "\.map$" | awk '{sum+=$1} END {print "Without maps:", sum/1024/1024, "MB"}'
 
 
-            # # npx --yes serverless deploy --stage development
+            npx --yes serverless deploy --stage development
             
             # du -sh .serverless/* | sort -hr
             # unzip -l .serverless/*.zip | tail -20  # See largest files
