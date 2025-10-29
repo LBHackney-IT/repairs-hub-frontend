@@ -14,7 +14,9 @@ const nextRequestHandler = app.getRequestHandler()
 
 server.use(AWSXRay.express.openSegment('NextJSApp')) // Open segment for tracing
 
-server.use(files(path.join(__dirname, '../build/_next/standalone/.next/static')))
+server.use(
+  files(path.join(__dirname, '../build/_next/standalone/.next/static'))
+)
 server.use(files(path.join(__dirname, '../public')))
 
 server.all('*', (req, res) => nextRequestHandler(req, res))
