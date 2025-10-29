@@ -68,7 +68,7 @@ functions:
         # - '!**/*.map'
         # - '!build/**/*.map'
         # - '!build/_next/**/*.map'
-        # - '!node_modules/typescript/**'
+        - '!node_modules/typescript/**'
         # - '!node_modules/@sentry/**'
         # - '!node_modules/**/*.md'
         # - '!node_modules/**/*.d.ts'
