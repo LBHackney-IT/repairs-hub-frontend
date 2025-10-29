@@ -138,6 +138,16 @@ jobs:
             unzip -l .serverless/repairs-hub-frontend.zip | awk '{print $4}' | grep '/' | cut -d'/' -f1 | sort | uniq -c | sort -rn
 
 
+            # Get total size breakdown by file type
+            unzip -l .serverless/repairs-hub-frontend.zip | awk '{if ($4 ~ /\.map$/) map+=$1; else if ($4 ~ /\.js$/) js+=$1; else if ($4 ~ /node_modules/) nm+=$1; else other+=$1} END {print "JS:", js/1024/1024 "MB"; print "Maps:", map/1024/1024 "MB"; print "node_modules:", nm/1024/1024 "MB"; print "Other:", other/1024/1024 "MB"}'
+
+            # Count files by extension
+            unzip -l .serverless/repairs-hub-frontend.zip | awk '{print $4}' | grep -o '\.[^.]*$' | sort | uniq -c | sort -rn
+
+            # Check if node_modules is included
+            unzip -l .serverless/repairs-hub-frontend.zip | grep "node_modules" | wc -l
+
+
             # # npx --yes serverless deploy --stage development
             
             # du -sh .serverless/* | sort -hr
