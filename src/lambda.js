@@ -1,10 +1,14 @@
 const server = require('restana')()
-const app = require('next')({ dev: false })
 const files = require('serve-static')
 const path = require('path')
 const AWSXRay = require('aws-xray-sdk')
 
 AWSXRay.enableAutomaticMode()
+
+const app = require('next')({
+  dev: false,
+  dir: path.join(__dirname, '..'),
+})
 
 const nextRequestHandler = app.getRequestHandler()
 

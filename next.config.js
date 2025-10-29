@@ -1,4 +1,3 @@
-
 const cspHeader = `
   frame-ancestors 'none';
 `
@@ -28,7 +27,7 @@ async function headers() {
 const moduleExports = {
   distDir: 'build/_next',
   productionBrowserSourceMaps: false,
-  // output: 'standalone',
+  output: 'standalone',
   swcMinify: true,
   images: {
     domains: ['utfs.io'],
@@ -39,4 +38,4 @@ const moduleExports = {
   headers: () => headers(),
 }
 
-module.exports =  moduleExports
+module.exports = moduleExports
