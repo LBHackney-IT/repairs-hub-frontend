@@ -53,6 +53,9 @@ functions:
         - '!node_modules/leaflet/**'
         - '!node_modules/sass/**'
         - '!node_modules/dotenv/**'
+        - '!**/*.map'
+        - '!build/**/*.map'
+        - '!build/_next/**/*.map'
 
     events:
       - http: ANY /

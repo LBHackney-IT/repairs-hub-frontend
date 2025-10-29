@@ -118,9 +118,6 @@ jobs:
             # Build application
             yarn build
 
-            find build/_next -name "*.map" -type f | wc -l
-            find build/_next -name "*.map" -type f -exec du -ch {} + | tail -1
-
             # Specifically check server chunks
             ls -lh build/_next/server/chunks/*.map 2>/dev/null | wc -l
 
