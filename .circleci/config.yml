@@ -122,7 +122,9 @@ jobs:
             rm -rf node_modules
             yarn install --production --frozen-lockfile
 
-            # view size of /@next
+            du -sh ./build/_next/* 2>/dev/null | sort -hr
+
+
             npx --yes serverless deploy --stage development
             
             # Keep in case of later build size issues
