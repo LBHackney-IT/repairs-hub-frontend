@@ -121,13 +121,13 @@ jobs:
             # Fetch production dependencies
             rm -rf node_modules
             yarn install --production --frozen-lockfile
+            
+            # Keep in case of later build size issues
+            du -sh ./build/_next/* 2>/dev/null | sort -hr
+            ls -lh .serverless/*.zip
 
             # view size of /@next
             npx --yes serverless deploy --stage development
-            
-            # Keep in case of later build size issues
-            # du -sh ./build/_next/* 2>/dev/null | sort -hr
-            # ls -lh .serverless/*.zip
 
   build-deploy-staging:
     executor: node-executor
