@@ -1,4 +1,4 @@
-const { withSentryConfig } = require('@sentry/nextjs')
+// const { withSentryConfig } = require('@sentry/nextjs')
 
 const cspHeader = `
   frame-ancestors 'none';
@@ -36,15 +36,16 @@ const moduleExports = {
   headers: () => headers(),
 }
 
-const { NODE_ENV, SENTRY_RELEASE } = process.env
+// const { NODE_ENV, SENTRY_RELEASE } = process.env
 
-const sentryWebpackPluginOptions = {
-  dryRun: !(NODE_ENV === 'production'),
-  release: SENTRY_RELEASE,
-  silent: !(NODE_ENV === 'production'),
-  hideSourceMaps: true,
-  widenClientFileUpload: true,
-  cleanArtifactsBeforeBuild: true,
-}
+// const sentryWebpackPluginOptions = {
+//   dryRun: !(NODE_ENV === 'production'),
+//   release: SENTRY_RELEASE,
+//   silent: !(NODE_ENV === 'production'),
+//   hideSourceMaps: true,
+//   widenClientFileUpload: true,
+//   cleanArtifactsBeforeBuild: true,
+// }
 
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+module.exports = moduleExports
+// module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
