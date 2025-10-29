@@ -1,6 +1,3 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
 
 const cspHeader = `
   frame-ancestors 'none';
@@ -31,7 +28,7 @@ async function headers() {
 const moduleExports = {
   distDir: 'build/_next',
   productionBrowserSourceMaps: false,
-  output: 'standalone',
+  // output: 'standalone',
   swcMinify: true,
   images: {
     domains: ['utfs.io'],
@@ -39,4 +36,4 @@ const moduleExports = {
   headers: () => headers(),
 }
 
-module.exports =  withBundleAnalyzer(moduleExports)
+module.exports =  moduleExports
