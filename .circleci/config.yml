@@ -115,33 +115,30 @@ jobs:
             export NEXT_PUBLIC_REPAIRS_FINDER_INTEGRATION_ENABLED=$REPAIRS_FINDER_INTEGRATION_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_REPAIRS_FINDER_LINK=$REPAIRS_FINDER_LINK_DEVELOPMENT
 
-            # Build application
             yarn build
 
-            # Specifically check server chunks
             ls -lh build/_next/server/chunks/*.map 2>/dev/null | wc -l
 
             # Fetch production dependencies
             rm -rf node_modules
             yarn install --production --frozen-lockfile
 
-            # du -sh ./build/_next/* 2>/dev/null | sort -hr
-
             # Create a dry-run package without deploying
             npx serverless package --stage development
 
-            # Get total size of .map files in your zip
+            echo "=== Package Analysis ==="
+            ls -lh .serverless/repairs-hub-frontend.zip
             unzip -l .serverless/repairs-hub-frontend.zip | grep "\.map$" | awk '{sum+=$1} END {print "Source maps total:", sum/1024/1024, "MB"}'
-
-            # Get total size without .map files
             unzip -l .serverless/repairs-hub-frontend.zip | grep -v "\.map$" | awk '{sum+=$1} END {print "Without maps:", sum/1024/1024, "MB"}'
 
+            echo "=== Top 20 largest items ==="
+            unzip -l .serverless/repairs-hub-frontend.zip | sort -k1 -rn | head -20
+
+            echo "=== node_modules size ==="
+            unzip -l .serverless/repairs-hub-frontend.zip | grep "node_modules" | awk '{sum+=$1} END {print "node_modules total:", sum/1024/1024, "MB"}'
 
             npx --yes serverless deploy --stage development
-            
-            # du -sh .serverless/* | sort -hr
-            # unzip -l .serverless/*.zip | tail -20  # See largest files
-
+                        
   build-deploy-staging:
     executor: node-executor
     steps:
