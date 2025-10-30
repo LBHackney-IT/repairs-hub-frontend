@@ -61,7 +61,6 @@ functions:
         - '!node_modules/is-number-object'
         - '!node_modules/is-boolean-object'
         - '!node_modules/is-bigint'
-        - '!node_modules/**'
 
         - '!node_modules/has-bigints'
         - '!node_modules/es-to-primitive'
