@@ -31,7 +31,9 @@ functions:
         - src/lambda.js
         - next.config.js
         - public/**
-        - 'node_modules/**'
+        - '!node_modules/**'
+
+        - 'lambda/node_modules/**'
 
         # - '!node_modules/**'
         # - 'node_modules/restana/**'
@@ -51,6 +53,7 @@ functions:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
+      NODE_PATH: '/var/task/lambda/node_modules'
       S3_BUCKET_NAME: repairs-api-images-${self:provider.stage}
       AGENTS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/agents-group-regex}
       AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/authorisation-managers-group}
