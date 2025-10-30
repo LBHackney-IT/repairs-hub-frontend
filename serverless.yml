@@ -31,6 +31,7 @@ functions:
         - src/lambda.js
         - next.config.js
         - public/**
+        - '!node_modules/**'
         - 'node_modules/restana/**'
         - 'node_modules/serve-static/**'
         - 'node_modules/aws-xray-sdk/**'
@@ -39,7 +40,6 @@ functions:
         - 'node_modules/0http/**'
         - 'node_modules/forwarded/**'
         - 'node_modules/ipaddr.js/**'
-        - '!node_modules/**'
 
     events:
       - http: ANY /
