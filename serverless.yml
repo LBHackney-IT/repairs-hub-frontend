@@ -61,11 +61,20 @@ functions:
         - '!node_modules/is-number-object'
         - '!node_modules/is-boolean-object'
         - '!node_modules/is-bigint'
+        - '!node_modules/**'
 
-
-
-
-        # - '!node_modules/**'
+        - '!node_modules/has-bigints'
+        - '!node_modules/es-to-primitive'
+        - '!node_modules/call-bind'
+        - '!node_modules/jsx-ast-utils'
+        - '!node_modules/is-regex'
+        - '!node_modules/has-bigints'
+        - '!node_modules/call-bind-apply-helpers'
+        - '!node_modules/function.prototype.name'
+        - '!node_modules/gopd'
+        - '!node_modules/generator-function'
+        - '!node_modules/call-bind-apply-helpers'
+        - '!node_modules/safe-regex-test'
 
         # - 'node_modules/restana/**'
         # - 'node_modules/serve-static/**'
