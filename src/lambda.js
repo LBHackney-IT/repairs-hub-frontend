@@ -7,9 +7,9 @@ AWSXRay.enableAutomaticMode()
 
 const app = require('next')({
   dev: false,
-  dir: path.join(__dirname, '../build/_next/standalone'),
+  dir: path.join(__dirname, '..'),
   conf: {
-    distDir: '.next',
+    distDir: 'build/_next/standalone/build/_next',
   },
 })
 
@@ -30,7 +30,7 @@ server.use(
   '/_next/static',
   files(path.join(__dirname, '../build/_next/static'))
 )
-server.use('/public', files(path.join(__dirname, '../public')))
+server.use(files(path.join(__dirname, '../public')))
 
 server.all('*', async (req, res) => {
   await init()

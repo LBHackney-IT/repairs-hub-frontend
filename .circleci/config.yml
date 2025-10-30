@@ -127,7 +127,7 @@ jobs:
             # Create a dry-run package without deploying
             npx serverless package --stage development
 
-            unzip -l .serverless/repairs-hub-frontend.zip | grep "_next/static" | head -10
+            # unzip -l .serverless/repairs-hub-frontend.zip | grep "_next/static" | head -10
 
 
             # Get detailed breakdown
