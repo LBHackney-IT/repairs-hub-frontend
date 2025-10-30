@@ -24,71 +24,81 @@ functions:
     handler: src/lambda.handler
     package:
       individually: true
-      exclude:
-        - ./**
       patterns:
         - 'build/_next/standalone/**'
-        - 'build/_next/static/**'
         - '!build/_next/standalone/.next/cache/**'
+        - 'build/_next/static/**'
         - src/lambda.js
         - next.config.js
         - public/**
-        - 'node_modules/**'
+        - 'node_modules/restana/**'
+        - 'node_modules/serve-static/**'
+        - 'node_modules/aws-xray-sdk/**'
+        - 'node_modules/serverless-http/**'
+        - 'node_modules/send/**'
+        - 'node_modules/0http/**'
+        - 'node_modules/forwarded/**'
+        - 'node_modules/ipaddr.js/**'        
+        - '!node_modules/**'
 
+        # - 'build/_next/standalone/**'
+        # - 'build/_next/static/**'
+        # - '!build/_next/standalone/.next/cache/**'
+        # - src/lambda.js
+        # - next.config.js
+        # - public/**
+        # - 'node_modules/**'
+        # # - '!node_modules/@next/swc-darwin-arm64'
+        # # - '!node_modules/@next/swc-darwin-x64'
+        # - '!node_modules/@next/swc-linux-x64-gnu'
+        # - '!node_modules/@next/swc-win32-x64-msvc'
+        # - '!node_modules/@next/swc-linux-x64-musl*/**'
+        # - '!node_modules/typescript'
+        # - '!node_modules/@sentry'
+        # - '!node_modules/set-proto'
+        # - '!node_modules/react-dom'
+        # - '!node_modules/is-weakref'
+        # - '!node_modules/get-proto'
+        # - '!node_modules/array-union'
 
-        # - '!node_modules/@next/swc-darwin-arm64'
-        # - '!node_modules/@next/swc-darwin-x64'
-        - '!node_modules/@next/swc-linux-x64-gnu'
-        - '!node_modules/@next/swc-win32-x64-msvc'
-        - '!node_modules/@next/swc-linux-x64-musl*/**'
+        # - '!node_modules/fast-deep-equal'
+        # - '!node_modules/typed-array-byte-length'
+        # - '!node_modules/@opentelemetry/semantic-conventions'
+        # - '!node_modules/which-boxed-primitive'
+        # - '!node_modules/is-symbol'
 
-        - '!node_modules/typescript'
-        - '!node_modules/@sentry'
+        # - '!node_modules/is-string'
+        # - '!node_modules/is-number-object'
+        # - '!node_modules/is-boolean-object'
+        # - '!node_modules/is-bigint'
 
-        - '!node_modules/set-proto'
-        - '!node_modules/react-dom'
-        - '!node_modules/is-weakref'
-        - '!node_modules/get-proto'
-        - '!node_modules/array-union'
+        # - '!node_modules/has-bigints'
+        # - '!node_modules/es-to-primitive'
+        # - '!node_modules/call-bind'
+        # - '!node_modules/jsx-ast-utils'
+        # - '!node_modules/is-regex'
+        # - '!node_modules/has-bigints'
+        # - '!node_modules/call-bind-apply-helpers'
+        # - '!node_modules/function.prototype.name'
+        # - '!node_modules/gopd'
+        # - '!node_modules/generator-function'
+        # - '!node_modules/call-bind-apply-helpers'
+        # - '!node_modules/safe-regex-test'
 
-        - '!node_modules/fast-deep-equal'
-        - '!node_modules/typed-array-byte-length'
-        - '!node_modules/@opentelemetry/semantic-conventions'
-        - '!node_modules/which-boxed-primitive'
-        - '!node_modules/is-symbol'
+        # - '!node_modules/sass'
+        # - '!node_modules/xml2js'
+        # - '!node_modules/@unrs'
+        # - '!node_modules/@rollup'
+        # - '!node_modules/@babel'
+        # - '!node_modules/axe-core'
+        # - '!node_modules/language-subtag-registry'
 
-        - '!node_modules/is-string'
-        - '!node_modules/is-number-object'
-        - '!node_modules/is-boolean-object'
-        - '!node_modules/is-bigint'
-
-        - '!node_modules/has-bigints'
-        - '!node_modules/es-to-primitive'
-        - '!node_modules/call-bind'
-        - '!node_modules/jsx-ast-utils'
-        - '!node_modules/is-regex'
-        - '!node_modules/has-bigints'
-        - '!node_modules/call-bind-apply-helpers'
-        - '!node_modules/function.prototype.name'
-        - '!node_modules/gopd'
-        - '!node_modules/generator-function'
-        - '!node_modules/call-bind-apply-helpers'
-        - '!node_modules/safe-regex-test'
-
-        - '!node_modules/sass'
-        - '!node_modules/xml2js'
-        - '!node_modules/@unrs'
-        - '!node_modules/@rollup'
-        - '!node_modules/@babel'
-        - '!node_modules/axe-core'
-        - '!node_modules/language-subtag-registry'
-
-        # - 'node_modules/restana/**'
-        # - 'node_modules/serve-static/**'
-        # - 'node_modules/aws-xray-sdk/**'
-        # - 'node_modules/serverless-http/**'
-        # - 'node_modules/send/**'  # dependency of serve-static
-        # - 'node_modules/0http/**'  # dependency of restana
+        # # - 'node_modules/restana/**'
+        # # - 'node_modules/serve-static/**'
+        # # - 'node_modules/aws-xray-sdk/**'
+        # # - 'node_modules/serverless-http/**'
+        # # - 'node_modules/send/**'  # dependency of serve-static
+        # # - 'node_modules/0http/**'  # dependency of restana
 
     events:
       - http: ANY /
