@@ -9,8 +9,8 @@ const app = require('next')({
   dev: false,
   dir: path.join(__dirname, '../build/_next/standalone'),
   conf: {
-    distDir: '.next',
-  },
+    distDir: '.next'
+  }
 })
 
 let isReady = false
@@ -26,8 +26,8 @@ async function init() {
 
 server.use(AWSXRay.express.openSegment('NextJSApp'))
 
-server.use(files(path.join(__dirname, '../build/_next/static')))
-server.use(files(path.join(__dirname, '../public')))
+server.use('/_next/static', files(path.join(__dirname, '../build/_next/static')))
+server.use('/public', files(path.join(__dirname, '../public')))
 
 server.all('*', async (req, res) => {
   await init()
