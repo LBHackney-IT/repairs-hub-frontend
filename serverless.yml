@@ -35,6 +35,10 @@ functions:
         - public/**
         - 'node_modules/**'
 
+        - '!node_modules/react/**'
+        - '!node_modules/react-dom/**'
+        - '!node_modules/next/**'
+
 
         # - '!node_modules/@next/swc-darwin-arm64'
         # - '!node_modules/@next/swc-darwin-x64'
