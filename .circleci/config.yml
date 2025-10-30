@@ -122,7 +122,12 @@ jobs:
 
             # Fetch production dependencies
             rm -rf node_modules
+
+            cd lambda
             yarn install --production --frozen-lockfile
+            cd ..
+
+            # yarn install --production --frozen-lockfile
 
             # Create a dry-run package without deploying
             npx serverless package --stage development
