@@ -34,7 +34,10 @@ async function init() {
 
 server.use(AWSXRay.express.openSegment('NextJSApp'))
 
-server.use(files(path.join(__dirname, '../build/_next/static')))
+server.use(
+  '/_next/static',
+  files(path.join(__dirname, '../build/_next/static'))
+)
 server.use(files(path.join(__dirname, '../public')))
 
 server.all('*', async (req, res) => {
