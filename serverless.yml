@@ -36,11 +36,11 @@ functions:
         - '!node_modules/**'
 
         - 'node_modules/restana/**'
-        # - 'node_modules/serve-static/**'
-        # - 'node_modules/aws-xray-sdk/**'
-        # - 'node_modules/serverless-http/**'
-        # - 'node_modules/send/**'  # dependency of serve-static
-        # - 'node_modules/0http/**'  # dependency of restana
+        - 'node_modules/serve-static/**'
+        - 'node_modules/aws-xray-sdk/**'
+        - 'node_modules/serverless-http/**'
+        - 'node_modules/send/**'  # dependency of serve-static
+        - 'node_modules/0http/**'  # dependency of restana
 
     events:
       - http: ANY /
