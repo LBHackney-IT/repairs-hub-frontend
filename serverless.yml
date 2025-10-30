@@ -33,6 +33,7 @@ functions:
         - public/**
         - '!node_modules/**'
         - 'node_modules/restana/**'
+        - 'node_modules/trouter/**'
         - 'node_modules/serve-static/**'
         - 'node_modules/aws-xray-sdk/**'
         - 'node_modules/serverless-http/**'
