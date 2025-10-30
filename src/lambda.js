@@ -5,21 +5,21 @@ const AWSXRay = require('aws-xray-sdk')
 
 AWSXRay.enableAutomaticMode()
 
-// const app = require('next')({
-//   dev: false,
-//   dir: path.join(__dirname, '../build/_next/standalone'),
-//   conf: {
-//     distDir: '.next',
-//   },
-// })]
-
 const app = require('next')({
   dev: false,
-  dir: path.join(__dirname, '..'),
+  dir: path.join(__dirname, '../build/_next/standalone'),
   conf: {
-    distDir: 'build/_next/standalone/build/_next',
+    distDir: '.next',
   },
 })
+
+// const app = require('next')({
+//   dev: false,
+//   dir: path.join(__dirname, '..'),
+//   conf: {
+//     distDir: 'build/_next/standalone/build/_next',
+//   },
+// })
 
 let isReady = false
 let nextRequestHandler
