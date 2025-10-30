@@ -6,9 +6,8 @@ const AWSXRay = require('aws-xray-sdk')
 AWSXRay.enableAutomaticMode()
 
 const standaloneDir = path.join(__dirname, '../build/_next/standalone')
-const Next = require(path.join(standaloneDir, 'node_modules/next'))
 
-const app = Next({
+const app = require('next')({
   dev: false,
   dir: standaloneDir,
   conf: {
