@@ -117,7 +117,7 @@ jobs:
 
             yarn build
 
-            ls -la build/_next/standalone/.next/
+            ls -la build/_next/standalone/
             ls -la build/_next/static/
 
             # Fetch production dependencies
