@@ -42,6 +42,22 @@ functions:
         - '!node_modules/@next/swc-win32-x64-msvc'
         - '!node_modules/@next/swc-linux-x64-musl*/**'
 
+        - '!node_modules/typescript'
+        - '!node_modules/@sentry'
+
+        - '!node_modules/set-proto'
+        - '!node_modules/react-dom'
+        - '!node_modules/is-weakref'
+        - '!node_modules/get-proto'
+        - '!node_modules/array-union'
+
+        - '!node_modules/fast-deep-equal'
+        - '!node_modules/typed-array-byte-length'
+        - '!node_modules/@opentelemetry/semantic-conventions'
+        # - '!node_modules/'
+        # - '!node_modules/'
+
+
 
 
         # - '!node_modules/**'
