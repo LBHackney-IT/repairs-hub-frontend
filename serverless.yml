@@ -75,6 +75,14 @@ functions:
         - '!node_modules/call-bind-apply-helpers'
         - '!node_modules/safe-regex-test'
 
+        - '!node_modules/sass'
+        - '!node_modules/xml2js'
+        - '!node_modules/@unrs'
+        - '!node_modules/@rollup'
+        - '!node_modules/@babel'
+        - '!node_modules/axe-core'
+        - '!node_modules/language-subtag-registry'
+
         # - 'node_modules/restana/**'
         # - 'node_modules/serve-static/**'
         # - 'node_modules/aws-xray-sdk/**'
