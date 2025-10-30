@@ -54,8 +54,13 @@ functions:
         - '!node_modules/fast-deep-equal'
         - '!node_modules/typed-array-byte-length'
         - '!node_modules/@opentelemetry/semantic-conventions'
-        # - '!node_modules/'
-        # - '!node_modules/'
+        - '!node_modules/which-boxed-primitive'
+        - '!node_modules/is-symbol'
+
+        - '!node_modules/is-string'
+        - '!node_modules/is-number-object'
+        - '!node_modules/is-boolean-object'
+        - '!node_modules/is-bigint'
 
 
 
