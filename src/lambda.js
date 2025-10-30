@@ -7,20 +7,33 @@ AWSXRay.enableAutomaticMode()
 
 const app = require('next')({
   dev: false,
-  dir: path.join(__dirname, '..'),
+  dir: path.join(__dirname, '../build/_next/standalone'),
+  conf: {
+    distDir: '.next',
+  },
 })
 
-const nextRequestHandler = app.getRequestHandler()
+let isReady = false
+let nextRequestHandler
 
-server.use(AWSXRay.express.openSegment('NextJSApp')) // Open segment for tracing
+async function init() {
+  if (!isReady) {
+    await app.prepare()
+    nextRequestHandler = app.getRequestHandler()
+    isReady = true
+  }
+}
 
-server.use(
-  files(path.join(__dirname, '../build/_next/standalone/.next/static'))
-)
+server.use(AWSXRay.express.openSegment('NextJSApp'))
+
+server.use(files(path.join(__dirname, '../build/_next/static')))
 server.use(files(path.join(__dirname, '../public')))
 
-server.all('*', (req, res) => nextRequestHandler(req, res))
+server.all('*', async (req, res) => {
+  await init()
+  return nextRequestHandler(req, res)
+})
 
-server.use(AWSXRay.express.closeSegment()) // Close segment
+server.use(AWSXRay.express.closeSegment())
 
 module.exports.handler = require('serverless-http')(server)
