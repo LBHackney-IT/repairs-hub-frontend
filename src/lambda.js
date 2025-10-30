@@ -5,6 +5,14 @@ const AWSXRay = require('aws-xray-sdk')
 
 AWSXRay.enableAutomaticMode()
 
+// const app = require('next')({
+//   dev: false,
+//   dir: path.join(__dirname, '../build/_next/standalone'),
+//   conf: {
+//     distDir: '.next',
+//   },
+// })]
+
 const app = require('next')({
   dev: false,
   dir: path.join(__dirname, '..'),
@@ -26,10 +34,7 @@ async function init() {
 
 server.use(AWSXRay.express.openSegment('NextJSApp'))
 
-server.use(
-  '/_next/static',
-  files(path.join(__dirname, '../build/_next/static'))
-)
+server.use(files(path.join(__dirname, '../build/_next/static')))
 server.use(files(path.join(__dirname, '../public')))
 
 server.all('*', async (req, res) => {
