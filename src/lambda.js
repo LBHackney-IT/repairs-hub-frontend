@@ -51,7 +51,10 @@ server.use((req, res, next) => {
 //   })
 // )
 
-server.use('/_next/static', files(path.join(__dirname, '../build/_next/static')))
+server.use(
+  '/_next/static',
+  files(path.join(__dirname, '../build/_next/static'))
+)
 
 server.use(files(path.join(__dirname, '../public')))
 
