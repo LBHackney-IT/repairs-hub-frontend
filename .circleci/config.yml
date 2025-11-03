@@ -117,9 +117,6 @@ jobs:
 
             yarn build
 
-            # # Copy webpack 
-            # cp -r node_modules/next/dist/compiled/webpack/* build/_next/standalone/node_modules/next/dist/compiled/webpack/
-
             # Fetch production dependencies
             rm -rf node_modules
 
@@ -127,32 +124,6 @@ jobs:
             yarn install --production --frozen-lockfile
             cd ..
 
-            # yarn install --production --frozen-lockfile
-
-            # Create a dry-run package without deploying
-            npx serverless package --stage development
-
-            # unzip -l .serverless/repairs-hub-frontend.zip | grep "_next/static" | head -10
-
-
-            # Get detailed breakdown
-            echo "=== Package Analysis ==="
-            ls -lh .serverless/repairs-hub-frontend.zip || echo "Zip file not found"
-
-            echo "=== Top 30 largest files ==="
-            unzip -l .serverless/repairs-hub-frontend.zip | sort -k1 -rn | head -30 || echo "Could not analyze files"
-
-            echo "=== node_modules size ==="
-            unzip -l .serverless/repairs-hub-frontend.zip | grep "node_modules" | awk 'BEGIN {sum=0} {sum+=$1} END {if (sum>0) print "node_modules total:", sum/1024/1024, "MB"; else print "No node_modules found"}' || echo "Could not calculate node_modules size"
-
-            echo "=== File type breakdown ==="
-            unzip -l .serverless/repairs-hub-frontend.zip | awk '{if ($4) print $4}' | grep -o '\.[^.]*$' | sort | uniq -c | sort -rn | head -20 || echo "Could not analyze file types"
-
-            echo "=== Largest node_modules folders ==="
-            unzip -l .serverless/repairs-hub-frontend.zip | grep "node_modules" | awk 'BEGIN {FS=" "} {split($4,a,"/"); if(a[2]!="" && a[3]!="") mod=a[2]"/"a[3]; else if(a[2]!="") mod=a[2]; if(mod) sum[mod]+=$1} END {for(m in sum) if(sum[m]>0) print sum[m]/1024/1024 " MB", m}' | sort -rn | head -20 || echo "Could not analyze node_modules folders"
-
-            echo "=== Checking for Sentry packages ==="
-            unzip -l .serverless/repairs-hub-frontend.zip | grep "@sentry" | awk '{print $4}' | cut -d'/' -f1-3 | sort -u || echo "No Sentry packages found or error checking"
             npx --yes serverless deploy --stage development
                         
   build-deploy-staging:

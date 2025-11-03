@@ -32,19 +32,7 @@ functions:
         - next.config.js
         - public/**
         - '!node_modules/**'
-
         - 'lambda/node_modules/**'
-
-        # - '!node_modules/**'
-        # - 'node_modules/restana/**'
-        # - 'node_modules/trouter/**'
-        # - 'node_modules/serve-static/**'
-        # - 'node_modules/aws-xray-sdk/**'
-        # - 'node_modules/serverless-http/**'
-        # - 'node_modules/send/**'
-        # - 'node_modules/0http/**'
-        # - 'node_modules/forwarded/**'
-        # - 'node_modules/ipaddr.js/**'
 
     events:
       - http: ANY /
