@@ -120,9 +120,9 @@ jobs:
             # Fetch production dependencies
             rm -rf node_modules
 
-            # cd lambda
+            cd lambda
             yarn install --production --frozen-lockfile
-            # cd ..
+            cd ..
 
             npx --yes serverless deploy --stage development
                         
