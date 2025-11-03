@@ -212,7 +212,7 @@ const MobileWorkingWorkOrder = (props: Props) => {
                       Add new SOR
                     </button>
                   ) : (
-                    <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+                    <Link href={`/work-orders/${workOrderReference}/tasks/new`} legacyBehavior>
                       <a
                         role="button"
                         draggable="false"
@@ -247,7 +247,7 @@ const MobileWorkingWorkOrder = (props: Props) => {
                     <Link
                       href={`/work-orders/${workOrderReference}/operatives/${
                         operativesCount <= 1 ? 'new' : 'edit'
-                      }`}
+                      }`} legacyBehavior
                     >
                       <a
                         role="button"

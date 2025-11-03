@@ -117,8 +117,8 @@ jobs:
 
             yarn build
 
-            # Copy webpack 
-            cp -r node_modules/next/dist/compiled/webpack/* build/_next/standalone/node_modules/next/dist/compiled/webpack/
+            # # Copy webpack 
+            # cp -r node_modules/next/dist/compiled/webpack/* build/_next/standalone/node_modules/next/dist/compiled/webpack/
 
             # Fetch production dependencies
             rm -rf node_modules

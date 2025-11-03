@@ -197,7 +197,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
                 <h1 className="lbh-heading-h1 govuk-!-margin-right-6 govuk-!-margin-bottom-0">
                   Authorisation variation request: {workOrderReference}{' '}
                 </h1>
-                <Link href={`/work-orders/${workOrderReference}`}>
+                <Link href={`/work-orders/${workOrderReference}`} legacyBehavior>
                   <a className="lbh-link">See work order</a>
                 </Link>
                 <VariationAuthorisationSummary
@@ -269,7 +269,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
                       <div className="lbh-stat">
                         <span className="lbh-stat__caption">
                           {rejectionReasonToShow}
-                          <Link href="#">
+                          <Link href="#" legacyBehavior>
                             <a
                               onClick={showEditPage}
                               className="float-right govuk-!-margin-top-3 lbh-link"

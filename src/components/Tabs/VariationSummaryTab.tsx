@@ -90,8 +90,9 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
       <>
         {user.roles.includes('contract_manager') && (
           <div className="display-inline">
-            <Link
-              href={`/work-orders/${workOrderReference}/variation-authorisation`}
+            <Link 
+              href={`/work-orders/${workOrderReference}/variation-authorisation`} 
+              legacyBehavior
             >
               <a className="lbh-link">Variation Authorisation</a>
             </Link>
