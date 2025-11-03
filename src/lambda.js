@@ -8,11 +8,15 @@ const path = require('path')
 const standaloneDir = path.join(__dirname, '../build/_next/standalone')
 const Next = require(path.join(standaloneDir, 'node_modules/next'))
 
+const { config } = require('./.next/required-server-files.json')
+process.env.__NEXT_PRIVATE_STANDALONE_CONFIG = JSON.stringify(config)
+
 const app = Next({
   dev: false,
   dir: standaloneDir,
   conf: {
     distDir: '.next',
+    // ...config
   },
 })
 
