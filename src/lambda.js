@@ -43,7 +43,7 @@ async function init() {
 //   })
 // )
 
-server.use('/_next', files(path.join(__dirname, '../build/_next')))
+server.use('/_next', files(path.join(__dirname, '../build/_next/static')))
 
 server.use(files(path.join(__dirname, '../public')))
 
