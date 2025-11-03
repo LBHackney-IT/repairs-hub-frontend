@@ -31,6 +31,14 @@ async function init() {
   }
 }
 
+server.use((req, res, next) => {
+  console.log('=== REQUEST ===')
+  console.log('URL:', req.url)
+  console.log('Method:', req.method)
+  console.log('Path:', req.path)
+  return next()
+})
+
 // server.use(AWSXRay.express.openSegment('NextJSApp'))
 
 // server.use(files(path.join(__dirname, '../build/_next/static')))
