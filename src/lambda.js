@@ -32,29 +32,32 @@ async function init() {
 }
 
 server.use((req, res, next) => {
-  console.log('=== REQUEST ===')
-  console.log('URL:', req.url)
-  console.log('Method:', req.method)
-  console.log('Path:', req.path)
+  console.log(
+    `REQUEST: URL="${req.url}" Method="${req.method}" Path: "${req.path}"`
+  )
   return next()
 })
 
 // server.use(AWSXRay.express.openSegment('NextJSApp'))
 
-// server.use(files(path.join(__dirname, '../build/_next/static')))
-
-// server.use(
-//   '/_next/static',
-//   files(path.join(__dirname, '../build/_next/static'), {
-//     immutable: true,
-//     maxAge: '1y',
-//   })
-// )
-
 server.use(
   '/_next/static',
   files(path.join(__dirname, '../build/_next/static'))
 )
+
+const staticHandler = files(path.join(__dirname, '../build/_next/static'))
+server.use('/_next/static', (req, res, next) => {
+  console.log(
+    'Attempting to serve from:',
+    path.join(__dirname, '../build/_next/static')
+  )
+  console.log('Looking for file:', req.url)
+  return staticHandler(req, res, (err) => {
+    if (err) console.log('Static handler error:', err)
+    console.log('Static handler did NOT find file, passing to next()')
+    next()
+  })
+})
 
 server.use(files(path.join(__dirname, '../public')))
 
