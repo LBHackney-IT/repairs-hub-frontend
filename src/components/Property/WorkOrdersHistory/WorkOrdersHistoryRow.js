@@ -28,7 +28,8 @@ const WorkOrdersHistoryRow = ({
             href={{
               pathname: '/work-orders/[reference]',
               query: { reference: `${reference}` },
-            }} legacyBehavior
+            }}
+            legacyBehavior
           >
             <a className="lbh-link">{reference}</a>
           </Link>

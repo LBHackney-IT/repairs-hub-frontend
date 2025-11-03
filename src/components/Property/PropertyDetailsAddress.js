@@ -30,7 +30,7 @@ const PropertyDetailsAddress = ({
       </span>
       <br></br>
       {hasLinkToProperty ? (
-        <Link href={`/properties/${propertyReference}`} legacyBehavior> 
+        <Link href={`/properties/${propertyReference}`} legacyBehavior>
           <a className="lbh-link">
             <Address address={address} />
           </a>
