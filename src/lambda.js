@@ -8,6 +8,7 @@ AWSXRay.enableAutomaticMode()
 const standaloneDir = path.join(__dirname, '../build/_next/standalone')
 const Next = require(path.join(standaloneDir, 'node_modules/next'))
 
+// https://github.com/vercel/next.js/issues/64031#issuecomment-2078708340
 const { config } = require(path.join(
   standaloneDir,
   'build/_next/required-server-files.json'
@@ -30,14 +31,6 @@ async function init() {
     isReady = true
   }
 }
-
-// server.use((req, res, next) => {
-//   if (req.url.startsWith('/_next/static')) {
-//     return files(path.join(__dirname, '../build'))(req, res, next)
-//   }
-
-//   return next()
-// })
 
 server.use(files(path.join(__dirname, '../build')))
 server.use(files(path.join(__dirname, '../public')))
