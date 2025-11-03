@@ -120,6 +120,7 @@ jobs:
             # Fetch production dependencies
             rm -rf node_modules
 
+            # node_modules specific for lambda.js
             cd lambda
             yarn install --production --frozen-lockfile
             cd ..
