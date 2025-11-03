@@ -31,14 +31,15 @@ async function init() {
   }
 }
 
-server.use((req, res, next) => {
-  if (req.url.startsWith('/_next/static')) {
-    return files(path.join(__dirname, '../build'))(req, res, next)
-  }
+// server.use((req, res, next) => {
+//   if (req.url.startsWith('/_next/static')) {
+//     return files(path.join(__dirname, '../build'))(req, res, next)
+//   }
 
-  return next()
-})
+//   return next()
+// })
 
+server.use(files(path.join(__dirname, '../build')))
 server.use(files(path.join(__dirname, '../public')))
 
 server.all('*', async (req, res) => {
