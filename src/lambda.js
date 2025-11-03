@@ -35,12 +35,22 @@ async function init() {
 
 // server.use(files(path.join(__dirname, '../build/_next/static')))
 
+// server.use(
+//   '/_next/static',
+//   files(path.join(__dirname, '../build/_next/static'), {
+//     immutable: true,
+//     maxAge: '1y',
+//   })
+// )
+
 server.use(
-  '/_next/static',
-  files(path.join(__dirname, '../build/_next/static'), {
-    immutable: true,
-    maxAge: '1y',
-  })
+  '/_next',
+  files(
+    path.join(__dirname, '../build/_next', {
+      immutable: true,
+      maxAge: '1y',
+    })
+  )
 )
 
 server.use(files(path.join(__dirname, '../public')))
