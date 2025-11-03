@@ -43,15 +43,7 @@ async function init() {
 //   })
 // )
 
-server.use(
-  '/_next',
-  files(
-    path.join(__dirname, '../build/_next', {
-      immutable: true,
-      maxAge: '1y',
-    })
-  )
-)
+server.use('/_next', files(path.join(__dirname, '../build/_next')))
 
 server.use(files(path.join(__dirname, '../public')))
 
