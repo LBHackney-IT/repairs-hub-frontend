@@ -5,7 +5,7 @@ import { isAuthorised } from './googleAuth'
 import { paramsSerializer } from './urls'
 import logger from 'loglevel'
 
-// // Sentry doesn't load the config for API routes automatically
+// Sentry doesn't load the config for API routes automatically
 import { Sentry } from '@/root/sentry.server.config'
 
 const {
