@@ -1,9 +1,9 @@
 const server = require('restana')()
 const files = require('serve-static')
 const path = require('path')
-// const AWSXRay = require('aws-xray-sdk')
+const AWSXRay = require('aws-xray-sdk')
 
-// AWSXRay.enableAutomaticMode()
+AWSXRay.enableAutomaticMode()
 
 const standaloneDir = path.join(__dirname, '../build/_next/standalone')
 const Next = require(path.join(standaloneDir, 'node_modules/next'))
@@ -46,6 +46,6 @@ server.all('*', async (req, res) => {
   return nextRequestHandler(req, res)
 })
 
-// server.use(AWSXRay.express.closeSegment())
+server.use(AWSXRay.express.closeSegment())
 
 module.exports.handler = require('serverless-http')(server)
