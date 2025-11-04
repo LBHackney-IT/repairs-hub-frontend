@@ -209,7 +209,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
         return res
           .status(HttpStatus.UNAUTHORIZED)
           .json({ message: 'Auth cookie missing.' })
-      } 
+      }
 
       // Call the function defined in the API route
       return await callBack(req, res, user)
