@@ -103,6 +103,7 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
           variationTasks={variation}
           originalSors={originalSors}
           totalCostAfterVariation={totalCostAfterVariation}
+          budgetCode={undefined}
         />
         {error && <ErrorMessage label={error} />}
       </>
