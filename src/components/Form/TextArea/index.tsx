@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { FieldError } from 'react-hook-form'
+import { JSX } from 'react'
 
 interface Props {
   label: string
