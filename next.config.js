@@ -1,5 +1,3 @@
-const { withSentryConfig } = require('@sentry/nextjs')
-
 const cspHeader = `
   frame-ancestors 'none';
 `
@@ -34,20 +32,7 @@ const moduleExports = {
   images: {
     domains: ['utfs.io'],
   },
-  // experimental: {
-  //   forceSwcTransforms: true,
-  // },
   headers: () => headers(),
 }
 
-// module.exports = moduleExports
-
-const { NODE_ENV, SENTRY_RELEASE } = process.env
-
-const sentryWebpackPluginOptions = {
-  dryRun: !(NODE_ENV === 'production'),
-  release: SENTRY_RELEASE,
-  silent: !(NODE_ENV === 'production'),
-}
-
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+module.exports = moduleExports

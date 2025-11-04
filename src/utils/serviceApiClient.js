@@ -5,9 +5,6 @@ import { isAuthorised } from './googleAuth'
 import { paramsSerializer } from './urls'
 import logger from 'loglevel'
 
-// Sentry doesn't load the config for API routes automatically
-import { Sentry } from '@/root/sentry.server.config'
-
 const {
   REPAIRS_SERVICE_API_URL,
   REPAIRS_SERVICE_API_KEY,
@@ -212,21 +209,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
         return res
           .status(HttpStatus.UNAUTHORIZED)
           .json({ message: 'Auth cookie missing.' })
-      } else {
-        Sentry.setUser({ name: user.name, email: user.email })
-      }
-
-      // Configure cookie removal in Sentry scope
-      Sentry.getCurrentScope().addEventProcessor((event) => {
-        if (event.request?.cookies[GSSO_TOKEN_NAME])
-          event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
-
-        if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME])
-          event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] =
-            '[REMOVED]'
-
-        return event
-      })
+      } 
 
       // Call the function defined in the API route
       return await callBack(req, res, user)
@@ -254,38 +237,6 @@ export const authoriseServiceAPIRequest = (callBack) => {
           }
         }
       }
-
-      const errorCategory = categorizeError(error)
-
-      Sentry.withScope((scope) => {
-        // Add error metadata
-        scope.setTag('error.category', errorCategory.category)
-        scope.setTag('error.status_code', errorCategory.statusCode)
-        scope.setTag('error.type', errorCategory.type)
-        scope.setContext('request', {
-          path: req.path,
-          method: req.method,
-          query: req.query,
-        })
-
-        scope.setFingerprint([
-          errorCategory.category,
-          errorCategory.statusCode.toString(),
-          errorCategory.type,
-        ])
-
-        if (errorResponse) {
-          scope.setContext('api_response', {
-            status: errorResponse.status,
-            statusText: errorResponse.statusText,
-            data: errorResponse.data,
-          })
-        }
-      })
-
-      Sentry.captureException(error, {
-        level: errorResponse?.status >= 500 ? 'error' : 'warning',
-      })
 
       if (errorResponse) {
         const target = `${errorResponse.request?.method} ${errorResponse.request?.path}`
