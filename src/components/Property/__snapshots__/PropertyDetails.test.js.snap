@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`PropertyDetails component when the date is after out of hours should show the link should render properly 1`] = `
 <DocumentFragment>

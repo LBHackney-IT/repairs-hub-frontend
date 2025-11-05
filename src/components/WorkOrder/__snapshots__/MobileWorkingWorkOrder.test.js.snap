@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`MobileWorkingWorkOrder component with multiple operatives when has status Completed should render work order elements with Status Completed and operatives list 1`] = `
 <DocumentFragment>

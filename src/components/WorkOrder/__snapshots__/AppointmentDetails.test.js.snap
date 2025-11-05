@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`AppointmentDetails component DRS work order with an appointment when the work order can be scheduled shows a link to reschedule an appointment with DRS Web Booking Manager 1`] = `
 <DocumentFragment>

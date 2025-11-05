@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`WorkOrderInfo component when the work order is higher priority includes an highlight for that priority 1`] = `
 <DocumentFragment>

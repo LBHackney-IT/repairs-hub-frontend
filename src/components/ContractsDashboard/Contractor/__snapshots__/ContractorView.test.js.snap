@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Contracts dashboard component should render component with sor code contracts displayed 1`] = `
 <DocumentFragment>

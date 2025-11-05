@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`CloseWorkOrderForm component - when follow-on functionality is enabled should not render startDate or startTime 1`] = `
 <DocumentFragment>
