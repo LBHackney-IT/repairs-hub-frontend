@@ -7,151 +7,171 @@ exports[`Contractors list items component should render the component 1`] = `
       class="lbh-list mobile-working-work-order-list"
       data-test-id="contractors-list"
     >
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
+      <a
+        href="/contractors/NOO"
       >
-        <div
-          class="contract-details"
+        <li
+          class="govuk-!-margin-top-3 operative-work-order-list-item"
+          style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
         >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          <div
+            class="contract-details"
           >
-            No ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
+            <h3
+              class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
             >
-              0
-            </span>
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(212, 237, 218);"
+              No ltd
+            </h3>
+            <p>
+              Active contracts: 
+              <span
+                style="font-weight: 800;"
+              >
+                0
+              </span>
+            </p>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right"
+            />
+          </div>
+        </li>
+      </a>
+      <a
+        href="/contractors/YES"
       >
-        <div
-          class="contract-details"
+        <li
+          class="govuk-!-margin-top-3 operative-work-order-list-item"
+          style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(212, 237, 218);"
         >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          <div
+            class="contract-details"
           >
-            Yes ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
+            <h3
+              class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
             >
-              1
-            </span>
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
+              Yes ltd
+            </h3>
+            <p>
+              Active contracts: 
+              <span
+                style="font-weight: 800;"
+              >
+                1
+              </span>
+            </p>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right"
+            />
+          </div>
+        </li>
+      </a>
+      <a
+        href="/contractors/RAT"
       >
-        <div
-          class="contract-details"
+        <li
+          class="govuk-!-margin-top-3 operative-work-order-list-item"
+          style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
         >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          <div
+            class="contract-details"
           >
-            Rat ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
+            <h3
+              class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
             >
-              0
-            </span>
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
+              Rat ltd
+            </h3>
+            <p>
+              Active contracts: 
+              <span
+                style="font-weight: 800;"
+              >
+                0
+              </span>
+            </p>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right"
+            />
+          </div>
+        </li>
+      </a>
+      <a
+        href="/contractors/CAT"
       >
-        <div
-          class="contract-details"
+        <li
+          class="govuk-!-margin-top-3 operative-work-order-list-item"
+          style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
         >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          <div
+            class="contract-details"
           >
-            Cat ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
+            <h3
+              class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
             >
-              0
-            </span>
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(212, 237, 218);"
+              Cat ltd
+            </h3>
+            <p>
+              Active contracts: 
+              <span
+                style="font-weight: 800;"
+              >
+                0
+              </span>
+            </p>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right"
+            />
+          </div>
+        </li>
+      </a>
+      <a
+        href="/contractors/DOG"
       >
-        <div
-          class="contract-details"
+        <li
+          class="govuk-!-margin-top-3 operative-work-order-list-item"
+          style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(212, 237, 218);"
         >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          <div
+            class="contract-details"
           >
-            Dog ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
+            <h3
+              class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
             >
-              1
-            </span>
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
+              Dog ltd
+            </h3>
+            <p>
+              Active contracts: 
+              <span
+                style="font-weight: 800;"
+              >
+                1
+              </span>
+            </p>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right"
+            />
+          </div>
+        </li>
+      </a>
     </ol>
   </div>
 </DocumentFragment>
