@@ -14,9 +14,8 @@ import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 import SelectPriority from './SelectPriority'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
-import UserContext from '../../UserContext'
+import UserContext from '@/components/UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
-import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useFeatureToggles'
 import { Priority } from '@/root/src/models/priority'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
@@ -93,7 +92,7 @@ const RaiseWorkOrderForm = (props: Props) => {
   })
 
   const { user } = useContext(UserContext)
-  const { simpleFeatureToggles } = useFeatureToggles()
+
   const [priorityCode, setPriorityCode] = useState<number>()
   const [totalCost, setTotalCost] = useState('')
   const overSpendLimit = totalCost > raiseLimit
