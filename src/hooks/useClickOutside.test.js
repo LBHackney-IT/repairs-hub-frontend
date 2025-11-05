@@ -18,8 +18,8 @@ const MockComponent = () => {
   )
 }
 
-describe('useClickOutside', async () => {
-  it('does nothing when the click is inside the element', () => {
+describe('useClickOutside', () => {
+  it('does nothing when the click is inside the element', async () => {
     render(<MockComponent />)
     await act(() => userEvent.click(screen.getByText('Inside text')))
     expect(mockHandler).not.toHaveBeenCalled()
