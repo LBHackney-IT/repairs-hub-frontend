@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom'
-
+import { jest } from '@jest/globals'
 import dotenvFlow from 'dotenv-flow'
+
 dotenvFlow.config({ silent: true })
 
 // Mock Sentry module so tests can load API routes
@@ -25,4 +26,34 @@ jest.mock('@sentry/nextjs', () => {
     }),
     getCurrentScope: jest.fn(() => mockScope),
   }
+})
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}))
+
+import { useRouter } from 'next/router'
+
+useRouter.mockReturnValue({
+  route: '/',
+  pathname: '/',
+  query: {},
+  asPath: '/',
+  basePath: '',
+  push: jest.fn(),
+  replace: jest.fn(),
+  reload: jest.fn(),
+  back: jest.fn(),
+  forward: jest.fn(),
+  prefetch: jest.fn().mockResolvedValue(undefined),
+  beforePopState: jest.fn(),
+  events: {
+    on: jest.fn(),
+    off: jest.fn(),
+    emit: jest.fn(),
+  },
+  isFallback: false,
+  isLocaleDomain: false,
+  isReady: true,
+  isPreview: false,
 })
