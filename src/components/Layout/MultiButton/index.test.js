@@ -56,19 +56,19 @@ describe('MultiButton', () => {
     expect(screen.getAllByText('Bar').length).toBe(2)
   })
 
-  it('closes the details panel after an option is clicked', () => {
+  it('closes the details panel after an option is clicked', async () => {
     render(<MockComponent />)
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe(null)
 
-    act(() => {
-      userEvent.click(screen.getByText('Select action'))
+    await act(async () => {
+      await userEvent.click(screen.getByText('Select action'))
     })
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe('')
 
-    act(() => {
-      userEvent.click(screen.getByText('Bar'))
+    await act(async () => {
+      await userEvent.click(screen.getByText('Bar'))
     })
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe(null)

@@ -1,7 +1,1249 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`RaiseWorkOrderForm component should limit the priorities list to voids when H02 contract is selected 1`] = `<DocumentFragment />`;
+exports[`RaiseWorkOrderForm component should limit the priorities list to voids when H02 contract is selected 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+    role="button"
+  >
+    Back
+  </a>
+  <div
+    class="govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    >
+      <span
+        class="govuk-caption-l lbh-caption"
+      >
+        New repair
+      </span>
+      <h1
+        class="lbh-heading-h1 govuk-!-margin-bottom-2"
+      >
+        : 
+      </h1>
+      <span
+        class="govuk-error-message lbh-error-message"
+        data-error-id=""
+        data-testid="error-message"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         Error loading legal disrepair status: undefined with message: undefined
+      </span>
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-error-message lbh-error-message"
+          data-error-id=""
+          data-testid="error-message"
+        >
+          <span
+            class="govuk-visually-hidden"
+          >
+            Error:
+          </span>
+           Oops an error occurred with error status: undefined with message: undefined
+        </span>
+        <ul
+          class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
+        >
+          <li
+            class="bg-orange"
+          >
+            Tenure: Secure
+          </li>
+        </ul>
+      </div>
+      <h2
+        class="lbh-heading-h2 govuk-!-margin-top-6"
+      >
+        Work order task details
+      </h2>
+      <form
+        id="repair-request-form"
+        role="form"
+      >
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="trade-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="trade"
+          >
+            Trade 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+             
+            <span>
+               - Search by type (e.g. Gas) or code (e.g. GS)
+            </span>
+          </label>
+          <input
+            autocomplete="off"
+            class="govuk-select lbh-select govuk-!-width-one-half"
+            data-testid="trade"
+            id="trade"
+            list="autocomplete-list-trade"
+            name="trade"
+          />
+          <datalist
+            id="autocomplete-list-trade"
+          >
+            <option
+              value="DOOR ENTRY ENGINEER - DE"
+            />
+            <option
+              value="Plumbing - PL"
+            />
+          </datalist>
+        </div>
+        <input
+          id="tradeCode"
+          name="tradeCode"
+          type="hidden"
+          value=""
+        />
+        <div
+          class="min-height-100"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="contractor-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="contractor"
+            >
+              Contractor 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+               
+              <span>
+                 - Search by name or code
+              </span>
+            </label>
+            <input
+              aria-disabled="true"
+              autocomplete="off"
+              class="govuk-select lbh-select govuk-!-width-one-half"
+              data-testid="contractor"
+              disabled=""
+              id="contractor"
+              list="autocomplete-list-contractor"
+              name="contractor"
+            />
+            <datalist
+              id="autocomplete-list-contractor"
+            />
+          </div>
+        </div>
+        <input
+          id="contractorRef"
+          name="contractorRef"
+          type="hidden"
+          value="h02"
+        />
+        <div
+          class="min-height-120 govuk-!-margin-bottom-6"
+        >
+          <div>
+            <div
+              class="rate-schedule-item govuk-!-margin-top-0"
+            >
+              <div
+                class="govuk-form-group lbh-form-group rate-schedule-item--sor-code"
+                id="rateScheduleItems[0][code]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="rateScheduleItems[0][code]"
+                >
+                  SOR Code 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
+                   
+                  <span>
+                     - Search by code or description
+                  </span>
+                </label>
+                <input
+                  aria-disabled="true"
+                  autocomplete="off"
+                  class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
+                  data-testid="rateScheduleItems[0][code]"
+                  disabled=""
+                  id="rateScheduleItems[0][code]"
+                  list="autocomplete-list-rateScheduleItems[0][code]"
+                  name="rateScheduleItems[0][code]"
+                  value=""
+                />
+                <datalist
+                  id="autocomplete-list-rateScheduleItems[0][code]"
+                />
+              </div>
+              <input
+                id="rateScheduleItems[0][description]"
+                name="rateScheduleItems[0][description]"
+                type="hidden"
+                value=""
+              />
+              <input
+                id="rateScheduleItems[0][cost]"
+                name="rateScheduleItems[0][cost]"
+                type="hidden"
+                value=""
+              />
+              <div
+                class="govuk-form-group lbh-form-group rate-schedule-item--quantity"
+                id="rateScheduleItems[0][quantity]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="rateScheduleItems[0][quantity]"
+                >
+                  Quantity 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  class="govuk-input lbh-input govuk-!-width-full"
+                  data-testid="rateScheduleItems[0][quantity]"
+                  disabled=""
+                  id="rateScheduleItems[0][quantity]"
+                  name="rateScheduleItems[0][quantity]"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <a
+              class="lbh-link"
+              href="#"
+            >
+              + Add another SOR code
+            </a>
+          </div>
+          <div />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="priorityCode-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="priorityCode"
+          >
+            Task priority 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <select
+            class="govuk-select lbh-select govuk-!-width-full"
+            data-testid="priorityCode"
+            disabled=""
+            id="priorityCode"
+            name="priorityCode"
+          >
+            <option
+              value=""
+            />
+            <option
+              value="1"
+            >
+              [I] IMMEDIATE
+            </option>
+            <option
+              value="2"
+            >
+              [E] EMERGENCY
+            </option>
+            <option
+              value="3"
+            >
+              [U] URGENT
+            </option>
+            <option
+              value="4"
+            >
+              [N] NORMAL
+            </option>
+            <option
+              value="30"
+            >
+              [V15] VOIDS MINOR
+            </option>
+            <option
+              value="15"
+            >
+              [V30] VOIDS MAJOR
+            </option>
+            <option
+              value="9"
+            >
+              [P] PLANNED
+            </option>
+          </select>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="descriptionOfWork-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="descriptionOfWork"
+          >
+            Repair description
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <textarea
+            aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="descriptionOfWork"
+            id="descriptionOfWork"
+            name="descriptionOfWork"
+            rows="4"
+          />
+        </div>
+        <span
+          aria-live="polite"
+          class="govuk-hint govuk-character-count__message"
+        >
+          You have 230 characters remaining.
+        </span>
+        <span
+          class="govuk-error-message lbh-error-message"
+          data-error-id=""
+          data-testid="error-message"
+        >
+          <span
+            class="govuk-visually-hidden"
+          >
+            Error:
+          </span>
+           Oops an error occurred with error status: undefined with message: undefined
+        </span>
+        <h2
+          class=" lbh-heading-h2"
+        >
+          Contact details for repair
+          <span
+            class="govuk-caption-m"
+          >
+            Who should we contact for this repair?
+          </span>
+        </h2>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="callerName-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="callerName"
+          >
+            Caller name 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <input
+            class="govuk-input lbh-input "
+            data-testid="callerName"
+            id="callerName"
+            name="callerName"
+            type="text"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="contactNumber-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="contactNumber"
+          >
+            Telephone number 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <input
+            class="govuk-input lbh-input "
+            data-testid="contactNumber"
+            id="contactNumber"
+            name="contactNumber"
+            type="text"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            id="submit-work-order-create"
+            type="submit"
+          >
+            Create work order
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
 
-exports[`RaiseWorkOrderForm component should render properly 1`] = `<DocumentFragment />`;
+exports[`RaiseWorkOrderForm component should render properly 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+    role="button"
+  >
+    Back
+  </a>
+  <div
+    class="govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    >
+      <span
+        class="govuk-caption-l lbh-caption"
+      >
+        New repair
+      </span>
+      <h1
+        class="lbh-heading-h1 govuk-!-margin-bottom-2"
+      >
+        : 
+      </h1>
+      <span
+        class="govuk-error-message lbh-error-message"
+        data-error-id=""
+        data-testid="error-message"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         Error loading legal disrepair status: undefined with message: undefined
+      </span>
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-error-message lbh-error-message"
+          data-error-id=""
+          data-testid="error-message"
+        >
+          <span
+            class="govuk-visually-hidden"
+          >
+            Error:
+          </span>
+           Oops an error occurred with error status: undefined with message: undefined
+        </span>
+        <ul
+          class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
+        >
+          <li
+            class="bg-orange"
+          >
+            Tenure: Secure
+          </li>
+        </ul>
+      </div>
+      <h2
+        class="lbh-heading-h2 govuk-!-margin-top-6"
+      >
+        Work order task details
+      </h2>
+      <form
+        id="repair-request-form"
+        role="form"
+      >
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="trade-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="trade"
+          >
+            Trade 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+             
+            <span>
+               - Search by type (e.g. Gas) or code (e.g. GS)
+            </span>
+          </label>
+          <input
+            autocomplete="off"
+            class="govuk-select lbh-select govuk-!-width-one-half"
+            data-testid="trade"
+            id="trade"
+            list="autocomplete-list-trade"
+            name="trade"
+          />
+          <datalist
+            id="autocomplete-list-trade"
+          >
+            <option
+              value="DOOR ENTRY ENGINEER - DE"
+            />
+            <option
+              value="Plumbing - PL"
+            />
+          </datalist>
+        </div>
+        <input
+          id="tradeCode"
+          name="tradeCode"
+          type="hidden"
+          value=""
+        />
+        <div
+          class="min-height-100"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="contractor-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="contractor"
+            >
+              Contractor 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+               
+              <span>
+                 - Search by name or code
+              </span>
+            </label>
+            <input
+              aria-disabled="true"
+              autocomplete="off"
+              class="govuk-select lbh-select govuk-!-width-one-half"
+              data-testid="contractor"
+              disabled=""
+              id="contractor"
+              list="autocomplete-list-contractor"
+              name="contractor"
+            />
+            <datalist
+              id="autocomplete-list-contractor"
+            />
+          </div>
+        </div>
+        <input
+          id="contractorRef"
+          name="contractorRef"
+          type="hidden"
+          value=""
+        />
+        <div
+          class="min-height-120 govuk-!-margin-bottom-6"
+        >
+          <div>
+            <div
+              class="rate-schedule-item govuk-!-margin-top-0"
+            >
+              <div
+                class="govuk-form-group lbh-form-group rate-schedule-item--sor-code"
+                id="rateScheduleItems[0][code]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="rateScheduleItems[0][code]"
+                >
+                  SOR Code 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
+                   
+                  <span>
+                     - Search by code or description
+                  </span>
+                </label>
+                <input
+                  aria-disabled="true"
+                  autocomplete="off"
+                  class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
+                  data-testid="rateScheduleItems[0][code]"
+                  disabled=""
+                  id="rateScheduleItems[0][code]"
+                  list="autocomplete-list-rateScheduleItems[0][code]"
+                  name="rateScheduleItems[0][code]"
+                  value=""
+                />
+                <datalist
+                  id="autocomplete-list-rateScheduleItems[0][code]"
+                />
+              </div>
+              <input
+                id="rateScheduleItems[0][description]"
+                name="rateScheduleItems[0][description]"
+                type="hidden"
+                value=""
+              />
+              <input
+                id="rateScheduleItems[0][cost]"
+                name="rateScheduleItems[0][cost]"
+                type="hidden"
+                value=""
+              />
+              <div
+                class="govuk-form-group lbh-form-group rate-schedule-item--quantity"
+                id="rateScheduleItems[0][quantity]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="rateScheduleItems[0][quantity]"
+                >
+                  Quantity 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  class="govuk-input lbh-input govuk-!-width-full"
+                  data-testid="rateScheduleItems[0][quantity]"
+                  disabled=""
+                  id="rateScheduleItems[0][quantity]"
+                  name="rateScheduleItems[0][quantity]"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <a
+              class="lbh-link"
+              href="#"
+            >
+              + Add another SOR code
+            </a>
+          </div>
+          <div />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="priorityCode-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="priorityCode"
+          >
+            Task priority 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <select
+            class="govuk-select lbh-select govuk-!-width-full"
+            data-testid="priorityCode"
+            disabled=""
+            id="priorityCode"
+            name="priorityCode"
+          >
+            <option
+              value=""
+            />
+            <option
+              value="1"
+            >
+              1 [I] IMMEDIATE
+            </option>
+            <option
+              value="2"
+            >
+              2 [E] EMERGENCY
+            </option>
+            <option
+              value="3"
+            >
+              4 [U] URGENT
+            </option>
+            <option
+              value="4"
+            >
+              5 [N] NORMAL
+            </option>
+          </select>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="descriptionOfWork-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="descriptionOfWork"
+          >
+            Repair description
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <textarea
+            aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="descriptionOfWork"
+            id="descriptionOfWork"
+            name="descriptionOfWork"
+            rows="4"
+          />
+        </div>
+        <span
+          aria-live="polite"
+          class="govuk-hint govuk-character-count__message"
+        >
+          You have 230 characters remaining.
+        </span>
+        <span
+          class="govuk-error-message lbh-error-message"
+          data-error-id=""
+          data-testid="error-message"
+        >
+          <span
+            class="govuk-visually-hidden"
+          >
+            Error:
+          </span>
+           Oops an error occurred with error status: undefined with message: undefined
+        </span>
+        <h2
+          class=" lbh-heading-h2"
+        >
+          Contact details for repair
+          <span
+            class="govuk-caption-m"
+          >
+            Who should we contact for this repair?
+          </span>
+        </h2>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="callerName-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="callerName"
+          >
+            Caller name 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <input
+            class="govuk-input lbh-input "
+            data-testid="callerName"
+            id="callerName"
+            name="callerName"
+            type="text"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="contactNumber-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="contactNumber"
+          >
+            Telephone number 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <input
+            class="govuk-input lbh-input "
+            data-testid="contactNumber"
+            id="contactNumber"
+            name="contactNumber"
+            type="text"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            id="submit-work-order-create"
+            type="submit"
+          >
+            Create work order
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
 
-exports[`RaiseWorkOrderForm component should render without possibility to choose budget code for a user without the budget code officer permission 1`] = `<DocumentFragment />`;
+exports[`RaiseWorkOrderForm component should render without possibility to choose budget code for a user without the budget code officer permission 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+    role="button"
+  >
+    Back
+  </a>
+  <div
+    class="govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    >
+      <span
+        class="govuk-caption-l lbh-caption"
+      >
+        New repair
+      </span>
+      <h1
+        class="lbh-heading-h1 govuk-!-margin-bottom-2"
+      >
+        : 
+      </h1>
+      <span
+        class="govuk-error-message lbh-error-message"
+        data-error-id=""
+        data-testid="error-message"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         Error loading legal disrepair status: undefined with message: undefined
+      </span>
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-error-message lbh-error-message"
+          data-error-id=""
+          data-testid="error-message"
+        >
+          <span
+            class="govuk-visually-hidden"
+          >
+            Error:
+          </span>
+           Oops an error occurred with error status: undefined with message: undefined
+        </span>
+        <ul
+          class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
+        >
+          <li
+            class="bg-orange"
+          >
+            Tenure: Secure
+          </li>
+        </ul>
+      </div>
+      <h2
+        class="lbh-heading-h2 govuk-!-margin-top-6"
+      >
+        Work order task details
+      </h2>
+      <form
+        id="repair-request-form"
+        role="form"
+      >
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="trade-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="trade"
+          >
+            Trade 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+             
+            <span>
+               - Search by type (e.g. Gas) or code (e.g. GS)
+            </span>
+          </label>
+          <input
+            autocomplete="off"
+            class="govuk-select lbh-select govuk-!-width-one-half"
+            data-testid="trade"
+            id="trade"
+            list="autocomplete-list-trade"
+            name="trade"
+          />
+          <datalist
+            id="autocomplete-list-trade"
+          >
+            <option
+              value="DOOR ENTRY ENGINEER - DE"
+            />
+            <option
+              value="Plumbing - PL"
+            />
+          </datalist>
+        </div>
+        <input
+          id="tradeCode"
+          name="tradeCode"
+          type="hidden"
+          value=""
+        />
+        <div
+          class="min-height-100"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="contractor-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="contractor"
+            >
+              Contractor 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+               
+              <span>
+                 - Search by name or code
+              </span>
+            </label>
+            <input
+              aria-disabled="true"
+              autocomplete="off"
+              class="govuk-select lbh-select govuk-!-width-one-half"
+              data-testid="contractor"
+              disabled=""
+              id="contractor"
+              list="autocomplete-list-contractor"
+              name="contractor"
+            />
+            <datalist
+              id="autocomplete-list-contractor"
+            />
+          </div>
+        </div>
+        <input
+          id="contractorRef"
+          name="contractorRef"
+          type="hidden"
+          value=""
+        />
+        <div
+          class="min-height-120 govuk-!-margin-bottom-6"
+        >
+          <div>
+            <div
+              class="rate-schedule-item govuk-!-margin-top-0"
+            >
+              <div
+                class="govuk-form-group lbh-form-group rate-schedule-item--sor-code"
+                id="rateScheduleItems[0][code]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="rateScheduleItems[0][code]"
+                >
+                  SOR Code 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
+                   
+                  <span>
+                     - Search by code or description
+                  </span>
+                </label>
+                <input
+                  aria-disabled="true"
+                  autocomplete="off"
+                  class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
+                  data-testid="rateScheduleItems[0][code]"
+                  disabled=""
+                  id="rateScheduleItems[0][code]"
+                  list="autocomplete-list-rateScheduleItems[0][code]"
+                  name="rateScheduleItems[0][code]"
+                  value=""
+                />
+                <datalist
+                  id="autocomplete-list-rateScheduleItems[0][code]"
+                />
+              </div>
+              <input
+                id="rateScheduleItems[0][description]"
+                name="rateScheduleItems[0][description]"
+                type="hidden"
+                value=""
+              />
+              <input
+                id="rateScheduleItems[0][cost]"
+                name="rateScheduleItems[0][cost]"
+                type="hidden"
+                value=""
+              />
+              <div
+                class="govuk-form-group lbh-form-group rate-schedule-item--quantity"
+                id="rateScheduleItems[0][quantity]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="rateScheduleItems[0][quantity]"
+                >
+                  Quantity 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  class="govuk-input lbh-input govuk-!-width-full"
+                  data-testid="rateScheduleItems[0][quantity]"
+                  disabled=""
+                  id="rateScheduleItems[0][quantity]"
+                  name="rateScheduleItems[0][quantity]"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <a
+              class="lbh-link"
+              href="#"
+            >
+              + Add another SOR code
+            </a>
+          </div>
+          <div />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="priorityCode-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="priorityCode"
+          >
+            Task priority 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <select
+            class="govuk-select lbh-select govuk-!-width-full"
+            data-testid="priorityCode"
+            disabled=""
+            id="priorityCode"
+            name="priorityCode"
+          >
+            <option
+              value=""
+            />
+            <option
+              value="1"
+            >
+              1 [I] IMMEDIATE
+            </option>
+            <option
+              value="2"
+            >
+              2 [E] EMERGENCY
+            </option>
+            <option
+              value="3"
+            >
+              4 [U] URGENT
+            </option>
+            <option
+              value="4"
+            >
+              5 [N] NORMAL
+            </option>
+          </select>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="descriptionOfWork-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="descriptionOfWork"
+          >
+            Repair description
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <textarea
+            aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="descriptionOfWork"
+            id="descriptionOfWork"
+            name="descriptionOfWork"
+            rows="4"
+          />
+        </div>
+        <span
+          aria-live="polite"
+          class="govuk-hint govuk-character-count__message"
+        >
+          You have 230 characters remaining.
+        </span>
+        <span
+          class="govuk-error-message lbh-error-message"
+          data-error-id=""
+          data-testid="error-message"
+        >
+          <span
+            class="govuk-visually-hidden"
+          >
+            Error:
+          </span>
+           Oops an error occurred with error status: undefined with message: undefined
+        </span>
+        <h2
+          class=" lbh-heading-h2"
+        >
+          Contact details for repair
+          <span
+            class="govuk-caption-m"
+          >
+            Who should we contact for this repair?
+          </span>
+        </h2>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="callerName-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="callerName"
+          >
+            Caller name 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <input
+            class="govuk-input lbh-input "
+            data-testid="callerName"
+            id="callerName"
+            name="callerName"
+            type="text"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="contactNumber-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="contactNumber"
+          >
+            Telephone number 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <input
+            class="govuk-input lbh-input "
+            data-testid="contactNumber"
+            id="contactNumber"
+            name="contactNumber"
+            type="text"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            id="submit-work-order-create"
+            type="submit"
+          >
+            Create work order
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
