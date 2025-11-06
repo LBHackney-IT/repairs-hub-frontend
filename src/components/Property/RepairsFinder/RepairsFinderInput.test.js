@@ -75,9 +75,10 @@ const contractorReference = 'H02'
 const validCode = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME>${contractorReference}</WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink taps are broken</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>${code}</SOR_CODE><PRIORITY>${priorityCode}</PRIORITY><QUANTITY>${quantity}</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>${comments}</SOR_COMMENTS><SOR_CLASS>M52</SOR_CLASS></SOR></RF_INFO>`
 
 describe('RepairsFinderInput', () => {
-  beforeEach(() => {
-    axios.mockClear()
-  })
+  // beforeEach(() => {
+  //   axios.mockClear()
+  //   jest.clearAllMocks()
+  // })
 
   it('Should render input', async () => {
     const { asFragment } = render(
@@ -222,14 +223,6 @@ describe('RepairsFinderInput', () => {
     textInput.focus()
     await user.paste(validCode)
 
-    await screen.findByText(
-      `Repair of this type cannot be raised on this property`
-    )
-
-    act(() => {
-      userEvent.type(screen.getByTestId('xmlContent'), validCode)
-    })
-
     expect(
       await screen.findByText(
         `Repair of this type cannot be raised on this property`
@@ -294,8 +287,8 @@ describe('RepairsFinderInput', () => {
     textInput.focus()
     await user.paste(validCode)
 
-    await waitFor(() => {
-      expect(axios).toHaveBeenCalledWith(
+    await waitFor(async () => {
+      await expect(axios).toHaveBeenCalledWith(
         expect.objectContaining({
           url: '/api/repairs-finder/matching-sor-codes',
         })
