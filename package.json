@@ -11,7 +11,7 @@
     "start": "yarn next start -p 5001",
     "start-server": "yarn next start -p 5001",
     "tests": "yarn test:unit && yarn test:e2e",
-    "test:unit": "NODE_ENV=test node --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage --maxWorkers 2",
+    "test:unit": "NODE_ENV=test node --expose-gc ./node_modules/.bin/jest --logHeapUsage --maxWorkers 2",
     "test:unit-windows": "node ./node_modules/jest/bin/jest.js",
     "test:unit-win-upd": "node ./node_modules/jest/bin/jest.js --updateSnapshot",
     "lint": "yarn eslint . && echo 'Lint complete.'",
