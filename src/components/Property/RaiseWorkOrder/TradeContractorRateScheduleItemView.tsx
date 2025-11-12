@@ -127,9 +127,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
   const onTradeSelect = (event) => {
     const tradeName = event.target.value.split(' - ')[0]
-    tradeName === 'Multi Trade'
-      ? setIsIncrementalSearchEnabled(true)
-      : setIsIncrementalSearchEnabled(false)
+    setIsIncrementalSearchEnabled(tradeName === 'Multi Trade')
     const newTradeCode = trades.filter((trade) => trade.name === tradeName)[0]
       ?.code
 
