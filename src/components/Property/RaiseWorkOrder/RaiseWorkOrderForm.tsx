@@ -78,6 +78,8 @@ const RaiseWorkOrderForm = (props: Props) => {
     setPageToMultipleSORs,
     formState,
     isPriorityEnabled,
+    isIncrementalSearchEnabled,
+    setIsIncrementalSearchEnabled,
     enablePriorityField,
   } = props
 
@@ -236,6 +238,8 @@ const RaiseWorkOrderForm = (props: Props) => {
               setValue={setValue}
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
               formState={formState}
+              isIncrementalSearchEnabled={isIncrementalSearchEnabled}
+              setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
               enablePriorityField={enablePriorityField}
             />
 
