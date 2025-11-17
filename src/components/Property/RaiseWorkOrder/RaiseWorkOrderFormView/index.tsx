@@ -328,7 +328,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
       {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
         <AddMultipleSORs
           currentSorCodes={getCurrentSORCodes()}
-          setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
+          setPageBackToFormView={() => {
+            setIsIncrementalSearchEnabled(tradeCode === 'MU')
+            setCurrentPage(FORM_PAGE)
+          }}
           sorExistenceValidationCallback={createSorExistenceValidator(
             tradeCode,
             propertyReference,

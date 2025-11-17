@@ -58,6 +58,8 @@ interface Props {
     }>
   ) => void
   formState: any
+  isIncrementalSearchEnabled: boolean
+  setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
   enablePriorityField: () => void
 }
 
@@ -85,9 +87,10 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     setValue,
     setPageToMultipleSORs,
     formState,
+    isIncrementalSearchEnabled,
+    setIsIncrementalSearchEnabled,
     enablePriorityField,
   } = props
-
   const [getContractorsError, setGetContractorsError] = useState<
     string | null
   >()
@@ -124,6 +127,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
   const onTradeSelect = (event) => {
     const tradeName = event.target.value.split(' - ')[0]
+    setIsIncrementalSearchEnabled(tradeName === 'Multi Trade')
     const newTradeCode = trades.filter((trade) => trade.name === tradeName)[0]
       ?.code
 
@@ -147,7 +151,8 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
   const checkIfIncrementalSearchRequired = async (contractor: Contractor) => {
     const orderApplicable =
-      contractor?.multiTradeEnabled && tradeCode === MULTITRADE_TRADE_CODE
+      (contractor?.multiTradeEnabled && tradeCode === MULTITRADE_TRADE_CODE) ||
+      isIncrementalSearchEnabled
 
     if (!orderApplicable) {
       setOrderRequiresIncrementalSearch(false)
