@@ -125,7 +125,7 @@ const RateScheduleItem = ({
                 })
             },
           })}
-          {...(sorSearchRequest && (!index || index === 0)
+          {...(sorSearchRequest
             ? {
                 hint: 'Enter three characters to view results',
               }

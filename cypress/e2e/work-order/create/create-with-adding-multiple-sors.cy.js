@@ -26,6 +26,14 @@ describe('Raise repair form', () => {
     ).as('contractorsRequest')
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
+      },
+      { fixture: 'contractors/contractors.json' }
+    ).as('multiTradeContractorsRequest')
+
+    cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
     ).as('sorPrioritiesRequest')
@@ -77,6 +85,15 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
+        path:
+          '/api/schedule-of-rates/check?tradeCode=MU&propertyReference=00012345&contractorReference=PUR&sorCode=00000008&sorCode=00000009&sorCode=00000010&isRaisable=true',
+      },
+      { fixture: 'scheduleOfRates/thirdMultipleSorCodesValidation.json' }
+    ).as('thirdValidation')
+
+    cy.intercept(
+      {
+        method: 'GET',
         pathname: '/api/schedule-of-rates/codes',
         query: {
           tradeCode: 'PL',
@@ -87,6 +104,22 @@ describe('Raise repair form', () => {
       },
       { fixture: 'scheduleOfRates/dummyCodes.json' }
     ).as('dummyCodes')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        pathname: '/api/schedule-of-rates/codes',
+        query: {
+          tradeCode: 'MU',
+          propertyReference: '00012345',
+          contractorReference: 'PUR',
+          isRaisable: 'true',
+          filter: 'Bat',
+          showAllTrades: 'true',
+        },
+      },
+      { fixture: 'scheduleOfRates/multiTradeDummyCodes.json' }
+    ).as('multiTradeDummyCodes')
 
     cy.intercept(
       { method: 'GET', path: '/api/toggles' },
@@ -231,6 +264,85 @@ describe('Raise repair form', () => {
         cy.get('input[id="rateScheduleItems[4][code]"]').should(
           'have.value',
           '00000004 - shortDescription4 - £1'
+        )
+      })
+    })
+
+    it('displays enter three characters to view results on all sor code search boxes when multi trade selected', () => {
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.get('#repair-request-form').within(() => {
+        cy.get('#trade').type('Multi Trade - MU', { delay: 0 })
+
+        cy.wait('@multiTradeContractorsRequest')
+
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR', {
+          delay: 0,
+        })
+
+        cy.contains('Enter three characters to view results')
+
+        cy.get('[data-testid="rateScheduleItems[0][code]"]').type('Bat', {
+          delay: 0,
+        })
+
+        cy.wait('@multiTradeDummyCodes')
+
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500)
+
+        cy.get('[data-testid="rateScheduleItems[0][code]"]').then(($el) => {
+          $el.val('00000006 - Bathroom Door Fix - £1')
+          $el[0].dispatchEvent(new Event('input', { bubbles: true }))
+        })
+
+        cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type('1')
+
+        cy.get('[data-testid="rateScheduleItems[0][code]"]').should(
+          'have.value',
+          '00000006 - Bathroom Door Fix - £1'
+        )
+
+        cy.contains('+ Add multiple SOR codes').click()
+      })
+
+      cy.get('#adding-multiple-sors-form').within(() => {
+        cy.contains('Enter SOR codes as a list:')
+
+        cy.wrap(
+          dedent(`
+              00000008
+              00000009
+              00000010
+            `)
+        ).as('multiTradeMultipleSORInput')
+
+        cy.get('@multiTradeMultipleSORInput').then(
+          (multiTradeMultipleSORInput) => {
+            cy.get('[data-testid="newSorCodes"]').type(
+              multiTradeMultipleSORInput,
+              {
+                delay: 0,
+              }
+            )
+          }
+        )
+        cy.get('[type="submit"]').contains('Submit').click()
+      })
+
+      cy.wait('@thirdValidation')
+      cy.get('#repair-request-form').within(() => {
+        cy.get('input[id="rateScheduleItems[1][code]"]').should(
+          'have.value',
+          '00000008 - Shower Fix - £1'
+        )
+        cy.get('input[id="rateScheduleItems[2][code]"]').should(
+          'have.value',
+          '00000009 - Carpet Fix - £1'
+        )
+        cy.get('input[id="rateScheduleItems[3][code]"]').should(
+          'have.value',
+          '00000010 - Door Fix - £1'
         )
       })
     })
