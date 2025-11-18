@@ -138,7 +138,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
       resetSORs()
 
-      getContractorsData(propertyReference, newTradeCode)
+      getContractorsData()
     } else {
       setContractors([])
       setTradeCode('')
@@ -199,7 +199,37 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
     const contractorResponse = await getContractor(contractorRef)
 
+    const contractorsRelatedToProperty = await frontEndApiRequest({
+      method: 'get',
+      path: '/api/contractors',
+      params: {
+        propertyReference: propertyReference,
+        tradeCode: tradeCode,
+      },
+    })
+
+    const contractorHasContractsLinkedToTrade = contractorsRelatedToProperty.find(
+      (contractor: Contractor) => {
+        return (
+          contractor.contractorReference ===
+          contractorResponse.response.contractorReference
+        )
+      }
+    )
+
     setLoadingContractor(false)
+
+    if (!contractorsRelatedToProperty) {
+      setGetContractorError(
+        formatRequestErrorMessage(contractorsRelatedToProperty.error)
+      )
+    }
+
+    if (!contractorHasContractsLinkedToTrade) {
+      setGetContractorError(
+        `This property doesn't have any ${contractorName} contracts linked to the ${tradeCode} trade.`
+      )
+    }
 
     if (!contractorResponse.success) {
       console.error('An error has occured:', contractorResponse.error)
@@ -228,24 +258,20 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     }
   }
 
-  const getContractorsData = async (
-    propertyReference: string,
-    tradeCode: string
-  ) => {
+  const getContractorsData = async () => {
     setLoadingContractors(true)
     setGetContractorsError(null)
 
     try {
-      const contractors = await frontEndApiRequest({
+      const allContractors = await frontEndApiRequest({
         method: 'get',
         path: '/api/contractors',
         params: {
-          propertyReference: propertyReference,
-          tradeCode: tradeCode,
+          getAllContractors: true,
         },
       })
 
-      setContractors(contractors)
+      setContractors(allContractors)
     } catch (e) {
       setContractors([])
       setContractorReference('')
