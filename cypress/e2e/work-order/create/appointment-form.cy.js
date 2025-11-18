@@ -26,7 +26,7 @@ describe('Schedule appointment form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
+        path: '/api/contractors?getAllContractors=true',
       },
       { fixture: 'contractors/contractors.json' }
     ).as('contractors')
@@ -129,7 +129,7 @@ describe('Schedule appointment form', () => {
 
   context('There are available appointments', () => {
     beforeEach(() => {
-      cy.clock(now, ['Date'])
+      // cy.clock(now, ['Date'])
 
       cy.intercept(
         {
@@ -389,7 +389,7 @@ describe('Schedule appointment form', () => {
 
   context('No available appointments', () => {
     beforeEach(() => {
-      cy.clock(now, ['Date'])
+      // cy.clock(now, ['Date'])
 
       cy.intercept(
         {
