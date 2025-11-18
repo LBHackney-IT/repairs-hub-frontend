@@ -20,7 +20,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
+        path: '/api/contractors?getAllContractors=true',
       },
       { fixture: 'contractors/contractors.json' }
     ).as('contractorsRequest')
