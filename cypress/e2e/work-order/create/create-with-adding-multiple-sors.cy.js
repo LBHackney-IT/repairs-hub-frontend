@@ -26,14 +26,6 @@ describe('Raise repair form', () => {
     ).as('contractorsRequest')
 
     cy.intercept(
-      {
-        method: 'GET',
-        path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
-      },
-      { fixture: 'contractors/contractors.json' }
-    ).as('multiTradeContractorsRequest')
-
-    cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
     ).as('sorPrioritiesRequest')
@@ -274,7 +266,7 @@ describe('Raise repair form', () => {
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Multi Trade - MU', { delay: 0 })
 
-        cy.wait('@multiTradeContractorsRequest')
+        cy.wait('@contractorsRequest')
 
         cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR', {
           delay: 0,
