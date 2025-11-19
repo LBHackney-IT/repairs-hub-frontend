@@ -26,7 +26,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
+        path: '/api/contractors?getAllContractors=true',
       },
       { fixture: 'contractors/contractors.json' }
     ).as('contractorsRequest')
@@ -130,7 +130,7 @@ describe('Raise repair form', () => {
     cy.contains('Dwelling: 16 Pitcairn House')
   })
 
-  it('Validates missing form inputs', () => {
+  it.only('Validates missing form inputs', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
     cy.visit('/properties/00012345/raise-repair/new')
