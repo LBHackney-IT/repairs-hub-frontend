@@ -296,8 +296,8 @@ workflows:
               only: disaster-recovery
       - assume-role-dr:
           context: api-assume-role-disaster-recovery-context
-          requires:
-            - permit-deploy-dr
+          # requires:
+          #   - permit-deploy-dr
           filters:
             branches:
               only: disaster-recovery
