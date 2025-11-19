@@ -124,9 +124,12 @@ resources:
           Enabled: true
           Origins:
             - Id: my-custom-origin
-              DomainName: https://ijt1x9684l.execute-api.eu-west-2.amazonaws.com/production/
-              S3OriginConfig: {}
-    staticImagesBucket:
+              DomainName: ijt1x9684l.execute-api.eu-west-2.amazonaws.com 
+              OriginPath: /production
+              CustomOriginConfig:
+                HTTPPort: 80
+                HTTPSPort: 443
+                OriginProtocolPolicy: https-only # Enforce HTTPS to the API Gateway
       Type: AWS::S3::Bucket
       Properties:
         BucketName: repairs-hub-${opt:stage}-dr-static-images
