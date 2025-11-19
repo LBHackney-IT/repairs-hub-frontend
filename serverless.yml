@@ -130,6 +130,8 @@ resources:
                 HTTPPort: 80
                 HTTPSPort: 443
                 OriginProtocolPolicy: https-only # Enforce HTTPS to the API Gateway
+
+    staticImagesBucket:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: repairs-hub-${opt:stage}-dr-static-images
