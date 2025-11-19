@@ -96,8 +96,8 @@ resources:
       Type: AWS::CloudFront::Distribution
       Properties:
         DistributionConfig:
-          Aliases:
-            - ${self:custom.aliases.${self:provider.stage}}
+          # Aliases:
+          #   - ${self:custom.aliases.${self:provider.stage}}
           PriceClass: PriceClass_100
           # ViewerCertificate:
           #   AcmCertificateArn: ${self:custom.certificate-arn.${self:provider.stage}}
