@@ -133,7 +133,7 @@ resources:
     staticImagesBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: repairs-hub-${opt:stage}-static-images
+        BucketName: repairs-hub-${opt:stage}-dr-static-images
         Tags:
           - Key: Confidentiality
             Value: Public
