@@ -104,7 +104,7 @@ resources:
           #   MinimumProtocolVersion: TLSv1.2_2018
           #   SslSupportMethod: sni-only
           DefaultCacheBehavior:
-            TargetOriginId: s3-bucket-custom-origin
+            TargetOriginId: my-custom-origin
             ViewerProtocolPolicy: 'redirect-to-https'
             AllowedMethods:
               - GET
@@ -123,8 +123,8 @@ resources:
                 Forward: all
           Enabled: true
           Origins:
-            - Id: s3-bucket-custom-origin
-              DomainName: !GetAtt staticImagesBucket.DomainName
+            - Id: my-custom-origin
+              DomainName: https://ijt1x9684l.execute-api.eu-west-2.amazonaws.com/production/
               S3OriginConfig: {}
     staticImagesBucket:
       Type: AWS::S3::Bucket
