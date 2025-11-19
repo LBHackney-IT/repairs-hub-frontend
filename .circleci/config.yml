@@ -289,11 +289,6 @@ workflows:
   continuous-delivery:
     max_auto_reruns: 1
     jobs:
-      - permit-deploy-dr:
-          type: approval
-          filters:
-            branches:
-              only: disaster-recovery
       - assume-role-dr:
           context: api-assume-role-disaster-recovery-context
           # requires:
