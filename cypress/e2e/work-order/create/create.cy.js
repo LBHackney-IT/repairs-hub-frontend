@@ -130,7 +130,7 @@ describe('Raise repair form', () => {
     cy.contains('Dwelling: 16 Pitcairn House')
   })
 
-  it.only('Validates missing form inputs', () => {
+  it('Validates missing form inputs', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
     cy.visit('/properties/00012345/raise-repair/new')
