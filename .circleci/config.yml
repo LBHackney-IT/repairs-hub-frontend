@@ -237,63 +237,41 @@ jobs:
           paths:
             - .aws
 
+  assume-role-dr:
+    executor: docker-python
+    steps:
+      - checkout
+      - aws_assume_role/assume_role:
+          account: $AWS_ACCOUNT_DISASTER_RECOVERY
+          profile_name: default
+          role: 'LBH_Circle_CI_Deployment_Role'
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .aws
+
+
 workflows:
   continuous-delivery:
     max_auto_reruns: 1
     jobs:
-      - tests
-      - e2e
-      - assume-role-development:
-          context: api-assume-role-housing-development-context
-          requires:
-            - tests
-            - e2e
+      - permit-deploy-dr:
+          type: approval
           filters:
             branches:
-              only: develop
-      - build-deploy-development:
+              only: disaster-recovery
+      - assume-role-dr:
+          context: api-assume-role-disaster-recovery-context
           requires:
-            - assume-role-development
+            - permit-deploy-dr
+          filters:
+            branches:
+              only: disaster-recovery
+      - build-deploy-dr:
+          requires:
+            - assume-role-dr
           context:
             - "Serverless Framework"
           filters:
             branches:
-              only: develop
-      - assume-role-staging:
-          context: api-assume-role-staging-context
-          requires:
-            - tests
-            - e2e
-          filters:
-            branches:
-              only: main
-      - build-deploy-staging:
-          requires:
-            - assume-role-staging
-          context:
-            - "Serverless Framework"
-          filters:
-            branches:
-              only: main
-      # - permit-deploy-production:
-      #     type: approval
-      #     requires:
-      #       - build-deploy-staging
-      #     filters:
-      #       branches:
-      #         only: main
-      # - assume-role-production:
-      #     context: api-assume-role-housing-production-context
-      #     requires:
-      #       - permit-deploy-production
-      #     filters:
-      #       branches:
-      #         only: main
-      # - build-deploy-production:
-      #     requires:
-      #       - assume-role-production
-      #     context:
-      #       - "Serverless Framework"
-      #     filters:
-      #       branches:
-      #         only: main
+              only: disaster-recovery
