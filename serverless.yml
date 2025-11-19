@@ -104,7 +104,7 @@ resources:
           #   MinimumProtocolVersion: TLSv1.2_2018
           #   SslSupportMethod: sni-only
           DefaultCacheBehavior:
-            TargetOriginId: ${self:service}-${self:provider.stage}-custom-origin
+            TargetOriginId: s3-bucket-custom-origin
             ViewerProtocolPolicy: 'redirect-to-https'
             AllowedMethods:
               - GET
@@ -123,7 +123,7 @@ resources:
                 Forward: all
           Enabled: true
           Origins:
-            - Id: staticImagesBucket
+            - Id: s3-bucket-custom-origin
               DomainName: !GetAtt staticImagesBucket.DomainName
               S3OriginConfig: {}
     staticImagesBucket:
