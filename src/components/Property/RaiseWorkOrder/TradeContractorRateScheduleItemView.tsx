@@ -13,7 +13,10 @@ import BudgetCodeItemView from './BudgetCodeItemView'
 import UserContext from '@/components/UserContext'
 import { canAssignBudgetCode } from '@/utils/userPermissions'
 import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
-import { getContractor } from '@/root/src/utils/requests/contractor'
+import {
+  getContractor,
+  fetchContractorsRelatedToPropertyAndTradeCode,
+} from '@/root/src/utils/requests/contractor'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import Contractor from '@/root/src/models/contractor'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
@@ -199,16 +202,11 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
 
     const contractorResponse = await getContractor(contractorRef)
 
-    const contractorsRelatedToProperty = await frontEndApiRequest({
-      method: 'get',
-      path: '/api/contractors',
-      params: {
-        propertyReference: propertyReference,
-        tradeCode: tradeCode,
-      },
-    })
+    const contractorsRelatedToPropertyResponse = await fetchContractorsRelatedToPropertyAndTradeCode(
+      { propertyReference, tradeCode }
+    )
 
-    const contractorHasContractsLinkedToTrade = contractorsRelatedToProperty.find(
+    const contractorHasContractsLinkedToTrade = contractorsRelatedToPropertyResponse?.response?.find(
       (contractor: Contractor) => {
         return (
           contractor.contractorReference ===
@@ -216,13 +214,26 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
         )
       }
     )
-
     setLoadingContractor(false)
 
-    if (!contractorsRelatedToProperty) {
-      setGetContractorError(
-        formatRequestErrorMessage(contractorsRelatedToProperty.error)
+    if (!contractorsRelatedToPropertyResponse.success) {
+      console.error(
+        'An error has occured:',
+        contractorsRelatedToPropertyResponse.error
       )
+
+      if (
+        contractorsRelatedToPropertyResponse.error instanceof APIResponseError
+      ) {
+        setGetContractorError(
+          contractorsRelatedToPropertyResponse.error.message
+        )
+      } else {
+        setGetContractorError(
+          formatRequestErrorMessage(contractorsRelatedToPropertyResponse.error)
+        )
+      }
+      return
     }
 
     if (!contractorHasContractsLinkedToTrade) {

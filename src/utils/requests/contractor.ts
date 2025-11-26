@@ -51,3 +51,44 @@ export const fetchContractors = async ({
 
   return contractors
 }
+
+interface FetchContractorsRelatedToPropertyAndTradeCodeArguments {
+  propertyReference: string
+  tradeCode: string
+}
+
+export const fetchContractorsRelatedToPropertyAndTradeCode = async ({
+  propertyReference,
+  tradeCode,
+}: FetchContractorsRelatedToPropertyAndTradeCodeArguments): Promise<
+  ApiResponseType<Contractor[] | null>
+> => {
+  const params = {}
+  if (propertyReference !== null && propertyReference !== '')
+    params['propertyReference'] = propertyReference
+  if (tradeCode !== null && tradeCode !== '') params['tradeCode'] = tradeCode
+  try {
+    const contractorsRelatedToProperty = await frontEndApiRequest({
+      method: 'get',
+      path: '/api/contractors',
+      params: params,
+    })
+    return {
+      success: true,
+      response: contractorsRelatedToProperty,
+      error: null,
+    }
+  } catch (e) {
+    console.error('An error has occurred:', e.response)
+
+    return {
+      success: false,
+      response: null,
+      error: new APIResponseError(
+        e.response?.status === 404
+          ? `No contractors related to ${propertyReference} property.`
+          : formatRequestErrorMessage(e)
+      ),
+    }
+  }
+}
