@@ -272,6 +272,26 @@ describe('Raise repair form', () => {
           delay: 0,
         })
 
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/contractors?propertyReference=00012345&tradeCode=MU', // Match the MU trade code
+          },
+          {
+            body: [
+              {
+                contractorReference: 'PUR',
+                contractorName: 'PURDY CONTRACTS (C2A)',
+                tradeCode: 'MU',
+                propertyReference: '00012345',
+              },
+            ],
+          }
+        ).as('multiTradeContractorRequest')
+
+        cy.wait('@contractorRequest')
+        cy.wait('@multiTradeContractorRequest')
+
         cy.contains('Enter three characters to view results')
 
         cy.get('[data-testid="rateScheduleItems[0][code]"]').type('Bat', {
