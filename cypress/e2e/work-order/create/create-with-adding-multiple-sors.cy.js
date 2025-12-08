@@ -134,7 +134,7 @@ describe('Raise repair form', () => {
       cy.loginWithAgentRole()
     })
 
-    it.only('allows to add multiple SORs', () => {
+    it('allows to add multiple SORs', () => {
       cy.visit('/properties/00012345/raise-repair/new')
 
       cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
