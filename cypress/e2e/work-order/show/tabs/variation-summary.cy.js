@@ -55,6 +55,7 @@ describe('Pending variation tab on work-order page', () => {
           cy.contains('td', '£10')
         })
 
+        cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
         cy.contains('Tuesday 11 May 2021')
@@ -152,6 +153,7 @@ describe('Pending variation tab on work-order page', () => {
           cy.contains('td', '£10')
         })
 
+        cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
         cy.contains('Tuesday 11 May 2021')
@@ -249,6 +251,7 @@ describe('Pending variation tab on work-order page', () => {
           cy.contains('td', '£10')
         })
 
+        cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
         cy.contains('Tuesday 11 May 2021')
