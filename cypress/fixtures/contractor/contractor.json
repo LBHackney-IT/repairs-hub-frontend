@@ -1,18 +1,8 @@
-[
   {
   "contractorReference": "PUR",
-  "contractorName": "Purdy Contracts (P) Ltd",
+  "contractorName": "PURDY CONTRACTS (C2A) - PUR",
   "useExternalScheduleManager": false,
   "canAssignOperative": false,
   "perTradeAvailability": true,
   "multiTradeEnabled": false
-  },
-  {
-    "contractorReference": "APS",
-    "contractorName": "APS Plumbing Ltd",
-    "useExternalScheduleManager": false,
-    "canAssignOperative": false,
-    "perTradeAvailability": true,
-    "multiTradeEnabled": false
   }
-]
