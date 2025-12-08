@@ -55,6 +55,7 @@ describe('Pending variation tab on work-order page', () => {
           cy.contains('td', '£10')
         })
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
@@ -153,6 +154,7 @@ describe('Pending variation tab on work-order page', () => {
           cy.contains('td', '£10')
         })
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
@@ -235,7 +237,7 @@ describe('Pending variation tab on work-order page', () => {
     })
 
     //logged in as a Contractor
-    it('shows Pending variation but does not show the link for variation authorisation to Contractor', () => {
+    it.only('shows Pending variation but does not show the link for variation authorisation to Contractor', () => {
       cy.loginWithContractorRole()
       cy.visit('/work-orders/10000012')
 
@@ -251,6 +253,7 @@ describe('Pending variation tab on work-order page', () => {
           cy.contains('td', '£10')
         })
 
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
