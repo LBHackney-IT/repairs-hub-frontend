@@ -330,7 +330,7 @@ describe('Pending variation tab on work-order page', () => {
       })
     })
   })
-// random
+
   context('work order status is NOT Variation Pending Approval', () => {
     beforeEach(() => {
       cy.loginWithContractManagerRole()
