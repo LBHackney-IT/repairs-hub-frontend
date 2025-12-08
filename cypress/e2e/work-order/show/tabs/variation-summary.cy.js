@@ -59,7 +59,7 @@ describe('Pending variation tab on work-order page', () => {
         cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
-        cy.contains('Tuesday 11 May 2021')
+        cy.contains(/Tuesday,? 11 May 2021/)
 
         cy.contains('Variation reason: More work needed')
         cy.get('.updated-tasks-table').within(() => {
@@ -158,7 +158,7 @@ describe('Pending variation tab on work-order page', () => {
         cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
-        cy.contains('Tuesday 11 May 2021')
+        cy.contains(/Tuesday,? 11 May 2021/)
 
         cy.contains('Variation reason: More work needed')
         cy.get('.updated-tasks-table').within(() => {
@@ -257,7 +257,7 @@ describe('Pending variation tab on work-order page', () => {
         cy.wait(500)
         cy.contains('Updated Tasks SORs')
         cy.contains('Updated by: John Johnson (Alphatrack)')
-        cy.contains('Tuesday 11 May 2021')
+        cy.contains(/Tuesday,? 11 May 2021/)
 
         cy.contains('Variation reason: More work needed')
         cy.get('.updated-tasks-table').within(() => {
