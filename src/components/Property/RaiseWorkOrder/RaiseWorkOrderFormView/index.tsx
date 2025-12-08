@@ -227,9 +227,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
       setSorCodeArrays(sorCodesInIncremental)
     } else {
       const sorCodesInNonIncremental = [
-        ...sorCodeArrays,
-        ...sorCodes.map(() => sorCodeArrays),
-      ].filter((e) => e.length != 0)
+        ...sorCodeArrays.filter(
+          (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
+        ),
+        ...sorCodes.map((c) => [c]),
+      ]
 
       setSorCodeArrays(sorCodesInNonIncremental)
     }
