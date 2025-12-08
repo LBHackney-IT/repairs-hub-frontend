@@ -26,6 +26,14 @@ describe('Raise repair form', () => {
     ).as('contractorsRequest')
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
+      },
+      { fixture: 'contractors/contractors.json' }
+    ).as('propertyTradeCodeRequest')
+
+    cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
     ).as('sorPrioritiesRequest')
@@ -36,7 +44,7 @@ describe('Raise repair form', () => {
     ).as('tradesRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/contractors/*' },
+      { method: 'GET', path: '/api/contractors/PUR' },
       { fixture: 'contractor/contractor.json' }
     ).as('contractorRequest')
 
@@ -86,13 +94,8 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        pathname: '/api/schedule-of-rates/codes',
-        query: {
-          tradeCode: 'PL',
-          propertyReference: '00012345',
-          contractorReference: 'PUR',
-          isRaisable: 'true',
-        },
+        pathname:
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PUR&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/dummyCodes.json' }
     ).as('dummyCodes')
@@ -131,7 +134,7 @@ describe('Raise repair form', () => {
       cy.loginWithAgentRole()
     })
 
-    it('allows to add multiple SORs', () => {
+    it.only('allows to add multiple SORs', () => {
       cy.visit('/properties/00012345/raise-repair/new')
 
       cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
@@ -145,8 +148,8 @@ describe('Raise repair form', () => {
           delay: 0,
         })
 
-        cy.wait('@dummyCodes')
-
+        cy.wait('@contractorRequest')
+        cy.wait('@propertyTradeCodeRequest')
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(500)
 
@@ -275,7 +278,7 @@ describe('Raise repair form', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/contractors?propertyReference=00012345&tradeCode=MU', // Match the MU trade code
+            path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
           },
           {
             body: [

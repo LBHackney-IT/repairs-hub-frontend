@@ -240,6 +240,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
       setGetContractorError(
         `This property doesn't have any ${contractorName} contracts linked to the ${tradeCode} trade.`
       )
+      return
     }
 
     if (!contractorResponse.success) {
