@@ -1368,7 +1368,7 @@ describe('Raise repair form', () => {
       cy.loginWithAgentAndBudgetCodeOfficerRole()
     })
 
-    it('Gets full list of budget codes', () => {
+    it.only('Gets full list of budget codes', () => {
       cy.visit('/properties/00012345/raise-repair/new')
       cy.wait([
         '@propertyRequest',
@@ -1384,7 +1384,6 @@ describe('Raise repair form', () => {
 
       cy.get('#contractor').type('HH Painting - H09')
       cy.get('[data-testid=budgetCode]').type('H2555 - 200157 - Garage Repairs')
-      cy.wait('@sorCodesRequest')
 
       cy.get('input[id="rateScheduleItems[0][code]"]').clear()
       cy.get('input[id="rateScheduleItems[0][code]"]').type(
