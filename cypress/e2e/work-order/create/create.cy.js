@@ -176,8 +176,6 @@ describe('Raise repair form', () => {
 
     cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
-    cy.wait('@budgetCodesRequest')
-
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
 
@@ -268,8 +266,6 @@ describe('Raise repair form', () => {
 
     // Select a contractor
     cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
-
-    cy.wait('@budgetCodesRequest')
 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
@@ -998,8 +994,6 @@ describe('Raise repair form', () => {
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
 
-          cy.wait('@budgetCodesRequest')
-
           cy.get('[data-testid=budgetCode]').type(
             'H2555 - 200031 - Lifts Breakdown'
           )
@@ -1191,8 +1185,6 @@ describe('Raise repair form', () => {
 
       cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
-      cy.wait('@budgetCodesRequest')
-
       cy.get('[data-testid=budgetCode]').type(
         'H2555 - 200031 - Lifts Breakdown'
       )
@@ -1257,8 +1249,6 @@ describe('Raise repair form', () => {
     cy.wait('@contractorsRequest')
 
     cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
-
-    cy.wait('@budgetCodesRequest')
 
     cy.get('[data-testid=budgetCode]').type('H2555 - 200031 - Lifts Breakdown')
 
@@ -1391,8 +1381,6 @@ describe('Raise repair form', () => {
       cy.wait('@contractorsRequest')
 
       cy.get('#contractor').type('HH Painting - H09')
-      cy.wait('@budgetCodesRequest')
-
       cy.get('[data-testid=budgetCode]').type('H2555 - 200157 - Garage Repairs')
       cy.wait('@sorCodesRequest')
 
