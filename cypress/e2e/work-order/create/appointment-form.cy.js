@@ -389,7 +389,7 @@ describe('Schedule appointment form', () => {
       ).as('availableAppointments')
     })
 
-    it.only('Should display message that no appointments are available', () => {
+    it('Should display message that no appointments are available', () => {
       cy.visit('/properties/00012345')
 
       cy.wait(['@property'])
