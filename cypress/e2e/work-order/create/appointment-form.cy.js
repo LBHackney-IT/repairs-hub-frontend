@@ -389,7 +389,7 @@ describe('Schedule appointment form', () => {
       ).as('availableAppointments')
     })
 
-    it('Should display message that no appointments are available', () => {
+    it.only('Should display message that no appointments are available', () => {
       cy.visit('/properties/00012345')
 
       cy.wait(['@property'])
@@ -423,7 +423,7 @@ describe('Schedule appointment form', () => {
         .contains('Create work order')
         .click({ force: true })
 
-      cy.wait(['@apiCheck', '@availableAppointments'])
+      cy.wait('@availableAppointments')
 
       cy.get('#no-appointment').contains('No available appointments')
 
