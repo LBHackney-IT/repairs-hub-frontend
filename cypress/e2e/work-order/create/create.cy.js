@@ -32,14 +32,6 @@ describe('Raise repair form', () => {
     ).as('contractorsRequest')
 
     cy.intercept(
-      {
-        method: 'GET',
-        path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
-      },
-      { fixture: 'contractors/contractors.json' }
-    ).as('propertyTradeCodeRequest')
-
-    cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
     ).as('sorPrioritiesRequest')
@@ -266,8 +258,6 @@ describe('Raise repair form', () => {
 
     cy.wait('@contractorsRequest')
 
-    cy.wait('@propertyTradeCodeRequest')
-
     // Contractor select is no longer disabled but sor code selection still is
     cy.get('#contractor').should('not.be.disabled')
 
@@ -276,6 +266,8 @@ describe('Raise repair form', () => {
 
     // Select a contractor
     cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
+
+    cy.wait('@contractorRequest')
 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
@@ -974,7 +966,7 @@ describe('Raise repair form', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: `/api/contractors/*`,
+            path: `/api/contractors/PUR`,
           },
           { body: contractor }
         ).as('contractorRequest')
