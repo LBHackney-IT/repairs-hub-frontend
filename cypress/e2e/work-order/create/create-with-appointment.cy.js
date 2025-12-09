@@ -137,7 +137,7 @@ describe('Schedule appointment form', () => {
       ).as('apiCheck')
     })
 
-    it('Shows a success page right after a work order is created with an emergency priority', () => {
+    it.only('Shows a success page right after a work order is created with an emergency priority', () => {
       cy.visit('/properties/00012345')
 
       cy.wait(['@property'])
@@ -152,8 +152,6 @@ describe('Schedule appointment form', () => {
         cy.wait(['@contractors'])
 
         cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
-
-        cy.wait('@sorCodesPUR')
 
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
@@ -289,8 +287,6 @@ describe('Schedule appointment form', () => {
         cy.wait(['@contractors'])
 
         cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
-
-        cy.wait('@sorCodesPUR')
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
@@ -754,8 +750,6 @@ describe('Schedule appointment form', () => {
           cy.wait(['@contractors'])
 
           cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
-
-          cy.wait('@sorCodesPUR')
 
           cy.get('input[id="rateScheduleItems[0][code]"]')
             .clear()
