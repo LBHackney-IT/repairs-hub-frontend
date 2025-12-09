@@ -236,7 +236,7 @@ describe('Raise repair form', () => {
     cy.get('.govuk-table').contains('00000666666')
   })
 
-  it.only('Submits work order task details to raise a work order', () => {
+  it('Submits work order task details to raise a work order', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
     cy.visit('/properties/00012345/raise-repair/new')
