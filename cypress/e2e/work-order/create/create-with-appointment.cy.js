@@ -173,7 +173,6 @@ describe('Schedule appointment form', () => {
           .contains('Create work order')
           .click({ force: true })
 
-        cy.wait('@apiCheck')
           .its('request.body')
           .then((body) => {
             const referenceIdUuid = body.reference[0].id
