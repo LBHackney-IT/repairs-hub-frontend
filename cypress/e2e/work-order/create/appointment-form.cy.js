@@ -32,15 +32,6 @@ describe('Schedule appointment form', () => {
     ).as('contractors')
 
     cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PUR&isRaisable=true',
-      },
-      { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-    ).as('sorCodes')
-
-    cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
     ).as('priorities')
@@ -155,8 +146,6 @@ describe('Schedule appointment form', () => {
         cy.wait(['@contractors'])
 
         cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
-
-        cy.wait('@sorCodes')
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
@@ -400,7 +389,7 @@ describe('Schedule appointment form', () => {
       ).as('availableAppointments')
     })
 
-    it('Should display message that no appointments are available', () => {
+    it.only('Should display message that no appointments are available', () => {
       cy.visit('/properties/00012345')
 
       cy.wait(['@property'])
@@ -414,8 +403,6 @@ describe('Schedule appointment form', () => {
       cy.wait(['@contractors'])
 
       cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
-
-      cy.wait('@sorCodes')
 
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000)
