@@ -137,7 +137,7 @@ describe('Schedule appointment form', () => {
       ).as('apiCheck')
     })
 
-    it.only('Shows a success page right after a work order is created with an emergency priority', () => {
+    it('Shows a success page right after a work order is created with an emergency priority', () => {
       cy.visit('/properties/00012345')
 
       cy.wait(['@property'])
