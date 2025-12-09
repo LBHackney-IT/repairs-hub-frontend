@@ -32,6 +32,14 @@ describe('Raise repair form', () => {
     ).as('contractorsRequest')
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
+      },
+      { fixture: 'contractors/contractors.json' }
+    ).as('propertyTradeCodeRequest')
+
+    cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
     ).as('sorPrioritiesRequest')
@@ -257,6 +265,8 @@ describe('Raise repair form', () => {
     cy.get('#trade').type('Plumbing - PL')
 
     cy.wait('@contractorsRequest')
+
+    cy.wait('@propertyTradeCodeRequest')
 
     // Contractor select is no longer disabled but sor code selection still is
     cy.get('#contractor').should('not.be.disabled')
