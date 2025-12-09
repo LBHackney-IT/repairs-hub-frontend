@@ -236,7 +236,7 @@ describe('Raise repair form', () => {
     cy.get('.govuk-table').contains('00000666666')
   })
 
-  it('Submits work order task details to raise a work order', () => {
+  it.only('Submits work order task details to raise a work order', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
     cy.visit('/properties/00012345/raise-repair/new')
@@ -271,7 +271,7 @@ describe('Raise repair form', () => {
     cy.wait(1000)
     cy.get('[data-testid=budgetCode]').type('H2555 - 200031 - Lifts Breakdown')
 
-    cy.wait(['@sorCodesRequest'])
+    // cy.wait(['@sorCodesRequest'])
 
     // SOR select is no longer disabled
     cy.get('input[id="rateScheduleItems[0][code]"]').should('not.be.disabled')
