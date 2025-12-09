@@ -132,6 +132,7 @@ describe('Schedule appointment form', () => {
             statusCode: 200,
             statusCodeDescription: '???',
             externallyManagedAppointment: false,
+            externalAppointmentManagementUrl: null,
           },
         }
       ).as('apiCheck')
