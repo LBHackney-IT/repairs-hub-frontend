@@ -1390,7 +1390,9 @@ describe('Raise repair form', () => {
         'DES5R005 - Normal call outs - £1'
       )
 
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear({
+        force: true,
+      })
       cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
 
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
