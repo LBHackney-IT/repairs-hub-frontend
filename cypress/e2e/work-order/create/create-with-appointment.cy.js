@@ -151,7 +151,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.contains('a', 'Raise a work order on this dwelling').click()
+      cy.contains('a', 'Raise a standard work order').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -285,7 +285,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.contains('a', 'Raise a work order on this dwelling').click()
+      cy.contains('a', 'Raise a standard work order').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -509,7 +509,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a work order on this dwelling').click()
+        cy.contains('a', 'Raise a standard work order').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -580,7 +580,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a work order on this dwelling').click()
+        cy.contains('a', 'Raise a standard work order').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -634,7 +634,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a work order on this dwelling').click()
+        cy.contains('a', 'Raise a standard work order').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -682,7 +682,7 @@ describe('Schedule appointment form', () => {
       it('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
         cy.visit('/properties/00012345')
 
-        cy.contains('a', 'Raise a work order on this dwelling').click()
+        cy.contains('a', 'Raise a standard work order').click()
 
         cy.get('#trade').type('Plumbing - PL')
         cy.get('#contractor').type('HH General Building Repair - H01')
@@ -746,7 +746,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a work order on this dwelling').click()
+        cy.contains('a', 'Raise a standard work order').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
