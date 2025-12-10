@@ -47,6 +47,23 @@ describe('Schedule appointment form', () => {
     ).as('contractorRequest')
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/contractors?propertyReference=00012345&tradeCode=PL`,
+      },
+      { fixture: 'contractors/contractors.json' }
+    ).as('propertyContractorRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PUR&isRaisable=true',
+      },
+      { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+    ).as('sorCodesPUR')
+
+    cy.intercept(
       { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
       { body: { propertyIsInLegalDisrepair: false } }
     ).as('propertyIsNotInLegalDisrepair')
@@ -403,6 +420,8 @@ describe('Schedule appointment form', () => {
       cy.wait(['@contractors'])
 
       cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
+
+      cy.wait(['@propertyContractorRequest', '@sorCodesPUR'])
 
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000)
