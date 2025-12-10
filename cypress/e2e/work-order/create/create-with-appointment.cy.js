@@ -511,8 +511,6 @@ describe('Schedule appointment form', () => {
 
         cy.get('#contractor').type('HH General Building Repair - H01')
 
-        cy.wait('@sorCodesH01')
-
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
 
