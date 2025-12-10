@@ -51,6 +51,14 @@ describe('Schedule appointment form', () => {
     ).as('sorCodesH01')
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/contractors?propertyReference=00012345&tradeCode=PL`,
+      },
+      { fixture: 'contractors/contractors.json' }
+    ).as('propertyContractorRequest')
+
+    cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
     ).as('priorities')
@@ -143,7 +151,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.contains('a', 'Raise a standard work order').click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -277,7 +285,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.contains('a', 'Raise a standard work order').click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -496,12 +504,12 @@ describe('Schedule appointment form', () => {
     })
 
     describe('and the priority is Normal (N)', () => {
-      it.only('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
         cy.visit('/properties/00012345')
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -510,6 +518,8 @@ describe('Schedule appointment form', () => {
         cy.wait(['@contractors'])
 
         cy.get('#contractor').type('HH General Building Repair - H01')
+
+        cy.wait(['@propertyContractorRequest'])
 
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
@@ -570,7 +580,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -624,7 +634,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -672,7 +682,7 @@ describe('Schedule appointment form', () => {
       it('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
         cy.visit('/properties/00012345')
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.get('#trade').type('Plumbing - PL')
         cy.get('#contractor').type('HH General Building Repair - H01')
@@ -736,7 +746,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
