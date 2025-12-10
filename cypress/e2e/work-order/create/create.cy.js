@@ -49,6 +49,14 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
+        path: `/api/contractors?propertyReference=00012345&tradeCode=PL`,
+      },
+      { fixture: 'contractors/contractors.json' }
+    ).as('propertyContractorRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
         path: '/api/properties/00012345/alerts',
       },
       {
@@ -267,13 +275,13 @@ describe('Raise repair form', () => {
     // Select a contractor
     cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
-    cy.wait('@contractorRequest')
+    cy.wait(['@contractorRequest', '@propertyContractorRequest'])
 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
     cy.get('[data-testid=budgetCode]').type('H2555 - 200031 - Lifts Breakdown')
 
-    // cy.wait(['@sorCodesRequest'])
+    cy.wait(['@sorCodesRequest'])
 
     // SOR select is no longer disabled
     cy.get('input[id="rateScheduleItems[0][code]"]').should('not.be.disabled')
@@ -1368,7 +1376,7 @@ describe('Raise repair form', () => {
       cy.loginWithAgentAndBudgetCodeOfficerRole()
     })
 
-    it.only('Gets full list of budget codes', () => {
+    it('Gets full list of budget codes', () => {
       cy.visit('/properties/00012345/raise-repair/new')
       cy.wait([
         '@propertyRequest',
