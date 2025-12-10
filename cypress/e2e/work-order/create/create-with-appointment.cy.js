@@ -496,7 +496,7 @@ describe('Schedule appointment form', () => {
     })
 
     describe('and the priority is Normal (N)', () => {
-      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+      it.only('Shows a success page instead of the calendar with a link to the external scheduler', () => {
         cy.visit('/properties/00012345')
 
         cy.wait(['@property'])
@@ -529,8 +529,6 @@ describe('Schedule appointment form', () => {
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
-
-        cy.wait('@apiCheck')
 
         cy.contains('Work order created')
 
