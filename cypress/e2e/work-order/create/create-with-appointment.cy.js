@@ -297,9 +297,10 @@ describe('Schedule appointment form', () => {
 
         cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
-        cy.get('input[id="rateScheduleItems[0][code]"]')
-          .clear()
-          .type('DES5R005 - Normal call outs - £1')
+        cy.get('input[id="rateScheduleItems[0][code]"]').clear()
+        cy.get('input[id="rateScheduleItems[0][code]"]').type(
+          'DES5R005 - Normal call outs - £1'
+        )
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('5 [N] NORMAL')
