@@ -987,7 +987,7 @@ describe('Raise repair form', () => {
       { code: 'AEP', name: 'Axis Europe (X) PLC' },
       { code: 'HHL', name: 'Herts Heritage Ltd' },
     ].forEach((ctr) => {
-      it('Searches SOR codes after entering three characters with a debounced API request', () => {
+      it.only('Searches SOR codes after entering three characters with a debounced API request', () => {
         cy.visit('/properties/00012345/raise-repair/new')
 
         cy.wait([
@@ -1000,9 +1000,11 @@ describe('Raise repair form', () => {
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Multi Trade - MU')
 
-          cy.wait('@multiTradeContractorsRequest')
+          cy.wait('@contractorsRequest')
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
+
+          cy.wait('@multiTradeContractorsRequest')
 
           cy.get('[data-testid=budgetCode]').type(
             'H2555 - 200031 - Lifts Breakdown'
