@@ -1004,7 +1004,7 @@ describe('Raise repair form', () => {
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
 
-          cy.wait('@multiTradeContractorsRequest')
+          // cy.wait('@multiTradeContractorsRequest')
 
           cy.get('[data-testid=budgetCode]').type(
             'H2555 - 200031 - Lifts Breakdown'
