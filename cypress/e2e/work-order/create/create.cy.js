@@ -974,7 +974,7 @@ describe('Raise repair form', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: `/api/contractors/PUR`,
+            path: `/api/contractors/*`,
           },
           { body: contractor }
         ).as('contractorRequest')
@@ -1004,7 +1004,25 @@ describe('Raise repair form', () => {
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
 
-          // cy.wait('@multiTradeContractorsRequest')
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
+            },
+            {
+              body: [
+                {
+                  contractorReference: `${ctr.code}`,
+                  contractorName: `${ctr.name}`,
+                  tradeCode: 'MU',
+                  propertyReference: '00012345',
+                },
+              ],
+            }
+          ).as('multiTradeContractorRequest')
+
+          cy.wait('@contractorRequest')
+          cy.wait('@multiTradeContractorsRequest')
 
           cy.get('[data-testid=budgetCode]').type(
             'H2555 - 200031 - Lifts Breakdown'
