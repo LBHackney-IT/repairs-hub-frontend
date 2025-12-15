@@ -1069,9 +1069,13 @@ describe('Raise repair form', () => {
           ).as('sorCodesRequestDES')
 
           // Enter three characters, then clear and immediately re-enter them
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('S')
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('S', {
+            force: true,
+          })
           cy.get('input[id="rateScheduleItems[0][code]"]').clear()
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES')
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES', {
+            force: true,
+          })
 
           cy.wait('@sorCodesRequestDES')
 
@@ -1089,7 +1093,10 @@ describe('Raise repair form', () => {
 
           // type the remainder of the code
           cy.get('input[id="rateScheduleItems[0][code]"]').type(
-            '5R003 - Immediate call outs - £0'
+            '5R003 - Immediate call outs - £0',
+            {
+              force: true,
+            }
           )
 
           // Entering more than three characters does not trigger more API requests
@@ -1101,19 +1108,28 @@ describe('Raise repair form', () => {
 
           cy.contains('+ Add another SOR code').click()
 
-          cy.get('input[id="rateScheduleItems[1][code]"]').type('DES')
+          cy.get('input[id="rateScheduleItems[1][code]"]').type('DES', {
+            force: true,
+          })
 
           cy.wait('@sorCodesRequestDES')
 
           cy.get('input[id="rateScheduleItems[1][code]"]').type(
-            '5R004 - Emergency call out - £1'
+            '5R004 - Emergency call out - £1',
+            {
+              force: true,
+            }
           )
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
-          cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1', {
+            force: true,
+          })
 
           cy.get('input[id="rateScheduleItems[1][quantity]"]').clear()
-          cy.get('input[id="rateScheduleItems[1][quantity]"]').type('1')
+          cy.get('input[id="rateScheduleItems[1][quantity]"]').type('1', {
+            force: true,
+          })
 
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
