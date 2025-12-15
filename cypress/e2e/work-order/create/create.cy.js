@@ -1004,10 +1004,10 @@ describe('Raise repair form', () => {
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
 
-          cy.intercept(
-            { method: 'GET', path: `/api/contractors/${ctr.code}` },
-            { fixture: 'contractor/contractor.json' }
-          ).as('dyamicContractorRequest')
+          // cy.intercept(
+          //   { method: 'GET', path: `/api/contractors/${ctr.code}` },
+          //   { fixture: 'contractor/contractor.json' }
+          // ).as('dynamicContractorRequest')
 
           cy.intercept(
             {
@@ -1026,7 +1026,7 @@ describe('Raise repair form', () => {
             }
           ).as('multiTradeContractorRequest')
 
-          cy.wait('@dyamicContractorRequest')
+          // cy.wait('@dynamicContractorRequest')
           cy.wait('@multiTradeContractorsRequest')
 
           cy.get('[data-testid=budgetCode]').type(
