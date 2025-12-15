@@ -1027,10 +1027,16 @@ describe('Raise repair form', () => {
             '[data-testid="rateScheduleItems[0][code]'
           ).type('H2555 - 200031 - Lifts Breakdown', { force: true })
 
-          cy.get('input[id="rateScheduleItems[0][code]"]').clear()
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('D')
+          cy.get('input[id="rateScheduleItems[0][code]"]').clear({
+            force: true,
+          })
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('D', {
+            force: true,
+          })
 
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('E')
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('E', {
+            force: true,
+          })
           cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should('eq', 0)
 
           cy.intercept(
