@@ -109,11 +109,12 @@ describe('Raise repair form', () => {
           statusCode: 200,
           statusCodeDescription: '???',
           externallyManagedAppointment: false,
+          externalAppointmentManagementUrl: null,
         },
       }
     ).as('apiCheck')
 
-    // cy.clock(now, ['Date'])
+    cy.clock(now, ['Date'])
   })
 
   it('Doesnt throw error when tenure is null', () => {
