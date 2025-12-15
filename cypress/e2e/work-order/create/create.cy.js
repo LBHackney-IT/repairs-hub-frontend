@@ -1004,24 +1004,24 @@ describe('Raise repair form', () => {
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
 
-          cy.intercept(
-            {
-              method: 'GET',
-              path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
-            },
-            {
-              body: [
-                {
-                  contractorReference: `${ctr.code}`,
-                  contractorName: `${ctr.name}`,
-                  tradeCode: 'MU',
-                  propertyReference: '00012345',
-                },
-              ],
-            }
-          ).as('multiTradeContractorRequest')
+          // cy.intercept(
+          //   {
+          //     method: 'GET',
+          //     path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
+          //   },
+          //   {
+          //     body: [
+          //       {
+          //         contractorReference: `${ctr.code}`,
+          //         contractorName: `${ctr.name}`,
+          //         tradeCode: 'MU',
+          //         propertyReference: '00012345',
+          //       },
+          //     ],
+          //   }
+          // ).as('multiTradeContractorRequest')
 
-          cy.wait('@multiTradeContractorsRequest')
+          // cy.wait('@multiTradeContractorsRequest')
 
           cy.get(
             '[data-testid="rateScheduleItems[0][code]'
