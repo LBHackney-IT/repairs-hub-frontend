@@ -987,7 +987,7 @@ describe('Raise repair form', () => {
       { code: 'AEP', name: 'Axis Europe (X) PLC' },
       { code: 'HHL', name: 'Herts Heritage Ltd' },
     ].forEach((ctr) => {
-      it.only('Searches SOR codes after entering three characters with a debounced API request', () => {
+      it('Searches SOR codes after entering three characters with a debounced API request', () => {
         cy.visit('/properties/00012345/raise-repair/new')
 
         cy.wait([
