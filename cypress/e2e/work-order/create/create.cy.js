@@ -1123,12 +1123,16 @@ describe('Raise repair form', () => {
             }
           )
 
-          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear({
+            force: true,
+          })
           cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1', {
             force: true,
           })
 
-          cy.get('input[id="rateScheduleItems[1][quantity]"]').clear()
+          cy.get('input[id="rateScheduleItems[1][quantity]"]').clear({
+            force: true,
+          })
           cy.get('input[id="rateScheduleItems[1][quantity]"]').type('1', {
             force: true,
           })
