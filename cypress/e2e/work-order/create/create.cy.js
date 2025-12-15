@@ -113,7 +113,7 @@ describe('Raise repair form', () => {
       }
     ).as('apiCheck')
 
-    cy.clock(now, ['Date'])
+    // cy.clock(now, ['Date'])
   })
 
   it('Doesnt throw error when tenure is null', () => {
@@ -1004,11 +1004,6 @@ describe('Raise repair form', () => {
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
 
-          // cy.intercept(
-          //   { method: 'GET', path: `/api/contractors/${ctr.code}` },
-          //   { fixture: 'contractor/contractor.json' }
-          // ).as('dynamicContractorRequest')
-
           cy.intercept(
             {
               method: 'GET',
@@ -1026,10 +1021,9 @@ describe('Raise repair form', () => {
             }
           ).as('multiTradeContractorRequest')
 
-          // cy.wait('@dynamicContractorRequest')
           cy.wait('@multiTradeContractorsRequest')
 
-          cy.get('[data-testid=budgetCode]').type(
+          cy.get('[data-testid="rateScheduleItems[0][code]').type(
             'H2555 - 200031 - Lifts Breakdown'
           )
 
