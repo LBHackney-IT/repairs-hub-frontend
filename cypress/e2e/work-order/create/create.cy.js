@@ -106,7 +106,7 @@ describe('Raise repair form', () => {
       {
         body: {
           id: 10102030,
-          statusCode: 200,
+          statusCode: 80,
           statusCodeDescription: '???',
           externallyManagedAppointment: false,
           externalAppointmentManagementUrl: null,
