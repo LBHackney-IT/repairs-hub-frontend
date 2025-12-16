@@ -106,7 +106,7 @@ describe('Raise repair form', () => {
       {
         body: {
           id: 10102030,
-          statusCode: 80,
+          statusCode: 200,
           statusCodeDescription: '???',
           externallyManagedAppointment: false,
           externalAppointmentManagementUrl: null,
@@ -1004,6 +1004,10 @@ describe('Raise repair form', () => {
           cy.wait('@contractorsRequest')
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
+
+          cy.get(
+            '[data-testid=budgetCode]'
+          ).type('H2555 - 200031 - Lifts Breakdown', { force: true })
 
           cy.get(
             '[data-testid="rateScheduleItems[0][code]"]'
