@@ -1005,25 +1005,6 @@ describe('Raise repair form', () => {
 
           cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
 
-          // cy.intercept(
-          //   {
-          //     method: 'GET',
-          //     path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
-          //   },
-          //   {
-          //     body: [
-          //       {
-          //         contractorReference: `${ctr.code}`,
-          //         contractorName: `${ctr.name}`,
-          //         tradeCode: 'MU',
-          //         propertyReference: '00012345',
-          //       },
-          //     ],
-          //   }
-          // ).as('multiTradeContractorRequest')
-
-          // cy.wait('@multiTradeContractorsRequest')
-
           cy.get(
             '[data-testid="rateScheduleItems[0][code]"]'
           ).type('H2555 - 200031 - Lifts Breakdown', { force: true })
@@ -1043,7 +1024,7 @@ describe('Raise repair form', () => {
           cy.intercept(
             {
               method: 'GET',
-              path: `/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true&filter=DES&showAllTrades=true`,
+              path: `/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=DES&isRaisable=true&filter=DES&showAllTrades=true`,
             },
             {
               body: [
