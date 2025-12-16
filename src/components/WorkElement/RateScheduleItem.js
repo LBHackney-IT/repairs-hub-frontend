@@ -48,7 +48,7 @@ const RateScheduleItem = ({
 
     clearTimeout(sorCodeSelectDebounceTimeout)
 
-    if (textValue.length >= 3 && sorCodes.length === 0) {
+    if (textValue.length >= 3) {
       sorCodeSelectDebounceTimeout = setTimeout(() => {
         setSorCodesError(null)
 
