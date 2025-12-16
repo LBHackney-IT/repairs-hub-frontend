@@ -1025,7 +1025,7 @@ describe('Raise repair form', () => {
           // cy.wait('@multiTradeContractorsRequest')
 
           cy.get(
-            '[data-testid="rateScheduleItems[0][code]'
+            '[data-testid="rateScheduleItems[0][code]"]'
           ).type('H2555 - 200031 - Lifts Breakdown', { force: true })
 
           cy.get('input[id="rateScheduleItems[0][code]"]').clear({
