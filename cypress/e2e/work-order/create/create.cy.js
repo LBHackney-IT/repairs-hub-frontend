@@ -1061,7 +1061,9 @@ describe('Raise repair form', () => {
           cy.get('input[id="rateScheduleItems[0][code]"]').clear({
             force: true,
           })
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES')
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES', {
+            force: true,
+          })
 
           // cy.wait('@sorCodesRequestDES')
 
