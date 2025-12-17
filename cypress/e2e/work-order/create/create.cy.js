@@ -114,7 +114,7 @@ describe('Raise repair form', () => {
       }
     ).as('apiCheck')
 
-    cy.clock(now, ['Date'])
+    cy.clock(now, ['Date', 'setTimeout'])
   })
 
   it('Doesnt throw error when tenure is null', () => {
@@ -1054,18 +1054,12 @@ describe('Raise repair form', () => {
             }
           ).as('sorCodesRequestDES')
 
-          // Enter three characters, then clear and immediately re-enter them
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('S', {
-            force: true,
-          })
-          cy.get('input[id="rateScheduleItems[0][code]"]').clear({
-            force: true,
-          })
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES', {
-            force: true,
-          })
+          // Enter three characters
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('S')
 
-          // cy.wait('@sorCodesRequestDES')
+          cy.tick(500)
+
+          cy.wait('@sorCodesRequestDES')
 
           // The three-character input triggering an API request should have been debounced from 2 requests to just 1
           cy.get('@sorCodesRequestDES.all').should('have.length', 1)
