@@ -1055,15 +1055,9 @@ describe('Raise repair form', () => {
           ).as('sorCodesRequestDES')
 
           // Enter three characters, then clear and immediately re-enter them
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('S', {
-            force: true,
-          })
-          cy.get('input[id="rateScheduleItems[0][code]"]').clear({
-            force: true,
-          })
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES', {
-            force: true,
-          })
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('S')
+          cy.get('input[id="rateScheduleItems[0][code]"]').clear()
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES')
 
           cy.wait('@sorCodesRequestDES')
 
