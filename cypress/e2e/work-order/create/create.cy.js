@@ -1028,7 +1028,7 @@ describe('Raise repair form', () => {
           cy.intercept(
             {
               method: 'GET',
-              path: `/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true&filter=DES&showAllTrades=true`,
+              path: `/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true?filter=DES?showAllTrades=true`,
             },
             {
               body: [
