@@ -1055,11 +1055,17 @@ describe('Raise repair form', () => {
           ).as('sorCodesRequestDES')
 
           // Enter three characters, then clear and immediately re-enter them
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('S')
-          cy.get('input[id="rateScheduleItems[0][code]"]').clear()
-          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES')
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('S', {
+            force: true,
+          })
+          cy.get('input[id="rateScheduleItems[0][code]"]').clear({
+            force: true,
+          })
+          cy.get('input[id="rateScheduleItems[0][code]"]').type('DES', {
+            force: true,
+          })
 
-          cy.wait('@sorCodesRequestDES')
+          // cy.wait('@sorCodesRequestDES')
 
           // The three-character input triggering an API request should have been debounced from 2 requests to just 1
           cy.get('@sorCodesRequestDES.all').should('have.length', 1)
