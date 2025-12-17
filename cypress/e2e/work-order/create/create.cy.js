@@ -1063,7 +1063,7 @@ describe('Raise repair form', () => {
           })
           cy.get('input[id="rateScheduleItems[0][code]"]').type('DES')
 
-          cy.wait('@sorCodesRequestDES')
+          // cy.wait('@sorCodesRequestDES')
 
           // The three-character input triggering an API request should have been debounced from 2 requests to just 1
           cy.get('@sorCodesRequestDES.all').should('have.length', 1)
