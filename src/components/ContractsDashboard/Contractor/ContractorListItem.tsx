@@ -18,7 +18,8 @@ const ContractorListItem = ({
         pathname: `/contractors/${contractorReference}`,
       }}
       style={{
-        textDecoration: 'none !important',
+        textDecoration: 'none',
+        color: 'orange !important',
       }}
     >
       <li
