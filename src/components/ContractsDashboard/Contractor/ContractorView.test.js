@@ -43,6 +43,7 @@ describe('Contracts dashboard component', () => {
     const { asFragment } = render(<ContractorView contractorReference="SYC" />)
     expect(asFragment()).toMatchSnapshot()
   })
+
   it('should render component with sor code contracts displayed', async () => {
     useQuery.mockImplementation((key) => {
       const queryKey = Array.isArray(key) ? key[0] : key
@@ -74,15 +75,18 @@ describe('Contracts dashboard component', () => {
           }
       }
     })
-    const { asFragment } = render(<ContractorView contractorReference="SYC" />)
 
-    await act(async () => {
+    const { asFragment } = await act(() =>
+      render(<ContractorView contractorReference="SYC" />)
+    )
+
+    await act(() =>
       fireEvent.change(screen.getByTestId('input-search'), {
         target: { value: 'ABC123' },
       })
+    )
+    await act(() => fireEvent.click(screen.getByTestId('submit-search')))
 
-      fireEvent.click(screen.getByTestId('submit-search'))
-    })
     expect(asFragment()).toMatchSnapshot()
   })
 })

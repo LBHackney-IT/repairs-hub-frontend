@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`BudgetCodeItemView component should render a datalist with formatted budget codes as options 1`] = `
 <DocumentFragment>
@@ -32,7 +32,6 @@ exports[`BudgetCodeItemView component should render a datalist with formatted bu
         id="budgetCode"
         list="autocomplete-list-budgetCode"
         name="budgetCode"
-        value=""
       />
       <datalist
         id="autocomplete-list-budgetCode"

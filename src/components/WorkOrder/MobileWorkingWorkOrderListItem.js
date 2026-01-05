@@ -13,6 +13,10 @@ const MobileWorkingWorkOrderListItem = ({
   return (
     <Link
       href={`/operatives/${currentUser.operativePayrollNumber}/work-orders/${workOrder.reference}`}
+      style={{
+        textDecoration: 'none',
+        color: 'inherit',
+      }}
     >
       <li
         data-id={index}

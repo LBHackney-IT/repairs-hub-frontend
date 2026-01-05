@@ -92,6 +92,7 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
           <div className="display-inline">
             <Link
               href={`/work-orders/${workOrderReference}/variation-authorisation`}
+              legacyBehavior
             >
               <a className="lbh-link">Variation Authorisation</a>
             </Link>
@@ -102,6 +103,7 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
           variationTasks={variation}
           originalSors={originalSors}
           totalCostAfterVariation={totalCostAfterVariation}
+          budgetCode={undefined}
         />
         {error && <ErrorMessage label={error} />}
       </>

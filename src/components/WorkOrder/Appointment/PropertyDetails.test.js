@@ -1,9 +1,4 @@
-import {
-  render,
-  act,
-  waitForElementToBeRemoved,
-  screen,
-} from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 
 import PropertyDetails from './PropertyDetails'
 const axios = require('axios')
@@ -11,7 +6,7 @@ const axios = require('axios')
 jest.mock('axios', () => jest.fn())
 
 describe('PropertyDetails component', () => {
-  axios.mockResolvedValueOnce({
+  axios.mockResolvedValue({
     data: {
       alerts: [
         {
@@ -59,8 +54,8 @@ describe('PropertyDetails component', () => {
       />
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+    await waitFor(() => {
+      expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
     })
 
     expect(asFragment()).toMatchSnapshot()

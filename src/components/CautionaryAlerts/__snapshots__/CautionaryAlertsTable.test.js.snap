@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`CautionaryAlertsTable component when logged in as an operative and has NO queries should render properly: with NO highlithed codes 1`] = `
 <DocumentFragment>

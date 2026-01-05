@@ -142,7 +142,7 @@ const AuthorisationView = ({ workOrderReference }) => {
               <h1 className="lbh-heading-h1 govuk-!-margin-right-6 govuk-!-margin-bottom-0">
                 Authorisation request: {workOrderReference}{' '}
               </h1>
-              <Link href={`/work-orders/${workOrderReference}`}>
+              <Link href={`/work-orders/${workOrderReference}`} legacyBehavior>
                 <a className="lbh-link">See work order</a>
               </Link>
               <br></br>

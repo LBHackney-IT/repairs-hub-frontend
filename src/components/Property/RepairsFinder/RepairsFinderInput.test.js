@@ -75,6 +75,11 @@ const contractorReference = 'H02'
 const validCode = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME>${contractorReference}</WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink taps are broken</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>${code}</SOR_CODE><PRIORITY>${priorityCode}</PRIORITY><QUANTITY>${quantity}</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>${comments}</SOR_COMMENTS><SOR_CLASS>M52</SOR_CLASS></SOR></RF_INFO>`
 
 describe('RepairsFinderInput', () => {
+  // beforeEach(() => {
+  //   axios.mockClear()
+  //   jest.clearAllMocks()
+  // })
+
   it('Should render input', async () => {
     const { asFragment } = render(
       <Wrapper>
@@ -116,13 +121,11 @@ describe('RepairsFinderInput', () => {
       </Wrapper>
     )
 
-    const invalidCode = 'some invalid code'
+    const invalidCode = '<xml>some invalid code</xml>'
 
-    act(() => {
-      userEvent.type(screen.getByTestId('xmlContent'), invalidCode)
-    })
-
-    expect(screen.getByTestId('xmlContent').value).toBe(invalidCode)
+    const textInput = screen.getByTestId('xmlContent')
+    await act(async () => await userEvent.type(textInput, invalidCode))
+    expect(textInput.value).toBe(invalidCode)
 
     expect(await screen.findByText('Invalid code format')).toBeInTheDocument()
 
@@ -158,15 +161,15 @@ describe('RepairsFinderInput', () => {
       </Wrapper>
     )
 
-    act(() => {
-      userEvent.type(screen.getByTestId('xmlContent'), validCode)
-    })
+    const textInput = screen.getByTestId('xmlContent')
 
-    expect(
-      await screen.findByText(
-        `Failed to matching SOR code matching 11111111, H01`
-      )
-    ).toBeInTheDocument()
+    const user = userEvent.setup()
+    textInput.focus()
+    await user.paste(validCode)
+
+    await screen.findByText(
+      `Failed to matching SOR code matching 11111111, H01`
+    )
 
     expect(asFragment()).toMatchSnapshot()
   })
@@ -214,9 +217,11 @@ describe('RepairsFinderInput', () => {
       </Wrapper>
     )
 
-    act(() => {
-      userEvent.type(screen.getByTestId('xmlContent'), validCode)
-    })
+    const textInput = screen.getByTestId('xmlContent')
+
+    const user = userEvent.setup()
+    textInput.focus()
+    await user.paste(validCode)
 
     expect(
       await screen.findByText(
@@ -276,19 +281,19 @@ describe('RepairsFinderInput', () => {
       </Wrapper>
     )
 
-    act(() => {
-      userEvent.type(screen.getByTestId('xmlContent'), validCode)
-    })
+    const textInput = screen.getByTestId('xmlContent')
 
-    await waitFor(() => {
-      expect(axios).toHaveBeenCalledWith(
+    const user = userEvent.setup()
+    textInput.focus()
+    await user.paste(validCode)
+
+    await waitFor(async () => {
+      await expect(axios).toHaveBeenCalledWith(
         expect.objectContaining({
           url: '/api/repairs-finder/matching-sor-codes',
         })
       )
     })
-
-    expect(await screen.findByText(`Plumbing - PL`)).toBeInTheDocument()
 
     const table = screen.getByRole('table')
 

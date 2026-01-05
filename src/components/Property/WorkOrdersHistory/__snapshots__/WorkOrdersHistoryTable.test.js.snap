@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`WorkOrdersHistoryTable component when logged in as a contract manager should render properly 1`] = `
 <DocumentFragment>
@@ -77,7 +77,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
         >
           <a
             class="lbh-link"
-            href="/work-orders/10000012"
+            href="/work-orders/[reference]?reference=10000012"
           >
             10000012
           </a>
@@ -121,7 +121,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
         >
           <a
             class="lbh-link"
-            href="/work-orders/10000013"
+            href="/work-orders/[reference]?reference=10000013"
           >
             10000013
           </a>
@@ -238,7 +238,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
         >
           <a
             class="lbh-link"
-            href="/work-orders/10000012"
+            href="/work-orders/[reference]?reference=10000012"
           >
             10000012
           </a>
@@ -282,7 +282,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
         >
           <a
             class="lbh-link"
-            href="/work-orders/10000013"
+            href="/work-orders/[reference]?reference=10000013"
           >
             10000013
           </a>
@@ -399,7 +399,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
         >
           <a
             class="lbh-link"
-            href="/work-orders/10000012"
+            href="/work-orders/[reference]?reference=10000012"
           >
             10000012
           </a>
@@ -443,7 +443,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
         >
           <a
             class="lbh-link"
-            href="/work-orders/10000013"
+            href="/work-orders/[reference]?reference=10000013"
           >
             10000013
           </a>

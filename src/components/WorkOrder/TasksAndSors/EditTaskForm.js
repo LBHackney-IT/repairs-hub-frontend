@@ -57,7 +57,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     setLoading(false)
   }
 
-  useEffect(async () => {
+  const fetchData = async () => {
     setLoading(true)
     setError(null)
 
@@ -104,6 +104,10 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     }
 
     setLoading(false)
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [])
 
   return (

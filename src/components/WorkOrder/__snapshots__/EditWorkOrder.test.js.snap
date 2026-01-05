@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`EditWorkOrder Component should render correctly after fetching work order 1`] = `
 <DocumentFragment>
@@ -99,7 +99,6 @@ exports[`EditWorkOrder Component should render correctly after fetching work ord
               id="callerName"
               name="callerName"
               type="text"
-              value=""
             />
           </div>
           <div
@@ -131,7 +130,6 @@ exports[`EditWorkOrder Component should render correctly after fetching work ord
               id="contactNumber"
               name="contactNumber"
               type="text"
-              value=""
             />
           </div>
           <div

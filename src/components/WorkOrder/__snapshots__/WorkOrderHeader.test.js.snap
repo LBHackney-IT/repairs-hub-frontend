@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`WorkOrderHeader component when work order contains follow-on details shows further work required flag 1`] = `
 <DocumentFragment>
