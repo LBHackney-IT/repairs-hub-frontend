@@ -6,6 +6,7 @@ exports[`MobileWorkingPastWorkOrderListItems Component should match snapshot whe
 <DocumentFragment>
   <a
     href="/operatives/undefined/work-orders/1"
+    style="text-decoration: none; color: inherit;"
   >
     <li
       class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--inactive"
@@ -64,6 +65,7 @@ exports[`MobileWorkingPastWorkOrderListItems Component should match snapshot whe
   </a>
   <a
     href="/operatives/undefined/work-orders/2"
+    style="text-decoration: none; color: inherit;"
   >
     <li
       class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--inactive"

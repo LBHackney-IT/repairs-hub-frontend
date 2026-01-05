@@ -9,6 +9,7 @@ exports[`Contractors list items component should render the component 1`] = `
     >
       <a
         href="/contractors/NOO"
+        style="text-decoration: none; color: inherit;"
       >
         <li
           class="govuk-!-margin-top-3 operative-work-order-list-item"
@@ -42,6 +43,7 @@ exports[`Contractors list items component should render the component 1`] = `
       </a>
       <a
         href="/contractors/YES"
+        style="text-decoration: none; color: inherit;"
       >
         <li
           class="govuk-!-margin-top-3 operative-work-order-list-item"
@@ -75,6 +77,7 @@ exports[`Contractors list items component should render the component 1`] = `
       </a>
       <a
         href="/contractors/RAT"
+        style="text-decoration: none; color: inherit;"
       >
         <li
           class="govuk-!-margin-top-3 operative-work-order-list-item"
@@ -108,6 +111,7 @@ exports[`Contractors list items component should render the component 1`] = `
       </a>
       <a
         href="/contractors/CAT"
+        style="text-decoration: none; color: inherit;"
       >
         <li
           class="govuk-!-margin-top-3 operative-work-order-list-item"
@@ -141,6 +145,7 @@ exports[`Contractors list items component should render the component 1`] = `
       </a>
       <a
         href="/contractors/DOG"
+        style="text-decoration: none; color: inherit;"
       >
         <li
           class="govuk-!-margin-top-3 operative-work-order-list-item"

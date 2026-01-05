@@ -4,6 +4,7 @@ exports[`Contractors list item component should render the component 1`] = `
 <DocumentFragment>
   <a
     href="/contractors/SYC"
+    style="text-decoration: none; color: inherit;"
   >
     <li
       class="govuk-!-margin-top-3 operative-work-order-list-item"

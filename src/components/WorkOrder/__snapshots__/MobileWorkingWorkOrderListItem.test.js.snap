@@ -4,6 +4,7 @@ exports[`MobileWorkingWorkOrderListItem component should render MobileWorkingWor
 <DocumentFragment>
   <a
     href="/operatives/1/work-orders/10000621"
+    style="text-decoration: none; color: inherit;"
   >
     <li
       class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--active"
