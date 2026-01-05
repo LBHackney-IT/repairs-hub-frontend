@@ -157,8 +157,15 @@ jobs:
             export NEXT_PUBLIC_REPAIRS_FINDER_LINK=$REPAIRS_FINDER_LINK_STAGING
 
             yarn build
+
+            # Fetch production dependencies
             rm -rf node_modules
+
+            # node_modules specific for lambda.js
+            cd lambda
             yarn install --production --frozen-lockfile
+            cd ..
+
             npx --yes serverless deploy --stage staging
 
 
@@ -190,10 +197,17 @@ jobs:
             export NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID=$WARRANTIES_SPREADSHEET_ID
             export NEXT_PUBLIC_REPAIRS_FINDER_INTEGRATION_ENABLED=$REPAIRS_FINDER_INTEGRATION_ENABLED_PRODUCTION
             export NEXT_PUBLIC_REPAIRS_FINDER_LINK=$REPAIRS_FINDER_LINK_PRODUCTION
-            
+
             yarn build
+
+            # Fetch production dependencies
             rm -rf node_modules
+
+            # node_modules specific for lambda.js
+            cd lambda
             yarn install --production --frozen-lockfile
+            cd ..
+
             npx --yes serverless deploy --stage production
 
   assume-role-development:
@@ -257,41 +271,41 @@ workflows:
           filters:
             branches:
               only: develop
-      # - assume-role-staging:
-      #     context: api-assume-role-staging-context
-      #     requires:
-      #       - tests
-      #       - e2e
-      #     filters:
-      #       branches:
-      #         only: main
-      # - build-deploy-staging:
-      #     requires:
-      #       - assume-role-staging
-      #     context:
-      #       - "Serverless Framework"
-      #     filters:
-      #       branches:
-      #         only: main
-      # - permit-deploy-production:
-      #     type: approval
-      #     requires:
-      #       - build-deploy-staging
-      #     filters:
-      #       branches:
-      #         only: main
-      # - assume-role-production:
-      #     context: api-assume-role-housing-production-context
-      #     requires:
-      #       - permit-deploy-production
-      #     filters:
-      #       branches:
-      #         only: main
-      # - build-deploy-production:
-      #     requires:
-      #       - assume-role-production
-      #     context:
-      #       - "Serverless Framework"
-      #     filters:
-      #       branches:
-      #         only: main
+      - assume-role-staging:
+          context: api-assume-role-staging-context
+          requires:
+            - tests
+            - e2e
+          filters:
+            branches:
+              only: main
+      - build-deploy-staging:
+          requires:
+            - assume-role-staging
+          context:
+            - "Serverless Framework"
+          filters:
+            branches:
+              only: main
+      - permit-deploy-production:
+          type: approval
+          requires:
+            - build-deploy-staging
+          filters:
+            branches:
+              only: main
+      - assume-role-production:
+          context: api-assume-role-housing-production-context
+          requires:
+            - permit-deploy-production
+          filters:
+            branches:
+              only: main
+      - build-deploy-production:
+          requires:
+            - assume-role-production
+          context:
+            - "Serverless Framework"
+          filters:
+            branches:
+              only: main
