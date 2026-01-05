@@ -13,7 +13,7 @@ const MobileWorkingWorkOrderListItem = ({
   return (
     <Link
       href={`/operatives/${currentUser.operativePayrollNumber}/work-orders/${workOrder.reference}`}
-       style={{
+      style={{
         textDecoration: 'none !important',
       }}
     >
