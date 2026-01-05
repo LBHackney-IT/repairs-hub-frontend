@@ -25,6 +25,7 @@ const ScheduleDRSAppointmentLink = (props: Props) => {
     <>
       <Link
         href={`${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
+        legacyBehavior
       >
         <a
           className="lbh-link"

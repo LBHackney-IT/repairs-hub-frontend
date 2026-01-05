@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`AppointmentDetails component Shows a loading state 1`] = `
 <DocumentFragment>
@@ -56,7 +56,7 @@ exports[`AppointmentDetails component Shows a success state 1`] = `
 <DocumentFragment>
   <a
     class="lbh-link"
-    href="/undefined&sessionId=schedulerSessionId"
+    href="undefined&sessionId=schedulerSessionId"
     rel="noopener"
     target="_blank"
   >

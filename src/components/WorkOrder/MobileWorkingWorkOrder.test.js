@@ -1,9 +1,4 @@
-import {
-  render,
-  act,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import MockDate from 'mockdate'
@@ -11,7 +6,7 @@ import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDe
 
 const axios = require('axios')
 
-jest.mock('axios', () => jest.fn())
+jest.mock('axios')
 
 describe('MobileWorkingWorkOrder component with single operative', () => {
   axios.mockResolvedValue({
@@ -124,8 +119,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -162,8 +157,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -212,8 +207,9 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           photos={[]}
         />
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -259,9 +255,10 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -304,9 +301,10 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -349,9 +347,10 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -474,9 +473,10 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -517,9 +517,11 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
           photos={[]}
         />
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -642,9 +644,10 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
         />
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+      await waitFor(() => {
+        expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
       })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })

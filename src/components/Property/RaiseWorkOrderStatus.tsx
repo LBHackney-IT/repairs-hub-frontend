@@ -39,7 +39,10 @@ const RaiseWorkOrderStatus = ({
   if (!REPAIRS_FINDER_ENABLED) {
     return (
       <span className="lbh-heading-h3 text-green">
-        <Link href={`/properties/${propertyReference}/raise-repair/new`}>
+        <Link
+          href={`/properties/${propertyReference}/raise-repair/new`}
+          legacyBehavior
+        >
           <a className="lbh-link">
             <strong>
               Raise a work order on this {description.toLowerCase()}

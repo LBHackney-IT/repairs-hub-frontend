@@ -303,6 +303,7 @@ const CloseWorkOrderForm = (props: Props) => {
               getValues={getValues}
               totalSMV={totalSMV}
               jobIsSplitByOperative={jobIsSplitByOperative}
+              currentUserPayrollNumber={undefined}
             />
 
             <Radios

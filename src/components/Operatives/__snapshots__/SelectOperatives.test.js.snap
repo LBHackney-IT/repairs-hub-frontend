@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`SelectOperatives component should disable the current operative when a current user payroll number is supplied 1`] = `
 <DocumentFragment>
