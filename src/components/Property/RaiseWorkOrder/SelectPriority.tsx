@@ -91,6 +91,11 @@ const SelectPriority = (props: Props) => {
         })}
         error={errors && errors.priorityCode}
         widthClass="govuk-!-width-full"
+        hint={undefined}
+        children={undefined}
+        ignoreValue={undefined}
+        defaultValue={undefined}
+        value={undefined}
       />
       {drsScheduled && (
         <>

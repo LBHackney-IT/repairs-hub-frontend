@@ -3,6 +3,7 @@ import ContractListItems from './ContractListItems'
 import Spinner from '../../Spinner'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { JSX } from 'react'
 
 interface ContractSectionProps {
   heading?: string

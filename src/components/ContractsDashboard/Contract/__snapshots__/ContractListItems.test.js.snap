@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Contractors list items component should render active contracts with relevant fields 1`] = `
 <DocumentFragment>
@@ -8,7 +8,7 @@ exports[`Contractors list items component should render active contracts with re
   >
     <li
       data-id="0"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -46,7 +46,7 @@ exports[`Contractors list items component should render active contracts with re
     </li>
     <li
       data-id="1"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -84,7 +84,7 @@ exports[`Contractors list items component should render active contracts with re
     </li>
     <li
       data-id="2"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -122,7 +122,7 @@ exports[`Contractors list items component should render active contracts with re
     </li>
     <li
       data-id="3"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -160,7 +160,7 @@ exports[`Contractors list items component should render active contracts with re
     </li>
     <li
       data-id="4"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -198,7 +198,7 @@ exports[`Contractors list items component should render active contracts with re
     </li>
     <li
       data-id="5"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -236,7 +236,7 @@ exports[`Contractors list items component should render active contracts with re
     </li>
     <li
       data-id="6"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -284,7 +284,7 @@ exports[`Contractors list items component should render contracts that expire in
   >
     <li
       data-id="0"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -319,7 +319,7 @@ exports[`Contractors list items component should render inactive contracts with 
   >
     <li
       data-id="0"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -357,7 +357,7 @@ exports[`Contractors list items component should render inactive contracts with 
     </li>
     <li
       data-id="1"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -395,7 +395,7 @@ exports[`Contractors list items component should render inactive contracts with 
     </li>
     <li
       data-id="2"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -433,7 +433,7 @@ exports[`Contractors list items component should render inactive contracts with 
     </li>
     <li
       data-id="3"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -471,7 +471,7 @@ exports[`Contractors list items component should render inactive contracts with 
     </li>
     <li
       data-id="4"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"
@@ -509,7 +509,7 @@ exports[`Contractors list items component should render inactive contracts with 
     </li>
     <li
       data-id="5"
-      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
     >
       <div
         class="contract-details"

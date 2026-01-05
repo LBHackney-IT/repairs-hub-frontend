@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Operatives component Renders a string with a prefix of "Operative" when passed one operative 1`] = `
 <DocumentFragment>

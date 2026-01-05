@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Alerts component should render comment, type and reason for a Specific Requirement alert and comment and type for other alerts 1`] = `
 <DocumentFragment>

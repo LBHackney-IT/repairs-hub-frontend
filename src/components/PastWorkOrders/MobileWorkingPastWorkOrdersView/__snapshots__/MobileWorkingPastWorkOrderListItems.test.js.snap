@@ -1,116 +1,124 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`MobileWorkingPastWorkOrderListItems Component should be empty when there are no orders 1`] = `<DocumentFragment />`;
 
 exports[`MobileWorkingPastWorkOrderListItems Component should match snapshot when there are work orders 1`] = `
 <DocumentFragment>
-  <li
-    class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--inactive"
-    data-id="0"
-    style="cursor: pointer;"
+  <a
+    href="/operatives/undefined/work-orders/1"
   >
-    <div
-      class="appointment-details"
+    <li
+      class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--inactive"
+      data-id="0"
+      style="cursor: pointer;"
     >
-      <div>
+      <div
+        class="appointment-details"
+      >
+        <div>
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
+          >
+            08:00 – 16:15
+          </h3>
+          <span
+            class="govuk-tag lbh-tag lbh-tag--status-completed work-order-status govuk-!-margin-top-0 govuk-!-margin-left-2"
+          >
+            Completed
+          </span>
+        </div>
+        <p
+          class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
+        >
+          [e] emergency
+        </p>
         <h3
           class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
         >
-          08:00 – 16:15
+          WO 1
         </h3>
-        <span
-          class="govuk-tag lbh-tag lbh-tag--status-completed work-order-status govuk-!-margin-top-0 govuk-!-margin-left-2"
+        <p
+          class="lbh-body govuk-!-margin-0"
         >
-          Completed
-        </span>
+          1 Hackney
+        </p>
+        <p
+          class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8"
+        >
+          N16
+        </p>
+        <p
+          class="lbh-body govuk-!-margin-0 truncate-description truncate-line-3"
+        >
+          Work order 1
+        </p>
       </div>
-      <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
+      <div
+        class="govuk-!-margin-0"
       >
-        [e] emergency
-      </p>
-      <h3
-        class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
-      >
-        WO 1
-      </h3>
-      <p
-        class="lbh-body govuk-!-margin-0"
-      >
-        1 Hackney
-      </p>
-      <p
-        class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8"
-      >
-        N16
-      </p>
-      <p
-        class="lbh-body govuk-!-margin-0 truncate-description truncate-line-3"
-      >
-        Work order 1
-      </p>
-    </div>
-    <div
-      class="govuk-!-margin-0"
-    >
-      <span
-        class="arrow right"
-      />
-    </div>
-  </li>
-  <li
-    class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--inactive"
-    data-id="1"
-    style="cursor: pointer;"
+        <span
+          class="arrow right"
+        />
+      </div>
+    </li>
+  </a>
+  <a
+    href="/operatives/undefined/work-orders/2"
   >
-    <div
-      class="appointment-details"
+    <li
+      class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--inactive"
+      data-id="1"
+      style="cursor: pointer;"
     >
-      <div>
+      <div
+        class="appointment-details"
+      >
+        <div>
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
+          >
+            08:00 – 16:15
+          </h3>
+          <span
+            class="govuk-tag lbh-tag lbh-tag--status-completed work-order-status govuk-!-margin-top-0 govuk-!-margin-left-2"
+          >
+            Completed
+          </span>
+        </div>
+        <p
+          class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
+        >
+          [e] emergency
+        </p>
         <h3
           class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
         >
-          08:00 – 16:15
+          WO 2
         </h3>
-        <span
-          class="govuk-tag lbh-tag lbh-tag--status-completed work-order-status govuk-!-margin-top-0 govuk-!-margin-left-2"
+        <p
+          class="lbh-body govuk-!-margin-0"
         >
-          Completed
-        </span>
+          1 Hackney
+        </p>
+        <p
+          class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8"
+        >
+          N16
+        </p>
+        <p
+          class="lbh-body govuk-!-margin-0 truncate-description truncate-line-3"
+        >
+          Work order 2
+        </p>
       </div>
-      <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
+      <div
+        class="govuk-!-margin-0"
       >
-        [e] emergency
-      </p>
-      <h3
-        class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
-      >
-        WO 2
-      </h3>
-      <p
-        class="lbh-body govuk-!-margin-0"
-      >
-        1 Hackney
-      </p>
-      <p
-        class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8"
-      >
-        N16
-      </p>
-      <p
-        class="lbh-body govuk-!-margin-0 truncate-description truncate-line-3"
-      >
-        Work order 2
-      </p>
-    </div>
-    <div
-      class="govuk-!-margin-0"
-    >
-      <span
-        class="arrow right"
-      />
-    </div>
-  </li>
+        <span
+          class="arrow right"
+        />
+      </div>
+    </li>
+  </a>
 </DocumentFragment>
 `;

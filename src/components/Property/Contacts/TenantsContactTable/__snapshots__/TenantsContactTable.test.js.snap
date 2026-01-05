@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`TenantsContactTable component when supplied with a list of tenants with phone numbers renders a table with a row for each contact 1`] = `
 <DocumentFragment>

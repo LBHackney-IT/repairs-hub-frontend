@@ -1,9 +1,4 @@
-import {
-  act,
-  render,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -18,15 +13,19 @@ import { agent } from 'factories/agent'
 import { authorisationManager } from 'factories/authorisation_manager'
 import UserContext from '@/components/UserContext'
 
-const axios = require('axios')
+import axios from 'axios'
 
-jest.mock('axios', () => jest.fn())
+jest.mock('axios')
 
 describe('RaiseWorkOrderForm component', () => {
-  axios.mockResolvedValue({
-    data: {
-      alerts: [],
-    },
+  axios.get.mockImplementation((url) => {
+    if (url.includes('alert')) {
+      return Promise.resolve({
+        data: {
+          alerts: [],
+        },
+      })
+    }
   })
 
   const props = {
@@ -116,10 +115,10 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-propertyFlags'),
-      ])
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId('spinner-propertyFlags')
+      ).not.toBeInTheDocument()
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -154,10 +153,10 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-propertyFlags'),
-      ])
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId('spinner-propertyFlags')
+      ).not.toBeInTheDocument()
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -223,10 +222,10 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-propertyFlags'),
-      ])
+    await waitFor(() => {
+      expect(
+        screen.queryByTestId('spinner-propertyFlags')
+      ).not.toBeInTheDocument()
     })
 
     expect(asFragment()).toMatchSnapshot()

@@ -1,33 +1,37 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Contractors list item component should render the component 1`] = `
 <DocumentFragment>
-  <li
-    class="govuk-!-margin-top-3 operative-work-order-list-item"
-    style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
+  <a
+    href="/contractors/SYC"
   >
-    <div
-      class="contract-details"
+    <li
+      class="govuk-!-margin-top-3 operative-work-order-list-item"
+      style="cursor: pointer; padding: 1.5rem; border-radius: 20px; width: 85%; background-color: rgb(240, 240, 240);"
     >
-      <h3
-        class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+      <div
+        class="contract-details"
       >
-        Sycous Limited
-      </h3>
-      <p>
-        Active contracts: 
+        <h3
+          class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+        >
+          Sycous Limited
+        </h3>
+        <p>
+          Active contracts: 
+          <span
+            style="font-weight: 800;"
+          />
+        </p>
+      </div>
+      <div
+        class="govuk-!-margin-0"
+      >
         <span
-          style="font-weight: 800;"
+          class="arrow right"
         />
-      </p>
-    </div>
-    <div
-      class="govuk-!-margin-0"
-    >
-      <span
-        class="arrow right"
-      />
-    </div>
-  </li>
+      </div>
+    </li>
+  </a>
 </DocumentFragment>
 `;

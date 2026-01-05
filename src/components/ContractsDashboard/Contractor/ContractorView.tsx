@@ -87,7 +87,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    refetchSorContracts()
+    refetchSorContracts && refetchSorContracts()
   }
 
   return (

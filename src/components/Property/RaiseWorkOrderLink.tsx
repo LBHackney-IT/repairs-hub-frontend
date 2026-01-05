@@ -10,7 +10,7 @@ const RaiseWorkOrderLink = (props: Props) => {
   const { title, description, url } = props
 
   return (
-    <Link href={url}>
+    <Link href={url} legacyBehavior>
       <a className="lbh-body raiseWorkOrderLink">
         <div className="raiseWorkOrderLink-container">
           <div>
