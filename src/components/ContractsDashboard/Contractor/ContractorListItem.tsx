@@ -19,7 +19,7 @@ const ContractorListItem = ({
       }}
       style={{
         textDecoration: 'none',
-        color: 'orange !important',
+        color: 'inherit',
       }}
     >
       <li
