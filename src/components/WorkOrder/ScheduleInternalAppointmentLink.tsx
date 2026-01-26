@@ -24,7 +24,7 @@ const ScheduleInternalAppointmentLink = (props: Props) => {
 
   return (
     <>
-      <Link href={href}>
+      <Link href={href} legacyBehavior>
         <a className="lbh-link">{linkText} (non DRS)</a>
       </Link>
       {appointmentIsToday && (

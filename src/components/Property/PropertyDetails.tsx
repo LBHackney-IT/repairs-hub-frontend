@@ -63,7 +63,7 @@ const PropertyDetails = ({
       </div>
       {isCurrentTimeOutOfHours() && (
         <div>
-          <Link href={process.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK}>
+          <Link href={process.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK} legacyBehavior>
             <a
               target="_blank"
               rel="noopener"

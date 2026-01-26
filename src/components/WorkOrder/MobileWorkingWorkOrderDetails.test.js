@@ -1,9 +1,4 @@
-import {
-  render,
-  act,
-  screen,
-  waitForElementToBeRemoved,
-} from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import { WorkOrder } from '@/models/workOrder'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
@@ -93,8 +88,8 @@ describe('MobileWorkingWorkOrderDetails component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
 
-    await act(async () => {
-      await waitForElementToBeRemoved([screen.getByTestId('spinner-alerts')])
+    await waitFor(() => {
+      expect(screen.queryByTestId('spinner-alerts')).not.toBeInTheDocument()
     })
 
     expect(axios).toHaveBeenCalledTimes(1)

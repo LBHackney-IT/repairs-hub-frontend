@@ -2,6 +2,7 @@ import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { Fragment } from 'react'
 import { FieldError } from 'react-hook-form'
+import { JSX } from 'react'
 
 const defaultOptions = ['Yes', 'No']
 

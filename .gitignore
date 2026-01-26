@@ -8,6 +8,8 @@
 /.pnp
 .pnp.js
 
+/lambda/node_modules
+
 # testing
 /coverage
 

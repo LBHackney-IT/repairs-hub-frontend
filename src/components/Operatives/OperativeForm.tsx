@@ -43,6 +43,7 @@ const OperativeForm = (props: Props) => {
             getValues={getValues}
             totalSMV={totalSMV}
             currentUserPayrollNumber={currentUserPayrollNumber}
+            jobIsSplitByOperative={undefined}
           />
 
           <PrimarySubmitButton

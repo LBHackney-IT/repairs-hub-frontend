@@ -24,7 +24,7 @@ const SuccessPage = (props: Props) => {
         {links.map((link, i) => {
           return (
             <li key={i}>
-              <Link href={link.href}>
+              <Link href={link.href} legacyBehavior>
                 <a
                   className="lbh-link"
                   onClick={link.onClick}

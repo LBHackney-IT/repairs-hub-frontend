@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import useClickOutside from './useClickOutside'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const mockHandler = jest.fn()
@@ -19,15 +19,15 @@ const MockComponent = () => {
 }
 
 describe('useClickOutside', () => {
-  it('does nothing when the click is inside the element', () => {
+  it('does nothing when the click is inside the element', async () => {
     render(<MockComponent />)
-    userEvent.click(screen.getByText('Inside text'))
+    await act(() => userEvent.click(screen.getByText('Inside text')))
     expect(mockHandler).not.toHaveBeenCalled()
   })
 
-  it('fires the handler when there is a click outside the element', () => {
+  it('fires the handler when there is a click outside the element', async () => {
     render(<MockComponent />)
-    userEvent.click(screen.getByText('Outside text'))
+    await act(() => userEvent.click(screen.getByText('Outside text')))
     expect(mockHandler).toHaveBeenCalledTimes(1)
   })
 })

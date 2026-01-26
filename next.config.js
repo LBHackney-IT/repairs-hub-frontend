@@ -1,5 +1,3 @@
-const { withSentryConfig } = require('@sentry/nextjs')
-
 const cspHeader = `
   frame-ancestors 'none';
 `
@@ -29,6 +27,7 @@ async function headers() {
 const moduleExports = {
   distDir: 'build/_next',
   productionBrowserSourceMaps: false,
+  output: 'standalone',
   swcMinify: true,
   images: {
     domains: ['utfs.io'],
@@ -36,12 +35,4 @@ const moduleExports = {
   headers: () => headers(),
 }
 
-const { NODE_ENV, SENTRY_RELEASE } = process.env
-
-const sentryWebpackPluginOptions = {
-  dryRun: !(NODE_ENV === 'production'),
-  release: SENTRY_RELEASE,
-  silent: !(NODE_ENV === 'production'),
-}
-
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions)
+module.exports = moduleExports

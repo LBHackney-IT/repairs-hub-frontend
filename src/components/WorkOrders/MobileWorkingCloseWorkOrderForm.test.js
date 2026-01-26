@@ -1,5 +1,5 @@
 import MobileWorkingCloseWorkOrderForm from './MobileWorkingCloseWorkOrderForm'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const TestErrorMessage = 'Test submission error'
@@ -53,6 +53,7 @@ describe('MobileWorkingCloseWorkOrderForm component', () => {
     const onSubmitMock = jest.fn().mockImplementationOnce(() => {
       throw new Error(TestErrorMessage)
     })
+
     render(
       <MobileWorkingCloseWorkOrderForm
         workOrderReference="10001234"
@@ -60,9 +61,14 @@ describe('MobileWorkingCloseWorkOrderForm component', () => {
         isLoading={false}
       />
     )
-    userEvent.click(await screen.findByLabelText('No access'))
-    userEvent.type(screen.getByLabelText('Final report'), 'Test final report')
-    userEvent.click(await screen.findByRole('form'))
+
+    await act(async () =>
+      userEvent.click(await screen.findByLabelText('No access'))
+    )
+    await act(() =>
+      userEvent.type(screen.getByLabelText('Final report'), 'Test final report')
+    )
+    await act(async () => userEvent.click(await screen.findByRole('form')))
 
     expect(screen.getByLabelText('No access')).toBeChecked()
     expect(screen.getByLabelText('Final report')).toBeInTheDocument()
