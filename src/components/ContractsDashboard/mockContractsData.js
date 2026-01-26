@@ -246,7 +246,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '127-127-1277',
-    terminationDate: '2026-01-09T15:38:48.061Z',
+    terminationDate: '2035-01-09T15:38:48.061Z',
     effectiveDate: '2023-09-15T23:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -257,7 +257,7 @@ export const mockActiveContracts = [
 
   {
     contractReference: '128-128-1288',
-    terminationDate: '2026-01-09T15:38:48.061Z',
+    terminationDate: '2035-01-09T15:38:48.061Z',
     effectiveDate: '2024-01-04T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -267,7 +267,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '129-129-1299',
-    terminationDate: '2026-01-09T15:38:48.061Z',
+    terminationDate: '2035-01-09T15:38:48.061Z',
     effectiveDate: '2024-08-01T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -277,7 +277,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '130-130-1300',
-    terminationDate: '2026-01-09T15:38:48.061Z',
+    terminationDate: '2035-01-09T15:38:48.061Z',
     effectiveDate: '2024-08-01T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -287,7 +287,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '131-131-1311',
-    terminationDate: '2026-01-09T15:38:48.061Z',
+    terminationDate: '2035-01-09T15:38:48.061Z',
     effectiveDate: '2022-09-18T23:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -297,7 +297,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '132-132-1322',
-    terminationDate: '2026-01-09T15:38:48.061Z',
+    terminationDate: '2035-01-09T15:38:48.061Z',
     effectiveDate: '2024-03-26T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -383,7 +383,7 @@ export const mockSorCodeContracts = [
   },
   {
     contractReference: '132-132-1322',
-    terminationDate: '2026-01-09T15:38:48.061Z',
+    terminationDate: '2035-01-09T15:38:48.061Z',
     effectiveDate: '2024-03-26T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
