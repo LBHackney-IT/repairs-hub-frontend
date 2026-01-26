@@ -89,7 +89,7 @@ exports[`Contracts dashboard component should render component with sor code con
            0
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -127,7 +127,7 @@ exports[`Contracts dashboard component should render component with sor code con
            34
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -165,7 +165,7 @@ exports[`Contracts dashboard component should render component with sor code con
            3441
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -203,7 +203,7 @@ exports[`Contracts dashboard component should render component with sor code con
            3443
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -241,7 +241,7 @@ exports[`Contracts dashboard component should render component with sor code con
            904
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -279,7 +279,7 @@ exports[`Contracts dashboard component should render component with sor code con
            2
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -516,9 +516,9 @@ exports[`Contracts dashboard component should render component with sor code con
             132-132-1322
           </h5>
           <p
-            style="color: green;"
+            style="color: red;"
           >
-            Active
+            Expired: 9 Jan 2026
           </p>
         </div>
       </li>
@@ -635,7 +635,7 @@ exports[`Contracts dashboard component should render the component without displ
            0
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -673,7 +673,7 @@ exports[`Contracts dashboard component should render the component without displ
            34
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -711,7 +711,7 @@ exports[`Contracts dashboard component should render the component without displ
            3441
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -749,7 +749,7 @@ exports[`Contracts dashboard component should render the component without displ
            3443
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -787,7 +787,7 @@ exports[`Contracts dashboard component should render the component without displ
            904
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >
@@ -825,7 +825,7 @@ exports[`Contracts dashboard component should render the component without displ
            2
         </p>
         <p>
-          Expires: 
+          Expired: 
           <span
             style="font-weight: 600;"
           >

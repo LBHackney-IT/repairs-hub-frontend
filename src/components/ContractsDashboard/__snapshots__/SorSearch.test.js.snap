@@ -67,9 +67,9 @@ exports[`SorSearch component should render contracts with sor code that has been
             132-132-1322
           </h5>
           <p
-            style="color: green;"
+            style="color: red;"
           >
-            Active
+            Expired: 9 Jan 2026
           </p>
         </div>
       </li>
