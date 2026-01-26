@@ -15,18 +15,62 @@ exports[`PropertyDetails component when the date is after out of hours should sh
       Dwelling: 16 Pitcairn House
     </h1>
     <div>
-      <span
-        class="lbh-heading-h3 text-green"
+      <a
+        class="lbh-body raiseWorkOrderLink"
+        href="/properties/00012345/raise-repair/repairs-finder"
       >
-        <a
-          class="lbh-link"
-          href="/properties/00012345/raise-repair/new"
+        <div
+          class="raiseWorkOrderLink-container"
         >
-          <strong>
-            Raise a work order on this dwelling
-          </strong>
-        </a>
-      </span>
+          <div>
+            <div
+              class="lbh-heading-h3 raiseWorkOrderLink-title"
+            >
+              Raise work order with Repairs Finder
+            </div>
+            <div
+              class="raiseWorkOrderLink-description"
+            >
+              Use our diagnostics tool to identify and raise a work order
+            </div>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right raiseWorkOrderLink-arrow-icon"
+            />
+          </div>
+        </div>
+      </a>
+      <a
+        class="lbh-body raiseWorkOrderLink"
+        href="/properties/00012345/raise-repair/new"
+      >
+        <div
+          class="raiseWorkOrderLink-container"
+        >
+          <div>
+            <div
+              class="lbh-heading-h3 raiseWorkOrderLink-title"
+            >
+              Raise a standard work order
+            </div>
+            <div
+              class="raiseWorkOrderLink-description"
+            >
+              Raise a work order using the standard form
+            </div>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right raiseWorkOrderLink-arrow-icon"
+            />
+          </div>
+        </div>
+      </a>
     </div>
     <div>
       <a
@@ -145,18 +189,62 @@ exports[`PropertyDetails component when the date is before out of hours does not
       Dwelling: 16 Pitcairn House
     </h1>
     <div>
-      <span
-        class="lbh-heading-h3 text-green"
+      <a
+        class="lbh-body raiseWorkOrderLink"
+        href="/properties/00012345/raise-repair/repairs-finder"
       >
-        <a
-          class="lbh-link"
-          href="/properties/00012345/raise-repair/new"
+        <div
+          class="raiseWorkOrderLink-container"
         >
-          <strong>
-            Raise a work order on this dwelling
-          </strong>
-        </a>
-      </span>
+          <div>
+            <div
+              class="lbh-heading-h3 raiseWorkOrderLink-title"
+            >
+              Raise work order with Repairs Finder
+            </div>
+            <div
+              class="raiseWorkOrderLink-description"
+            >
+              Use our diagnostics tool to identify and raise a work order
+            </div>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right raiseWorkOrderLink-arrow-icon"
+            />
+          </div>
+        </div>
+      </a>
+      <a
+        class="lbh-body raiseWorkOrderLink"
+        href="/properties/00012345/raise-repair/new"
+      >
+        <div
+          class="raiseWorkOrderLink-container"
+        >
+          <div>
+            <div
+              class="lbh-heading-h3 raiseWorkOrderLink-title"
+            >
+              Raise a standard work order
+            </div>
+            <div
+              class="raiseWorkOrderLink-description"
+            >
+              Raise a work order using the standard form
+            </div>
+          </div>
+          <div
+            class="govuk-!-margin-0"
+          >
+            <span
+              class="arrow right raiseWorkOrderLink-arrow-icon"
+            />
+          </div>
+        </div>
+      </a>
     </div>
     <div
       class="govuk-grid-row"
