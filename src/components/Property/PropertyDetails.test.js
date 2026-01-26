@@ -1,13 +1,13 @@
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import PropertyDetails from './PropertyDetails'
+import { getAlerts } from '../../utils/requests/property'
 
-const axios = require('axios')
-
-jest.mock('axios', () => jest.fn())
+jest.mock('../../utils/requests/property')
 
 describe('PropertyDetails component', () => {
-  axios.mockResolvedValue({
-    data: {
+  getAlerts.mockResolvedValue({
+    success: true,
+    response: {
       alerts: [],
     },
   })
@@ -51,8 +51,9 @@ describe('PropertyDetails component', () => {
           showLegalDisrepairFlag={false}
         />
       )
-
-      expect(asFragment()).toMatchSnapshot()
+      await waitFor(() => {
+        expect(asFragment()).toMatchSnapshot()
+      })
     })
   })
 
@@ -73,8 +74,9 @@ describe('PropertyDetails component', () => {
           showLegalDisrepairFlag={false}
         />
       )
-
-      expect(asFragment()).toMatchSnapshot()
+      await waitFor(() => {
+        expect(asFragment()).toMatchSnapshot()
+      })
     })
   })
 })
