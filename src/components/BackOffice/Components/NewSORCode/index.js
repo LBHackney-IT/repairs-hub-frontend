@@ -38,7 +38,7 @@ const NewSORCode = ({
             value={sorCode.cost}
             type="number"
             min={0}
-            step={0.01}
+            step={0.1}
             onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'cost')}
             error={errors?.cost && { message: 'Please enter cost value' }}
           />
