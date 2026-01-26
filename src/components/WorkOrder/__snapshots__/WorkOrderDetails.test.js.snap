@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`WorkOrderDetails component when logged in as a contract manager should render properly with a link to cancel work order 1`] = `
 <DocumentFragment>

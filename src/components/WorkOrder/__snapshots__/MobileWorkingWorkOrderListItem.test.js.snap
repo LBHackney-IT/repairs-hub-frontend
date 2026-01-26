@@ -1,55 +1,60 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`MobileWorkingWorkOrderListItem component should render MobileWorkingWorkOrderListItem 1`] = `
 <DocumentFragment>
-  <li
-    class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--active"
-    data-id="0"
-    style="cursor: pointer;"
+  <a
+    href="/operatives/1/work-orders/10000621"
+    style="text-decoration: none; color: inherit;"
   >
-    <div
-      class="appointment-details"
+    <li
+      class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--active"
+      data-id="0"
+      style="cursor: pointer;"
     >
-      <div>
+      <div
+        class="appointment-details"
+      >
+        <div>
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
+          >
+            08:00 – 13:00
+          </h3>
+        </div>
+        <p
+          class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
+        >
+          5 [n] normal
+        </p>
         <h3
           class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
         >
-          08:00 – 13:00
+          WO 10000621
         </h3>
+        <p
+          class="lbh-body govuk-!-margin-0"
+        >
+          17 Pitcairn House  St Thomass Square
+        </p>
+        <p
+          class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8"
+        >
+          L53 GS
+        </p>
+        <p
+          class="lbh-body govuk-!-margin-0 truncate-description truncate-line-3"
+        >
+          Lorem ipsum dolor sit amet, consectetur efficitur.
+        </p>
       </div>
-      <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
+      <div
+        class="govuk-!-margin-0"
       >
-        5 [n] normal
-      </p>
-      <h3
-        class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
-      >
-        WO 10000621
-      </h3>
-      <p
-        class="lbh-body govuk-!-margin-0"
-      >
-        17 Pitcairn House  St Thomass Square
-      </p>
-      <p
-        class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8"
-      >
-        L53 GS
-      </p>
-      <p
-        class="lbh-body govuk-!-margin-0 truncate-description truncate-line-3"
-      >
-        Lorem ipsum dolor sit amet, consectetur efficitur.
-      </p>
-    </div>
-    <div
-      class="govuk-!-margin-0"
-    >
-      <span
-        class="arrow right"
-      />
-    </div>
-  </li>
+        <span
+          class="arrow right"
+        />
+      </div>
+    </li>
+  </a>
 </DocumentFragment>
 `;

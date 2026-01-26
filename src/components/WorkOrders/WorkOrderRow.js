@@ -23,7 +23,7 @@ const WorkOrderRow = ({
       className="govuk-table__row--clickable lbh-body-s hackney-work-order-table"
     >
       <TD className="lbh-body-xs">
-        <Link href={`/work-orders/${reference}`}>
+        <Link href={`/work-orders/${reference}`} legacyBehavior>
           <a className="lbh-link">{reference}</a>
         </Link>
       </TD>

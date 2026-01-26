@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`WorkOrderUpdateForm component should render properly when there are no added tasks 1`] = `
 <DocumentFragment>
@@ -116,7 +116,6 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                 id="original-rate-schedule-item-0"
                 name="original-rate-schedule-item-0"
                 type="hidden"
-                value=""
               />
             </div>
             <div
@@ -171,7 +170,6 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                 id="original-rate-schedule-item-1"
                 name="original-rate-schedule-item-1"
                 type="hidden"
-                value=""
               />
             </div>
             <div
@@ -385,7 +383,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                 id="original-rate-schedule-item-0"
                 name="original-rate-schedule-item-0"
                 type="hidden"
-                value=""
               />
             </div>
             <div
@@ -440,7 +437,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                 id="original-rate-schedule-item-1"
                 name="original-rate-schedule-item-1"
                 type="hidden"
-                value=""
               />
             </div>
             <div
@@ -752,7 +748,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                 id="original-rate-schedule-item-0"
                 name="original-rate-schedule-item-0"
                 type="hidden"
-                value=""
               />
             </div>
             <div
@@ -807,7 +802,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                 id="original-rate-schedule-item-1"
                 name="original-rate-schedule-item-1"
                 type="hidden"
-                value=""
               />
             </div>
             <div

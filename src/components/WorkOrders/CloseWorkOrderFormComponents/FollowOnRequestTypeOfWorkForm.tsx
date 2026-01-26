@@ -12,6 +12,7 @@ import { followOnDataRequest } from '@/root/src/utils/hact/workOrderComplete/clo
 import { useEffect, useState } from 'react'
 import { fetchSimpleFeatureToggles } from '@/root/src/utils/frontEndApiClient/requests'
 import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
+import { JSX } from 'react'
 
 interface FollowOnRequestTypeOfWorkFormProps {
   errors: DeepMap<FieldValues, FieldError>

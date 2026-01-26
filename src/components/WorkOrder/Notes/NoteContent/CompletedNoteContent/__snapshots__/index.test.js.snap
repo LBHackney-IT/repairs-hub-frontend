@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`CompletedNoteContent component When further work is required should show additional notes 1`] = `
 <DocumentFragment>

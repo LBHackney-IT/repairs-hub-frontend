@@ -27,4 +27,8 @@ module.exports = {
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   reporters: ['default'],
+  testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
 }

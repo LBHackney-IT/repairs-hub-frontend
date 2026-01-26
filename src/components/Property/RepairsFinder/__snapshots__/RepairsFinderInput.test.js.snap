@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`RepairsFinderInput Should render input 1`] = `
 <DocumentFragment>
@@ -138,19 +138,16 @@ exports[`RepairsFinderInput Should render input 1`] = `
       id="descriptionOfWork"
       name="descriptionOfWork"
       type="hidden"
-      value=""
     />
     <input
       id="trade"
       name="trade"
       type="hidden"
-      value=""
     />
     <input
       id="tradeCode"
       name="tradeCode"
       type="hidden"
-      value=""
     />
     <input
       id="contractor"
@@ -162,7 +159,6 @@ exports[`RepairsFinderInput Should render input 1`] = `
       id="contractorRef"
       name="contractorRef"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][code]"
@@ -174,25 +170,21 @@ exports[`RepairsFinderInput Should render input 1`] = `
       id="rateScheduleItems[0][description]"
       name="rateScheduleItems[0][description]"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][cost]"
       name="rateScheduleItems[0][cost]"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][quantity]"
       name="rateScheduleItems[0][quantity]"
       type="hidden"
-      value=""
     />
     <input
       id="priorityCode"
       name="priorityCode"
       type="hidden"
-      value=""
     />
   </form>
 </DocumentFragment>
@@ -558,19 +550,16 @@ exports[`RepairsFinderInput Should show error when invalid code 1`] = `
       id="descriptionOfWork"
       name="descriptionOfWork"
       type="hidden"
-      value=""
     />
     <input
       id="trade"
       name="trade"
       type="hidden"
-      value=""
     />
     <input
       id="tradeCode"
       name="tradeCode"
       type="hidden"
-      value=""
     />
     <input
       id="contractor"
@@ -582,7 +571,6 @@ exports[`RepairsFinderInput Should show error when invalid code 1`] = `
       id="contractorRef"
       name="contractorRef"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][code]"
@@ -594,25 +582,21 @@ exports[`RepairsFinderInput Should show error when invalid code 1`] = `
       id="rateScheduleItems[0][description]"
       name="rateScheduleItems[0][description]"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][cost]"
       name="rateScheduleItems[0][cost]"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][quantity]"
       name="rateScheduleItems[0][quantity]"
       type="hidden"
-      value=""
     />
     <input
       id="priorityCode"
       name="priorityCode"
       type="hidden"
-      value=""
     />
   </form>
 </DocumentFragment>
@@ -774,13 +758,11 @@ exports[`RepairsFinderInput Should show error when match not found 1`] = `
       id="trade"
       name="trade"
       type="hidden"
-      value=""
     />
     <input
       id="tradeCode"
       name="tradeCode"
       type="hidden"
-      value=""
     />
     <input
       id="contractor"
@@ -792,7 +774,6 @@ exports[`RepairsFinderInput Should show error when match not found 1`] = `
       id="contractorRef"
       name="contractorRef"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][code]"
@@ -804,13 +785,11 @@ exports[`RepairsFinderInput Should show error when match not found 1`] = `
       id="rateScheduleItems[0][description]"
       name="rateScheduleItems[0][description]"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][cost]"
       name="rateScheduleItems[0][cost]"
       type="hidden"
-      value=""
     />
     <input
       id="rateScheduleItems[0][quantity]"
