@@ -159,6 +159,49 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
           value="h02"
         />
         <div
+          class="min-height-100"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="budgetCode-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="budgetCode"
+            >
+              Budget code 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+               
+              <span>
+                 - Search by code
+              </span>
+            </label>
+            <input
+              aria-disabled="true"
+              autocomplete="off"
+              class="govuk-select lbh-select govuk-!-width-one-half"
+              data-testid="budgetCode"
+              disabled=""
+              id="budgetCode"
+              list="autocomplete-list-budgetCode"
+              name="budgetCode"
+            />
+            <datalist
+              id="autocomplete-list-budgetCode"
+            />
+          </div>
+          <input
+            id="budgetCodeId"
+            name="budgetCodeId"
+            type="hidden"
+            value=""
+          />
+        </div>
+        <div
           class="min-height-120 govuk-!-margin-bottom-6"
         >
           <div>
@@ -584,6 +627,49 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
           type="hidden"
           value=""
         />
+        <div
+          class="min-height-100"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="budgetCode-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="budgetCode"
+            >
+              Budget code 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+               
+              <span>
+                 - Search by code
+              </span>
+            </label>
+            <input
+              aria-disabled="true"
+              autocomplete="off"
+              class="govuk-select lbh-select govuk-!-width-one-half"
+              data-testid="budgetCode"
+              disabled=""
+              id="budgetCode"
+              list="autocomplete-list-budgetCode"
+              name="budgetCode"
+            />
+            <datalist
+              id="autocomplete-list-budgetCode"
+            />
+          </div>
+          <input
+            id="budgetCodeId"
+            name="budgetCodeId"
+            type="hidden"
+            value=""
+          />
+        </div>
         <div
           class="min-height-120 govuk-!-margin-bottom-6"
         >
