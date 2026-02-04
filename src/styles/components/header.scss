@@ -79,3 +79,16 @@
     }
   }
 }
+
+
+// overrides
+.lbh-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.lbh-header:after,
+.lbh-header:before {
+  border-bottom: 0;
+  border-bottom: none;
+}
