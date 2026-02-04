@@ -210,6 +210,40 @@ jobs:
 
             npx --yes serverless deploy --stage production
 
+  build-deploy-dr:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - aws-cli/install
+      - run:
+          name: deploy
+          command: |
+            export NEXT_PUBLIC_NODE_ENV=production
+            export NEXT_PUBLIC_ENV_NAME=production
+            export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_PRODUCTION
+            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=$OUT_OF_HOURS_LINK_PRODUCTION
+            export NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME=$DRS_SESSION_COOKIE_NAME
+            export NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL=$PUBLIC_STATIC_IMAGES_BUCKET_URL_PRODUCTION
+            export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+            export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
+            export NEXT_PUBLIC_SENTRY_ENVIRONMENT=production
+            export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
+            export NEXT_PUBLIC_SENTRY_DEBUG=false
+            export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_PRODUCTION
+            export NEXT_PUBLIC_MMH_FRONTEND_URL=$NEXT_PUBLIC_MMH_FRONTEND_URL_PRODUCTION
+            export NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID=$WARRANTIES_SPREADSHEET_ID
+            export NEXT_PUBLIC_REPAIRS_FINDER_INTEGRATION_ENABLED=$REPAIRS_FINDER_INTEGRATION_ENABLED_PRODUCTION
+            export NEXT_PUBLIC_REPAIRS_FINDER_LINK=$REPAIRS_FINDER_LINK_PRODUCTION
+            
+            yarn build
+            rm -rf node_modules
+            yarn install --production --frozen-lockfile
+            npx --yes serverless deploy --stage production
+
   assume-role-development:
     executor: docker-python
     steps:
@@ -249,63 +283,35 @@ jobs:
           paths:
             - .aws
 
+  assume-role-dr:
+    executor: docker-python
+    steps:
+      - checkout
+      - aws_assume_role/assume_role:
+          account: $AWS_ACCOUNT_DISASTER_RECOVERY
+          profile_name: default
+          role: 'LBH_Circle_CI_Deployment_Role'
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .aws
+
+
 workflows:
   continuous-delivery:
-    max_auto_reruns: 1
     jobs:
-      - tests
-      - e2e
-      - assume-role-development:
-          context: api-assume-role-housing-development-context
-          requires:
-            - tests
-            - e2e
+      - assume-role-dr:
+          context: api-assume-role-disaster-recovery-context
+          # requires:
+          #   - permit-deploy-dr
           filters:
             branches:
-              only: develop
-      - build-deploy-development:
+              only: disaster-recovery
+      - build-deploy-dr:
           requires:
-            - assume-role-development
+            - assume-role-dr
           context:
             - "Serverless Framework"
           filters:
             branches:
-              only: develop
-      - assume-role-staging:
-          context: api-assume-role-staging-context
-          requires:
-            - tests
-            - e2e
-          filters:
-            branches:
-              only: main
-      - build-deploy-staging:
-          requires:
-            - assume-role-staging
-          context:
-            - "Serverless Framework"
-          filters:
-            branches:
-              only: main
-      - permit-deploy-production:
-          type: approval
-          requires:
-            - build-deploy-staging
-          filters:
-            branches:
-              only: main
-      - assume-role-production:
-          context: api-assume-role-housing-production-context
-          requires:
-            - permit-deploy-production
-          filters:
-            branches:
-              only: main
-      - build-deploy-production:
-          requires:
-            - assume-role-production
-          context:
-            - "Serverless Framework"
-          filters:
-            branches:
-              only: main
+              only: disaster-recovery
