@@ -17,6 +17,7 @@ interface Props {
   errors: DeepMap<any, FieldError>
   priorityCode: number
   isPriorityEnabled: boolean
+  contractorReference: string
 }
 
 const SelectPriority = (props: Props) => {
@@ -27,21 +28,26 @@ const SelectPriority = (props: Props) => {
     register,
     errors,
     priorityCode,
+    contractorReference,
   } = props
 
   const canScheduleWithDrs = (selectedCode: number) => {
-    return PRIORITY_CODES_WITHOUT_DRS.includes(selectedCode)
+    if (contractorReference === 'H04' && selectedCode === PLANNED_PRIORITY_CODE)
+      return true
+
+    // return false if priority doesnt go to drs
+    return !PRIORITY_CODES_WITHOUT_DRS.has(selectedCode)
   }
 
-  const [drsScheduled, setDrsScheduled] = useState(
-    canScheduleWithDrs(priorityCode)
+  const [showCantUseDrsWarning, setShowCantUseDrsWarning] = useState(
+    !canScheduleWithDrs(priorityCode)
   )
   const [selectedPriority, setSelectedPriority] = useState(priorityCode)
 
   const onSelect = (e) => {
     const selectedCode = parseInt(e.target.value)
 
-    setDrsScheduled(canScheduleWithDrs(selectedCode))
+    setShowCantUseDrsWarning(!canScheduleWithDrs(selectedCode))
 
     onPrioritySelect(selectedCode)
     setSelectedPriority(selectedCode)
@@ -103,7 +109,7 @@ const SelectPriority = (props: Props) => {
         defaultValue={undefined}
         value={undefined}
       />
-      {drsScheduled && (
+      {showCantUseDrsWarning && (
         <>
           <br />
           <WarningInfoBox
