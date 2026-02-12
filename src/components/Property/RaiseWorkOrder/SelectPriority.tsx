@@ -36,7 +36,10 @@ const SelectPriority = (props: Props) => {
   const canScheduleWithDrs = (selectedCode: number) => {
     // Special case allow planned maintenance to be scheduled with DRS
     // if contractor is H04
-    if (contractorReference === gasBreakdownContractor && selectedCode === PLANNED_PRIORITY_CODE)
+    if (
+      contractorReference === gasBreakdownContractor &&
+      selectedCode === PLANNED_PRIORITY_CODE
+    )
       return true
 
     // return false if priority doesnt go to drs
