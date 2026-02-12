@@ -29,14 +29,20 @@ const SelectPriority = (props: Props) => {
     priorityCode,
   } = props
 
+  const canScheduleWithDrs = (selectedCode: number) => {
+    return PRIORITY_CODES_WITHOUT_DRS.includes(selectedCode)
+  }
+
   const [drsScheduled, setDrsScheduled] = useState(
-    PRIORITY_CODES_WITHOUT_DRS.includes(priorityCode)
+    canScheduleWithDrs(priorityCode)
   )
   const [selectedPriority, setSelectedPriority] = useState(priorityCode)
 
   const onSelect = (e) => {
     const selectedCode = parseInt(e.target.value)
-    setDrsScheduled(PRIORITY_CODES_WITHOUT_DRS.includes(selectedCode))
+
+    setDrsScheduled(canScheduleWithDrs(selectedCode))
+
     onPrioritySelect(selectedCode)
     setSelectedPriority(selectedCode)
   }
