@@ -10,6 +10,8 @@ import {
 import { Priority } from '@/root/src/models/priority'
 import { DeepMap, FieldError } from 'react-hook-form'
 
+const gasBreakdownContractor = 'H04'
+
 interface Props {
   priorities: Priority[]
   onPrioritySelect: (code: any) => void
@@ -32,7 +34,9 @@ const SelectPriority = (props: Props) => {
   } = props
 
   const canScheduleWithDrs = (selectedCode: number) => {
-    if (contractorReference === 'H04' && selectedCode === PLANNED_PRIORITY_CODE)
+    // Special case allow planned maintenance to be scheduled with DRS
+    // if contractor is H04
+    if (contractorReference === gasBreakdownContractor && selectedCode === PLANNED_PRIORITY_CODE)
       return true
 
     // return false if priority doesnt go to drs
