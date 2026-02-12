@@ -249,6 +249,7 @@ const RaiseWorkOrderForm = (props: Props) => {
               errors={errors}
               priorityCode={priorityCode}
               isPriorityEnabled={isPriorityEnabled}
+              contractorReference={contractorReference}
             />
 
             <CharacterCountLimitedTextArea

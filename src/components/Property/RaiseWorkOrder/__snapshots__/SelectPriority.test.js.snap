@@ -545,3 +545,85 @@ exports[`SelectPriority component should render without Info Box 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`SelectPriority component should render without Info Box when Planned priority is selected but contractor is H04 Gas 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-form-group lbh-form-group"
+    id="priorityCode-form-group"
+  >
+    <label
+      class="govuk-label lbh-label"
+      for="priorityCode"
+    >
+      Task priority 
+      <span
+        class="govuk-required"
+      >
+        *
+      </span>
+    </label>
+    <select
+      class="govuk-select lbh-select govuk-!-width-full"
+      data-testid="priorityCode"
+      disabled=""
+      id="priorityCode"
+      name="priorityCode"
+    >
+      <option
+        value=""
+      />
+      <option
+        value="1"
+      >
+        1 [I] IMMEDIATE
+      </option>
+      <option
+        value="2"
+      >
+        2 [E] EMERGENCY
+      </option>
+      <option
+        value="3"
+      >
+        4 [U] URGENT
+      </option>
+      <option
+        value="4"
+      >
+        5 [N] NORMAL
+      </option>
+      <option
+        value="9"
+      >
+        9 [P] PLANNED
+      </option>
+      <option
+        value="30"
+      >
+        [V30] Voids major
+      </option>
+      <option
+        value="15"
+      >
+        [V15] Voids minor
+      </option>
+      <option
+        value="200"
+      >
+        [AD20] Minor Adaptation
+      </option>
+      <option
+        value="300"
+      >
+        [AD30] Intermediate Adaptation
+      </option>
+      <option
+        value="170"
+      >
+        [AD17] Major Adaptation
+      </option>
+    </select>
+  </div>
+</DocumentFragment>
+`;

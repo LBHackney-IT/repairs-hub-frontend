@@ -100,6 +100,25 @@ describe('SelectPriority component', () => {
     ).toBeInTheDocument()
   })
 
+  it('should render without Info Box when Planned priority is selected but contractor is H04 Gas', () => {
+    const { asFragment, queryByText, getByTestId } = render(
+      <SelectPriority
+        priorities={props.priorities}
+        onPrioritySelect={props.onPrioritySelect}
+        priorityCode={props.priorityCode}
+        register={props.register}
+        errors={{}}
+        isPriorityEnabled={false}
+        contractorReference="H04"
+      />
+    )
+    fireEvent.change(getByTestId('priorityCode'), { target: { value: 9 } })
+    expect(asFragment()).toMatchSnapshot()
+    expect(
+      queryByText('Planned work orders do not go to the DRS booking system')
+    ).not.toBeInTheDocument()
+  })
+
   it('should render without Info Box', () => {
     const { asFragment } = render(
       <SelectPriority

@@ -10,6 +10,8 @@ import {
 import { Priority } from '@/root/src/models/priority'
 import { DeepMap, FieldError } from 'react-hook-form'
 
+const gasBreakdownContractor = 'H04'
+
 interface Props {
   priorities: Priority[]
   onPrioritySelect: (code: any) => void
@@ -17,6 +19,7 @@ interface Props {
   errors: DeepMap<any, FieldError>
   priorityCode: number
   isPriorityEnabled: boolean
+  contractorReference: string
 }
 
 const SelectPriority = (props: Props) => {
@@ -27,16 +30,32 @@ const SelectPriority = (props: Props) => {
     register,
     errors,
     priorityCode,
+    contractorReference,
   } = props
 
-  const [drsScheduled, setDrsScheduled] = useState(
-    PRIORITY_CODES_WITHOUT_DRS.includes(priorityCode)
+  const canScheduleWithDrs = (selectedCode: number) => {
+    // Special case allow planned maintenance to be scheduled with DRS
+    // if contractor is H04
+    if (
+      contractorReference === gasBreakdownContractor &&
+      selectedCode === PLANNED_PRIORITY_CODE
+    )
+      return true
+
+    // return false if priority doesnt go to drs
+    return !PRIORITY_CODES_WITHOUT_DRS.has(selectedCode)
+  }
+
+  const [showCantUseDrsWarning, setShowCantUseDrsWarning] = useState(
+    !canScheduleWithDrs(priorityCode)
   )
   const [selectedPriority, setSelectedPriority] = useState(priorityCode)
 
   const onSelect = (e) => {
     const selectedCode = parseInt(e.target.value)
-    setDrsScheduled(PRIORITY_CODES_WITHOUT_DRS.includes(selectedCode))
+
+    setShowCantUseDrsWarning(!canScheduleWithDrs(selectedCode))
+
     onPrioritySelect(selectedCode)
     setSelectedPriority(selectedCode)
   }
@@ -97,7 +116,7 @@ const SelectPriority = (props: Props) => {
         defaultValue={undefined}
         value={undefined}
       />
-      {drsScheduled && (
+      {showCantUseDrsWarning && (
         <>
           <br />
           <WarningInfoBox
