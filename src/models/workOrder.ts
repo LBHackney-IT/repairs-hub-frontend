@@ -1,5 +1,6 @@
 import {
   HIGH_PRIORITY_CODES,
+  PLANNED_PRIORITY_CODE,
   PRIORITY_CODES_REQUIRING_APPOINTMENTS,
 } from '@/utils/helpers/priorities'
 
@@ -57,10 +58,17 @@ export class WorkOrder {
     return PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(this.priorityCode)
   }
 
+  isPlannedGasBreakdownJob = () => {
+    return (
+      this.priorityCode === PLANNED_PRIORITY_CODE &&
+      this.contractorReference === 'H04'
+    )
+  }
+
   canBeScheduled = () => {
     return (
       this.statusAllowsScheduling() &&
-      this.isAppointmentRequired() &&
+      (this.isAppointmentRequired() || this.isPlannedGasBreakdownJob()) &&
       !this.isOutOfHoursGas()
     )
   }
