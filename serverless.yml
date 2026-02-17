@@ -77,15 +77,15 @@ resources:
       Type: AWS::CloudFront::Distribution
       Properties:
         DistributionConfig:
-          Aliases:
-            - ${self:custom.aliases.${self:provider.stage}}
+          # Aliases:
+          #   - ${self:custom.aliases.${self:provider.stage}}
           PriceClass: PriceClass_100
-          ViewerCertificate:
-            AcmCertificateArn: ${self:custom.certificate-arn.${self:provider.stage}}
-            MinimumProtocolVersion: TLSv1.2_2018
-            SslSupportMethod: sni-only
+          # ViewerCertificate:
+          #   AcmCertificateArn: ${self:custom.certificate-arn.${self:provider.stage}}
+          #   MinimumProtocolVersion: TLSv1.2_2018
+          #   SslSupportMethod: sni-only
           DefaultCacheBehavior:
-            TargetOriginId: ${self:service}-${self:provider.stage}-custom-origin
+            TargetOriginId: my-custom-origin
             ViewerProtocolPolicy: 'redirect-to-https'
             AllowedMethods:
               - GET
@@ -104,17 +104,18 @@ resources:
                 Forward: all
           Enabled: true
           Origins:
-            - Id: ${self:service}-${self:provider.stage}-custom-origin
-              DomainName: ${self:custom.domain-name}
-              OriginPath: /${self:provider.stage}
+            - Id: my-custom-origin
+              DomainName: ijt1x9684l.execute-api.eu-west-2.amazonaws.com 
+              OriginPath: /production
               CustomOriginConfig:
                 HTTPPort: 80
                 HTTPSPort: 443
-                OriginProtocolPolicy: https-only
+                OriginProtocolPolicy: https-only # Enforce HTTPS to the API Gateway
+
     staticImagesBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: repairs-hub-${opt:stage}-static-images
+        BucketName: repairs-hub-${opt:stage}-dr-static-images
         Tags:
           - Key: Confidentiality
             Value: Public
@@ -141,7 +142,7 @@ custom:
     staging:
       - sg-0166cbf56b7e77af0
     production:
-      - sg-0c40b8cfd2d03c359
+      - sg-0b7be628d680f9e5f
   subnets:
     development:
       - subnet-0140d06fb84fdb547
@@ -150,8 +151,8 @@ custom:
       - subnet-06d3de1bd9181b0d7
       - subnet-0ed7d7713d1127656
     production:
-      - subnet-0beb266003a56ca82
-      - subnet-06a697d86a9b6ed01
+      - subnet-05e595c59b7d6c8df
+      - subnet-0e6bc9b4ac24493cc
   tag-manager-id:
     development: ""
     staging: ""
