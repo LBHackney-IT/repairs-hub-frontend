@@ -118,6 +118,7 @@ describe('contractor page - when user has contract admin permissions', () => {
       activeContractsRequest()
       inactiveContractsRequest()
 
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(500)
 
       cy.wait('@activeContractsRequest', { timeout: 10000 }).then(
@@ -172,6 +173,7 @@ describe('contractor page - when user has contract admin permissions', () => {
       )
       cy.wait('@activeContractsRequest')
 
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(500)
 
       cy.get('[data-testid="no-contracts-found"]')
