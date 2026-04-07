@@ -1,19 +1,17 @@
 import Contract from '@/root/src/models/contract'
-
-import WarningInfoBox from '../../Template/WarningInfoBox'
-import ContractListItem from './ContractListItem'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import WarningInfoBox from '../../Template/WarningInfoBox'
 
 interface Props {
   contracts: Contract[]
   warningText?: string
   error?: Error | string | null
-  page: string
   activeStatus?: string
+  children: React.ReactNode
 }
 
-const ContractListItems = (props: Props) => {
-  const { contracts, warningText, error, page, activeStatus } = props
+export const ContractListItems = (props: Props) => {
+  const { contracts, warningText, error, activeStatus, children } = props
 
   return (
     <>
@@ -41,14 +39,7 @@ const ContractListItems = (props: Props) => {
             activeStatus ? `${activeStatus}-contracts-list` : 'contract-list'
           }
         >
-          {contracts?.map((contract, index) => (
-            <ContractListItem
-              key={contract.contractReference}
-              contract={contract}
-              index={index}
-              page={page}
-            />
-          ))}
+          {children}
         </ol>
       )}
 
@@ -66,5 +57,3 @@ const ContractListItems = (props: Props) => {
     </>
   )
 }
-
-export default ContractListItems
