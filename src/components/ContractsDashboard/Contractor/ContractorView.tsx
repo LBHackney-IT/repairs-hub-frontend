@@ -91,7 +91,11 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
     refetchSorContracts && refetchSorContracts()
   }
 
-  if (activeContractsLoading || inactiveContractsLoading || sorContractsIsLoading) { 
+  if (
+    activeContractsLoading ||
+    inactiveContractsLoading ||
+    sorContractsIsLoading
+  ) {
     return <Spinner />
   }
 
