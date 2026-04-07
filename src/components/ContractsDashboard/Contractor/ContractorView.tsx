@@ -8,6 +8,7 @@ import SorSearch from '../SorSearch'
 import ContractSection from '../Contract/ContractSection'
 
 import { filterRelativeInactiveContracts } from '../utils'
+import Spinner from '../../Spinner'
 
 interface ContractorViewProps {
   contractorReference: string
@@ -88,6 +89,10 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     refetchSorContracts && refetchSorContracts()
+  }
+
+  if (activeContractsLoading || inactiveContractsLoading || sorContractsIsLoading) { 
+    return <Spinner />
   }
 
   return (
