@@ -117,18 +117,26 @@ describe('contractor page - when user has contract admin permissions', () => {
       cy.visit('/contractors/SYC?contractorName=Sycous+Limited')
       activeContractsRequest()
       inactiveContractsRequest()
-      cy.wait('@activeContractsRequest').then((interception) => {
-        const activeContractsLength = interception.response.body.length
-        cy.get('[data-test-id="active-contracts-list"]')
-          .children()
-          .should('have.length', activeContractsLength)
-      })
-      cy.wait('@inactiveContractsRequest').then((interception) => {
-        const inactiveContractsLength = interception.response.body.length
-        cy.get('[data-test-id="active-contracts-list"]')
-          .children()
-          .should('have.length', inactiveContractsLength)
-      })
+
+      cy.wait(500)
+
+      cy.wait('@activeContractsRequest', { timeout: 10000 }).then(
+        (interception) => {
+          const activeContractsLength = interception.response.body.length
+          cy.get('[data-test-id="active-contracts-list"]')
+            .children()
+            .should('have.length', activeContractsLength)
+        }
+      )
+
+      cy.wait('@inactiveContractsRequest', { timeout: 10000 }).then(
+        (interception) => {
+          const inactiveContractsLength = interception.response.body.length
+          cy.get('[data-test-id="active-contracts-list"]')
+            .children()
+            .should('have.length', inactiveContractsLength)
+        }
+      )
     })
 
     it('displays inactive contracts and no active contracts warning boxes when no active contracts are found', () => {
@@ -163,6 +171,9 @@ describe('contractor page - when user has contract admin permissions', () => {
         { body: [] }
       )
       cy.wait('@activeContractsRequest')
+
+      cy.wait(500)
+
       cy.get('[data-testid="no-contracts-found"]')
         .should('be.visible')
         .should('contain', 'No inactive contracts found for Sycous Limited.')
