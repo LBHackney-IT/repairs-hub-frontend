@@ -1,9 +1,7 @@
 import { render } from '@testing-library/react'
 import MockDate from 'mockdate'
 import { filterActiveContractsByExpiryDate } from '../utils'
-import {
-  mockActiveContracts,
-} from '../mockContractsData'
+import { mockActiveContracts } from '../mockContractsData'
 import { DashboardContractListItems } from './DashboardContractListItems'
 
 describe('Contractors list items component', () => {
