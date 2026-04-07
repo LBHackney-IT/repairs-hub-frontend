@@ -35,6 +35,3 @@ export const DashboardContractListItem = (props: Props) => {
     </ContractListItem>
   )
 }
-
-
-
