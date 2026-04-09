@@ -1,9 +1,11 @@
 import Contract from '@/root/src/models/contract'
-import ContractListItems from './ContractListItems'
 import Spinner from '../../Spinner'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { JSX } from 'react'
+import { DashboardContractListItems } from './DashboardContractListItems'
+import { ContractorViewContractListItems } from './ContractorViewContractListItems'
+import { SorSearchContractListItems } from './SorSearchContractListItems'
 
 interface ContractSectionProps {
   heading?: string
@@ -45,16 +47,26 @@ const ContractSection = ({
           <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
             {subHeading}
           </h3>
-          <ContractListItems contracts={contracts} page="sorSearch" />
+          <SorSearchContractListItems contracts={contracts} />
         </>
       )}
 
-      {page !== 'sorSearch' && contracts && contracts?.length > 0 && (
-        <ContractListItems
-          contracts={contracts}
-          page={page}
-          activeStatus={activeStatus}
-        />
+      {page === 'dashboard' && contracts && contracts?.length > 0 && (
+        <>
+          <DashboardContractListItems
+            contracts={contracts}
+            activeStatus={activeStatus}
+          />
+        </>
+      )}
+
+      {page === 'contractor' && contracts && contracts?.length > 0 && (
+        <>
+          <ContractorViewContractListItems
+            contracts={contracts}
+            activeStatus={activeStatus}
+          />
+        </>
       )}
 
       {contracts === null ||

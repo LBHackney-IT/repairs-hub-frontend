@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Contractors list items component should render contracts that expire in two months with relevant fields 1`] = `
+<DocumentFragment>
+  <ol
+    data-test-id="contract-list"
+    style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
+  >
+    <li
+      data-id="0"
+      style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          126-126-1266
+        </h5>
+        <p>
+          Sycous Limited
+        </p>
+        <p>
+          Expires: 
+          <span
+            style="font-weight: 600;"
+          >
+            9 Aug 2025
+          </span>
+        </p>
+      </div>
+    </li>
+  </ol>
+</DocumentFragment>
+`;
