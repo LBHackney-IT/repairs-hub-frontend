@@ -91,7 +91,7 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
         path: `/api/jobStatusUpdate`,
         requestData: {
           ...formData,
-          variationVersion: workOrder?.variationVersion
+          variationVersion: workOrder?.variationVersion,
         },
       })
       setOverSpendLimit(overSpendLimit)
