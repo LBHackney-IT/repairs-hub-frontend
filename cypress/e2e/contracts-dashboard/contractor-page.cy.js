@@ -117,12 +117,14 @@ describe('contractor page - when user has contract admin permissions', () => {
       cy.visit('/contractors/SYC?contractorName=Sycous+Limited')
       activeContractsRequest()
       inactiveContractsRequest()
+
       cy.wait('@activeContractsRequest').then((interception) => {
         const activeContractsLength = interception.response.body.length
         cy.get('[data-test-id="active-contracts-list"]')
           .children()
           .should('have.length', activeContractsLength)
       })
+
       cy.wait('@inactiveContractsRequest').then((interception) => {
         const inactiveContractsLength = interception.response.body.length
         cy.get('[data-test-id="active-contracts-list"]')
@@ -163,6 +165,7 @@ describe('contractor page - when user has contract admin permissions', () => {
         { body: [] }
       )
       cy.wait('@activeContractsRequest')
+
       cy.get('[data-testid="no-contracts-found"]')
         .should('be.visible')
         .should('contain', 'No inactive contracts found for Sycous Limited.')

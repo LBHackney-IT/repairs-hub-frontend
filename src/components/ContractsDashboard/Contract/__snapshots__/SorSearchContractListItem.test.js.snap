@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Contractors list item component sorSearch should render a contract that has the sor code in it with relevant fields 1`] = `
+<DocumentFragment>
+  <li
+    data-id="1"
+    style="border: 5px solid rgb(0, 102, 79); border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+  >
+    <div
+      class="contract-details"
+    >
+      <h5
+        style="white-space: nowrap;"
+      >
+        155-155-1555
+      </h5>
+      <p
+        style="color: red;"
+      >
+        Expired: 11 May 2025
+      </p>
+    </div>
+  </li>
+</DocumentFragment>
+`;
