@@ -11,6 +11,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   DATA_ADMIN_ROLE,
+  CONTRACTOR_CAN_CANCEL_ROLE,
 } from './user'
 
 export const WORK_ORDER_ACTIONS = [
@@ -54,6 +55,7 @@ export const WORK_ORDER_ACTIONS = [
       AGENT_ROLE,
       AUTHORISATION_MANAGER_ROLE,
       CONTRACT_MANAGER_ROLE,
+      CONTRACTOR_CAN_CANCEL_ROLE,
     ],
     permittedStatuses: WORK_ORDERS_STATUSES.filter((status) => {
       return status !== STATUS_CANCELLED.description
