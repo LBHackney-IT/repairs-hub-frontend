@@ -53,6 +53,7 @@ functions:
       CONFIGURATION_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/configuration-api-url}
       CONTACT_DETAILS_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/contact-details-api-url}
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
+      CONTRACTOR_CAN_CANCEL_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contractor-can-cancel-group}
       CONTRACTORS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/contractors-group-regex}
       DRS_WEB_SERVICES_PASSWORD: ${ssm:/repairs-hub/${self:provider.stage}/drs-password}
       DRS_WEB_SERVICES_URL: ${ssm:/repairs-hub/${self:provider.stage}/drs-url}

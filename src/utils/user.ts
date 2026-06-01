@@ -2,6 +2,7 @@ export const AGENT_ROLE = 'agent'
 export const CONTRACTOR_ROLE = 'contractor'
 export const DLO_CONTRACTOR_ROLE = 'dlo_contractor'
 export const CONTRACT_MANAGER_ROLE = 'contract_manager'
+export const CONTRACTOR_CAN_CANCEL_ROLE = 'contractor_cancel'
 export const AUTHORISATION_MANAGER_ROLE = 'authorisation_manager'
 export const OPERATIVE_ROLE = 'operative'
 export const BUDGET_CODE_OFFICER_ROLE = 'budget_code_officer'
@@ -13,6 +14,7 @@ export const ALL_ROLES = [
   AGENT_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
+  CONTRACTOR_CAN_CANCEL_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
   BUDGET_CODE_OFFICER_ROLE,
@@ -29,6 +31,7 @@ export const buildUser = (
 ) => {
   const {
     CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
+    CONTRACTOR_CAN_CANCEL_GOOGLE_GROUPNAME,
     AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
     OPERATIVES_GOOGLE_GROUPNAME,
     BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME,
@@ -57,6 +60,10 @@ export const buildUser = (
 
       if (isContractManagerGroupName(groupName)) {
         roles.add(CONTRACT_MANAGER_ROLE)
+      }
+
+      if (isContractorCanCancelGroupName(groupName)) {
+        roles.add(CONTRACTOR_CAN_CANCEL_GOOGLE_GROUPNAME)
       }
 
       if (isAuthorisationManagerGroupName(groupName)) {
@@ -106,6 +113,9 @@ export const buildUser = (
 
   const isContractManagerGroupName = (groupName: string) =>
     groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME
+
+  const isContractorCanCancelGroupName = (groupName: string) =>
+    groupName === CONTRACTOR_CAN_CANCEL_GOOGLE_GROUPNAME
 
   const isAuthorisationManagerGroupName = (groupName: string) =>
     groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME
@@ -165,6 +175,7 @@ export const buildUser = (
     hasDLOContractorPermissions: hasRole(DLO_CONTRACTOR_ROLE),
     hasExternalContractorPermissions: hasExternalContractorPermissions(),
     hasContractManagerPermissions: hasRole(CONTRACT_MANAGER_ROLE),
+    hasContractorCancelPermissions: hasRole(CONTRACTOR_CAN_CANCEL_ROLE),
     hasAuthorisationManagerPermissions: hasRole(AUTHORISATION_MANAGER_ROLE),
     hasOperativePermissions: hasRole(OPERATIVE_ROLE),
     hasAnyPermissions: roles.length > 0,
