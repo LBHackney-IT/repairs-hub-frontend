@@ -141,6 +141,7 @@ export const buildUser = (
   const groupNames = authServiceGroups.filter(
     (groupName) =>
       isContractManagerGroupName(groupName) ||
+      isContractorCanCancelGroupName(groupName) ||
       isAuthorisationManagerGroupName(groupName) ||
       isAgentGroupName(groupName) ||
       isDloContractorGroupName(groupName) ||
