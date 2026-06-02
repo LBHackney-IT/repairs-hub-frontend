@@ -5,6 +5,7 @@ import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
+  CONTRACTOR_CAN_CANCEL_ROLE,
 } from '@/utils/user'
 
 const WorkOrderCancelPage = ({ query }) => {
@@ -22,6 +23,7 @@ WorkOrderCancelPage.permittedRoles = [
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
+  CONTRACTOR_CAN_CANCEL_ROLE,
 ]
 
 export default WorkOrderCancelPage
