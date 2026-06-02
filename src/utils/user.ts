@@ -63,7 +63,7 @@ export const buildUser = (
       }
 
       if (isContractorCanCancelGroupName(groupName)) {
-        roles.add(CONTRACTOR_CAN_CANCEL_GOOGLE_GROUPNAME)
+        roles.add(CONTRACTOR_CAN_CANCEL_ROLE)
       }
 
       if (isAuthorisationManagerGroupName(groupName)) {
