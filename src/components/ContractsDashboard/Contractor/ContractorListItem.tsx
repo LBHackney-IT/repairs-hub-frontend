@@ -27,9 +27,9 @@ const ContractorListItem = (props: Props) => {
       <li
         style={{
           cursor: 'pointer',
-          padding: '1.5rem',
-          borderRadius: '20px',
-          width: '85%',
+          padding: '20px',
+          borderRadius: '5px',
+          width: '100%',
           ...(activeContractCount
             ? { backgroundColor: '#D4EDDA' }
             : { backgroundColor: '#F0F0F0' }),
@@ -40,11 +40,11 @@ const ContractorListItem = (props: Props) => {
           <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
             {`${contractorName}`}
           </h3>
-          <p>
+          <p style={{marginTop: 10}}>
             Active contracts:{' '}
             <span style={{ fontWeight: 800 }}>{activeContractCount}</span>
           </p>
-          <p>
+          <p style={{marginTop: 10}}>
             Inactive contracts:{' '}
             <span style={{ fontWeight: 800 }}>
               {totalContractCount - activeContractCount}
