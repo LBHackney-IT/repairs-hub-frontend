@@ -1,3 +1,4 @@
+import ContractDashboardContractor from '../../models/contractDashboardContractor'
 import Contractor from '../../models/contractor'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
@@ -5,7 +6,7 @@ import { frontEndApiRequest } from '../frontEndApiClient/requests'
 
 export const getContractor = async (
   contractorReference: string
-): Promise<ApiResponseType<Contractor | null>> => {
+): Promise<ApiResponseType<ContractDashboardContractor | null>> => {
   try {
     const contractor = await frontEndApiRequest({
       method: 'get',
@@ -38,7 +39,7 @@ interface FetchContractorsArguments {
 
 export const fetchContractors = async ({
   contractsExpiryFilterDate,
-}: FetchContractorsArguments): Promise<Contractor[] | null> => {
+}: FetchContractorsArguments): Promise<ContractDashboardContractor[] | null> => {
   const params = {}
   if (contractsExpiryFilterDate !== null)
     params['contractsExpiryFilterDate'] = contractsExpiryFilterDate

@@ -1,17 +1,19 @@
 import Link from 'next/link'
 import cx from 'classnames'
+import ContractDashboardContractor from '@/root/src/models/contractDashboardContractor'
 
-interface ContractorListItemProps {
-  contractorReference: string
-  contractorName: string
-  activeContractCount: number
+interface Props {
+  contractor: ContractDashboardContractor
 }
 
-const ContractorListItem = ({
-  contractorReference,
-  contractorName,
-  activeContractCount,
-}: ContractorListItemProps) => {
+const ContractorListItem = (props: Props) => {
+  const {
+    contractorReference,
+    contractorName,
+    activeContractCount,
+    totalContractCount = 7 // placeholder
+  } = props.contractor
+
   return (
     <Link
       href={{
@@ -41,6 +43,12 @@ const ContractorListItem = ({
           <p>
             Active contracts:{' '}
             <span style={{ fontWeight: 800 }}>{activeContractCount}</span>
+          </p>
+          <p>
+            Inactive contracts:{' '}
+            <span style={{ fontWeight: 800 }}>
+              {totalContractCount - activeContractCount}
+            </span>
           </p>
         </div>
         <div className="govuk-!-margin-0">

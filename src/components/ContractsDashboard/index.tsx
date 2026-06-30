@@ -6,8 +6,8 @@ import WarningInfoBox from '../Template/WarningInfoBox'
 import ErrorMessage from '../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractSection from './Contract/ContractSection'
-import { fetchContractors } from '@/root/src/utils/requests/contractor'
-import { fetchContracts } from '@/root/src/utils/requests/contract'
+// import { fetchContractors } from '@/root/src/utils/requests/contractor'
+// import { fetchContracts } from '@/root/src/utils/requests/contract'
 
 import {
   filterActiveContractsByExpiryDate,
@@ -17,6 +17,9 @@ import {
 
 import Contract from '@/root/src/models/contract'
 import Contractor from '@/root/src/models/contractor'
+import { fetchContracts } from '../../utils/requests/contract'
+import ContractDashboardContractor from '../../models/contractDashboardContractor'
+import { fetchContractors } from '../../utils/requests/contractor'
 
 const ContractsDashboard = () => {
   const {
@@ -66,7 +69,7 @@ const ContractsDashboard = () => {
   )
 
   const contracts = contractData as Contract[] | null
-  const contractors = contractorData as Contractor[] | null
+  const contractors = contractorData as ContractDashboardContractor[] | null
   const expiredContracts = expiredContractData as Contract[] | null
   const contractError = contractsError as Error | null
   const contractorError = contractorsError as Error | null
