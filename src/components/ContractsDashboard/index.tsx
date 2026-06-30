@@ -88,7 +88,7 @@ const ContractsDashboard = () => {
     <Layout title="Contracts Dashboard">
       <>
         <ContractSection
-          heading="Contracts due to expire soon:"
+          heading="Contracts due to expire soon"
           contracts={contractsThatExpireWithinTwoMonths}
           isLoading={contractsIsLoading}
           warningText="No contracts expiring in the next two months."
@@ -97,7 +97,7 @@ const ContractsDashboard = () => {
         />
 
         <ContractSection
-          heading="Contracts that have recently expired:"
+          heading="Contracts that have recently expired"
           contracts={recentlyExpiredContracts}
           isLoading={expiredContractsIsLoading}
           warningText="No contracts have expired in the last month."
@@ -106,7 +106,7 @@ const ContractsDashboard = () => {
         />
 
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
-          Contractors:
+          Contractors
         </h3>
         {contractorsIsLoading ? (
           <>
