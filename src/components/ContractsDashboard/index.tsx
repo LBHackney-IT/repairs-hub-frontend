@@ -5,7 +5,7 @@ import Spinner from '../Spinner'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import ErrorMessage from '../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
-import ContractSection from './Contract/ContractSection'
+// import ContractSection from './Contract/ContractSection/ContractSection'
 // import { fetchContractors } from '@/root/src/utils/requests/contractor'
 // import { fetchContracts } from '@/root/src/utils/requests/contract'
 
@@ -20,6 +20,8 @@ import Contractor from '@/root/src/models/contractor'
 import { fetchContracts } from '../../utils/requests/contract'
 import ContractDashboardContractor from '../../models/contractDashboardContractor'
 import { fetchContractors } from '../../utils/requests/contractor'
+import ContractSection from './Contract/ContractsSection/ContractSection'
+import { DashboardContractSection } from './Contract/ContractsSection/DashboardContractSection'
 
 const ContractsDashboard = () => {
   const {
@@ -90,27 +92,26 @@ const ContractsDashboard = () => {
   return (
     <Layout title="Contracts Dashboard">
       <>
-        <ContractSection
+        <DashboardContractSection
           heading="Contracts due to expire soon"
           contracts={contractsThatExpireWithinTwoMonths}
           isLoading={contractsIsLoading}
           warningText="No contracts expiring in the next two months."
           error={contractError}
-          page="dashboard"
         />
 
-        <ContractSection
+        <DashboardContractSection
           heading="Contracts that have recently expired"
           contracts={recentlyExpiredContracts}
           isLoading={expiredContractsIsLoading}
           warningText="No contracts have expired in the last month."
           error={expiredContractError}
-          page="dashboard"
         />
 
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
           Contractors
         </h3>
+        
         {contractorsIsLoading ? (
           <>
             <Spinner />
