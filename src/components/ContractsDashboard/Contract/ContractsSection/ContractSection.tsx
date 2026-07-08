@@ -1,10 +1,7 @@
 import Contract from '@/root/src/models/contract'
 import Spinner from '../../../Spinner'
-import WarningInfoBox from '../../../Template/WarningInfoBox'
 import ErrorMessage from '../../../Errors/ErrorMessage'
 import { JSX } from 'react'
-import { DashboardContractListItems } from '../DashboardContractListItems'
-import { ContractorViewContractListItems } from '../ContractorViewContractListItems'
 import { SorSearchContractListItems } from '../SorSearchContractListItems'
 import { NoContractsFoundMessage } from './NoContractsFoundMessage'
 
@@ -79,40 +76,11 @@ const ContractSection = ({
             </>
           )}
 
-          {page === 'dashboard' && contracts && contracts?.length > 0 && (
-            <>
-              <DashboardContractListItems
-                contracts={contracts}
-                activeStatus={activeStatus}
-              />
-            </>
-          )}
-
-          {page === 'contractor' && contracts && contracts?.length > 0 && (
-            <>
-              <ContractorViewContractListItems
-                contracts={contracts}
-                activeStatus={activeStatus}
-              />
-            </>
-          )}
 
           {contracts === null ||
             (contracts?.length === 0 && (
               <NoContractsFoundMessage warningText={warningText} />
             ))}
-
-          {error && (
-            <ErrorMessage
-              label={
-                error instanceof Error
-                  ? error.message
-                  : typeof error === 'string'
-                  ? error
-                  : 'An unexpected error occurred'
-              }
-            />
-          )}
         </>
       </ContractsSectionWrapper>
     </>

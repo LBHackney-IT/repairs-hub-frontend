@@ -10,7 +10,6 @@ interface Props {
   contracts: ContractorWithContracts[]
   warningText?: string
   error?: Error | string | null
-  // activeStatus?: string
 }
 
 export const DashboardContractsGroupedByContractor = (props: Props) => {
@@ -33,41 +32,45 @@ export const DashboardContractsGroupedByContractor = (props: Props) => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            // display: 'grid',
-            // gridTemplateColumns: 'repeat(auto-fill, 10rem)',
             gap: '1rem',
             listStyle: 'none',
             padding: 0,
             margin: 0,
             marginTop: '15px',
           }}
-          // data-test-id={
-          //   activeStatus ? `${activeStatus}-contracts-list` : 'contract-list'
-          // }
         >
           {contracts.map((x) => (
             <li style={{ marginTop: '0px' }}>
-              <Link
-                href={`/contractors/${x.contractor.reference}`}
-                className="lbh-link"
+              <div
                 style={{
-                  // textDecorationColor: "#0b0c0c",
-                  textDecoration: 'none',
-                  // borderBottom: "1px solid #333",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <p className="lbh-heading-h5" style={{ marginTop: '0px' }}>
                   {x.contractor.name} ({x.contractor.reference})
                 </p>
-              </Link>
+
+                <Link
+                  href={`/contractors/${x.contractor.reference}`}
+                  className="lbh-link "
+                  style={{
+                    // textDecoration: 'none',
+                    marginTop: '0px',
+                    fontWeight: '100',
+                    fontSize: "16px"
+                  }}
+                >
+                  View contractor
+                </Link>
+              </div>
 
               <ul
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   background: 'rgb(240, 240, 240)',
-                  // boxSizing: 'content-box',
-                  // padding: '10px',
                   borderRadius: '5px',
                   marginTop: '10px',
                   paddingTop: '15px',
@@ -81,21 +84,15 @@ export const DashboardContractsGroupedByContractor = (props: Props) => {
                     <li
                       className="lbh-body-s"
                       style={{
-                        // display: 'flex',
                         marginTop: '0px',
                         boxSizing: 'border-box',
-                        // background: '#eee',
                         width: '100%',
                         padding: '0 15px 10px',
-                        // justifyContent: 'space-between',
-
                         display: 'grid',
                         gridTemplateColumns: '2fr 2fr 4fr',
                         gap: '10px',
                       }}
                     >
-                      {/* {c.contractReference} - {c.} */}
-
                       <p style={{ marginTop: 0, marginLeft: '10px' }}>
                         {c.contractReference}
                       </p>

@@ -11,16 +11,13 @@ import ContractorsListItems from './Contractor/ContractorsListItems'
 
 import {
   filterActiveContractsByExpiryDate,
-  filterInactiveContractsByExpiryDate,
   today,
 } from './utils'
 
 import Contract from '@/root/src/models/contract'
-import Contractor from '@/root/src/models/contractor'
 import { fetchContracts } from '../../utils/requests/contract'
 import ContractDashboardContractor from '../../models/contractDashboardContractor'
 import { fetchContractors } from '../../utils/requests/contractor'
-import ContractSection from './Contract/ContractsSection/ContractSection'
 import { DashboardContractSection } from './Contract/ContractsSection/DashboardContractSection'
 
 const ContractsDashboard = () => {
@@ -29,30 +26,9 @@ const ContractsDashboard = () => {
     isLoading: contractsIsLoading,
     error: contractsError,
   } = useQuery(
-    ['contracts', { isActive: true, contractorReference: null, sorCode: null }],
+    ['contracts', { contractorReference: null, sorCode: null }],
     () =>
-      fetchContracts({
-        isActive: true,
-        contractorReference: null,
-        sorCode: null,
-      })
-  )
-
-  const {
-    data: expiredContractData,
-    isLoading: expiredContractsIsLoading,
-    error: expiredContractsError,
-  } = useQuery(
-    [
-      'contracts',
-      { isActive: false, contractorReference: null, sorCode: null },
-    ],
-    () =>
-      fetchContracts({
-        isActive: false,
-        contractorReference: null,
-        sorCode: null,
-      })
+      fetchContracts({ contractorReference: null, sorCode: null })
   )
 
   // Date used to filter contractors by the expiry date of their contracts. If the date is 01/01/2020, only contractors with contracts that expired on or after that date, or will expire in the future, will be shown.
@@ -72,10 +48,8 @@ const ContractsDashboard = () => {
 
   const contracts = contractData as Contract[] | null
   const contractors = contractorData as ContractDashboardContractor[] | null
-  const expiredContracts = expiredContractData as Contract[] | null
   const contractError = contractsError as Error | null
   const contractorError = contractorsError as Error | null
-  const expiredContractError = expiredContractsError as Error | null
 
   const contractsThatExpireWithinTwoMonths = filterActiveContractsByExpiryDate(
     contracts,
@@ -83,35 +57,25 @@ const ContractsDashboard = () => {
     today
   )
 
-  const recentlyExpiredContracts = filterInactiveContractsByExpiryDate(
-    expiredContracts,
-    -1,
-    today
-  )
-
   return (
     <Layout title="Contracts Dashboard">
       <>
-        <DashboardContractSection
-          heading="Contracts due to expire soon"
-          contracts={contractsThatExpireWithinTwoMonths}
-          isLoading={contractsIsLoading}
-          warningText="No contracts expiring in the next two months."
-          error={contractError}
-        />
-
-        <DashboardContractSection
-          heading="Contracts that have recently expired"
-          contracts={recentlyExpiredContracts}
-          isLoading={expiredContractsIsLoading}
-          warningText="No contracts have expired in the last month."
-          error={expiredContractError}
-        />
+        {contractsIsLoading ? (
+          <p>loading...</p>
+        ) : (
+          <DashboardContractSection
+            heading="All contracts"
+            contracts={[...contractsThatExpireWithinTwoMonths]}
+            isLoading={contractsIsLoading}
+            warningText="No contracts expiring in the next two months."
+            error={contractError}
+          />
+        )}
 
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
           Contractors
         </h3>
-        
+
         {contractorsIsLoading ? (
           <>
             <Spinner />

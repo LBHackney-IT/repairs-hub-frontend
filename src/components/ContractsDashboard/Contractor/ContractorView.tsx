@@ -1,26 +1,22 @@
 import { useQuery } from 'react-query'
 import { useMemo, useState } from 'react'
 import { fetchContracts } from '@/root/src/utils/requests/contract'
-
 import Layout from '../../BackOffice/Layout'
 import SorSearch from '../SorSearch'
-
-import ContractSection from '../Contract/ContractSection'
-
-import { filterRelativeInactiveContracts } from '../utils'
 import Spinner from '../../Spinner'
+import { ContractorContractSection } from '../Contract/ContractsSection/ContractorContractSection'
 
-interface ContractorViewProps {
+interface Props {
   contractorReference: string
 }
 
-const ContractorView = ({ contractorReference }: ContractorViewProps) => {
+const ContractorView = ({ contractorReference }: Props) => {
   const [sorCode, setSorCode] = useState<string>('')
 
   const {
-    data: activeContracts,
-    isLoading: activeContractsLoading,
-    error: activeError,
+    data: contracts,
+    isLoading: isLoadingContracts,
+    error: contractsError,
   } = useQuery(
     [
       'activeContracts',
@@ -28,28 +24,11 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
     ],
     () =>
       fetchContracts({
-        isActive: true,
         contractorReference: contractorReference,
         sorCode: null,
       })
   )
 
-  const {
-    data: inactiveContracts,
-    isLoading: inactiveContractsLoading,
-    error: inactiveError,
-  } = useQuery(
-    [
-      'inactiveContracts',
-      { isActive: false, contractorReference: contractorReference },
-    ],
-    () =>
-      fetchContracts({
-        isActive: false,
-        contractorReference: contractorReference,
-        sorCode: null,
-      })
-  )
   const {
     data: contractsWithSorCode,
     isLoading: sorContractsIsLoading,
@@ -68,23 +47,16 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
     }
   )
 
-  const contractorName =
-    activeContracts?.[0]?.contractorName ||
-    inactiveContracts?.[0]?.contractorName
+  // not ideal
+  const contractorName = contracts?.[0]?.contractorName 
 
   const descendingDateContractsWithSorCode = useMemo(
     () => (contractsWithSorCode ? [...contractsWithSorCode].reverse() : null),
     [contractsWithSorCode]
   )
 
-  const activeContractsError = activeError as Error | null
-  const inactiveContractsError = inactiveError as Error | null
   const contractsWithSorCodeError = sorContractsError as Error | null
 
-  const relativeInactiveContracts = filterRelativeInactiveContracts(
-    inactiveContracts,
-    '2020'
-  )
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -92,8 +64,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   }
 
   if (
-    activeContractsLoading ||
-    inactiveContractsLoading ||
+    isLoadingContracts ||
     sorContractsIsLoading
   ) {
     return <Spinner />
@@ -101,24 +72,13 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
 
   return (
     <Layout title={`${contractorName} ${contractorReference}`}>
-      <ContractSection
-        contracts={activeContracts}
-        heading="Active contracts:"
-        isLoading={activeContractsLoading}
-        warningText={`No active contracts found for ${contractorName}.`}
-        error={activeContractsError}
-        page="contractor"
+      <ContractorContractSection
+        contracts={[...contracts]}
+        heading="All contracts"
+        isLoading={isLoadingContracts}
+        warningText={`No contracts found.`}
+        error={contractsError as Error | null}
         activeStatus="active"
-      />
-
-      <ContractSection
-        contracts={relativeInactiveContracts}
-        heading="Inactive contracts (from 2020):"
-        isLoading={inactiveContractsLoading}
-        warningText={`No inactive contracts found for ${contractorName}.`}
-        error={inactiveContractsError}
-        page="contractor"
-        activeStatus="inactive"
       />
 
       <SorSearch

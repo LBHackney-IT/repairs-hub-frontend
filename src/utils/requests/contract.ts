@@ -1,11 +1,10 @@
 import Contract from '../../models/contract'
-import ContractDashboardContractor from '../../models/contractDashboardContractor'
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
 
 interface FetchContractsArguments {
-  isActive: boolean | undefined
-  contractorReference: string | undefined
-  sorCode: string | undefined
+  isActive?: Boolean
+  contractorReference?: string
+  sorCode?: string
 }
 
 export const fetchContracts = async ({
@@ -28,14 +27,3 @@ export const fetchContracts = async ({
 
   return contracts
 }
-
-// export const fetchContract = async (
-//   contractReference: string
-// ): Promise<ContractDashboardContractor | null> => {
-//   const contract = await frontEndApiRequest({
-//     method: 'get',
-//     path: `/api/backoffice/contract/${contractReference}`,
-//   })
-
-//   return contract
-// }

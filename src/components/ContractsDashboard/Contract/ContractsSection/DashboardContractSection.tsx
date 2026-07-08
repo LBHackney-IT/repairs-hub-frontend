@@ -1,6 +1,5 @@
 import Contract from '@/root/src/models/contract'
 import { JSX } from 'react'
-import { DashboardContractListItems } from '../DashboardContractListItems'
 import { NoContractsFoundMessage } from './NoContractsFoundMessage'
 import { ContractsSectionWrapper } from './ContractSection'
 import { DashboardContractsGroupedByContractor } from '../DashboardContractsGroupedByContractor'
@@ -15,11 +14,11 @@ interface Props {
 }
 
 export type ContractorWithContracts = {
-     contracts: Contract[]
-    contractor: {
-      name: string
-      reference: string
-    }
+  contracts: Contract[]
+  contractor: {
+    name: string
+    reference: string
+  }
 }
 
 export type ContractsByContractor = {
@@ -58,12 +57,13 @@ export const DashboardContractSection = ({
 
     // return contractsByContractor
 
-    return Object.keys(contractsByContractor).map(x => contractsByContractor[x])
-    .sort((a, b) => {
+    return Object.keys(contractsByContractor)
+      .map((x) => contractsByContractor[x])
+      .sort((a, b) => {
         if (a.contractor.name < b.contractor.name) return -1
         if (a.contractor.name > b.contractor.name) return 1
         return 0
-    })
+      })
 
     // const contractsByContractor: {[ key: string]: Contract[] } = Object.assign({}, ...contracts.map((x) => ({[x.]: x.country})))
   }
@@ -81,8 +81,6 @@ export const DashboardContractSection = ({
           {contracts && contracts?.length > 0 && (
             <DashboardContractsGroupedByContractor
               contracts={contractsGroupedByContractor}
-              
-            //   activeStatus={activeStatus}
             />
           )}
 
