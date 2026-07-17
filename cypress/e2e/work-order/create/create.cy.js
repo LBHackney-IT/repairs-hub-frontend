@@ -594,6 +594,9 @@ describe('Raise repair form', () => {
     cy.get('#priorityCode')
       .find('option:selected')
       .should('have.text', '2 [E] EMERGENCY')
+
+    cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+
     cy.get('button[id="remove-rate-schedule-item-2"]').contains('Remove')
 
     // No warning if within raise limit
@@ -757,6 +760,7 @@ describe('Raise repair form', () => {
         },
         budgetCode: { id: '4' },
         multiTradeWorkOrder: false,
+        isAwaabsDampAndMouldRepair: false,
       })
     })
 
@@ -839,6 +843,7 @@ describe('Raise repair form', () => {
     cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type(1)
 
     cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
+    cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
 
     cy.get('[data-testid="descriptionOfWork"]').type('description')
     cy.get('[data-testid="callerName"]').type('steve')
@@ -947,6 +952,7 @@ describe('Raise repair form', () => {
             },
           },
           multiTradeWorkOrder: false,
+          isAwaabsDampAndMouldRepair: false,
         })
       }
     )
@@ -1070,6 +1076,8 @@ describe('Raise repair form', () => {
             .find('option:selected')
             .should('have.text', '1 [I] IMMEDIATE')
 
+          cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+
           cy.contains('+ Add another SOR code').click()
 
           cy.get('input[id="rateScheduleItems[1][code]"]').type('DES')
@@ -1167,6 +1175,7 @@ describe('Raise repair form', () => {
             },
             budgetCode: { id: '1' },
             multiTradeWorkOrder: true,
+            isAwaabsDampAndMouldRepair: false,
           })
         })
       })
@@ -1206,6 +1215,8 @@ describe('Raise repair form', () => {
       cy.get('#priorityCode')
         .find('option:selected')
         .should('have.text', '1 [I] IMMEDIATE')
+
+      cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
 
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
       cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
@@ -1332,6 +1343,8 @@ describe('Raise repair form', () => {
       'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
     )
 
+    cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+
     // Fill in Repair Description
     cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
@@ -1403,6 +1416,8 @@ describe('Raise repair form', () => {
 
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
       cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
+
+      cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
 
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
@@ -1489,6 +1504,7 @@ describe('Raise repair form', () => {
           },
           budgetCode: { id: '12' },
           multiTradeWorkOrder: false,
+          isAwaabsDampAndMouldRepair: false,
         })
       })
     })
@@ -1525,6 +1541,8 @@ describe('Raise repair form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
         cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
+
+        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
 
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
