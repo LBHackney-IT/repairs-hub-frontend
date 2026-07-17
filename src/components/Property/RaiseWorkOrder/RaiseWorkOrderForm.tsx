@@ -5,6 +5,7 @@ import {
   PrimarySubmitButton,
   CharacterCountLimitedTextArea,
   TextInput,
+  Checkbox,
 } from '../../Form'
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import Contacts from '../Contacts/Contacts'
@@ -23,6 +24,8 @@ import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
 import { Trade } from '@/root/src/models/trade'
 import PropertyFlagsWrapper from '../../PropertyFlagsWrapper/PropertyFlagsWrapper'
+import Radios from '../../Form/Radios'
+import { RaiseWorkOrderAwaabs } from './RaiseWorkOrderAwaabs'
 
 interface Props {
   propertyReference: string
@@ -116,11 +119,15 @@ const RaiseWorkOrderForm = (props: Props) => {
           : daysInHours(priority.daysToComplete),
     })
 
+    console.log({ scheduleWorkOrderFormData })
+
     // follow-on parent
     const parentWorkOrderId =
       formData?.isFollowOn === 'true' && formData?.parentWorkOrder
         ? formData.parentWorkOrder
         : null
+
+    return
 
     onFormSubmit(scheduleWorkOrderFormData, parentWorkOrderId)
   }
@@ -250,6 +257,12 @@ const RaiseWorkOrderForm = (props: Props) => {
               priorityCode={priorityCode}
               isPriorityEnabled={isPriorityEnabled}
               contractorReference={contractorReference}
+            />
+
+            <RaiseWorkOrderAwaabs
+              register={register}
+              watch={watch}
+              errors={errors}
             />
 
             <CharacterCountLimitedTextArea
