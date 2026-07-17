@@ -30,10 +30,6 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
           >
             Reason for closing 
           </legend>
-          <span
-            class="govuk-hint lbh-hint"
-            id="reason-hint"
-          />
           <div
             class="govuk-radios lbh-radios"
           >
