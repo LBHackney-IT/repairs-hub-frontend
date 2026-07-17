@@ -165,7 +165,7 @@ describe('Schedule appointment form', () => {
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
 
         cy.get('#priorityCode').select('5 [N] NORMAL')
-
+        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
 
         cy.get('#callerName').type('Bob Leek', { force: true })
@@ -256,6 +256,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
+                isAwaabsDampAndMouldRepair: false,
               })
           })
       })
@@ -426,6 +427,7 @@ describe('Schedule appointment form', () => {
 
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
       cy.get('#priorityCode').select('5 [N] NORMAL')
+      cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
       cy.get('#callerName').type('Bob Leek', { force: true })
 

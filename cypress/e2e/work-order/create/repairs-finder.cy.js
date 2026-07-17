@@ -277,6 +277,7 @@ describe('Raise repair with Repairs Finder', () => {
           },
         },
         multiTradeWorkOrder: false,
+        isAwaabsDampAndMouldRepair: false,
       })
     })
   })
