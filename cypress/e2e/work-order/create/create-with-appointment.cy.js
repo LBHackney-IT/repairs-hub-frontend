@@ -389,6 +389,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
+                isAwaabsDampAndMouldRepair: false,
               })
           })
       })
