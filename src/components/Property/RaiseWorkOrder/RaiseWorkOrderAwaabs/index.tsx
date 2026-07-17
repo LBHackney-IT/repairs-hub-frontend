@@ -82,7 +82,7 @@ const RaiseWorkOrderAwaabsAdditionalOptions = (props: {
     <div>
       <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
         <legend className="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-padding-top-3">
-          What is the reason for this Awaab's Repair?
+          What is the reason for this Awaab&apos;s Repair?
         </legend>
 
         <div
