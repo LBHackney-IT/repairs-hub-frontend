@@ -90,6 +90,8 @@ const RaiseWorkOrderForm = (props: Props) => {
     errors,
     setValue,
     getValues,
+    clearErrors,
+    setError,
     watch,
   } = useForm({
     defaultValues: { ...formState },
@@ -258,6 +260,9 @@ const RaiseWorkOrderForm = (props: Props) => {
               register={register}
               watch={watch}
               errors={errors}
+              clearErrors={clearErrors}
+              setError={setError}
+              getValues={getValues}
             />
 
             <CharacterCountLimitedTextArea

@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Checkbox } from '../../../Form'
 import Radios from '../../../Form/Radios'
+import ErrorMessage from '../../../Errors/ErrorMessage'
 
 interface Props {
   register: any
   watch: any
   errors: { [key: string]: { message: string } }
+  clearErrors: any
+  setError: any
+  getValues: any
 }
 
 const RADIO_OPTIONS = [
@@ -14,7 +18,7 @@ const RADIO_OPTIONS = [
 ]
 
 export const RaiseWorkOrderAwaabs = (props: Props) => {
-  const { register, errors, watch } = props
+  const { register, errors, watch, getValues, setError, clearErrors } = props
 
   const [showAdditionalOptions, setShowAdditionalOptions] = useState<boolean>(
     false
@@ -50,6 +54,11 @@ export const RaiseWorkOrderAwaabs = (props: Props) => {
               <RaiseWorkOrderAwaabsAdditionalOptions
                 register={register}
                 visible={showAdditionalOptions}
+                isAnAwaabsRepairSelected={showAdditionalOptions}
+                clearErrors={clearErrors}
+                setError={setError}
+                getValues={getValues}
+                errors={errors}
               />
             ) : null,
         }))}
@@ -73,8 +82,42 @@ const AWAABS_ADDITIONAL_OPTIONS: {
 const RaiseWorkOrderAwaabsAdditionalOptions = (props: {
   visible: boolean
   register: any
+  isAnAwaabsRepairSelected: boolean
+  clearErrors: any
+  setError: any
+  getValues: any
+  errors: { [key: string]: { message: string } }
 }) => {
-  const { visible, register } = props
+  const {
+    visible,
+    register,
+    isAnAwaabsRepairSelected,
+    clearErrors,
+    setError,
+    getValues,
+    errors,
+  } = props
+
+  const validateAtLeastOneOptionSelected = () => {
+    if (!isAnAwaabsRepairSelected) {
+      clearErrors('typeOfAwaabsWork')
+      return
+    }
+
+    const isAnyChecked =
+      AWAABS_ADDITIONAL_OPTIONS.filter((x) => getValues(x.name) === true)
+        .length >= 1
+
+    if (!isAnyChecked) {
+      setError('typeOfAwaabsWork', {
+        type: 'manual',
+        message: 'Please select at least one reason',
+      })
+      return
+    }
+
+    clearErrors('typeOfAwaabsWork')
+  }
 
   if (!visible) return
 
@@ -84,6 +127,14 @@ const RaiseWorkOrderAwaabsAdditionalOptions = (props: {
         <legend className="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-padding-top-3">
           What is the reason for this Awaab&apos;s Repair?
         </legend>
+
+        {/* <p>checked: {isAnyChecked ? "TRUE" : "FALSE"}</p> */}
+
+        {errors.typeOfAwaabsWork && (
+          <div style={{ marginTop: 0, marginBlock: 10 }}>
+            <ErrorMessage label={errors.typeOfAwaabsWork.message} />
+          </div>
+        )}
 
         <div
           className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
@@ -96,7 +147,11 @@ const RaiseWorkOrderAwaabsAdditionalOptions = (props: {
               label={x.label}
               name={x.name}
               key={x.name}
-              register={register()}
+              register={register({
+                validate: () => {
+                  validateAtLeastOneOptionSelected()
+                },
+              })}
               error={undefined}
               className="govuk-!-margin-0"
               labelClassName="lbh-body-xs govuk-!-margin-0 checkbox-negative-margin"
