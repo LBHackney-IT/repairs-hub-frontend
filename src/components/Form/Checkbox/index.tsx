@@ -6,7 +6,7 @@ interface Props {
   name: string
   register: any
   error: string | null
-  
+
   hintText?: string
   labelClassName?: string
   checked?: boolean

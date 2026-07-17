@@ -101,6 +101,7 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
     multiTradeWorkOrder: workOrderData.tradeCode === MULTITRADE_TRADE_CODE,
 
     // new Awaab's related fields
-    isAwaabsDampAndMouldRepair: workOrderData.isAwaabsDampAndMouldRepair === true
+    isAwaabsDampAndMouldRepair:
+      workOrderData.isAwaabsDampAndMouldRepair === true,
   }
 }
