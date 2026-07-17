@@ -5,7 +5,6 @@ import {
   PrimarySubmitButton,
   CharacterCountLimitedTextArea,
   TextInput,
-  Checkbox,
 } from '../../Form'
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import Contacts from '../Contacts/Contacts'
@@ -119,15 +118,11 @@ const RaiseWorkOrderForm = (props: Props) => {
           : daysInHours(priority.daysToComplete),
     })
 
-    console.log({ scheduleWorkOrderFormData })
-
     // follow-on parent
     const parentWorkOrderId =
       formData?.isFollowOn === 'true' && formData?.parentWorkOrder
         ? formData.parentWorkOrder
         : null
-
-    return
 
     onFormSubmit(scheduleWorkOrderFormData, parentWorkOrderId)
   }
