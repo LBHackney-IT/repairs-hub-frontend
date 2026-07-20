@@ -3,7 +3,6 @@ import {
   useContext,
   Dispatch,
   SetStateAction,
-  useEffect,
 } from 'react'
 import { useForm } from 'react-hook-form'
 import BackButton from '../../Layout/BackButton'
@@ -30,8 +29,7 @@ import SorCode from '@/root/src/models/sorCode'
 import { Trade } from '@/root/src/models/trade'
 import PropertyFlagsWrapper from '../../PropertyFlagsWrapper/PropertyFlagsWrapper'
 import { RaiseWorkOrderAwaabs } from './RaiseWorkOrderAwaabs'
-import { fetchSimpleFeatureToggles } from '@/root/src/utils/frontEndApiClient/requests'
-import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
+import { useSimpleFeatureToggles } from '@/root/src/hooks/useSimpleFeatureToggle'
 
 interface Props {
   propertyReference: string
@@ -60,21 +58,6 @@ interface Props {
   isIncrementalSearchEnabled: boolean
   setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
   enablePriorityField: () => void
-}
-
-const useSimpleFeatureToggles = () => {
-  const [
-    simpleFeatureToggles,
-    setSimpleFeatureToggles,
-  ] = useState<SimpleFeatureToggleResponse>()
-
-  useEffect(() => {
-    fetchSimpleFeatureToggles().then((fetchedFeatureToggles) => {
-      setSimpleFeatureToggles(fetchedFeatureToggles)
-    })
-  }, [])
-
-  return [simpleFeatureToggles]
 }
 
 const RaiseWorkOrderForm = (props: Props) => {
