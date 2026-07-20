@@ -12,6 +12,18 @@ describe('Schedule appointment form', () => {
     cy.loginWithAgentRole()
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          enableNewAwaabsFields: true,
+        },
+      }
+    ).as('feature-toggle')
+
+    cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     ).as('property')
