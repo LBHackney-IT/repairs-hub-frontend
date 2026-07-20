@@ -1,4 +1,10 @@
-import { useState, useContext, Dispatch, SetStateAction } from 'react'
+import {
+  useState,
+  useContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react'
 import { useForm } from 'react-hook-form'
 import BackButton from '../../Layout/BackButton'
 import {
@@ -23,8 +29,9 @@ import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
 import { Trade } from '@/root/src/models/trade'
 import PropertyFlagsWrapper from '../../PropertyFlagsWrapper/PropertyFlagsWrapper'
-import Radios from '../../Form/Radios'
 import { RaiseWorkOrderAwaabs } from './RaiseWorkOrderAwaabs'
+import { fetchSimpleFeatureToggles } from '@/root/src/utils/frontEndApiClient/requests'
+import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
 
 interface Props {
   propertyReference: string
@@ -53,6 +60,21 @@ interface Props {
   isIncrementalSearchEnabled: boolean
   setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
   enablePriorityField: () => void
+}
+
+const useSimpleFeatureToggles = () => {
+  const [
+    simpleFeatureToggles,
+    setSimpleFeatureToggles,
+  ] = useState<SimpleFeatureToggleResponse>()
+
+  useEffect(() => {
+    fetchSimpleFeatureToggles().then((fetchedFeatureToggles) => {
+      setSimpleFeatureToggles(fetchedFeatureToggles)
+    })
+  }, [])
+
+  return [simpleFeatureToggles]
 }
 
 const RaiseWorkOrderForm = (props: Props) => {
@@ -98,6 +120,7 @@ const RaiseWorkOrderForm = (props: Props) => {
   })
 
   const { user } = useContext(UserContext)
+  const [simpleFeatureToggles] = useSimpleFeatureToggles()
 
   const [priorityCode, setPriorityCode] = useState<number>()
   const [totalCost, setTotalCost] = useState('')
@@ -256,14 +279,16 @@ const RaiseWorkOrderForm = (props: Props) => {
               contractorReference={contractorReference}
             />
 
-            <RaiseWorkOrderAwaabs
-              register={register}
-              watch={watch}
-              errors={errors}
-              clearErrors={clearErrors}
-              setError={setError}
-              getValues={getValues}
-            />
+            {simpleFeatureToggles?.enableNewAwaabsFields && (
+              <RaiseWorkOrderAwaabs
+                register={register}
+                watch={watch}
+                errors={errors}
+                clearErrors={clearErrors}
+                setError={setError}
+                getValues={getValues}
+              />
+            )}
 
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"
