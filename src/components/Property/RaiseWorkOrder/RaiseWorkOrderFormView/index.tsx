@@ -25,6 +25,7 @@ import RaiseWorkOrderFormMeta from './Meta'
 import AnnouncementMessage from './AnnouncementMessage'
 import RaiseWorkOrderSuccessPage from './SuccessPage'
 import { Trade } from '@/root/src/models/trade'
+import { useSimpleFeatureToggles } from '@/root/src/hooks/useSimpleFeatureToggle'
 
 interface Props {
   propertyReference: string
@@ -83,6 +84,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
     false
   )
+
+  const [
+    simpleFeatureToggles,
+    isLoadingFeatureToggles,
+  ] = useSimpleFeatureToggles()
 
   const onFormSubmit = async (formData, parentWorkOrderId = null) => {
     setLoading(true)
@@ -267,7 +273,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     return tradeCode == oohTradeCode
   }
 
-  if (loading) {
+  if (loading || isLoadingFeatureToggles) {
     return <Spinner />
   }
 
@@ -322,6 +328,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
           isIncrementalSearchEnabled={isIncrementalSearchEnabled}
           setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
           enablePriorityField={() => setIsPriorityEnabled(true)}
+          simpleFeatureToggles={simpleFeatureToggles}
         />
       )}
 

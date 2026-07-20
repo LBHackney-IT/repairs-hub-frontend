@@ -2,17 +2,31 @@ import { useEffect, useState } from 'react'
 import { SimpleFeatureToggleResponse } from '../pages/api/simple-feature-toggle'
 import { fetchSimpleFeatureToggles } from '../utils/frontEndApiClient/requests'
 
-export const useSimpleFeatureToggles = () => {
+export const useSimpleFeatureToggles = (): [
+  SimpleFeatureToggleResponse,
+  boolean
+] => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const [
     simpleFeatureToggles,
     setSimpleFeatureToggles,
   ] = useState<SimpleFeatureToggleResponse>()
 
   useEffect(() => {
-    fetchSimpleFeatureToggles().then((fetchedFeatureToggles) => {
-      setSimpleFeatureToggles(fetchedFeatureToggles)
-    })
+    setIsLoading(true)
+
+    fetchSimpleFeatureToggles()
+      .then((fetchedFeatureToggles) => {
+        setSimpleFeatureToggles(fetchedFeatureToggles)
+      })
+      .catch((err) => {
+        console.error('failed to fetch feature toggles', err)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [])
 
-  return [simpleFeatureToggles]
+  return [simpleFeatureToggles, isLoading]
 }
