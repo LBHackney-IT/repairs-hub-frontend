@@ -49,6 +49,10 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 // Form layout consistancy changes
 // only apply to specific forms
 
+.checkbox-negative-margin {
+  margin-top: -3px !important;
+}
+
 
 .photos-tab,
 .close-work-order-form,

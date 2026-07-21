@@ -70,6 +70,7 @@ functions:
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
       FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.follow-on-is-emergency-field-enabled.${self:provider.stage}}
+      ENABLE_NEW_AWAABS_FIELDS: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-new-awaabs-fields}
       TAG_MANAGER_ID: ${self:custom.tag-manager-id.${self:provider.stage}}
 
 resources:

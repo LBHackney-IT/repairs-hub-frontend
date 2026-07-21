@@ -354,6 +354,69 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
           </select>
         </div>
         <div
+          style="background: rgb(249, 249, 249); padding: 15px;"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Is this Repair related to Awaab's law? 
+            </legend>
+            <span
+              class="govuk-hint lbh-hint"
+              id="isAwaabsLawRepair-hint"
+            >
+              Was the cause of this repair related to Awaabs?
+            </span>
+            <div
+              class="govuk-radios lbh-radios"
+            >
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="isAwaabsLawRepair"
+                  id="isAwaabsLawRepair_true"
+                  name="isAwaabsLawRepair"
+                  type="radio"
+                  value="true"
+                />
+                <label
+                  class="govuk-label lbh-label govuk-radios__label"
+                  for="isAwaabsLawRepair_true"
+                >
+                  Yes
+                </label>
+              </div>
+              <div
+                class="govuk-radios__conditional"
+                id="conditional-contact"
+              />
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="isAwaabsLawRepair"
+                  id="isAwaabsLawRepair_false"
+                  name="isAwaabsLawRepair"
+                  type="radio"
+                  value="false"
+                />
+                <label
+                  class="govuk-label lbh-label govuk-radios__label"
+                  for="isAwaabsLawRepair_false"
+                >
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
           class="govuk-form-group lbh-form-group"
           id="descriptionOfWork-form-group"
         >
@@ -808,6 +871,69 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
           </select>
         </div>
         <div
+          style="background: rgb(249, 249, 249); padding: 15px;"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Is this Repair related to Awaab's law? 
+            </legend>
+            <span
+              class="govuk-hint lbh-hint"
+              id="isAwaabsLawRepair-hint"
+            >
+              Was the cause of this repair related to Awaabs?
+            </span>
+            <div
+              class="govuk-radios lbh-radios"
+            >
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="isAwaabsLawRepair"
+                  id="isAwaabsLawRepair_true"
+                  name="isAwaabsLawRepair"
+                  type="radio"
+                  value="true"
+                />
+                <label
+                  class="govuk-label lbh-label govuk-radios__label"
+                  for="isAwaabsLawRepair_true"
+                >
+                  Yes
+                </label>
+              </div>
+              <div
+                class="govuk-radios__conditional"
+                id="conditional-contact"
+              />
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="isAwaabsLawRepair"
+                  id="isAwaabsLawRepair_false"
+                  name="isAwaabsLawRepair"
+                  type="radio"
+                  value="false"
+                />
+                <label
+                  class="govuk-label lbh-label govuk-radios__label"
+                  for="isAwaabsLawRepair_false"
+                >
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
           class="govuk-form-group lbh-form-group"
           id="descriptionOfWork-form-group"
         >
@@ -1217,6 +1343,69 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
               5 [N] NORMAL
             </option>
           </select>
+        </div>
+        <div
+          style="background: rgb(249, 249, 249); padding: 15px;"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Is this Repair related to Awaab's law? 
+            </legend>
+            <span
+              class="govuk-hint lbh-hint"
+              id="isAwaabsLawRepair-hint"
+            >
+              Was the cause of this repair related to Awaabs?
+            </span>
+            <div
+              class="govuk-radios lbh-radios"
+            >
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="isAwaabsLawRepair"
+                  id="isAwaabsLawRepair_true"
+                  name="isAwaabsLawRepair"
+                  type="radio"
+                  value="true"
+                />
+                <label
+                  class="govuk-label lbh-label govuk-radios__label"
+                  for="isAwaabsLawRepair_true"
+                >
+                  Yes
+                </label>
+              </div>
+              <div
+                class="govuk-radios__conditional"
+                id="conditional-contact"
+              />
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="isAwaabsLawRepair"
+                  id="isAwaabsLawRepair_false"
+                  name="isAwaabsLawRepair"
+                  type="radio"
+                  value="false"
+                />
+                <label
+                  class="govuk-label lbh-label govuk-radios__label"
+                  for="isAwaabsLawRepair_false"
+                >
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="govuk-form-group lbh-form-group"
