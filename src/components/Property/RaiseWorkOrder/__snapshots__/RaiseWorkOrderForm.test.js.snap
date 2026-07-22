@@ -368,7 +368,7 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
               class="govuk-hint lbh-hint"
               id="isAwaabsLawRepair-hint"
             >
-              Was the cause of this repair related to Awaabs?
+              Was the cause of this repair related to Awaabs's law?
             </span>
             <div
               class="govuk-radios lbh-radios"
@@ -885,7 +885,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
               class="govuk-hint lbh-hint"
               id="isAwaabsLawRepair-hint"
             >
-              Was the cause of this repair related to Awaabs?
+              Was the cause of this repair related to Awaabs's law?
             </span>
             <div
               class="govuk-radios lbh-radios"
@@ -1359,7 +1359,7 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
               class="govuk-hint lbh-hint"
               id="isAwaabsLawRepair-hint"
             >
-              Was the cause of this repair related to Awaabs?
+              Was the cause of this repair related to Awaabs's law?
             </span>
             <div
               class="govuk-radios lbh-radios"
