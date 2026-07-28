@@ -28,6 +28,10 @@ describe('RaiseWorkOrderForm component', () => {
     }
   })
 
+  const featureToggles = {
+    enableNewAwaabsFields: true,
+  }
+
   const props = {
     property: {
       propertyReference: '00012345',
@@ -111,6 +115,7 @@ describe('RaiseWorkOrderForm component', () => {
           setContractorReference={props.setContractorReference}
           budgetCodeId={''}
           setBudgetCodeId={props.setBudgetCodeId}
+          simpleFeatureToggles={featureToggles}
         />
       </UserContext.Provider>
     )
@@ -149,6 +154,7 @@ describe('RaiseWorkOrderForm component', () => {
           setContractorReference={props.setContractorReference}
           budgetCodeId={''}
           setBudgetCodeId={props.setBudgetCodeId}
+          simpleFeatureToggles={featureToggles}
         />
       </UserContext.Provider>
     )
@@ -218,6 +224,7 @@ describe('RaiseWorkOrderForm component', () => {
           setContractorReference={props.setContractorReference}
           budgetCodeId={''}
           setBudgetCodeId={props.setBudgetCodeId}
+          simpleFeatureToggles={featureToggles}
         />
       </UserContext.Provider>
     )
