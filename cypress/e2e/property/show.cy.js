@@ -408,7 +408,7 @@ describe('Show property', () => {
         cy.visit('/properties/00012345')
         cy.wait('@propertyNotRaisable')
 
-        // cy.contains('Raise a work order on this dwelling').should('not.exist')
+        cy.contains('Raise a work order on this dwelling').should('not.exist')
 
         cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
           cy.contains(
