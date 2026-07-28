@@ -39,7 +39,7 @@ export const RaiseWorkOrderAwaabs = (props: Props) => {
       <Radios
         name="isAwaabsLawRepair"
         label="Is this Repair related to Awaab's law?"
-        hint="Was the cause of this repair related to Awaabs?"
+        hint="Was the cause of this repair related to Awaabs's law?"
         register={register({
           required: 'Please select an option',
         })}
