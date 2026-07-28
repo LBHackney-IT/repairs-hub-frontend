@@ -138,6 +138,7 @@ describe('Schedule appointment form', () => {
       { body: '' }
     ).as('apiCheckjobStatus')
   })
+  
 
   context('There are available appointments', () => {
     beforeEach(() => {
