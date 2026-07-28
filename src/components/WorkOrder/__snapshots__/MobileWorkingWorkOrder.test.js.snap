@@ -524,10 +524,6 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
       >
         Payment type 
       </legend>
-      <span
-        class="govuk-hint lbh-hint"
-        id="paymentType-hint"
-      />
       <div
         class="govuk-radios lbh-radios"
       >
@@ -2648,10 +2644,6 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
       >
         Payment type 
       </legend>
-      <span
-        class="govuk-hint lbh-hint"
-        id="paymentType-hint"
-      />
       <div
         class="govuk-radios lbh-radios"
       >

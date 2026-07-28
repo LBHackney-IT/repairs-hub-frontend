@@ -185,6 +185,7 @@ describe('buildScheduleWorkOrderFormData', () => {
         },
       },
       multiTradeWorkOrder: false,
+      isAwaabsDampAndMouldRepair: false,
     })
   })
 
@@ -297,6 +298,7 @@ describe('buildScheduleWorkOrderFormData', () => {
         },
       },
       multiTradeWorkOrder: false,
+      isAwaabsDampAndMouldRepair: false,
     })
   })
 })

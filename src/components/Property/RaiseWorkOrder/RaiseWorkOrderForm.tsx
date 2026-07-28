@@ -23,6 +23,9 @@ import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
 import { Trade } from '@/root/src/models/trade'
 import PropertyFlagsWrapper from '../../PropertyFlagsWrapper/PropertyFlagsWrapper'
+import { RaiseWorkOrderAwaabs } from './RaiseWorkOrderAwaabs'
+import { useSimpleFeatureToggles } from '@/root/src/hooks/useSimpleFeatureToggle'
+import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
 
 interface Props {
   propertyReference: string
@@ -51,6 +54,7 @@ interface Props {
   isIncrementalSearchEnabled: boolean
   setIsIncrementalSearchEnabled: Dispatch<SetStateAction<boolean>>
   enablePriorityField: () => void
+  simpleFeatureToggles: SimpleFeatureToggleResponse
 }
 
 const RaiseWorkOrderForm = (props: Props) => {
@@ -80,6 +84,7 @@ const RaiseWorkOrderForm = (props: Props) => {
     isIncrementalSearchEnabled,
     setIsIncrementalSearchEnabled,
     enablePriorityField,
+    simpleFeatureToggles,
   } = props
 
   const {
@@ -88,13 +93,14 @@ const RaiseWorkOrderForm = (props: Props) => {
     errors,
     setValue,
     getValues,
+    clearErrors,
+    setError,
     watch,
   } = useForm({
     defaultValues: { ...formState },
   })
 
   const { user } = useContext(UserContext)
-
   const [priorityCode, setPriorityCode] = useState<number>()
   const [totalCost, setTotalCost] = useState('')
   const overSpendLimit = totalCost > raiseLimit
@@ -251,6 +257,17 @@ const RaiseWorkOrderForm = (props: Props) => {
               isPriorityEnabled={isPriorityEnabled}
               contractorReference={contractorReference}
             />
+
+            {simpleFeatureToggles?.enableNewAwaabsFields && (
+              <RaiseWorkOrderAwaabs
+                register={register}
+                watch={watch}
+                errors={errors}
+                clearErrors={clearErrors}
+                setError={setError}
+                getValues={getValues}
+              />
+            )}
 
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"

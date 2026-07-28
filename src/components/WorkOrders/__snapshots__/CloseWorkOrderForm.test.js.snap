@@ -27,10 +27,6 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         >
           Reason for closing 
         </legend>
-        <span
-          class="govuk-hint lbh-hint"
-          id="reason-hint"
-        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -497,10 +493,6 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         >
           Payment type 
         </legend>
-        <span
-          class="govuk-hint lbh-hint"
-          id="paymentType-hint"
-        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -640,10 +632,6 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         >
           Reason for closing 
         </legend>
-        <span
-          class="govuk-hint lbh-hint"
-          id="reason-hint"
-        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -1200,10 +1188,6 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         >
           Payment type 
         </legend>
-        <span
-          class="govuk-hint lbh-hint"
-          id="paymentType-hint"
-        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -1343,10 +1327,6 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
         >
           Reason for closing 
         </legend>
-        <span
-          class="govuk-hint lbh-hint"
-          id="reason-hint"
-        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -1813,10 +1793,6 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
         >
           Payment type 
         </legend>
-        <span
-          class="govuk-hint lbh-hint"
-          id="paymentType-hint"
-        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -1956,10 +1932,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         >
           Reason for closing 
         </legend>
-        <span
-          class="govuk-hint lbh-hint"
-          id="reason-hint"
-        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -2516,10 +2488,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         >
           Payment type 
         </legend>
-        <span
-          class="govuk-hint lbh-hint"
-          id="paymentType-hint"
-        />
         <div
           class="govuk-radios lbh-radios"
         >

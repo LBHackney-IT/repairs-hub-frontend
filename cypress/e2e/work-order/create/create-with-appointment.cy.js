@@ -12,6 +12,18 @@ describe('Schedule appointment form', () => {
     cy.loginWithAgentRole()
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          enableNewAwaabsFields: true,
+        },
+      }
+    ).as('feature-toggle')
+
+    cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     ).as('property')
@@ -164,6 +176,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('2 [E] EMERGENCY')
+        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
 
@@ -253,6 +266,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
+                isAwaabsDampAndMouldRepair: false,
               })
           })
       })
@@ -298,6 +312,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('5 [N] NORMAL')
+        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
         cy.get('#contactNumber')
@@ -386,6 +401,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
+                isAwaabsDampAndMouldRepair: false,
               })
           })
       })
@@ -526,6 +542,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('5 [N] NORMAL')
+        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Test Caller', { force: true })
         cy.get('#contactNumber')
@@ -598,6 +615,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('4 [U] URGENT')
+        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Test Caller', { force: true })
         cy.get('#contactNumber')
@@ -652,6 +670,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('1 [I] IMMEDIATE')
+        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Test Caller', { force: true })
         cy.get('#contactNumber')
@@ -695,6 +714,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('2 [E] EMERGENCY')
+        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Test Caller', { force: true })
         cy.get('#contactNumber')
@@ -767,6 +787,7 @@ describe('Schedule appointment form', () => {
             cy.contains('VOIDS priority')
             cy.contains('VOIDS work orders do not go to the DRS booking system')
           })
+          cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
           cy.get('#callerName').type('Test Caller', { force: true })
           cy.get('#contactNumber')
