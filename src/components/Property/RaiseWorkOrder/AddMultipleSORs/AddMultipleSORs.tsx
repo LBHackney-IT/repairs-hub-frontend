@@ -32,63 +32,10 @@ const AddMultipleSORs = (props: Props) => {
   const { register, handleSubmit, errors } = useForm()
 
   const {
-    validationErrors,
-    setValidationErrors,
+    validationError,
     isLoading,
-    setIsLoading,
-    extractSorCodes,
-    findDuplicateSorCodes,
-  } = useAddMultipleSORs()
-
-  //   554410585 4
-  // 554410585 2
-  // 554410523
-
-  const parseAndValidateCodes = async (
-    textInput: string
-  ): Promise<SorCodeWithQuantity[] | null> => {
-    const extractedSorCodeData = extractSorCodes(textInput)
-
-    if (extractedSorCodeData.length === 0) {
-      setValidationErrors(["You haven't included any codes"])
-      return null
-    }
-
-    const duplicateCodes = findDuplicateSorCodes(extractedSorCodeData)
-    if (duplicateCodes.length >= 1) {
-      setValidationErrors([
-        `Duplicate SOR codes found: ${duplicateCodes.join(', ')}`,
-      ])
-      return null
-    }
-
-    const validationResult = await sorExistenceValidationCallback(
-      extractedSorCodeData.map((x) => x.code)
-    )
-
-    if (validationResult?.invalidCodes.length >= 1) {
-      setValidationErrors([
-        `The following codes are invalid: ${validationResult?.invalidCodes.join(
-          ', '
-        )}`,
-      ])
-      return null
-    }
-
-    // is success
-
-    const sorCodeQuantity: { [key: string]: string } = {}
-    extractedSorCodeData.forEach((x) => {
-      sorCodeQuantity[x.code] = x.quantity
-    })
-
-    return validationResult.validCodes.map((x) => {
-      return {
-        ...x,
-        quantity: sorCodeQuantity[x.code],
-      }
-    })
-  }
+    parseAndValidateCodes,
+  } = useAddMultipleSORs(sorExistenceValidationCallback)
 
   const [validSorCodes, setValidSorCodes] = useState<
     SorCodeWithQuantity[] | null
@@ -102,21 +49,12 @@ const AddMultipleSORs = (props: Props) => {
   }, [textInput])
 
   const handleNewInput = async (textInput: string) => {
-    // if (isLoading) return
-
-    setIsLoading(true)
-    setValidationErrors([])
     setValidSorCodes(null)
 
-    setTimeout(async () => {
+    const sorCodes = await parseAndValidateCodes(textInput)
 
-      const sorCodes = await parseAndValidateCodes(textInput)
-      setIsLoading(false)
-
-      if (sorCodes === null) return
-    
-      setValidSorCodes(sorCodes)
-    }, 1000)
+    if (sorCodes === null) return
+    setValidSorCodes(sorCodes)
   }
 
   const onSubmit = async () => {
@@ -160,20 +98,20 @@ const AddMultipleSORs = (props: Props) => {
           onInput={(e) => setTextInput(e.target.value)}
         />
 
-        {validationErrors.length > 0 && (
+        {validationError !== null && (
           <WarningInfoBox
             className="variant-error"
             header="Validation error"
-            text={`${validationErrors.join(' ')}`}
+            text={validationError}
           />
         )}
 
-       {validSorCodes?.length >= 1 && (
-         <WarningInfoBox
+        {validSorCodes?.length >= 1 && (
+          <WarningInfoBox
             header="SOR Codes Found"
             text={`Successfully validated ${validSorCodes?.length} codes`}
           />
-       )}
+        )}
 
         {isLoading && (
           <div>

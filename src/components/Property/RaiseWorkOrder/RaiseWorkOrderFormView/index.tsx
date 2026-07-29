@@ -25,7 +25,9 @@ import AnnouncementMessage from './AnnouncementMessage'
 import RaiseWorkOrderSuccessPage from './SuccessPage'
 import { Trade } from '@/root/src/models/trade'
 import { useSimpleFeatureToggles } from '@/root/src/hooks/useSimpleFeatureToggle'
-import AddMultipleSORs, { SorCodeWithQuantity } from '../AddMultipleSORs/AddMultipleSORs'
+import AddMultipleSORs, {
+  SorCodeWithQuantity,
+} from '../AddMultipleSORs/AddMultipleSORs'
 
 interface Props {
   propertyReference: string
@@ -232,6 +234,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
       setSorCodeArrays(sorCodesInIncremental)
     } else {
+      console.log({ sorCodes })
+
       const sorCodesInNonIncremental = [
         ...sorCodeArrays,
         ...sorCodes.map((c) => [c]),
@@ -251,7 +255,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
             } - £${code.cost.toString()}`,
             cost: code.cost.toString(),
             description: code.shortDescription,
-            quantity: code.quantity
+            quantity: code.quantity,
           })),
         ],
       }
@@ -278,7 +282,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     addMultipleSorCodesToForm(sorCodes)
 
     if (sorCodes.length > 0) {
-      // I think this is to reset the priority field 
+      // I think this is to reset the priority field
       setIsPriorityEnabled(true)
     }
   }

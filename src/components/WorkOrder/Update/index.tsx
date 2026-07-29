@@ -22,7 +22,9 @@ import SorCode from '@/root/src/models/sorCode'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
-import AddMultipleSORs, { SorCodeWithQuantity } from '../../Property/RaiseWorkOrder/AddMultipleSORs/AddMultipleSORs'
+import AddMultipleSORs, {
+  SorCodeWithQuantity,
+} from '../../Property/RaiseWorkOrder/AddMultipleSORs/AddMultipleSORs'
 
 interface Props {
   reference: string
@@ -266,10 +268,9 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
     setSorCodeArrays(codes)
   }
 
-    const onSubmitAddMultipleSorCodes = (sorCodes: SorCodeWithQuantity[]) => {
-      setSorCodesFromBatchUpload(sorCodes)
-  
-    }
+  const onSubmitAddMultipleSorCodes = (sorCodes: SorCodeWithQuantity[]) => {
+    setSorCodesFromBatchUpload(sorCodes)
+  }
 
   if (loading) {
     return <Spinner />
