@@ -999,7 +999,7 @@ describe('Raise repair form', () => {
     cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
     cy.get('[data-testid="reasonForRepair"]').select('Damp & Mould')
     // Validate at least one option is selected
-    cy.get('[data-testid="isAwaabsDampAndMouldRepair"]').click()
+    cy.get('[data-testid="reasonForRepair"]').select('Damp & Mould')
 
     cy.get('[data-testid="descriptionOfWork"]').type('description')
     cy.get('[data-testid="callerName"]').type('steve')
