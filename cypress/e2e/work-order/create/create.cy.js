@@ -607,7 +607,7 @@ describe('Raise repair form', () => {
       .find('option:selected')
       .should('have.text', '2 [E] EMERGENCY')
 
-    cy.get('[data-testid="reasonForRepair"]').select("None of the above")
+    cy.get('[data-testid="reasonForRepair"]').select('None of the above')
 
     cy.get('button[id="remove-rate-schedule-item-2"]').contains('Remove')
 
@@ -855,7 +855,7 @@ describe('Raise repair form', () => {
     cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type(1)
 
     cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
-    cy.get('[data-testid="reasonForRepair"]').select("None of the above")
+    cy.get('[data-testid="reasonForRepair"]').select('None of the above')
 
     cy.get('[data-testid="descriptionOfWork"]').type('description')
     cy.get('[data-testid="callerName"]').type('steve')
@@ -997,7 +997,7 @@ describe('Raise repair form', () => {
     cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type(1)
 
     cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
-    cy.get('[data-testid="reasonForRepair"]').select("Damp & Mould")
+    cy.get('[data-testid="reasonForRepair"]').select('Damp & Mould')
     // Validate at least one option is selected
     cy.get('[data-testid="isAwaabsDampAndMouldRepair"]').click()
 
@@ -1232,7 +1232,7 @@ describe('Raise repair form', () => {
             .find('option:selected')
             .should('have.text', '1 [I] IMMEDIATE')
 
-          cy.get('[data-testid="reasonForRepair"]').select("None of the above")
+          cy.get('[data-testid="reasonForRepair"]').select('None of the above')
 
           cy.contains('+ Add another SOR code').click()
 
@@ -1372,7 +1372,7 @@ describe('Raise repair form', () => {
         .find('option:selected')
         .should('have.text', '1 [I] IMMEDIATE')
 
-      cy.get('[data-testid="reasonForRepair"]').select("None of the above")
+      cy.get('[data-testid="reasonForRepair"]').select('None of the above')
 
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
       cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
@@ -1499,7 +1499,7 @@ describe('Raise repair form', () => {
       'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
     )
 
-    cy.get('[data-testid="reasonForRepair"]').select("None of the above")
+    cy.get('[data-testid="reasonForRepair"]').select('None of the above')
 
     // Fill in Repair Description
     cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
@@ -1573,7 +1573,7 @@ describe('Raise repair form', () => {
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
       cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
 
-      cy.get('[data-testid="reasonForRepair"]').select("None of the above")
+      cy.get('[data-testid="reasonForRepair"]').select('None of the above')
 
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
@@ -1698,7 +1698,7 @@ describe('Raise repair form', () => {
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
         cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
 
-        cy.get('[data-testid="reasonForRepair"]').select("None of the above")
+        cy.get('[data-testid="reasonForRepair"]').select('None of the above')
 
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
