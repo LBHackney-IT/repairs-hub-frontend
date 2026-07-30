@@ -102,6 +102,6 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
 
     // new Awaab's related fields
     isAwaabsDampAndMouldRepair:
-      workOrderData.reasonForRepair === "damp-and-mould",
+      workOrderData.reasonForRepair === 'damp-and-mould',
   }
 }
