@@ -1345,7 +1345,7 @@ describe('Raise repair form', () => {
 
     cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-    cy.contains('a', 'Raise a standard work order').click()
+    cy.contains('a', 'Raise a work order on this dwelling').click()
 
     cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
 
@@ -1729,7 +1729,7 @@ describe('Raise repair form', () => {
 
       cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-      cy.contains('a', 'Raise a standard work order').click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait([
         '@propertyRequest',
@@ -1762,7 +1762,7 @@ describe('Raise repair form', () => {
 
         cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait([
           '@propertyRequest',
@@ -1796,7 +1796,7 @@ describe('Raise repair form', () => {
 
       cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
-      cy.contains('a', 'Raise a standard work order').click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait([
         '@propertyRequest',
