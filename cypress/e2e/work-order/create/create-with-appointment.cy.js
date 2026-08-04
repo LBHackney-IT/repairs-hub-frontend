@@ -154,7 +154,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.contains('a', 'Raise a standard work order').click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -176,7 +176,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('2 [E] EMERGENCY')
-        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+        cy.get('[data-testid="reasonForRepair"]').select('None of the above')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
 
@@ -293,7 +293,7 @@ describe('Schedule appointment form', () => {
 
       cy.wait(['@property'])
 
-      cy.contains('a', 'Raise a standard work order').click()
+      cy.contains('a', 'Raise a work order on this dwelling').click()
 
       cy.wait(['@property', '@priorities', '@trades'])
 
@@ -312,7 +312,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('5 [N] NORMAL')
-        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+        cy.get('[data-testid="reasonForRepair"]').select('None of the above')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
         cy.get('#contactNumber')
@@ -521,7 +521,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -542,7 +542,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('5 [N] NORMAL')
-        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+        cy.get('[data-testid="reasonForRepair"]').select('None of the above')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Test Caller', { force: true })
         cy.get('#contactNumber')
@@ -595,7 +595,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -615,7 +615,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('4 [U] URGENT')
-        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+        cy.get('[data-testid="reasonForRepair"]').select('None of the above')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Test Caller', { force: true })
         cy.get('#contactNumber')
@@ -650,7 +650,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -670,7 +670,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('1 [I] IMMEDIATE')
-        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+        cy.get('[data-testid="reasonForRepair"]').select('None of the above')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Test Caller', { force: true })
         cy.get('#contactNumber')
@@ -699,7 +699,7 @@ describe('Schedule appointment form', () => {
       it('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
         cy.visit('/properties/00012345')
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.get('#trade').type('Plumbing - PL')
         cy.get('#contractor').type('HH General Building Repair - H01')
@@ -714,7 +714,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('2 [E] EMERGENCY')
-        cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+        cy.get('[data-testid="reasonForRepair"]').select('None of the above')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Test Caller', { force: true })
         cy.get('#contactNumber')
@@ -764,7 +764,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@property'])
 
-        cy.contains('a', 'Raise a standard work order').click()
+        cy.contains('a', 'Raise a work order on this dwelling').click()
 
         cy.wait(['@property', '@priorities', '@trades'])
 
@@ -787,7 +787,7 @@ describe('Schedule appointment form', () => {
             cy.contains('VOIDS priority')
             cy.contains('VOIDS work orders do not go to the DRS booking system')
           })
-          cy.get(':nth-child(3) > [data-testid="isAwaabsLawRepair"]').click()
+          cy.get('[data-testid="reasonForRepair"]').select('None of the above')
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
           cy.get('#callerName').type('Test Caller', { force: true })
           cy.get('#contactNumber')
