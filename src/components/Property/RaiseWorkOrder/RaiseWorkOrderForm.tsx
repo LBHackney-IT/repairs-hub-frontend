@@ -23,8 +23,7 @@ import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import SorCode from '@/root/src/models/sorCode'
 import { Trade } from '@/root/src/models/trade'
 import PropertyFlagsWrapper from '../../PropertyFlagsWrapper/PropertyFlagsWrapper'
-import { RaiseWorkOrderAwaabs } from './RaiseWorkOrderAwaabs'
-import { useSimpleFeatureToggles } from '@/root/src/hooks/useSimpleFeatureToggle'
+import { RaiseWorkOrderReasonForRepair } from './RaiseWorkOrderReasonForRepair'
 import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
 
 interface Props {
@@ -259,13 +258,9 @@ const RaiseWorkOrderForm = (props: Props) => {
             />
 
             {simpleFeatureToggles?.enableNewAwaabsFields && (
-              <RaiseWorkOrderAwaabs
+              <RaiseWorkOrderReasonForRepair
                 register={register}
-                watch={watch}
                 errors={errors}
-                clearErrors={clearErrors}
-                setError={setError}
-                getValues={getValues}
               />
             )}
 
