@@ -354,67 +354,47 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
           </select>
         </div>
         <div
-          style="background: rgb(249, 249, 249); padding: 15px;"
+          class="govuk-form-group lbh-form-group"
+          id="reasonForRepair-form-group"
         >
-          <div
-            class="govuk-form-group lbh-form-group"
+          <label
+            class="govuk-label lbh-label"
+            for="reasonForRepair"
           >
-            <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
-            >
-              Is this Repair related to Awaab's law? 
-            </legend>
+            Reason for this repair 
             <span
-              class="govuk-hint lbh-hint"
-              id="isAwaabsLawRepair-hint"
+              class="govuk-required"
             >
-              Was the cause of this repair related to Awaabs's law?
+              *
             </span>
-            <div
-              class="govuk-radios lbh-radios"
+          </label>
+          <span
+            class="govuk-hint lbh-hint"
+            id="reasonForRepair-hint"
+          >
+            Is the repair related to the following?
+          </span>
+          <select
+            aria-describedby="reasonForRepair-hint"
+            class="govuk-select lbh-select govuk-!-width-full"
+            data-testid="reasonForRepair"
+            id="reasonForRepair"
+            name="reasonForRepair"
+          >
+            <option
+              value=""
+            />
+            <option
+              value="damp-and-mould"
             >
-              <div
-                class="govuk-radios__item"
-              >
-                <input
-                  class="govuk-radios__input"
-                  data-testid="isAwaabsLawRepair"
-                  id="isAwaabsLawRepair_true"
-                  name="isAwaabsLawRepair"
-                  type="radio"
-                  value="true"
-                />
-                <label
-                  class="govuk-label lbh-label govuk-radios__label"
-                  for="isAwaabsLawRepair_true"
-                >
-                  Yes
-                </label>
-              </div>
-              <div
-                class="govuk-radios__conditional"
-                id="conditional-contact"
-              />
-              <div
-                class="govuk-radios__item"
-              >
-                <input
-                  class="govuk-radios__input"
-                  data-testid="isAwaabsLawRepair"
-                  id="isAwaabsLawRepair_false"
-                  name="isAwaabsLawRepair"
-                  type="radio"
-                  value="false"
-                />
-                <label
-                  class="govuk-label lbh-label govuk-radios__label"
-                  for="isAwaabsLawRepair_false"
-                >
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
+              Damp & Mould
+            </option>
+            <option
+              value="none-of-the-above"
+            >
+              None of the above
+            </option>
+          </select>
         </div>
         <div
           class="govuk-form-group lbh-form-group"
@@ -871,67 +851,47 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
           </select>
         </div>
         <div
-          style="background: rgb(249, 249, 249); padding: 15px;"
+          class="govuk-form-group lbh-form-group"
+          id="reasonForRepair-form-group"
         >
-          <div
-            class="govuk-form-group lbh-form-group"
+          <label
+            class="govuk-label lbh-label"
+            for="reasonForRepair"
           >
-            <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
-            >
-              Is this Repair related to Awaab's law? 
-            </legend>
+            Reason for this repair 
             <span
-              class="govuk-hint lbh-hint"
-              id="isAwaabsLawRepair-hint"
+              class="govuk-required"
             >
-              Was the cause of this repair related to Awaabs's law?
+              *
             </span>
-            <div
-              class="govuk-radios lbh-radios"
+          </label>
+          <span
+            class="govuk-hint lbh-hint"
+            id="reasonForRepair-hint"
+          >
+            Is the repair related to the following?
+          </span>
+          <select
+            aria-describedby="reasonForRepair-hint"
+            class="govuk-select lbh-select govuk-!-width-full"
+            data-testid="reasonForRepair"
+            id="reasonForRepair"
+            name="reasonForRepair"
+          >
+            <option
+              value=""
+            />
+            <option
+              value="damp-and-mould"
             >
-              <div
-                class="govuk-radios__item"
-              >
-                <input
-                  class="govuk-radios__input"
-                  data-testid="isAwaabsLawRepair"
-                  id="isAwaabsLawRepair_true"
-                  name="isAwaabsLawRepair"
-                  type="radio"
-                  value="true"
-                />
-                <label
-                  class="govuk-label lbh-label govuk-radios__label"
-                  for="isAwaabsLawRepair_true"
-                >
-                  Yes
-                </label>
-              </div>
-              <div
-                class="govuk-radios__conditional"
-                id="conditional-contact"
-              />
-              <div
-                class="govuk-radios__item"
-              >
-                <input
-                  class="govuk-radios__input"
-                  data-testid="isAwaabsLawRepair"
-                  id="isAwaabsLawRepair_false"
-                  name="isAwaabsLawRepair"
-                  type="radio"
-                  value="false"
-                />
-                <label
-                  class="govuk-label lbh-label govuk-radios__label"
-                  for="isAwaabsLawRepair_false"
-                >
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
+              Damp & Mould
+            </option>
+            <option
+              value="none-of-the-above"
+            >
+              None of the above
+            </option>
+          </select>
         </div>
         <div
           class="govuk-form-group lbh-form-group"
@@ -1345,67 +1305,47 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
           </select>
         </div>
         <div
-          style="background: rgb(249, 249, 249); padding: 15px;"
+          class="govuk-form-group lbh-form-group"
+          id="reasonForRepair-form-group"
         >
-          <div
-            class="govuk-form-group lbh-form-group"
+          <label
+            class="govuk-label lbh-label"
+            for="reasonForRepair"
           >
-            <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
-            >
-              Is this Repair related to Awaab's law? 
-            </legend>
+            Reason for this repair 
             <span
-              class="govuk-hint lbh-hint"
-              id="isAwaabsLawRepair-hint"
+              class="govuk-required"
             >
-              Was the cause of this repair related to Awaabs's law?
+              *
             </span>
-            <div
-              class="govuk-radios lbh-radios"
+          </label>
+          <span
+            class="govuk-hint lbh-hint"
+            id="reasonForRepair-hint"
+          >
+            Is the repair related to the following?
+          </span>
+          <select
+            aria-describedby="reasonForRepair-hint"
+            class="govuk-select lbh-select govuk-!-width-full"
+            data-testid="reasonForRepair"
+            id="reasonForRepair"
+            name="reasonForRepair"
+          >
+            <option
+              value=""
+            />
+            <option
+              value="damp-and-mould"
             >
-              <div
-                class="govuk-radios__item"
-              >
-                <input
-                  class="govuk-radios__input"
-                  data-testid="isAwaabsLawRepair"
-                  id="isAwaabsLawRepair_true"
-                  name="isAwaabsLawRepair"
-                  type="radio"
-                  value="true"
-                />
-                <label
-                  class="govuk-label lbh-label govuk-radios__label"
-                  for="isAwaabsLawRepair_true"
-                >
-                  Yes
-                </label>
-              </div>
-              <div
-                class="govuk-radios__conditional"
-                id="conditional-contact"
-              />
-              <div
-                class="govuk-radios__item"
-              >
-                <input
-                  class="govuk-radios__input"
-                  data-testid="isAwaabsLawRepair"
-                  id="isAwaabsLawRepair_false"
-                  name="isAwaabsLawRepair"
-                  type="radio"
-                  value="false"
-                />
-                <label
-                  class="govuk-label lbh-label govuk-radios__label"
-                  for="isAwaabsLawRepair_false"
-                >
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
+              Damp & Mould
+            </option>
+            <option
+              value="none-of-the-above"
+            >
+              None of the above
+            </option>
+          </select>
         </div>
         <div
           class="govuk-form-group lbh-form-group"
