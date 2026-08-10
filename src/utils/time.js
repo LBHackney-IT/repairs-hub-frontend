@@ -11,6 +11,10 @@ export const extractTimeFromDate = (datetime) => {
   })
 }
 
+/**
+ * @param {Date | string} datetime
+ * @returns {string}
+ */
 export const formatDateTime = (datetime) => {
   if (typeof datetime === 'string') {
     datetime = new Date(datetime)
