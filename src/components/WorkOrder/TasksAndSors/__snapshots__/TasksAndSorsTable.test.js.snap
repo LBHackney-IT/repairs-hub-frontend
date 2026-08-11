@@ -493,3 +493,210 @@ exports[`TasksAndSorsTable component renders the latest table only, when tasksWe
   <br />
 </DocumentFragment>
 `;
+
+exports[`TasksAndSorsTable component renders when there is no original or latest tasks and sors date 1`] = `
+<DocumentFragment>
+  <h2
+    class="lbh-heading-h2 tab-title"
+  >
+    Tasks and SORs
+  </h2>
+  <h4
+    class="lbh-heading-h4"
+  >
+    Latest Tasks and SORs 
+  </h4>
+  <table
+    class="govuk-table lbh-table govuk-!-margin-top-5 latest-tasks-and-sors-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row lbh-body"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Description
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Quantity (est.)
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Unit cost
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Cost (est.)
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Total SMV
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="0"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R006
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Urgent call outs
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          2
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £20.15
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £40.30
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+           50
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="1"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R005
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Normal call outs
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          4
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £1.4
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £5.60
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+           120
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="2"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R013
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Inspect additional sec entrance
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          5
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £7.31
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £36.55
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+           75
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row lbh-body-s"
+        data-row-id="3"
+      >
+        <td
+          class="govuk-table__cell border-none"
+          colspan="2"
+        />
+        <td
+          class="govuk-table__cell border-none"
+        />
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
+        >
+          <strong>
+            Total
+          </strong>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
+        >
+          <strong>
+            £82.45
+          </strong>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
+        >
+          <strong>
+            245
+          </strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <br />
+</DocumentFragment>
+`;

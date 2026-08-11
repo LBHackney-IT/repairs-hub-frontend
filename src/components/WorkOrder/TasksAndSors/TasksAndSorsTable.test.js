@@ -66,6 +66,30 @@ describe('TasksAndSorsTable component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
+  it('renders when there is no original or latest tasks and sors date', () => {
+    const customProps = {
+      ...props,
+      originalTasksAndSors: props.originalTasksAndSors.map((task) => ({
+        ...task,
+        dateAdded: null,
+      })),
+      latestTasksAndSors: props.latestTasksAndSors.map((task) => ({
+        ...task,
+        dateAdded: null,
+      })),
+    }
+
+    const { asFragment } = render(
+      <TasksAndSorsTable
+        originalTasksAndSors={customProps.originalTasksAndSors}
+        latestTasksAndSors={customProps.latestTasksAndSors}
+        tabName={customProps.tabName}
+        tasksWereUpdated={false}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
   it('renders the latest table only, when tasksWereUpdated prop is false', () => {
     const { asFragment } = render(
       <TasksAndSorsTable

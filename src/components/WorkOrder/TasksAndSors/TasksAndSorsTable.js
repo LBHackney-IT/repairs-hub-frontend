@@ -85,14 +85,20 @@ const TasksAndSorsTable = ({
   }
 
   const displayReadableDate = (tasks, isOriginal = false) => {
+    let dateToDisplay = null
+
     if (isOriginal || !tasksWereUpdated) {
-      return `Added on ${formatDateTime(tasks[0].dateAdded)}`
+      dateToDisplay = tasks[0].dateAdded
     } else {
       let latestUpdatedTask = tasks.reduce((a, b) => {
         return new Date(a.dateUpdated) > new Date(b.dateUpdated) ? a : b
       })
-      return `Added on ${formatDateTime(latestUpdatedTask.dateUpdated)}`
+      dateToDisplay = latestUpdatedTask.dateUpdated
     }
+
+    if (!dateToDisplay) return ''
+
+    return `Added on ${formatDateTime(dateToDisplay)}`
   }
 
   return (
