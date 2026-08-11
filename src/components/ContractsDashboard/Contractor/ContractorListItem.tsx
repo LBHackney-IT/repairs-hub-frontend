@@ -1,17 +1,19 @@
 import Link from 'next/link'
 import cx from 'classnames'
+import ContractDashboardContractor from '@/root/src/models/contractDashboardContractor'
 
-interface ContractorListItemProps {
-  contractorReference: string
-  contractorName: string
-  activeContractCount: number
+interface Props {
+  contractor: ContractDashboardContractor
 }
 
-const ContractorListItem = ({
-  contractorReference,
-  contractorName,
-  activeContractCount,
-}: ContractorListItemProps) => {
+const ContractorListItem = (props: Props) => {
+  const {
+    contractorReference,
+    contractorName,
+    activeContractCount,
+    totalContractCount = 7 // placeholder
+  } = props.contractor
+
   return (
     <Link
       href={{
@@ -25,9 +27,9 @@ const ContractorListItem = ({
       <li
         style={{
           cursor: 'pointer',
-          padding: '1.5rem',
-          borderRadius: '20px',
-          width: '85%',
+          padding: '20px',
+          borderRadius: '5px',
+          width: '100%',
           ...(activeContractCount
             ? { backgroundColor: '#D4EDDA' }
             : { backgroundColor: '#F0F0F0' }),
@@ -38,9 +40,15 @@ const ContractorListItem = ({
           <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
             {`${contractorName}`}
           </h3>
-          <p>
+          <p style={{marginTop: 10}}>
             Active contracts:{' '}
             <span style={{ fontWeight: 800 }}>{activeContractCount}</span>
+          </p>
+          <p style={{marginTop: 10}}>
+            Inactive contracts:{' '}
+            <span style={{ fontWeight: 800 }}>
+              {totalContractCount - activeContractCount}
+            </span>
           </p>
         </div>
         <div className="govuk-!-margin-0">

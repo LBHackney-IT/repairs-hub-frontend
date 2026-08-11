@@ -28,8 +28,10 @@ export const ContractListItems = (props: Props) => {
       {contracts?.length > 0 && (
         <ol
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, 10rem)',
+            display: "flex",
+            flexDirection: "column",
+            // display: 'grid',
+            // gridTemplateColumns: 'repeat(auto-fill, 10rem)',
             gap: '1rem',
             listStyle: 'none',
             padding: 0,

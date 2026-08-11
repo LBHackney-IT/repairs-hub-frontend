@@ -13,16 +13,18 @@ export const ContractListItem = (props: Props) => {
     <li
       data-id={index}
       style={{
-        border: '5px solid #00664F',
-        borderRadius: '20px',
+        border: '2px solid #eee',
+        // border: '5px solid #00664F',
+        borderRadius: '5px',
         boxSizing: 'border-box',
-        padding: '1rem',
+        padding: '10px',
         display: 'flex',
+        flexDirection: "row",
         marginTop: '1rem',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
       }}
     >
-      <div className="contract-details">
+      {/* <div className="contract-details"> */}
         <h5
           style={{
             whiteSpace: 'nowrap',
@@ -32,7 +34,7 @@ export const ContractListItem = (props: Props) => {
         </h5>
 
         {children}
-      </div>
+      {/* </div> */}
     </li>
   )
 }

@@ -7,3 +7,5 @@ export default interface Contractor {
   perTradeAvailability: boolean
   multiTradeEnabled: boolean
 }
+
+
