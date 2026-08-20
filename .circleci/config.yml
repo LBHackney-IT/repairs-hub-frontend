@@ -242,11 +242,21 @@ jobs:
           root: *workspace_root
           paths:
             - .aws
+  audit:
+    executor: node-executor
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Audit high/critical dependencies
+          command: yarn audit --groups dependencies --level high
 
 workflows:
   continuous-delivery:
     max_auto_reruns: 1
     jobs:
+      - audit
       - tests
       - e2e
       - assume-role-development:
@@ -303,3 +313,4 @@ workflows:
           filters:
             branches:
               only: main
+  
