@@ -249,7 +249,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          name: Yarn Audit (dev dependencies, fail on high/critical)
+          name: Audit high/critical dependencies
           command: yarn audit --groups dependencies --level high
 
 workflows:
