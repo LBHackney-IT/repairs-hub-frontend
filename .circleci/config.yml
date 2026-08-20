@@ -250,7 +250,7 @@ jobs:
           pkg-manager: yarn
       - run:
           name: Yarn Audit (dev dependencies, fail on high/critical)
-          command: yarn audit --groups devDependencies --level high
+          command: yarn audit --groups dependencies --level high
 
 workflows:
   continuous-delivery:
