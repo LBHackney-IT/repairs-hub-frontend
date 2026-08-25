@@ -85,7 +85,7 @@ const TasksAndSorsTable = ({
   }
 
   const displayReadableDate = (tasks, isOriginal = false) => {
-    let dateToDisplay = null
+    let dateToDisplay
 
     if (isOriginal || !tasksWereUpdated) {
       dateToDisplay = tasks[0].dateAdded

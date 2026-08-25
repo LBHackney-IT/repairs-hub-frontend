@@ -2,7 +2,6 @@ import { render } from '@testing-library/react'
 import ControlledFileInput from './ControlledFileInput'
 import { mockFile } from './helpers'
 
-// eslint-disable-next-line no-unused-vars
 jest.mock('./hooks/useUpdateFileInput', () => ({
   __esModule: true,
   default: jest.fn(),
