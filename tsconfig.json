@@ -24,8 +24,9 @@
     "incremental": true,
     "baseUrl": ".",
     "types": [
-      "cypress",
-      "node"
+      "node",
+      "jest",
+      "@testing-library/jest-dom"
     ],
     "paths": {
       "@/root/*": [
@@ -60,6 +61,7 @@
     "node_modules",
     "build",
     "dist",
-    ".next"
+    ".next",
+    "cypress"
   ]
 }
