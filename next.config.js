@@ -33,6 +33,7 @@ const moduleExports = {
     domains: ['utfs.io'],
   },
   headers: () => headers(),
+  allowedDevOrigins: ['localdev.hackney.gov.uk'],
 }
 
 module.exports = moduleExports

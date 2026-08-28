@@ -110,7 +110,8 @@ export const createSorExistenceValidator = (
       return validationResults
     } catch (e) {
       throw new Error(
-        `Cannot fetch SOR codes for validation: ${JSON.stringify(e)}`
+        `Cannot fetch SOR codes for validation: ${JSON.stringify(e)}`,
+        { cause: e }
       )
     }
   }
