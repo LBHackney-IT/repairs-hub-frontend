@@ -13,7 +13,6 @@ import {
 } from '@/utils/helpers/priorities'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import router from 'next/router'
-import AddMultipleSORs from '../AddMultipleSORs'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import Contractor from '@/root/src/models/contractor'
@@ -26,6 +25,9 @@ import AnnouncementMessage from './AnnouncementMessage'
 import RaiseWorkOrderSuccessPage from './SuccessPage'
 import { Trade } from '@/root/src/models/trade'
 import { useSimpleFeatureToggles } from '@/root/src/hooks/useSimpleFeatureToggle'
+import AddMultipleSORs, {
+  SorCodeWithQuantity,
+} from '../AddMultipleSORs/AddMultipleSORs'
 
 interface Props {
   propertyReference: string
@@ -221,7 +223,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
-  const setSorCodesFromBatchUpload = (sorCodes) => {
+  const addMultipleSorCodesToForm = (sorCodes: SorCodeWithQuantity[]) => {
     if (isIncrementalSearchEnabled) {
       const sorCodesInIncremental = [
         ...sorCodeArrays.filter(
@@ -232,9 +234,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
       setSorCodeArrays(sorCodesInIncremental)
     } else {
+      console.log({ sorCodes })
+
       const sorCodesInNonIncremental = [
         ...sorCodeArrays,
-        ...sorCodes.map(() => sorCodeArrays),
+        ...sorCodes.map((c) => [c]),
       ].filter((e) => e.length != 0)
 
       setSorCodeArrays(sorCodesInNonIncremental)
@@ -251,6 +255,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
             } - £${code.cost.toString()}`,
             cost: code.cost.toString(),
             description: code.shortDescription,
+            quantity: code.quantity,
           })),
         ],
       }
@@ -271,6 +276,15 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
     if (contractorReference != gasBreakdownContractorReference) return false // contractor must be "H04"
     return tradeCode == oohTradeCode
+  }
+
+  const onSubmitAddMultipleSorCodes = (sorCodes: SorCodeWithQuantity[]) => {
+    addMultipleSorCodesToForm(sorCodes)
+
+    if (sorCodes.length > 0) {
+      // I think this is to reset the priority field
+      setIsPriorityEnabled(true)
+    }
   }
 
   if (loading || isLoadingFeatureToggles) {
@@ -334,7 +348,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
       {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
         <AddMultipleSORs
-          currentSorCodes={getCurrentSORCodes()}
           setPageBackToFormView={() => {
             setIsIncrementalSearchEnabled(tradeCode === 'MU')
             setCurrentPage(FORM_PAGE)
@@ -345,9 +358,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
             contractorReference,
             true
           )}
-          setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
-          setAnnouncementMessage={setAnnouncementMessage}
-          setIsPriorityEnabled={setIsPriorityEnabled}
+          onSubmitAddMultipleSorCodes={onSubmitAddMultipleSorCodes}
         />
       )}
 
