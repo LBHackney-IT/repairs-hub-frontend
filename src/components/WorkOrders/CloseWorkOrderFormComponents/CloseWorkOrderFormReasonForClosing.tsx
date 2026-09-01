@@ -2,7 +2,7 @@ import { CLOSURE_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
 import Radios from '../../Form/Radios'
 import { useEffect, useState } from 'react'
 import FurtherWorkRadio from './FurtherWorksRadio'
-import { FieldErrors, UseFormMethods } from 'react-hook-form/dist/types'
+import { FieldErrors, UseFormMethods } from 'react-hook-form'
 import { CloseWorkOrderValues } from '../MobileWorkingCloseWorkOrderForm'
 
 interface Props {

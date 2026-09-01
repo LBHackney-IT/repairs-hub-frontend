@@ -1,6 +1,0 @@
-node_modules
-.next
-build/
-public/
-db/
-cypress/plugins/*

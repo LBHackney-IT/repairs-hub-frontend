@@ -19,7 +19,9 @@ async function compressFile(file: File): Promise<File> {
       errorMessage += ` ${error?.message || error?.type || error}`
     }
     console.error(errorMessage)
-    throw new Error(errorMessage)
+    throw new Error(errorMessage, {
+      cause: error,
+    })
   }
 }
 
