@@ -6,6 +6,8 @@ import Link from 'next/link'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { HealthAndSafetyHazardAlert } from '../Alerts/HealthAndSafetyHazardAlert'
+import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
+import Spinner from '../Spinner'
 
 interface PropertyDetailsProps {
   property: Property
@@ -20,6 +22,12 @@ const PropertyDetails = ({
   showLegalDisrepairFlag = false,
   showUnderWarrantyFlag = false,
 }: PropertyDetailsProps) => {
+  const [simpleFeatureToggles, isLoading] = useSimpleFeatureToggles()
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
   return (
     <div>
       <BackButton />
@@ -36,9 +44,11 @@ const PropertyDetails = ({
         />
       )}
 
-      <HealthAndSafetyHazardAlert
-        message={property?.healthAndSafetyRatingMessage}
-      />
+      {simpleFeatureToggles?.enableHealthAndSafetyFlag && (
+        <HealthAndSafetyHazardAlert
+          message={property?.healthAndSafetyRatingMessage}
+        />
+      )}
 
       {showUnderWarrantyFlag && (
         <WarningInfoBox

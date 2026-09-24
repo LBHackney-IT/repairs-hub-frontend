@@ -7,15 +7,17 @@ import Alerts from '../Property/Alerts'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import PropertyFlags from '../Property/PropertyFlags'
 import { HealthAndSafetyHazardAlert } from '../Alerts/HealthAndSafetyHazardAlert'
+import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 
 interface Props {
   propertyReference: string
   tenure: Tenure
   property: Property
+  simpleFeatureToggles: SimpleFeatureToggleResponse
 }
 
 const PropertyFlagsWrapper = (props: Props) => {
-  const { propertyReference, property, tenure } = props
+  const { propertyReference, property, tenure, simpleFeatureToggles } = props
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
@@ -38,9 +40,11 @@ const PropertyFlagsWrapper = (props: Props) => {
         />
       )}
 
-      <HealthAndSafetyHazardAlert
-        message={property?.healthAndSafetyRatingMessage}
-      />
+      {simpleFeatureToggles?.enableHealthAndSafetyFlag && (
+        <HealthAndSafetyHazardAlert
+          message={property?.healthAndSafetyRatingMessage}
+        />
+      )}
 
       {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
