@@ -11,7 +11,7 @@ export const HealthAndSafetyHazardAlert = (props: Props) => {
 
   return (
     <WarningInfoBox
-      header="Health & Safety hazard identified"
+      header="Health & Safety hazard"
       text={message}
       style={{ maxWidth: 600 }}
     />
