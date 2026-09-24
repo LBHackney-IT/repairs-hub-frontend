@@ -197,9 +197,10 @@ const RaiseWorkOrderForm = (props: Props) => {
           </h1>
 
           <PropertyFlagsWrapper
-            canRaiseRepair={property?.canRaiseRepair}
+            property={property}
             tenure={tenure}
             propertyReference={propertyReference}
+            simpleFeatureToggles={simpleFeatureToggles}
           />
 
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">

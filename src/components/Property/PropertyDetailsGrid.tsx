@@ -62,37 +62,28 @@ const PropertyDetailsGrid = ({
             subTypeDescription={subTypeDescription}
             hasLinkToProperty={hasLinkToProperty}
           />
-          <ul
-            className="lbh-list hackney-property-alerts"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              marginBottom: '1em',
-              maxWidth: isExpanded ? '' : '30em',
-            }}
-          >
-            {alertsLoading && <Spinner resource="alerts" />}
-            {alerts?.length > 0 && (
-              <ul
-                className="lbh-list hackney-property-alerts"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  marginBottom: '1em',
-                  maxWidth: isExpanded ? '' : '30em',
-                }}
-              >
-                <Alerts
-                  alerts={alerts}
-                  setIsExpanded={setIsExpanded}
-                  isExpanded={isExpanded}
-                />
-              </ul>
-            )}
-            {alertsError && <ErrorMessage label={alertsError} />}
-          </ul>
+
+          {alerts?.length > 0 && (
+            <ul
+              className="lbh-list hackney-property-alerts"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginBottom: '1em',
+                maxWidth: isExpanded ? '' : '30em',
+              }}
+            >
+              <Alerts
+                alerts={alerts}
+                setIsExpanded={setIsExpanded}
+                isExpanded={isExpanded}
+              />
+            </ul>
+          )}
+          {alertsLoading && <Spinner resource="alerts" />}
+          {alertsError && <ErrorMessage label={alertsError} />}
+
           <PropertyFlags
             tenure={tenure}
             canRaiseRepair={canRaiseRepair}
