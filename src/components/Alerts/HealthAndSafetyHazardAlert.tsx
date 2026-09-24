@@ -4,10 +4,6 @@ interface Props {
   message: string
 }
 
-{
-  /* Needs feature toggle */
-}
-
 export const HealthAndSafetyHazardAlert = (props: Props) => {
   const { message } = props
 
