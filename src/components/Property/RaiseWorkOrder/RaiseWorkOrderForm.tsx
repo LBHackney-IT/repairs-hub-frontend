@@ -197,7 +197,7 @@ const RaiseWorkOrderForm = (props: Props) => {
           </h1>
 
           <PropertyFlagsWrapper
-            canRaiseRepair={property?.canRaiseRepair}
+            property={property}
             tenure={tenure}
             propertyReference={propertyReference}
           />

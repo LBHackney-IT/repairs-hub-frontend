@@ -4,17 +4,18 @@ import Spinner from '../Spinner'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import { usePropertyFlags } from './usePropertyFlags'
 import Alerts from '../Property/Alerts'
-import { Tenure } from '@/root/src/models/propertyTenure'
+import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import PropertyFlags from '../Property/PropertyFlags'
+import { HealthAndSafetyHazardAlert } from '../Alerts/HealthAndSafetyHazardAlert'
 
 interface Props {
   propertyReference: string
-  canRaiseRepair: boolean
   tenure: Tenure
+  property: Property
 }
 
 const PropertyFlagsWrapper = (props: Props) => {
-  const { propertyReference, canRaiseRepair, tenure } = props
+  const { propertyReference, property, tenure } = props
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
@@ -36,6 +37,10 @@ const PropertyFlagsWrapper = (props: Props) => {
           text="Before raising a work order you must call the Legal Disrepair Team"
         />
       )}
+
+      <HealthAndSafetyHazardAlert
+        message={property?.healthAndSafetyRatingMessage}
+      />
 
       {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
@@ -61,7 +66,10 @@ const PropertyFlagsWrapper = (props: Props) => {
 
         {alertsError && <ErrorMessage label={alertsError} />}
 
-        <PropertyFlags canRaiseRepair={canRaiseRepair} tenure={tenure} />
+        <PropertyFlags
+          canRaiseRepair={property?.canRaiseRepair}
+          tenure={tenure}
+        />
       </div>
     </>
   )
