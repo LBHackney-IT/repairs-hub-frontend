@@ -61,12 +61,12 @@ export const fetchFeatureToggles = async () => {
 }
 
 export const createSorExistenceValidator = (
-  tradeCode,
-  propertyRef,
-  contractorRef,
-  isRaisable
+  tradeCode: string,
+  propertyRef: string,
+  contractorRef: string,
+  isRaisable: boolean
 ) => {
-  return async (codesForValidation) => {
+  return async (codesForValidation: string[]) => {
     const validationResults = {
       allCodesValid: false,
       validCodes: [],

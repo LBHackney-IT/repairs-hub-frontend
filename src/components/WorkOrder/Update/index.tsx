@@ -13,7 +13,6 @@ import WorkOrderUpdateSummary from './Summary'
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
-import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
 import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
@@ -23,6 +22,9 @@ import SorCode from '@/root/src/models/sorCode'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
+import AddMultipleSORs, {
+  SorCodeWithQuantity,
+} from '../../Property/RaiseWorkOrder/AddMultipleSORs/AddMultipleSORs'
 
 interface Props {
   reference: string
@@ -225,7 +227,7 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
   }, [])
 
   // implementing multiple SORs update
-  const setSorCodesFromBatchUpload = (sorCodes) => {
+  const setSorCodesFromBatchUpload = (sorCodes: SorCodeWithQuantity[]) => {
     if (formState != null && formState.rateScheduleItems == null) {
       formState.rateScheduleItems = []
     }
@@ -264,6 +266,10 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
     codes = codes.filter((ar) => ar.length !== 0)
 
     setSorCodeArrays(codes)
+  }
+
+  const onSubmitAddMultipleSorCodes = (sorCodes: SorCodeWithQuantity[]) => {
+    setSorCodesFromBatchUpload(sorCodes)
   }
 
   if (loading) {
@@ -351,7 +357,6 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
 
           {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
             <AddMultipleSORs
-              currentSorCodes={getCurrentSORCodes()}
               setPageBackToFormView={() => {
                 setCurrentPage(FORM_PAGE)
               }}
@@ -361,9 +366,7 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
                 workOrder.contractorReference,
                 null
               )}
-              setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
-              setAnnouncementMessage={setAnnouncementMessage}
-              setIsPriorityEnabled={() => {}}
+              onSubmitAddMultipleSorCodes={onSubmitAddMultipleSorCodes}
             />
           )}
         </>
