@@ -11,6 +11,7 @@ export interface Property {
   canRaiseRepair: boolean
   isUnderWarranty: boolean
   boilerHouseId: string
+  healthAndSafetyRatingMessage: string
 }
 
 export interface Address {

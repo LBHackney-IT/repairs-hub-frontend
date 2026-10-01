@@ -5,6 +5,7 @@ export interface SimpleFeatureToggleResponse {
   googleTagManagerEnabled: boolean
   enableFollowOnIsEmergencyField: boolean
   enableNewAwaabsFields: boolean
+  enableHealthAndSafetyFlag: boolean
 }
 
 export default authoriseServiceAPIRequest(async (req, res) => {
@@ -15,6 +16,9 @@ export default authoriseServiceAPIRequest(async (req, res) => {
       process.env.FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED === 'true',
 
     enableNewAwaabsFields: process.env.ENABLE_NEW_AWAABS_FIELDS === 'true',
+
+    enableHealthAndSafetyFlag:
+      process.env.ENABLE_HEALTH_AND_SAFETY_FLAG === 'true',
   }
 
   res.status(HttpStatus.StatusCodes.OK).json(data)
