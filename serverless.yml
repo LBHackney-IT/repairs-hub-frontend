@@ -71,6 +71,8 @@ functions:
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
       FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.follow-on-is-emergency-field-enabled.${self:provider.stage}}
       ENABLE_NEW_AWAABS_FIELDS: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-new-awaabs-fields}
+      ENABLE_HEALTH_AND_SAFETY_FLAG: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-health-safety-flag}
+      
       TAG_MANAGER_ID: ${self:custom.tag-manager-id.${self:provider.stage}}
 
 resources:

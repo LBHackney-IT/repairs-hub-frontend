@@ -4,17 +4,20 @@ import Spinner from '../Spinner'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import { usePropertyFlags } from './usePropertyFlags'
 import Alerts from '../Property/Alerts'
-import { Tenure } from '@/root/src/models/propertyTenure'
+import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import PropertyFlags from '../Property/PropertyFlags'
+import { HealthAndSafetyHazardAlert } from '../Alerts/HealthAndSafetyHazardAlert'
+import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 
 interface Props {
   propertyReference: string
-  canRaiseRepair: boolean
   tenure: Tenure
+  property: Property
+  simpleFeatureToggles: SimpleFeatureToggleResponse
 }
 
 const PropertyFlagsWrapper = (props: Props) => {
-  const { propertyReference, canRaiseRepair, tenure } = props
+  const { propertyReference, property, tenure, simpleFeatureToggles } = props
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
@@ -34,6 +37,12 @@ const PropertyFlagsWrapper = (props: Props) => {
         <WarningInfoBox
           header="This property is currently under legal disrepair"
           text="Before raising a work order you must call the Legal Disrepair Team"
+        />
+      )}
+
+      {simpleFeatureToggles?.enableHealthAndSafetyFlag && (
+        <HealthAndSafetyHazardAlert
+          message={property?.healthAndSafetyRatingMessage}
         />
       )}
 
@@ -61,7 +70,10 @@ const PropertyFlagsWrapper = (props: Props) => {
 
         {alertsError && <ErrorMessage label={alertsError} />}
 
-        <PropertyFlags canRaiseRepair={canRaiseRepair} tenure={tenure} />
+        <PropertyFlags
+          canRaiseRepair={property?.canRaiseRepair}
+          tenure={tenure}
+        />
       </div>
     </>
   )

@@ -2,250 +2,86 @@
 
 exports[`PropertyDetails component when the date is after out of hours should show the link should render properly 1`] = `
 <DocumentFragment>
-  <div>
-    <a
-      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
-      role="button"
+  <svg
+    data-testid="spinner-undefined"
+    height="50"
+    stroke="#00703c"
+    viewBox="0 0 42 42"
+    width="50"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      fill="none"
+      fill-rule="evenodd"
     >
-      Back
-    </a>
-    <h1
-      class="lbh-heading-h1 govuk-!-margin-bottom-2"
-    >
-      Dwelling: 16 Pitcairn House
-    </h1>
-    <div>
-      <span
-        class="lbh-heading-h3 text-green"
+      <g
+        stroke-width="5"
+        transform="translate(3 3)"
       >
-        <a
-          class="lbh-link"
-          href="/properties/00012345/raise-repair/new"
+        <circle
+          cx="18"
+          cy="18"
+          r="18"
+          stroke-opacity=".5"
+        />
+        <path
+          d="M36 18c0-9.94-8.06-18-18-18"
+          transform="rotate(112.708 18 18)"
         >
-          <strong>
-            Raise a work order on this dwelling
-          </strong>
-        </a>
-      </span>
-    </div>
-    <div>
-      <a
-        class="lbh-link lbh-body-l lbh-!-font-weight-medium"
-        href="https://hackney.gov.uk"
-        rel="noopener"
-        target="_blank"
-      >
-        Out of hours note
-      </a>
-    </div>
-    <div
-      class="govuk-grid-row"
-    >
-      <div
-        class="govuk-grid-column-one-half-from-desktop"
-      >
-        <div
-          class="lbh-body-s"
-        >
-          <div
-            class="property-details-main-section"
-          >
-            <span
-              class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
-            >
-              Property details
-            </span>
-            <br />
-            <div
-              class="lbh-!-font-weight-bold"
-            >
-              16 Pitcairn House
-              <br />
-              St Thomass Square
-              <br />
-              <span
-                class="govuk-!-font-size-14"
-              >
-                E9 6PT
-              </span>
-            </div>
-          </div>
-          <ul
-            class="lbh-list hackney-property-alerts"
-            style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
-          >
-            <svg
-              data-testid="spinner-alerts"
-              height="50"
-              stroke="#00703c"
-              viewBox="0 0 42 42"
-              width="50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <g
-                  stroke-width="5"
-                  transform="translate(3 3)"
-                >
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="18"
-                    stroke-opacity=".5"
-                  />
-                  <path
-                    d="M36 18c0-9.94-8.06-18-18-18"
-                    transform="rotate(112.708 18 18)"
-                  >
-                    <animatetransform
-                      attributeName="transform"
-                      dur="1s"
-                      from="0 18 18"
-                      repeatCount="indefinite"
-                      to="360 18 18"
-                      type="rotate"
-                    />
-                  </path>
-                </g>
-              </g>
-            </svg>
-          </ul>
-          <ul
-            class="lbh-list hackney-property-alerts"
-            style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
-          >
-            <li
-              class="bg-dark-green"
-            >
-              Tenure: Secure
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+          <animatetransform
+            attributeName="transform"
+            dur="1s"
+            from="0 18 18"
+            repeatCount="indefinite"
+            to="360 18 18"
+            type="rotate"
+          />
+        </path>
+      </g>
+    </g>
+  </svg>
 </DocumentFragment>
 `;
 
 exports[`PropertyDetails component when the date is before out of hours does not show the link should render properly 1`] = `
 <DocumentFragment>
-  <div>
-    <a
-      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
-      role="button"
+  <svg
+    data-testid="spinner-undefined"
+    height="50"
+    stroke="#00703c"
+    viewBox="0 0 42 42"
+    width="50"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      fill="none"
+      fill-rule="evenodd"
     >
-      Back
-    </a>
-    <h1
-      class="lbh-heading-h1 govuk-!-margin-bottom-2"
-    >
-      Dwelling: 16 Pitcairn House
-    </h1>
-    <div>
-      <span
-        class="lbh-heading-h3 text-green"
+      <g
+        stroke-width="5"
+        transform="translate(3 3)"
       >
-        <a
-          class="lbh-link"
-          href="/properties/00012345/raise-repair/new"
+        <circle
+          cx="18"
+          cy="18"
+          r="18"
+          stroke-opacity=".5"
+        />
+        <path
+          d="M36 18c0-9.94-8.06-18-18-18"
+          transform="rotate(112.708 18 18)"
         >
-          <strong>
-            Raise a work order on this dwelling
-          </strong>
-        </a>
-      </span>
-    </div>
-    <div
-      class="govuk-grid-row"
-    >
-      <div
-        class="govuk-grid-column-one-half-from-desktop"
-      >
-        <div
-          class="lbh-body-s"
-        >
-          <div
-            class="property-details-main-section"
-          >
-            <span
-              class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
-            >
-              Property details
-            </span>
-            <br />
-            <div
-              class="lbh-!-font-weight-bold"
-            >
-              16 Pitcairn House
-              <br />
-              St Thomass Square
-              <br />
-              <span
-                class="govuk-!-font-size-14"
-              >
-                E9 6PT
-              </span>
-            </div>
-          </div>
-          <ul
-            class="lbh-list hackney-property-alerts"
-            style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em; max-width: 30em;"
-          >
-            <svg
-              data-testid="spinner-alerts"
-              height="50"
-              stroke="#00703c"
-              viewBox="0 0 42 42"
-              width="50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <g
-                  stroke-width="5"
-                  transform="translate(3 3)"
-                >
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="18"
-                    stroke-opacity=".5"
-                  />
-                  <path
-                    d="M36 18c0-9.94-8.06-18-18-18"
-                    transform="rotate(112.708 18 18)"
-                  >
-                    <animatetransform
-                      attributeName="transform"
-                      dur="1s"
-                      from="0 18 18"
-                      repeatCount="indefinite"
-                      to="360 18 18"
-                      type="rotate"
-                    />
-                  </path>
-                </g>
-              </g>
-            </svg>
-          </ul>
-          <ul
-            class="lbh-list hackney-property-alerts"
-            style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
-          >
-            <li
-              class="bg-dark-green"
-            >
-              Tenure: Secure
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+          <animatetransform
+            attributeName="transform"
+            dur="1s"
+            from="0 18 18"
+            repeatCount="indefinite"
+            to="360 18 18"
+            type="rotate"
+          />
+        </path>
+      </g>
+    </g>
+  </svg>
 </DocumentFragment>
 `;
