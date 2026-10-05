@@ -13,7 +13,7 @@ export const HealthAndSafetyHazardAlert = (props: Props) => {
     <WarningInfoBox
       header="Health & Safety hazard"
       text={message}
-      style={{ maxWidth: 600, whiteSpace: "pre-line" }}
+      style={{ maxWidth: 600, whiteSpace: 'pre-line' }}
     />
   )
 }
