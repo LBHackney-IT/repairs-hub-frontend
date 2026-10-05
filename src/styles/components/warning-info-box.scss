@@ -26,13 +26,21 @@
     background-color: #fee2e2;
 
     p {
-      // color: #422006;
-      color: #991b1b;
+      color: #631010;
     }
 
     span {
       background: #dc2626;
-      color: #fee2e2;
+      color: #f8e7e7;
+    }
+  }
+
+  &.variant-health-and-safety-flag {
+    border-color: #dc2626;
+    background-color: #f7e9ed;
+
+    li {
+      margin-top: 0;
     }
   }
 

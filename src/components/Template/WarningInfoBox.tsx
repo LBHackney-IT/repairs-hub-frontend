@@ -27,10 +27,19 @@ const WarningInfoBox = (props: Props) => {
         </span>
         <div className="govuk-warning-text__text">
           <span className="govuk-warning-text__assistive">Warning</span>
-          <p className="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold">
+          <h3 className="govuk-!-margin-top-0 lbh-body-m lbh-!-font-weight-bold">
             {header}
-          </p>
-          <p className="lbh-body-xs govuk-!-margin-top-1">{text}</p>
+          </h3>
+
+          {text && (
+            <>
+              {typeof text === 'string' ? (
+                <p className="lbh-body-xs govuk-!-margin-top-1">{text}</p>
+              ) : (
+                <span className="lbh-body-xs govuk-!-margin-top-1">{text}</span>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>
