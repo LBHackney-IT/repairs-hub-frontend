@@ -156,7 +156,7 @@ context('When an operative is logged in', () => {
       cy.wait('@operativesWorkOrders')
 
       cy.get('.warning-info-box').within(() => {
-        cy.get('.lbh-body-s').contains('No work orders displayed')
+        cy.get('.lbh-body-m').contains('No work orders displayed')
         cy.get('.lbh-body-xs').contains('Please contact your supervisor')
       })
     })
@@ -452,7 +452,7 @@ context('When a one job at a time operative is logged in', () => {
       cy.wait('@operativesWorkOrders')
 
       cy.get('.warning-info-box').within(() => {
-        cy.get('.lbh-body-s').contains('No work orders displayed')
+        cy.get('.lbh-body-m').contains('No work orders displayed')
         cy.get('.lbh-body-xs').contains('Please contact your supervisor')
       })
     })
