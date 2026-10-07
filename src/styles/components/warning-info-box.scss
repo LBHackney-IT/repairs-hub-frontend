@@ -29,10 +29,19 @@
       // color: #422006;
       color: #991b1b;
     }
-
+    
     span {
       background: #dc2626;
       color: #fee2e2;
+    }
+  }
+  
+  &.variant-health-and-safety-flag {
+    border-color: #dc2626;
+    background-color: #f7e9ed;
+    
+    li {
+      margin-top: 0;
     }
   }
 
