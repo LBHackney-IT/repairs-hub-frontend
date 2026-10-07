@@ -137,14 +137,11 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Warning
           </span>
-          <p
-            class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+          <h3
+            class="govuk-!-margin-top-0 lbh-body-m lbh-!-font-weight-bold"
           >
             No contractors found!
-          </p>
-          <p
-            class="lbh-body-xs govuk-!-margin-top-1"
-          />
+          </h3>
         </div>
       </div>
     </div>
