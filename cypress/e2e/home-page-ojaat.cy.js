@@ -195,7 +195,7 @@ describe('Home page - one job at a time', () => {
         cy.wait('@operativesWorkOrders')
 
         cy.get('.warning-info-box').within(() => {
-          cy.get('.lbh-body-s').contains('No work orders displayed')
+          cy.get('.lbh-body-m').contains('No work orders displayed')
           cy.get('.lbh-body-xs').contains('Please contact your supervisor')
         })
       })
