@@ -91,6 +91,8 @@ resources:
           DefaultCacheBehavior:
             TargetOriginId: ${self:service}-${self:provider.stage}-custom-origin
             ViewerProtocolPolicy: 'redirect-to-https'
+            ResponseHeadersPolicyId:
+              Ref: HstsResponseHeadersPolicy
             AllowedMethods:
               - GET
               - HEAD
@@ -115,6 +117,17 @@ resources:
                 HTTPPort: 80
                 HTTPSPort: 443
                 OriginProtocolPolicy: https-only
+    HstsResponseHeadersPolicy:
+      Type: AWS::CloudFront::ResponseHeadersPolicy
+      Properties:
+        ResponseHeadersPolicyConfig:
+          Name: ${self:service}-${self:provider.stage}-hsts
+          SecurityHeadersConfig:
+            StrictTransportSecurity:
+              AccessControlMaxAgeSec: 86400 # 24 hours - Update to 15768000 once its working
+              IncludeSubdomains: false
+              Preload: false
+              Override: true
     staticImagesBucket:
       Type: AWS::S3::Bucket
       Properties:
