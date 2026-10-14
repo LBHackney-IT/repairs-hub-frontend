@@ -86,7 +86,9 @@ resources:
           PriceClass: PriceClass_100
           ViewerCertificate:
             AcmCertificateArn: ${self:custom.certificate-arn.${self:provider.stage}}
-            MinimumProtocolVersion: TLSv1.2_2018
+            # TLSv1.2_2021 is used because the previous TLSv1.2_2018 policy still offered the weak CBC suites (ECDHE-RSA-AES128-SHA256 and ECDHE-RSA-AES256-SHA384) plus RSA suites without forward secrecy. 
+            # 2021 is the lowest CloudFront policy that drops those while keeping only AEAD ciphers with forward secrecy on TLS 1.2 and 1.3. 
+            MinimumProtocolVersion: TLSv1.2_2021
             SslSupportMethod: sni-only
           DefaultCacheBehavior:
             TargetOriginId: ${self:service}-${self:provider.stage}-custom-origin
