@@ -68,8 +68,8 @@ jobs:
           at: .
       - node/install-packages:
           pkg-manager: yarn
-      # The cimg/node:*-browsers image already ships Chrome, so there is no
-      # need to install it again. Cypress' own binary is cached between runs.
+      - browser-tools/install_chrome
+      # Cypress' own binary is cached between runs.
       - restore_cache:
           keys:
             - cypress-binary-{{ checksum "yarn.lock" }}
