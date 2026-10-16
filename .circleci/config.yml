@@ -58,7 +58,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .next
+            - build
   e2e:
     executor: node-executor
     parallelism: 4
@@ -97,7 +97,7 @@ jobs:
             # Cypress expects files to be separated with commas
             TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt | perl -pe 'chomp if eof' | tr '\n' ',')
             echo $TESTFILES
-            # start-server skips the `prestart` build, using the .next built in build-e2e
+            # start-server skips the `prestart` build, using the build/ output built in build-e2e
             NODE_ENV=test yarn start-test start-server http://localhost:5001 "yarn cy:run --reporter cypress-multi-reporters --reporter-options configFile=cypress-reporter-config.json --spec \"$TESTFILES\""
       # Run even when tests fail so CircleCI still gets file paths in the
       # junit output and can keep splitting by timings accurately.
