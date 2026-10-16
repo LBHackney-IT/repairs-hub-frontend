@@ -41,7 +41,7 @@ jobs:
             yarn test:unit
   e2e:
     executor: node-executor
-    parallelism: 6
+    parallelism: 8
     steps:
       - checkout
       - node/install-packages:
