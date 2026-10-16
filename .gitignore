@@ -57,3 +57,6 @@ cypress/results
 package-lock.json
 
 .idea
+
+# Claude Code local settings
+.claude/settings.local.json
