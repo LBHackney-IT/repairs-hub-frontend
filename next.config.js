@@ -28,7 +28,6 @@ const moduleExports = {
   distDir: 'build/_next',
   productionBrowserSourceMaps: false,
   output: 'standalone',
-  swcMinify: true,
   images: {
     domains: ['utfs.io'],
   },
