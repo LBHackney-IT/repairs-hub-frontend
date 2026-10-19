@@ -56,16 +56,23 @@ jobs:
             [ $(( ${code:-0} & 24 )) -eq 0 ]
   e2e:
     executor: node-executor
-    parallelism: 4
+    parallelism: 8
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
       - browser-tools/install_chrome
-      - browser-tools/install_chromedriver
+      # Cypress' own binary is cached between runs.
+      - restore_cache:
+          keys:
+            - cypress-binary-{{ checksum "yarn.lock" }}
       - run:
-          name: Force install
-          command: yarn cypress install --force
+          name: Install Cypress binary
+          command: yarn cypress install
+      - save_cache:
+          key: cypress-binary-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/Cypress
       - run:
           name: Run E2E Tests
           command: |
@@ -84,11 +91,14 @@ jobs:
             TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt | perl -pe 'chomp if eof' | tr '\n' ',')
             echo $TESTFILES
             NODE_ENV=test yarn start-test http://localhost:5001 "yarn cy:run --reporter cypress-multi-reporters --reporter-options configFile=cypress-reporter-config.json --spec \"$TESTFILES\""
-            yarn node scripts/fix-junit-xml.js
+      # Run even when tests fail so CircleCI still gets file paths in the
+      # junit output and can keep splitting by timings accurately.
+      - run:
+          name: Fix JUnit XML for test splitting
+          when: always
+          command: yarn node scripts/fix-junit-xml.js
       - store_artifacts:
           path: cypress/screenshots
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/reports
       - store_test_results:
