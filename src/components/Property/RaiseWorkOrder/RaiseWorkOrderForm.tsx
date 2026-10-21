@@ -258,13 +258,11 @@ const RaiseWorkOrderForm = (props: Props) => {
               contractorReference={contractorReference}
             />
 
-            {simpleFeatureToggles?.enableNewAwaabsFields && (
-              <RaiseWorkOrderReasonForRepair
-                register={register}
-                errors={errors}
-                formState={formState}
-              />
-            )}
+            <RaiseWorkOrderReasonForRepair
+              register={register}
+              errors={errors}
+              formState={formState}
+            />
 
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"
