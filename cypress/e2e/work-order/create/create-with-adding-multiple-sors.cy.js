@@ -196,7 +196,7 @@ describe('Raise repair form', () => {
           })
         })
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Add SOR codes').click()
       })
 
       cy.wait('@firstValidation')
@@ -229,7 +229,7 @@ describe('Raise repair form', () => {
           })
         })
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Add SOR codes').click()
       })
 
       cy.wait('@secondValidation')
@@ -327,7 +327,7 @@ describe('Raise repair form', () => {
             )
           }
         )
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Add SOR codes').click()
       })
 
       cy.wait('@thirdValidation')
@@ -364,7 +364,7 @@ describe('Raise repair form', () => {
       //when submitting without entering SOR codes
       cy.get('#adding-multiple-sors-form').within(() => {
         cy.contains('Enter SOR codes as a list:')
-        cy.contains('Submit').click()
+        cy.contains('Add SOR codes').click()
         cy.contains('Please enter SOR codes')
       })
     })

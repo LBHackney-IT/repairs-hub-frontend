@@ -110,7 +110,7 @@ const AddMultipleSORs = (props: Props) => {
         )}
 
         <PrimarySubmitButton
-          label="Submit"
+          label="Add SOR codes"
           {...(performingValidation && { disabled: true })}
         />
 
