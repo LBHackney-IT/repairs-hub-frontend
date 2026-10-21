@@ -408,4 +408,80 @@ describe('Raise repair form', () => {
       }
     )
   })
+
+  it('Creates repair with multiple Awaabs law reasons', () => {
+    cy.loginWithFollowOnAdminRole()
+
+    cy.visit('/properties/00012345/raise-repair/new')
+    cy.wait([
+      '@propertyRequest',
+      '@contactDetailsRequest',
+      '@sorPrioritiesRequest',
+      '@tradesRequest',
+    ])
+
+    cy.get(':nth-child(3) > [data-testid="isFollowOn"]').click()
+
+    cy.get('#trade').type('Plumbing - PL')
+
+    cy.wait('@contractorsRequest')
+    cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
+
+    cy.get('input[id="rateScheduleItems[0][code]"]').type(
+      'INP5R001 - Pre insp of wrks by Constructr - £1{enter}'
+    )
+    cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type(1)
+
+    cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
+
+    // Add three reasons, then remove the middle one
+    cy.get('[data-testid="reasonForRepair"]').select('Damp & Mould')
+    cy.get('[data-testid="add-another-reason-for-repair-link"]').click()
+    cy.get('[data-testid="additionalReasonForRepair1"]').select('Excess cold')
+    cy.get('[data-testid="add-another-reason-for-repair-link"]').click()
+    cy.get('[data-testid="additionalReasonForRepair2"]').select(
+      'Fire and explosions'
+    )
+
+    cy.get('[data-testid="remove-additionalReasonForRepair1-link"]').click()
+    cy.get('[data-testid="additionalReasonForRepair1"]').should('not.exist')
+    cy.get('[data-testid="reasonForRepair"]').should(
+      'have.value',
+      'damp-and-mould'
+    )
+    cy.get('[data-testid="additionalReasonForRepair2"]').should(
+      'have.value',
+      'fire-and-explosions'
+    )
+
+    cy.get('[data-testid="descriptionOfWork"]').type('description')
+    cy.get('[data-testid="callerName"]').type('steve')
+    cy.get('[data-testid="contactNumber"]').type('1234')
+
+    cy.intercept(
+      {
+        method: 'POST',
+        path: '/api/workOrders/schedule',
+      },
+      {
+        body: {
+          id: 10102030,
+          statusCode: 200,
+          statusCodeDescription: '???',
+          externallyManagedAppointment: false,
+        },
+      }
+    ).as('scheduleRepairWithMultipleReasonsRequest')
+
+    cy.get('[type="submit"]').contains('Create work order').click()
+
+    cy.wait('@scheduleRepairWithMultipleReasonsRequest', {
+      timeout: 7000,
+    }).then(({ request }) => {
+      expect(request.body.awaabsLawReasonForRepair).to.deep.equal([
+        'damp-and-mould',
+        'fire-and-explosions',
+      ])
+    })
+  })
 })

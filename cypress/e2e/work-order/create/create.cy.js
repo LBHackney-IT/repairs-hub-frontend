@@ -196,6 +196,85 @@ describe('Raise repair form', () => {
     )
   })
 
+  it('Validates the reasons for repair', () => {
+    cy.loginWithAgentAndBudgetCodeOfficerRole()
+
+    cy.visit('/properties/00012345/raise-repair/new')
+
+    cy.wait([
+      '@propertyRequest',
+      '@contactDetailsRequest',
+      '@sorPrioritiesRequest',
+      '@tradesRequest',
+    ])
+
+    // Nothing selected
+    cy.get('[type="submit"]')
+      .contains('Create work order')
+      .click({ force: true })
+
+    cy.get('#reasonForRepair-form-group .govuk-error-message').contains(
+      'Please select an option'
+    )
+    cy.get('[data-testid="reasonForRepair"]').should(
+      'have.class',
+      'govuk-select--error'
+    )
+
+    // None of the above clears the error and cant be added to
+    cy.get('[data-testid="reasonForRepair"]').select('None of the above')
+    cy.get('#reasonForRepair-form-group .govuk-error-message').should(
+      'not.exist'
+    )
+    cy.get('[data-testid="add-another-reason-for-repair-link"]').should(
+      'not.exist'
+    )
+
+    // Adding another reason requires it to be filled in
+    cy.get('[data-testid="reasonForRepair"]').select('Damp & Mould')
+    cy.get('[data-testid="add-another-reason-for-repair-link"]').click()
+    cy.get('[data-testid="additionalReasonForRepair1"]').should(
+      'have.value',
+      ''
+    )
+    cy.get('[data-testid="add-another-reason-for-repair-link"]').should(
+      'not.exist'
+    )
+
+    cy.get('[type="submit"]')
+      .contains('Create work order')
+      .click({ force: true })
+
+    cy.get(
+      '#additionalReasonForRepair1-form-group .govuk-error-message'
+    ).contains('Please select an option')
+    cy.get('#reasonForRepair-form-group .govuk-error-message').should(
+      'not.exist'
+    )
+
+    cy.get('[data-testid="additionalReasonForRepair1"]').select('Excess cold')
+    cy.get(
+      '#additionalReasonForRepair1-form-group .govuk-error-message'
+    ).should('not.exist')
+
+    // Unselecting the first reason brings its error back
+    cy.get('[data-testid="reasonForRepair"]').select('')
+    cy.get('[type="submit"]')
+      .contains('Create work order')
+      .click({ force: true })
+
+    cy.get('#reasonForRepair-form-group .govuk-error-message').contains(
+      'Please select an option'
+    )
+    cy.get(
+      '#additionalReasonForRepair1-form-group .govuk-error-message'
+    ).should('not.exist')
+
+    // Removing the additional reason leaves only the first
+    cy.get('[data-testid="remove-additionalReasonForRepair1-link"]').click()
+    cy.get('[data-testid="additionalReasonForRepair1"]').should('not.exist')
+  })
+
   it('Shows address, tenure, alerts and property contact information', () => {
     cy.loginWithAgentRole()
 
