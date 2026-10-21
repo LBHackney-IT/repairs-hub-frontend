@@ -1,0 +1,71 @@
+.sor-code-editor {
+  min-height: 150px;
+  border: 2px solid #0b0c0c;
+  background: #fff;
+  font-family: monospace;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  &:focus-within {
+    outline: 3px solid #ffdd00;
+    outline-offset: 0;
+  }
+
+  &--error {
+    border-color: #d4351c;
+  }
+
+  &__textarea {
+    outline: none;
+  }
+
+  &__line {
+    display: inline-block;
+    min-width: 100%;
+
+    &--invalid {
+      background: rgba(212, 53, 28, 0.15);
+      text-decoration: underline wavy #d4351c;
+    }
+  }
+
+  &__line--placeholder {
+    color: #626a6e;
+  }
+
+  &__line-number {
+    position: absolute;
+    left: 0;
+    width: 38px;
+    color: #626a6e;
+    text-align: right;
+    text-decoration: none;
+    user-select: none;
+  }
+}
+
+.sor-code-editor-errors {
+  display: block;
+  margin-top: 5px;
+
+  &__heading {
+    display: block;
+  }
+
+  &__item {
+    display: block;
+    margin-top: 5px;
+    color: #0b0c0c;
+    font-weight: normal;
+  }
+
+  &__line {
+    font-weight: bold;
+  }
+
+  &__text {
+    padding: 1px 6px;
+    background: #f3f2f1;
+    font-family: monospace;
+  }
+}

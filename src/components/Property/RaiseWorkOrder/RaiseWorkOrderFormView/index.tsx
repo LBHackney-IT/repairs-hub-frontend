@@ -14,6 +14,7 @@ import {
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import router from 'next/router'
 import AddMultipleSORs from '../AddMultipleSORs'
+import AddMultipleSORsLegacy from '../AddMultipleSORsLegacy'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import Contractor from '@/root/src/models/contractor'
@@ -251,6 +252,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
             } - £${code.cost.toString()}`,
             cost: code.cost.toString(),
             description: code.shortDescription,
+            quantity: code.quantity,
           })),
         ],
       }
@@ -275,6 +277,23 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
   if (loading || isLoadingFeatureToggles) {
     return <Spinner />
+  }
+
+  const addMultipleSorsProps = {
+    currentSorCodes: getCurrentSORCodes(),
+    setPageBackToFormView: () => {
+      setIsIncrementalSearchEnabled(tradeCode === 'MU')
+      setCurrentPage(FORM_PAGE)
+    },
+    sorExistenceValidationCallback: createSorExistenceValidator(
+      tradeCode,
+      propertyReference,
+      contractorReference,
+      true
+    ),
+    setSorCodesFromBatchUpload,
+    setAnnouncementMessage,
+    setIsPriorityEnabled,
   }
 
   return (
@@ -332,24 +351,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         />
       )}
 
-      {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
-        <AddMultipleSORs
-          currentSorCodes={getCurrentSORCodes()}
-          setPageBackToFormView={() => {
-            setIsIncrementalSearchEnabled(tradeCode === 'MU')
-            setCurrentPage(FORM_PAGE)
-          }}
-          sorExistenceValidationCallback={createSorExistenceValidator(
-            tradeCode,
-            propertyReference,
-            contractorReference,
-            true
-          )}
-          setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
-          setAnnouncementMessage={setAnnouncementMessage}
-          setIsPriorityEnabled={setIsPriorityEnabled}
-        />
-      )}
+      {currentPage === ADDING_MULTIPLE_SOR_PAGE &&
+        (simpleFeatureToggles?.enableMultipleSorsEditor ? (
+          <AddMultipleSORs {...addMultipleSorsProps} allowQuantity />
+        ) : (
+          <AddMultipleSORsLegacy {...addMultipleSorsProps} />
+        ))}
 
       {error && <ErrorMessage label={error} />}
     </>

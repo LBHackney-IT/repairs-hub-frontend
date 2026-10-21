@@ -10,7 +10,7 @@ interface Props {
   value?: string
   rows?: number
   register?: any
-  error?: FieldError | { message: string }
+  error?: FieldError | { message: string | JSX.Element }
   required?: boolean
   showAsOptional?: boolean
   className?: string
