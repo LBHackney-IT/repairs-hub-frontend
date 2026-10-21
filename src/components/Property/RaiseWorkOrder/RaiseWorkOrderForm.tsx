@@ -262,6 +262,7 @@ const RaiseWorkOrderForm = (props: Props) => {
               <RaiseWorkOrderReasonForRepair
                 register={register}
                 errors={errors}
+                formState={formState}
               />
             )}
 
