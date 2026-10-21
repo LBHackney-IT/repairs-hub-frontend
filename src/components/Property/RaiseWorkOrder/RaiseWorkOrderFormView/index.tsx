@@ -251,6 +251,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
             } - £${code.cost.toString()}`,
             cost: code.cost.toString(),
             description: code.shortDescription,
+            quantity: '1',
           })),
         ],
       }

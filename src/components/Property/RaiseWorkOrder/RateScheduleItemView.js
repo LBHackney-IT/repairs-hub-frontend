@@ -42,6 +42,22 @@ const RateScheduleItemView = ({
   )
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
 
+  // items restored from formState (e.g. batch added) never fire onQuantityChange
+  useEffect(() => {
+    const initialCosts = (formState?.rateScheduleItems || [])
+      .map((rsi, index) => ({
+        index,
+        cost: parseFloat(rsi.cost),
+        quantity: parseFloat(rsi.quantity),
+      }))
+      .filter((c) => !isNaN(c.cost) && !isNaN(c.quantity))
+
+    if (initialCosts.length > 0) {
+      setRateScheduleItemCosts(initialCosts)
+      updateTotalCost(initialCosts)
+    }
+  }, [])
+
   const getSorCodeObject = (value, index) => {
     if (sorCodeArrays[index]) {
       return sorCodeArrays[index].filter((a) => a.code == value)[0]
