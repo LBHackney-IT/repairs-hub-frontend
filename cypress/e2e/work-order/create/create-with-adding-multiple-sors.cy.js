@@ -5,6 +5,11 @@ const now = new Date('2022-02-11T12:00:00')
 describe('Raise repair form', () => {
   beforeEach(() => {
     cy.intercept(
+      { method: 'GET', path: '/api/simple-feature-toggle' },
+      { body: { enableMultipleSorsEditor: true } }
+    ).as('feature-toggle')
+
+    cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     ).as('propertyRequest')
@@ -77,7 +82,7 @@ describe('Raise repair form', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/check?tradeCode=PL&propertyReference=00012345&contractorReference=PUR&sorCode=00000001&sorCode=00000002&sorCode=00000001&sorCode=00000002&sorCode=00000003&sorCode=00000004&sorCode=00000004&isRaisable=true',
+          '/api/schedule-of-rates/check?tradeCode=PL&propertyReference=00012345&contractorReference=PUR&sorCode=00000001&sorCode=00000002&sorCode=00000003&sorCode=00000004&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/secondMultipleSorCodesValidation.json' }
     ).as('secondValidation')
@@ -181,17 +186,54 @@ describe('Raise repair form', () => {
         cy.wrap(
           dedent(`
             1234567
-            ABCDEFGH
             1
             00000001
-            00000002
             1
+          `)
+        ).as('multipleSORInput')
+
+        cy.get('@multipleSORInput').then((multipleSORInput) => {
+          cy.get('#newSorCodes').type(multipleSORInput, {
+            delay: 0,
+          })
+        })
+
+        cy.get('[type="submit"]').contains('Add SOR codes').click()
+      })
+
+      // format errors are found locally, so no request is made
+      cy.get('@firstValidation.all').should('have.length', 0)
+
+      cy.get('#newSorCodes-form-group').within(() => {
+        cy.contains('Please correct the highlighted lines')
+
+        const expectedErrors = [
+          ['Line 1:', '1234567', 'Invalid SOR code format'],
+          ['Line 2:', '1', 'Invalid SOR code format'],
+          ['Line 4:', '1', 'Invalid SOR code format'],
+        ]
+
+        expectedErrors.forEach(([line, text, message]) => {
+          cy.contains('.sor-code-editor-errors__item', line)
+            .should('contain', text)
+            .and('contain', message)
+        })
+      })
+
+      cy.get('#adding-multiple-sors-form').within(() => {
+        cy.contains('Enter SOR codes as a list:')
+
+        cy.wrap(
+          dedent(`
+            ABCDEFGH
+            00000001
+            00000002
             ABCD1234
           `)
         ).as('multipleSORInput')
 
         cy.get('@multipleSORInput').then((multipleSORInput) => {
-          cy.get('[data-testid="newSorCodes"]').type(multipleSORInput, {
+          cy.get('#newSorCodes').clear().type(multipleSORInput, {
             delay: 0,
           })
         })
@@ -201,10 +243,19 @@ describe('Raise repair form', () => {
 
       cy.wait('@firstValidation')
 
-      cy.get('.govuk-warning-text__text').within(() => {
-        cy.contains(
-          'Invalid SOR code(s) entered: "1234567" "ABCDEFGH" "1" "1" "ABCD1234"'
-        )
+      cy.get('#newSorCodes-form-group').within(() => {
+        cy.contains('Please correct the highlighted lines')
+
+        const expectedErrors = [
+          ['Line 1:', 'ABCDEFGH', 'SOR code does not exist'],
+          ['Line 4:', 'ABCD1234', 'SOR code does not exist'],
+        ]
+
+        expectedErrors.forEach(([line, text, message]) => {
+          cy.contains('.sor-code-editor-errors__item', line)
+            .should('contain', text)
+            .and('contain', message)
+        })
       })
 
       cy.get('#adding-multiple-sors-form').within(() => {
@@ -212,19 +263,16 @@ describe('Raise repair form', () => {
 
         cy.wrap(
           dedent(`
-            00000001
+            00000001 2
             00000002
-            00000001
-            00000002
-            00000003
+            00000003 4
 
-            00000004
             00000004
           `)
         ).as('multipleSORInput')
 
         cy.get('@multipleSORInput').then((multipleSORInput) => {
-          cy.get('[data-testid="newSorCodes"]').clear().type(multipleSORInput, {
+          cy.get('#newSorCodes').clear().type(multipleSORInput, {
             delay: 0,
           })
         })
@@ -233,10 +281,6 @@ describe('Raise repair form', () => {
       })
 
       cy.wait('@secondValidation')
-
-      cy.get('.lbh-page-announcement').contains(
-        'Duplicate SOR codes have been removed'
-      )
 
       cy.get('#repair-request-form').within(() => {
         // First code was added using the regular form and still remains
@@ -264,6 +308,23 @@ describe('Raise repair form', () => {
         cy.get('input[id="rateScheduleItems[4][code]"]').should(
           'have.value',
           '00000004 - shortDescription4 - £1'
+        )
+
+        cy.get('input[id="rateScheduleItems[1][quantity]"]').should(
+          'have.value',
+          '2'
+        )
+        cy.get('input[id="rateScheduleItems[2][quantity]"]').should(
+          'have.value',
+          '1'
+        )
+        cy.get('input[id="rateScheduleItems[3][quantity]"]').should(
+          'have.value',
+          '4'
+        )
+        cy.get('input[id="rateScheduleItems[4][quantity]"]').should(
+          'have.value',
+          '1'
         )
       })
     })
@@ -319,12 +380,9 @@ describe('Raise repair form', () => {
 
         cy.get('@multiTradeMultipleSORInput').then(
           (multiTradeMultipleSORInput) => {
-            cy.get('[data-testid="newSorCodes"]').type(
-              multiTradeMultipleSORInput,
-              {
-                delay: 0,
-              }
-            )
+            cy.get('#newSorCodes').type(multiTradeMultipleSORInput, {
+              delay: 0,
+            })
           }
         )
         cy.get('[type="submit"]').contains('Add SOR codes').click()

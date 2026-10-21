@@ -1,7 +1,8 @@
 import cx from 'classnames'
+import { JSX } from 'react'
 
 interface Props {
-  label: string
+  label: string | JSX.Element
   className?: string
   id?: number
 }
