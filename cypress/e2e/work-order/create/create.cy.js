@@ -768,7 +768,7 @@ describe('Raise repair form', () => {
         },
         budgetCode: { id: '4' },
         multiTradeWorkOrder: false,
-        isAwaabsDampAndMouldRepair: false,
+        awaabsLawReasonForRepair: [],
       })
     })
 

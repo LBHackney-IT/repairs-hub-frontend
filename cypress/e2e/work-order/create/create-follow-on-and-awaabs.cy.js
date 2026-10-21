@@ -261,7 +261,7 @@ describe('Raise repair form', () => {
             },
           },
           multiTradeWorkOrder: false,
-          isAwaabsDampAndMouldRepair: false,
+          awaabsLawReasonForRepair: [],
         })
       }
     )
@@ -405,7 +405,7 @@ describe('Raise repair form', () => {
             },
           },
           multiTradeWorkOrder: false,
-          isAwaabsDampAndMouldRepair: true,
+          awaabsLawReasonForRepair: ['damp-and-mould'],
         })
       }
     )

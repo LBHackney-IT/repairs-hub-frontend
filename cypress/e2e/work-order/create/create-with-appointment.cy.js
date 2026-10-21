@@ -266,7 +266,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
-                isAwaabsDampAndMouldRepair: false,
+                awaabsLawReasonForRepair: [],
               })
           })
       })
@@ -401,7 +401,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
-                isAwaabsDampAndMouldRepair: false,
+                awaabsLawReasonForRepair: [],
               })
           })
       })
