@@ -390,6 +390,51 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
               Damp & Mould
             </option>
             <option
+              value="excess-cold"
+            >
+              Excess cold
+            </option>
+            <option
+              value="excess-heat"
+            >
+              Excess heat
+            </option>
+            <option
+              value="falls-on-the-level"
+            >
+              Falls on the level
+            </option>
+            <option
+              value="falling-on-stairs"
+            >
+              Falling on stairs
+            </option>
+            <option
+              value="falling-between-levels"
+            >
+              Falling between levels
+            </option>
+            <option
+              value="structural-collapse-and-falling-elements"
+            >
+              Structural collapse and falling elements
+            </option>
+            <option
+              value="fire-and-explosions"
+            >
+              Fire and explosions
+            </option>
+            <option
+              value="electrical-hazards"
+            >
+              Electrical hazards
+            </option>
+            <option
+              value="domestic-hygiene"
+            >
+              Domestic hygiene
+            </option>
+            <option
               value="none-of-the-above"
             >
               None of the above
@@ -887,6 +932,51 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
               Damp & Mould
             </option>
             <option
+              value="excess-cold"
+            >
+              Excess cold
+            </option>
+            <option
+              value="excess-heat"
+            >
+              Excess heat
+            </option>
+            <option
+              value="falls-on-the-level"
+            >
+              Falls on the level
+            </option>
+            <option
+              value="falling-on-stairs"
+            >
+              Falling on stairs
+            </option>
+            <option
+              value="falling-between-levels"
+            >
+              Falling between levels
+            </option>
+            <option
+              value="structural-collapse-and-falling-elements"
+            >
+              Structural collapse and falling elements
+            </option>
+            <option
+              value="fire-and-explosions"
+            >
+              Fire and explosions
+            </option>
+            <option
+              value="electrical-hazards"
+            >
+              Electrical hazards
+            </option>
+            <option
+              value="domestic-hygiene"
+            >
+              Domestic hygiene
+            </option>
+            <option
               value="none-of-the-above"
             >
               None of the above
@@ -1339,6 +1429,51 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
               value="damp-and-mould"
             >
               Damp & Mould
+            </option>
+            <option
+              value="excess-cold"
+            >
+              Excess cold
+            </option>
+            <option
+              value="excess-heat"
+            >
+              Excess heat
+            </option>
+            <option
+              value="falls-on-the-level"
+            >
+              Falls on the level
+            </option>
+            <option
+              value="falling-on-stairs"
+            >
+              Falling on stairs
+            </option>
+            <option
+              value="falling-between-levels"
+            >
+              Falling between levels
+            </option>
+            <option
+              value="structural-collapse-and-falling-elements"
+            >
+              Structural collapse and falling elements
+            </option>
+            <option
+              value="fire-and-explosions"
+            >
+              Fire and explosions
+            </option>
+            <option
+              value="electrical-hazards"
+            >
+              Electrical hazards
+            </option>
+            <option
+              value="domestic-hygiene"
+            >
+              Domestic hygiene
             </option>
             <option
               value="none-of-the-above"
