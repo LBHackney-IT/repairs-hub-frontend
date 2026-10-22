@@ -62,6 +62,7 @@
     "build",
     "dist",
     ".next",
-    "cypress"
+    "cypress",
+    "cypress.config.ts"
   ]
 }

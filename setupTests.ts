@@ -20,7 +20,7 @@ jest.mock('@sentry/nextjs', () => {
     configureScope: jest.fn(() => 'Sentry.configureScope'),
     setUser: jest.fn(() => 'Sentry.setUser'),
     setTag: jest.fn(() => 'Sentry.setTag'),
-    withScope: jest.fn((callback) => {
+    withScope: jest.fn((callback: (scope: typeof mockScope) => void) => {
       callback(mockScope)
       return 'Sentry.withScope'
     }),
@@ -33,8 +33,7 @@ jest.mock('next/router', () => ({
 }))
 
 import { useRouter } from 'next/router'
-
-useRouter.mockReturnValue({
+;(useRouter as jest.Mock).mockReturnValue({
   route: '/',
   pathname: '/',
   query: {},
@@ -45,7 +44,7 @@ useRouter.mockReturnValue({
   reload: jest.fn(),
   back: jest.fn(),
   forward: jest.fn(),
-  prefetch: jest.fn().mockResolvedValue(undefined),
+  prefetch: jest.fn<() => Promise<void>>().mockResolvedValue(undefined),
   beforePopState: jest.fn(),
   events: {
     on: jest.fn(),

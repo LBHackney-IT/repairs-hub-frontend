@@ -1,8 +1,11 @@
+import type { NextConfig } from 'next'
+import type { Header } from 'next/dist/lib/load-custom-routes'
+
 const cspHeader = `
   frame-ancestors 'none';
 `
 
-async function headers() {
+async function headers(): Promise<Header[]> {
   return [
     {
       source: '/(.*)',
@@ -24,7 +27,7 @@ async function headers() {
   ]
 }
 
-const moduleExports = {
+const nextConfig: NextConfig = {
   distDir: 'build/_next',
   productionBrowserSourceMaps: false,
   output: 'standalone',
@@ -35,4 +38,4 @@ const moduleExports = {
   allowedDevOrigins: ['localdev.hackney.gov.uk'],
 }
 
-module.exports = moduleExports
+export default nextConfig
