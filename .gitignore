@@ -57,3 +57,6 @@ cypress/results
 package-lock.json
 
 .idea
+
+# TypeScript incremental build cache
+*.tsbuildinfo

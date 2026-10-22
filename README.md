@@ -1,211 +1,177 @@
 # Hackney Repairs Hub frontend
 
-Allows agents and managers to raise, review, approve and close work orders.
+This is the frontend for Repairs Hub. Agents and managers use it to raise, review, approve and close work orders. Operatives get a "mobile working" view where they can sign in, see their upcoming jobs and complete them.
 
-Allows operatives to sign in to a "mobile working" view, see upcoming jobs and complete them.
+## What it's built on
 
-## Dependencies
+It's a [Next.js](https://nextjs.org) app, styled with the [Hackney Design System](https://design-system.hackney.gov.uk/). The codebase started out as JavaScript and is slowly moving to TypeScript, so you'll find a mix of `.js`, `.ts` and `.tsx` files. New code should be TypeScript.
 
-It's a [Next.js](https://nextjs.org) app that works with:
+It talks to a few other things:
 
-- [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet). Note that we are using a [custom 'App' with getInitialProps](https://nextjs.org/docs/advanced-features/custom-app) which causes all pages to be server-side rendered.
-- Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth)
-- [DRS Web Booking Manager (third-party work scheduler)](#drs-web-booking-manager-flow)
+- The [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet), which is where most of the data comes from. We use a [custom App with getInitialProps](https://nextjs.org/docs/advanced-features/custom-app), which means every page is rendered on the server.
+- Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth) for logging in.
+- DRS, the third-party scheduling software. See [the DRS section](#drs-web-booking-manager-flow) below.
 
-It's built using [Hackney Design System](https://design-system.hackney.gov.uk/).
+It's deployed with the Serverless Framework (see [serverless.yml](serverless.yml)) and built and tested on [CircleCI](https://app.circleci.com/pipelines/github/LBHackney-IT/repairs-hub-frontend?filter=all), configured in [.circleci/config.yml](.circleci/config.yml).
 
-Serverless deployment is configured in [serverless.yml](serverless.yml).
+## Getting set up
 
-Continuous integration is managed with [CircleCI](https://app.circleci.com/pipelines/github/LBHackney-IT/repairs-hub-frontend?filter=all), configured in [circleci/config.yml](/.circleci/config.yml).
-
-## Development Setup
-
-### Clone the project
+### Install
 
 ```sh
 git clone git@github.com:LBHackney-IT/repairs-hub-frontend.git
 ```
 
-The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
-
-Install the dependencies:
+The app runs on Node 24. If you use [NVM](https://github.com/nvm-sh/nvm), `nvm use` in the project folder will pick the right version from `.nvmrc`. We use yarn, so please stick to that rather than npm, otherwise you'll end up with a second lockfile.
 
 ```sh
 yarn install
 ```
 
-### Local environment variables (dotenv)
+### Environment files
 
-Create the following files to store local secrets (which are gitignored):
+You'll need three local files, all of which are gitignored:
 
 - `.env`
 - `.env.local`
 - `.env.test.local`
 
-Populate this with a set of variables. This should be stored in a safe place in Hackney. Most of the important values to be assigned to these are found within AWS Parameter store for the development account. Ask a team member if unsure.
+There are `.sample` versions of each to copy from, but they only show you which variables exist. The real values are kept somewhere safe at Hackney, and most of them can be found in AWS Parameter Store in the development account. Ask a teammate if you're not sure where to look.
 
-If you need to add or change a variable on CI or a deployed environment, first see the 'Managing environment variables' section below.
+If you need to add or change a variable for CI or a deployed environment, have a look at [the environment variables section](#environment-variables) first.
 
-## Install pre-commit hook 
+### Pre-commit hook
 
-Install pre-commit hook - [guide here](https://docs.gitguardian.com/ggshield-docs/integrations/git-hooks/pre-commit)
+We use GitGuardian's `ggshield` to stop secrets being committed. Follow the [install guide](https://docs.gitguardian.com/ggshield-docs/integrations/git-hooks/pre-commit), then set the `GITGUARDIAN_API_KEY` environment variable. The key is in Parameter Store (Housing-Development).
 
-Then add the `GITGUARDIAN_API_KEY` environment variable. The key can be found in Parameter Store (Housing-Development).
+### Logging in locally
 
-### Authentication
+You need a `@hackney.gov.uk` Google account that's in the right Google groups. If you can't log in, speak to Hackney IT.
 
-You need a `@hackney.gov.uk` Google account with the correct Google group membership to log in. Speak to Hackney IT if you don't have this.
-
-Next, you need to tell your computer to run the app from a `hackney.gov.uk` domain. Let's use `localdev.hackney.gov.uk`. You will need to add the following line to your `/etc/hosts` file:
+The login only works from a `hackney.gov.uk` domain, so add this line to your `/etc/hosts` file to point one at your machine. We use `localdev.hackney.gov.uk`:
 
 ```
 127.0.0.1       localdev.hackney.gov.uk
 ```
 
-### Run the development server:
+### Running it
 
-```bash
-npm run dev
-# or
+```sh
 yarn dev
 ```
 
-Open [http://localdev.hackney.gov.uk:5000/](http://localdev.hackney.gov.uk:5000/) with your browser to see the result.
+Then open [http://localdev.hackney.gov.uk:5001](http://localdev.hackney.gov.uk:5001). Note that it's port 5001, and you need to use the hackney domain rather than plain localhost, otherwise login won't work.
 
-### Tests
+## Everyday commands
 
-This application is using Jest, `react-testing-library`, for unit tests and can be run using the following command:
+- `yarn dev` starts the dev server on port 5001.
+- `yarn lint` runs ESLint. `yarn lintfix` fixes what it can.
+- `yarn tsc --noEmit` type checks the TypeScript files. No output means no errors. Typing isn't strict yet, so it only catches the obvious problems.
+- `yarn build` makes a production build.
 
-```bash
+## Tests
+
+### Unit tests
+
+Unit tests use Jest and React Testing Library:
+
+```sh
 yarn test:unit
-# or
-yarn test:unit-windows
 ```
 
-To keep the unit test output clear of known and expected console output we can make use of [jest-clean-console-reporter](https://github.com/jevakallio/jest-clean-console-reporter). Rules can be added to `./reporter-rules.json` to suppress or group commands.
+On Windows, use `yarn test:unit-windows` instead. If you've changed something on purpose and need to update the snapshots, `yarn test:unit-win-upd` does that.
+### End-to-end tests
 
-This application is using cypress, for end-to-end and integration tests and can be run using the following command:
+End-to-end tests use Cypress. This builds the app, starts it and runs the whole suite headless in Chrome:
 
-```bash
+```sh
 yarn test:e2e
 ```
 
-Alternativelty, you can run cypress tests via the GUI:
+If you'd rather watch it run, start the app in one terminal with `yarn dev`, then open the Cypress window from another:
 
-```bash
-yarn dev-test
+```sh
 yarn cy:open
 ```
 
-The full test suite including unit tests and system tests can be run using following command:
+`yarn tests` runs the unit tests and then the end-to-end tests.
 
-```
-yarn tests
-```
+## CI, environments and deployments
 
-## Environments and deployments
+On every push CircleCI runs lint and the unit tests (`tests`) plus the Cypress suite (`e2e`). There's also a `quality-checks` job that does a TypeScript check and audits our production dependencies. That one is there to keep us informed, and it doesn't block a deploy if it fails, so keep an eye on it.
 
-Features and bugfixes should be raised against `develop`. Merging to develop [triggers automated deployment to the development environment](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L205). This can be used for developer or design previews.
+Features and bug fixes go to `develop`. Merging there deploys automatically to the development environment, which is handy for developer or design previews.
 
-To update staging (and make the feature available for QA/UAT), make a PR from `develop` to `main`. Merging to `main` [triggers automated deployment to the staging environment](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L219).
+To get something onto staging for QA and UAT, open a PR from `develop` to `main`. Merging to `main` deploys to staging automatically. If that works, the production deploy then waits for someone to approve it in the CircleCI UI.
 
-If the staging deployment above is successful, a production deploy is [pending manual approval in the Circle CI UI](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L221) before a deployment to the production environment.
-
-See the wiki page for some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables) when preparing a production release, including how to trigger a manual prodution deploy.
+The wiki has some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables) for preparing a production release, including how to trigger a manual production deploy.
 
 ## Feature toggles
 
-Our git branching strategy means that multiple features / bugfixes can be in the same merge commit to `main`. Some may be tested and approved, and some may not. To avoid a situation where an urgent, tested fix is blocked from release by testing of another feature, features should be behind feature toggles.
+Merges to `main` can contain several features and fixes at once, and not all of them will have been tested and approved. We don't want an urgent fix to get stuck behind something that isn't ready, so new features should sit behind a feature toggle.
 
-We use the [configuration-api](https://github.com/LBHackney-IT/configuration-api) to provide new run-time toggles - see below for how to set them in the associated config repo. (Note, however, at the time of writing there are a small amount of feature toggles made by setting environment variables at build-time (i.e. in the format `NEXT_PUBLIC_*`), but this technique is deprecated.)
+Toggles are served at runtime by the [configuration-api](https://github.com/LBHackney-IT/configuration-api). To add or change one, raise a PR against `master` in the [configuration-api-files repo](https://github.com/LBHackney-IT/configuration-api-files), updating the JSON for every environment it applies to. The [previous PRs](https://github.com/LBHackney-IT/configuration-api-files/pulls?q=is%3Apr+is%3Aclosed+RH) are good examples to copy from.
 
-To add or edit a toggle, raise a PR against `master` in the [configuration-api-files repo](https://github.com/LBHackney-IT/configuration-api-files) to update the JSON object for every relevant environment. [Previous example PRs](https://github.com/LBHackney-IT/configuration-api-files/pulls?q=is%3Apr+is%3Aclosed+RH) demonstrate this.
+A handful of older toggles are set with `NEXT_PUBLIC_*` environment variables at build time. That approach is deprecated, so please don't add new ones.
 
-You can use Cypress `intercept` commands (request stubbing) to enable or disable the relevant feature toggle in integration tests.
+In Cypress tests you can use `intercept` to stub the toggles response and switch a feature on or off.
 
 ## Environment variables
 
-### Types of environment variables
+There are two kinds:
 
-This project makes use of two types of environment variables:
+1. Variables starting with `NEXT_PUBLIC_` are exposed to the browser, so never put anything secret in them.
+2. Everything else is server-side only. These are the secrets, so real values must never be committed. Only references to wherever they're stored.
 
-1. Public variables which have the prefix `NEXT_PUBLIC_` - these are exposed and used in the browser.
-2. Server side only variables (without the above prefix). These are secrets and therefore real values should never be committed to the codebase - only references to secret storage should be used.
+Where a value comes from depends on how the app is being run:
 
-### Where values are set
-
-This project sets environment variables in multiple places. Which values are used depends on where and how the code is being run.
-
-When running locally, dotenv files are used. `.env`, `.env.local` are used when running the app and `.env.test` and `.env.test.local` are used when running tests.
-
-In deployed environments, environment variables are used from the following places:
-
-- Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
-- Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [CircleCI project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
-  These references are made using the `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
-- AWS Parameter Store for a given environment, referenced from the [serverless config file](./serverless.yml)
-
-### CI Builds
-
-When running integration tests on Circle CI, values are from dotenv files, the CircleCI project settings and from hardcoded values in the CircleCI config file.
-
-### Deployed applications
-
-When running the application in all deployed environments, server side environment variables are stored in AWS Parameter store (referenced in serverless.yml). Public variables are in the Circle CI config file - they are either hardcoded directly or they reference variables in CirceCI project settings.
+- **Locally:** the dotenv files. The app reads `.env` and `.env.local`, and the tests read `.env.test` and `.env.test.local`.
+- **On CI:** the values come from dotenv files, from hardcoded values in the CircleCI config, and from the CircleCI project settings. Config entries that start with `$` (like `$OUT_OF_HOURS_LINK_STAGING`) point at those project settings.
+- **Deployed:** server-side variables live in AWS Parameter Store and are referenced from [serverless.yml](serverless.yml). Public variables are set in the CircleCI config, either hardcoded or pointing at CircleCI project settings.
 
 ## Pages, routes and the Node API
 
-#### Pages
+### Pages
 
-Next JS uses file-based routing. In order to work out how a URL maps to a specific page, look at the directory structure under `src/pages`. Dynamic URL parameters such as an order id are denoted using square brackets (e.g. `[id].js`), which capture the named parameter and make it available in the relevant page component.
+Next.js works out routes from the folder structure under `src/pages`. Square brackets mark a dynamic part of the URL, so `src/pages/work-orders/[id]/index.js` handles `/work-orders/1000000`, and the `id` is available as `query.id`. When a page also has pages nested beneath it, the page itself goes in an `index` file.
 
-If a page maps to a url but also is the start of another url nested beneath it, an `index.js` file at that location is used. See table below for examples.
+A few examples:
 
-#### API pages
+- `/` is `src/pages/index.js`, the home page. What the user sees depends on their role.
+- `/search` is `src/pages/search.js`.
+- `/work-orders/1000000` is `src/pages/work-orders/[id]/index.js`.
+- `/work-orders/1000000/tasks/abc/edit` is `src/pages/work-orders/[id]/tasks/[taskId]/edit.js`, with `query.id` and `query.taskId` both available.
+- `/properties/1000000/raise-repair/new` lives under `src/pages/properties/[id]/raise-repair/`.
 
-**Next JS includes a Node API.** In Repairs Hub we use this feature to forward requests to other APIs following authorisation of the user. In particular, the [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet) is used for the majority of upstream calls.
+### The Node API
 
-Requests made from the frontend to a path starting `/api` will be routed to pages under the `src/pages/api` directory in the app (see table below). In most cases, the API passes the request straight through to the backend service API using a "catch all" endpoint (`src/pages/api/[...path].js`) - the square brackets and dotted notation means that "catch-all" endpoint will handle any API request which does not match a more specific route. We use more specific Node API routes in a few places to help with feature toggling, data redaction based on user role, and url-encoding, or sending requests to APIs other than the service API.
+Next.js also lets you write API routes, and we use that to forward requests on to other APIs once the user has been authorised. Anything the frontend requests under `/api` is handled by a file in `src/pages/api`. Most of the time that's the catch-all route, `src/pages/api/[...path].js`, which passes the request straight on to the Service API. It handles anything that doesn't match a more specific route.
 
-**This leads to an important "gotcha" while developing.** If an expected service API response does not match what's received by the frontend code, it's possible that a custom route in the intermediate Node API is processing or intercepting the request to change the received data. Check the API directory to see if there are any custom routes which might be transforming the request data.
+We have a few more specific routes where we need to do something extra, like feature toggling, hiding data from some roles, URL-encoding, or calling an API other than the Service API:
 
-Some more specific routes at the time of writing are below:
+- `/api/properties/[id]` (`src/pages/api/properties/[id]/index.ts`) hides contact information from users who shouldn't see it.
+- `/api/properties/search` (`src/pages/api/properties/search.js`) switches between the new and deprecated backend search endpoints, depending on a toggle.
+- `/api/toggles` (`src/pages/api/toggles.js`) calls the configuration API.
+- `/api/users/schedulerSession` (`src/pages/api/users/schedulerSession.js`) asks DRS for an access token.
 
-- Requesting a property can include contact information. Some users should not see that, and the response data anonymisation is done in the frontend API (`src/pages/api/properties/[id]/index.js`)
-- Property search has been used to feature toggle integration with a new vs deprecated backend search endpoint, so there is logic to control this first in the Node API (`src/pages/api/properties/search.js`)
+**This catches people out.** If the Service API returns one thing and your frontend code receives something different, a custom route in the Node API may be changing the data on the way through. Have a look in `src/pages/api` before you start questioning the backend.
 
-## Example paths, route mapping and notes
+## User permissions
 
-| path                                     | file location                                      | notes                                                                 |
-| ---------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------- |
-| `/`                                      | /src/pages/index.js                                | home page, user is displayed component based on role                  |
-| `/search`                                | /src/pages/search.js                               |                                                                       |
-| `/work-orders/1000000`                   | /src/pages/work-orders/[id]/index.js               | id accessible via query.id                                            |
-| `/properties/1000000/raise-repair/new`   | /properties/[id]/raise-repair/new                  | id accessible via query.id                                            |
-| `/work-orders/1000000/tasks/abc/edit.js` | /src/pages/work-orders/[id]/tasks/[taskId]/edit.js | id and taskID accessible via query.id and query.taskId                |
-| `/api/work-orders/1000000`               | /src/pages/api/[...path].js                        | The default ("catch-all") API route. Forwards to service API.         |
-| `/api/properties/1000000`                | /src/pages/api/properties/[id].js                  | Takes precedence over default API route. Redacts info for some users. |
-| `/api/toggles`                           | /src/pages/api/toggles.js                          | Calls configuration API                                               |
-| `/api/users/schedulerSession`            | /src/pages/api/users/schedulerSession.js           | Calls DRS to generate access token                                    |
+Repairs Hub relies on [Hackney's Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth), which provides a JWT for the logged-in user.
 
-## User permissions and authorisation
+A user's permissions come from the Google groups they belong to. We read the groups after verifying the JWT in [googleAuth.js](src/utils/googleAuth.js), and [user.ts](src/utils/user.ts) maps those groups onto roles in Repairs Hub. To get the current user in a component, use the context in [UserContext](src/components/UserContext/index.js).
 
-Repairs Hub depends on [Hackney's Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth) to provide a JWT representing the Hackney user.
+Each page controls who can see it with a `permittedRoles` property, as you can see on the [home page](src/pages/index.js). For finer detail inside a page, like whether a certain button shows up, the logic is in [userPermissions.ts](src/utils/userPermissions.ts) and [workOrderActions.js](src/utils/workOrderActions.js).
 
-Permissions are based on membership of one or more Google groups created for the Repairs team, found after verifying the user's Google JWT in [`googleAuth.js`](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/utils/googleAuth.js). The mappings between Google groups and roles within Repairs Hub is maintained within [`user.js`](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/utils/user.js). Access to the logged-in user can be achieved by using [`UserContext.js`](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/components/UserContext/index.js).
-
-Refer to this [matrix of user page permissions](https://accounts.google.com/ServiceLogin/webreauth?service=wise&passive=1209600&continue=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1mYI10Er9f-gvFKiA5bryL5PvD3KZkuK6DyKPz12bZYw%2Fedit&followup=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1mYI10Er9f-gvFKiA5bryL5PvD3KZkuK6DyKPz12bZYw%2Fedit&ltmpl=sheets&authuser=0&flowName=GlifWebSignIn&flowEntry=ServiceLogin#gid=0) for an overview of the roles and page permissions.
-
-Access to an individual page is controlled by the `permittedRoles` attribute on the page component. For example, the home page can be accessed by everyone and contains [this list of permitted users](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/pages/index.js#L75-L81).
-
-Logic for finer-grained access control for features within a page such as buttons are currently found in [userPermissions.js](/src/utils/userPermissions.js) and also [workOrderActions.js](/src/utils/workOrderActions.js).
+There's also a [matrix of roles and page permissions](https://docs.google.com/spreadsheets/d/1mYI10Er9f-gvFKiA5bryL5PvD3KZkuK6DyKPz12bZYw/edit) if you want the overview.
 
 ## DRS Web Booking Manager flow
 
-Repairs raised for some contractors are given appointments using our own calendar. Others are given appointments via Hackney's scheduling software - DRS.
+Some contractors get their appointments through our own calendar, and others through Hackney's scheduling software, DRS.
 
-A repair raise request, via a POST to the `schedule` endpoint, can return a field `externallyManagedAppointment` set to `true`. This indicates that the order can be booked using a web interface to DRS, as opposed to using our own internal calendar view.
+When a repair is raised with a POST to the `schedule` endpoint, the response can include `externallyManagedAppointment: true`. That means the job should be booked through the DRS web interface rather than our calendar.
 
-To create a valid link, we are required to generate a `sessionId`, appended as a query param. This is achieved in the `src/pages/api/users/schedulerSession.js` API route endpoint.
+To build a valid link into DRS, we have to generate a `sessionId` and add it to the URL as a query param. That happens in the `src/pages/api/users/schedulerSession.js` route.
 
-The user's navigation to DRS is currently logged as a Note. (At the time of writing there is no other way to know the user visited the external page, so we log the navigation instead.)
+We record the user going to DRS as a Note on the work order. There's currently no other way to know they visited the external page, so the navigation itself is what we log.
