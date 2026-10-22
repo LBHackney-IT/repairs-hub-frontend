@@ -1,9 +1,20 @@
-export const setFilterOptions = (formData) => {
-  let filterOptions = {}
+type FilterOption = { key: string; description: string }
+type FilterOptionsByCategory = Record<string, FilterOption[]>
+type AppliedFilters = {
+  ContractorReference?: string | string[]
+  StatusCode?: string | string[]
+  Priorities?: string | string[]
+  TradeCodes?: string | string[]
+}
+
+export const setFilterOptions = (
+  formData: Record<string, Record<string, unknown>>
+): Record<string, string[]> => {
+  const filterOptions: Record<string, string[]> = {}
 
   Object.keys(formData).forEach((filterCategory) => {
-    let filterCategoryObject = formData[filterCategory]
-    let filterCategoryObjectKeys = Object.keys(filterCategoryObject)
+    const filterCategoryObject = formData[filterCategory]
+    const filterCategoryObjectKeys = Object.keys(filterCategoryObject)
 
     filterCategoryObjectKeys.forEach((key) => {
       if (filterCategoryObject[key]) {
@@ -19,11 +30,13 @@ export const setFilterOptions = (formData) => {
   return filterOptions
 }
 
-const keyToDescriptionMap = (filters) => {
-  let filterMap = {}
+const keyToDescriptionMap = (
+  filters: FilterOptionsByCategory
+): Record<string, Record<string, string>> => {
+  const filterMap: Record<string, Record<string, string>> = {}
 
   Object.keys(filters).forEach((filterCategory) => {
-    let filterCategoryObject = filters[filterCategory]
+    const filterCategoryObject = filters[filterCategory]
 
     const keyToDescriptionMapping = filterCategoryObject.map((object) => {
       return {
@@ -32,7 +45,7 @@ const keyToDescriptionMap = (filters) => {
     })
 
     Object.assign(filterMap, {
-      [filterCategory]: Object.assign(...keyToDescriptionMapping),
+      [filterCategory]: Object.assign({}, ...keyToDescriptionMapping),
     })
   })
 
@@ -40,7 +53,16 @@ const keyToDescriptionMap = (filters) => {
 }
 
 export class SelectedFilterOptions {
-  constructor(appliedFilters, filters) {
+  keyToDescriptionMap: Record<string, Record<string, string>>
+  selectedContractors?: string | string[]
+  selectedStatuses?: string | string[]
+  selectedPriorities?: string | string[]
+  selectedTrades?: string | string[]
+
+  constructor(
+    appliedFilters: AppliedFilters,
+    filters: FilterOptionsByCategory
+  ) {
     this.keyToDescriptionMap = keyToDescriptionMap(filters)
     this.selectedContractors = appliedFilters.ContractorReference
     this.selectedStatuses = appliedFilters.StatusCode

@@ -1,4 +1,7 @@
-export const buildNoteFormData = (formData) => {
+export const buildNoteFormData = (formData: {
+  workOrderReference: string
+  note: string
+}) => {
   return {
     relatedWorkOrderReference: {
       id: formData.workOrderReference,
@@ -11,8 +14,8 @@ export const buildNoteFormData = (formData) => {
 }
 
 export const buildDataFromScheduleAppointment = (
-  workOrderReference,
-  comments
+  workOrderReference: string,
+  comments: string
 ) => {
   return {
     relatedWorkOrderReference: {

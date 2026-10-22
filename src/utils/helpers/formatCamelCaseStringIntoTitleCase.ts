@@ -1,4 +1,4 @@
-export const formatCamelCaseStringIntoTitleCase = (str) => {
+export const formatCamelCaseStringIntoTitleCase = (str: string): string => {
   // Step 1 & 2: Add a space before each capital letter and lowercase the entire string
   str = str.replace(/([A-Z])/g, ' $1').toLowerCase()
 

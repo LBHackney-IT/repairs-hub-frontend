@@ -9,7 +9,14 @@ import {
   CONTRACT_ADMIN_ROLE,
 } from './user'
 
-const HEADER_LINKS = [
+type HeaderLink = {
+  href: string
+  id: string
+  description: string
+  permittedRoles: string[]
+}
+
+const HEADER_LINKS: HeaderLink[] = [
   {
     href: '/',
     id: 'manage',
@@ -58,7 +65,7 @@ const HEADER_LINKS = [
   },
 ]
 
-export const headerLinksForUser = (user) => {
+export const headerLinksForUser = (user: { roles: string[] }) => {
   return HEADER_LINKS.filter((link) =>
     link.permittedRoles.some((role) => user.roles.includes(role))
   ).map((link) => {

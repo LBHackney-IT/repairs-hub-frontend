@@ -1,6 +1,6 @@
 const DAY = 86400000
 
-export const extractTimeFromDate = (datetime) => {
+export const extractTimeFromDate = (datetime: Date | string): string => {
   if (typeof datetime === 'string') {
     datetime = new Date(datetime)
   }
@@ -11,16 +11,12 @@ export const extractTimeFromDate = (datetime) => {
   })
 }
 
-/**
- * @param {Date | string} datetime
- * @returns {string}
- */
-export const formatDateTime = (datetime) => {
+export const formatDateTime = (datetime: Date | string): string => {
   if (typeof datetime === 'string') {
     datetime = new Date(datetime)
   }
 
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     hourCycle: 'h23',
     day: 'numeric',
     month: 'short',
@@ -37,21 +33,24 @@ export const formatDateTime = (datetime) => {
   return datetime.toLocaleString('en-GB', options)
 }
 
-export const beginningOfDay = (date) => {
+export const beginningOfDay = (date: Date): Date => {
   return new Date(Math.floor(date.getTime() / DAY) * DAY)
 }
 
-export const beginningOfWeek = (date) => {
+export const beginningOfWeek = (date: Date): Date => {
   const offset = ((date.getDay() + 6) % 7) * DAY
   return beginningOfDay(new Date(date.getTime() - offset))
 }
 
-export const daysAfter = (date, days) => {
+export const daysAfter = (date: Date, days: number): Date => {
   return new Date(date.getTime() + days * DAY)
 }
 
-export const getWorkingDaysBeforeDate = (date, numberOfDays) => {
-  let daysCountdown = Array(numberOfDays).fill('')
+export const getWorkingDaysBeforeDate = (
+  date: Date,
+  numberOfDays: number
+): Date[] => {
+  const daysCountdown: Date[] = Array(numberOfDays).fill('')
   daysCountdown.forEach((_, index) => {
     daysCountdown[index] = new Date(date.getTime() - numberOfDays * DAY)
     numberOfDays -= 1
@@ -65,8 +64,9 @@ export const getWorkingDaysBeforeDate = (date, numberOfDays) => {
   return removeWeekends.reverse()
 }
 
-export const dateEqual = (date, otherDate) => {
+export const dateEqual = (date: Date, otherDate: Date): boolean => {
   return date.getTime() === otherDate.getTime()
 }
 
-export const daysInHours = (days) => (!days || days < 1 ? 0 : days * 24)
+export const daysInHours = (days?: number): number =>
+  !days || days < 1 ? 0 : days * 24

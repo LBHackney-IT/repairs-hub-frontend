@@ -1,4 +1,4 @@
-export const CAUTIONARY_ALERTS = [
+export const CAUTIONARY_ALERTS: { code: string; description: string }[] = [
   {
     code: 'DAT',
     description: '[Temporary] Dangerous Animals',

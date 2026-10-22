@@ -1,8 +1,13 @@
+type OperativeAssignment = {
+  operative: { id: string | number }
+  percentage: string
+}
+
 export const buildOperativeAssignmentFormData = (
-  workOrderReference,
-  operatives,
-  operativesNotes,
-  isSplit
+  workOrderReference: string,
+  operatives: OperativeAssignment[],
+  operativesNotes?: string,
+  isSplit?: boolean
 ) => {
   return {
     relatedWorkOrderReference: {

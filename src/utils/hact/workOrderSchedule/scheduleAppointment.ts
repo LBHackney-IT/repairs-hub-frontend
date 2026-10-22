@@ -1,6 +1,6 @@
 export const buildScheduleAppointmentData = (
-  workOrderReference,
-  appointmentReference
+  workOrderReference: string,
+  appointmentReference: string
 ) => {
   return {
     workOrderReference: {

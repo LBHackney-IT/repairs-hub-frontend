@@ -1,5 +1,5 @@
 export const buildVariationAuthorisationApprovedFormData = (
-  workOrderReference
+  workOrderReference: string
 ) => {
   return {
     relatedWorkOrderReference: {
@@ -12,8 +12,8 @@ export const buildVariationAuthorisationApprovedFormData = (
 }
 
 export const buildVariationAuthorisationRejectedFormData = (
-  formData,
-  workOrderReference
+  formData: { note: string },
+  workOrderReference: string
 ) => {
   return {
     relatedWorkOrderReference: {
@@ -25,7 +25,9 @@ export const buildVariationAuthorisationRejectedFormData = (
   }
 }
 
-export const buildAuthorisationApprovedFormData = (workOrderReference) => {
+export const buildAuthorisationApprovedFormData = (
+  workOrderReference: string
+) => {
   return {
     relatedWorkOrderReference: {
       id: workOrderReference,
@@ -36,8 +38,8 @@ export const buildAuthorisationApprovedFormData = (workOrderReference) => {
 }
 
 export const buildAuthorisationRejectedFormData = (
-  formData,
-  workOrderReference
+  formData: { note: string },
+  workOrderReference: string
 ) => {
   return {
     relatedWorkOrderReference: {

@@ -1,13 +1,11 @@
-import { format } from 'date-fns'
-import { beginningOfDay } from './time'
-
-export const convertDate = (dateAsString) => {
+// TODO: return type is `any` because callers store the result in string state
+export const convertDate = (dateAsString?: string): any => {
   if (dateAsString) {
     return new Date(dateAsString)
   }
   return dateAsString
 }
-export const dateToStr = (date) =>
+export const dateToStr = (date: Date | string | number): string =>
   new Date(date).toLocaleDateString('en-GB', {
     year: 'numeric',
     month: 'short',
@@ -15,7 +13,11 @@ export const dateToStr = (date) =>
     timeZone: 'UTC',
   })
 
-export const sortObjectsByDateKey = (objects, dateFields, dateKeyToSortBy) => {
+export const sortObjectsByDateKey = (
+  objects: Record<string, any>[],
+  dateFields: string[],
+  dateKeyToSortBy: string
+) => {
   objects.forEach((o) => {
     dateFields.forEach((field) => {
       o[field] = convertDate(o[field])
@@ -25,45 +27,51 @@ export const sortObjectsByDateKey = (objects, dateFields, dateKeyToSortBy) => {
   return objects.sort((a, b) => b[dateKeyToSortBy] - a[dateKeyToSortBy])
 }
 
-export const convertFormat = (date) => {
+export const convertFormat = (date: string): string => {
   const values = date.split('-')
   return `${values[0]}-${values[1]}-${values[2]}`
 }
 
-export const convertToDateFormat = (dateString, timeString) => {
+export const convertToDateFormat = (
+  dateString: string,
+  timeString: string
+): any => {
   const dateAsString = `${dateString}T${timeString}`
   return convertDate(dateAsString)
 }
 
-export const shortDayName = (date) => {
+export const shortDayName = (date: Date): string => {
   return date.toLocaleDateString('en-GB', { weekday: 'short' })
 }
 
-export const shortDate = (date) => {
+export const shortDate = (date: Date): string => {
   return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
 }
 
-export const monthDay = (date) => {
+export const monthDay = (date: Date): string => {
   return date.toLocaleDateString('en-GB', { day: 'numeric' })
 }
 
-export const shortMonthName = (date) => {
+export const shortMonthName = (date: Date): string => {
   return date.toLocaleDateString('en-GB', { month: 'short' })
 }
 
-export const longMonthName = (date) => {
+export const longMonthName = (date: Date): string => {
   return date.toLocaleDateString('en-GB', { month: 'long' })
 }
 
-export const isBeginningOfMonth = (date) => {
+export const isBeginningOfMonth = (date: Date): boolean => {
   return date.getDate() === 1
 }
 
-export const toISODate = (date) => {
+export const toISODate = (date: Date): string => {
   return date.toISOString().substring(0, 10)
 }
 
-export function longMonthWeekday(date, { commaSeparated = true } = {}) {
+export function longMonthWeekday(
+  date?: Date | string | number,
+  { commaSeparated = true } = {}
+): string | undefined {
   if (date) {
     return commaSeparated === true
       ? new Date(date).toLocaleDateString('en-GB', {
@@ -83,7 +91,7 @@ export function longMonthWeekday(date, { commaSeparated = true } = {}) {
   }
 }
 
-export const longDateToStr = (date) =>
+export const longDateToStr = (date: Date | string | number): string =>
   new Date(date).toLocaleDateString('en-GB', {
     weekday: 'long',
     year: 'numeric',
@@ -91,7 +99,7 @@ export const longDateToStr = (date) =>
     day: 'numeric',
   })
 
-export const getYesterdayDate = (currentDate) => {
+export const getYesterdayDate = (currentDate: Date): number => {
   const yesterday = new Date()
   return yesterday.setDate(currentDate.getDate() - 1)
 }

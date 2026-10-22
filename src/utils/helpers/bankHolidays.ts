@@ -1,4 +1,14 @@
-export const bankHolidays = {
+type BankHolidayEvent = {
+  title: string
+  date: string
+  notes: string
+  bunting: boolean
+}
+
+export const bankHolidays: Record<
+  string,
+  { division: string; events: BankHolidayEvent[] }
+> = {
   'england-and-wales': {
     division: 'england-and-wales',
     events: [

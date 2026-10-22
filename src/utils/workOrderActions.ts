@@ -14,7 +14,16 @@ import {
   CONTRACTOR_CAN_CANCEL_ROLE,
 } from './user'
 
-export const WORK_ORDER_ACTIONS = [
+type WorkOrderAction = {
+  href: string
+  title: string
+  description: string
+  permittedRoles: string[]
+  permittedStatuses: string[]
+  disabled?: boolean
+}
+
+export const WORK_ORDER_ACTIONS: WorkOrderAction[] = [
   {
     href: 'update',
     title: 'Update',

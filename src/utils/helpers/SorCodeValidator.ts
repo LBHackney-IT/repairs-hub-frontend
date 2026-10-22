@@ -1,11 +1,32 @@
 const SOR_CODE_VALID_LENGTH = 8
 const SOR_CODE_INVALID_CHARACTER_REGEX = /\s/ // Any whitespace
 
+type SorCodeValidationResults = {
+  validCodes: { code: string }[]
+  invalidCodes: string[]
+}
+
+type SorCodeError = { code: string; message: string }
+
 export class SorCodeValidator {
+  currentSorCodes: string[]
+  sorCodesToValidate: string[]
+  additionalValidationCallback: (
+    codes: string[]
+  ) => Promise<SorCodeValidationResults> | SorCodeValidationResults | void
+
+  errors: SorCodeError[]
+  validatedCodeSet: ({ code: string } | undefined)[]
+  duplicateCodes: string[]
+
   constructor({
     currentSorCodes = [],
     sorCodesToValidate = [],
     additionalValidationCallback = () => {},
+  }: {
+    currentSorCodes?: string[]
+    sorCodesToValidate?: string[]
+    additionalValidationCallback?: SorCodeValidator['additionalValidationCallback']
   }) {
     this.currentSorCodes = currentSorCodes
     this.sorCodesToValidate = sorCodesToValidate
@@ -16,7 +37,7 @@ export class SorCodeValidator {
     this.duplicateCodes = []
   }
 
-  async validate() {
+  async validate(): Promise<boolean> {
     this.errors = []
     this.validatedCodeSet = []
 
@@ -26,13 +47,13 @@ export class SorCodeValidator {
       }
     })
 
-    const validationResults = await this.additionalValidationCallback(
+    const validationResults = (await this.additionalValidationCallback(
       this.sorCodesToValidate.filter(
         (code) =>
           // codes which failed format validation aren't validated further
           !this.errors.some((errorObj) => errorObj.code === code)
       )
-    )
+    )) as SorCodeValidationResults
 
     validationResults.invalidCodes.forEach((code) => {
       this.errors.push({
@@ -64,15 +85,15 @@ export class SorCodeValidator {
     return true
   }
 
-  #isValidCode(code) {
+  #isValidCode(code: string): boolean {
     return (
       code.length === SOR_CODE_VALID_LENGTH &&
       !SOR_CODE_INVALID_CHARACTER_REGEX.test(code)
     )
   }
 
-  #deduplicateAndMark(sorCodesToValidate) {
-    return sorCodesToValidate.reduce((deduplicatedCodes, code) => {
+  #deduplicateAndMark(sorCodesToValidate: string[]): string[] {
+    return sorCodesToValidate.reduce((deduplicatedCodes: string[], code) => {
       if (
         deduplicatedCodes.includes(code) ||
         this.currentSorCodes.includes(code)

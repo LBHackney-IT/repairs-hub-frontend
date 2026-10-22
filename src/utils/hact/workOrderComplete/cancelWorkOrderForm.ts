@@ -1,4 +1,11 @@
-export const buildCancelWorkOrderFormData = (formData) => {
+type CancelWorkOrderFormData = {
+  workOrderReference: string
+  cancelReason: string
+}
+
+export const buildCancelWorkOrderFormData = (
+  formData: CancelWorkOrderFormData
+) => {
   return {
     workOrderReference: {
       id: formData.workOrderReference,

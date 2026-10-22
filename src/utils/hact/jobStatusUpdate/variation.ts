@@ -1,10 +1,17 @@
+type VariationTask = {
+  id?: string
+  code: string
+  description: string
+  quantity: string | number
+}
+
 export const buildVariationFormData = (
-  latestTasks,
-  addedTasks,
-  reference,
-  variationReason
+  latestTasks: VariationTask[],
+  addedTasks: VariationTask[],
+  reference: string,
+  variationReason?: string
 ) => {
-  const buildRateScheduleItems = (tasks, existing = false) => {
+  const buildRateScheduleItems = (tasks: VariationTask[], existing = false) => {
     return tasks.map((task) => {
       return {
         // We need to send back up the id for existing rate schedule items
@@ -12,7 +19,7 @@ export const buildVariationFormData = (
         customCode: task.code.split(' - ')[0],
         customName: task.description,
         quantity: {
-          amount: [Number.parseFloat(task.quantity)],
+          amount: [Number.parseFloat(String(task.quantity))],
         },
       }
     })
