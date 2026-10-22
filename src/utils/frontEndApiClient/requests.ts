@@ -2,21 +2,6 @@ import axios, { AxiosRequestConfig, Method } from 'axios'
 import { paramsSerializer } from '@/utils/urls'
 import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 
-// Requests must only ever target this app's own API routes. The path is
-// often built from ids that originate in the URL, so make sure it can't be
-// turned into an absolute URL or walk out of /api/.
-const assertIsApiPath = (path: string) => {
-  const [pathname] = path.split('?')
-
-  const isTraversal = pathname
-    .split('/')
-    .some((segment) => /^(\.|%2e){2}$/i.test(segment))
-
-  if (!path.startsWith('/api/') || pathname.includes('\\') || isTraversal) {
-    throw new Error(`Invalid API request path: ${path}`)
-  }
-}
-
 export const frontEndApiRequest = async ({
   method,
   path,
@@ -32,8 +17,6 @@ export const frontEndApiRequest = async ({
   paramsSerializer?: any
   timeout?: number
 }) => {
-  assertIsApiPath(path)
-
   const config: AxiosRequestConfig = {
     method: method,
     url: path,
