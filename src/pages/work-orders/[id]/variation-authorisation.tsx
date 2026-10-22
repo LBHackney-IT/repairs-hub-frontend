@@ -2,8 +2,9 @@ import { CONTRACT_MANAGER_ROLE } from '@/utils/user'
 import VariationAuthorisationView from '@/components/WorkOrder/Authorisation/VariationAuthorisationView'
 import Meta from '@/components/Meta'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import type { PageProps } from '@/types/page'
 
-const VariationAuthorisationPage = ({ query }) => {
+const VariationAuthorisationPage = ({ query }: PageProps<{ id: string }>) => {
   return (
     <>
       <Meta title={`Authorise variation for Work Order ${query.id}`} />

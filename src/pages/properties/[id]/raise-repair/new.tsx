@@ -6,8 +6,9 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
 } from '@/utils/user'
+import type { PageProps } from '@/types/page'
 
-const RaiseRepairPage = ({ query }) => {
+const RaiseRepairPage = ({ query }: PageProps<{ id: string }>) => {
   return <RaiseWorkOrderFormView propertyReference={query.id} />
 }
 

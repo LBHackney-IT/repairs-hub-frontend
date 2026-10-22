@@ -6,8 +6,9 @@ import {
   CONTRACT_MANAGER_ROLE,
   CONTRACTOR_ROLE,
 } from '@/utils/user'
+import type { PageProps } from '@/types/page'
 
-const PropertyPage = ({ query }) => {
+const PropertyPage = ({ query }: PageProps<{ id: string }>) => {
   return <PropertyView propertyReference={query.id} />
 }
 

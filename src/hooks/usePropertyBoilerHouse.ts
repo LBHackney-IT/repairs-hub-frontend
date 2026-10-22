@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
 import { frontEndApiRequest } from '../utils/frontEndApiClient/requests'
 
-export const usePropertyBoilerHouse = (boilerHouseId) => {
+type BoilerHouse = {
+  propertyReference: string
+  addressLine1: string
+}
+
+export const usePropertyBoilerHouse = (boilerHouseId: string) => {
   const [loading, setLoading] = useState(true)
-  const [boilerHouse, setBoilerHouse] = useState(null)
-  const [boilerHouseError, setBoilerHouseError] = useState()
+  const [boilerHouse, setBoilerHouse] = useState<BoilerHouse | null>(null)
+  const [boilerHouseError, setBoilerHouseError] = useState<string>()
 
   useEffect(() => {
     frontEndApiRequest({

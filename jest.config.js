@@ -24,6 +24,7 @@ module.exports = {
     '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@/root/(.*)$': '<rootDir>/$1',
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@/types/(.*)$': '<rootDir>/src/types/$1',
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   reporters: ['default'],

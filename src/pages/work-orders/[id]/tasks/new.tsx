@@ -2,8 +2,9 @@ import Meta from '@/components/Meta'
 import NewTaskForm from '@/components/Operatives/NewTaskForm'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import { OPERATIVE_ROLE } from '@/utils/user'
+import type { PageProps } from '@/types/page'
 
-const NewTaskPage = ({ query }) => {
+const NewTaskPage = ({ query }: PageProps<{ id: string }>) => {
   return (
     <>
       <Meta title={`Add New Work Order ${query.id}`} />

@@ -6,14 +6,17 @@ import {
 import Meta from '@/components/Meta'
 import AppointmentView from '@/components/WorkOrder/Appointment/AppointmentView'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import type { PageProps } from '@/types/page'
 
-const EditAppointmentPage = ({ query }) => {
+const AppointmentPage = ({ query }: PageProps<{ id: string }>) => {
   return (
     <>
-      <Meta title={`Reschedule appointment for Work Order ${query.id}`} />
+      <Meta title={`New appointment for Work Order ${query.id}`} />
       <AppointmentView
         workOrderReference={query.id}
-        successText={'Appointment rescheduled'}
+        successText={
+          query.newOrder ? 'Work order created' : 'Appointment created'
+        }
       />
     </>
   )
@@ -21,10 +24,10 @@ const EditAppointmentPage = ({ query }) => {
 
 export const getServerSideProps = getQueryProps
 
-EditAppointmentPage.permittedRoles = [
+AppointmentPage.permittedRoles = [
   AGENT_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
 ]
 
-export default EditAppointmentPage
+export default AppointmentPage

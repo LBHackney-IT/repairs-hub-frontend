@@ -7,8 +7,9 @@ import {
   CONTRACT_MANAGER_ROLE,
   CONTRACTOR_CAN_CANCEL_ROLE,
 } from '@/utils/user'
+import type { PageProps } from '@/types/page'
 
-const WorkOrderCancelPage = ({ query }) => {
+const WorkOrderCancelPage = ({ query }: PageProps<{ id: string }>) => {
   return (
     <>
       <Meta title={`Cancel Work Order ${query.id}`} />

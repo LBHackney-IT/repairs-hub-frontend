@@ -3,8 +3,9 @@ import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import OperativeFormView from '@/components/Operatives/OperativeFormView'
 
 import { OPERATIVE_ROLE } from '@/utils/user'
+import type { PageProps } from '@/types/page'
 
-const EditWorkOrderOperativePage = ({ query }) => {
+const EditWorkOrderOperativePage = ({ query }: PageProps<{ id: string }>) => {
   return (
     <>
       <Meta title={`Update Operatives for Work Order ${query.id}`} />

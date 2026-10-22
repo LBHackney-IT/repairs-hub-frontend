@@ -6,8 +6,9 @@ import {
   CONTRACT_MANAGER_ROLE,
 } from '@/utils/user'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import type { PageProps } from '@/types/page'
 
-const SearchPage = ({ query }) => {
+const SearchPage = ({ query }: PageProps) => {
   if (Object.entries(query).length === 0) {
     return <Search />
   } else {

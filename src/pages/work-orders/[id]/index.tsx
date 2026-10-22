@@ -3,8 +3,9 @@ import WorkOrderView from '@/components/WorkOrder/WorkOrderView'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
 import { ALL_ROLES } from '@/utils/user'
+import type { PageProps } from '@/types/page'
 
-const WorkOrderPage = ({ query }) => {
+const WorkOrderPage = ({ query }: PageProps<{ id: string }>) => {
   return (
     <>
       <Meta title={`Work Order ${query.id}`} />

@@ -2,7 +2,12 @@
 // returned from the resource list endpoint.
 
 export class PropertyListItem {
-  constructor(property) {
+  address: string
+  postalCode: string
+  propertyType: string
+  propertyReference: string
+
+  constructor(property: any) {
     if (typeof property.address === 'object') {
       this.address = property.address.shortAddress
       this.postalCode = property.address.postalCode
