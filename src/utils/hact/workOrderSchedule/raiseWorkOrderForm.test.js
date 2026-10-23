@@ -185,7 +185,7 @@ describe('buildScheduleWorkOrderFormData', () => {
         },
       },
       multiTradeWorkOrder: false,
-      isAwaabsDampAndMouldRepair: false,
+      awaabsLawReasonForRepair: [],
     })
   })
 
@@ -298,7 +298,30 @@ describe('buildScheduleWorkOrderFormData', () => {
         },
       },
       multiTradeWorkOrder: false,
-      isAwaabsDampAndMouldRepair: false,
+      awaabsLawReasonForRepair: [],
     })
+  })
+})
+
+describe('awaabsLawReasonForRepair', () => {
+  const build = (extra) =>
+    buildScheduleWorkOrderFormData({
+      rateScheduleItems: [],
+      contractor: 'A - B',
+      ...extra,
+    }).awaabsLawReasonForRepair
+
+  it('includes the first and additional reasons, de-duplicated', () => {
+    expect(
+      build({
+        reasonForRepair: 'excess-cold',
+        additionalReasonForRepair2: 'fire-and-explosions',
+        additionalReasonForRepair1: 'excess-heat',
+      })
+    ).toEqual(['excess-cold', 'excess-heat', 'fire-and-explosions'])
+  })
+
+  it('is empty for none of the above', () => {
+    expect(build({ reasonForRepair: 'none-of-the-above' })).toEqual([])
   })
 })

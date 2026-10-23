@@ -28,9 +28,7 @@ describe('RaiseWorkOrderForm component', () => {
     }
   })
 
-  const featureToggles = {
-    enableNewAwaabsFields: true,
-  }
+  const featureToggles = {}
 
   const props = {
     property: {

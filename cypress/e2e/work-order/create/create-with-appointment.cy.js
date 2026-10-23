@@ -17,9 +17,7 @@ describe('Schedule appointment form', () => {
         path: '/api/simple-feature-toggle',
       },
       {
-        body: {
-          enableNewAwaabsFields: true,
-        },
+        body: {},
       }
     ).as('feature-toggle')
 
@@ -266,7 +264,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
-                isAwaabsDampAndMouldRepair: false,
+                awaabsLawReasonForRepair: [],
               })
           })
       })
@@ -401,7 +399,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
-                isAwaabsDampAndMouldRepair: false,
+                awaabsLawReasonForRepair: [],
               })
           })
       })
