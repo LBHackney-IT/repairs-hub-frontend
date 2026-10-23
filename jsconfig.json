@@ -8,6 +8,7 @@
       "@/models/*": ["src/models/*"],
       "@/pages/*": ["src/pages/*"],
       "@/styles/*": ["src/styles/*"],
+      "@/types/*": ["src/types/*"],
       "@/utils/*": ["src/utils/*"]
     }
   },
