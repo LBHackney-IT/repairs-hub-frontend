@@ -4,7 +4,7 @@ import WorkOrderInfo from './WorkOrderInfo'
 import { WorkOrder } from '@/models/workOrder'
 
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
-import { Tenure } from '../../models/propertyTenure'
+import { Address, Tenure } from '../../models/propertyTenure'
 import WorkOrderAppointmentDetailsHeader from './WorkOrderAppointmentDetailsHeader'
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
   loadingAppointmentDetails: boolean
-  address: object
+  address: Address
   subTypeDescription: string
   tenure: Tenure
   canRaiseRepair: boolean
