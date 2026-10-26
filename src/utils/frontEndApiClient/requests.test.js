@@ -8,6 +8,32 @@ jest.mock('axios', () => jest.fn())
 import { paramsSerializer } from '@/utils/urls'
 
 describe('frontEndApiRequest`', () => {
+  it.each([
+    'https://evil.com/api/x',
+    '//evil.com/api/x',
+    '/other/path',
+    '/api/../admin',
+    '/api/%2e%2e/admin',
+    '/api/a%2fb',
+    '/api\\x',
+  ])('rejects unsafe path %s', async (path) => {
+    axios.mockClear()
+
+    await expect(frontEndApiRequest({ method: 'get', path })).rejects.toThrow(
+      'Unsafe request path'
+    )
+    expect(axios).not.toHaveBeenCalled()
+  })
+
+  it('allows a path with a query string', async () => {
+    axios.mockResolvedValueOnce({ data: {} })
+
+    await frontEndApiRequest({
+      method: 'get',
+      path: '/api/operatives/1/appointments?date=2026-01-01',
+    })
+  })
+
   it('calls axios with the expected parameters and returns data', async () => {
     const responseData = { data: 'test' }
 
