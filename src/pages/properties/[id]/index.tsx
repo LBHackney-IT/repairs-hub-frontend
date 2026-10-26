@@ -1,0 +1,24 @@
+import PropertyView from '@/components/Property/PropertyView'
+import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import {
+  AGENT_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
+  CONTRACT_MANAGER_ROLE,
+  CONTRACTOR_ROLE,
+} from '@/utils/user'
+import type { PageProps } from '@/types/page'
+
+const PropertyPage = ({ query }: PageProps<{ id: string }>) => {
+  return <PropertyView propertyReference={query.id} />
+}
+
+export const getServerSideProps = getQueryProps
+
+PropertyPage.permittedRoles = [
+  AGENT_ROLE,
+  CONTRACT_MANAGER_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
+  CONTRACTOR_ROLE,
+]
+
+export default PropertyPage
