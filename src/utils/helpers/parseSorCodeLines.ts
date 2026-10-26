@@ -21,16 +21,70 @@ interface Options {
   currentSorCodes?: string[]
 }
 
-const joinLineNumbers = (lineNumbers: number[]) =>
+export const describeLineNumbers = (lineNumbers: number[]) =>
   lineNumbers.length === 1
     ? `Line ${lineNumbers[0]}`
     : `Lines ${lineNumbers.slice(0, -1).join(', ')} and ${
         lineNumbers[lineNumbers.length - 1]
       }`
 
-export const describeLineNumbers = joinLineNumbers
+// Parses and validates a single, non-blank line, returning either the parsed
+// line or an error. The sorCode is returned either way so duplicates can be
+// found across lines, which is checked elsewhere.
+const parseAndValidateLine = (
+  text: string,
+  lineNumber: number
+):
+  | {
+      sorCode: string
+      line: ParsedSorCodeLine
+    }
+  | {
+      sorCode: string
+      error: string
+    } => {
+  // 1. A line is a SOR code, optionally followed by a quantity. Anything else is invalid
+  const [sorCode, quantityToken, ...extraTokens] = text.split(/\s+/)
 
-// Parses pasted lines in the form "CODE" or "CODE QUANTITY" (any whitespace separator).
+  if (extraTokens.length > 0) {
+    return {
+      sorCode,
+      error: 'Enter one SOR code, optionally followed by a quantity',
+    }
+  }
+
+  // 2. Test the SOR code is the right length
+  if (sorCode.length !== SOR_CODE_VALID_LENGTH) {
+    return { sorCode, error: 'Invalid SOR code format' }
+  }
+
+  // 3. If a quantity was given, test it is a whole number greater than 0
+  if (quantityToken !== undefined) {
+    if (!QUANTITY_REGEX.test(quantityToken)) {
+      return { sorCode, error: 'Quantity must be a whole number' }
+    }
+
+    if (parseInt(quantityToken, 10) <= 0) {
+      return { sorCode, error: 'Quantity must be greater than 0' }
+    }
+  }
+
+  // 4. The line is valid, the quantity defaults to 1 if not given
+  return {
+    sorCode,
+    line: {
+      lineNumber,
+      text,
+      code: sorCode,
+      quantity:
+        quantityToken === undefined
+          ? DEFAULT_QUANTITY
+          : String(parseInt(quantityToken, 10)),
+    },
+  }
+}
+
+// Parses pasted lines of SOR codes with optional quantities.
 // Nothing is corrected or merged; anything ambiguous is reported as an error.
 // Duplicate codes are reported first (one error per duplicated code), then the
 // problems with individual lines. A line can appear in both.
@@ -44,51 +98,34 @@ export const parseSorCodeLines = (
   const lineNumbersByCode: { [code: string]: number[] } = {}
 
   input.split('\n').forEach((rawLine, index) => {
+    // 1. Ignore blank lines
     const text = rawLine.trim()
     if (!text) return
 
     const lineNumber = index + 1
-    const tokens = text.split(/\s+/)
-    const [code, quantityToken] = tokens
-
-    if (code.length === SOR_CODE_VALID_LENGTH) {
-      lineNumbersByCode[code] = [...(lineNumbersByCode[code] || []), lineNumber]
-    }
-
-    const fail = (message: string) =>
+    const addLineError = (message: string) =>
       lineErrors.push({ lineNumber, lineNumbers: [lineNumber], text, message })
 
-    if (tokens.length > 2) {
-      return fail('Enter one SOR code, optionally followed by a quantity')
+    // 2. Parse and validate the line on its own
+    const parsed = parseAndValidateLine(text, lineNumber)
+
+    // 3. Note where each SOR code appears, to find duplicates once every line is read
+    if (parsed.sorCode.length === SOR_CODE_VALID_LENGTH) {
+      lineNumbersByCode[parsed.sorCode] = [
+        ...(lineNumbersByCode[parsed.sorCode] || []),
+        lineNumber,
+      ]
     }
 
-    if (code.length !== SOR_CODE_VALID_LENGTH) {
-      return fail('Invalid SOR code format')
+    // 4. Keep the line if it is valid, otherwise record why it isn't,
+    //    including when its SOR code is already on the form
+    if ('error' in parsed) {
+      addLineError(parsed.error)
+    } else if (currentSorCodes.includes(parsed.sorCode)) {
+      addLineError('SOR code has already been added to the form')
+    } else {
+      candidates.push(parsed.line)
     }
-
-    if (quantityToken !== undefined) {
-      if (!QUANTITY_REGEX.test(quantityToken)) {
-        return fail('Quantity must be a whole number')
-      }
-
-      if (parseInt(quantityToken, 10) <= 0) {
-        return fail('Quantity must be greater than 0')
-      }
-    }
-
-    if (currentSorCodes.includes(code)) {
-      return fail('SOR code has already been added to the form')
-    }
-
-    candidates.push({
-      lineNumber,
-      text,
-      code,
-      quantity:
-        quantityToken === undefined
-          ? DEFAULT_QUANTITY
-          : String(parseInt(quantityToken, 10)),
-    })
   })
 
   Object.entries(lineNumbersByCode).forEach(([code, lineNumbers]) => {
