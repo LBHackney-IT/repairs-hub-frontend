@@ -21,9 +21,8 @@ export default authoriseServiceAPIRequest(async (req, res) => {
     enableHealthAndSafetyFlag:
       process.env.ENABLE_HEALTH_AND_SAFETY_FLAG === 'true',
 
-    // Hard coded on for now: validated editor with optional quantities on the
-    // raise work order "Add multiple SOR codes" page
-    enableMultipleSorsEditor: true,
+    enableMultipleSorsEditor:
+      process.env.ENABLE_MULTIPLE_SORS_EDITOR === 'true',
   }
 
   res.status(HttpStatus.StatusCodes.OK).json(data)
