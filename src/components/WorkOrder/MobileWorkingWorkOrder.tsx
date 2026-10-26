@@ -26,7 +26,7 @@ import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { useState } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import PhotoViewList from './Photos/PhotoViewList'
+import PhotoViewList, { PhotoFileGroup } from './Photos/PhotoViewList'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { Property, Tenure } from '../../models/propertyTenure'
@@ -50,7 +50,7 @@ interface Props {
   currentUserPayrollNumber: string
   tenure: Tenure
   paymentType: string
-  photos: object[]
+  photos: PhotoFileGroup[]
 }
 
 const MobileWorkingWorkOrder = (props: Props) => {

@@ -1,0 +1,80 @@
+import Link from 'next/link'
+import Status from './Status'
+import cx from 'classnames'
+import type {
+  CurrentUser,
+  WorkOrderType,
+} from '@/root/src/types/variations/types'
+
+interface Props {
+  workOrder: WorkOrderType
+  index: number
+  currentUser: Pick<CurrentUser, 'operativePayrollNumber'>
+  statusText?: string
+}
+
+const MobileWorkingWorkOrderListItem = ({
+  workOrder,
+  index,
+  statusText,
+  currentUser,
+}: Props) => {
+  return (
+    <Link
+      href={`/operatives/${currentUser.operativePayrollNumber}/work-orders/${workOrder.reference}`}
+      style={{
+        textDecoration: 'none',
+        color: 'inherit',
+      }}
+    >
+      <li
+        data-id={index}
+        style={{ cursor: 'pointer' }}
+        className={cx(
+          'govuk-!-margin-top-3',
+          'operative-work-order-list-item',
+          workOrder.hasBeenVisited()
+            ? 'operative-work-order-list-item--inactive'
+            : 'operative-work-order-list-item--active'
+        )}
+      >
+        <div className="appointment-details">
+          <div>
+            <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline">
+              {`${workOrder.appointment.start} – ${workOrder.appointment.end}`}
+            </h3>
+
+            {statusText && (
+              <Status
+                text={statusText}
+                className="work-order-status govuk-!-margin-top-0 govuk-!-margin-left-2"
+              />
+            )}
+          </div>
+          <p
+            className={cx(
+              'lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
+            )}
+          >
+            {workOrder.priority.toLowerCase()}
+          </p>
+          <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline">
+            {`WO ${workOrder.reference}`}
+          </h3>
+          <p className="lbh-body govuk-!-margin-0">{workOrder.property}</p>
+          <p className="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8">
+            {workOrder.propertyPostCode}
+          </p>
+          <p className="lbh-body govuk-!-margin-0 truncate-description truncate-line-3">
+            {workOrder.description}
+          </p>
+        </div>
+        <div className="govuk-!-margin-0">
+          <span className="arrow right"></span>
+        </div>
+      </li>
+    </Link>
+  )
+}
+
+export default MobileWorkingWorkOrderListItem
