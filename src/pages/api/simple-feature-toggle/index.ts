@@ -6,6 +6,7 @@ export interface SimpleFeatureToggleResponse {
   enableFollowOnIsEmergencyField: boolean
   enableNewAwaabsFields: boolean
   enableHealthAndSafetyFlag: boolean
+  enableMultipleSorsEditor: boolean
 }
 
 export default authoriseServiceAPIRequest(async (req, res) => {
@@ -19,6 +20,9 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
     enableHealthAndSafetyFlag:
       process.env.ENABLE_HEALTH_AND_SAFETY_FLAG === 'true',
+
+    enableMultipleSorsEditor:
+      process.env.ENABLE_MULTIPLE_SORS_EDITOR === 'true',
   }
 
   res.status(HttpStatus.StatusCodes.OK).json(data)

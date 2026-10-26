@@ -3,6 +3,11 @@ describe('Updating a work order', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
 
+      cy.intercept(
+        { method: 'GET', path: '/api/simple-feature-toggle' },
+        { body: { enableMultipleSorsEditor: true } }
+      ).as('feature-toggle')
+
       cy.fixture('workOrders/workOrder.json')
         .then((workOrder) => {
           workOrder.reference = 10000040
@@ -68,7 +73,7 @@ describe('Updating a work order', () => {
       //when submitting without entering SOR codes
       cy.get('#adding-multiple-sors-form').within(() => {
         cy.contains('Enter SOR codes as a list:')
-        cy.contains('Submit').click()
+        cy.contains('Add SOR codes').click()
         cy.contains('Please enter SOR codes')
       })
     })

@@ -42,6 +42,36 @@ const RateScheduleItemView = ({
   )
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
 
+  // The running total (which also drives the raise limit check) is built from
+  // rateScheduleItemCosts, and that is only ever filled in by onQuantityChange,
+  // i.e. when the user types in a Quantity input.
+  //
+  // Rows added on the "Add multiple SOR codes" page come back through formState
+  // with a quantity already set (and rows entered before visiting that page are
+  // restored the same way), so that change event never fires for them. Without
+  // this, the input would show a quantity but the total and the raise limit
+  // check would ignore the row until the user edited it.
+  //
+  // This seeds rateScheduleItemCosts from formState once on mount, which is
+  // enough because formState only changes while this view is unmounted (the
+  // multiple SORs page replaces it). It isn't ideal, as it duplicates state that
+  // could be derived from the form values. Doing that properly would mean
+  // reworking how this view tracks totals, so it is left as is.
+  useEffect(() => {
+    const initialCosts = (formState?.rateScheduleItems || [])
+      .map((rsi, index) => ({
+        index,
+        cost: parseFloat(rsi.cost),
+        quantity: parseFloat(rsi.quantity),
+      }))
+      .filter((c) => !isNaN(c.cost) && !isNaN(c.quantity))
+
+    if (initialCosts.length > 0) {
+      setRateScheduleItemCosts(initialCosts)
+      updateTotalCost(initialCosts)
+    }
+  }, [])
+
   const getSorCodeObject = (value, index) => {
     if (sorCodeArrays[index]) {
       return sorCodeArrays[index].filter((a) => a.code == value)[0]
