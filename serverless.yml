@@ -29,7 +29,7 @@ functions:
         - '!build/_next/standalone/.next/cache/**'    
         - 'build/_next/static/**'
         - src/lambda.js
-        - next.config.js
+        - next.config.ts
         - public/**
         - '!node_modules/**'
         - 'lambda/node_modules/**'
