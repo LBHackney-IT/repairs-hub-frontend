@@ -33,21 +33,28 @@ interface Row {
 const fieldName = (id: number) =>
   id === FIRST_ROW_ID ? 'reasonForRepair' : `${ADDITIONAL_REASON_PREFIX}${id}`
 
-// Restores previously entered rows, e.g. when returning from the multiple SORs page
-const getInitialRows = (formState?: { [key: string]: any }): Row[] => {
-  const additionalRows = Object.keys(formState || {})
-    .filter((key) => new RegExp(`^${ADDITIONAL_REASON_PREFIX}\\d+$`).test(key))
-    .map((key) => ({
-      id: parseInt(key.replace(ADDITIONAL_REASON_PREFIX, ''), 10),
-      value: formState[key],
+// Matches the field names above, capturing the row id e.g. additionalReasonForRepair3
+const ADDITIONAL_FIELD_PATTERN = new RegExp(
+  `^${ADDITIONAL_REASON_PREFIX}(\\d+)$`
+)
+
+// The saved form state holds one entry per field, e.g. when returning from the
+// multiple SORs page. Turn those entries back into rows.
+const getInitialRows = (formState: { [key: string]: any } = {}): Row[] => {
+  const firstRow = { id: FIRST_ROW_ID, value: formState.reasonForRepair || '' }
+
+  const additionalRows = Object.entries(formState)
+    .map(([fieldName, value]) => ({
+      match: fieldName.match(ADDITIONAL_FIELD_PATTERN),
+      value,
     }))
-    .filter((row) => row.value)
+    // Ignore other fields and rows that were left blank
+    .filter(({ match, value }) => match && value)
+    .map(({ match, value }) => ({ id: Number(match[1]), value }))
+    // Field order isn't guaranteed, and ids can be missing e.g. 1, 3, 10
     .sort((a, b) => a.id - b.id)
 
-  return [
-    { id: FIRST_ROW_ID, value: formState?.reasonForRepair || '' },
-    ...additionalRows,
-  ]
+  return [firstRow, ...additionalRows]
 }
 
 // The dropdowns themselves are uncontrolled (registered with the form), the
