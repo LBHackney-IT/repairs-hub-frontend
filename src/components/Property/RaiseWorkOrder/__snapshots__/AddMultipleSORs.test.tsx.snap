@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AddMultipleSORs rendering renders example lines in the editor 1`] = `
+<pre
+  aria-hidden="true"
+  style="margin: 0px; border: 0px; background: none; box-sizing: inherit; display: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-ligatures: inherit; font-weight: inherit; letter-spacing: inherit; line-height: inherit; tab-size: inherit; text-indent: inherit; text-rendering: inherit; text-transform: inherit; white-space: pre-wrap; word-break: keep-all; overflow-wrap: break-word; position: relative; pointer-events: none; padding: 10px 10px 10px 48px;"
+>
+  <span>
+    <span
+      class="sor-code-editor__line sor-code-editor__line--placeholder"
+    >
+      <span
+        aria-hidden="true"
+        class="sor-code-editor__line-number"
+      >
+        1
+      </span>
+      04500910 3
+    </span>
+    
+
+  </span>
+  <span>
+    <span
+      class="sor-code-editor__line sor-code-editor__line--placeholder"
+    >
+      <span
+        aria-hidden="true"
+        class="sor-code-editor__line-number"
+      >
+        2
+      </span>
+      49PLMAT2
+    </span>
+    
+
+  </span>
+  <span>
+    <span
+      class="sor-code-editor__line sor-code-editor__line--placeholder"
+    >
+      <span
+        aria-hidden="true"
+        class="sor-code-editor__line-number"
+      >
+        3
+      </span>
+      RTR03016 2
+    </span>
+  </span>
+</pre>
+`;
+
+exports[`AddMultipleSORs when the input has errors the parser can find highlights every line involved, but not the valid ones 1`] = `
+<pre
+  aria-hidden="true"
+  style="margin: 0px; border: 0px; background: none; box-sizing: inherit; display: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-ligatures: inherit; font-weight: inherit; letter-spacing: inherit; line-height: inherit; tab-size: inherit; text-indent: inherit; text-rendering: inherit; text-transform: inherit; white-space: pre-wrap; word-break: keep-all; overflow-wrap: break-word; position: relative; pointer-events: none; padding: 10px 10px 10px 48px;"
+>
+  <span>
+    <span
+      class="sor-code-editor__line"
+    >
+      <span
+        aria-hidden="true"
+        class="sor-code-editor__line-number"
+      >
+        1
+      </span>
+      00000001
+    </span>
+    
+
+  </span>
+  <span>
+    <span
+      class="sor-code-editor__line sor-code-editor__line--invalid"
+    >
+      <span
+        aria-hidden="true"
+        class="sor-code-editor__line-number"
+      >
+        2
+      </span>
+      0000000
+    </span>
+    
+
+  </span>
+  <span>
+    <span
+      class="sor-code-editor__line sor-code-editor__line--invalid"
+    >
+      <span
+        aria-hidden="true"
+        class="sor-code-editor__line-number"
+      >
+        3
+      </span>
+      00000002 abc
+    </span>
+    
+
+  </span>
+  <span>
+    <span
+      class="sor-code-editor__line sor-code-editor__line--invalid"
+    >
+      <span
+        aria-hidden="true"
+        class="sor-code-editor__line-number"
+      >
+        4
+      </span>
+      00000003
+    </span>
+    
+
+  </span>
+  <span>
+    <span
+      class="sor-code-editor__line sor-code-editor__line--invalid"
+    >
+      <span
+        aria-hidden="true"
+        class="sor-code-editor__line-number"
+      >
+        5
+      </span>
+      00000003 2
+    </span>
+  </span>
+</pre>
+`;

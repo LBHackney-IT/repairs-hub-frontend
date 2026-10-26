@@ -2,9 +2,7 @@ import { parseSorCodeLines } from './parseSorCodeLines'
 
 describe('parseSorCodeLines', () => {
   it('defaults quantity to 1 and ignores blank lines', () => {
-    expect(
-      parseSorCodeLines('04500910\n\n  49PLMAT2  \n', { allowQuantity: true })
-    ).toEqual({
+    expect(parseSorCodeLines('04500910\n\n  49PLMAT2  \n')).toEqual({
       lines: [
         { lineNumber: 1, text: '04500910', code: '04500910', quantity: '1' },
         { lineNumber: 3, text: '49PLMAT2', code: '49PLMAT2', quantity: '1' },
@@ -15,10 +13,7 @@ describe('parseSorCodeLines', () => {
 
   it('reads the quantity separated by spaces or tabs', () => {
     const { lines, errors } = parseSorCodeLines(
-      '04500910 3\n49PLMAT2\t\t15\nRTR03016   7',
-      {
-        allowQuantity: true,
-      }
+      '04500910 3\n49PLMAT2\t\t15\nRTR03016   7'
     )
 
     expect(errors).toEqual([])
@@ -38,7 +33,7 @@ describe('parseSorCodeLines', () => {
     ['04500910 1 2', 'Enter one SOR code, optionally followed by a quantity'],
     ['0450091', 'Invalid SOR code format'],
   ])('reports an error for "%s"', (input, message) => {
-    const { lines, errors } = parseSorCodeLines(input, { allowQuantity: true })
+    const { lines, errors } = parseSorCodeLines(input)
 
     expect(lines).toEqual([])
     expect(errors).toHaveLength(1)
@@ -47,10 +42,7 @@ describe('parseSorCodeLines', () => {
 
   it('reports each duplicated code once, listing every line it appears on', () => {
     const { lines, errors } = parseSorCodeLines(
-      '04500910 3\n49PLMAT2\n04500910 2\n04500910',
-      {
-        allowQuantity: true,
-      }
+      '04500910 3\n49PLMAT2\n04500910 2\n04500910'
     )
 
     expect(lines.map((l) => l.code)).toEqual(['49PLMAT2'])
@@ -74,8 +66,7 @@ describe('parseSorCodeLines', () => {
         '21000006 22',
         '20060040 r2',
         '20060190 22233 3323',
-      ].join('\n'),
-      { allowQuantity: true }
+      ].join('\n')
     )
 
     expect(lines).toEqual([])
@@ -95,18 +86,10 @@ describe('parseSorCodeLines', () => {
   it('reports codes already on the form', () => {
     const { errors } = parseSorCodeLines('04500910', {
       currentSorCodes: ['04500910'],
-      allowQuantity: true,
     })
 
     expect(errors[0].message).toEqual(
       'SOR code has already been added to the form'
     )
-  })
-
-  it('rejects quantities when they are not allowed', () => {
-    const { lines, errors } = parseSorCodeLines('04500910 3')
-
-    expect(lines).toEqual([])
-    expect(errors[0].message).toEqual('Enter one SOR code per line')
   })
 })

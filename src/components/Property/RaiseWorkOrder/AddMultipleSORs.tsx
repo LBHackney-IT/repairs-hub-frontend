@@ -17,7 +17,6 @@ interface Props {
   setSorCodesFromBatchUpload: (sorCodes: any) => void
   setAnnouncementMessage: Dispatch<SetStateAction<string>>
   setIsPriorityEnabled: Dispatch<SetStateAction<boolean>>
-  allowQuantity?: boolean
 }
 
 const AddMultipleSORs = (props: Props) => {
@@ -28,7 +27,6 @@ const AddMultipleSORs = (props: Props) => {
     setSorCodesFromBatchUpload,
     setAnnouncementMessage,
     setIsPriorityEnabled,
-    allowQuantity = false,
   } = props
 
   const { register, handleSubmit, setValue, errors } = useForm()
@@ -36,7 +34,12 @@ const AddMultipleSORs = (props: Props) => {
   const [sorCodesText, setSorCodesText] = useState('')
 
   useEffect(() => {
-    register({ name: 'newSorCodes' }, { required: 'Please enter SOR codes' })
+    register(
+      { name: 'newSorCodes' },
+      {
+        validate: (value) => Boolean(value?.trim()) || 'Please enter SOR codes',
+      }
+    )
   }, [register])
 
   const onSorCodesTextChange = (text: string) => {
@@ -47,6 +50,7 @@ const AddMultipleSORs = (props: Props) => {
   // Errors from the existence check, which is only requested on submit
   const [existenceErrors, setExistenceErrors] = useState<SorCodeLineError[]>([])
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [requestError, setRequestError] = useState<string>(null)
 
   // move focus to the field after a failed submit so the errors are read out
   const [failedSubmitCount, setFailedSubmitCount] = useState(0)
@@ -59,8 +63,7 @@ const AddMultipleSORs = (props: Props) => {
   // are kept only while the line they belong to is unchanged.
   const currentLines = sorCodesText.split('\n').map((line) => line.trim())
   const validationErrors = [
-    ...parseSorCodeLines(sorCodesText, { currentSorCodes, allowQuantity })
-      .errors,
+    ...parseSorCodeLines(sorCodesText, { currentSorCodes }).errors,
     ...existenceErrors.filter(
       (error) => currentLines[error.lineNumber - 1] === error.text
     ),
@@ -74,10 +77,10 @@ const AddMultipleSORs = (props: Props) => {
 
   const onSubmit = async ({ newSorCodes }) => {
     setHasSubmitted(true)
+    setRequestError(null)
 
     const { lines, errors: lineErrors } = parseSorCodeLines(newSorCodes, {
       currentSorCodes,
-      allowQuantity,
     })
 
     // don't make a request until the local checks pass
@@ -94,7 +97,15 @@ const AddMultipleSORs = (props: Props) => {
       additionalValidationCallback: sorExistenceValidationCallback,
     })
 
-    await validator.validate()
+    try {
+      await validator.validate()
+    } catch (e) {
+      console.error('Failed to check SOR codes exist', e)
+      setRequestError('Unable to check the SOR codes, please try again')
+      setFailedSubmitCount((count) => count + 1)
+      setPerformingValidation(false)
+      return
+    }
 
     if (validator.errors.length > 0) {
       setExistenceErrors(
@@ -109,9 +120,7 @@ const AddMultipleSORs = (props: Props) => {
       setSorCodesFromBatchUpload(
         validator.validatedCodeSet.map((sor) => ({
           ...sor,
-          ...(allowQuantity && {
-            quantity: lines.find((line) => line.code === sor.code).quantity,
-          }),
+          quantity: lines.find((line) => line.code === sor.code).quantity,
         }))
       )
       setIsPriorityEnabled(true)
@@ -146,16 +155,14 @@ const AddMultipleSORs = (props: Props) => {
         <SorCodeEditor
           name="newSorCodes"
           label="Enter SOR codes as a list:"
-          hint={
-            allowQuantity
-              ? 'Add a whole number quantity after a code if needed, for example 04500910 3. Quantity defaults to 1.'
-              : undefined
-          }
+          hint="Add a whole number quantity after a code if needed, for example 04500910 3. Quantity defaults to 1."
           value={sorCodesText}
           onValueChange={onSorCodesTextChange}
           invalidLines={invalidLines}
           error={
-            hasSubmitted && validationErrors.length > 0
+            requestError
+              ? { message: requestError }
+              : hasSubmitted && validationErrors.length > 0
               ? {
                   message: (
                     <span className="sor-code-editor-errors">
@@ -181,11 +188,7 @@ const AddMultipleSORs = (props: Props) => {
                 }
               : errors && errors.newSorCodes
           }
-          placeholder={
-            allowQuantity
-              ? '04500910 3\n49PLMAT2\nRTR03016 2'
-              : '04500910\n49PLMAT2\nRTR03016'
-          }
+          placeholder={'04500910 3\n49PLMAT2\nRTR03016 2'}
         />
 
         <PrimarySubmitButton

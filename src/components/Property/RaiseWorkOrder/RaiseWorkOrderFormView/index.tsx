@@ -353,7 +353,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
       {currentPage === ADDING_MULTIPLE_SOR_PAGE &&
         (simpleFeatureToggles?.enableMultipleSorsEditor ? (
-          <AddMultipleSORs {...addMultipleSorsProps} allowQuantity />
+          <AddMultipleSORs {...addMultipleSorsProps} />
         ) : (
           <AddMultipleSORsLegacy {...addMultipleSorsProps} />
         ))}

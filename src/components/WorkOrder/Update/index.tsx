@@ -13,7 +13,9 @@ import WorkOrderUpdateSummary from './Summary'
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
-import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORsLegacy'
+import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
+import AddMultipleSORsLegacy from '@/components/Property/RaiseWorkOrder/AddMultipleSORsLegacy'
+import { useSimpleFeatureToggles } from '@/hooks/useSimpleFeatureToggle'
 import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
@@ -60,6 +62,11 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
   //multiple SORs
   const [formState, setFormState] = useState<any>()
   const [announcementMessage, setAnnouncementMessage] = useState('')
+
+  const [
+    simpleFeatureToggles,
+    isLoadingFeatureToggles,
+  ] = useSimpleFeatureToggles()
 
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
@@ -237,6 +244,7 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
           code: `${code.code} - ${code.shortDescription}`,
           cost: code.cost.toString(),
           description: code.shortDescription,
+          quantity: code.quantity,
         })),
       ],
     }
@@ -266,9 +274,26 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
     setSorCodeArrays(codes)
   }
 
-  if (loading) {
+  if (loading || isLoadingFeatureToggles) {
     return <Spinner />
   }
+
+  // only built on the multiple SORs page, when formState has been set
+  const getAddMultipleSorsProps = () => ({
+    currentSorCodes: getCurrentSORCodes(),
+    setPageBackToFormView: () => {
+      setCurrentPage(FORM_PAGE)
+    },
+    sorExistenceValidationCallback: createSorExistenceValidator(
+      workOrder?.tradeCode,
+      workOrder?.propertyReference,
+      workOrder?.contractorReference,
+      null
+    ),
+    setSorCodesFromBatchUpload,
+    setAnnouncementMessage,
+    setIsPriorityEnabled: () => {},
+  })
 
   return (
     <>
@@ -349,23 +374,12 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
             />
           )}
 
-          {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
-            <AddMultipleSORs
-              currentSorCodes={getCurrentSORCodes()}
-              setPageBackToFormView={() => {
-                setCurrentPage(FORM_PAGE)
-              }}
-              sorExistenceValidationCallback={createSorExistenceValidator(
-                workOrder.tradeCode,
-                workOrder.propertyReference,
-                workOrder.contractorReference,
-                null
-              )}
-              setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
-              setAnnouncementMessage={setAnnouncementMessage}
-              setIsPriorityEnabled={() => {}}
-            />
-          )}
+          {currentPage === ADDING_MULTIPLE_SOR_PAGE &&
+            (simpleFeatureToggles?.enableMultipleSorsEditor ? (
+              <AddMultipleSORs {...getAddMultipleSorsProps()} />
+            ) : (
+              <AddMultipleSORsLegacy {...getAddMultipleSorsProps()} />
+            ))}
         </>
       )}
       {error && <ErrorMessage label={error} />}

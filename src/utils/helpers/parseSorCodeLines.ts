@@ -19,7 +19,6 @@ export interface SorCodeLineError {
 
 interface Options {
   currentSorCodes?: string[]
-  allowQuantity?: boolean
 }
 
 const joinLineNumbers = (lineNumbers: number[]) =>
@@ -37,7 +36,7 @@ export const describeLineNumbers = joinLineNumbers
 // problems with individual lines. A line can appear in both.
 export const parseSorCodeLines = (
   input: string,
-  { currentSorCodes = [], allowQuantity = false }: Options = {}
+  { currentSorCodes = [] }: Options = {}
 ) => {
   const duplicateErrors: SorCodeLineError[] = []
   const lineErrors: SorCodeLineError[] = []
@@ -59,12 +58,8 @@ export const parseSorCodeLines = (
     const fail = (message: string) =>
       lineErrors.push({ lineNumber, lineNumbers: [lineNumber], text, message })
 
-    if (tokens.length > (allowQuantity ? 2 : 1)) {
-      return fail(
-        allowQuantity
-          ? 'Enter one SOR code, optionally followed by a quantity'
-          : 'Enter one SOR code per line'
-      )
+    if (tokens.length > 2) {
+      return fail('Enter one SOR code, optionally followed by a quantity')
     }
 
     if (code.length !== SOR_CODE_VALID_LENGTH) {
