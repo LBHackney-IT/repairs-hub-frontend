@@ -1,4 +1,19 @@
-export const filterOperatives = (operatives, operativeFilter) => {
+export interface HubOperative {
+  id: number
+  sub: string
+  name: string
+  email: string
+  varyLimit: string
+  raiseLimit: string
+  contractors: string[]
+  operativePayrollNumber: string
+  isOneJobAtATime: boolean
+}
+
+export const filterOperatives = (
+  operatives: HubOperative[],
+  operativeFilter: string
+) => {
   if (!operativeFilter) return operatives
   operativeFilter = operativeFilter.toLowerCase()
   return operatives.filter(

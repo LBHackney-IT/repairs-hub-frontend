@@ -1,5 +1,5 @@
 import Layout from '../Layout'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { TextInput, Button } from '../../Form'
 import ConfirmationModal from '../../ConfirmationModal'
 import ControlledRadio from '../Components/ControlledRadio'
@@ -7,6 +7,7 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 import {
+  SorContractsMode,
   addContractsSelected,
   copyContractsSelected,
   dataToRequestObject,
@@ -17,7 +18,15 @@ import {
 
 import { DataList } from '../../Form'
 
-const radioOptions = [
+interface FormErrors {
+  selectedOption?: string
+  sourcePropertyReference?: string
+  destinationPropertyReference?: string
+  contractor?: string
+  contract?: string
+}
+
+const radioOptions: { text: string; value: SorContractsMode }[] = [
   {
     text: 'Copy contracts from another property',
     value: 'Copy',
@@ -32,10 +41,12 @@ import useSelectContract from '../hooks/useSelectContract'
 
 const SORContracts = () => {
   const [loading, setLoading] = useState(false)
-  const [requestError, setRequestError] = useState(null)
+  const [requestError, setRequestError] = useState<string | null>(null)
   const [formSuccess, setFormSuccess] = useState(false)
 
-  const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
+  const [selectedOption, setSelectedOption] = useState<SorContractsMode>(
+    radioOptions[0].value
+  )
 
   const [sourcePropertyReference, setSourcePropertyReference] = useState('')
   const [
@@ -56,10 +67,10 @@ const SORContracts = () => {
     handleFormReset,
   } = useSelectContract()
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<FormErrors>({})
 
   const validateRequest = () => {
-    const newErrors = {}
+    const newErrors: FormErrors = {}
 
     if (!selectedOption) {
       newErrors.selectedOption = 'Please select an option'
@@ -115,6 +126,7 @@ const SORContracts = () => {
   const renderConfirmationModal = () => {
     if (showDialog) {
       return (
+        // @ts-expect-error Props validation
         <ConfirmationModal
           title={'Modify SOR contracts?'}
           showDialog
@@ -129,7 +141,7 @@ const SORContracts = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     if (loading) return
@@ -196,7 +208,9 @@ const SORContracts = () => {
                   label="Select workflow type"
                   name="selectedOption"
                   options={radioOptions}
-                  onChange={(event) => setSelectedOption(event.target.value)}
+                  onChange={(event) =>
+                    setSelectedOption(event.target.value as SorContractsMode)
+                  }
                   selectedOption={selectedOption}
                   error={
                     errors.selectedOption && { message: errors.selectedOption }
@@ -244,6 +258,7 @@ const SORContracts = () => {
 
               {selectedOption === 'Add' && (
                 <div>
+                  {/* @ts-expect-error Props validation */}
                   <DataList
                     name="contractor"
                     label="Contractor"
@@ -257,6 +272,7 @@ const SORContracts = () => {
                     <Spinner />
                   ) : (
                     <div>
+                      {/* @ts-expect-error Props validation */}
                       <DataList
                         name="contract"
                         label="Contract"

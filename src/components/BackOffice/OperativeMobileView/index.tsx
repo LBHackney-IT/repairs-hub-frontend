@@ -4,14 +4,15 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 import SelectedOperative from './SelectedOperative'
 import Layout from '../Layout'
 import MobileWorkingWorkOrdersView from '../../WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
-import { filterOperatives } from './utils'
+import { filterOperatives, HubOperative } from './utils'
+import type { Operative } from '@/root/src/models/operativeModel'
 import { useRouter } from 'next/router'
 
 const OperativeMobileView = () => {
   const router = useRouter()
 
   const fetchOperatives = async () =>
-    new Promise((resolve) => {
+    new Promise<void>((resolve) => {
       setIsLoading(true)
 
       frontEndApiRequest({
@@ -30,7 +31,7 @@ const OperativeMobileView = () => {
         })
     })
 
-  const mapOperativeToHubUser = (operative) => {
+  const mapOperativeToHubUser = (operative: Operative): HubOperative => {
     return {
       id: operative.id,
       sub: 'placeholder',
@@ -52,14 +53,19 @@ const OperativeMobileView = () => {
     setTimeout(() => setOperativePayrollNumber(() => opn))
   }
 
-  const [operatives, setOperatives] = useState([])
+  const [operatives, setOperatives] = useState<HubOperative[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [operativeFilter, setOperativeFilter] = useState('')
   const [OJAATEnabled, setOJAATEnabled] = useState(false)
 
-  const [operativePayrollNumber, setOperativePayrollNumber] = useState(null)
+  const [operativePayrollNumber, setOperativePayrollNumber] = useState<
+    string | null
+  >(null)
 
-  const [selectedOperative, setSelectedOperative] = useState(null)
+  const [
+    selectedOperative,
+    setSelectedOperative,
+  ] = useState<HubOperative | null>(null)
 
   useEffect(() => {
     fetchOperatives().then(() => {
@@ -67,7 +73,9 @@ const OperativeMobileView = () => {
 
       if (!Object.prototype.hasOwnProperty.call(query, 'operative')) return
 
-      setTimeout(() => setOperativePayrollNumber(() => query.operative))
+      setTimeout(() =>
+        setOperativePayrollNumber(() => query.operative as string)
+      )
     })
   }, [])
 
@@ -122,7 +130,7 @@ const OperativeMobileView = () => {
                 <input
                   type="text"
                   value={operativeFilter}
-                  onInput={(e) => setOperativeFilter(e.target.value)}
+                  onInput={(e) => setOperativeFilter(e.currentTarget.value)}
                 />
               </div>
 
@@ -131,7 +139,7 @@ const OperativeMobileView = () => {
 
                 <input
                   type="checkbox"
-                  value={false}
+                  value="false"
                   checked={OJAATEnabled}
                   onInput={() => setOJAATEnabled((x) => !x)}
                 />

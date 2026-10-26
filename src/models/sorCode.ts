@@ -1,18 +1,18 @@
 class SorCode {
   id: string
-  code: string
-  cost: number
-  standardMinuteValue: number
-  shortDescription: string
-  longDescription: string
+  code?: string
+  cost?: number
+  standardMinuteValue?: number
+  shortDescription?: string
+  longDescription?: string
 
   constructor(
     id: string,
-    code: string,
-    cost: number,
-    standardMinuteValue: number,
-    shortDescription: string,
-    longDescription: string
+    code?: string,
+    cost?: number,
+    standardMinuteValue?: number,
+    shortDescription?: string,
+    longDescription?: string
   ) {
     this.id = id
     this.code = code

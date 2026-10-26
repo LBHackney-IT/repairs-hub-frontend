@@ -1,9 +1,14 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
-const useSelectTrade = (trades) => {
-  const [selectedTrade, setSelectedTrade] = useState(null)
+export interface Trade {
+  code: string
+  name: string
+}
 
-  const handleSelectTrade = (e) => {
+const useSelectTrade = (trades: Trade[] | null) => {
+  const [selectedTrade, setSelectedTrade] = useState<Trade | null>(null)
+
+  const handleSelectTrade = (e: ChangeEvent<HTMLInputElement> | null) => {
     if (e === null) {
       setSelectedTrade(null)
       return
