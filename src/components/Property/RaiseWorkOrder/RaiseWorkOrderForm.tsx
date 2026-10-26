@@ -24,6 +24,7 @@ import SorCode from '@/root/src/models/sorCode'
 import { Trade } from '@/root/src/models/trade'
 import PropertyFlagsWrapper from '../../PropertyFlagsWrapper/PropertyFlagsWrapper'
 import { RaiseWorkOrderReasonForRepair } from './RaiseWorkOrderReasonForRepair'
+import { RaiseWorkOrderReasonForRepairLegacy } from './RaiseWorkOrderReasonForRepairLegacy'
 import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
 
 interface Props {
@@ -107,19 +108,25 @@ const RaiseWorkOrderForm = (props: Props) => {
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode)
 
-    const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
-      ...formData,
-      propertyReference,
-      shortAddress: property?.address.shortAddress,
-      postalCode: property?.address.postalCode,
-      priorityDescription: priority.description,
-      daysToComplete: priority.daysToComplete,
-      hoursToComplete:
-        // Hours can't be derived for immediates as they have 0 days for completion
-        priority.priorityCode === IMMEDIATE_PRIORITY_CODE
-          ? 2
-          : daysInHours(priority.daysToComplete),
-    })
+    const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData(
+      {
+        ...formData,
+        propertyReference,
+        shortAddress: property?.address.shortAddress,
+        postalCode: property?.address.postalCode,
+        priorityDescription: priority.description,
+        daysToComplete: priority.daysToComplete,
+        hoursToComplete:
+          // Hours can't be derived for immediates as they have 0 days for completion
+          priority.priorityCode === IMMEDIATE_PRIORITY_CODE
+            ? 2
+            : daysInHours(priority.daysToComplete),
+      },
+      {
+        enableAwaabsLawReasonForRepair:
+          simpleFeatureToggles?.enableAwaabsLawReasonForRepair,
+      }
+    )
 
     // follow-on parent
     const parentWorkOrderId =
@@ -258,11 +265,18 @@ const RaiseWorkOrderForm = (props: Props) => {
               contractorReference={contractorReference}
             />
 
-            <RaiseWorkOrderReasonForRepair
-              register={register}
-              errors={errors}
-              formState={formState}
-            />
+            {simpleFeatureToggles?.enableAwaabsLawReasonForRepair ? (
+              <RaiseWorkOrderReasonForRepair
+                register={register}
+                errors={errors}
+                formState={formState}
+              />
+            ) : (
+              <RaiseWorkOrderReasonForRepairLegacy
+                register={register}
+                errors={errors}
+              />
+            )}
 
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"

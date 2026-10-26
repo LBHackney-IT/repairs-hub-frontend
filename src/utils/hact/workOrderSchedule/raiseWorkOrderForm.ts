@@ -20,7 +20,10 @@ const getAwaabsLawReasonsForRepair = (workOrderData): string[] => {
   )
 }
 
-export const buildScheduleWorkOrderFormData = (workOrderData) => {
+export const buildScheduleWorkOrderFormData = (
+  workOrderData,
+  { enableAwaabsLawReasonForRepair = false } = {}
+) => {
   return {
     reference: [
       {
@@ -119,7 +122,15 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
     }),
     multiTradeWorkOrder: workOrderData.tradeCode === MULTITRADE_TRADE_CODE,
 
-    // new Awaab's related fields
-    awaabsLawReasonForRepair: getAwaabsLawReasonsForRepair(workOrderData),
+    // Awaab's related fields
+    ...(enableAwaabsLawReasonForRepair
+      ? {
+          awaabsLawReasonForRepair: getAwaabsLawReasonsForRepair(workOrderData),
+        }
+      : {
+          // Deprecated, replaced by awaabsLawReasonForRepair
+          isAwaabsDampAndMouldRepair:
+            workOrderData.reasonForRepair === 'damp-and-mould',
+        }),
   }
 }

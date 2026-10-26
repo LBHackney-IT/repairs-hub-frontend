@@ -17,7 +17,9 @@ describe('Schedule appointment form', () => {
         path: '/api/simple-feature-toggle',
       },
       {
-        body: {},
+        body: {
+          enableAwaabsLawReasonForRepair: true,
+        },
       }
     ).as('feature-toggle')
 

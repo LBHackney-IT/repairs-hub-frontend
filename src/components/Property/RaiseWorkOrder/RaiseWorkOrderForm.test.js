@@ -28,7 +28,9 @@ describe('RaiseWorkOrderForm component', () => {
     }
   })
 
-  const featureToggles = {}
+  const featureToggles = {
+    enableAwaabsLawReasonForRepair: true,
+  }
 
   const props = {
     property: {

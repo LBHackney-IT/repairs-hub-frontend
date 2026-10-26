@@ -10,7 +10,9 @@ describe('Raise repair form', () => {
         path: '/api/simple-feature-toggle',
       },
       {
-        body: {},
+        body: {
+          enableAwaabsLawReasonForRepair: true,
+        },
       }
     ).as('feature-toggle')
 
