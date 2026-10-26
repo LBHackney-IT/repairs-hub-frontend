@@ -279,7 +279,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     return <Spinner />
   }
 
-  const addMultipleSorsProps = {
+  // only built on the multiple SORs page: getCurrentSORCodes initialises
+  // formState.rateScheduleItems, which must not happen while the form is shown
+  const getAddMultipleSorsProps = () => ({
     currentSorCodes: getCurrentSORCodes(),
     setPageBackToFormView: () => {
       setIsIncrementalSearchEnabled(tradeCode === 'MU')
@@ -294,7 +296,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     setSorCodesFromBatchUpload,
     setAnnouncementMessage,
     setIsPriorityEnabled,
-  }
+  })
 
   return (
     <>
@@ -353,9 +355,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
       {currentPage === ADDING_MULTIPLE_SOR_PAGE &&
         (simpleFeatureToggles?.enableMultipleSorsEditor ? (
-          <AddMultipleSORs {...addMultipleSorsProps} />
+          <AddMultipleSORs {...getAddMultipleSorsProps()} />
         ) : (
-          <AddMultipleSORsLegacy {...addMultipleSorsProps} />
+          <AddMultipleSORsLegacy {...getAddMultipleSorsProps()} />
         ))}
 
       {error && <ErrorMessage label={error} />}
