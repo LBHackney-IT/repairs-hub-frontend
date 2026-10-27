@@ -86,114 +86,116 @@ const RateScheduleItem = ({
   return (
     <>
       <div className="rate-schedule-item govuk-!-margin-top-0">
-        <DataList
-          name={`rateScheduleItems[${index}][code]`}
-          label="SOR Code"
-          labelMessage="- Search by code or description"
-          options={sorOptions}
-          defaultValue={code ?? ''}
-          disabled={disabled}
-          onChange={onSorInputChange}
-          required={true}
-          register={register({
-            required: 'Please select an SOR code',
-            validate: (value) => {
-              if (typeof sorSearchRequest !== 'function') {
-                // normal validation
-                return (
-                  sorOptions.some((text) => text === value) ||
-                  'SOR code is not valid'
-                )
-              }
-
-              const extractedSorCode = value.split(' ')[0]
-
-              // This logic works by comparing the selected sorCode with the list provided for the dropdown
-              // however, due to incremental search, there are no sorCodes to manually compare this sorCode with.
-              // Therefore, if incremental search used (sorSearchRequest is a function, and not false),
-              // we can send a request for this specific sor, and see if it exists
-              sorSearchRequest(extractedSorCode)
-                .then((response) => {
-                  if (response.length === 0) return 'SOR code is not valid'
+        <div className="rate-schedule-item__fields">
+          <DataList
+            name={`rateScheduleItems[${index}][code]`}
+            label="SOR Code"
+            labelMessage="- Search by code or description"
+            options={sorOptions}
+            defaultValue={code ?? ''}
+            disabled={disabled}
+            onChange={onSorInputChange}
+            required={true}
+            register={register({
+              required: 'Please select an SOR code',
+              validate: (value) => {
+                if (typeof sorSearchRequest !== 'function') {
+                  // normal validation
                   return (
-                    response.some((x) => x.code === extractedSorCode) ||
+                    sorOptions.some((text) => text === value) ||
                     'SOR code is not valid'
                   )
-                })
-                .catch((e) => {
-                  return `Oops an error occurred getting SOR codes with error status: ${e.response?.status}`
-                })
-            },
-          })}
-          {...(sorSearchRequest
-            ? {
-                hint: 'Enter three characters to view results',
-              }
-            : {})}
-          error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
-          widthClass="govuk-!-margin-top-0 govuk-!-width-full"
-          additionalDivClasses="rate-schedule-item--sor-code"
-        />
+                }
+
+                const extractedSorCode = value.split(' ')[0]
+
+                // This logic works by comparing the selected sorCode with the list provided for the dropdown
+                // however, due to incremental search, there are no sorCodes to manually compare this sorCode with.
+                // Therefore, if incremental search used (sorSearchRequest is a function, and not false),
+                // we can send a request for this specific sor, and see if it exists
+                sorSearchRequest(extractedSorCode)
+                  .then((response) => {
+                    if (response.length === 0) return 'SOR code is not valid'
+                    return (
+                      response.some((x) => x.code === extractedSorCode) ||
+                      'SOR code is not valid'
+                    )
+                  })
+                  .catch((e) => {
+                    return `Oops an error occurred getting SOR codes with error status: ${e.response?.status}`
+                  })
+              },
+            })}
+            {...(sorSearchRequest
+              ? {
+                  hint: 'Enter three characters to view results',
+                }
+              : {})}
+            error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
+            widthClass="govuk-!-margin-top-0 govuk-!-width-full"
+            additionalDivClasses="rate-schedule-item--sor-code"
+          />
+
+          <input
+            id={`rateScheduleItems[${index}][description]`}
+            name={`rateScheduleItems[${index}][description]`}
+            value={sorDescription}
+            type="hidden"
+            ref={register}
+          />
+
+          <input
+            id={`rateScheduleItems[${index}][cost]`}
+            name={`rateScheduleItems[${index}][cost]`}
+            value={sorCost}
+            type="hidden"
+            ref={register}
+          />
+
+          <TextInput
+            name={`rateScheduleItems[${index}][quantity]`}
+            label="Quantity"
+            error={errors && errors.rateScheduleItems?.[`${index}`]?.quantity}
+            widthClass="govuk-!-width-full"
+            required={true}
+            defaultValue={quantity ?? ''}
+            additionalDivClasses="rate-schedule-item--quantity"
+            onChange={(event) =>
+              onQuantityChange && onQuantityChange(index, event)
+            }
+            disabled={disabled}
+            register={register({
+              required: 'Please enter a quantity',
+              validate: (value) => {
+                const maxTwoDecimalPoints = /^(?=.*\d)\d*(?:\.\d{1,2})?$/
+                if (isNaN(value)) {
+                  return 'Quantity must be a number'
+                } else if (value <= 0) {
+                  return 'Quantity must be greater than 0'
+                } else if (!maxTwoDecimalPoints.test(value)) {
+                  return 'Quantity including a decimal point is permitted a maximum of 2 decimal places'
+                } else {
+                  return true
+                }
+              },
+            })}
+          />
+          {/* always rendered so quantity lines up on rows without a remove button */}
+          <div className="remove-rate-schedule-item">
+            {showRemoveRateScheduleItem && (
+              <button
+                id={`remove-rate-schedule-item-${index}`}
+                className="lbh-link"
+                type="button"
+                onClick={() => removeRateScheduleItem(index)}
+              >
+                Remove
+              </button>
+            )}
+          </div>
+        </div>
 
         {sorCodesError && <ErrorMessage label={sorCodesError} />}
-
-        <input
-          id={`rateScheduleItems[${index}][description]`}
-          name={`rateScheduleItems[${index}][description]`}
-          value={sorDescription}
-          type="hidden"
-          ref={register}
-        />
-
-        <input
-          id={`rateScheduleItems[${index}][cost]`}
-          name={`rateScheduleItems[${index}][cost]`}
-          value={sorCost}
-          type="hidden"
-          ref={register}
-        />
-
-        <TextInput
-          name={`rateScheduleItems[${index}][quantity]`}
-          label="Quantity"
-          error={errors && errors.rateScheduleItems?.[`${index}`]?.quantity}
-          widthClass="govuk-!-width-full"
-          required={true}
-          defaultValue={quantity ?? ''}
-          additionalDivClasses="rate-schedule-item--quantity"
-          onChange={(event) =>
-            onQuantityChange && onQuantityChange(index, event)
-          }
-          disabled={disabled}
-          register={register({
-            required: 'Please enter a quantity',
-            validate: (value) => {
-              const maxTwoDecimalPoints = /^(?=.*\d)\d*(?:\.\d{1,2})?$/
-              if (isNaN(value)) {
-                return 'Quantity must be a number'
-              } else if (value <= 0) {
-                return 'Quantity must be greater than 0'
-              } else if (!maxTwoDecimalPoints.test(value)) {
-                return 'Quantity including a decimal point is permitted a maximum of 2 decimal places'
-              } else {
-                return true
-              }
-            },
-          })}
-        />
-
-        {showRemoveRateScheduleItem && (
-          <div className="remove-rate-schedule-item govuk-!-margin-0">
-            <button
-              id={`remove-rate-schedule-item-${index}`}
-              className="lbh-link"
-              type="button"
-              onClick={() => removeRateScheduleItem(index)}
-            >
-              Remove
-            </button>
-          </div>
-        )}
       </div>
     </>
   )

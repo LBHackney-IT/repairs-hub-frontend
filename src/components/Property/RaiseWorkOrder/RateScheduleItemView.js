@@ -191,7 +191,9 @@ const RateScheduleItemView = ({
   }
 
   return (
-    <div className="min-height-120 govuk-!-margin-bottom-6">
+    <div className="sor-codes min-height-120">
+      <h3 className="lbh-heading-h3">SOR codes</h3>
+
       {loading ? (
         <Spinner />
       ) : (
@@ -225,12 +227,10 @@ const RateScheduleItemView = ({
             ))}
             {apiError && <ErrorMessage label={apiError} />}
           </div>
-          <div>
+          <div className="sor-codes__actions">
             <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
               + Add another SOR code
             </a>
-          </div>
-          <div>
             {!disabled && (
               <a className="lbh-link" href="#" onClick={changePageView}>
                 + Add multiple SOR codes
