@@ -162,6 +162,7 @@ const WorkOrdersViewContent = ({ query: urlQuery }: PageProps) => {
         </GridColumn>
 
         <GridColumn width="three-quarters">
+          <h1 className="lbh-heading-h1">Manage work orders</h1>
           {loading ? (
             <Spinner />
           ) : (

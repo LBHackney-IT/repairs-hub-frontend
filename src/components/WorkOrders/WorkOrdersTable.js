@@ -10,8 +10,6 @@ const WorkOrdersTable = ({
   pageSize,
 }) => (
   <div>
-    <h1 className="lbh-heading-h1">Manage work orders</h1>
-
     <Table className="govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <THead>
         <TR className="lbh-body">

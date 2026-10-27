@@ -49,6 +49,8 @@ const WorkOrdersFilter = ({
   }
 
   const statusFilterOptions = () => {
+    if (!filters) return undefined
+
     if (user && canSeeAllFilters(user)) {
       return filters.Status
     } else {
@@ -59,8 +61,9 @@ const WorkOrdersFilter = ({
     }
   }
 
+  // Contractor options aren't known until loaded, so show the box meanwhile
   const showContractorFilters = () => {
-    return filters.Contractors.length > 1
+    return loading || filters?.Contractors.length > 1
   }
 
   const showAllCheckboxes = (e, filterType) => {
@@ -96,6 +99,10 @@ const WorkOrdersFilter = ({
   }
 
   const selectedFilterOptions = () => {
+    if (loading || !selectedFilters) {
+      return <Spinner resource="selected-filters" width={30} />
+    }
+
     if (Object.keys(selectedFilters).length === 0) {
       return <p className="lbh-body-s">You have no selected filters</p>
     }
@@ -160,6 +167,69 @@ const WorkOrdersFilter = ({
     )
   }
 
+  // Invisible rows take up the space of the default visible options, so the
+  // layout doesn't shift when the real options load
+  const loadingPlaceholder = (id) => (
+    <div className="filter-loading-placeholder">
+      {Array.from({ length: CHECKBOX_NUMBER }, (_, index) => (
+        <div
+          key={index}
+          className="govuk-checkboxes__item govuk-!-margin-0"
+          aria-hidden="true"
+        >
+          <label className="govuk-label govuk-checkboxes__label lbh-body-xs">
+            &nbsp;
+          </label>
+        </div>
+      ))}
+      <div className="filter-loading-spinner">
+        <Spinner resource={id} width={30} />
+      </div>
+    </div>
+  )
+
+  // A fieldset of checkboxes, showing a spinner in place of the options until loaded
+  const filterGroup = ({
+    legend,
+    legendClassName = '',
+    id,
+    options,
+    name,
+    getLabel,
+  }) => (
+    <div className="border-bottom-grey">
+      <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
+        <legend
+          className={`govuk-fieldset__legend govuk-fieldset__legend--s ${legendClassName}`.trim()}
+        >
+          {legend}
+        </legend>
+
+        <div
+          className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
+          id={id}
+        >
+          {loading || !options
+            ? loadingPlaceholder(id)
+            : options.map((option, index) => (
+                <Checkbox
+                  className="govuk-!-margin-0"
+                  labelClassName="lbh-body-xs"
+                  key={index}
+                  name={`${name}.${option.key}`}
+                  label={getLabel(option)}
+                  register={register}
+                  checked={appliedFilters?.[name]?.includes(option.key)}
+                  hidden={index >= CHECKBOX_NUMBER}
+                />
+              ))}
+        </div>
+      </fieldset>
+
+      {!loading && options && showAllCheckboxesHtml(options.length, id)}
+    </div>
+  )
+
   const filterOptionsHtml = () => {
     return (
       <div className="govuk-form-group lbh-form-group filter-options govuk-!-margin-bottom-5">
@@ -178,148 +248,53 @@ const WorkOrdersFilter = ({
           />
         </div>
 
-        {showContractorFilters() && (
-          <div className="border-bottom-grey">
-            <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-              <legend className="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-padding-top-3">
-                Contractor
-              </legend>
+        {showContractorFilters() &&
+          filterGroup({
+            legend: 'Contractor',
+            legendClassName: 'govuk-!-padding-top-3',
+            id: 'contractor-filters',
+            options: filters?.Contractors,
+            name: 'ContractorReference',
+            getLabel: (contractor) => contractor.description,
+          })}
 
-              <div
-                className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
-                id="contractor-filters"
-              >
-                {filters.Contractors.map((contractor, index) => (
-                  <Checkbox
-                    className="govuk-!-margin-0"
-                    labelClassName="lbh-body-xs"
-                    key={index}
-                    name={`ContractorReference.${contractor.key}`}
-                    label={contractor.description}
-                    register={register}
-                    checked={appliedFilters?.ContractorReference?.includes(
-                      contractor.key
-                    )}
-                    hidden={index >= CHECKBOX_NUMBER}
-                  />
-                ))}
-              </div>
-            </fieldset>
+        {filterGroup({
+          legend: 'Status',
+          id: 'status-filters',
+          options: statusFilterOptions(),
+          name: 'StatusCode',
+          getLabel: (status) => convertToSentenceCases(status.description),
+        })}
 
-            {showAllCheckboxesHtml(
-              filters.Contractors.length,
-              'contractor-filters'
-            )}
-          </div>
-        )}
+        {filterGroup({
+          legend: 'Priority',
+          id: 'priority-filters',
+          options: filters?.Priority,
+          name: 'Priorities',
+          getLabel: (priority) => priority.description,
+        })}
 
-        <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Status
-            </legend>
-
-            <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
-              id="status-filters"
-            >
-              {statusFilterOptions().map((status, index) => (
-                <Checkbox
-                  className="govuk-!-margin-0"
-                  labelClassName="lbh-body-xs"
-                  key={index}
-                  name={`StatusCode.${status.key}`}
-                  label={convertToSentenceCases(status.description)}
-                  register={register}
-                  checked={appliedFilters?.StatusCode?.includes(status.key)}
-                  hidden={index >= CHECKBOX_NUMBER}
-                />
-              ))}
-            </div>
-          </fieldset>
-
-          {showAllCheckboxesHtml(
-            statusFilterOptions().length,
-            'status-filters'
-          )}
-        </div>
-
-        <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Priority
-            </legend>
-
-            <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
-              id="priority-filters"
-            >
-              {filters.Priority.map((priority, index) => (
-                <Checkbox
-                  className="govuk-!-margin-0"
-                  labelClassName="lbh-body-xs"
-                  key={index}
-                  name={`Priorities.${priority.key}`}
-                  label={priority.description}
-                  register={register}
-                  checked={appliedFilters?.Priorities?.includes(priority.key)}
-                  hidden={index >= CHECKBOX_NUMBER}
-                />
-              ))}
-            </div>
-          </fieldset>
-
-          {showAllCheckboxesHtml(filters.Priority.length, 'priority-filters')}
-        </div>
-
-        <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
-              Trade
-            </legend>
-
-            <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
-              id="trade-filters"
-            >
-              {filters.Trades.map((trade, index) => (
-                <Checkbox
-                  className="govuk-!-margin-0"
-                  labelClassName="lbh-body-xs"
-                  key={index}
-                  name={`TradeCodes.${trade.key}`}
-                  label={trade.description}
-                  register={register}
-                  checked={appliedFilters?.TradeCodes?.includes(trade.key)}
-                  hidden={index >= CHECKBOX_NUMBER}
-                />
-              ))}
-            </div>
-          </fieldset>
-
-          {showAllCheckboxesHtml(filters.Trades.length, 'trade-filters')}
-        </div>
+        {filterGroup({
+          legend: 'Trade',
+          id: 'trade-filters',
+          options: filters?.Trades,
+          name: 'TradeCodes',
+          getLabel: (trade) => trade.description,
+        })}
       </div>
     )
   }
 
+  // Without filters and not loading, the request failed and the parent shows the error
+  if (!loading && !filters) return null
+
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {filters && (
-            <Collapsible
-              heading="Filters"
-              collapsableDivClassName="filter-collapsible"
-              contentMargin="govuk-!-margin-0"
-              children={filterOptionsHtml()}
-            />
-          )}
-        </>
-      )}
-    </>
+    <Collapsible
+      heading="Filters"
+      collapsableDivClassName="filter-collapsible"
+      contentMargin="govuk-!-margin-0"
+      children={filterOptionsHtml()}
+    />
   )
 }
 
