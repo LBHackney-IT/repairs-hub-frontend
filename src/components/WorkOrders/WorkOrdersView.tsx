@@ -2,6 +2,7 @@ import { useState, useEffect, MouseEvent } from 'react'
 import { useRouter } from 'next/router'
 import WorkOrdersTable from './WorkOrdersTable'
 import Spinner from '../Spinner'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'
 import { setFilterOptions } from '@/utils/helpers/filter'
@@ -166,7 +167,9 @@ const WorkOrdersViewContent = ({ query: urlQuery }: PageProps) => {
         <GridColumn width="three-quarters">
           <h1 className="lbh-heading-h1">Manage work orders</h1>
           {loading ? (
-            <Spinner />
+            <div className="govuk-!-margin-top-6">
+              <SpinnerWithLabel label="Fetching work orders" />
+            </div>
           ) : (
             <>
               {workOrders && (
