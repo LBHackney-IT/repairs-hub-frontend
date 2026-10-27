@@ -1,25 +1,38 @@
-import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WorkOrdersFilter from './WorkOrdersFilter'
-import { SelectedFilterOptions } from '@/utils/helpers/filter'
+import {
+  SelectedFilterOptions,
+  FilterOptionsByCategory,
+} from '@/utils/helpers/filter'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+
+interface Props {
+  onFilterSubmit: (formData: Record<string, Record<string, unknown>>) => void
+  appliedFilters: Record<string, any>
+  clearFilters: (e: MouseEvent<HTMLElement>) => void
+  onFilterRemove: (category: string, index: number) => void
+}
 
 const WorkOrdersFilterView = ({
   onFilterSubmit,
   appliedFilters,
   clearFilters,
   onFilterRemove,
-}) => {
+}: Props) => {
   const { register, handleSubmit } = useForm()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [filters, setFilters] = useState()
-  const [selectedFilters, setSelectedFilters] = useState()
+  const [error, setError] = useState<string | null>()
+  const [filters, setFilters] = useState<FilterOptionsByCategory | null>()
+  const [selectedFilters, setSelectedFilters] = useState<
+    Record<string, string[]>
+  >()
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async (
+    formData: Record<string, Record<string, unknown>>
+  ) => {
     formData.StatusCode = { ...formData.StatusCode }
     formData.Priorities = { ...formData.Priorities }
 
@@ -80,12 +93,6 @@ const WorkOrdersFilterView = ({
       {error && <ErrorMessage label={error} />}
     </>
   )
-}
-
-WorkOrdersFilterView.propTypes = {
-  onFilterSubmit: PropTypes.func.isRequired,
-  appliedFilters: PropTypes.object,
-  onFilterRemove: PropTypes.func.isRequired,
 }
 
 export default WorkOrdersFilterView

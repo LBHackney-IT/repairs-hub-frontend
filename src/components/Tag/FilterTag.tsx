@@ -1,7 +1,14 @@
-import PropTypes from 'prop-types'
+import { MouseEvent } from 'react'
 
-const FilterTag = ({ text, index, category, onFilterRemove }) => {
-  const handleOnclick = (e) => {
+interface Props {
+  text: string
+  index: number
+  category: string
+  onFilterRemove: (category: string, index: number) => void
+}
+
+const FilterTag = ({ text, index, category, onFilterRemove }: Props) => {
+  const handleOnclick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     onFilterRemove(category, index)
   }
@@ -35,13 +42,6 @@ const FilterTag = ({ text, index, category, onFilterRemove }) => {
       {text}
     </li>
   )
-}
-
-FilterTag.propTypes = {
-  text: PropTypes.string.isRequired,
-  onFilterRemove: PropTypes.func.isRequired,
-  category: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
 }
 
 export default FilterTag

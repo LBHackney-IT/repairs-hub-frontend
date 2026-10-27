@@ -1,6 +1,6 @@
-type FilterOption = { key: string; description: string }
-type FilterOptionsByCategory = Record<string, FilterOption[]>
-type AppliedFilters = {
+export type FilterOption = { key: string; description: string }
+export type FilterOptionsByCategory = Record<string, FilterOption[]>
+export type AppliedFilters = {
   ContractorReference?: string | string[]
   StatusCode?: string | string[]
   Priorities?: string | string[]

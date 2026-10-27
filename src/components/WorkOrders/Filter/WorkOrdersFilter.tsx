@@ -1,5 +1,5 @@
-import { useContext } from 'react'
-import PropTypes from 'prop-types'
+import { MouseEvent, useContext } from 'react'
+import { UseFormRegister } from 'react-hook-form'
 import Spinner from '../../Spinner'
 import { Checkbox, Button } from '../../Form'
 import UserContext from '../../UserContext'
@@ -8,6 +8,29 @@ import Collapsible from '../../Layout/Collapsible'
 import FilterTag from '../../Tag/FilterTag'
 import { canSeeAllFilters } from '@/utils/userPermissions'
 import { convertToSentenceCases } from '@/utils/helpers/textConverter'
+import type {
+  FilterOption,
+  FilterOptionsByCategory,
+} from '@/utils/helpers/filter'
+
+interface Props {
+  loading: boolean
+  filters?: FilterOptionsByCategory
+  register: UseFormRegister<any>
+  appliedFilters: Record<string, any>
+  clearFilters: (e: MouseEvent<HTMLElement>) => void
+  selectedFilters?: Record<string, string[]>
+  onFilterRemove: (category: string, index: number) => void
+}
+
+interface FilterGroupOptions {
+  legend: string
+  legendClassName?: string
+  id: string
+  options?: FilterOption[]
+  name: string
+  getLabel: (option: FilterOption) => string
+}
 
 const WorkOrdersFilter = ({
   loading,
@@ -17,12 +40,12 @@ const WorkOrdersFilter = ({
   clearFilters,
   selectedFilters,
   onFilterRemove,
-}) => {
+}: Props) => {
   const { user } = useContext(UserContext)
 
   const CHECKBOX_NUMBER = 5
 
-  const saveAppliedFiltersToLocalStorage = (e) => {
+  const saveAppliedFiltersToLocalStorage = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
     if (
@@ -40,7 +63,7 @@ const WorkOrdersFilter = ({
     }
   }
 
-  const removeAppliedFiltersFromLocalStorage = (e) => {
+  const removeAppliedFiltersFromLocalStorage = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
     if (window.confirm('Remove my default saved filters?')) {
@@ -66,12 +89,17 @@ const WorkOrdersFilter = ({
     return loading || filters?.Contractors.length > 1
   }
 
-  const showAllCheckboxes = (e, filterType) => {
+  const showAllCheckboxes = (
+    e: MouseEvent<HTMLElement>,
+    filterType: string
+  ) => {
     e.preventDefault()
 
     const checkboxes = document.getElementById(filterType)
 
-    checkboxes.childNodes.forEach((checkbox) => {
+    checkboxes.childNodes.forEach((node) => {
+      const checkbox = node as HTMLElement
+
       if (checkbox.classList.contains('govuk-!-display-none')) {
         checkbox.classList.remove('govuk-!-display-none')
       }
@@ -80,7 +108,10 @@ const WorkOrdersFilter = ({
     document.querySelector(`.${filterType}`).remove()
   }
 
-  const showAllCheckboxesHtml = (numberOfFilterOptions, filterType) => {
+  const showAllCheckboxesHtml = (
+    numberOfFilterOptions: number,
+    filterType: string
+  ) => {
     if (numberOfFilterOptions > CHECKBOX_NUMBER) {
       return (
         <div
@@ -169,7 +200,7 @@ const WorkOrdersFilter = ({
 
   // Invisible rows take up the space of the default visible options, so the
   // layout doesn't shift when the real options load
-  const loadingPlaceholder = (id) => (
+  const loadingPlaceholder = (id: string) => (
     <div className="filter-loading-placeholder">
       {Array.from({ length: CHECKBOX_NUMBER }, (_, index) => (
         <div
@@ -196,7 +227,7 @@ const WorkOrdersFilter = ({
     options,
     name,
     getLabel,
-  }) => (
+  }: FilterGroupOptions) => (
     <div className="border-bottom-grey">
       <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
         <legend
@@ -296,15 +327,6 @@ const WorkOrdersFilter = ({
       children={filterOptionsHtml()}
     />
   )
-}
-
-WorkOrdersFilter.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  filters: PropTypes.object,
-  appliedFilters: PropTypes.object,
-  register: PropTypes.func.isRequired,
-  clearFilters: PropTypes.func.isRequired,
-  onFilterRemove: PropTypes.func.isRequired,
 }
 
 export default WorkOrdersFilter
