@@ -30,16 +30,7 @@ const HomeView = ({ query }: PageProps) => {
   const hasQuery = Object.entries(query).length > 0
 
   if (user && canSeeWorkOrders(user)) {
-    // Use saved filter preset in local storage as the default applied filters (if present)
-    const defaultFilters = JSON.parse(
-      localStorage.getItem('RH - default work order filters')
-    )
-
-    return hasQuery ? (
-      <WorkOrdersView query={query} />
-    ) : (
-      <WorkOrdersView {...(defaultFilters && { query: defaultFilters })} />
-    )
+    return <WorkOrdersView query={query} />
   }
 
   if (user && canSeeOperativeWorkOrders(user)) {
