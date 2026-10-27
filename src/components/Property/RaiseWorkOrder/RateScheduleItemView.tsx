@@ -1,9 +1,35 @@
-import PropTypes from 'prop-types'
-import { useState, Fragment, useEffect } from 'react'
+import { useState, Fragment, useEffect, Dispatch, SetStateAction } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import { calculateTotal } from '@/utils/helpers/calculations'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
+import SorCode from '@/root/src/models/sorCode'
+import { Priority } from '@/root/src/models/priority'
+
+// Raisable SORs come back from the API with their priority attached
+type RaisableSorCode = SorCode & { priority?: Priority }
+
+interface Props {
+  register: any
+  errors: any
+  disabled: boolean
+  updatePriority: (
+    description: string,
+    code: number,
+    rateScheduleItemsLength: number,
+    existingHigherPriorityCode: number
+  ) => void
+  getPriorityObjectByCode: (code: number) => Priority
+  loading?: boolean
+  apiError?: string | null
+  setTotalCost: (total: string) => void
+  sorCodeArrays: RaisableSorCode[][]
+  setSorCodeArrays: Dispatch<SetStateAction<RaisableSorCode[][]>>
+  sorSearchRequest?: false | ((searchText: string) => Promise<SorCode[]>)
+  setPageToMultipleSORs: () => void
+  formState: any
+  enablePriorityField: () => void
+}
 
 const RateScheduleItemView = ({
   register,
@@ -20,7 +46,7 @@ const RateScheduleItemView = ({
   setPageToMultipleSORs,
   formState,
   enablePriorityField,
-}) => {
+}: Props) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
     setArrayOfRateScheduleItemComponentIndexes,
@@ -55,7 +81,9 @@ const RateScheduleItemView = ({
   const onQuantityChange = (index, event) => {
     const quantity = parseFloat(event.target.value) || 0
     const costPerUnit = parseFloat(
-      document.getElementById(`rateScheduleItems[${index}][cost]`).value
+      (document.getElementById(
+        `rateScheduleItems[${index}][cost]`
+      ) as HTMLInputElement).value
     )
 
     const rateScheduleItemCostAtSameIndex = rateScheduleItemCosts.find(
@@ -191,7 +219,9 @@ const RateScheduleItemView = ({
   }
 
   return (
-    <div className="min-height-120 govuk-!-margin-bottom-6">
+    <div className="sor-codes min-height-120">
+      <h3 className="lbh-heading-h3">SOR codes</h3>
+
       {loading ? (
         <Spinner />
       ) : (
@@ -225,12 +255,10 @@ const RateScheduleItemView = ({
             ))}
             {apiError && <ErrorMessage label={apiError} />}
           </div>
-          <div>
+          <div className="sor-codes__actions">
             <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
               + Add another SOR code
             </a>
-          </div>
-          <div>
             {!disabled && (
               <a className="lbh-link" href="#" onClick={changePageView}>
                 + Add multiple SOR codes
@@ -241,16 +269,6 @@ const RateScheduleItemView = ({
       )}
     </div>
   )
-}
-
-RateScheduleItemView.propTypes = {
-  register: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  updatePriority: PropTypes.func.isRequired,
-  getPriorityObjectByCode: PropTypes.func.isRequired,
-  setPageToMultipleSORs: PropTypes.func.isRequired,
-  enablePriorityField: PropTypes.func.isRequired,
 }
 
 export default RateScheduleItemView

@@ -196,7 +196,7 @@ const RaiseWorkOrderForm = (props: Props) => {
     <>
       <BackButton />
       <div className="govuk-grid-row">
-        <div className="govuk-grid-column-two-thirds">
+        <div className="govuk-grid-column-two-thirds raise-work-order-form-column">
           <span className="govuk-caption-l lbh-caption">New repair</span>
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
             {property?.hierarchyType.subTypeDescription}:{' '}

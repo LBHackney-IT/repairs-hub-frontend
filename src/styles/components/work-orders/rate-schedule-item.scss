@@ -1,24 +1,42 @@
+.rate-schedule-item__fields {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  column-gap: 16px;
+  margin-top: 10px;
+}
+
 .rate-schedule-item--sor-code {
-  @include govuk-media-query($from: tablet) {
-    width: 66.66666%;
-    display: inline-block;
-  }
+  flex-grow: 1;
+  min-width: 200px;
 }
 
 .rate-schedule-item--quantity {
-  display: inline-block;
-
-  @include govuk-media-query($from: tablet) {
-    padding-left: 15px;
-    width: 120px;
-  }
+  flex: 0 0 120px;
+  margin-top: 0;
 }
 
 .rate-schedule-item > div {
   box-sizing: border-box;
 }
 
+// Bottom-aligned to the inputs; sized to the button so it adds no height when wrapped
 .remove-rate-schedule-item {
-  display: inline-block;
-  padding-left: 15px;
+  flex: 0 0 60px;
+  align-self: flex-end;
+  margin-top: 0;
+  padding-bottom: 8px;
+
+  > button {
+    font-size: 16px;
+  }
+}
+
+// Stops the two-thirds column shrinking below its full-size width as the
+// window narrows; min() lets it still go full width on small screens
+.raise-work-order-form-column {
+  @include govuk-media-query($from: tablet) {
+    min-width: min(660px, 100%);
+  }
 }
