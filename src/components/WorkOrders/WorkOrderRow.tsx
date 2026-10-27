@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { dateToStr } from '@/utils/date'
 import { extractTimeFromDate } from '@/utils/time'
 import Link from 'next/link'
@@ -6,6 +5,16 @@ import { useState } from 'react'
 import { TR, TD } from '../Layout/Table'
 import TruncateText from '../Layout/TruncateText'
 import Status from '../WorkOrder/Status'
+
+export interface WorkOrderListItem {
+  reference: number
+  dateRaised: string
+  priority: string
+  property: string
+  status: string
+  tradeDescription: string
+  description: string
+}
 
 const WorkOrderRow = ({
   reference,
@@ -15,7 +24,7 @@ const WorkOrderRow = ({
   status,
   tradeDescription,
   description,
-}) => {
+}: WorkOrderListItem) => {
   const [isExpanded, setIsExpanded] = useState(false)
   return (
     <TR
@@ -50,16 +59,6 @@ const WorkOrderRow = ({
       </TD>
     </TR>
   )
-}
-
-WorkOrderRow.propTypes = {
-  reference: PropTypes.number.isRequired,
-  dateRaised: PropTypes.string.isRequired,
-  priority: PropTypes.string.isRequired,
-  property: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  tradeDescription: PropTypes.string.isRequired,
 }
 
 export default WorkOrderRow

@@ -1,14 +1,20 @@
-import PropTypes from 'prop-types'
-import WorkOrderRow from './WorkOrderRow'
+import WorkOrderRow, { WorkOrderListItem } from './WorkOrderRow'
 import { Button } from '../Form'
 import { Table, THead, TBody, TR, TH } from '../Layout/Table'
+
+interface Props {
+  workOrders: WorkOrderListItem[]
+  pageNumber: number
+  handlePageClick: (pageNumber: number) => void
+  pageSize: number
+}
 
 const WorkOrdersTable = ({
   workOrders,
   pageNumber,
   handlePageClick,
   pageSize,
-}) => (
+}: Props) => (
   <div>
     <Table className="govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <THead>
@@ -61,22 +67,5 @@ const WorkOrdersTable = ({
     </div>
   </div>
 )
-
-WorkOrdersTable.propTypes = {
-  workOrders: PropTypes.arrayOf(
-    PropTypes.shape({
-      reference: PropTypes.number,
-      dateRaised: PropTypes.string,
-      lastUpdated: PropTypes.instanceOf(Date),
-      priority: PropTypes.string,
-      property: PropTypes.string,
-      status: PropTypes.string,
-      description: PropTypes.string,
-    })
-  ).isRequired,
-  pageNumber: PropTypes.number,
-  handlePageClick: PropTypes.func,
-  pageSize: PropTypes.number.isRequired,
-}
 
 export default WorkOrdersTable
