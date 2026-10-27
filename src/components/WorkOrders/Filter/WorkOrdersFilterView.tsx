@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useMemo, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
@@ -28,15 +28,12 @@ const WorkOrdersFilterView = ({
   const [filters, setFilters] = useState<FilterOptionsByCategory | null>()
 
   // Derived so the tags stay in step with the applied filters
-  const selectedFilters = useMemo(
-    () =>
-      filters &&
-      new SelectedFilterOptions(
-        appliedFilters,
-        filters
-      ).getSelectedFilterOptions(),
-    [filters, appliedFilters]
-  )
+  const selectedFilters =
+    filters &&
+    new SelectedFilterOptions(
+      appliedFilters,
+      filters
+    ).getSelectedFilterOptions()
 
   const onSubmit = async (
     formData: Record<string, Record<string, unknown>>
