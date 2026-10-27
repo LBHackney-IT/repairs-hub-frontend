@@ -70,7 +70,6 @@ functions:
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
       FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.environment-variables.follow-on-is-emergency-field-enabled.${self:provider.stage}}
-      ENABLE_AWAABS_LAW_REASON_FOR_REPAIR: ${self:custom.environment-variables.awaabs-law-reason-for-repair-enabled.${self:provider.stage}}
       ENABLE_HEALTH_AND_SAFETY_FLAG: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-health-safety-flag}
       
       TAG_MANAGER_ID: ${self:custom.environment-variables.tag-manager-id.${self:provider.stage}}
@@ -181,7 +180,3 @@ custom:
       development: true
       staging: true
       production: true
-    awaabs-law-reason-for-repair-enabled:
-      development: true
-      staging: true
-      production: false
