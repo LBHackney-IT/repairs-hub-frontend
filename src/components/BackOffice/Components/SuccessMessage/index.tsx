@@ -1,4 +1,10 @@
-const SuccessMessage = ({ title, resetFormText, resetFormCallback }) => {
+interface Props {
+  title: string
+  resetFormText: string
+  resetFormCallback: () => void
+}
+
+const SuccessMessage = ({ title, resetFormText, resetFormCallback }: Props) => {
   return (
     <>
       <div className="govuk-panel govuk-panel--confirmation lbh-panel">

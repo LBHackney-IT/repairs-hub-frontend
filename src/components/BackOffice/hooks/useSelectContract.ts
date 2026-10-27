@@ -1,14 +1,22 @@
-import { useState, useEffect } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 
 import { fetchContractors } from '../requests'
 import { fetchContracts } from '@/root/src/utils/requests/contract'
 
-const useSelectContract = () => {
-  const [contractors, setContractors] = useState(null)
-  const [selectedContractor, setSelectedContractor] = useState(null)
+export interface Contractor {
+  contractorReference: string
+  contractorName: string
+}
 
-  const [selectedContract, setSelectedContract] = useState(null)
+const useSelectContract = () => {
+  const [contractors, setContractors] = useState<Contractor[] | null>(null)
+  const [
+    selectedContractor,
+    setSelectedContractor,
+  ] = useState<Contractor | null>(null)
+
+  const [selectedContract, setSelectedContract] = useState<string | null>(null)
 
   const [loadingContractors, setLoadingContractors] = useState(false)
 
@@ -46,7 +54,7 @@ const useSelectContract = () => {
     ? contractsData.map((contract) => contract.contractReference)
     : null
 
-  const handleSelectContractor = (e) => {
+  const handleSelectContractor = (e: ChangeEvent<HTMLInputElement>) => {
     const contractorName = e.target.value
     const selectedContractor = contractors.find(
       (contractor) => contractor.contractorName === contractorName
@@ -61,7 +69,7 @@ const useSelectContract = () => {
     }
   }, [selectedContractor])
 
-  const handleSelectContract = (e) => {
+  const handleSelectContract = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedContract(e.target.value)
   }
 

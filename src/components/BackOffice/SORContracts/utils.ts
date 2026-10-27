@@ -1,6 +1,17 @@
 import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 
-export const saveContractChangesToDatabase = async (data) => {
+export type SorContractsMode = 'Copy' | 'Add'
+
+export interface SorContractsRequest {
+  sourcePropertyReference: string
+  destinationPropertyReference: string
+  contractReference: string
+  mode: SorContractsMode
+}
+
+export const saveContractChangesToDatabase = async (
+  data: SorContractsRequest
+) => {
   return await frontEndApiRequest({
     method: 'POST',
     path: `/api/backOffice/sor-contracts`,
@@ -8,29 +19,29 @@ export const saveContractChangesToDatabase = async (data) => {
   })
 }
 
-export const validatePropertyReference = (propertyReference) => {
+export const validatePropertyReference = (propertyReference: string) => {
   const regex = /^\d{8}$/gm
   return regex.exec(propertyReference) !== null
 }
 
-export const copyContractsSelected = (selectedOption) => {
+export const copyContractsSelected = (selectedOption: SorContractsMode) => {
   return selectedOption === 'Copy'
 }
 
-export const addContractsSelected = (selectedOption) => {
+export const addContractsSelected = (selectedOption: SorContractsMode) => {
   return selectedOption === 'Add'
 }
 
-const sanitizeInput = (value) => {
+const sanitizeInput = (value: string) => {
   return value.trim().replace(/ /g, '')
 }
 
 export const dataToRequestObject = (
-  sourcePropertyReference,
-  destinationPropertyReference,
-  selectedContract,
-  selectedOption
-) => {
+  sourcePropertyReference: string,
+  destinationPropertyReference: string,
+  selectedContract: string,
+  selectedOption: SorContractsMode
+): SorContractsRequest => {
   return {
     sourcePropertyReference: sanitizeInput(sourcePropertyReference),
     destinationPropertyReference: sanitizeInput(destinationPropertyReference),
@@ -40,8 +51,8 @@ export const dataToRequestObject = (
 }
 
 export const propertyReferencesMatch = (
-  propertyReference1,
-  propertyReference2
+  propertyReference1: string,
+  propertyReference2: string
 ) => {
   if (!propertyReference1 || !propertyReference2) return false
 

@@ -1,4 +1,4 @@
-export const formatWorkOrderReferences = (workOrderReferences) => {
+export const formatWorkOrderReferences = (workOrderReferences: string) => {
   return [
     ...new Set(
       workOrderReferences
@@ -9,27 +9,29 @@ export const formatWorkOrderReferences = (workOrderReferences) => {
   ]
 }
 
-const validateWorkOrderReference = (workOrderReference) => {
+const validateWorkOrderReference = (workOrderReference: string) => {
   const regex = /^\d{8}$/gm
 
   return regex.exec(workOrderReference) !== null
 }
 
-export const getInvalidWorkOrderReferences = (workOrderReferences) => {
+export const getInvalidWorkOrderReferences = (
+  workOrderReferences: string[]
+) => {
   return workOrderReferences
     .filter((x) => !validateWorkOrderReference(x))
     .map((x) => `"${x}"`)
 }
 
 export const formatInvalidWorkOrderReferencesError = (
-  invalidWorkOrderReferences
+  invalidWorkOrderReferences: string[]
 ) => {
   return `Invalid WorkOrder Reference(s) entered: ${invalidWorkOrderReferences.join(
     ', '
   )}`
 }
 
-export const dateIsInFuture = (date) => {
+export const dateIsInFuture = (date: number | Date) => {
   const today = new Date()
 
   return date > today

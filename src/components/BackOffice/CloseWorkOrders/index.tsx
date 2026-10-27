@@ -1,5 +1,5 @@
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { Button, TextArea, TextInput } from '../../Form'
 import DatePicker from '../../Form/DatePicker'
@@ -26,16 +26,29 @@ const radioOptions = [
   },
 ]
 
+interface FormErrors {
+  selectedOption?: string
+  reasonToClose?: string
+  closedDate?: string
+  workOrderReferences?: string
+}
+
+interface CloseRequestBody {
+  reason: string
+  completionDate: string
+  workOrderReferences: string[]
+}
+
 const CloseWorkOrders = () => {
   const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
   const [reasonToClose, setReasonToClose] = useState('')
   const [closedDate, setClosedDate] = useState('')
   const [workOrderReferences, setWorkOrderReferences] = useState('')
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<FormErrors>({})
 
   const [loading, setLoading] = useState(false)
-  const [requestError, setRequestError] = useState(null)
-  const [formSuccess, setFormSuccess] = useState(null)
+  const [requestError, setRequestError] = useState<string | null>(null)
+  const [formSuccess, setFormSuccess] = useState<boolean | null>(null)
 
   const [showDialog, setShowDialog] = useState(false)
 
@@ -51,7 +64,7 @@ const CloseWorkOrders = () => {
   }
 
   const validateRequest = () => {
-    let newErrors = {}
+    const newErrors: FormErrors = {}
 
     if (!selectedOption) {
       newErrors.selectedOption = 'Please select an option'
@@ -91,6 +104,7 @@ const CloseWorkOrders = () => {
   const renderConfirmationModal = () => {
     if (showDialog) {
       return (
+        // @ts-expect-error Props validation
         <ConfirmationModal
           title={'Permanently close work orders?'}
           showDialog
@@ -105,7 +119,7 @@ const CloseWorkOrders = () => {
     }
   }
 
-  const validateForm = (event) => {
+  const validateForm = (event: FormEvent) => {
     event.preventDefault()
 
     if (loading) return
@@ -124,7 +138,7 @@ const CloseWorkOrders = () => {
   const submit = () => {
     const formatted = formatWorkOrderReferences(workOrderReferences)
 
-    const body = {
+    const body: CloseRequestBody = {
       reason: reasonToClose,
       completionDate: closedDate,
       workOrderReferences: formatted,
@@ -132,7 +146,7 @@ const CloseWorkOrders = () => {
 
     if (closeToBaseSelected()) body.completionDate = closedDate
 
-    let url = `/api/backOffice/bulk-close/${
+    const url = `/api/backOffice/bulk-close/${
       closeToBaseSelected() ? 'close-to-base' : 'cancel'
     }`
 
@@ -203,6 +217,7 @@ const CloseWorkOrders = () => {
 
               {selectedOption === 'CloseToBase' && (
                 <div>
+                  {/* @ts-expect-error Props validation */}
                   <DatePicker
                     name="ClosedDate"
                     label="Closed Date"
@@ -216,6 +231,7 @@ const CloseWorkOrders = () => {
               )}
 
               <div>
+                {/* @ts-expect-error Props validation */}
                 <TextArea
                   label="Work Order References"
                   data-test="workOrderReferences"

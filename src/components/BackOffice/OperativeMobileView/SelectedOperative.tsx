@@ -1,4 +1,10 @@
-const SelectedOperative = (props) => {
+import { HubOperative } from './utils'
+
+interface Props {
+  operative: HubOperative
+}
+
+const SelectedOperative = (props: Props) => {
   const { operative } = props
 
   return (
