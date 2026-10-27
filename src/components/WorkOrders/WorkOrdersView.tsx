@@ -21,7 +21,7 @@ const WORK_ORDERS_MANAGEMENT_PAGE_SIZE = 10
 const getDefaultFilters = (): Filters | null =>
   JSON.parse(localStorage.getItem('RH - default work order filters'))
 
-const WorkOrdersView = ({ query: urlQuery }: PageProps) => {
+const WorkOrdersViewContent = ({ query: urlQuery }: PageProps) => {
   const query: Filters =
     Object.entries(urlQuery).length === 0 ? getDefaultFilters() : urlQuery
   const router = useRouter()
@@ -183,6 +183,17 @@ const WorkOrdersView = ({ query: urlQuery }: PageProps) => {
       </GridRow>
     </>
   )
+}
+
+// Local storage is only available in the browser, so wait until mounted
+const WorkOrdersView = (props: PageProps) => {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  return mounted ? <WorkOrdersViewContent {...props} /> : <Spinner />
 }
 
 export default WorkOrdersView
