@@ -1,0 +1,31 @@
+.reason-for-repair {
+  background: #f9f9f9; // matches the follow on works box
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+.reason-for-repair__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 10px;
+
+  .govuk-form-group {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .lbh-select,
+  .govuk-error-message + .lbh-select {
+    margin-top: 0;
+  }
+
+}
+
+// Same height as a select, so the remove link is centred on it
+.reason-for-repair__action {
+  display: flex;
+  align-items: center;
+  flex: 0 0 5rem;
+  height: 40px;
+}

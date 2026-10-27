@@ -17,7 +17,7 @@ describe('Schedule appointment form', () => {
       },
       {
         body: {
-          enableNewAwaabsFields: true,
+          enableAwaabsLawReasonForRepair: true,
         },
       }
     ).as('feature-toggle')
@@ -268,7 +268,7 @@ describe('Schedule appointment form', () => {
                   },
                 },
                 multiTradeWorkOrder: false,
-                isAwaabsDampAndMouldRepair: false,
+                awaabsLawReasonForRepair: [],
               })
           })
       })

@@ -69,11 +69,11 @@ functions:
       SENTRY_DSN: ${ssm:/repairs-hub/${self:provider.stage}/sentry-dsn}
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
-      FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.follow-on-is-emergency-field-enabled.${self:provider.stage}}
-      ENABLE_NEW_AWAABS_FIELDS: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-new-awaabs-fields}
+      FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.environment-variables.follow-on-is-emergency-field-enabled.${self:provider.stage}}
+      ENABLE_AWAABS_LAW_REASON_FOR_REPAIR: ${self:custom.environment-variables.awaabs-law-reason-for-repair-enabled.${self:provider.stage}}
       ENABLE_HEALTH_AND_SAFETY_FLAG: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-health-safety-flag}
       
-      TAG_MANAGER_ID: ${self:custom.tag-manager-id.${self:provider.stage}}
+      TAG_MANAGER_ID: ${self:custom.environment-variables.tag-manager-id.${self:provider.stage}}
 
 resources:
   Resources:
@@ -171,11 +171,17 @@ custom:
     production:
       - subnet-0beb266003a56ca82
       - subnet-06a697d86a9b6ed01
-  tag-manager-id:
-    development: ""
-    staging: ""
-    production: GTM-MLCLBXH2
-  follow-on-is-emergency-field-enabled:
-    development: true
-    staging: true
-    production: true
+  # Per stage values for the non secret environment variables
+  environment-variables:
+    tag-manager-id:
+      development: ""
+      staging: ""
+      production: GTM-MLCLBXH2
+    follow-on-is-emergency-field-enabled:
+      development: true
+      staging: true
+      production: true
+    awaabs-law-reason-for-repair-enabled:
+      development: true
+      staging: true
+      production: false
