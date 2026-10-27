@@ -171,6 +171,41 @@ describe('/api/[...path]', () => {
       })
     })
 
+    describe('browser caching', () => {
+      const getRequest = (path) =>
+        createRequest({
+          method: 'get',
+          headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
+          query: { path },
+        })
+
+      const respondWith = (data) => {
+        axios.create = jest.fn(() => axios)
+        axios.mockImplementationOnce(() =>
+          Promise.resolve({ status: 200, data })
+        )
+      }
+
+      test('lets the browser cache the work order filters for four hours', async () => {
+        respondWith({ Status: [] })
+        const res = createResponse()
+
+        await catchAllEndpoint(getRequest(['filter', 'WorkOrder']), res)
+
+        expect(res.getHeader('Cache-Control')).toBe('private, max-age=14400')
+        expect(res.getHeader('Vary')).toBe('Cookie')
+      })
+
+      test('does not set cache headers for other GET requests', async () => {
+        respondWith({})
+        const res = createResponse()
+
+        await catchAllEndpoint(getRequest(['workOrders']), res)
+
+        expect(res.getHeader('Cache-Control')).toBeUndefined()
+      })
+    })
+
     describe('a POST request', () => {
       test('makes the equivalent service API request and returns the response', async () => {
         // Create a request for the Node API

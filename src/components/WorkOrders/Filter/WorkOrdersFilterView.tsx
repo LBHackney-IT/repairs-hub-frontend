@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
@@ -26,9 +26,17 @@ const WorkOrdersFilterView = ({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>()
   const [filters, setFilters] = useState<FilterOptionsByCategory | null>()
-  const [selectedFilters, setSelectedFilters] = useState<
-    Record<string, string[]>
-  >()
+
+  // Derived so the tags stay in step with the applied filters
+  const selectedFilters = useMemo(
+    () =>
+      filters &&
+      new SelectedFilterOptions(
+        appliedFilters,
+        filters
+      ).getSelectedFilterOptions(),
+    [filters, appliedFilters]
+  )
 
   const onSubmit = async (
     formData: Record<string, Record<string, unknown>>
@@ -48,13 +56,7 @@ const WorkOrdersFilterView = ({
         path: '/api/filter/WorkOrder',
       })
 
-      const selectedFilters = new SelectedFilterOptions(
-        appliedFilters,
-        workOrderFilters
-      ).getSelectedFilterOptions()
-
       setFilters(workOrderFilters)
-      setSelectedFilters(selectedFilters)
     } catch (e) {
       setFilters(null)
       console.error('An error has occured:', e.response)
