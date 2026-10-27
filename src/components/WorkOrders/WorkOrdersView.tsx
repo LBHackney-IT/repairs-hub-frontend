@@ -117,13 +117,15 @@ const WorkOrdersViewContent = ({ query: urlQuery }: PageProps) => {
     setLoading(false)
   }
 
+  // Refetch whenever the URL query changes (applying/clearing filters, paging, back/forward)
+  const queryKey = JSON.stringify(query)
+
   useEffect(() => {
     workOrderView(pageNumber, query)
-  }, [])
+  }, [queryKey])
 
   const handlePageClick = (newPageNumber: number) => {
     setLoading(true)
-    workOrderView(newPageNumber, queryParams)
     updateUrlQueryParams(queryParams, newPageNumber)
   }
 
