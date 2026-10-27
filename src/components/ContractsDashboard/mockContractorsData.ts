@@ -1,4 +1,9 @@
-export const mockContractors = [
+import type Contractor from '@/models/contractor'
+
+export const mockContractors: Pick<
+  Contractor,
+  'contractorReference' | 'contractorName' | 'activeContractCount'
+>[] = [
   {
     contractorReference: 'NOO',
     contractorName: 'No ltd',

@@ -1,6 +1,8 @@
+import type Contract from '@/models/contract'
+
 export const ninthOfJulyTwentyTwentyFive = new Date('2025-07-09T15:38:48.061Z')
 
-export const mockContracts = [
+export const mockContracts: Contract[] = [
   {
     contractReference: '111-111-1111',
     terminationDate: '2015-03-31T00:00:00Z',
@@ -233,7 +235,7 @@ export const mockContracts = [
   },
 ]
 
-export const mockActiveContracts = [
+export const mockActiveContracts: Contract[] = [
   {
     contractReference: '126-126-1266',
     terminationDate: '2025-08-09T15:38:48.061Z',
@@ -307,7 +309,7 @@ export const mockActiveContracts = [
   },
 ]
 
-export const mockInactiveContracts = [
+export const mockInactiveContracts: Contract[] = [
   {
     contractReference: '111-111-1111',
     terminationDate: '2015-03-31T00:00:00Z',
@@ -370,7 +372,7 @@ export const mockInactiveContracts = [
   },
 ]
 
-export const mockSorCodeContracts = [
+export const mockSorCodeContracts: Contract[] = [
   {
     contractReference: '155-155-1555',
     terminationDate: '2025-05-11T15:38:48.061Z',

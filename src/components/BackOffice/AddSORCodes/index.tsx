@@ -8,18 +8,48 @@ import Layout from '../Layout'
 import { fetchTrades, saveSorCodesToDatabase } from './utils'
 
 import SorCode from '@/root/src/models/sorCode'
-import { useEffect, useReducer, useState } from 'react'
-import NewSORCode from '../Components/NewSORCode'
-import useSelectTrade from './useSelectTrade'
+import {
+  ChangeEvent,
+  FormEvent,
+  MouseEvent,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react'
+import NewSORCode, { SorCodeErrors } from '../Components/NewSORCode'
+import useSelectTrade, { Trade } from './useSelectTrade'
 import ConfirmationModal from '../../ConfirmationModal'
 
 import useSelectContract from '../hooks/useSelectContract'
 
-const initialState = {
-  sorCodes: [new SorCode(1)],
+interface State {
+  sorCodes: SorCode[]
 }
 
-function reducer(state, action) {
+type Action =
+  | { type: 'add_new_sor_code'; payload: SorCode }
+  | { type: 'remove_last_sor_code'; payload: SorCode }
+  | {
+      type: 'sor_code_change'
+      payload: {
+        sorCodeId: string
+        editedField: Exclude<keyof SorCode, 'id'>
+        targetValue: string
+      }
+    }
+
+interface FormErrors {
+  contractor?: string
+  contract?: string
+  trade?: string
+  sorCodesErrors?: SorCodeErrors[]
+}
+
+const initialState: State = {
+  sorCodes: [new SorCode('1')],
+}
+
+function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'add_new_sor_code':
       return {
@@ -36,7 +66,8 @@ function reducer(state, action) {
         (sorCode) => sorCode.id == action.payload.sorCodeId
       )
 
-      state.sorCodes[index][action.payload.editedField] =
+      // targetValue is the raw input string; cost and SMV are numeric fields on the model
+      ;(state.sorCodes[index] as any)[action.payload.editedField] =
         action.payload.targetValue
       return { sorCodes: state.sorCodes }
     }
@@ -48,10 +79,10 @@ function reducer(state, action) {
 const AddSORCodes = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useState(true)
-  const [trades, setTrades] = useState(null)
-  const [requestError, setRequestError] = useState(null)
+  const [trades, setTrades] = useState<Trade[] | null>(null)
+  const [requestError, setRequestError] = useState<string | null>(null)
   const [formSuccess, setFormSuccess] = useState(null)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<FormErrors>({})
   const [showDialog, setShowDialog] = useState(false)
 
   const {
@@ -73,7 +104,7 @@ const AddSORCodes = () => {
     setFormSuccess(null)
     setErrors({})
     setShowDialog(false)
-    state.sorCodes = [new SorCode(1)]
+    state.sorCodes = [new SorCode('1')]
 
     handleFormReset()
     handleSelectTrade(null)
@@ -89,7 +120,7 @@ const AddSORCodes = () => {
       })
   }, [])
 
-  const handleAddNewSORCode = (e) => {
+  const handleAddNewSORCode = (e: MouseEvent) => {
     e.preventDefault()
     dispatch({
       type: 'add_new_sor_code',
@@ -97,12 +128,16 @@ const AddSORCodes = () => {
     })
   }
 
-  const handleRemoveSORCode = (e, sorCode) => {
+  const handleRemoveSORCode = (e: MouseEvent, sorCode: SorCode) => {
     e.preventDefault()
     dispatch({ type: 'remove_last_sor_code', payload: sorCode })
   }
 
-  const handleSORCodeFieldChange = (e, sorCodeId, editedField) => {
+  const handleSORCodeFieldChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    sorCodeId: string,
+    editedField: Exclude<keyof SorCode, 'id'>
+  ) => {
     dispatch({
       type: 'sor_code_change',
       payload: {
@@ -132,16 +167,18 @@ const AddSORCodes = () => {
     return sorCodesToAdd
   }
 
-  const generateNewSORCodeId = () => {
+  const generateNewSORCodeId = (): string => {
     const assignedIds = state.sorCodes.map((sorCode) => sorCode.id)
 
     // If there are no new Added SorCodes, there will be no assigned Ids,
     // so we start with ID 1, otherwise we pick the next higher/available one.
-    return assignedIds.length == 0 ? 1 : Math.max(...assignedIds) + 1
+    return assignedIds.length == 0
+      ? '1'
+      : String(Math.max(...assignedIds.map(Number)) + 1)
   }
 
   const checkFormForErrors = () => {
-    const formErrors = {}
+    const formErrors: FormErrors = {}
 
     if (selectedContractor === null) {
       formErrors.contractor = 'Please select a contractor'
@@ -170,7 +207,7 @@ const AddSORCodes = () => {
     return formErrors
   }
 
-  const checkNewSORCodeForErrors = (sorCode) => {
+  const checkNewSORCodeForErrors = (sorCode: SorCode): SorCodeErrors => {
     // We have a look at each property/field of each new SOR code.
     // If the form field value of a property is falsy, we mark it as true,
     // meaning there's an error with it (most likely field left blank)
@@ -186,7 +223,7 @@ const AddSORCodes = () => {
     return sorCodeErrorsObject
   }
 
-  const isNewSORCodeValid = (sorCodeErrorsObject) => {
+  const isNewSORCodeValid = (sorCodeErrorsObject: SorCodeErrors) => {
     // Any property set to 'true' represents an error
     for (const property in sorCodeErrorsObject) {
       if (property == 'id') continue
@@ -199,6 +236,7 @@ const AddSORCodes = () => {
   const renderConfirmationModal = () => {
     if (showDialog) {
       return (
+        // @ts-expect-error Props validation
         <ConfirmationModal
           title={'Add new SOR codes?'}
           showDialog
@@ -239,7 +277,7 @@ const AddSORCodes = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     setRequestError(null)
     setFormSuccess(null)
@@ -290,6 +328,7 @@ const AddSORCodes = () => {
 
               {renderConfirmationModal()}
 
+              {/* @ts-expect-error Props validation */}
               <DataList
                 name="contractor"
                 label="Contractor"
@@ -303,6 +342,7 @@ const AddSORCodes = () => {
                 <Spinner />
               ) : (
                 <div>
+                  {/* @ts-expect-error Props validation */}
                   <DataList
                     name="contract"
                     label="Contract"
@@ -319,6 +359,7 @@ const AddSORCodes = () => {
                 </div>
               )}
 
+              {/* @ts-expect-error Props validation */}
               <DataList
                 name="trade"
                 label="Trade"

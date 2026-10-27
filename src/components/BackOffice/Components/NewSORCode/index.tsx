@@ -1,11 +1,35 @@
 import { TextArea, TextInput } from '../../../Form'
+import type { ChangeEvent, MouseEvent } from 'react'
+import type SorCode from '@/root/src/models/sorCode'
+
+export interface SorCodeErrors {
+  id: string
+  code: boolean
+  cost: boolean
+  standardMinuteValue: boolean
+  shortDescription: boolean
+  longDescription: boolean
+}
+
+type EditableField = Exclude<keyof SorCode, 'id'>
+
+interface Props {
+  sorCode: SorCode
+  handleRemoveSORCode: (e: MouseEvent, sorCode: SorCode) => void
+  handleSORCodeFieldChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    sorCodeId: string,
+    editedField: EditableField
+  ) => void
+  errors?: SorCodeErrors
+}
 
 const NewSORCode = ({
   sorCode,
   handleRemoveSORCode,
   handleSORCodeFieldChange,
   errors,
-}) => {
+}: Props) => {
   return (
     <>
       <div style={{ textAlign: 'right' }}>
@@ -69,7 +93,7 @@ const NewSORCode = ({
           placeholder="Example: LH Gas Carcass LGSR inc cooker"
           name="sor-code-short-desc-input"
           value={sorCode.shortDescription}
-          rows="1"
+          rows={1}
           onChange={(e) =>
             handleSORCodeFieldChange(e, sorCode.id, 'shortDescription')
           }
@@ -86,7 +110,7 @@ const NewSORCode = ({
           placeholder="Example: LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record..."
           name="sor-code-long-desc-input"
           value={sorCode.longDescription}
-          rows="2"
+          rows={2}
           onChange={(e) =>
             handleSORCodeFieldChange(e, sorCode.id, 'longDescription')
           }

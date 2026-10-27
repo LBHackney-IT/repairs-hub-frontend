@@ -1,7 +1,30 @@
+import { ChangeEventHandler, ReactNode } from 'react'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
 
 import ErrorMessage from '../../../Errors/ErrorMessage'
+
+interface RadioOption {
+  value: string
+  text: string
+  defaultChecked?: boolean
+  hint?: string
+}
+
+interface Props {
+  label: string
+  labelSize?: 's' | 'm' | 'l' | 'xl'
+  hint?: string
+  name: string
+  selectedOption?: string | null
+  options?: (string | RadioOption)[]
+  register?: any
+  error?: { message: string }
+  children?: ReactNode
+  required?: boolean
+  isRadiosInline?: boolean
+  onChange?: ChangeEventHandler<HTMLInputElement>
+  [key: string]: any
+}
 
 const defaultOptions = ['Yes', 'No']
 
@@ -18,7 +41,7 @@ const ControlledRadio = ({
   required,
   isRadiosInline = false,
   ...otherProps
-}) => (
+}: Props) => (
   <div
     className={cx('govuk-form-group lbh-form-group', {
       'govuk-form-group--error': error,
@@ -40,7 +63,7 @@ const ControlledRadio = ({
       })}
     >
       {options.map((option) => {
-        const { value, text, defaultChecked, hint } =
+        const { value, text, defaultChecked, hint }: RadioOption =
           typeof option === 'string'
             ? { value: option, text: option, defaultChecked: false }
             : option
@@ -87,17 +110,5 @@ const ControlledRadio = ({
     </div>
   </div>
 )
-
-ControlledRadio.propTypes = {
-  label: PropTypes.string.isRequired,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
-  name: PropTypes.string.isRequired,
-  selectedOption: PropTypes.string,
-  register: PropTypes.func,
-  options: PropTypes.array,
-  hint: PropTypes.string,
-  children: PropTypes.node,
-  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
-}
 
 export default ControlledRadio
