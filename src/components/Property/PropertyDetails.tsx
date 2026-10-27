@@ -62,10 +62,9 @@ const PropertyDetails = ({
                 rel="noreferrer"
               >
                 New Property Warranties Spreadsheet
-              </a>{' '}
-              and contact the{' '}
-              <strong>Regeneration Aftercare & Defects Manager</strong> to
-              ensure eligibility
+              </a>{' '} and contact
+              <a href="mailto:aftercareanddefects@hackney.gov.uk">aftercareanddefects@hackney.gov.uk</a>
+              to ensure eligibility
             </p>
           }
           style={{ maxWidth: 600, backgroundColor: 'lavender' }}
