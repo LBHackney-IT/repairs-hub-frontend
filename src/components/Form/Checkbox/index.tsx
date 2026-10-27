@@ -5,7 +5,7 @@ interface Props {
   label: string | JSX.Element
   name: string
   register: any
-  error: string | null
+  error?: string | null
 
   hintText?: string
   labelClassName?: string

@@ -1,25 +1,46 @@
-import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WorkOrdersFilter from './WorkOrdersFilter'
-import { SelectedFilterOptions } from '@/utils/helpers/filter'
+import {
+  SelectedFilterOptions,
+  FilterOptionsByCategory,
+} from '@/utils/helpers/filter'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+
+interface Props {
+  onFilterSubmit: (formData: Record<string, Record<string, unknown>>) => void
+  appliedFilters: Record<string, any>
+  clearFilters: (e: MouseEvent<HTMLElement>) => void
+  onFilterRemove: (category: string, index: number) => void
+}
 
 const WorkOrdersFilterView = ({
   onFilterSubmit,
   appliedFilters,
   clearFilters,
   onFilterRemove,
-}) => {
+}: Props) => {
   const { register, handleSubmit } = useForm()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [filters, setFilters] = useState()
-  const [selectedFilters, setSelectedFilters] = useState()
+  const [error, setError] = useState<string | null>()
+  const [filters, setFilters] = useState<FilterOptionsByCategory | null>()
 
-  const onSubmit = async (formData) => {
+  // Derived so the tags stay in step with the applied filters
+  const selectedFilters = useMemo(
+    () =>
+      filters &&
+      new SelectedFilterOptions(
+        appliedFilters,
+        filters
+      ).getSelectedFilterOptions(),
+    [filters, appliedFilters]
+  )
+
+  const onSubmit = async (
+    formData: Record<string, Record<string, unknown>>
+  ) => {
     formData.StatusCode = { ...formData.StatusCode }
     formData.Priorities = { ...formData.Priorities }
 
@@ -35,13 +56,7 @@ const WorkOrdersFilterView = ({
         path: '/api/filter/WorkOrder',
       })
 
-      const selectedFilters = new SelectedFilterOptions(
-        appliedFilters,
-        workOrderFilters
-      ).getSelectedFilterOptions()
-
       setFilters(workOrderFilters)
-      setSelectedFilters(selectedFilters)
     } catch (e) {
       setFilters(null)
       console.error('An error has occured:', e.response)
@@ -80,12 +95,6 @@ const WorkOrdersFilterView = ({
       {error && <ErrorMessage label={error} />}
     </>
   )
-}
-
-WorkOrdersFilterView.propTypes = {
-  onFilterSubmit: PropTypes.func.isRequired,
-  appliedFilters: PropTypes.object,
-  onFilterRemove: PropTypes.func.isRequired,
 }
 
 export default WorkOrdersFilterView

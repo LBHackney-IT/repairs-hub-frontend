@@ -42,3 +42,16 @@
   float: right;
   margin-top: 3px;
 }
+
+.filter-loading-placeholder {
+  position: relative;
+
+  .govuk-checkboxes__item {
+    visibility: hidden;
+  }
+}
+.filter-loading-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

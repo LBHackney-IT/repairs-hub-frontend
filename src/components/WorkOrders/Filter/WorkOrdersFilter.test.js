@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import UserContext from '../../UserContext'
 import WorkOrdersFilter from './WorkOrdersFilter'
 import { contractor } from 'factories/contractor'
@@ -242,6 +242,49 @@ describe('WorkOrdersFilter component', () => {
         </UserContext.Provider>
       )
       expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('interactions', () => {
+    const renderFilter = (appliedFilters = props.appliedFilters) => {
+      const ui = (applied) => (
+        <UserContext.Provider value={{ user: contractManager }}>
+          <WorkOrdersFilter
+            filters={props.filters}
+            loading={props.loading}
+            register={props.register}
+            clearFilters={props.clearFilters}
+            appliedFilters={applied}
+            selectedFilters={selectedFilters}
+            onFilterRemove={props.onFilterRemove}
+          />
+        </UserContext.Provider>
+      )
+      const result = render(ui(appliedFilters))
+
+      return {
+        ...result,
+        rerenderWith: (applied) => result.rerender(ui(applied)),
+      }
+    }
+
+    const isHidden = (testId) =>
+      screen
+        .getByTestId(testId)
+        .parentElement.classList.contains('govuk-!-display-none')
+
+    it('only shows the first five status options until "Show all" is clicked', () => {
+      renderFilter()
+
+      expect(isHidden('StatusCode.80')).toBe(false)
+      expect(isHidden('StatusCode.1080')).toBe(true)
+      expect(isHidden('StatusCode.1090')).toBe(true)
+
+      fireEvent.click(screen.getByText('Show all 7'))
+
+      expect(isHidden('StatusCode.1080')).toBe(false)
+      expect(isHidden('StatusCode.1090')).toBe(false)
+      expect(screen.queryByText('Show all 7')).not.toBeInTheDocument()
     })
   })
 })
