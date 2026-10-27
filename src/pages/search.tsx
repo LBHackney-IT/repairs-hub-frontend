@@ -9,11 +9,7 @@ import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import type { PageProps } from '@/types/page'
 
 const SearchPage = ({ query }: PageProps) => {
-  if (Object.entries(query).length === 0) {
-    return <Search />
-  } else {
     return <Search query={query} />
-  }
 }
 
 export const getServerSideProps = getQueryProps
