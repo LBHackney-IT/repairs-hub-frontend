@@ -4,7 +4,6 @@ import { authoriseServiceAPIRequest } from '@/utils/serviceApiClient'
 export interface SimpleFeatureToggleResponse {
   googleTagManagerEnabled: boolean
   enableFollowOnIsEmergencyField: boolean
-  enableAwaabsLawReasonForRepair: boolean
   enableHealthAndSafetyFlag: boolean
 }
 
@@ -14,9 +13,6 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
     enableFollowOnIsEmergencyField:
       process.env.FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED === 'true',
-
-    enableAwaabsLawReasonForRepair:
-      process.env.ENABLE_AWAABS_LAW_REASON_FOR_REPAIR === 'true',
 
     enableHealthAndSafetyFlag:
       process.env.ENABLE_HEALTH_AND_SAFETY_FLAG === 'true',
