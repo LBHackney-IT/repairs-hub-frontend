@@ -14,8 +14,6 @@ import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
 const HomeView = ({ query }: PageProps) => {
   const { user } = useContext(UserContext)
 
-  const hasQuery = Object.entries(query).length > 0
-
   if (user && canSeeWorkOrders(user)) {
     return <WorkOrdersView query={query} />
   }
@@ -30,7 +28,7 @@ const HomeView = ({ query }: PageProps) => {
     )
   }
 
-  return hasQuery ? <Search query={query} /> : <Search />
+  return <Search query={query} />
 }
 
 export default HomeView
