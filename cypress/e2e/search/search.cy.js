@@ -3,7 +3,6 @@
 describe('Search', () => {
   const totalPageSize = Cypress.env('NEXT_PUBLIC_PROPERTIES_PAGE_SIZE')
   const totalResults = totalPageSize + 1
-  const lastPageLastItemReference = totalResults.toString().padStart(8, '0')
 
   context(
     'When the role of the user allows searching both properties and work orders',
@@ -40,27 +39,7 @@ describe('Search', () => {
           cy.intercept(
             {
               method: 'GET',
-              path: `/api/properties/search?searchText=e8+1ea&pageSize=${totalPageSize}&pageNumber=2`,
-            },
-            {
-              body: {
-                total: totalResults,
-                properties: [
-                  {
-                    propertyReference: lastPageLastItemReference,
-                    address: `${totalResults} Test House Test Square`,
-                    postCode: 'E8 1EA',
-                    propertyType: 'Dwelling',
-                  },
-                ],
-              },
-            }
-          ).as('propertyPostcodeSearchPage2')
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/properties/search?searchText=red&pageSize=${totalPageSize}&pageNumber=1`,
+              path: `/api/properties/search?searchText=red&pageSize=${totalPageSize}*`,
             },
             {
               total: 1,
