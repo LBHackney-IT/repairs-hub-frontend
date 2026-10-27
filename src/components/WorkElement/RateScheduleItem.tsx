@@ -1,8 +1,28 @@
-import PropTypes from 'prop-types'
 import { useState } from 'react'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { DataList, TextInput } from '../Form'
 import { useRouter } from 'next/router'
+import SorCode from '@/root/src/models/sorCode'
+
+type SorSearchRequest = (searchText: string) => Promise<SorCode[]>
+
+interface Props {
+  sorCodes: SorCode[]
+  register: any
+  errors: any
+  index?: number
+  showRemoveRateScheduleItem: boolean
+  removeRateScheduleItem?: (index: number) => void
+  code?: string
+  quantity?: number
+  description?: string
+  cost?: number
+  disabled?: boolean
+  onQuantityChange?: (index: number, event: any) => void
+  onRateScheduleItemChange?: (index: number, code?: string) => void
+  setSorCodes?: (sorCodes: SorCode[]) => void
+  sorSearchRequest?: false | SorSearchRequest
+}
 
 const RateScheduleItem = ({
   onRateScheduleItemChange,
@@ -20,7 +40,7 @@ const RateScheduleItem = ({
   cost,
   setSorCodes,
   sorSearchRequest,
-}) => {
+}: Props) => {
   const router = useRouter()
   const onRaiseRepairPage = () =>
     router.pathname === '/properties/[id]/raise-repair/new'
@@ -36,12 +56,12 @@ const RateScheduleItem = ({
   }))
 
   const [sorDescription, setSorDescription] = useState(description || '')
-  const [sorCost, setSorCost] = useState(cost || '')
-  const [sorCodesError, setSorCodesError] = useState()
+  const [sorCost, setSorCost] = useState<number | ''>(cost || '')
+  const [sorCodesError, setSorCodesError] = useState<string | null>()
 
-  let sorCodeSelectDebounceTimeout
+  let sorCodeSelectDebounceTimeout: ReturnType<typeof setTimeout>
 
-  const sorSearch = (textValue) => {
+  const sorSearch = (textValue: string) => {
     if (textValue.length < 3 && sorCodes.length > 0) {
       setSorCodes([])
     }
@@ -51,8 +71,9 @@ const RateScheduleItem = ({
     if (textValue.length >= 3 && sorCodes.length === 0) {
       sorCodeSelectDebounceTimeout = setTimeout(() => {
         setSorCodesError(null)
+        const searchRequest = sorSearchRequest as SorSearchRequest
 
-        sorSearchRequest(textValue)
+        searchRequest(textValue)
           .then((sorCodes) => {
             setSorCodes(sorCodes)
           })
@@ -67,7 +88,7 @@ const RateScheduleItem = ({
     }
   }
 
-  const onSorInputChange = (event) => {
+  const onSorInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const textValue = event.target.value
 
     const sorCode = sorCodesWithOptions.find(
@@ -126,14 +147,18 @@ const RateScheduleItem = ({
                   })
               },
             })}
-            {...(sorSearchRequest
-              ? {
-                  hint: 'Enter three characters to view results',
-                }
-              : {})}
+            hint={
+              sorSearchRequest
+                ? 'Enter three characters to view results'
+                : undefined
+            }
             error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
             widthClass="govuk-!-margin-top-0 govuk-!-width-full"
             additionalDivClasses="rate-schedule-item--sor-code"
+            children={undefined}
+            value={undefined}
+            maxLength={undefined}
+            remainingCharacterCount={undefined}
           />
 
           <input
@@ -199,22 +224,6 @@ const RateScheduleItem = ({
       </div>
     </>
   )
-}
-
-RateScheduleItem.propTypes = {
-  sorCodesList: PropTypes.array,
-  register: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  index: PropTypes.number,
-  showRemoveRateScheduleItem: PropTypes.bool.isRequired,
-  removeRateScheduleItem: PropTypes.func,
-  code: PropTypes.string,
-  quantity: PropTypes.number,
-  description: PropTypes.string,
-  cost: PropTypes.number,
-  disabled: PropTypes.bool,
-  onQuantityChange: PropTypes.func,
-  onRateScheduleItemChange: PropTypes.func,
 }
 
 export default RateScheduleItem
