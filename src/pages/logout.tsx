@@ -1,4 +1,7 @@
-import { deleteSessions, nextAuthCookiesForDeletion } from '@/utils/auth/authSession'
+import {
+  deleteSessions,
+  nextAuthCookiesForDeletion,
+} from '@/utils/auth/authSession'
 import { closeDRSSession } from '@/utils/scheduling/drs/webServices/sessions'
 import cookie from 'cookie'
 import { ALL_ROLES } from '@/utils/user'
