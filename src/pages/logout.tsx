@@ -1,4 +1,4 @@
-import { deleteSessions } from '@/utils/googleAuth'
+import { deleteSessions, nextAuthCookiesForDeletion } from '@/utils/googleAuth'
 import { closeDRSSession } from '@/utils/scheduling/drs/webServices/sessions'
 import cookie from 'cookie'
 import { ALL_ROLES } from '@/utils/user'
@@ -19,6 +19,7 @@ export const getServerSideProps = async ({ req, res }) => {
       [process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]: {
         path: '/',
       },
+      ...nextAuthCookiesForDeletion(req),
     },
   })
 

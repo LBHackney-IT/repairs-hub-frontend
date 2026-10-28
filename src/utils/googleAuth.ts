@@ -1,6 +1,6 @@
+import type { ServerResponse } from 'http'
 import cookie from 'cookie'
-import jsonwebtoken from 'jsonwebtoken'
-import { buildUser } from './user'
+import { getAuthenticatedUser } from './auth'
 
 const { GSSO_TOKEN_NAME } = process.env
 
@@ -28,7 +28,7 @@ export const redirectToAcessDenied = (res) => {
 }
 
 export const deleteSessions = (res, options = { additionalCookies: {} }) => {
-  let { additionalCookies } = options
+  const { additionalCookies } = options
 
   const googleAuthCookie = {
     [GSSO_TOKEN_NAME]: {
@@ -56,23 +56,19 @@ export const deleteSessions = (res, options = { additionalCookies: {} }) => {
   redirectToLogin(res)
 }
 
-export const isAuthorised = ({ req, res }, withRedirect = false) => {
-  const { HACKNEY_JWT_SECRET } = process.env
-
+export const isAuthorised = async (
+  {
+    req,
+    res,
+  }: { req?: Parameters<typeof getAuthenticatedUser>[0]; res?: ServerResponse },
+  withRedirect = false
+) => {
   try {
-    const cookies = cookie.parse(req.headers.cookie ?? '')
-    const token = cookies[GSSO_TOKEN_NAME]
+    const user = await getAuthenticatedUser(req)
 
-    if (!token) {
+    if (!user) {
       return withRedirect && redirectToLogin(res)
     }
-
-    const { name, email, groups = [] } = jsonwebtoken.verify(
-      token,
-      HACKNEY_JWT_SECRET
-    )
-
-    const user = buildUser(name, email, groups)
 
     if (!user.hasAnyPermissions) {
       return withRedirect && redirectToAcessDenied(res)
@@ -80,10 +76,21 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
 
     return user
   } catch (err) {
-    if (err instanceof jsonwebtoken.JsonWebTokenError) {
-      return withRedirect && redirectToLogin(res)
-    } else {
-      console.log(err.message)
-    }
+    console.log(err.message)
   }
+}
+
+// next-auth cookies on the request (including chunked ones), for deleteSessions.
+export const nextAuthCookiesForDeletion = (req) => {
+  const cookies = cookie.parse(req.headers.cookie ?? '')
+
+  return Object.keys(cookies)
+    .filter((name) => /^(__Secure-|__Host-)?next-auth\./.test(name))
+    .reduce(
+      (acc, name) => ({
+        ...acc,
+        [name]: { path: '/', secure: name.startsWith('__') },
+      }),
+      {}
+    )
 }

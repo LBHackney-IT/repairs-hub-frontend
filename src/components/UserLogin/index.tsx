@@ -1,13 +1,18 @@
-import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-const UserLogin = ({ gssoUrl, submitText }) => {
+type UserLoginProps = {
+  onSignIn: () => void
+  submitText: string
+}
+
+const UserLogin = ({ onSignIn, submitText }: UserLoginProps) => {
   return (
     <>
       <section className="section">
         <h1 className="lbh-heading-h1">Sign in</h1>
-        <a
-          href={gssoUrl}
+        <button
+          type="button"
+          onClick={onSignIn}
           className="govuk-button lbh-button lbh-button--start govuk-button--start"
         >
           {submitText}
@@ -22,7 +27,7 @@ const UserLogin = ({ gssoUrl, submitText }) => {
           >
             <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
           </svg>
-        </a>
+        </button>
 
         <p className="lbh-body">
           Please sign in with your Hackney email account.
@@ -43,11 +48,6 @@ const UserLogin = ({ gssoUrl, submitText }) => {
       </section>
     </>
   )
-}
-
-UserLogin.propTypes = {
-  gssoUrl: PropTypes.string.isRequired,
-  submitText: PropTypes.string.isRequired,
 }
 
 export default UserLogin
