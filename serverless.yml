@@ -58,6 +58,12 @@ functions:
       DRS_WEB_SERVICES_PASSWORD: ${ssm:/repairs-hub/${self:provider.stage}/drs-password}
       DRS_WEB_SERVICES_URL: ${ssm:/repairs-hub/${self:provider.stage}/drs-url}
       DRS_WEB_SERVICES_USERNAME: ${ssm:/repairs-hub/${self:provider.stage}/drs-login}
+      COGNITO_CLIENT_ID: ${ssm:/repairs-hub/${self:provider.stage}/cognito-client-id}
+      COGNITO_CLIENT_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/cognito-client-secret}
+      COGNITO_DOMAIN: ${ssm:/repairs-hub/${self:provider.stage}/cognito-domain}
+      COGNITO_ISSUER:${ssm:/repairs-hub/${self:provider.stage}/cognito-issuer}
+      NEXTAUTH_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/nextauth-secret}
+      NEXTAUTH_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
       GSSO_TOKEN_NAME: ${ssm:/repairs-hub/${self:provider.stage}/gsso-token-name}
       GSSO_URL: ${ssm:/repairs-hub/${self:provider.stage}/gsso-url}
       HACKNEY_JWT_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/hackney-jwt-secret}
