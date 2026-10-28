@@ -18,7 +18,6 @@ import Meta from '@/components/Meta'
 
 // Comment to trigger pipeline
 
-const GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME
 const NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME =
   process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
 
@@ -80,10 +79,6 @@ MyApp.getInitialProps = async ({
   }
 
   Sentry.getCurrentScope().addEventProcessor((event) => {
-    if (event.request?.cookies[GSSO_TOKEN_NAME]) {
-      event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
-    }
-
     Object.keys(event.request?.cookies ?? {})
       .filter((name) => /^(__Secure-|__Host-)?next-auth\./.test(name))
       .forEach((name) => {
