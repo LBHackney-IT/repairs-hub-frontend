@@ -10,7 +10,7 @@ import {
   isAuthorised,
   redirectToAcessDenied,
   AUTH_WHITELIST,
-} from '@/utils/authSession'
+} from '@/utils/auth/authSession'
 
 import { buildUser } from '@/utils/user'
 import UserContext from '@/components/UserContext'

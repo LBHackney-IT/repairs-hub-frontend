@@ -1,6 +1,6 @@
 import type { IncomingMessage } from 'http'
 import { getToken } from 'next-auth/jwt'
-import { buildUser } from './user'
+import { buildUser } from '../user'
 
 type AuthRequest = Parameters<typeof getToken>[0]['req'] | IncomingMessage
 

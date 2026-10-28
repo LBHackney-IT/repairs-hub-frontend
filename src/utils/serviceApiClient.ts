@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
-import { getApiToken, getAuthenticatedUser } from './auth'
+import { getApiToken, getAuthenticatedUser } from './auth/auth'
 import { paramsSerializer } from './urls'
 import logger from 'loglevel'
 

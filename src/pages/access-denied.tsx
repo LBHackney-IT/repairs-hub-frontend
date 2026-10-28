@@ -1,4 +1,4 @@
-import { redirectToHome, isAuthorised } from '@/utils/authSession'
+import { redirectToHome, isAuthorised } from '@/utils/auth/authSession'
 import AccessDenied from '@/components/AccessDenied'
 import Meta from '@/components/Meta'
 
