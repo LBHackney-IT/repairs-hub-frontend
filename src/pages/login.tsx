@@ -1,4 +1,4 @@
-import { redirectToHome, isAuthorised } from '@/utils/googleAuth'
+import { redirectToHome, isAuthorised } from '@/utils/authSession'
 import UserLogin from '@/components/UserLogin'
 import Meta from '@/components/Meta'
 import { signIn } from 'next-auth/react'

@@ -10,7 +10,7 @@ import {
   isAuthorised,
   redirectToAcessDenied,
   AUTH_WHITELIST,
-} from '@/utils/googleAuth'
+} from '@/utils/authSession'
 
 import { buildUser } from '@/utils/user'
 import UserContext from '@/components/UserContext'
@@ -18,6 +18,7 @@ import Meta from '@/components/Meta'
 
 // Comment to trigger pipeline
 
+const SCRUBBED_COOKIE_PATTERN = /^((__Secure-|__Host-)?next-auth\.|_cs_)/
 const NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME =
   process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
 
@@ -50,7 +51,7 @@ const MyApp = ({
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider value={{ user: userDetails }}>
         <Layout serviceName="Repairs Hub">
-          <Meta />
+          <Meta title="" />
 
           <ComponentToRender {...pageProps} userDetails={userDetails} />
         </Layout>
@@ -79,8 +80,10 @@ MyApp.getInitialProps = async ({
   }
 
   Sentry.getCurrentScope().addEventProcessor((event) => {
+    // next-auth.* (session-token and its .0/.1 chunks, csrf-token, callback-url)
+    // and Contentsquare _cs_* cookies
     Object.keys(event.request?.cookies ?? {})
-      .filter((name) => /^(__Secure-|__Host-)?next-auth\./.test(name))
+      .filter((name) => SCRUBBED_COOKIE_PATTERN.test(name))
       .forEach((name) => {
         event.request.cookies[name] = '[REMOVED]'
       })

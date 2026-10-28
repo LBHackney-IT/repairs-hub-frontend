@@ -4,16 +4,18 @@ import { buildUser } from './user'
 
 type AuthRequest = Parameters<typeof getToken>[0]['req'] | IncomingMessage
 
-// Null when there is no session or the Cognito id token has expired.
 export const getAuthToken = async (req: AuthRequest) => {
+  // 1. Decrypt the next-auth session cookie
   const token = await getToken({
     req: req as Parameters<typeof getToken>[0]['req'],
   })
 
+  // 2. No session, or no Cognito id token in it
   if (!token?.cognitoIdToken) {
     return null
   }
 
+  // 3. The id token has expired
   if (
     token.cognitoTokenExpiresAt &&
     token.cognitoTokenExpiresAt * 1000 <= Date.now()

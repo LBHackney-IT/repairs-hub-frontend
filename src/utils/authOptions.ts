@@ -99,19 +99,25 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, account, profile }) {
+      // `account` is only set on the sign-in request
       if (account) {
+        // 1. Read the claims from the Cognito id token
         const claims = account.id_token
           ? readCognitoIdTokenClaims(account.id_token)
           : undefined
         const cognitoProfile = profile as CognitoProfileWithGroups | undefined
 
+        // 2. Fail the sign-in if the id token is missing or incomplete
         if (!account.id_token || !claims?.sub || !claims.exp) {
           throw new Error('Cognito response did not contain a valid ID token')
         }
 
+        // 3. Keep the id token and its expiry for backend API calls
         token.cognitoIdToken = account.id_token
         token.cognitoTokenExpiresAt = claims.exp
         token.cognitoSub = claims.sub
+
+        // 4. Keep the identity and groups used to work out the user's roles
         token.email = claims.email ?? cognitoProfile?.email
         token.name = claims.name ?? cognitoProfile?.name
         token.groups = parseCognitoGroups(
@@ -122,7 +128,8 @@ export const authOptions: NextAuthOptions = {
       return token
     },
     async session({ session, token }) {
-      // The id token stays in the encrypted cookie, not the browser session.
+      // 1. Expose only the user id and groups to the browser; the id token
+      //    stays in the encrypted cookie
       if (session.user) {
         session.user.id = token.cognitoSub
         session.user.groups = token.groups
@@ -131,14 +138,17 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async redirect({ url, baseUrl }) {
+      // 1. Relative paths stay on this site
       if (url.startsWith('/')) return `${baseUrl}${url}`
 
+      // 2. Absolute URLs are only allowed on this site's origin
       try {
         if (new URL(url).origin === baseUrl) return url
       } catch {
-        // Invalid URL: fall back to baseUrl
+        // invalid URL, fall through
       }
 
+      // 3. Anything else goes to the home page
       return baseUrl
     },
   },
