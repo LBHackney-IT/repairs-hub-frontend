@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import Link from 'next/link'
 import UserContext from '../../UserContext'
+import HeaderLink from '../HeaderLink'
 import cx from 'classnames'
 import { headerLinksForUser } from 'src/utils/headerLinks'
 import MobileMenuButton from '../MobileMenuButton'
@@ -19,15 +20,7 @@ const HeaderLinks = () => {
   return (
     <div className="lbh-header__links">
       {headerLinksForUser(user).map((link) => (
-        <a
-          id={link.id}
-          href={link.href}
-          key={link.id}
-          target={link.id == 'support-page' ? '_blank' : undefined}
-          rel="noreferrer"
-        >
-          {link.description}
-        </a>
+        <HeaderLink link={link} key={link.id} />
       ))}
     </div>
   )

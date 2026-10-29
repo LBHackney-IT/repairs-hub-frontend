@@ -1,6 +1,7 @@
 import { ReactNode, useContext, useState } from 'react'
 import UserContext from '../UserContext'
 import HeaderComponent from './Header'
+import HeaderLink from './HeaderLink'
 import cx from 'classnames'
 import { headerLinksForUser } from '@/utils/headerLinks'
 import FlashMessageContext from '../FlashMessageContext'
@@ -24,16 +25,11 @@ const MobileMenu = ({ onLinkClick }: MobileMenuProps) => {
           headerLinksForUser(user).map((link) => {
             return (
               <li key={link.id}>
-                <a
-                  id={link.id}
-                  href={link.href}
+                <HeaderLink
+                  link={link}
                   className="lbh-link lbh-body-l"
                   onClick={onLinkClick}
-                  target={link.id == 'support-page' ? '_blank' : undefined}
-                  rel="noreferrer"
-                >
-                  {link.description}
-                </a>
+                />
               </li>
             )
           })}
