@@ -1,6 +1,6 @@
 import '@/styles/fonts.css'
 import '@/styles/all.scss'
-import App from 'next/app'
+import type { AppContext, AppProps } from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
 import * as Sentry from '@sentry/nextjs'
@@ -10,14 +10,15 @@ import {
   isAuthorised,
   redirectToAcessDenied,
   AUTH_WHITELIST,
-} from '@/utils/googleAuth'
+} from '@/utils/auth/authSession'
 
+import { buildUser } from '@/utils/user'
 import UserContext from '@/components/UserContext'
 import Meta from '@/components/Meta'
 
 // Comment to trigger pipeline
 
-const GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME
+const SCRUBBED_COOKIE_PATTERN = /^((__Secure-|__Host-)?next-auth\.|_cs_)/
 const NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME =
   process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
 
@@ -29,36 +30,40 @@ if (typeof window !== 'undefined') {
 
 const queryClient = new QueryClient()
 
-class MyApp extends App {
-  render() {
-    const { Component, pageProps, userDetails } = this.props
-
-    const ComponentToRender = this.props.accessDenied ? AccessDenied : Component
-
-    if (userDetails) {
-      Sentry.setUser({ name: userDetails.name, email: userDetails.email })
-    }
-
-    return (
-      <>
-        <QueryClientProvider client={queryClient}>
-          <UserContext.Provider value={{ user: this.props.userDetails }}>
-            <Layout serviceName="Repairs Hub">
-              <Meta />
-
-              <ComponentToRender
-                {...pageProps}
-                userDetails={this.props.userDetails}
-              />
-            </Layout>
-          </UserContext.Provider>
-        </QueryClientProvider>
-      </>
-    )
-  }
+type MyAppProps = AppProps & {
+  userDetails?: ReturnType<typeof buildUser>
+  accessDenied?: boolean
 }
 
-MyApp.getInitialProps = async ({ ctx, Component: pageComponent }) => {
+const MyApp = ({
+  Component,
+  pageProps,
+  userDetails,
+  accessDenied,
+}: MyAppProps) => {
+  const ComponentToRender = accessDenied ? AccessDenied : Component
+
+  if (userDetails) {
+    Sentry.setUser({ name: userDetails.name, email: userDetails.email })
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <UserContext.Provider value={{ user: userDetails }}>
+        <Layout serviceName="Repairs Hub">
+          <Meta title="" />
+
+          <ComponentToRender {...pageProps} userDetails={userDetails} />
+        </Layout>
+      </UserContext.Provider>
+    </QueryClientProvider>
+  )
+}
+
+MyApp.getInitialProps = async ({
+  ctx,
+  Component: pageComponent,
+}: AppContext): Promise<any> => {
   if (AUTH_WHITELIST.includes(ctx.pathname)) {
     return {}
   }
@@ -68,16 +73,20 @@ MyApp.getInitialProps = async ({ ctx, Component: pageComponent }) => {
   // Do not write server redirects if this is a client side transition.
   // Otherwise I think Next JS tries to write another response and the
   // entire request fails.
-  const userDetails = isAuthorised(ctx, !isClientSideTransition)
+  const userDetails = await isAuthorised(ctx, !isClientSideTransition)
 
   if (!userDetails) {
     return { accessDenied: true }
   }
 
   Sentry.getCurrentScope().addEventProcessor((event) => {
-    if (event.request?.cookies[GSSO_TOKEN_NAME]) {
-      event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
-    }
+    // next-auth.* (session-token and its .0/.1 chunks, csrf-token, callback-url)
+    // and Contentsquare _cs_* cookies
+    Object.keys(event.request?.cookies ?? {})
+      .filter((name) => SCRUBBED_COOKIE_PATTERN.test(name))
+      .forEach((name) => {
+        event.request.cookies[name] = '[REMOVED]'
+      })
 
     if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
       event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] = '[REMOVED]'

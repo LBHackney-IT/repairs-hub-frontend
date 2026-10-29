@@ -1,15 +1,12 @@
-import cookie from 'cookie'
 import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
-import { isAuthorised } from './googleAuth'
+import { getApiToken, getAuthenticatedUser } from './auth/auth'
 import { paramsSerializer } from './urls'
 import logger from 'loglevel'
 
 const {
   REPAIRS_SERVICE_API_URL,
   REPAIRS_SERVICE_API_KEY,
-  GSSO_TOKEN_NAME,
-  NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
   LOG_LEVEL,
   CONFIGURATION_API_URL,
 } = process.env
@@ -17,8 +14,7 @@ const {
 logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
 
 export const externalAPIRequest = async (request) => {
-  const cookies = cookie.parse(request.headers.cookie ?? '')
-  const token = cookies[GSSO_TOKEN_NAME]
+  const token = await getApiToken(request)
 
   const headers = {
     'x-api-key': REPAIRS_SERVICE_API_KEY,
@@ -27,7 +23,7 @@ export const externalAPIRequest = async (request) => {
     'Content-Type': 'application/json',
   }
 
-  let { path, ...queryParams } = request.query
+  const { path, ...queryParams } = request.query
 
   const api = axios.create()
 
@@ -72,7 +68,7 @@ export const externalAPIRequest = async (request) => {
 
     return data
   } catch (error) {
-    const errorToThrow = new Error(error)
+    const errorToThrow: Error & { response?: unknown } = new Error(error)
 
     errorToThrow.response = error.response
     throw errorToThrow
@@ -80,8 +76,7 @@ export const externalAPIRequest = async (request) => {
 }
 
 export const serviceAPIRequest = async (request) => {
-  const cookies = cookie.parse(request.headers.cookie ?? '')
-  const token = cookies[GSSO_TOKEN_NAME]
+  const token = await getApiToken(request)
 
   const headers = {
     'x-api-key': REPAIRS_SERVICE_API_KEY,
@@ -90,7 +85,7 @@ export const serviceAPIRequest = async (request) => {
     'Content-Type': 'application/json',
   }
 
-  let { path, ...queryParams } = request.query
+  const { path, ...queryParams } = request.query
 
   const api = axios.create()
 
@@ -119,6 +114,7 @@ export const serviceAPIRequest = async (request) => {
     const dataLength = Array.isArray(response.data)
       ? `(${response.data.length} items)`
       : ''
+
     logger.info(
       `Service API response for ${target}: ${response.status} ${dataLength} ${data}`
     )
@@ -138,7 +134,7 @@ export const serviceAPIRequest = async (request) => {
 
     return data
   } catch (error) {
-    const errorToThrow = new Error(error)
+    const errorToThrow: Error & { response?: unknown } = new Error(error)
 
     errorToThrow.response = error.response
     throw errorToThrow
@@ -146,8 +142,7 @@ export const serviceAPIRequest = async (request) => {
 }
 
 export const configurationAPIRequest = async (request) => {
-  const cookies = cookie.parse(request.headers.cookie ?? '')
-  const token = cookies[GSSO_TOKEN_NAME]
+  const token = await getApiToken(request)
 
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -193,7 +188,7 @@ export const configurationAPIRequest = async (request) => {
 
     return data
   } catch (error) {
-    const errorToThrow = new Error(error)
+    const errorToThrow: Error & { response?: unknown } = new Error(error)
 
     errorToThrow.response = error.response
     throw errorToThrow
@@ -203,7 +198,7 @@ export const configurationAPIRequest = async (request) => {
 export const authoriseServiceAPIRequest = (callBack) => {
   return async (req, res) => {
     try {
-      const user = isAuthorised({ req })
+      const user = await getAuthenticatedUser(req)
 
       if (!user) {
         return res
