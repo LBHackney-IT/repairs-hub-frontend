@@ -11,6 +11,48 @@ interface Props {
   mobileMenuOpen: boolean
 }
 
+const HeaderLinks = () => {
+  const { user } = useContext(UserContext)
+
+  if (!user) return null
+
+  return (
+    <div className="lbh-header__links">
+      {headerLinksForUser(user).map((link) => (
+        <Link
+          id={link.id}
+          href={link.href}
+          key={link.id}
+          target={link.id == 'support-page' ? '_blank' : undefined}
+          rel="noreferrer"
+        >
+          {link.description}
+        </Link>
+      ))}
+    </div>
+  )
+}
+
+const DevelopmentNote = () => {
+  if (
+    ['production', 'test'].includes(
+      process.env.NEXT_PUBLIC_ENV_NAME?.toLowerCase()
+    )
+  ) {
+    return null
+  }
+
+  return (
+    <div className="text-for-env-note govuk-!-display-none-print govuk-!-margin-0">
+      <div className="lbh-container">
+        <h3>
+          {`This is not live, this is ${process.env.NEXT_PUBLIC_ENV_NAME}`.toUpperCase()}
+        </h3>
+      </div>
+    </div>
+  )
+}
+
 const HeaderComponent = ({
   serviceName,
   toggleMobileMenu,
@@ -18,50 +60,12 @@ const HeaderComponent = ({
 }: Props) => {
   const { user } = useContext(UserContext)
 
-  const headerLinks = () => {
-    return headerLinksForUser(user).map((link, index) => {
-      return (
-        <Link
-          id={link.id}
-          href={link.href}
-          key={index}
-          target={link.id == 'support-page' ? '_blank' : undefined}
-          rel="noreferrer"
-        >
-          {link.description}
-        </Link>
-      )
-    })
-  }
-
-  const showHeaderLinks = () => {
-    return user && <div className="lbh-header__links">{headerLinks()}</div>
-  }
-
-  const showDevelopmentNote = () => {
-    if (
-      !['production', 'test'].includes(
-        process.env.NEXT_PUBLIC_ENV_NAME?.toLowerCase()
-      )
-    ) {
-      return (
-        <div className="text-for-env-note govuk-!-display-none-print govuk-!-margin-0">
-          <div className="lbh-container">
-            <h3>
-              {`This is not live, this is ${process.env.NEXT_PUBLIC_ENV_NAME}`.toUpperCase()}
-            </h3>
-          </div>
-        </div>
-      )
-    }
-  }
-
   return (
     <>
       <a href="#main-content" className="govuk-skip-link lbh-skip-link">
         Skip to main content
       </a>
-      {showDevelopmentNote()}
+      <DevelopmentNote />
       <header
         className={`lbh-header govuk-!-display-none-print ${cx({
           'lbh-header--purple': process.env.NEXT_PUBLIC_ENV_NAME === 'staging',
@@ -116,7 +120,7 @@ const HeaderComponent = ({
             </div>
             {user && (
               <>
-                {showHeaderLinks()}
+                <HeaderLinks />
 
                 <MobileMenuButton
                   onClick={() => {
