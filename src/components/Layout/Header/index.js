@@ -12,15 +12,15 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
   const headerLinks = () => {
     return headerLinksForUser(user).map((link, index) => {
       return (
-        <a
+        <Link
           id={link.id}
           href={link.href}
           key={index}
-          target={link.id == 'support-page' ? '_blank' : ''}
+          target={link.id == 'support-page' ? '_blank' : undefined}
           rel="noreferrer"
         >
           {link.description}
-        </a>
+        </Link>
       )
     })
   }

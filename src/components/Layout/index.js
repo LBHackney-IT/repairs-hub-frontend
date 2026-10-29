@@ -7,6 +7,7 @@ import cx from 'classnames'
 import { headerLinksForUser } from '@/utils/headerLinks'
 import FlashMessageContext from '../FlashMessageContext'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { canAttendOwnWorkOrder } from '@/utils/userPermissions'
 
 // random change
@@ -47,16 +48,16 @@ const Layout = ({ serviceName, children }) => {
                 headerLinksForUser(user).map((link, index) => {
                   return (
                     <li key={index}>
-                      <a
+                      <Link
                         id={link.id}
                         href={link.href}
                         className="lbh-link lbh-body-l"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        target={link.id == 'support-page' ? '_blank' : ''}
+                        target={link.id == 'support-page' ? '_blank' : undefined}
                         rel="noreferrer"
                       >
                         {link.description}
-                      </a>
+                      </Link>
                     </li>
                   )
                 })}
