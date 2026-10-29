@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import { useContext, useState } from 'react'
+import { ReactNode, useContext, useState } from 'react'
 import UserContext from '../UserContext'
 import HeaderComponent from './Header'
 import PhaseBanner from './PhaseBanner'
@@ -10,16 +9,19 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { canAttendOwnWorkOrder } from '@/utils/userPermissions'
 
-// random change
+interface Props {
+  serviceName: string
+  children: ReactNode
+}
 
-const Layout = ({ serviceName, children }) => {
+const Layout = ({ serviceName, children }: Props) => {
   const { user } = useContext(UserContext)
   const router = useRouter()
   const MOBILE_PATHNAMES_WITH_FEEDBACK_BANNER = ['/login', '/']
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const [modalFlashMessage, setModalFlashMessage] = useState('')
+  const [modalFlashMessage, setModalFlashMessage] = useState<string>('')
 
   return (
     <>
@@ -53,7 +55,9 @@ const Layout = ({ serviceName, children }) => {
                         href={link.href}
                         className="lbh-link lbh-body-l"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        target={link.id == 'support-page' ? '_blank' : undefined}
+                        target={
+                          link.id == 'support-page' ? '_blank' : undefined
+                        }
                         rel="noreferrer"
                       >
                         {link.description}
@@ -69,7 +73,9 @@ const Layout = ({ serviceName, children }) => {
           <div
             className="modal-container"
             onClick={(e) => {
-              const isOutsideClick = !e.target.closest('.modal-panel')
+              const isOutsideClick = !(e.target as HTMLElement).closest(
+                '.modal-panel'
+              )
 
               if (isOutsideClick) {
                 setModalFlashMessage('')
@@ -123,11 +129,6 @@ const Layout = ({ serviceName, children }) => {
       </main>
     </>
   )
-}
-
-Layout.propTypes = {
-  serviceName: PropTypes.string.isRequired,
-  feedbackLink: PropTypes.string,
 }
 
 export default Layout
