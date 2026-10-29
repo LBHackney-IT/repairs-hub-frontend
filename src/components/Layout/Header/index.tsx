@@ -1,49 +1,15 @@
 import { useContext } from 'react'
 import Link from 'next/link'
 import UserContext from '../../UserContext'
-import HeaderLink from '../HeaderLink'
+import HeaderLinks from './HeaderLinks'
+import DevelopmentNote from './DevelopmentNote'
 import cx from 'classnames'
-import { headerLinksForUser } from 'src/utils/headerLinks'
 import MobileMenuButton from '../MobileMenuButton'
 
 interface Props {
   serviceName: string
   toggleMobileMenu: () => void
   mobileMenuOpen: boolean
-}
-
-const HeaderLinks = () => {
-  const { user } = useContext(UserContext)
-
-  if (!user) return null
-
-  return (
-    <div className="lbh-header__links">
-      {headerLinksForUser(user).map((link) => (
-        <HeaderLink link={link} key={link.id} />
-      ))}
-    </div>
-  )
-}
-
-const DevelopmentNote = () => {
-  if (
-    ['production', 'test'].includes(
-      process.env.NEXT_PUBLIC_ENV_NAME?.toLowerCase()
-    )
-  ) {
-    return null
-  }
-
-  return (
-    <div className="text-for-env-note govuk-!-display-none-print govuk-!-margin-0">
-      <div className="lbh-container">
-        <h3>
-          {`This is not live, this is ${process.env.NEXT_PUBLIC_ENV_NAME}`.toUpperCase()}
-        </h3>
-      </div>
-    </div>
-  )
 }
 
 const HeaderComponent = ({
