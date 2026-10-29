@@ -19,7 +19,7 @@ const HeaderLinks = () => {
   return (
     <div className="lbh-header__links">
       {headerLinksForUser(user).map((link) => (
-        <Link
+        <a
           id={link.id}
           href={link.href}
           key={link.id}
@@ -27,7 +27,7 @@ const HeaderLinks = () => {
           rel="noreferrer"
         >
           {link.description}
-        </Link>
+        </a>
       ))}
     </div>
   )

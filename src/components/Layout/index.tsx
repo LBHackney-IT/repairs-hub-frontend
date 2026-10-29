@@ -4,7 +4,6 @@ import HeaderComponent from './Header'
 import cx from 'classnames'
 import { headerLinksForUser } from '@/utils/headerLinks'
 import FlashMessageContext from '../FlashMessageContext'
-import Link from 'next/link'
 
 interface Props {
   serviceName: string
@@ -25,7 +24,7 @@ const MobileMenu = ({ onLinkClick }: MobileMenuProps) => {
           headerLinksForUser(user).map((link) => {
             return (
               <li key={link.id}>
-                <Link
+                <a
                   id={link.id}
                   href={link.href}
                   className="lbh-link lbh-body-l"
@@ -34,7 +33,7 @@ const MobileMenu = ({ onLinkClick }: MobileMenuProps) => {
                   rel="noreferrer"
                 >
                   {link.description}
-                </Link>
+                </a>
               </li>
             )
           })}
