@@ -1,13 +1,10 @@
 import { ReactNode, useContext, useState } from 'react'
 import UserContext from '../UserContext'
 import HeaderComponent from './Header'
-import PhaseBanner from './PhaseBanner'
 import cx from 'classnames'
 import { headerLinksForUser } from '@/utils/headerLinks'
 import FlashMessageContext from '../FlashMessageContext'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { canAttendOwnWorkOrder } from '@/utils/userPermissions'
 
 interface Props {
   serviceName: string
@@ -98,10 +95,6 @@ const ModalFlashMessage = ({ message, onClose }: ModalFlashMessageProps) => (
 )
 
 const Layout = ({ serviceName, children }: Props) => {
-  const { user } = useContext(UserContext)
-  const router = useRouter()
-  const MOBILE_PATHNAMES_WITH_FEEDBACK_BANNER = ['/login', '/']
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const [modalFlashMessage, setModalFlashMessage] = useState<string>('')
@@ -113,11 +106,6 @@ const Layout = ({ serviceName, children }: Props) => {
         toggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
         mobileMenuOpen={mobileMenuOpen}
       />
-      {MOBILE_PATHNAMES_WITH_FEEDBACK_BANNER.includes(router.pathname) &&
-        canAttendOwnWorkOrder(user) &&
-        !mobileMenuOpen && <PhaseBanner />}
-
-      {!canAttendOwnWorkOrder(user) && !mobileMenuOpen && <PhaseBanner />}
 
       <main
         className={cx('lbh-main-wrapper', {
