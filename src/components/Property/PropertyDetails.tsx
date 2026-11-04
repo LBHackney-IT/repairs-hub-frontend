@@ -55,7 +55,16 @@ const PropertyDetails = ({
           header="This property is under warranty"
           text={
             <p>
-              Before raising a work order contact the{' '}
+              Before raising a work order please check the{' '}
+              <a
+                href={`https://docs.google.com/spreadsheets/d/${process.env.NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID}?gid=0`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {' '}
+                New Property Warranties Spreadsheet{' '}
+              </a>
+              and contact the{' '}
               <strong>Regeneration Aftercare & Defects Team</strong> by sending
               an email to
               <a href="mailto:aftercareanddefects@hackney.gov.uk">
