@@ -24,16 +24,18 @@ describe('Property page - under warranty', () => {
 
       cy.get('.warning-info-box').within(() => {
         cy.contains('This property is under warranty')
-        cy.contains('New Property Warranties Spreadsheet')
         cy.contains('Regeneration Aftercare & Defects Team')
         cy.contains('0208 356 1998')
-        cy.get('a')
-          .should(
-            'have.attr',
-            'href',
-            'mailto:aftercareanddefects@hackney.gov.uk'
-          )
-          .and('contain', 'aftercareanddefects@hackney.gov.uk')
+
+        cy.contains('a', 'New Property Warranties Spreadsheet')
+          .should('have.attr', 'href')
+          .and('match', /^https:\/\/docs\.google\.com\/spreadsheets\/d\//)
+
+        cy.contains('a', 'aftercareanddefects@hackney.gov.uk').should(
+          'have.attr',
+          'href',
+          'mailto:aftercareanddefects@hackney.gov.uk'
+        )
       })
     })
   })
