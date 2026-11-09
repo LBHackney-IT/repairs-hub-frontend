@@ -16,7 +16,7 @@ describe('Authentication', () => {
       cy.contains('Work order').should('not.exist')
 
       cy.get('.lbh-heading-h1').contains('Sign in')
-      cy.contains('a', 'Sign in with Google')
+      cy.contains('button', 'Sign in with Google')
       cy.get('.lbh-body').contains(
         'Please sign in with your Hackney email account.'
       )
@@ -35,7 +35,7 @@ describe('Authentication', () => {
       })
 
       cy.get('.lbh-heading-h1').contains('Sign in')
-      cy.contains('a', 'Sign in with Google')
+      cy.contains('button', 'Sign in with Google')
       cy.get('.lbh-body').contains(
         'Please sign in with your Hackney email account.'
       )
