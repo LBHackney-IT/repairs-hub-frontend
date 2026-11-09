@@ -19,7 +19,7 @@ describe('headerLinksForUser', () => {
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: '/logout',
+          href: '/api/logout',
         }),
       ])
     })
@@ -40,7 +40,7 @@ describe('headerLinksForUser', () => {
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: '/logout',
+          href: '/api/logout',
         }),
       ])
     })
@@ -61,7 +61,7 @@ describe('headerLinksForUser', () => {
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: '/logout',
+          href: '/api/logout',
         }),
       ])
     })
@@ -82,7 +82,7 @@ describe('headerLinksForUser', () => {
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: '/logout',
+          href: '/api/logout',
         }),
       ])
     })
@@ -103,7 +103,7 @@ describe('headerLinksForUser', () => {
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: '/logout',
+          href: '/api/logout',
         }),
       ])
     })
@@ -124,7 +124,7 @@ describe('headerLinksForUser', () => {
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: '/logout',
+          href: '/api/logout',
         }),
       ])
     })

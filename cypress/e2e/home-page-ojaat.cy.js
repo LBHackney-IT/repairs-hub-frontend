@@ -18,7 +18,7 @@ describe('Home page - one job at a time', () => {
 
       cy.get('#signout')
         .contains('Sign out')
-        .should('have.attr', 'href', '/logout')
+        .should('have.attr', 'href', '/api/logout')
     })
 
     context('When they have work orders attached to them', () => {

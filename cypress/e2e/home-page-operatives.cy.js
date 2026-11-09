@@ -23,7 +23,7 @@ context('When an operative is logged in', () => {
 
     cy.get('#signout')
       .contains('Sign out')
-      .should('have.attr', 'href', '/logout')
+      .should('have.attr', 'href', '/api/logout')
   })
 
   context('When they have work orders attached to them', () => {
@@ -344,7 +344,7 @@ context('When a one job at a time operative is logged in', () => {
 
     cy.get('#signout')
       .contains('Sign out')
-      .should('have.attr', 'href', '/logout')
+      .should('have.attr', 'href', '/api/logout')
   })
 
   context('When they have work orders attached to them', () => {
