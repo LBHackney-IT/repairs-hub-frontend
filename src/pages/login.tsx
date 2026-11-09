@@ -1,4 +1,4 @@
-import { redirectToHome, isAuthorised } from '@/utils/auth/authSession'
+import { redirectToHome, checkAuthorisation } from '@/utils/auth/authSession'
 import UserLogin from '@/components/UserLogin'
 import Meta from '@/components/Meta'
 import { signIn } from 'next-auth/react'
@@ -16,9 +16,10 @@ const LoginPage = () => {
 }
 
 export const getServerSideProps = async (ctx) => {
-  const user = await isAuthorised(ctx)
+  const { status } = await checkAuthorisation(ctx)
 
-  if (user && user.hasAnyPermissions) {
+  // Signed in already, so there's nothing to do here
+  if (status === 'authorised') {
     redirectToHome(ctx.res)
   }
 

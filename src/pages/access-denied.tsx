@@ -1,4 +1,4 @@
-import { redirectToHome, isAuthorised } from '@/utils/auth/authSession'
+import { redirectToLogin, checkAuthorisation } from '@/utils/auth/authSession'
 import AccessDenied from '@/components/AccessDenied'
 import Meta from '@/components/Meta'
 
@@ -10,9 +10,11 @@ const AccessDeniedPage = () => (
 )
 
 export const getServerSideProps = async (ctx) => {
-  const user = await isAuthorised(ctx)
-  if (!user || !user.hasAnyPermissions) {
-    redirectToHome(ctx.res)
+  const { status } = await checkAuthorisation(ctx)
+
+  // Only signed in users can be denied access. Everyone else needs to sign in.
+  if (status === 'unauthenticated') {
+    redirectToLogin(ctx.res)
   }
   return {
     props: {},

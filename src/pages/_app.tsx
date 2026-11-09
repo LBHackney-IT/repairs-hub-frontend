@@ -1,5 +1,6 @@
 import '@/styles/fonts.css'
 import '@/styles/all.scss'
+import { useEffect } from 'react'
 import type { AppContext, AppProps } from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
@@ -7,7 +8,7 @@ import * as Sentry from '@sentry/nextjs'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import {
-  isAuthorised,
+  checkAuthorisation,
   redirectToAcessDenied,
   AUTH_WHITELIST,
 } from '@/utils/auth/authSession'
@@ -33,6 +34,7 @@ const queryClient = new QueryClient()
 type MyAppProps = AppProps & {
   userDetails?: ReturnType<typeof buildUser>
   accessDenied?: boolean
+  unauthenticated?: boolean
 }
 
 const MyApp = ({
@@ -40,8 +42,21 @@ const MyApp = ({
   pageProps,
   userDetails,
   accessDenied,
+  unauthenticated,
 }: MyAppProps) => {
   const ComponentToRender = accessDenied ? AccessDenied : Component
+
+  // A client side transition can't be redirected by the server, so when the
+  // session has gone, do a full page load of /login
+  useEffect(() => {
+    if (unauthenticated) {
+      window.location.assign('/login')
+    }
+  }, [unauthenticated])
+
+  if (unauthenticated) {
+    return null
+  }
 
   if (userDetails) {
     Sentry.setUser({ name: userDetails.name, email: userDetails.email })
@@ -73,11 +88,20 @@ MyApp.getInitialProps = async ({
   // Do not write server redirects if this is a client side transition.
   // Otherwise I think Next JS tries to write another response and the
   // entire request fails.
-  const userDetails = await isAuthorised(ctx, !isClientSideTransition)
+  const authorisation = await checkAuthorisation(ctx, !isClientSideTransition)
 
-  if (!userDetails) {
+  // Not signed in. A full page load has been redirected to /login already. For
+  // a client side transition, MyApp sends the browser there.
+  if (authorisation.status === 'unauthenticated') {
+    return { unauthenticated: true }
+  }
+
+  // Signed in, but not in any group that gives a role
+  if (authorisation.status === 'forbidden') {
     return { accessDenied: true }
   }
+
+  const userDetails = authorisation.user
 
   Sentry.getCurrentScope().addEventProcessor((event) => {
     // next-auth.* (session-token and its .0/.1 chunks, csrf-token, callback-url)

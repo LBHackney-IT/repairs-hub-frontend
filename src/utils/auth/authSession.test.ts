@@ -3,9 +3,10 @@ import { createRequest, createResponse } from 'node-mocks-http'
 import { getAuthenticatedUser } from './auth'
 import {
   AUTH_WHITELIST,
-  isAuthorised,
+  checkAuthorisation,
   redirectToAcessDenied,
   redirectToHome,
+  redirectToLogin,
 } from './authSession'
 
 jest.mock('./auth')
@@ -36,13 +37,28 @@ describe('authSession', () => {
 
   const notRedirected = { status: 200, location: undefined, ended: false }
 
-  describe('isAuthorised', () => {
-    it('returns the user when they have permissions', async () => {
-      mockGetAuthenticatedUser.mockResolvedValue(userWithPermissions as never)
-      const { req, res } = setup()
+  describe('checkAuthorisation', () => {
+    describe('when the user is signed in with permissions', () => {
+      beforeEach(() => {
+        mockGetAuthenticatedUser.mockResolvedValue(userWithPermissions as never)
+      })
 
-      expect(await isAuthorised({ req, res }, true)).toBe(userWithPermissions)
-      expect(sent(res)).toEqual(notRedirected)
+      it('is authorised, with the user', async () => {
+        const { req, res } = setup()
+
+        expect(await checkAuthorisation({ req, res })).toEqual({
+          status: 'authorised',
+          user: userWithPermissions,
+        })
+      })
+
+      it('does not redirect, even when asked to', async () => {
+        const { req, res } = setup()
+
+        await checkAuthorisation({ req, res }, true)
+
+        expect(sent(res)).toEqual(notRedirected)
+      })
     })
 
     describe('when there is no session', () => {
@@ -50,60 +66,105 @@ describe('authSession', () => {
         mockGetAuthenticatedUser.mockResolvedValue(null)
       })
 
+      it('is unauthenticated', async () => {
+        const { req, res } = setup()
+
+        expect(await checkAuthorisation({ req, res })).toEqual({
+          status: 'unauthenticated',
+        })
+      })
+
       it('redirects to /login when asked to redirect', async () => {
         const { req, res } = setup()
 
-        await isAuthorised({ req, res }, true)
+        await checkAuthorisation({ req, res }, true)
 
         expect(sent(res)).toEqual(redirectedTo('/login'))
       })
 
-      it('writes nothing and returns a falsy value when not asked to redirect', async () => {
+      it('writes nothing when not asked to redirect', async () => {
         const { req, res } = setup()
 
-        expect(await isAuthorised({ req, res })).toBeFalsy()
+        await checkAuthorisation({ req, res })
+
         expect(sent(res)).toEqual(notRedirected)
       })
     })
 
-    describe('when the user has no recognised group', () => {
+    describe('when the user is signed in but has no recognised group', () => {
       beforeEach(() => {
         mockGetAuthenticatedUser.mockResolvedValue(
           userWithoutPermissions as never
         )
       })
 
+      it('is forbidden', async () => {
+        const { req, res } = setup()
+
+        expect(await checkAuthorisation({ req, res })).toEqual({
+          status: 'forbidden',
+        })
+      })
+
       it('redirects to /access-denied when asked to redirect', async () => {
         const { req, res } = setup()
 
-        await isAuthorised({ req, res }, true)
+        await checkAuthorisation({ req, res }, true)
 
         expect(sent(res)).toEqual(redirectedTo('/access-denied'))
       })
 
-      it('writes nothing and returns a falsy value when not asked to redirect', async () => {
+      it('writes nothing when not asked to redirect', async () => {
         const { req, res } = setup()
 
-        expect(await isAuthorised({ req, res })).toBeFalsy()
+        await checkAuthorisation({ req, res })
+
         expect(sent(res)).toEqual(notRedirected)
       })
     })
 
-    it('logs an unexpected error, returns undefined and writes no redirect', async () => {
-      const log = jest.spyOn(console, 'log').mockImplementation(() => {})
-      mockGetAuthenticatedUser.mockRejectedValue(new Error('boom'))
-      const { req, res } = setup()
+    describe('when looking up the user fails', () => {
+      let log: jest.SpyInstance
 
-      expect(await isAuthorised({ req, res }, true)).toBeUndefined()
-      expect(log).toHaveBeenCalledWith('boom')
-      expect(sent(res)).toEqual(notRedirected)
+      beforeEach(() => {
+        log = jest.spyOn(console, 'log').mockImplementation(() => {})
+        mockGetAuthenticatedUser.mockRejectedValue(new Error('boom'))
+      })
 
-      log.mockRestore()
+      afterEach(() => {
+        log.mockRestore()
+      })
+
+      it('logs the error and treats the user as unauthenticated', async () => {
+        const { req, res } = setup()
+
+        expect(await checkAuthorisation({ req, res })).toEqual({
+          status: 'unauthenticated',
+        })
+        expect(log).toHaveBeenCalledWith('boom')
+      })
+
+      it('redirects to /login when asked to redirect', async () => {
+        const { req, res } = setup()
+
+        await checkAuthorisation({ req, res }, true)
+
+        expect(sent(res)).toEqual(redirectedTo('/login'))
+      })
+
+      it('writes nothing when not asked to redirect', async () => {
+        const { req, res } = setup()
+
+        await checkAuthorisation({ req, res })
+
+        expect(sent(res)).toEqual(notRedirected)
+      })
     })
   })
 
   describe.each([
     ['redirectToHome', redirectToHome, '/'],
+    ['redirectToLogin', redirectToLogin, '/login'],
     ['redirectToAcessDenied', redirectToAcessDenied, '/access-denied'],
   ])('%s', (_, redirect, location) => {
     it(`redirects to ${location}`, () => {
