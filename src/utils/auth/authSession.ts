@@ -25,8 +25,11 @@ export const redirectToAcessDenied = (res) => {
   res.end()
 }
 
-export const deleteSessions = (res, options = { additionalCookies: {} }) => {
-  const { additionalCookies } = options
+export const deleteSessions = (
+  res,
+  options: { additionalCookies?: object; redirectTo?: string } = {}
+) => {
+  const { additionalCookies = {}, redirectTo = '/login' } = options
 
   const serializedCookies = Object.keys(additionalCookies).map((cookieName) =>
     cookie.serialize(cookieName, null, {
@@ -37,7 +40,8 @@ export const deleteSessions = (res, options = { additionalCookies: {} }) => {
 
   res.setHeader('Set-Cookie', serializedCookies)
 
-  redirectToLogin(res)
+  res.writeHead(302, { Location: redirectTo })
+  res.end()
 }
 
 export const isAuthorised = async (

@@ -4,6 +4,9 @@ import dotenvFlow from 'dotenv-flow'
 
 dotenvFlow.config({ silent: true })
 
+// Used to encrypt and decrypt the next-auth session cookie in tests
+process.env.NEXTAUTH_SECRET ||= 'test-nextauth-secret'
+
 // Mock Sentry module so tests can load API routes
 jest.mock('@sentry/nextjs', () => {
   const mockScope = {
