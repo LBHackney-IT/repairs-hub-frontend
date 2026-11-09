@@ -14,6 +14,7 @@ import {
 } from '@/utils/auth/authSession'
 
 import { buildUser } from '@/utils/user'
+import { navigateToPage } from '@/utils/navigation'
 import UserContext from '@/components/UserContext'
 import Meta from '@/components/Meta'
 
@@ -50,7 +51,7 @@ const MyApp = ({
   // session has gone, do a full page load of /login
   useEffect(() => {
     if (unauthenticated) {
-      window.location.assign('/login')
+      navigateToPage('/login')
     }
   }, [unauthenticated])
 
@@ -79,6 +80,24 @@ MyApp.getInitialProps = async ({
   ctx,
   Component: pageComponent,
 }: AppContext): Promise<any> => {
+  // Scrub cookies from every request's events, whatever the outcome below:
+  // signed out, forbidden and whitelisted requests can carry session cookies too
+  Sentry.getCurrentScope().addEventProcessor((event) => {
+    // next-auth.* (session-token and its .0/.1 chunks, csrf-token, callback-url)
+    // and Contentsquare _cs_* cookies
+    Object.keys(event.request?.cookies ?? {})
+      .filter((name) => SCRUBBED_COOKIE_PATTERN.test(name))
+      .forEach((name) => {
+        event.request.cookies[name] = '[REMOVED]'
+      })
+
+    if (event.request?.cookies?.[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
+      event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] = '[REMOVED]'
+    }
+
+    return event
+  })
+
   if (AUTH_WHITELIST.includes(ctx.pathname)) {
     return {}
   }
@@ -102,22 +121,6 @@ MyApp.getInitialProps = async ({
   }
 
   const userDetails = authorisation.user
-
-  Sentry.getCurrentScope().addEventProcessor((event) => {
-    // next-auth.* (session-token and its .0/.1 chunks, csrf-token, callback-url)
-    // and Contentsquare _cs_* cookies
-    Object.keys(event.request?.cookies ?? {})
-      .filter((name) => SCRUBBED_COOKIE_PATTERN.test(name))
-      .forEach((name) => {
-        event.request.cookies[name] = '[REMOVED]'
-      })
-
-    if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
-      event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] = '[REMOVED]'
-    }
-
-    return event
-  })
 
   if (userAuthorisedForPage(pageComponent, userDetails)) {
     return { userDetails, accessDenied: false }
