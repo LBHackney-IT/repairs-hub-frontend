@@ -1,4 +1,6 @@
 import axios from 'axios'
+import type { AxiosResponse } from 'axios'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import * as HttpStatus from 'http-status-codes'
 import { getApiToken, getAuthenticatedUser } from './auth/auth'
 import { paramsSerializer } from './urls'
@@ -12,7 +14,32 @@ const {
 
 logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
 
-export const externalAPIRequest = async (request) => {
+export type AuthenticatedUser = NonNullable<
+  Awaited<ReturnType<typeof getAuthenticatedUser>>
+>
+
+type ApiRouteHandler = (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  user: AuthenticatedUser
+) => unknown
+
+// What axios (or the wrapped Error from `apiRequest`) gives us on failure
+type ApiError = Error & {
+  response?: AxiosResponse
+  request?: unknown
+}
+
+const apiRequest = async (
+  request: NextApiRequest,
+  {
+    label,
+    buildUrl,
+  }: {
+    label: string
+    buildUrl: (path: string[]) => string
+  }
+) => {
   const token = await getApiToken(request)
 
   const headers = {
@@ -22,126 +49,50 @@ export const externalAPIRequest = async (request) => {
     'Content-Type': 'application/json',
   }
 
-  const { path, ...queryParams } = request.query
+  // Catch-all routes (and the routes that set `path` themselves) give string[]
+  const { path, ...queryParams } = request.query as {
+    path?: string[]
+    [key: string]: string | string[]
+  }
 
-  const api = axios.create()
-
-  // Log request
-  api.interceptors.request.use((request) => {
-    logger.info(
-      'Starting External API request:',
-      JSON.stringify({
-        ...request,
-        headers: {
-          ...request.headers,
-          'x-api-key': '[REMOVED]',
-          'x-hackney-user': '[REMOVED]',
-          Authorization: '[REMOVED]',
-        },
-      })
-    )
-
-    return request
-  })
-
-  // Log successful responses
-  api.interceptors.response.use((response) => {
-    logger.info(
-      `External API response: ${response.status} ${
-        response.statusText
-      } ${JSON.stringify(response.data)}`
-    )
-
-    return response
-  })
+  const url = buildUrl(path)
 
   try {
-    const { data } = await api({
+    const { data, status } = await axios({
       method: request.method,
       headers,
-      url: path?.join('/'),
+      url,
       params: queryParams,
       paramsSerializer,
       ...(request.body && { data: request.body }),
     })
 
+    // Method, URL and status only: no headers, params, or bodies
+    logger.info(`${label} ${request.method} ${url}: ${status}`)
+
     return data
   } catch (error) {
-    const errorToThrow: Error & { response?: unknown } = new Error(error)
+    const errorToThrow: ApiError = new Error(error)
 
     errorToThrow.response = error.response
     throw errorToThrow
   }
 }
 
-export const serviceAPIRequest = async (request) => {
-  const token = await getApiToken(request)
-
-  const headers = {
-    'x-api-key': REPAIRS_SERVICE_API_KEY,
-    'x-hackney-user': token,
-    Authorization: token,
-    'Content-Type': 'application/json',
-  }
-
-  const { path, ...queryParams } = request.query
-
-  const api = axios.create()
-
-  // Log request
-  api.interceptors.request.use((request) => {
-    logger.info(
-      'Starting Service API request:',
-      JSON.stringify({
-        ...request,
-        headers: {
-          ...request.headers,
-          'x-api-key': '[REMOVED]',
-          'x-hackney-user': '[REMOVED]',
-          Authorization: '[REMOVED]',
-        },
-      })
-    )
-
-    return request
+export const externalAPIRequest = (request: NextApiRequest) =>
+  apiRequest(request, {
+    label: 'External API',
+    buildUrl: (path) => path?.join('/'),
   })
 
-  // Log successful responses
-  api.interceptors.response.use((response) => {
-    const target = `${response.request?.method} ${response.request?.path}`
-    const data = JSON.stringify(response.data)
-    const dataLength = Array.isArray(response.data)
-      ? `(${response.data.length} items)`
-      : ''
-
-    logger.info(
-      `Service API response for ${target}: ${response.status} ${dataLength} ${data}`
-    )
-
-    return response
+export const serviceAPIRequest = (request: NextApiRequest) =>
+  apiRequest(request, {
+    label: 'Service API',
+    buildUrl: (path) => `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
   })
 
-  try {
-    const { data } = await api({
-      method: request.method,
-      headers,
-      url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
-      params: queryParams,
-      paramsSerializer,
-      ...(request.body && { data: request.body }),
-    })
-
-    return data
-  } catch (error) {
-    const errorToThrow: Error & { response?: unknown } = new Error(error)
-
-    errorToThrow.response = error.response
-    throw errorToThrow
-  }
-}
-
-export const authoriseServiceAPIRequest = (callBack) => {
-  return async (req, res) => {
+export const authoriseServiceAPIRequest = (callBack: ApiRouteHandler) => {
+  return async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const user = await getAuthenticatedUser(req)
 
@@ -154,7 +105,8 @@ export const authoriseServiceAPIRequest = (callBack) => {
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (error) {
-      const errorResponse = error.response
+      const apiError: ApiError = error
+      const errorResponse = apiError.response
 
       if (errorResponse) {
         const target = `${errorResponse.request?.method} ${errorResponse.request?.path}`
@@ -163,7 +115,6 @@ export const authoriseServiceAPIRequest = (callBack) => {
           JSON.stringify({
             status: errorResponse?.status,
             data: errorResponse?.data,
-            headers: errorResponse?.headers,
           })
         )
 
@@ -176,13 +127,13 @@ export const authoriseServiceAPIRequest = (callBack) => {
             .status(errorResponse?.status)
             .json({ message: errorResponse?.data || 'Service API error' })
         }
-      } else if (error.request) {
+      } else if (apiError.request) {
         logger.error('Cannot connect to Service API')
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'No response received from Service API' })
       } else {
-        logger.error('API Client could not setup request', error.message)
+        logger.error('API Client could not setup request', apiError.message)
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'API Client request setup error' })
