@@ -5,7 +5,7 @@ import Meta from '@/components/Meta'
 const AccessDeniedPage = () => (
   <>
     <Meta title="Access Denied" />
-    <AccessDenied></AccessDenied>
+    <AccessDenied/>
   </>
 )
 
