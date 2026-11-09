@@ -3,7 +3,7 @@ import jsonwebtoken from 'jsonwebtoken'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { paramsSerializer } from '@/utils/urls'
 
-import contactDetailsEndpoint from './index.js'
+import contactDetailsEndpoint from './index'
 
 jest.mock('axios')
 

@@ -4,7 +4,7 @@ import * as HttpStatus from 'http-status-codes'
 import { createRequest, createResponse } from 'node-mocks-http'
 import { paramsSerializer } from '@/utils/urls'
 
-import catchAllEndpoint from './[...path].js'
+import catchAllEndpoint from './[...path]'
 
 jest.mock('axios')
 

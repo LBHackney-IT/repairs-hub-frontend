@@ -29,7 +29,7 @@ describe('RaiseWorkOrderForm component', () => {
   })
 
   const featureToggles = {
-    enableNewAwaabsFields: true,
+    enableAwaabsLawReasonForRepair: true,
   }
 
   const props = {

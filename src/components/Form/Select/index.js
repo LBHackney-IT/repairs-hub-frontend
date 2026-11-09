@@ -36,7 +36,9 @@ const Select = ({
     {children}
     {error && <ErrorMessage label={error.message} />}
     <select
-      className={`govuk-select lbh-select ${widthClass}`}
+      className={cx('govuk-select lbh-select', widthClass, {
+        'govuk-select--error': error,
+      })}
       id={name}
       name={name}
       data-testid={name}
@@ -48,11 +50,11 @@ const Select = ({
       defaultValue={defaultValue}
     >
       {isUnselectable && <option key="empty" value=""></option>}
-      {options.map((option, i) => {
+      {options.map((option) => {
         const { value, text } =
           typeof option === 'string' ? { value: option, text: option } : option
         return (
-          <option key={value + i} value={value}>
+          <option key={value} value={value}>
             {text}
           </option>
         )

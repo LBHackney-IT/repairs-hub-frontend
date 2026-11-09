@@ -1,7 +1,29 @@
 import { v4 as uuidv4 } from 'uuid'
 import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
 
-export const buildScheduleWorkOrderFormData = (workOrderData) => {
+// Collects the first reason plus any 'add another' reasons (additionalReasonForRepair1, 2...)
+const getAwaabsLawReasonsForRepair = (workOrderData): string[] => {
+  const reasons = [
+    workOrderData.reasonForRepair,
+    ...Object.keys(workOrderData)
+      .filter((key) => /^additionalReasonForRepair\d+$/.test(key))
+      .sort(
+        (a, b) =>
+          parseInt(a.replace(/\D/g, '')) - parseInt(b.replace(/\D/g, ''))
+      )
+      .map((key) => workOrderData[key]),
+  ]
+
+  return reasons.filter(
+    (reason, i) =>
+      reason && reason !== 'none-of-the-above' && reasons.indexOf(reason) === i
+  )
+}
+
+export const buildScheduleWorkOrderFormData = (
+  workOrderData,
+  { enableAwaabsLawReasonForRepair = false } = {}
+) => {
   return {
     reference: [
       {
@@ -100,8 +122,15 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
     }),
     multiTradeWorkOrder: workOrderData.tradeCode === MULTITRADE_TRADE_CODE,
 
-    // new Awaab's related fields
-    isAwaabsDampAndMouldRepair:
-      workOrderData.reasonForRepair === 'damp-and-mould',
+    // Awaab's related fields
+    ...(enableAwaabsLawReasonForRepair
+      ? {
+          awaabsLawReasonForRepair: getAwaabsLawReasonsForRepair(workOrderData),
+        }
+      : {
+          // Deprecated, replaced by awaabsLawReasonForRepair
+          isAwaabsDampAndMouldRepair:
+            workOrderData.reasonForRepair === 'damp-and-mould',
+        }),
   }
 }

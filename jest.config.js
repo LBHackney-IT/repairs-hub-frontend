@@ -7,7 +7,7 @@ module.exports = {
   clearMocks: true,
   testMatch: ['<rootDir>/**/*.test.[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/', '/build/'],
-  setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
+  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
   },
@@ -24,6 +24,7 @@ module.exports = {
     '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@/root/(.*)$': '<rootDir>/$1',
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@/types/(.*)$': '<rootDir>/src/types/$1',
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   reporters: ['default'],

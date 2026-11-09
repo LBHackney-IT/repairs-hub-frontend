@@ -11,7 +11,7 @@ describe('Raise repair form', () => {
       },
       {
         body: {
-          enableNewAwaabsFields: true,
+          enableAwaabsLawReasonForRepair: true,
         },
       }
     ).as('feature-toggle')

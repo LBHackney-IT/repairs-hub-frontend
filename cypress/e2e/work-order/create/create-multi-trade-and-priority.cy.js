@@ -16,7 +16,7 @@ describe('Raise repair form', () => {
       },
       {
         body: {
-          enableNewAwaabsFields: true,
+          enableAwaabsLawReasonForRepair: true,
         },
       }
     ).as('feature-toggle')
@@ -336,7 +336,7 @@ describe('Raise repair form', () => {
             },
             budgetCode: { id: '1' },
             multiTradeWorkOrder: true,
-            isAwaabsDampAndMouldRepair: false,
+            awaabsLawReasonForRepair: [],
           })
         })
       })
@@ -665,7 +665,7 @@ describe('Raise repair form', () => {
           },
           budgetCode: { id: '12' },
           multiTradeWorkOrder: false,
-          isAwaabsDampAndMouldRepair: false,
+          awaabsLawReasonForRepair: [],
         })
       })
     })

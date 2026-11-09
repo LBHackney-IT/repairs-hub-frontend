@@ -78,7 +78,7 @@ exports[`SelectOperatives component should disable the current operative when a 
               Work done 
             </label>
             <select
-              class="govuk-select lbh-select undefined"
+              class="govuk-select lbh-select"
               data-testid="percentage-0"
               id="percentage-0"
               name="percentage-0"
@@ -214,7 +214,7 @@ exports[`SelectOperatives component should disable the current operative when a 
               Work done 
             </label>
             <select
-              class="govuk-select lbh-select undefined"
+              class="govuk-select lbh-select"
               data-testid="percentage-1"
               id="percentage-1"
               name="percentage-1"
@@ -350,7 +350,7 @@ exports[`SelectOperatives component should disable the current operative when a 
               Work done 
             </label>
             <select
-              class="govuk-select lbh-select undefined"
+              class="govuk-select lbh-select"
               data-testid="percentage-2"
               id="percentage-2"
               name="percentage-2"
@@ -528,7 +528,7 @@ exports[`SelectOperatives component should render properly 1`] = `
               Work done 
             </label>
             <select
-              class="govuk-select lbh-select undefined"
+              class="govuk-select lbh-select"
               data-testid="percentage-0"
               disabled=""
               id="percentage-0"
@@ -563,7 +563,7 @@ exports[`SelectOperatives component should render properly 1`] = `
                 Work done 
               </label>
               <select
-                class="govuk-select lbh-select undefined"
+                class="govuk-select lbh-select"
                 data-testid="percentage-0"
                 id="percentage-0"
                 name="percentage-0"

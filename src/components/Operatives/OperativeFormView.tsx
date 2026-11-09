@@ -155,7 +155,7 @@ const OperativeFormView = ({ workOrderReference }: Props) => {
         operative: availableOperatives.find(
           (operative) => operative.id === operativeId
         ),
-        percentage: percentages[index],
+        percentage: percentages[index] as string,
       }
     })
 

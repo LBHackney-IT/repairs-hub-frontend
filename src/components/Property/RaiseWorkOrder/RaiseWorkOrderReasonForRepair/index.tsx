@@ -1,36 +1,65 @@
-import { Select } from '../../../Form'
+import { ReasonForRepairRow } from './ReasonForRepairRow'
+import { FIRST_ROW_ID, useReasonsForRepair } from './useReasonsForRepair'
 
 interface Props {
   register: any
   errors: { [key: string]: { message: string } }
+  formState?: { [key: string]: any }
 }
 
-const SELECT_OPTIONS = [
-  { text: 'Damp & Mould', value: 'damp-and-mould' },
-  { text: 'None of the above', value: 'none-of-the-above' },
-]
-
 export const RaiseWorkOrderReasonForRepair = (props: Props) => {
-  const { register, errors } = props
+  const { register, errors, formState } = props
+
+  const {
+    rows,
+    fieldName,
+    optionsFor,
+    canAddAnother,
+    addRow,
+    removeRow,
+    selectReason,
+  } = useReasonsForRepair(formState)
 
   return (
-    <Select
-      name="reasonForRepair"
-      label="Reason for this repair"
-      hint="Is the repair related to the following?"
-      options={SELECT_OPTIONS}
-      required={true}
-      register={register({
-        required: 'Please select an option',
+    <div className="reason-for-repair">
+      <h3 className="lbh-heading-h3">
+        Reason for this repair
+        <span className="govuk-caption-m">
+          Is the repair related to the following?
+        </span>
+      </h3>
+
+      {rows.map(({ id }) => {
+        const name = fieldName(id)
+
+        return (
+          <ReasonForRepairRow
+            key={name}
+            name={name}
+            options={optionsFor(id)}
+            register={register}
+            error={errors && errors[name]}
+            onChange={(value) => selectReason(id, value)}
+            onRemove={id === FIRST_ROW_ID ? undefined : () => removeRow(id)}
+          />
+        )
       })}
-      error={errors && errors.reasonForRepair}
-      widthClass="govuk-!-width-full"
-      children={undefined}
-      ignoreValue={undefined}
-      defaultValue={undefined}
-      value={undefined}
-      onChange={undefined}
-      disabled={undefined}
-    />
+
+      {canAddAnother && (
+        <p className="lbh-body-m">
+          <a
+            className="lbh-link"
+            href="#"
+            data-testid="add-another-reason-for-repair-link"
+            onClick={(e) => {
+              e.preventDefault()
+              addRow()
+            }}
+          >
+            + Add another reason
+          </a>
+        </p>
+      )}
+    </div>
   )
 }
