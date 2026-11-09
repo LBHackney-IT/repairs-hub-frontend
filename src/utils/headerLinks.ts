@@ -68,9 +68,8 @@ const HEADER_LINKS: HeaderLink[] = [
     href: '/api/logout',
     id: 'signout',
     description: 'Sign out',
-    // Needs a real anchor, not a client side transition, so the page fully
-    // reloads and the app picks up that the session cookies were cleared. The
-    // HeaderLink calls next-auth's signOut, which lands on this API route
+    // Needs a real anchor, not a client side transition: the API route clears
+    // the session cookies and redirects through Cognito's logout
     requireFullPageLoad: true,
     permittedRoles: [...ALL_ROLES],
   },
