@@ -1,7 +1,6 @@
 import type { NextAuthOptions } from 'next-auth'
-import CognitoProvider, {
-  type CognitoProfile
-} from 'next-auth/providers/cognito'
+import CognitoProvider from 'next-auth/providers/cognito'
+import type { CognitoProfile } from 'next-auth/providers/cognito'
 
 import { parseCognitoGroups } from './cognitoGroups'
 import { readCognitoIdTokenClaims } from './cognitoIdToken'
