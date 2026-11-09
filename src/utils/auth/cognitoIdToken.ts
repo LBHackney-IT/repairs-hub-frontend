@@ -9,16 +9,16 @@ export type CognitoIdTokenClaims = {
 // Payload only; openid-client already verified the signature at sign-in.
 export function readCognitoIdTokenClaims(
   idToken: string
-): CognitoIdTokenClaims | undefined {
+): CognitoIdTokenClaims | null {
   const payload = idToken.split('.')[1]
 
   if (!payload) {
-    return undefined
+    return null
   }
 
   try {
     return JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'))
   } catch {
-    return undefined
+    return null
   }
 }
