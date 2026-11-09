@@ -1,5 +1,4 @@
 import type { ServerResponse } from 'http'
-import cookie from 'cookie'
 import { getAuthenticatedUser } from './auth'
 
 export const AUTH_WHITELIST = ['/login', '/access-denied']
@@ -11,7 +10,7 @@ export const redirectToHome = (res) => {
   res.end()
 }
 
-export const redirectToLogin = (res) => {
+const redirectToLogin = (res) => {
   res.writeHead(302, {
     Location: '/login',
   })
@@ -22,25 +21,6 @@ export const redirectToAcessDenied = (res) => {
   res.writeHead(302, {
     Location: '/access-denied',
   })
-  res.end()
-}
-
-export const deleteSessions = (
-  res,
-  options: { additionalCookies?: object; redirectTo?: string } = {}
-) => {
-  const { additionalCookies = {}, redirectTo = '/login' } = options
-
-  const serializedCookies = Object.keys(additionalCookies).map((cookieName) =>
-    cookie.serialize(cookieName, null, {
-      maxAge: -1,
-      ...additionalCookies[cookieName],
-    })
-  )
-
-  res.setHeader('Set-Cookie', serializedCookies)
-
-  res.writeHead(302, { Location: redirectTo })
   res.end()
 }
 
@@ -66,19 +46,4 @@ export const isAuthorised = async (
   } catch (err) {
     console.log(err.message)
   }
-}
-
-// next-auth cookies on the request (including chunked ones), for deleteSessions.
-export const nextAuthCookiesForDeletion = (req) => {
-  const cookies = cookie.parse(req.headers.cookie ?? '')
-
-  return Object.keys(cookies)
-    .filter((name) => /^(__Secure-|__Host-)?next-auth\./.test(name))
-    .reduce(
-      (acc, name) => ({
-        ...acc,
-        [name]: { path: '/', secure: name.startsWith('__') },
-      }),
-      {}
-    )
 }
