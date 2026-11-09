@@ -60,7 +60,7 @@ functions:
       COGNITO_CLIENT_ID: ${ssm:/repairs-hub/${self:provider.stage}/cognito-client-id}
       COGNITO_CLIENT_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/cognito-client-secret}
       COGNITO_DOMAIN: ${ssm:/repairs-hub/${self:provider.stage}/cognito-domain}
-      COGNITO_ISSUER:${ssm:/repairs-hub/${self:provider.stage}/cognito-issuer}
+      COGNITO_ISSUER: ${ssm:/repairs-hub/${self:provider.stage}/cognito-issuer}
       NEXTAUTH_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/nextauth-secret}
       NEXTAUTH_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
       NODE_ENV: production
