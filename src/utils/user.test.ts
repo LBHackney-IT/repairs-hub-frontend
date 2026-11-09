@@ -156,6 +156,22 @@ describe('buildUser', () => {
     })
   })
 
+  describe('when the agent and contractor group regexes are not set', () => {
+    afterEach(() => {
+      process.env.AGENTS_GOOGLE_GROUPNAME_REGEX = `^${GROUPS.agent}$`
+      process.env.CONTRACTORS_GOOGLE_GROUPNAME_REGEX = '^test-contractors-'
+    })
+
+    it('does not give anyone the agent or contractor roles', () => {
+      delete process.env.AGENTS_GOOGLE_GROUPNAME_REGEX
+      process.env.CONTRACTORS_GOOGLE_GROUPNAME_REGEX = ''
+
+      const user = buildUser('', '', ['a made up group', GROUPS.agent])
+
+      expect(user.roles).toEqual([])
+    })
+  })
+
   describe('hasRole', () => {
     const user = () => buildUser('', '', [GROUPS.agent])
 
