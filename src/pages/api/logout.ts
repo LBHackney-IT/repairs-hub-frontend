@@ -19,7 +19,12 @@ const endpoint: NextApiHandler = async (req, res) => {
       cookies[process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]
 
     if (schedulerSessionId) {
-      await closeDRSSession(schedulerSessionId)
+      try {
+        await closeDRSSession(schedulerSessionId)
+      } catch (error) {
+        // Not critical, and it shouldn't stop the user signing out
+        console.error('Unable to close DRS session', error)
+      }
     }
 
     clearStaffSessionCookies(req, res)
