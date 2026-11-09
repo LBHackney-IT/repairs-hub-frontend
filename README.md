@@ -110,7 +110,7 @@ The wiki has some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-
 
 Merges to `main` can contain several features and fixes at once, and not all of them will have been tested and approved. We don't want an urgent fix to get stuck behind something that isn't ready, so new features should sit behind a feature toggle.
 
-Toggles are served at runtime by the [configuration-api](https://github.com/LBHackney-IT/configuration-api). To add or change one, raise a PR against `master` in the [configuration-api-files repo](https://github.com/LBHackney-IT/configuration-api-files), updating the JSON for every environment it applies to. The [previous PRs](https://github.com/LBHackney-IT/configuration-api-files/pulls?q=is%3Apr+is%3Aclosed+RH) are good examples to copy from.
+Toggles are served by `/api/simple-feature-toggle` (`src/pages/api/simple-feature-toggle/index.ts`), which reads them from environment variables, for example `FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED`. To add one, add it to `SimpleFeatureToggleResponse` and to that route, then set the variable for each environment.
 
 A handful of older toggles are set with `NEXT_PUBLIC_*` environment variables at build time. That approach is deprecated, so please don't add new ones.
 
@@ -151,7 +151,6 @@ We have a few more specific routes where we need to do something extra, like fea
 
 - `/api/properties/[id]` (`src/pages/api/properties/[id]/index.ts`) hides contact information from users who shouldn't see it.
 - `/api/properties/search` (`src/pages/api/properties/search.js`) switches between the new and deprecated backend search endpoints, depending on a toggle.
-- `/api/toggles` (`src/pages/api/toggles.js`) calls the configuration API.
 - `/api/users/schedulerSession` (`src/pages/api/users/schedulerSession.js`) asks DRS for an access token.
 
 **This catches people out.** If the Service API returns one thing and your frontend code receives something different, a custom route in the Node API may be changing the data on the way through. Have a look in `src/pages/api` before you start questioning the backend.

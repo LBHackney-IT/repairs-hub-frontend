@@ -8,7 +8,6 @@ const {
   REPAIRS_SERVICE_API_URL,
   REPAIRS_SERVICE_API_KEY,
   LOG_LEVEL,
-  CONFIGURATION_API_URL,
 } = process.env
 
 logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
@@ -141,60 +140,6 @@ export const serviceAPIRequest = async (request) => {
   }
 }
 
-export const configurationAPIRequest = async (request) => {
-  const token = await getApiToken(request)
-
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  }
-
-  const api = axios.create()
-
-  // Log request
-  api.interceptors.request.use((request) => {
-    logger.info(
-      'Starting Configuration API request:',
-      JSON.stringify({
-        ...request,
-        headers: {
-          ...request.headers,
-          Authorization: '[REMOVED]',
-        },
-      })
-    )
-
-    return request
-  })
-
-  // Log successful responses
-  api.interceptors.response.use((response) => {
-    logger.info(
-      `Configuration API response: ${response.status} ${
-        response.statusText
-      } ${JSON.stringify(response.data)}`
-    )
-
-    return response
-  })
-
-  try {
-    const { data } = await api({
-      method: request.method,
-      headers,
-      url: `${CONFIGURATION_API_URL}/api/v1/configuration`,
-      params: { types: 'RH' },
-    })
-
-    return data
-  } catch (error) {
-    const errorToThrow: Error & { response?: unknown } = new Error(error)
-
-    errorToThrow.response = error.response
-    throw errorToThrow
-  }
-}
-
 export const authoriseServiceAPIRequest = (callBack) => {
   return async (req, res) => {
     try {
@@ -210,28 +155,6 @@ export const authoriseServiceAPIRequest = (callBack) => {
       return await callBack(req, res, user)
     } catch (error) {
       const errorResponse = error.response
-
-      const categorizeError = (error) => {
-        if (errorResponse?.status) {
-          return {
-            category: 'api_error',
-            statusCode: errorResponse.status,
-            type: HttpStatus.getStatusText(errorResponse.status),
-          }
-        } else if (error.request) {
-          return {
-            category: 'network_error',
-            statusCode: 0,
-            type: 'CONNECTION_FAILURE',
-          }
-        } else {
-          return {
-            category: 'setup_error',
-            statusCode: -1,
-            type: 'CLIENT_SETUP_ERROR',
-          }
-        }
-      }
 
       if (errorResponse) {
         const target = `${errorResponse.request?.method} ${errorResponse.request?.path}`

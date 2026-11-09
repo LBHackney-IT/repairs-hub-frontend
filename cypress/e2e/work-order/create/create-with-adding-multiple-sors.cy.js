@@ -121,17 +121,6 @@ describe('Raise repair form', () => {
       { fixture: 'scheduleOfRates/multiTradeDummyCodes.json' }
     ).as('multiTradeDummyCodes')
 
-    cy.intercept(
-      { method: 'GET', path: '/api/toggles' },
-      {
-        body: [
-          {
-            featureToggles: { MultiTradeSORIncrementalSearch: true },
-          },
-        ],
-      }
-    ).as('featureToggle')
-
     cy.clock(now, ['Date'])
   })
   context('When choosing to add multiple SOR codes option', () => {
