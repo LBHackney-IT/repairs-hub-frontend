@@ -1,6 +1,24 @@
-# Hackney Repairs Hub frontend
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/hackney-logo-dark.svg">
+    <img src="docs/images/hackney-logo.svg" alt="Hackney" width="208">
+  </picture>
+</p>
 
-This is the frontend for Repairs Hub. Agents and managers use it to raise, review, approve and close work orders. Operatives get a "mobile working" view where they can sign in, see their upcoming jobs and complete them.
+<h1 align="center">Repairs Hub frontend</h1>
+
+<p align="center">
+  Where agents and managers raise, review, approve and close work orders,<br>
+  and where operatives see their upcoming jobs and complete them.
+</p>
+
+<p align="center">
+  <a href="#getting-set-up">Getting set up</a> ·
+  <a href="#testing">Testing</a> ·
+  <a href="#ci-environments-and-deployments">Deployments</a> ·
+  <a href="#authentication-and-user-permissions">Authentication</a> ·
+  <a href="#pages-routes-and-the-node-api">Pages and the API</a>
+</p>
 
 ## What it's built on
 
@@ -48,9 +66,13 @@ The Cypress specs don't sign in through Google. `cy.loginWith*Role()` builds a r
 
 For that to work, the app and Cypress must read the same `NEXTAUTH_SECRET`, the same group settings, and `E2E_AGENT_GROUP`, `E2E_CONTRACTOR_GROUP` and `E2E_SECOND_CONTRACTOR_GROUP`, which are group names that match the agent and contractor regexes. `yarn test:e2e` runs with `NODE_ENV=test`, so both read `.env.test.local`, not `.env.local`. If a group doesn't give the role it should, Cypress fails straight away and says which one. Two specs also read `CYPRESS_NEXT_PUBLIC_OUT_OF_HOURS_LINK` and `CYPRESS_NEXT_PUBLIC_PROPERTIES_PAGE_SIZE`, which must match the app's own values.
 
-One spec, `cypress/e2e/authentication.cy.ts`, signs in as a real Cognito test user to check that a real token and its claims work end to end. It's deliberately small. It needs `COGNITO_E2E_ISSUER`, `COGNITO_E2E_CLIENT_ID`, `COGNITO_E2E_USERNAME` and `COGNITO_E2E_PASSWORD`, and fails with a message naming any that are missing. The user is in a separate test pool, so its token is only good for these tests, and the password must only live in masked variables, never in the repo. The Google sign-in itself isn't covered by any test, so check it by hand after changing the auth setup.
+One spec, `cypress/e2e/authentication.cy.ts`, signs in as a real Cognito test user to check that a real token and its claims work end to end. It's deliberately small. It needs `COGNITO_E2E_ISSUER`, `COGNITO_E2E_CLIENT_ID`, `COGNITO_E2E_USERNAME` and `COGNITO_E2E_PASSWORD`, and fails with a message naming any that are missing. The user is in a separate test pool, so its token is only good for these tests, and the password must only live in masked variables, never in the repo.
 
-Two things that catch people out: if Cypress won't start from a VS Code terminal, unset `ELECTRON_RUN_AS_NODE`. And running the specs against `yarn dev` can be flaky, because the dev server rebuilds pages as it goes, so a production build (`yarn build`, `yarn start`) is more stable.
+> [!NOTE]
+> The Google sign-in itself isn't covered by any test, so check it by hand after changing the auth setup.
+
+> [!TIP]
+> If Cypress won't start from a VS Code terminal, unset `ELECTRON_RUN_AS_NODE`. And running the specs against `yarn dev` can be flaky, because the dev server rebuilds pages as it goes, so a production build (`yarn build`, `yarn start`) is more stable.
 
 ## CI, environments and deployments
 
@@ -120,7 +142,8 @@ We have a few more specific routes where we need to do something extra, like fea
 - `/api/properties/search` (`src/pages/api/properties/search.ts`) passes the search text and page number on, and sets the page size from `NEXT_PUBLIC_PROPERTIES_PAGE_SIZE`.
 - `/api/users/schedulerSession` (`src/pages/api/users/schedulerSession.ts`) asks DRS for an access token.
 
-**This catches people out.** If the Service API returns one thing and your frontend code receives something different, a custom route in the Node API may be changing the data on the way through. Have a look in `src/pages/api` before you start questioning the backend.
+> [!WARNING]
+> This catches people out. If the Service API returns one thing and your frontend code receives something different, a custom route in the Node API may be changing the data on the way through. Have a look in `src/pages/api` before you start questioning the backend.
 
 ## Authentication and user permissions
 
