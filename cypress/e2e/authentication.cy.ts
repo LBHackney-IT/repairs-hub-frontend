@@ -25,15 +25,9 @@ describe('Authentication', () => {
 
   // Signs in as the Cognito test user (an agent, see
   // cypress/plugins/cognitoSession.ts). Needs COGNITO_E2E_ISSUER,
-  // COGNITO_E2E_CLIENT_ID, COGNITO_E2E_USERNAME and COGNITO_E2E_PASSWORD, and is
-  // skipped when they aren't set.
+  // COGNITO_E2E_CLIENT_ID, COGNITO_E2E_USERNAME and COGNITO_E2E_PASSWORD. These
+  // tests fail when they aren't set, so they can't be skipped by accident.
   context('When signed in as the Cognito test user', () => {
-    before(function () {
-      cy.task('cognitoE2eConfigured').then(function (configured) {
-        if (!configured) this.skip()
-      })
-    })
-
     beforeEach(() => {
       cy.loginWithRealCognito()
     })

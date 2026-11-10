@@ -14,8 +14,18 @@ const VARIABLES = [
   'COGNITO_E2E_PASSWORD',
 ] as const
 
-export const isCognitoE2eConfigured = () =>
-  VARIABLES.every((name) => !!process.env[name]?.trim())
+// Names every missing variable at once, so one failure says what to set
+const assertConfigured = () => {
+  const missing = VARIABLES.filter((name) => !process.env[name]?.trim())
+
+  if (missing.length) {
+    throw new Error(
+      `Set ${missing.join(
+        ', '
+      )} to sign in as the Cognito test user (see the README)`
+    )
+  }
+}
 
 const requiredEnvironment = (name: typeof VARIABLES[number]) => {
   const value = process.env[name]?.trim()
@@ -141,6 +151,8 @@ type JwtCallback = NonNullable<NonNullable<typeof authOptions.callbacks>['jwt']>
 // token goes through the app's own `jwt` callback, then is encrypted with the
 // app's secret.
 export const signRealCognitoSession = async () => {
+  assertConfigured()
+
   const issuer = requiredEnvironment('COGNITO_E2E_ISSUER')
   const clientId = requiredEnvironment('COGNITO_E2E_CLIENT_ID')
   const idToken = await requestIdToken(issuer, clientId)
