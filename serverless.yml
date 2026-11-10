@@ -62,7 +62,7 @@ functions:
       COGNITO_DOMAIN: ${ssm:/repairs-hub/${self:provider.stage}/cognito-domain}
       COGNITO_ISSUER: ${ssm:/repairs-hub/${self:provider.stage}/cognito-issuer}
       NEXTAUTH_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/nextauth-secret}
-      NEXTAUTH_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
+      NEXTAUTH_URL: ${ssm:/repairs-hub/${self:provider.stage}/nextauth-redirect-url}
       NODE_ENV: production
       OPERATIVES_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/operatives-group}
       REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
