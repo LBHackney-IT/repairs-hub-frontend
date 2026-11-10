@@ -21,18 +21,23 @@ export default defineConfig({
         signSessionCookie: (role: E2eRole) => signSessionCookieForRole(role),
       })
 
-      config = dotenvFlowPlugin(config)
-
-      // Next unescapes `\$` to `$` when it reads the env files, but dotenv-flow
-      // keeps the backslash, so these regexes would never match a group name
-      for (const name of [
+      // Next unescapes `\$` to `$` in values it reads from env files, but not in
+      // real environment variables, and dotenv-flow never unescapes. Unescape
+      // only what comes from a file, so Cypress sees what the app sees.
+      const groupRegexes = [
         'AGENTS_GOOGLE_GROUPNAME_REGEX',
         'CONTRACTORS_GOOGLE_GROUPNAME_REGEX',
-      ]) {
-        if (process.env[name]) {
+      ]
+      const setBeforeFiles = groupRegexes.filter((name) => process.env[name])
+
+      // The library's JSDoc makes the second argument look required to TypeScript
+      config = dotenvFlowPlugin(config, {})
+
+      groupRegexes
+        .filter((name) => !setBeforeFiles.includes(name) && process.env[name])
+        .forEach((name) => {
           process.env[name] = process.env[name].replace(/\\\$/g, '$')
-        }
-      }
+        })
 
       return config
     },

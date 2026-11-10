@@ -7,6 +7,9 @@ dotenvFlow.config({ silent: true })
 // Used to encrypt and decrypt the next-auth session cookie in tests
 process.env.NEXTAUTH_SECRET ||= 'test-nextauth-secret'
 
+// serviceApiClient logs every upstream call. It reads this when it is imported
+process.env.LOG_LEVEL = 'SILENT'
+
 // Mock Sentry module so tests can load API routes
 jest.mock('@sentry/nextjs', () => {
   const mockScope = {
