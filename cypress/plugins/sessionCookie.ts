@@ -30,28 +30,28 @@ export type E2eRole =
 // are the same variables the app matches exactly. Agents and contractors are
 // matched by regex in the app, so they need a group name of their own.
 const ROLE_GROUP_VARIABLES: Record<E2eRole, string[]> = {
-  agent: ['E2E_AGENT_GROUP'],
-  contractor: ['E2E_CONTRACTOR_GROUP'],
-  agentAndContractor: ['E2E_AGENT_GROUP', 'DLO_CONTRACTOR_GOOGLE_GROUPNAME'],
-  multipleContractor: ['E2E_CONTRACTOR_GROUP', 'E2E_SECOND_CONTRACTOR_GROUP'],
+  agent: ['E2E_EXAMPLE_AGENT_GROUP'],
+  contractor: ['E2E_EXAMPLE_CONTRACTOR_GROUP'],
+  agentAndContractor: ['E2E_EXAMPLE_AGENT_GROUP', 'DLO_CONTRACTOR_GOOGLE_GROUPNAME'],
+  multipleContractor: ['E2E_EXAMPLE_CONTRACTOR_GROUP', 'E2E_EXAMPLE_SECOND_CONTRACTOR_GROUP'],
   contractManager: ['CONTRACT_MANAGERS_GOOGLE_GROUPNAME'],
   authorisationManager: ['AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME'],
   operative: ['OPERATIVES_GOOGLE_GROUPNAME'],
   agentAndBudgetCodeOfficer: [
-    'E2E_AGENT_GROUP',
+    'E2E_EXAMPLE_AGENT_GROUP',
     'BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME',
   ],
   dataAdmin: ['DATA_ADMIN_GOOGLE_GROUPNAME'],
   contractAdmin: ['CONTRACT_ADMIN_GOOGLE_GROUPNAME'],
   // Raising a repair is an agent page, so a follow-on admin is an agent too
-  followOnAdmin: ['E2E_AGENT_GROUP', 'FOLLOWON_ADMIN_GOOGLE_GROUPNAME'],
+  followOnAdmin: ['E2E_EXAMPLE_AGENT_GROUP', 'FOLLOWON_ADMIN_GOOGLE_GROUPNAME'],
 }
 
 // The role each group variable has to give the user
 const VARIABLE_ROLE: Record<string, string> = {
-  E2E_AGENT_GROUP: AGENT_ROLE,
-  E2E_CONTRACTOR_GROUP: CONTRACTOR_ROLE,
-  E2E_SECOND_CONTRACTOR_GROUP: CONTRACTOR_ROLE,
+  E2E_EXAMPLE_AGENT_GROUP: AGENT_ROLE,
+  E2E_EXAMPLE_CONTRACTOR_GROUP: CONTRACTOR_ROLE,
+  E2E_EXAMPLE_SECOND_CONTRACTOR_GROUP: CONTRACTOR_ROLE,
   DLO_CONTRACTOR_GOOGLE_GROUPNAME: DLO_CONTRACTOR_ROLE,
   CONTRACT_MANAGERS_GOOGLE_GROUPNAME: CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME: AUTHORISATION_MANAGER_ROLE,
