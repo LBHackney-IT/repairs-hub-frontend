@@ -43,7 +43,8 @@ const ROLE_GROUP_VARIABLES: Record<E2eRole, string[]> = {
   ],
   dataAdmin: ['DATA_ADMIN_GOOGLE_GROUPNAME'],
   contractAdmin: ['CONTRACT_ADMIN_GOOGLE_GROUPNAME'],
-  followOnAdmin: ['FOLLOWON_ADMIN_GOOGLE_GROUPNAME'],
+  // Raising a repair is an agent page, so a follow-on admin is an agent too
+  followOnAdmin: ['E2E_AGENT_GROUP', 'FOLLOWON_ADMIN_GOOGLE_GROUPNAME'],
 }
 
 // The role each group variable has to give the user
@@ -89,7 +90,10 @@ const groupsForRole = (role: E2eRole) =>
 // the app accepts it like one from a Cognito sign-in. Its id token is unsigned,
 // so calls that reach the real backend fail: specs must intercept their API calls.
 export const signSessionCookieForRole = async (role: E2eRole) => {
+  // Specs expect the user's name in the notes they create ("A Name opened the
+  // DRS Web Booking Manager")
   const { name, value } = await signSessionCookie({
+    name: 'A Name',
     groups: groupsForRole(role),
   })
 

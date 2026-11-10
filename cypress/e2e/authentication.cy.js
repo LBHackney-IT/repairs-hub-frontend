@@ -29,16 +29,25 @@ describe('Authentication', () => {
       cy.visit('/')
     })
 
-    it('Allows signing out', () => {
+    it('Signs out by clearing the session and redirecting to Cognito', () => {
       cy.get('header').within(() => {
-        cy.contains('a', 'Sign out').click()
+        cy.contains('a', 'Sign out').should('have.attr', 'href', '/api/logout')
       })
 
-      cy.get('.lbh-heading-h1').contains('Sign in')
-      cy.contains('button', 'Sign in with Google')
-      cy.get('.lbh-body').contains(
-        'Please sign in with your Hackney email account.'
+      // Don't follow the redirect: Cognito is a different site
+      cy.request({ url: '/api/logout', followRedirect: false }).then(
+        (response) => {
+          expect(response.status).to.eq(302)
+          expect(response.redirectedToUrl).to.match(
+            /\/logout\?client_id=.+&logout_uri=.+%2Flogin$/
+          )
+        }
       )
+
+      cy.getCookie('next-auth.session-token').should('not.exist')
+
+      cy.visit('/')
+      cy.url().should('contain', '/login')
     })
   })
 })
