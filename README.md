@@ -9,127 +9,48 @@ It's a [Next.js](https://nextjs.org) app, styled with the [Hackney Design System
 It talks to a few other things:
 
 - The [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet), which is where most of the data comes from. We use a [custom App with getInitialProps](https://nextjs.org/docs/advanced-features/custom-app), which means every page is rendered on the server.
-- [Amazon Cognito](https://aws.amazon.com/cognito/), through [next-auth](https://next-auth.js.org), for logging in. Staff sign in with their Hackney Google account, and Cognito passes on the Google groups they belong to. See [Authentication and user permissions](#authentication-and-user-permissions).
-- DRS, the third-party scheduling software. See [the DRS section](#drs-web-booking-manager-flow) below.
+- [Amazon Cognito](https://aws.amazon.com/cognito/), through [next-auth](https://next-auth.js.org), for logging in. Staff sign in with their Hackney Google account, and Cognito passes on the Google groups they belong to. See [Authentication](#authentication-and-user-permissions).
+- DRS, the third-party scheduling software. See [the DRS section](#drs-web-booking-manager-flow).
 
 It's deployed with the Serverless Framework (see [serverless.yml](serverless.yml)) and built and tested on [CircleCI](https://app.circleci.com/pipelines/github/LBHackney-IT/repairs-hub-frontend?filter=all), configured in [.circleci/config.yml](.circleci/config.yml).
 
 ## Getting set up
 
-### Install
+The app runs on Node 24. If you use [NVM](https://github.com/nvm-sh/nvm), `nvm use` picks the right version from `.nvmrc`. We use yarn, so please stick to it rather than npm, otherwise you'll end up with a second lockfile.
 
 ```sh
 git clone git@github.com:LBHackney-IT/repairs-hub-frontend.git
-```
-
-The app runs on Node 24. If you use [NVM](https://github.com/nvm-sh/nvm), `nvm use` in the project folder will pick the right version from `.nvmrc`. We use yarn, so please stick to that rather than npm, otherwise you'll end up with a second lockfile.
-
-```sh
+cd repairs-hub-frontend
 yarn install
 ```
 
-### Environment files
+### Environment
 
-You'll need three local files, all of which are gitignored:
-
-- `.env`
-- `.env.local`
-- `.env.test.local`
-
-There are `.sample` versions of each to copy from, but they only show you which variables exist. The real values are kept somewhere safe at Hackney, and most of them can be found in AWS Parameter Store in the development account. Ask a teammate if you're not sure where to look.
-
-If you need to add or change a variable for CI or a deployed environment, have a look at [the environment variables section](#environment-variables) first.
-
-### Pre-commit hook
-
-We use GitGuardian's `ggshield` to stop secrets being committed. Follow the [install guide](https://docs.gitguardian.com/ggshield-docs/integrations/git-hooks/pre-commit), then set the `GITGUARDIAN_API_KEY` environment variable. The key is in Parameter Store (Housing-Development).
+Copy `.env.local.sample` to `.env.local`, which is gitignored, and fill it in. The sample only lists which variables exist. The real values are kept somewhere safe at Hackney, and most can be found in AWS Parameter Store in the development account. Ask a teammate if you're not sure where to look. The tests have their own sample, `.env.test.local.sample`. See [Environment variables](#environment-variables) for how values reach CI and the deployed environments.
 
 ### Logging in locally
 
-Sign-in goes through Cognito to Google, so you need a `@hackney.gov.uk` Google account that's in at least one of the groups Repairs Hub recognises (see [Authentication and user permissions](#authentication-and-user-permissions)). If you can sign in but land on an "Access denied" page, your groups don't give you a role. Speak to Hackney IT if you need adding to a group.
+Sign-in goes through Cognito to Google, so you need a `@hackney.gov.uk` Google account that's in at least one of the groups Repairs Hub recognises. If you can sign in but land on "Access denied", your groups don't give you a role, so speak to Hackney IT.
 
-Set `NEXTAUTH_URL` in `.env.local` to the address you open the app on, for example `http://localhost:5001`. The Cognito app client has to list `<NEXTAUTH_URL>/api/auth/callback/cognito` as an allowed callback URL, and `<NEXTAUTH_URL>/login` as an allowed sign-out URL. Without them Cognito refuses to sign you in or out. If your local address isn't registered yet, ask whoever manages the user pool.
-
-### Running it
+Locally the app runs at `http://localhost:5001`, so set `NEXTAUTH_URL=http://localhost:5001` in `.env.local`. The Cognito app client has to allow `http://localhost:5001/api/auth/callback/cognito` as a callback URL and `http://localhost:5001/login` as a sign-out URL, otherwise Cognito refuses to sign you in or out. If they aren't registered yet, ask whoever manages the user pool.
 
 ```sh
 yarn dev
 ```
 
-Then open the address you set in `NEXTAUTH_URL`. The app runs on port 5001. Use exactly that address, because the session cookie and the Cognito callback are tied to it.
+Then open [http://localhost:5001](http://localhost:5001).
 
-## Everyday commands
+## Testing
 
-- `yarn dev` starts the dev server on port 5001.
-- `yarn lint` runs ESLint. `yarn lintfix` fixes what it can.
-- `yarn tsc --noEmit` type checks the TypeScript files. No output means no errors. Typing isn't strict yet, so it only catches the obvious problems.
-- `yarn build` makes a production build.
+Most of the testing is Jest and React Testing Library (`yarn test:unit`). Cypress (`yarn test:e2e`) is slower and harder to keep stable, so we keep it for what only a real browser can check. That includes the authentication code: the session, group mapping, the page gate, signing out and the API routes are all covered by unit and integration tests that don't need a real Cognito.
 
-## Tests
+The Cypress specs don't sign in through Google. `cy.loginWith*Role()` builds a real next-auth session cookie for the role, encrypted with the app's own `NEXTAUTH_SECRET`, so the app treats the browser as signed in. The token inside is unsigned, so a spec that lets a request reach the real backend will fail. Intercept the API calls.
 
-### Unit tests
+For that to work, the app and Cypress must read the same `NEXTAUTH_SECRET`, the same group settings, and `E2E_AGENT_GROUP`, `E2E_CONTRACTOR_GROUP` and `E2E_SECOND_CONTRACTOR_GROUP`, which are group names that match the agent and contractor regexes. `yarn test:e2e` runs with `NODE_ENV=test`, so both read `.env.test.local`, not `.env.local`. If a group doesn't give the role it should, Cypress fails straight away and says which one. Two specs also read `CYPRESS_NEXT_PUBLIC_OUT_OF_HOURS_LINK` and `CYPRESS_NEXT_PUBLIC_PROPERTIES_PAGE_SIZE`, which must match the app's own values.
 
-Unit tests use Jest and React Testing Library:
+One spec, `cypress/e2e/authentication.cy.ts`, signs in as a real Cognito test user to check that a real token and its claims work end to end. It's deliberately small. It needs `COGNITO_E2E_ISSUER`, `COGNITO_E2E_CLIENT_ID`, `COGNITO_E2E_USERNAME` and `COGNITO_E2E_PASSWORD`, and fails with a message naming any that are missing. The user is in a separate test pool, so its token is only good for these tests, and the password must only live in masked variables, never in the repo. The Google sign-in itself isn't covered by any test, so check it by hand after changing the auth setup.
 
-```sh
-yarn test:unit
-```
-
-On Windows, use `yarn test:unit-windows` instead. If you've changed something on purpose and need to update the snapshots, `yarn test:unit-win-upd` does that.
-
-The authentication code has its own tests and none of them need a real Cognito:
-
-- `src/utils/auth/*.test.ts` cover the session, groups, tokens and cookies.
-- `__test__/_app.getInitialProps.test.ts`, `__test__/login.test.ts` and `__test__/access-denied.test.ts` cover the page gate and the login and access denied pages.
-- `src/pages/api/logout.test.ts` covers signing out, and each API route has a test next to it.
-- `factories/session_cookie.ts` builds the same encrypted session cookie a real sign-in produces, and `factories/api_route.ts` builds a signed-in request for the API route tests.
-
-### End-to-end tests
-
-End-to-end tests use Cypress. This builds the app, starts it and runs the whole suite headless in Chrome:
-
-```sh
-yarn test:e2e
-```
-
-If you'd rather watch it run, start the app in one terminal, then open the Cypress window from another:
-
-```sh
-yarn cy:open
-```
-
-For a more stable run, start the app with a production build (`yarn build` then `yarn start`) instead of `yarn dev`. The dev server rebuilds pages as it goes, which can show up as slow tests or "module factory is not available" errors in the browser.
-
-`yarn tests` runs the unit tests and then the end-to-end tests.
-
-#### How the tests sign in
-
-The specs don't go through Google. `cy.loginWith*Role()` asks a Cypress task (`cypress/plugins/sessionCookie.ts`) for a session cookie. The task encrypts it with the app's own `NEXTAUTH_SECRET`, and it holds the Cognito groups for that role, so the app treats the browser as signed in. The token inside is unsigned, so a spec that lets a request reach the real backend will fail. Intercept the API calls.
-
-The app and Cypress have to read the same values for these, or roles won't match and pages show "Access denied":
-
-- `NEXTAUTH_SECRET` and `NEXTAUTH_URL` (use `http://localhost:5001`, an `https` URL changes the cookie name).
-- The group settings described in [Authentication variables](#authentication-variables).
-- `E2E_AGENT_GROUP`, `E2E_CONTRACTOR_GROUP` and `E2E_SECOND_CONTRACTOR_GROUP`: group names for the agent, contractor and multiple-contractor roles. They must match `AGENTS_GOOGLE_GROUPNAME_REGEX` and `CONTRACTORS_GOOGLE_GROUPNAME_REGEX`. The task fails with a clear message if one doesn't give the role it should.
-
-`yarn test:e2e` runs with `NODE_ENV=test`, so both the app and Cypress read `.env.test.local`, not `.env.local`.
-
-Two specs read values through `Cypress.env`, so they need `CYPRESS_NEXT_PUBLIC_OUT_OF_HOURS_LINK` and `CYPRESS_NEXT_PUBLIC_PROPERTIES_PAGE_SIZE`, matching the app's own settings.
-
-If Cypress fails to start from a VS Code terminal with "bad option: --no-sandbox", unset `ELECTRON_RUN_AS_NODE` for the command.
-
-#### Testing a real Cognito sign-in
-
-`cypress/e2e/authentication.cy.ts` also signs in as a real Cognito test user. These tests need the variables below, and fail with a message naming any that are missing. Use masked variables in CI, and never commit the password:
-
-```
-COGNITO_E2E_ISSUER=https://cognito-idp.<region>.amazonaws.com/<user pool id>
-COGNITO_E2E_CLIENT_ID=<a public app client id that allows USER_PASSWORD_AUTH>
-COGNITO_E2E_USERNAME=
-COGNITO_E2E_PASSWORD=
-```
-
-The test user lives in a separate pool, so its token is only good for these tests and the real backend won't accept it. The task signs in, checks the token against the pool's keys, and passes it through the app's own `jwt` callback before building the cookie. It doesn't go through the Google sign-in, so that part still needs a manual check.
+Two things that catch people out: if Cypress won't start from a VS Code terminal, unset `ELECTRON_RUN_AS_NODE`. And running the specs against `yarn dev` can be flaky, because the dev server rebuilds pages as it goes, so a production build (`yarn build`, `yarn start`) is more stable.
 
 ## CI, environments and deployments
 
@@ -139,7 +60,7 @@ Features and bug fixes go to `develop`. Merging there deploys automatically to t
 
 To get something onto staging for QA and UAT, open a PR from `develop` to `main`. Merging to `main` deploys to staging automatically. If that works, the production deploy then waits for someone to approve it in the CircleCI UI.
 
-The `e2e` job sets test-only Cognito values (`COGNITO_DOMAIN`, `COGNITO_CLIENT_ID` and `NEXTAUTH_URL`) in [.circleci/config.yml](.circleci/config.yml). They're fake because the specs check the sign-out redirect without following it. The group settings and `NEXTAUTH_SECRET` for the e2e job come from the CircleCI project settings.
+The `e2e` job sets fake Cognito values (`COGNITO_DOMAIN`, `COGNITO_CLIENT_ID` and `NEXTAUTH_URL`) in the CircleCI config, because the specs check the sign-out redirect without following it. Its group settings, `NEXTAUTH_SECRET` and `COGNITO_E2E_*` values come from the CircleCI project settings.
 
 The wiki has some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables) for preparing a production release, including how to trigger a manual production deploy.
 
@@ -162,21 +83,18 @@ There are two kinds:
 
 Where a value comes from depends on how the app is being run:
 
-- **Locally:** the dotenv files. The app reads `.env` and `.env.local`, and the tests read `.env.test` and `.env.test.local`.
-- **On CI:** the values come from dotenv files, from hardcoded values in the CircleCI config, and from the CircleCI project settings. Config entries that start with `$` (like `$OUT_OF_HOURS_LINK_STAGING`) point at those project settings.
+- **Locally:** `.env.local` for the app, and `.env.test.local` for the tests.
+- **On CI:** hardcoded values in the CircleCI config, and the CircleCI project settings. Config entries that start with `$` (like `$OUT_OF_HOURS_LINK_STAGING`) point at those project settings.
 - **Deployed:** server-side variables live in AWS Parameter Store and are referenced from [serverless.yml](serverless.yml). Public variables are set in the CircleCI config, either hardcoded or pointing at CircleCI project settings.
 
 ### Authentication variables
 
-- `NEXTAUTH_URL` is the public address of the app. The sign-in callback and the sign-out redirect are built from it. Use `http` locally, because an `https` URL makes next-auth use a differently named session cookie.
+- `NEXTAUTH_URL` is the public address of the app, which the sign-in callback and sign-out redirect are built from. Use `http` locally, because an `https` URL makes next-auth use a differently named session cookie.
 - `NEXTAUTH_SECRET` encrypts the session cookie.
-- `COGNITO_CLIENT_ID` and `COGNITO_CLIENT_SECRET` identify the Cognito app client the app signs in with.
-- `COGNITO_ISSUER` is the user pool's address, `https://cognito-idp.<region>.amazonaws.com/<user pool id>`.
-- `COGNITO_DOMAIN` is the hosted UI domain. Signing out builds its Cognito logout URL from it.
-- `AGENTS_GOOGLE_GROUPNAME_REGEX` and `CONTRACTORS_GOOGLE_GROUPNAME_REGEX` are regular expressions matching the group names that give the agent and contractor roles.
-- The other roles are matched by exact group name: `CONTRACT_MANAGERS_GOOGLE_GROUPNAME`, `CONTRACTOR_CAN_CANCEL_GOOGLE_GROUPNAME`, `AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME`, `OPERATIVES_GOOGLE_GROUPNAME`, `BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME`, `DATA_ADMIN_GOOGLE_GROUPNAME`, `CONTRACT_ADMIN_GOOGLE_GROUPNAME`, `FOLLOWON_ADMIN_GOOGLE_GROUPNAME` and `DLO_CONTRACTOR_GOOGLE_GROUPNAME`.
+- `COGNITO_CLIENT_ID`, `COGNITO_CLIENT_SECRET`, `COGNITO_ISSUER` (the user pool address, `https://cognito-idp.<region>.amazonaws.com/<user pool id>`) and `COGNITO_DOMAIN` (the hosted UI domain, used to build the sign-out URL) describe the Cognito app client.
+- Roles come from group names. `AGENTS_GOOGLE_GROUPNAME_REGEX` and `CONTRACTORS_GOOGLE_GROUPNAME_REGEX` are regular expressions. Every other role has an exact name setting ending in `_GOOGLE_GROUPNAME`, for example `OPERATIVES_GOOGLE_GROUPNAME`. The full list is in `src/utils/user.ts`.
 
-If a group setting is empty or missing, it gives nobody that role. The regexes use `$` at the end, and in a dotenv file that `$` has to be written as `\$`, because Next treats a bare `$` as a variable. In a real environment variable, such as one in CircleCI, use a plain `$`.
+A group setting that's empty or missing gives nobody that role. In a dotenv file, write the `$` at the end of a regex as `\$`, because Next treats a bare `$` as a variable. In a real environment variable, such as one in CircleCI, use a plain `$`.
 
 ## Pages, routes and the Node API
 
@@ -208,19 +126,19 @@ We have a few more specific routes where we need to do something extra, like fea
 
 ### Signing in
 
-Sign-in uses [next-auth](https://next-auth.js.org) with Cognito, and Google sits behind Cognito. The setup is in [authOptions.ts](src/utils/auth/authOptions.ts), and the next-auth handler is `src/pages/api/auth/[...nextauth].ts`.
+Sign-in uses next-auth with Cognito, and Google sits behind Cognito. The setup is in [authOptions.ts](src/utils/auth/authOptions.ts), and the handler is `src/pages/api/auth/[...nextauth].ts`.
 
-After a successful sign-in the session is kept in an encrypted cookie (`next-auth.session-token`). It holds the Cognito id token, which is forwarded to the backend APIs, and the user's groups. The id token itself is never sent to the browser. The session lasts 4 hours, to match the id token. There's no refresh token, so when it expires the user signs in again.
+After signing in, the session is kept in an encrypted cookie. It holds the Cognito id token, which is forwarded to the backend APIs, and the user's groups. The id token itself is never sent to the browser. The session lasts 4 hours, to match the id token. There's no refresh token, so when it expires the user signs in again.
 
 ### From groups to roles
 
-A user's permissions come from the Google groups they belong to, which Cognito passes on in the `custom:groups` claim. [cognitoGroups.ts](src/utils/auth/cognitoGroups.ts) reads that claim (an array, or a string separated by `;` or `,`), and [user.ts](src/utils/user.ts) maps the group names onto roles in Repairs Hub using the [group settings](#authentication-variables). To get the current user in a component, use the context in [UserContext](src/components/UserContext/index.js).
+A user's permissions come from the Google groups they belong to, which Cognito passes on in the `custom:groups` claim. [cognitoGroups.ts](src/utils/auth/cognitoGroups.ts) reads the claim, and [user.ts](src/utils/user.ts) maps the group names onto roles in Repairs Hub using the [group settings](#authentication-variables). To get the current user in a component, use the context in [UserContext](src/components/UserContext/index.js).
 
 ### Who can see what
 
 The gate is `getInitialProps` in [`_app.tsx`](src/pages/_app.tsx), using `checkAuthorisation` from [authSession.ts](src/utils/auth/authSession.ts). There are two different outcomes:
 
-- **Not signed in** (no valid session, or it has expired): redirected to `/login`. If it expires while someone is moving between pages, the app navigates to `/login` itself.
+- **Not signed in**, or the session has expired: redirected to `/login`. If it expires while someone is moving between pages, the app navigates to `/login` itself.
 - **Signed in, but no role:** redirected to `/access-denied`. The same page appears when a user has a role that isn't allowed on that page.
 
 `/login` and `/access-denied` are the only pages open to everyone.
@@ -231,7 +149,7 @@ There's also a [matrix of roles and page permissions](https://docs.google.com/sp
 
 ### Signing out
 
-The Sign out link goes to `/api/logout` (`src/pages/api/logout.ts`). That route closes the user's DRS session, clears the session cookies (`clearStaffSessionCookies` in [cookies.ts](src/utils/auth/cookies.ts)), and redirects to Cognito's `/logout` so the Cognito session ends too. Cognito then sends the user to `<NEXTAUTH_URL>/login`, which must be on the app client's allowed sign-out URLs. Failing to close the DRS session doesn't stop the sign-out.
+The Sign out link goes to `/api/logout` (`src/pages/api/logout.ts`). That route closes the user's DRS session, clears the session cookies, and redirects to Cognito's `/logout` so the Cognito session ends too. Cognito then sends the user to `<NEXTAUTH_URL>/login`, which must be on the app client's allowed sign-out URLs. Failing to close the DRS session doesn't stop the sign-out.
 
 ## DRS Web Booking Manager flow
 
