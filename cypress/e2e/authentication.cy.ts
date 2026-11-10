@@ -23,13 +23,34 @@ describe('Authentication', () => {
     })
   })
 
-  context('When the user is signed in', () => {
-    beforeEach(() => {
-      cy.loginWithAgentRole()
-      cy.visit('/')
+  // Signs in as the Cognito test user (an agent, see
+  // cypress/plugins/cognitoSession.ts). Needs COGNITO_E2E_ISSUER,
+  // COGNITO_E2E_CLIENT_ID, COGNITO_E2E_USERNAME and COGNITO_E2E_PASSWORD, and is
+  // skipped when they aren't set.
+  context('When signed in as the Cognito test user', () => {
+    before(function () {
+      cy.task('cognitoE2eConfigured').then(function (configured) {
+        if (!configured) this.skip()
+      })
     })
 
-    it('Signs out by clearing the session and redirecting to Cognito', () => {
+    beforeEach(() => {
+      cy.loginWithRealCognito()
+    })
+
+    it('can use the pages an agent has access to', () => {
+      cy.visit('/')
+
+      cy.get('header').within(() => {
+        cy.contains('a', 'Search')
+        cy.contains('a', 'Sign out')
+        cy.contains('a', 'Manage work orders').should('not.exist')
+      })
+    })
+
+    it('signs out by clearing the session and redirecting to Cognito', () => {
+      cy.visit('/')
+
       cy.get('header').within(() => {
         cy.contains('a', 'Sign out').should('have.attr', 'href', '/api/logout')
       })
@@ -48,6 +69,13 @@ describe('Authentication', () => {
 
       cy.visit('/')
       cy.url().should('contain', '/login')
+    })
+
+    it('is denied the pages for other roles', () => {
+      cy.visit('/contracts-dashboard')
+
+      cy.url().should('contain', '/access-denied')
+      cy.contains('Access denied')
     })
   })
 })

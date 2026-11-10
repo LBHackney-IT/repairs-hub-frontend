@@ -18,6 +18,7 @@ declare global {
       loginWithAgentAndBudgetCodeOfficerRole(): Chainable<void>
       loginWithDataAdminRole(): Chainable<void>
       loginWithContractAdminRole(): Chainable<void>
+      loginWithRealCognito(): Chainable<string[]>
       requestsCountByUrl(url: string): Cypress.Chainable<number>
       checkForTenureDetails(
         tenure: string,
@@ -81,6 +82,34 @@ Cypress.Commands.add('loginWithDataAdminRole', () =>
 Cypress.Commands.add('loginWithContractAdminRole', () =>
   loginAs('contractAdmin', 'user.json')
 )
+
+// Signs in with the Cognito test user (see cypress/plugins/cognitoSession.ts)
+// and yields the groups the app read from the real id token
+Cypress.Commands.add('loginWithRealCognito', () => {
+  cy.getCookies().should('be.empty')
+
+  return cy
+    .task('signRealCognitoSession')
+    .then(
+      ({
+        name,
+        value,
+        groups,
+      }: {
+        name: string
+        value: string
+        groups: string[]
+      }) => {
+        cy.setCookie(name, value)
+        cy.intercept(
+          { method: 'GET', path: '/api/hub-user' },
+          { fixture: 'hubUser/user.json' }
+        )
+
+        return cy.wrap(groups)
+      }
+    )
+})
 
 Cypress.Commands.add('requestsCountByUrl', (url) =>
   cy.wrap(null).then(() => {

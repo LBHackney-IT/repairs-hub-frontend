@@ -2,6 +2,10 @@ import { defineConfig } from 'cypress'
 import dotenvFlowPlugin from 'cypress-dotenv-flow'
 import { signSessionCookieForRole } from './cypress/plugins/sessionCookie'
 import type { E2eRole } from './cypress/plugins/sessionCookie'
+import {
+  isCognitoE2eConfigured,
+  signRealCognitoSession,
+} from './cypress/plugins/cognitoSession'
 
 export default defineConfig({
   reporter: 'cypress-multi-reporters',
@@ -19,6 +23,8 @@ export default defineConfig({
           return null
         },
         signSessionCookie: (role: E2eRole) => signSessionCookieForRole(role),
+        cognitoE2eConfigured: () => isCognitoE2eConfigured(),
+        signRealCognitoSession: () => signRealCognitoSession(),
       })
 
       // Next unescapes `\$` to `$` in values it reads from env files, but not in
