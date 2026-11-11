@@ -14,8 +14,8 @@ const SIGN_OUT = { description: 'Sign out', href: '/api/logout' }
 let headerLinksForUser: typeof import('./headerLinks').headerLinksForUser
 
 // The user factories are untyped JS
-const linksFor = (user: unknown) =>
-  headerLinksForUser(user as { roles: string[] })
+const linksFor = (user: unknown, pathname = '/') =>
+  headerLinksForUser(user as { roles: string[] } | null, pathname)
 
 describe('headerLinksForUser', () => {
   // The support href is read from the env when the module loads
@@ -50,6 +50,19 @@ describe('headerLinksForUser', () => {
     expect(linksFor(user)).toEqual(
       expected.map((link) => expect.objectContaining(link))
     )
+  })
+
+  describe('when there is no user', () => {
+    // Signed in with no role: the Access denied page, which has no user
+    it('offers only sign out, so they can leave', () => {
+      expect(linksFor(null, '/access-denied')).toEqual([
+        expect.objectContaining(SIGN_OUT),
+      ])
+    })
+
+    it('offers nothing on the login page, where there is nothing to sign out of', () => {
+      expect(linksFor(null, '/login')).toEqual([])
+    })
   })
 
   // Signing out has to be a full page load so the cleared cookies are picked up

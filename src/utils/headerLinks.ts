@@ -17,6 +17,16 @@ type HeaderLink = {
   permittedRoles: string[]
 }
 
+// Needs a real anchor, not a client side transition: the API route clears the
+// session cookies and redirects through Cognito's logout
+const SIGN_OUT_LINK: HeaderLink = {
+  href: '/api/logout',
+  id: 'signout',
+  description: 'Sign out',
+  requireFullPageLoad: true,
+  permittedRoles: [...ALL_ROLES],
+}
+
 const HEADER_LINKS: HeaderLink[] = [
   {
     href: '/',
@@ -64,26 +74,28 @@ const HEADER_LINKS: HeaderLink[] = [
     requireFullPageLoad: false,
     permittedRoles: [DATA_ADMIN_ROLE, CONTRACT_ADMIN_ROLE],
   },
-  {
-    href: '/api/logout',
-    id: 'signout',
-    description: 'Sign out',
-    // Needs a real anchor, not a client side transition: the API route clears
-    // the session cookies and redirects through Cognito's logout
-    requireFullPageLoad: true,
-    permittedRoles: [...ALL_ROLES],
-  },
+  SIGN_OUT_LINK,
 ]
 
-export const headerLinksForUser = (user: { roles: string[] }) => {
+const toHeaderLink = (link: HeaderLink) => ({
+  href: link.href,
+  id: link.id,
+  description: link.description,
+  requireFullPageLoad: link.requireFullPageLoad,
+})
+
+export const headerLinksForUser = (
+  user: { roles: string[] } | null,
+  pathname: string
+) => {
+  // Every page except /login needs a session, so with no user on any other page
+  // the visitor is signed in but has no role (the Access denied page). All they
+  // can do is leave.
+  if (!user) {
+    return pathname === '/login' ? [] : [toHeaderLink(SIGN_OUT_LINK)]
+  }
+
   return HEADER_LINKS.filter((link) =>
     link.permittedRoles.some((role) => user.roles.includes(role))
-  ).map((link) => {
-    return {
-      href: link.href,
-      id: link.id,
-      description: link.description,
-      requireFullPageLoad: link.requireFullPageLoad,
-    }
-  })
+  ).map(toHeaderLink)
 }
