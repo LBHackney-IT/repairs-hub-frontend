@@ -18,6 +18,7 @@ declare global {
       loginWithAgentAndBudgetCodeOfficerRole(): Chainable<void>
       loginWithDataAdminRole(): Chainable<void>
       loginWithContractAdminRole(): Chainable<void>
+      loginWithRealCognito(): Chainable<string[]>
       requestsCountByUrl(url: string): Cypress.Chainable<number>
       checkForTenureDetails(
         tenure: string,
@@ -29,207 +30,85 @@ declare global {
   }
 }
 
-Cypress.Commands.add('loginWithFollowOnAdminRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_FOLLOWON_ADMIN')
-
+// Signs in as `role` with a session cookie minted by the `signSessionCookie`
+// task, and stubs /api/hub-user with `hubUserFixture`
+const loginAs = (role: string, hubUserFixture: string) => {
   cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
+
+  cy.task('signSessionCookie', role).then(
+    ({ name, value }: { name: string; value: string }) => {
+      cy.setCookie(name, value)
+      cy.getCookie(name).should('have.property', 'value', value)
+    }
   )
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/user.json' }
+    { fixture: `hubUser/${hubUserFixture}` }
   )
-})
+}
 
-Cypress.Commands.add('loginWithAgentRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_AGENT')
+Cypress.Commands.add('loginWithFollowOnAdminRole', () =>
+  loginAs('followOnAdmin', 'user.json')
+)
+Cypress.Commands.add('loginWithAgentRole', () => loginAs('agent', 'user.json'))
+Cypress.Commands.add('loginWithContractorRole', () =>
+  loginAs('contractor', 'contractor.json')
+)
+Cypress.Commands.add('loginWithAgentAndContractorRole', () =>
+  loginAs('agentAndContractor', 'operative.json')
+)
+Cypress.Commands.add('loginWithMultipleContractorRole', () =>
+  loginAs('multipleContractor', 'multipleContractor.json')
+)
+Cypress.Commands.add('loginWithContractManagerRole', () =>
+  loginAs('contractManager', 'user.json')
+)
+Cypress.Commands.add('loginWithAuthorisationManagerRole', () =>
+  loginAs('authorisationManager', 'user.json')
+)
+Cypress.Commands.add('loginWithOperativeRole', () =>
+  loginAs('operative', 'operative.json')
+)
+Cypress.Commands.add('loginWithOneJobAtATimeOperativeRole', () =>
+  loginAs('operative', 'operative-onejob.json')
+)
+Cypress.Commands.add('loginWithAgentAndBudgetCodeOfficerRole', () =>
+  loginAs('agentAndBudgetCodeOfficer', 'user.json')
+)
+Cypress.Commands.add('loginWithDataAdminRole', () =>
+  loginAs('dataAdmin', 'user.json')
+)
+Cypress.Commands.add('loginWithContractAdminRole', () =>
+  loginAs('contractAdmin', 'user.json')
+)
 
+// Signs in with the Cognito test user (see cypress/plugins/cognitoSession.ts)
+// and yields the groups the app read from the real id token
+Cypress.Commands.add('loginWithRealCognito', () => {
   cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
 
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/user.json' }
-  )
-})
+  return cy
+    .task('signRealCognitoSession')
+    .then(
+      ({
+        name,
+        value,
+        groups,
+      }: {
+        name: string
+        value: string
+        groups: string[]
+      }) => {
+        cy.setCookie(name, value)
+        cy.intercept(
+          { method: 'GET', path: '/api/hub-user' },
+          { fixture: 'hubUser/user.json' }
+        )
 
-Cypress.Commands.add('loginWithContractorRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACTOR_ALPHATRACK')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/contractor.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithAgentAndContractorRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_DLO_CONTRACTOR')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/operative.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithMultipleContractorRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_MULTIPLE_CONTRACTOR')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/multipleContractor.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithContractManagerRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACT_MANAGER')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/user.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithAuthorisationManagerRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_AUTHORISATION_MANAGER')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/user.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithOperativeRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_OPERATIVE')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/operative.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithOneJobAtATimeOperativeRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_OPERATIVE')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/operative-onejob.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithAgentAndBudgetCodeOfficerRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_BUDGET_CODE_OFFICER')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/user.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithDataAdminRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_DATA_ADMIN')
-
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/user.json' }
-  )
-})
-
-Cypress.Commands.add('loginWithContractAdminRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACT_ADMIN')
-  cy.getCookies().should('be.empty')
-  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
-  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
-    'have.property',
-    'value',
-    gssoTestKey
-  )
-
-  cy.intercept(
-    { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hubUser/user.json' }
-  )
+        return cy.wrap(groups)
+      }
+    )
 })
 
 Cypress.Commands.add('requestsCountByUrl', (url) =>

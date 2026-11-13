@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import UserContext from '../../UserContext'
 import HeaderLinks from './HeaderLinks'
 import DevelopmentNote from './DevelopmentNote'
 import cx from 'classnames'
 import MobileMenuButton from '../MobileMenuButton'
+import { headerLinksForUser } from '@/utils/headerLinks'
 
 interface Props {
   serviceName: string
@@ -53,6 +55,9 @@ const HeaderComponent = ({
   mobileMenuOpen,
 }: Props) => {
   const { user } = useContext(UserContext)
+  const { pathname } = useRouter()
+
+  const hasLinks = headerLinksForUser(user, pathname).length > 0
 
   return (
     <>
@@ -81,7 +86,7 @@ const HeaderComponent = ({
                 </a>
               </Link>
             </div>
-            {user && (
+            {hasLinks && (
               <>
                 <HeaderLinks />
 

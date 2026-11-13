@@ -83,6 +83,13 @@ jobs:
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
 
+            # Sign out builds a Cognito logout URL from these. The e2e test only checks the
+            # redirect and never follows it, so these are deliberately fake values.
+            # NEXTAUTH_URL must be http (a real localhost URL): https changes the session cookie name.
+            export COGNITO_DOMAIN=https://dummy-cognito-domain.example.com
+            export COGNITO_CLIENT_ID=dummy-client-id-for-e2e-tests
+            export NEXTAUTH_URL=http://localhost:5001
+
             # Split tests and run them in parallel using CircleCI's built in timing-based splitter
             find cypress/e2e -type f -name "*.[jt]s" | sort | uniq > circleci_test_files.txt
             cat circleci_test_files.txt
