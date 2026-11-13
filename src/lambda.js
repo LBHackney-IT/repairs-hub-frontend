@@ -33,6 +33,14 @@ server.use(files(path.join(__dirname, '../build')))
 server.use(files(path.join(__dirname, '../public')))
 
 server.all('*', async (req, res) => {
+  // serverless-http sets `req.body` to the raw body, and Next only parses a
+  // body when `req.body` is empty. next-auth needs the parsed form body (its
+  // CSRF token), so for its routes let Next parse the request stream itself.
+  // Other routes keep the raw body, which they forward as it is.
+  if (req.url.startsWith('/api/auth/')) {
+    delete req.body
+  }
+
   await init()
   return nextRequestHandler(req, res)
 })
