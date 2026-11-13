@@ -47,8 +47,10 @@ export const buildUser = (
   const AGENTS_GOOGLE_GROUPNAME_REGEX =
     process.env.AGENTS_GOOGLE_GROUPNAME_REGEX || ''
 
-  const contractorGroupRegex = new RegExp(CONTRACTORS_GOOGLE_GROUPNAME_REGEX)
-  const agentGroupRegex = new RegExp(AGENTS_GOOGLE_GROUPNAME_REGEX)
+  // An unset regex becomes an empty one, which matches every group, so it has
+  // to grant nothing instead
+  const matchesRegex = (pattern: string, groupName: string) =>
+    pattern !== '' && new RegExp(pattern).test(groupName)
 
   const rolesFromGroups = (groupNames: string[]) => {
     const roles = new Set<string>()
@@ -103,13 +105,10 @@ export const buildUser = (
   }
 
   const isAgentGroupName = (groupName: string) =>
-    !!agentGroupRegex.test(groupName)
+    matchesRegex(AGENTS_GOOGLE_GROUPNAME_REGEX, groupName)
 
-  const isContractorGroupName = (groupName: string) => {
-    const result = contractorGroupRegex.test(groupName)
-
-    return !!result
-  }
+  const isContractorGroupName = (groupName: string) =>
+    matchesRegex(CONTRACTORS_GOOGLE_GROUPNAME_REGEX, groupName)
 
   const isContractManagerGroupName = (groupName: string) =>
     groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME
