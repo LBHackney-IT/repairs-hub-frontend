@@ -1,3 +1,4 @@
+/* eslint jest/expect-expect: ["warn", { "assertFunctionNames": ["expect", "expectOnlyView"] }] */
 import { render, screen } from '@testing-library/react'
 import UserContext from '../UserContext'
 import HomeView from './HomeView'
@@ -21,7 +22,9 @@ jest.mock('@/components/WorkOrders/WorkOrdersView', () => ({
 
 jest.mock('../Search/Search', () => ({
   __esModule: true,
-  default: ({ query }) => <div data-testid="search">{JSON.stringify(query)}</div>,
+  default: ({ query }) => (
+    <div data-testid="search">{JSON.stringify(query)}</div>
+  ),
 }))
 
 jest.mock(
@@ -71,7 +74,7 @@ describe('HomeView component', () => {
     ],
     [
       'a contract manager and contractor',
-      { ...contractManager, hasContractorPermissions: true },
+      Object.assign({}, contractManager, { hasContractorPermissions: true }),
     ],
   ])('when logged in as %s', (_, user) => {
     it('shows the work orders list', () => {
