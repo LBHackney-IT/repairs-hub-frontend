@@ -4,15 +4,18 @@ import { setFilterOptions } from '@/utils/helpers/filter'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { paramsSerializer } from '@/utils/urls'
 import { convertValuesOfObjectToArray } from '@/utils/helpers/array'
+import {
+  buildUrlQuery,
+  buildWorkOrdersParams,
+  removeFilter,
+} from '@/utils/helpers/workOrdersFilters'
 import { formatRequestErrorMessage } from '@/utils/errorHandling/formatErrorMessage'
 
 type Filters = Record<string, any>
 
-export const WORK_ORDERS_MANAGEMENT_PAGE_SIZE = 10
-
 // Saved filter preset in local storage, used as the default filters when the URL has none
-const getDefaultFilters = (): Filters | null =>
-  JSON.parse(localStorage.getItem('RH - default work order filters'))
+const getDefaultFilters = (): Filters =>
+  JSON.parse(localStorage.getItem('RH - default work order filters')) ?? {}
 
 // Must only be called in the browser, as it reads local storage
 export const useWorkOrdersView = (urlQuery: Record<string, any>) => {
@@ -46,27 +49,13 @@ export const useWorkOrdersView = (urlQuery: Record<string, any>) => {
   }
 
   const onFilterRemove = (category: string, indexNumber: number) => {
-    const updatedAppliedFilters = convertValuesOfObjectToArray(queryParams, [
-      'pageNumber',
-      'IncludeHistorical',
-    ])
-    switch (category.toLowerCase()) {
-      case 'contractor':
-        updatedAppliedFilters.ContractorReference.splice(indexNumber, 1)
-        break
-      case 'priority':
-        updatedAppliedFilters.Priorities.splice(indexNumber, 1)
-        break
-      case 'status':
-        updatedAppliedFilters.StatusCode.splice(indexNumber, 1)
-        break
-      case 'trade':
-        updatedAppliedFilters.TradeCodes.splice(indexNumber, 1)
-        break
-    }
+    const updatedAppliedFilters = removeFilter(
+      queryParams,
+      category,
+      indexNumber
+    )
 
     updateUrlQueryParams(updatedAppliedFilters)
-    delete updatedAppliedFilters['pageNumber']
     setAppliedFilters(updatedAppliedFilters)
   }
 
@@ -81,23 +70,7 @@ export const useWorkOrdersView = (urlQuery: Record<string, any>) => {
       const workOrders = await frontEndApiRequest({
         method: 'get',
         path: '/api/workOrders/',
-        params: {
-          PageSize: WORK_ORDERS_MANAGEMENT_PAGE_SIZE,
-          PageNumber: pageNumber,
-          ...(filterOptions.StatusCode && {
-            StatusCode: filterOptions.StatusCode,
-          }),
-          ...(filterOptions.Priorities && {
-            Priorities: filterOptions.Priorities,
-          }),
-          ...(filterOptions.TradeCodes && {
-            TradeCodes: filterOptions.TradeCodes,
-          }),
-          ...(filterOptions.ContractorReference && {
-            ContractorReference: filterOptions.ContractorReference,
-          }),
-          IncludeHistorical: false,
-        },
+        params: buildWorkOrdersParams(filterOptions, pageNumber),
         paramsSerializer,
       })
 
@@ -126,15 +99,7 @@ export const useWorkOrdersView = (urlQuery: Record<string, any>) => {
   const updateUrlQueryParams = (filters: Filters, pageNumber = 1) => {
     router.push({
       pathname: '/',
-      query: {
-        pageNumber: pageNumber,
-        ...(filters?.StatusCode && { StatusCode: filters.StatusCode }),
-        ...(filters?.Priorities && { Priorities: filters.Priorities }),
-        ...(filters?.TradeCodes && { TradeCodes: filters.TradeCodes }),
-        ...(filters?.ContractorReference && {
-          ContractorReference: filters.ContractorReference,
-        }),
-      },
+      query: buildUrlQuery(filters, pageNumber),
     })
   }
 

@@ -6,10 +6,8 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import Meta from '../Meta'
-import {
-  useWorkOrdersView,
-  WORK_ORDERS_MANAGEMENT_PAGE_SIZE,
-} from '@/hooks/useWorkOrdersView'
+import { useWorkOrdersView } from '@/hooks/useWorkOrdersView'
+import { WORK_ORDERS_MANAGEMENT_PAGE_SIZE } from '@/utils/helpers/workOrdersFilters'
 import type { PageProps } from '@/types/page'
 
 const WorkOrdersViewContent = ({ query }: PageProps) => {
