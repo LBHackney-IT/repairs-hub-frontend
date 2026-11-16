@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+// Which page each role lands on. What the pages show is covered by the Jest tests.
 describe('Home page', () => {
   context('When an agent is logged in', () => {
     beforeEach(() => {
@@ -15,272 +16,67 @@ describe('Home page', () => {
     })
   })
 
-  context('When a contractor is logged in', () => {
-    describe('Show all work orders', () => {
-      context(
-        'Displays work order details, reference, date raised, last update, priority, property and description',
-        () => {
-          beforeEach(() => {
-            cy.intercept(
-              { method: 'GET', path: '/api/filter/WorkOrder' },
-              {
-                fixture: 'filter/workOrder.json',
-              }
-            )
-            cy.intercept(
-              {
-                method: 'GET',
-                path:
-                  '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
-              },
-              {
-                fixture: 'workOrders/workOrders.json',
-              }
-            ).as('workOrders')
+  const rolesThatSeeWorkOrders = {
+    contractor: 'loginWithContractorRole',
+    'contract manager': 'loginWithContractManagerRole',
+    'authorisations manager': 'loginWithAuthorisationManagerRole',
+    'agent and contractor': 'loginWithAgentAndContractorRole',
+  }
 
-            cy.loginWithContractorRole()
-            cy.visit('/')
-            cy.wait('@workOrders')
-          })
-
-          it('Displays the first page of repairs', () => {
-            cy.get('.govuk-table').within(() => {
-              cy.contains('th', 'Reference')
-              cy.contains('th', 'Date raised')
-              cy.contains('th', 'Priority')
-              cy.contains('th', 'Property')
-              cy.contains('th', 'Status')
-              cy.contains('th', 'Trade')
-              cy.contains('th', 'Description')
-            })
-            // Check the first row
-            cy.get('[data-ref=10000040]').within(() => {
-              cy.contains('10000040')
-              cy.contains('22 Jan 2021')
-              cy.contains('[E] EMERGENCY')
-              cy.contains('315 Banister House Homerton High Street')
-              cy.contains('In progress')
-              cy.contains('DOOR ENTRY ENGINEER - DE')
-              cy.contains('An emergency repair')
-            })
-          })
-
-          it('does not display next button when work orders are less than 10', () => {
-            cy.get('.page-navigation').within(() => {
-              cy.contains('Next').should('not.exist')
-            })
-          })
-
-          it('does not display previous button', () => {
-            cy.get('.page-navigation').within(() => {
-              cy.contains('Previous').should('not.exist')
-            })
-          })
-        }
-      )
-    })
-  })
-
-  context('When a contract manager is logged in', () => {
-    describe('Show all work orders', () => {
-      context(
-        'Displays work order details, reference, date raised, last update, priority, property and description',
-        () => {
-          beforeEach(() => {
-            cy.intercept(
-              { method: 'GET', path: '/api/filter/WorkOrder' },
-              {
-                fixture: 'filter/workOrder.json',
-              }
-            )
-            cy.intercept(
-              {
-                method: 'GET',
-                path:
-                  '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
-              },
-              {
-                fixture: 'workOrders/workOrders.json',
-              }
-            ).as('workOrders')
-
-            cy.loginWithContractManagerRole()
-            cy.visit('/')
-            cy.wait('@workOrders')
-          })
-
-          it('Displays the first page of repairs', () => {
-            cy.get('.govuk-table').within(() => {
-              cy.contains('th', 'Reference')
-              cy.contains('th', 'Date raised')
-              cy.contains('th', 'Priority')
-              cy.contains('th', 'Property')
-              cy.contains('th', 'Status')
-              cy.contains('th', 'Trade')
-              cy.contains('th', 'Description')
-            })
-            // Check the first row
-            cy.get('[data-ref=10000040]').within(() => {
-              cy.contains('10000040')
-              cy.contains('22 Jan 2021')
-              cy.contains('[E] EMERGENCY')
-              cy.contains('315 Banister House Homerton High Street')
-              cy.contains('In progress')
-              cy.contains('DOOR ENTRY ENGINEER - DE')
-              cy.contains('An emergency repair')
-            })
-          })
-
-          it('does not display next button when work orders are less than 10', () => {
-            cy.get('.page-navigation').within(() => {
-              cy.contains('Next').should('not.exist')
-            })
-          })
-
-          it('does not display previous button', () => {
-            cy.get('.page-navigation').within(() => {
-              cy.contains('Previous').should('not.exist')
-            })
-          })
-        }
-      )
-    })
-  })
-
-  context('When an authorisations manager is logged in', () => {
-    describe('Show all work orders', () => {
-      context(
-        'Displays work order details, reference, date raised, last update, priority, property and description',
-        () => {
-          beforeEach(() => {
-            cy.intercept(
-              { method: 'GET', path: '/api/filter/WorkOrder' },
-              {
-                fixture: 'filter/workOrder.json',
-              }
-            )
-            cy.intercept(
-              {
-                method: 'GET',
-                path:
-                  '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
-              },
-              {
-                fixture: 'workOrders/workOrders.json',
-              }
-            ).as('workOrders')
-
-            cy.loginWithAuthorisationManagerRole()
-            cy.visit('/')
-            cy.wait('@workOrders')
-          })
-
-          it('Displays the first page of repairs', () => {
-            cy.get('.govuk-table').within(() => {
-              cy.contains('th', 'Reference')
-              cy.contains('th', 'Date raised')
-              cy.contains('th', 'Priority')
-              cy.contains('th', 'Property')
-              cy.contains('th', 'Status')
-              cy.contains('th', 'Trade')
-              cy.contains('th', 'Description')
-            })
-
-            // Check the first row
-            cy.get('[data-ref=10000040]').within(() => {
-              cy.contains('10000040')
-              cy.contains('22 Jan 2021')
-              cy.contains('[E] EMERGENCY')
-              cy.contains('315 Banister House Homerton High Street')
-              cy.contains('In progress')
-              cy.contains('DOOR ENTRY ENGINEER - DE')
-              cy.contains('An emergency repair')
-            })
-          })
-
-          it('does not display next button when work orders are less than 10', () => {
-            cy.get('.page-navigation').within(() => {
-              cy.contains('Next').should('not.exist')
-            })
-          })
-
-          it('does not display previous button', () => {
-            cy.get('.page-navigation').within(() => {
-              cy.contains('Previous').should('not.exist')
-            })
-          })
-        }
-      )
-    })
-  })
-
-  context(
-    'When a user with both agent and contractor role is logged in',
-    () => {
-      describe('Show all work orders', () => {
-        context(
-          'Displays work order details, reference, date raised, last update, priority, property and description',
-          () => {
-            //Stub request with work orders response
-            beforeEach(() => {
-              cy.intercept(
-                { method: 'GET', path: '/api/filter/WorkOrder' },
-                {
-                  fixture: 'filter/workOrder.json',
-                }
-              )
-              cy.intercept(
-                {
-                  method: 'GET',
-                  path:
-                    '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
-                },
-                {
-                  fixture: 'workOrders/workOrders.json',
-                }
-              ).as('workOrders')
-
-              cy.loginWithAgentAndContractorRole()
-              cy.visit('/')
-              cy.wait('@workOrders')
-            })
-
-            it('Displays the first page of repairs', () => {
-              cy.get('.govuk-table').within(() => {
-                cy.contains('th', 'Reference')
-                cy.contains('th', 'Date raised')
-                cy.contains('th', 'Priority')
-                cy.contains('th', 'Property')
-                cy.contains('th', 'Status')
-                cy.contains('th', 'Trade')
-                cy.contains('th', 'Description')
-              })
-              // Check the first row
-              cy.get('[data-ref=10000040]').within(() => {
-                cy.contains('10000040')
-                cy.contains('22 Jan 2021')
-                cy.contains('[E] EMERGENCY')
-                cy.contains('315 Banister House Homerton High Street')
-                cy.contains('In progress')
-                cy.contains('DOOR ENTRY ENGINEER - DE')
-                cy.contains('An emergency repair')
-              })
-            })
-
-            it('does not display next button when work orders are less than 10', () => {
-              cy.get('.page-navigation').within(() => {
-                cy.contains('Next').should('not.exist')
-              })
-            })
-
-            it('does not display previous button', () => {
-              cy.get('.page-navigation').within(() => {
-                cy.contains('Previous').should('not.exist')
-              })
-            })
-          }
+  Object.entries(rolesThatSeeWorkOrders).forEach(([role, login]) => {
+    context(`When a ${role} is logged in`, () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/filter/WorkOrder' },
+          { fixture: 'filter/workOrder.json' }
         )
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
+          },
+          { fixture: 'workOrders/workOrders.json' }
+        ).as('workOrders')
+
+        cy[login]()
+        cy.visit('/')
+        cy.wait('@workOrders')
       })
-    }
-  )
+
+      it('Shows the list of work orders', () => {
+        cy.get('.lbh-heading-h1').contains('Manage work orders')
+        cy.get('.govuk-table').within(() => {
+          cy.contains('th', 'Reference')
+          cy.get('[data-ref=10000040]').contains('10000040')
+        })
+      })
+    })
+  })
+
+  const operativeRoles = {
+    operative: 'loginWithOperativeRole',
+    'one job at a time operative': 'loginWithOneJobAtATimeOperativeRole',
+  }
+
+  Object.entries(operativeRoles).forEach(([role, login]) => {
+    context(`When an ${role} is logged in`, () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/operatives/hu0001/appointments' },
+          { body: [] }
+        ).as('appointments')
+
+        cy[login]()
+        cy.visit('/')
+        cy.wait('@appointments')
+      })
+
+      it('Shows their work orders instead of the work orders list or search', () => {
+        cy.get('.warning-info-box').contains('No work orders displayed')
+        cy.contains('Manage work orders').should('not.exist')
+        cy.contains('Search').should('not.exist')
+      })
+    })
+  })
 })
