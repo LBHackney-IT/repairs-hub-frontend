@@ -1,5 +1,3 @@
-import { OPERATIVE_ROLE } from './user'
-
 export const canSeeAllFilters = (user) => {
   return (
     !user.hasContractorPermissions ||
@@ -72,12 +70,6 @@ export const canSeeWorkOrder = (user) => {
     user.hasContractManagerPermissions ||
     user.hasAuthorisationManagerPermissions
   )
-}
-
-export const canAttendOwnWorkOrder = (user) => {
-  return user
-    ? user.roles.length === 1 && user.roles[0] === OPERATIVE_ROLE
-    : false
 }
 
 export const canAssignBudgetCode = (user) =>
