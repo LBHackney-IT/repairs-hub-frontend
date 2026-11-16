@@ -70,23 +70,6 @@ export const fetchSimpleFeatureToggles: () => Promise<SimpleFeatureToggleRespons
   return featureToggleData
 }
 
-export const fetchFeatureToggles = async () => {
-  try {
-    const configurationData = await frontEndApiRequest({
-      method: 'GET',
-      path: '/api/toggles',
-    })
-
-    return configurationData?.[0]?.featureToggles || {}
-  } catch (e) {
-    console.error(
-      `Error fetching toggles from configuration API: ${JSON.stringify(e)}`
-    )
-
-    return {}
-  }
-}
-
 export const createSorExistenceValidator = (
   tradeCode,
   propertyRef,

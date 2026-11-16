@@ -88,7 +88,7 @@ describe('Global navigation links', () => {
 
       cy.get('#signout')
         .contains('Sign out')
-        .should('have.attr', 'href', '/logout')
+        .should('have.attr', 'href', '/api/logout')
     })
   })
 })

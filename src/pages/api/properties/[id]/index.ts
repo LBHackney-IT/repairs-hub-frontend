@@ -6,7 +6,7 @@ import {
 import { PropertyTenureResponse } from '@/root/src/models/propertyTenure'
 
 export default authoriseServiceAPIRequest(async (req, res, user) => {
-  req.query = { path: ['properties', req.query.id] }
+  req.query = { path: ['properties', req.query.id as string] }
 
   try {
     const data: PropertyTenureResponse = await serviceAPIRequest(req)
