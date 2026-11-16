@@ -17,6 +17,19 @@ describe('pickFilters', () => {
     expect(pickFilters(filters)).toEqual(filters)
   })
 
+  it('keeps the filters in a fixed order, whatever order they were given in', () => {
+    expect(
+      Object.keys(
+        pickFilters({
+          ContractorReference: ['PUR'],
+          TradeCodes: ['EL'],
+          Priorities: ['1'],
+          StatusCode: ['80'],
+        })
+      )
+    ).toEqual(['StatusCode', 'Priorities', 'TradeCodes', 'ContractorReference'])
+  })
+
   it('drops values that are not filters', () => {
     expect(
       pickFilters({

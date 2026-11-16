@@ -9,7 +9,14 @@ const FILTER_KEY_BY_CATEGORY: Record<string, string> = {
   trade: 'TradeCodes',
 }
 
-const FILTER_KEYS = Object.values(FILTER_KEY_BY_CATEGORY)
+// The order the filters appear in URLs and API requests. Keep it stable, as
+// e2e stubs and any caching match on the exact query string
+const FILTER_KEYS = [
+  'StatusCode',
+  'Priorities',
+  'TradeCodes',
+  'ContractorReference',
+]
 
 // Keeps only the filter values, dropping anything else (pageNumber etc.)
 export const pickFilters = (filters: Filters = {}): Filters =>
