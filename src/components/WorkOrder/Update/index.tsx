@@ -89,10 +89,7 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
       await frontEndApiRequest({
         method: 'post',
         path: `/api/jobStatusUpdate`,
-        requestData: {
-          ...formData,
-          variationVersion: workOrder?.variationVersion,
-        },
+        requestData: formData,
       })
       setOverSpendLimit(overSpendLimit)
       setShowUpdateSuccess(true)

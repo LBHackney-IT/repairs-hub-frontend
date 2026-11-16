@@ -46,8 +46,6 @@ export class WorkOrder {
   canAssignOperative: boolean
   isSplit: boolean
 
-  variationVersion: string
-
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
   }
