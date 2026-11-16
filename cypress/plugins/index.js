@@ -35,8 +35,5 @@ module.exports = (on, config) => {
 
   config = dotenvFlowPlugin(config)
 
-  // Assign some vars so we can access them via Cypress.env
-  config.env.GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME
-
   return config
 }
