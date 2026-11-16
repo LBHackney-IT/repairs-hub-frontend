@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('Filter work orders', () => {
   beforeEach(() => {
     cy.intercept(

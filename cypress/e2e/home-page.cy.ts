@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 // Which page each role lands on. What the pages show is covered by the Jest tests.
 describe('Home page', () => {
   context('When an agent is logged in', () => {
@@ -16,11 +14,14 @@ describe('Home page', () => {
     })
   })
 
-  const rolesThatSeeWorkOrders = {
-    contractor: 'loginWithContractorRole',
-    'contract manager': 'loginWithContractManagerRole',
-    'authorisations manager': 'loginWithAuthorisationManagerRole',
-    'agent and contractor': 'loginWithAgentAndContractorRole',
+  const rolesThatSeeWorkOrders: Record<
+    string,
+    () => Cypress.Chainable<void>
+  > = {
+    contractor: () => cy.loginWithContractorRole(),
+    'contract manager': () => cy.loginWithContractManagerRole(),
+    'authorisations manager': () => cy.loginWithAuthorisationManagerRole(),
+    'agent and contractor': () => cy.loginWithAgentAndContractorRole(),
   }
 
   Object.entries(rolesThatSeeWorkOrders).forEach(([role, login]) => {
@@ -39,7 +40,7 @@ describe('Home page', () => {
           { fixture: 'workOrders/workOrders.json' }
         ).as('workOrders')
 
-        cy[login]()
+        login()
         cy.visit('/')
         cy.wait('@workOrders')
       })
@@ -54,9 +55,10 @@ describe('Home page', () => {
     })
   })
 
-  const operativeRoles = {
-    operative: 'loginWithOperativeRole',
-    'one job at a time operative': 'loginWithOneJobAtATimeOperativeRole',
+  const operativeRoles: Record<string, () => Cypress.Chainable<void>> = {
+    operative: () => cy.loginWithOperativeRole(),
+    'one job at a time operative': () =>
+      cy.loginWithOneJobAtATimeOperativeRole(),
   }
 
   Object.entries(operativeRoles).forEach(([role, login]) => {
@@ -67,7 +69,7 @@ describe('Home page', () => {
           { body: [] }
         ).as('appointments')
 
-        cy[login]()
+        login()
         cy.visit('/')
         cy.wait('@appointments')
       })

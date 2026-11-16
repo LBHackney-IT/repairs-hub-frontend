@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 const operativeId = 'hu0001'
 context('When an operative is logged in', () => {
   beforeEach(() => {
