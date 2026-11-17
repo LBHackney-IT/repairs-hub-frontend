@@ -126,7 +126,6 @@ const SORContracts = () => {
   const renderConfirmationModal = () => {
     if (showDialog) {
       return (
-        // @ts-expect-error Props validation
         <ConfirmationModal
           title={'Modify SOR contracts?'}
           showDialog

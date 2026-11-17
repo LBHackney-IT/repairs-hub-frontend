@@ -1,7 +1,20 @@
-import PropTypes from 'prop-types'
+import { Dispatch, SetStateAction } from 'react'
 import TruncateText from '../Layout/TruncateText'
 
-const Alerts = ({ alerts, setIsExpanded, isExpanded }) => {
+interface Props {
+  alerts: {
+    comments: string
+    type: string
+    reason?: string
+    startDate?: string
+    endDate?: string
+    alertId?: string
+  }[]
+  setIsExpanded?: Dispatch<SetStateAction<boolean>>
+  isExpanded?: boolean
+}
+
+const Alerts = ({ alerts, setIsExpanded, isExpanded }: Props) => {
   return (
     <>
       {alerts.map((alert, index) => {
@@ -33,20 +46,6 @@ const Alerts = ({ alerts, setIsExpanded, isExpanded }) => {
       })}
     </>
   )
-}
-
-Alerts.propTypes = {
-  alerts: PropTypes.arrayOf(
-    PropTypes.shape({
-      comments: PropTypes.string,
-      reason: PropTypes.string,
-      startDate: PropTypes.string,
-      endDate: PropTypes.string,
-      alertId: PropTypes.string,
-    })
-  ).isRequired,
-  setIsExpanded: PropTypes.func,
-  isExpanded: PropTypes.bool,
 }
 
 export default Alerts

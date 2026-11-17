@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import PropTypes from 'prop-types'
 import Link from 'next/link'
 import UserContext from '../../UserContext'
 import Status from '../../WorkOrder/Status'
@@ -8,13 +7,21 @@ import { extractTimeFromDate } from '@/utils/time'
 import { TR, TD } from '../../Layout/Table'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
 
+interface Props {
+  reference: number | string
+  dateRaised: Date | string
+  tradeDescription: string
+  description: string
+  status: string
+}
+
 const WorkOrdersHistoryRow = ({
   reference,
   dateRaised,
   tradeDescription,
   description,
   status,
-}) => {
+}: Props) => {
   const { user } = useContext(UserContext)
 
   return (
@@ -48,14 +55,6 @@ const WorkOrdersHistoryRow = ({
       <TD className="description">{description}</TD>
     </TR>
   )
-}
-
-WorkOrdersHistoryRow.propTypes = {
-  reference: PropTypes.number.isRequired,
-  dateRaised: PropTypes.instanceOf(Date).isRequired,
-  tradeDescription: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
 }
 
 export default WorkOrdersHistoryRow

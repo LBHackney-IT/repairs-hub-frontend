@@ -1,8 +1,11 @@
-import PropTypes from 'prop-types'
-import ContactsRow from './ContactsRow'
+import ContactsRow, { Contact } from './ContactsRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 
-const ContactsTable = ({ contacts }) => {
+interface Props {
+  contacts: Contact[]
+}
+
+const ContactsTable = ({ contacts }: Props) => {
   if (!contacts.length) {
     return (
       <p className="govuk-body-s" style={{ marginTop: '15px' }}>
@@ -28,10 +31,6 @@ const ContactsTable = ({ contacts }) => {
       </TBody>
     </Table>
   )
-}
-
-ContactsTable.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default ContactsTable

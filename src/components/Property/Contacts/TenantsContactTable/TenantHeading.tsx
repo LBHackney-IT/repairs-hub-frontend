@@ -1,4 +1,9 @@
-const TenantHeading = ({ fullName, personId }) => {
+interface Props {
+  fullName: string
+  personId: string
+}
+
+const TenantHeading = ({ fullName, personId }: Props) => {
   const MMH_FRONTEND_URL = process.env.NEXT_PUBLIC_MMH_FRONTEND_URL
   const editPageUrl = `${MMH_FRONTEND_URL}person/${personId}/edit-contact-details`
 

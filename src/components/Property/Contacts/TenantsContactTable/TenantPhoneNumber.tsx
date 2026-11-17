@@ -1,10 +1,17 @@
 import { useState } from 'react'
+import { PhoneNumber, Tenant } from './TenantContact'
 import RemoveContactModal from './modals/RemoveContactModal'
 import SetAsMainModal from './modals/SetAsMainModal'
 import classNames from 'classnames'
 import { formatCamelCaseStringIntoTitleCase } from '../../../../utils/helpers/formatCamelCaseStringIntoTitleCase'
 
-const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
+interface Props {
+  phoneNumber: PhoneNumber
+  tenant: Tenant
+  reloadContacts: () => void
+}
+
+const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }: Props) => {
   const [showRemoveModal, setShowRemoveModal] = useState(false)
   const [showMainContactModal, setShowMainContactModal] = useState(false)
 

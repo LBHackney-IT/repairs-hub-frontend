@@ -1,10 +1,12 @@
 import { TR, TD } from '../../Layout/Table'
 
+export interface Contact {
+  fullName?: string
+  phoneNumbers: { value?: string }[]
+}
+
 interface Props {
-  contact: {
-    fullName?: string
-    phoneNumbers: { value?: string }[]
-  }
+  contact: Contact
 }
 
 const Row = ({ contact }: Props) => {

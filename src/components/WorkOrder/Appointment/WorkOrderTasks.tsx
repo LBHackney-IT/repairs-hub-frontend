@@ -1,8 +1,12 @@
-import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../../Layout/Grid'
+import { WorkOrderTasks as WorkOrderTask } from '../../../models/workOrderTasks'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 
-const WorkOrderTasks = ({ tasks }) => {
+interface Props {
+  tasks: WorkOrderTask[]
+}
+
+const WorkOrderTasks = ({ tasks }: Props) => {
   return (
     <GridRow className="lbh-body-s">
       <GridColumn width="full">
@@ -39,10 +43,6 @@ const WorkOrderTasks = ({ tasks }) => {
       </GridColumn>
     </GridRow>
   )
-}
-
-WorkOrderTasks.propTypes = {
-  tasks: PropTypes.array.isRequired,
 }
 
 export default WorkOrderTasks

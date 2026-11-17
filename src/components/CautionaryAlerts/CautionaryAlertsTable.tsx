@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types'
 import { Table, THead, TBody, TR, TH, TD } from '../Layout/Table'
 
-const CautionaryAlertsTable = ({ cautionaryAlerts, query }) => {
+interface Props {
+  cautionaryAlerts: { code: string; description: string }[]
+  query?: string | string[]
+}
+
+const CautionaryAlertsTable = ({ cautionaryAlerts, query }: Props) => {
   return (
     <>
       <Table>
@@ -35,16 +39,6 @@ const CautionaryAlertsTable = ({ cautionaryAlerts, query }) => {
       </Table>
     </>
   )
-}
-
-CautionaryAlertsTable.propTypes = {
-  cautionaryAlerts: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  query: PropTypes.array,
 }
 
 export default CautionaryAlertsTable

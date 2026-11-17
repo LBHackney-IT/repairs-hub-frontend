@@ -236,7 +236,6 @@ const AddSORCodes = () => {
   const renderConfirmationModal = () => {
     if (showDialog) {
       return (
-        // @ts-expect-error Props validation
         <ConfirmationModal
           title={'Add new SOR codes?'}
           showDialog

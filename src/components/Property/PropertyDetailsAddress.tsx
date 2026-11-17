@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
 import Link from 'next/link'
+import { Address as AddressModel } from '../../models/propertyTenure'
 
-const Address = ({ address }) => {
+const Address = ({ address }: { address: AddressModel }) => {
   return (
     <div className="lbh-!-font-weight-bold">
       {address.addressLine}
@@ -17,12 +17,19 @@ const Address = ({ address }) => {
   )
 }
 
+interface Props {
+  address: AddressModel
+  propertyReference: string
+  subTypeDescription: string
+  hasLinkToProperty: boolean
+}
+
 const PropertyDetailsAddress = ({
   address,
   propertyReference,
   subTypeDescription,
   hasLinkToProperty,
-}) => {
+}: Props) => {
   return (
     <div className="property-details-main-section">
       <span className="govuk-!-font-size-16 govuk-!-margin-bottom-1">
@@ -40,13 +47,6 @@ const PropertyDetailsAddress = ({
       )}
     </div>
   )
-}
-
-PropertyDetailsAddress.propTypes = {
-  address: PropTypes.object.isRequired,
-  propertyReference: PropTypes.string.isRequired,
-  subTypeDescription: PropTypes.string.isRequired,
-  hasLinkToProperty: PropTypes.bool.isRequired,
 }
 
 export default PropertyDetailsAddress

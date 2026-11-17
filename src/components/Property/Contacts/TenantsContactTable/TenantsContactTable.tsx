@@ -1,6 +1,11 @@
-import TenanctContact from './TenantContact'
+import TenanctContact, { Tenant } from './TenantContact'
 
-const TenantContactsTable = ({ tenants, reloadContacts }) => {
+interface Props {
+  tenants: Tenant[]
+  reloadContacts: () => void
+}
+
+const TenantContactsTable = ({ tenants, reloadContacts }: Props) => {
   if (!tenants.length) {
     return (
       <p className="govuk-body-s" style={{ marginTop: '15px' }}>

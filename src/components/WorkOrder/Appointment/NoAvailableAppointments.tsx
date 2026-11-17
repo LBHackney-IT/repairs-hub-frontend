@@ -1,7 +1,10 @@
-import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-const NoAvailableAppointments = ({ workOrderReference }) => {
+interface Props {
+  workOrderReference: string
+}
+
+const NoAvailableAppointments = ({ workOrderReference }: Props) => {
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-full">
@@ -26,10 +29,6 @@ const NoAvailableAppointments = ({ workOrderReference }) => {
       </div>
     </div>
   )
-}
-
-NoAvailableAppointments.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
 }
 
 export default NoAvailableAppointments

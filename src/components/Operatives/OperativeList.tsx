@@ -1,13 +1,20 @@
-import PropTypes from 'prop-types'
 import Link from 'next/link'
+import { Operative } from '../../models/operativeModel'
 import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
+
+interface Props {
+  operatives: Operative[]
+  currentUserPayrollNumber: string
+  workOrderReference: string
+  readOnly: boolean
+}
 
 const OperativeList = ({
   operatives,
   currentUserPayrollNumber,
   workOrderReference,
   readOnly,
-}) => {
+}: Props) => {
   return (
     <>
       <h4 className="lbh-heading-h4">Operatives</h4>
@@ -39,7 +46,13 @@ const OperativeList = ({
     </>
   )
 }
-const OperativeListLinkItem = ({ workOrderReference, operativeDisplay }) => (
+const OperativeListLinkItem = ({
+  workOrderReference,
+  operativeDisplay,
+}: {
+  workOrderReference: string
+  operativeDisplay: string
+}) => (
   <li>
     <Link
       href={`/work-orders/${workOrderReference}/operatives/edit`}
@@ -50,11 +63,10 @@ const OperativeListLinkItem = ({ workOrderReference, operativeDisplay }) => (
   </li>
 )
 
-const OperativeListItem = ({ operativeDisplay }) => <li>{operativeDisplay}</li>
-
-OperativeList.propTypes = {
-  operatives: PropTypes.array,
-  readOnly: PropTypes.bool.isRequired,
-}
+const OperativeListItem = ({
+  operativeDisplay,
+}: {
+  operativeDisplay: string
+}) => <li>{operativeDisplay}</li>
 
 export default OperativeList

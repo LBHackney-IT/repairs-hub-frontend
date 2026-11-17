@@ -104,7 +104,6 @@ const CloseWorkOrders = () => {
   const renderConfirmationModal = () => {
     if (showDialog) {
       return (
-        // @ts-expect-error Props validation
         <ConfirmationModal
           title={'Permanently close work orders?'}
           showDialog

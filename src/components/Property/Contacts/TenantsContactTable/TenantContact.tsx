@@ -2,7 +2,24 @@ import { useMemo } from 'react'
 import TenantHeading from './TenantHeading'
 import TenantPhoneNumber from './TenantPhoneNumber'
 
-const TenanctContact = ({ tenant, reloadContacts }) => {
+export interface PhoneNumber {
+  subType: string
+  value: string
+  description?: string
+}
+
+export interface Tenant {
+  fullName: string
+  personId: string
+  phoneNumbers: PhoneNumber[]
+}
+
+interface Props {
+  tenant: Tenant
+  reloadContacts: () => void
+}
+
+const TenanctContact = ({ tenant, reloadContacts }: Props) => {
   const { phoneNumbers } = tenant
 
   const sortedPhoneNumbers = useMemo(

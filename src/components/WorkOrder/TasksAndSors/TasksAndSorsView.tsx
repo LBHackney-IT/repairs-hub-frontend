@@ -1,9 +1,15 @@
-import PropTypes from 'prop-types'
+import { WorkOrderTasks } from '../../../models/workOrderTasks'
 import TasksAndSorsTable from './TasksAndSorsTable'
 import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
 
-const TasksAndSorsView = ({ tabName, tasksAndSors, budgetCode }) => {
+interface Props {
+  tabName: string
+  tasksAndSors: WorkOrderTasks[]
+  budgetCode?: any
+}
+
+const TasksAndSorsView = ({ tabName, tasksAndSors, budgetCode }: Props) => {
   const originalTasksAndSors = tasksAndSors.filter((t) => t.original)
 
   return (
@@ -27,10 +33,6 @@ const TasksAndSorsView = ({ tabName, tasksAndSors, budgetCode }) => {
       />
     )
   )
-}
-
-TasksAndSorsView.propTypes = {
-  tabName: PropTypes.string.isRequired,
 }
 
 export default TasksAndSorsView

@@ -1,5 +1,18 @@
+import { ReactNode, MouseEventHandler } from 'react'
 import { Dialog } from '@reach/dialog'
 import Spinner from '../Spinner'
+
+interface Props {
+  title: string
+  showDialog: boolean
+  setShowDialog: (show: boolean) => void
+  modalText?: ReactNode
+  onSubmit: MouseEventHandler<HTMLButtonElement>
+  yesButtonText?: string
+  noButtonText?: string
+  isLoading?: boolean
+  modalError?: string | null
+}
 
 const ConfirmationModal = ({
   title,
@@ -11,7 +24,7 @@ const ConfirmationModal = ({
   noButtonText = 'Cancel',
   isLoading = false,
   modalError,
-}) => {
+}: Props) => {
   return (
     <Dialog
       isOpen={showDialog}

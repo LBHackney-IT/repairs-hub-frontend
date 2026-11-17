@@ -1,9 +1,12 @@
-import PropTypes from 'prop-types'
 import { usePropertyBoilerHouse } from '../../../hooks/usePropertyBoilerHouse'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
-const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
+interface Props {
+  boilerHouseId: string
+}
+
+const PropertyBoilerHouseDetails = ({ boilerHouseId }: Props) => {
   const { loading, boilerHouse, boilerHouseError } = usePropertyBoilerHouse(
     boilerHouseId
   )
@@ -27,10 +30,6 @@ const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
       </a>
     </li>
   )
-}
-
-PropertyBoilerHouseDetails.propTypes = {
-  boilerHouseId: PropTypes.string.isRequired,
 }
 
 export default PropertyBoilerHouseDetails

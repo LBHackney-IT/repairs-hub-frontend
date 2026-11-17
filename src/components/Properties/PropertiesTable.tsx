@@ -1,8 +1,16 @@
-import PropTypes from 'prop-types'
 import PropertyRow from '../Property/PropertyRow'
 import { Table, THead, TBody, TR, TH } from '../Layout/Table'
 
-const PropertiesTable = ({ properties }) => (
+interface Props {
+  properties: {
+    propertyReference: string
+    address: string
+    postalCode: string
+    propertyType: string
+  }[]
+}
+
+const PropertiesTable = ({ properties }: Props) => (
   <div>
     <Table className="govuk-!-margin-top-5">
       <THead>
@@ -21,16 +29,5 @@ const PropertiesTable = ({ properties }) => (
     </Table>
   </div>
 )
-
-PropertiesTable.propTypes = {
-  properties: PropTypes.arrayOf(
-    PropTypes.shape({
-      propertyReference: PropTypes.string.isRequired,
-      address: PropTypes.string.isRequired,
-      postalCode: PropTypes.string.isRequired,
-      propertyType: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-}
 
 export default PropertiesTable
