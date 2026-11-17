@@ -1,5 +1,12 @@
-import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
+
+interface Props {
+  heading: string
+  children: ReactNode
+  contentMargin?: string
+  collapsableDivClassName?: string
+  startClosed?: boolean
+}
 
 const Collapsible = ({
   heading,
@@ -7,7 +14,7 @@ const Collapsible = ({
   contentMargin,
   collapsableDivClassName,
   startClosed,
-}) => {
+}: Props) => {
   const [open, setOpen] = useState(!startClosed)
 
   return (
@@ -30,14 +37,6 @@ const Collapsible = ({
       </div>
     </section>
   )
-}
-
-Collapsible.propTypes = {
-  heading: PropTypes.string.isRequired,
-  children: PropTypes.object.isRequired,
-  contentMargin: PropTypes.string,
-  collapsableDivClassName: PropTypes.string,
-  onTasksAndSorsTab: PropTypes.bool,
 }
 
 export default Collapsible

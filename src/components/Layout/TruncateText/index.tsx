@@ -1,6 +1,20 @@
-import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { useCallback, useState } from 'react'
+import {
+  Dispatch,
+  MouseEvent,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react'
+
+interface Props {
+  text: string
+  numberOfLines: string
+  pTagClassName?: string
+  linkClassName?: string
+  setIsExpanded: Dispatch<SetStateAction<boolean>>
+  isExpanded: boolean
+}
 
 const TruncateText = ({
   text,
@@ -9,26 +23,26 @@ const TruncateText = ({
   linkClassName,
   setIsExpanded,
   isExpanded,
-}) => {
+}: Props) => {
   const [textOverflow, setTextOverflow] = useState(false)
 
-  const onShowMoreClick = (e) => {
+  const onShowMoreClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     setIsExpanded(true)
   }
 
-  const onShowLessClick = (e) => {
+  const onShowLessClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     setIsExpanded(false)
   }
 
-  const pRef = useCallback((node) => {
+  const pRef = (node: HTMLParagraphElement | null) => {
     if (node != null) {
       if (node.scrollHeight > node.clientHeight + 1) {
         setTextOverflow(true)
       }
     }
-  })
+  }
 
   return (
     <>
@@ -66,15 +80,6 @@ const TruncateText = ({
       )}
     </>
   )
-}
-
-TruncateText.propTypes = {
-  text: PropTypes.string.isRequired,
-  numberOfLines: PropTypes.string.isRequired,
-  pTagClassName: PropTypes.string,
-  linkClassName: PropTypes.string,
-  setIsExpanded: PropTypes.func,
-  isExpanded: PropTypes.bool,
 }
 
 export default TruncateText
