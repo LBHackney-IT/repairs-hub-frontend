@@ -1,13 +1,19 @@
-import PropTypes from 'prop-types'
 import Link from 'next/link'
 import { TR, TD } from '../Layout/Table'
+
+interface Props {
+  propertyReference: string
+  address: string
+  postalCode: string
+  propertyType: string
+}
 
 const PropertyRow = ({
   propertyReference,
   address,
   postalCode,
   propertyType,
-}) => (
+}: Props) => (
   <TR className="govuk-table__row--clickable lbh-body-s">
     <TD>
       <Link href={`/properties/${propertyReference}`} legacyBehavior>
@@ -19,12 +25,5 @@ const PropertyRow = ({
     <TD>{propertyReference}</TD>
   </TR>
 )
-
-PropertyRow.propTypes = {
-  propertyReference: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  postalCode: PropTypes.string.isRequired,
-  propertyType: PropTypes.string.isRequired,
-}
 
 export default PropertyRow
