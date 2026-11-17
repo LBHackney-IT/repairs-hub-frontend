@@ -1,6 +1,11 @@
+import { MouseEventHandler } from 'react'
 import Router from 'next/router'
 
-const BackButton = ({ onClick = null }) => (
+interface Props {
+  onClick?: MouseEventHandler<HTMLAnchorElement> | null
+}
+
+const BackButton = ({ onClick = null }: Props) => (
   <a
     className="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
