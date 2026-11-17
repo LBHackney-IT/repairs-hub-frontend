@@ -257,7 +257,6 @@ const SORContracts = () => {
 
               {selectedOption === 'Add' && (
                 <div>
-                  {/* @ts-expect-error Props validation */}
                   <DataList
                     name="contractor"
                     label="Contractor"
@@ -271,7 +270,6 @@ const SORContracts = () => {
                     <Spinner />
                   ) : (
                     <div>
-                      {/* @ts-expect-error Props validation */}
                       <DataList
                         name="contract"
                         label="Contract"

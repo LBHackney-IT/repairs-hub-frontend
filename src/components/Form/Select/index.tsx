@@ -1,6 +1,27 @@
-import PropTypes from 'prop-types'
+import { ReactNode, ChangeEvent } from 'react'
+import { FieldError } from 'react-hook-form'
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
+
+type SelectOption = string | { value: string; text: string }
+
+interface Props {
+  label: string
+  name: string
+  options: SelectOption[]
+  children?: ReactNode
+  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void
+  required?: boolean
+  isUnselectable?: boolean
+  ignoreValue?: boolean
+  defaultValue?: string
+  value?: string
+  error?: FieldError | { message?: string }
+  disabled?: boolean
+  register?: any
+  widthClass?: string
+  hint?: string
+}
 
 const Select = ({
   label,
@@ -18,7 +39,7 @@ const Select = ({
   register,
   widthClass,
   required,
-}) => (
+}: Props) => (
   <div
     id={`${name}-form-group`}
     className={cx('govuk-form-group lbh-form-group', {
@@ -62,34 +83,5 @@ const Select = ({
     </select>
   </div>
 )
-
-Select.propTypes = {
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({
-        value: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-      }),
-    ])
-  ).isRequired,
-  selected: PropTypes.string,
-  children: PropTypes.node,
-  onChange: PropTypes.func,
-  required: PropTypes.bool,
-  isUnselectable: PropTypes.bool,
-  ignoreValue: PropTypes.bool,
-  defaultValue: PropTypes.string,
-  value: PropTypes.string,
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }).isRequired,
-  disabled: PropTypes.bool,
-  register: PropTypes.func,
-  widthClass: PropTypes.string,
-  hint: PropTypes.string,
-}
 
 export default Select

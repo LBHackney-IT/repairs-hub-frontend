@@ -1,5 +1,22 @@
+import { ReactNode } from 'react'
+import { FieldError } from 'react-hook-form'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
+
+interface Props {
+  label: ReactNode
+  name: string
+  register?: any
+  error?: FieldError | { message?: string }
+  checked?: boolean
+  className?: string
+  hidden?: boolean
+  labelClassName?: string
+  hintText?: string
+  children?: ReactNode
+  showChildren?: boolean
+  size?: string
+  [key: string]: any
+}
 
 const CheckboxSmall = ({
   label,
@@ -15,7 +32,7 @@ const CheckboxSmall = ({
   showChildren,
   size = 'LARGE',
   ...otherProps
-}) => (
+}: Props) => (
   <div
     className="govuk-checkboxes--small"
     style={{
@@ -69,14 +86,5 @@ const CheckboxSmall = ({
     </div>
   </div>
 )
-
-CheckboxSmall.propTypes = {
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
-  name: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
-  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
-  labelClassName: PropTypes.string,
-  hintText: PropTypes.string,
-}
 
 export default CheckboxSmall

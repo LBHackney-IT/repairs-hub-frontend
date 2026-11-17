@@ -1,7 +1,28 @@
-import PropTypes from 'prop-types'
 import { useEffect } from 'react'
+import { ReactNode, ChangeEvent } from 'react'
+import { FieldError } from 'react-hook-form'
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
+
+interface Props {
+  label: string
+  name: string
+  options: string[]
+  hint?: string
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  children?: ReactNode
+  error?: FieldError | { message?: string }
+  disabled?: boolean
+  register?: any
+  widthClass?: string
+  required?: boolean
+  labelMessage?: string
+  value?: string
+  defaultValue?: string
+  additionalDivClasses?: string
+  maxLength?: number
+  remainingCharacterCount?: number
+}
 
 const DataList = ({
   options,
@@ -21,7 +42,7 @@ const DataList = ({
   additionalDivClasses,
   maxLength,
   remainingCharacterCount,
-}) => {
+}: Props) => {
   useEffect(() => {
     if (!options || !Array.isArray(options)) {
       throw new Error('DataList requires an options[] prop')
@@ -105,21 +126,6 @@ const DataList = ({
       </datalist>
     </div>
   )
-}
-
-DataList.propTypes = {
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({
-        value: PropTypes.string.isRequired,
-      }),
-    ])
-  ).isRequired,
-  children: PropTypes.node,
-  labelMessage: PropTypes.string,
 }
 
 export default DataList

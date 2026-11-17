@@ -1,10 +1,11 @@
 import TextInput from '../TextInput'
 
 interface Props {
+  name: string
   min?: number
   max?: number
   step?: number
-  [key: string]: unknown
+  [key: string]: any
 }
 
 const NumberInput = ({ min, max, step, ...props }: Props) => (

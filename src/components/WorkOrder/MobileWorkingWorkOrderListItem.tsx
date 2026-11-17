@@ -1,15 +1,21 @@
-import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Status from './Status'
 import cx from 'classnames'
-import { WorkOrder } from '../../models/workOrder'
+import { CurrentUser, WorkOrderType } from '../../types/variations/types'
+
+interface Props {
+  workOrder: WorkOrderType
+  index: number
+  currentUser: CurrentUser
+  statusText?: string
+}
 
 const MobileWorkingWorkOrderListItem = ({
   workOrder,
   index,
   statusText,
   currentUser,
-}) => {
+}: Props) => {
   return (
     <Link
       href={`/operatives/${currentUser.operativePayrollNumber}/work-orders/${workOrder.reference}`}
@@ -66,13 +72,6 @@ const MobileWorkingWorkOrderListItem = ({
       </li>
     </Link>
   )
-}
-
-MobileWorkingWorkOrderListItem.propTypes = {
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  index: PropTypes.number.isRequired,
-  currentUser: PropTypes.object.isRequired,
-  statusText: PropTypes.string,
 }
 
 export default MobileWorkingWorkOrderListItem

@@ -1,6 +1,18 @@
-import PropTypes from 'prop-types'
+import { FieldError } from 'react-hook-form'
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
+
+interface Props {
+  label?: string
+  labelSize?: 's' | 'm' | 'l' | 'xl'
+  hint?: string
+  name: string
+  error?: FieldError | { message?: string }
+  type?: string
+  register?: any
+  required?: boolean
+  [key: string]: any
+}
 
 const DatePicker = ({
   name,
@@ -11,7 +23,7 @@ const DatePicker = ({
   label,
   labelSize = 'm',
   ...otherProps
-}) => {
+}: Props) => {
   return (
     <div
       className={cx('govuk-form-group lbh-form-group', {
@@ -43,18 +55,5 @@ const DatePicker = ({
       />
     </div>
   )
-}
-
-DatePicker.propTypes = {
-  label: PropTypes.string,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
-  hint: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  error: PropTypes.shape({
-    message: PropTypes.string.isRequired,
-  }),
-  type: PropTypes.string,
-  register: PropTypes.func,
-  required: PropTypes.bool,
 }
 export default DatePicker

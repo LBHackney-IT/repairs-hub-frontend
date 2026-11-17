@@ -202,6 +202,7 @@ const CloseWorkOrders = () => {
               </div>
 
               <div>
+                {/* @ts-expect-error Props validation */}
                 <TextInput
                   label="Reason to Close"
                   placeholder="eg. Closed - completed - requested by S Roche"
@@ -216,7 +217,6 @@ const CloseWorkOrders = () => {
 
               {selectedOption === 'CloseToBase' && (
                 <div>
-                  {/* @ts-expect-error Props validation */}
                   <DatePicker
                     name="ClosedDate"
                     label="Closed Date"

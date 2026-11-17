@@ -1,6 +1,16 @@
-import PropTypes from 'prop-types'
 import TextArea from '../TextArea'
-import { useState } from 'react'
+import { useState, KeyboardEvent } from 'react'
+import { UseFormMethods } from 'react-hook-form'
+
+interface Props {
+  label: string
+  name: string
+  register: UseFormMethods['register']
+  requiredText: string
+  maxLength: number
+  currentLength?: number
+  [key: string]: any
+}
 
 const CharacterCountLimitedTextArea = ({
   register,
@@ -8,7 +18,7 @@ const CharacterCountLimitedTextArea = ({
   maxLength,
   currentLength = maxLength,
   ...otherProps
-}) => {
+}: Props) => {
   const [remainingCharacterCount, setRemainingCharacterCount] = useState(
     currentLength
   )
@@ -16,8 +26,8 @@ const CharacterCountLimitedTextArea = ({
   return (
     <>
       <TextArea
-        onKeyUp={(e) =>
-          setRemainingCharacterCount(maxLength - e.target.value.length)
+        onKeyUp={(e: KeyboardEvent<HTMLTextAreaElement>) =>
+          setRemainingCharacterCount(maxLength - e.currentTarget.value.length)
         }
         register={register({
           required: requiredText,
@@ -36,12 +46,6 @@ const CharacterCountLimitedTextArea = ({
       </span>
     </>
   )
-}
-
-CharacterCountLimitedTextArea.propTypes = {
-  register: PropTypes.func.isRequired,
-  requiredText: PropTypes.string.isRequired,
-  maxLength: PropTypes.number.isRequired,
 }
 
 export default CharacterCountLimitedTextArea

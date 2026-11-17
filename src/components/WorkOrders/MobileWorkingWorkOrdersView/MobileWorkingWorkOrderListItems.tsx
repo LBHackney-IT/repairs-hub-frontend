@@ -1,10 +1,9 @@
 import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem'
-import { WorkOrder } from '../../../models/workOrder'
-import { User } from '../../UserContext'
+import { CurrentUser, WorkOrderType } from '../../../types/variations/types'
 
 interface Props {
-  workOrders: WorkOrder[] | null
-  currentUser: User
+  workOrders: WorkOrderType[] | null
+  currentUser: CurrentUser
 }
 
 export const MobileWorkingWorkOrderListItems = ({

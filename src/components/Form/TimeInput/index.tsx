@@ -1,16 +1,30 @@
 import { useState, useEffect, forwardRef } from 'react'
-import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { Controller } from 'react-hook-form'
+import { Control, Controller, FieldError } from 'react-hook-form'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
-const getInitialTime = (value) => {
+interface TimeInputProps {
+  label?: string
+  labelSize?: 's' | 'm' | 'l' | 'xl'
+  error?: FieldError | { message?: string }
+  hint?: string
+  value?: string
+  name?: string
+  defaultValue?: string
+  register?: any
+  onChange?: (value?: string) => void
+  required?: boolean
+  showAsOptional?: boolean
+  [key: string]: any
+}
+
+const getInitialTime = (value?: string) => {
   const time = value?.split(':') || ['', '']
 
   return { hour: time[0], minutes: time[1], seconds: '00' }
 }
 
-const TimeInput = forwardRef(
+const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(
   (
     {
       label,
@@ -126,12 +140,13 @@ const TimeInput = forwardRef(
   }
 )
 
-TimeInput.propTypes = {
-  label: PropTypes.string,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
-  hint: PropTypes.string,
-  rules: PropTypes.shape({}),
-  showAsOptional: PropTypes.bool,
+interface ControlledTimeInputProps {
+  name: string
+  label: string
+  control: Control<any>
+  required: boolean
+  showAsOptional?: boolean
+  [key: string]: any
 }
 
 const ControlledTimeInput = ({
@@ -141,7 +156,7 @@ const ControlledTimeInput = ({
   required,
   showAsOptional = false,
   ...otherProps
-}) => {
+}: ControlledTimeInputProps) => {
   return (
     <Controller
       as={
@@ -151,10 +166,10 @@ const ControlledTimeInput = ({
           {...otherProps}
         />
       }
-      onChange={([value]) => value}
+      onChange={([value]: [string]) => value}
       rules={{
         validate: {
-          valid: (value) => {
+          valid: (value: string) => {
             // required - validate being empty
             if (required && !value)
               return `Please enter a value for ${label.toLowerCase()}`
@@ -190,15 +205,6 @@ const ControlledTimeInput = ({
       defaultValue={control.defaultValuesRef.current[name] || null}
     />
   )
-}
-
-ControlledTimeInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  rules: PropTypes.shape({}),
-  control: PropTypes.object.isRequired,
-  required: PropTypes.bool.isRequired,
-  showAsOptional: PropTypes.bool,
 }
 
 export default ControlledTimeInput

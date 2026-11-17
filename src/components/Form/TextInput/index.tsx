@@ -1,9 +1,24 @@
-import PropTypes from 'prop-types'
+import { FieldError } from 'react-hook-form'
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import PropertyRow from '../../Property/PropertyRow'
 
-const TextInput = (props) => {
+interface Props {
+  label?: string
+  hint?: string
+  required?: boolean
+  name: string
+  error?: FieldError | { message?: string }
+  type?: string
+  register?: any
+  widthClass?: string
+  defaultValue?: string
+  isLabelGreen?: boolean
+  additionalDivClasses?: string
+  onBlur?: any
+  [key: string]: any
+}
+
+const TextInput = (props: Props) => {
   const {
     label,
     hint,
@@ -60,21 +75,6 @@ const TextInput = (props) => {
       />
     </div>
   )
-}
-
-TextInput.propTypes = {
-  label: PropTypes.string,
-  hint: PropTypes.string,
-  required: PropTypes.bool,
-  name: PropTypes.string.isRequired,
-  error: PropTypes.shape({
-    message: PropTypes.string.isRequired,
-  }),
-  type: PropTypes.string,
-  register: PropTypes.func,
-  widthClass: PropTypes.string,
-  defaultValue: PropTypes.string,
-  isLabelGreen: PropTypes.bool,
 }
 
 export default TextInput
