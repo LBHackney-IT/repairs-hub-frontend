@@ -1,9 +1,31 @@
-import { useState, useRef, useEffect } from 'react'
+import {
+  useState,
+  useRef,
+  useEffect,
+  ChangeEventHandler,
+  MouseEventHandler,
+} from 'react'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import useClickOutside from '@/hooks/useClickOutside'
 import s from '@/styles/components/MultiButton.module.scss'
 
-const Choice = ({ name, value, currentValue, onChange, label, hint }) => (
+interface ChoiceProps {
+  name: string
+  value: string
+  currentValue: string
+  onChange: ChangeEventHandler<HTMLInputElement>
+  label: string
+  hint?: string
+}
+
+const Choice = ({
+  name,
+  value,
+  currentValue,
+  onChange,
+  label,
+  hint,
+}: ChoiceProps) => (
   <div className={s.option}>
     <input
       type="radio"
@@ -30,27 +52,43 @@ const Choice = ({ name, value, currentValue, onChange, label, hint }) => (
   </div>
 )
 
+export interface MultiButtonChoice {
+  title: string
+  description?: string
+  href?: string
+  target?: string
+  onClickHandler?: MouseEventHandler<HTMLAnchorElement>
+}
+
+interface Props {
+  label: string
+  name: string
+  secondary?: boolean
+  choices: MultiButtonChoice[]
+  workOrderReference: string
+}
+
 const MultiButton = ({
   label,
   name,
   secondary,
   choices,
   workOrderReference,
-}) => {
+}: Props) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentValue, setCurrentValue] = useLocalStorage(name, '0')
 
   const selection = choices[currentValue]
 
-  const detailsRef = useRef(null)
-  const fieldsetRef = useRef(null)
+  const detailsRef = useRef<HTMLDetailsElement>(null)
+  const fieldsetRef = useRef<HTMLFieldSetElement>(null)
 
-  const mouseHandler = (e) => {
-    if (fieldsetRef?.current?.contains(e.target)) setMenuOpen(false)
+  const mouseHandler = (e: MouseEvent) => {
+    if (fieldsetRef?.current?.contains(e.target as Node)) setMenuOpen(false)
   }
 
-  const keyboardHandler = (e) => {
-    if (fieldsetRef?.current?.contains(e.target) && e.key === 'Enter')
+  const keyboardHandler = (e: KeyboardEvent) => {
+    if (fieldsetRef?.current?.contains(e.target as Node) && e.key === 'Enter')
       setMenuOpen(false)
   }
 

@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types'
+interface Props {
+  onClick: () => void
+  mobileMenuOpen: boolean
+}
 
-const MobileMenuButton = ({ onClick, mobileMenuOpen }) => {
+const MobileMenuButton = ({ onClick, mobileMenuOpen }: Props) => {
   return (
     <div
       className="burger govuk-!-margin-top-1"
@@ -52,11 +55,6 @@ const MobileMenuButton = ({ onClick, mobileMenuOpen }) => {
       )}
     </div>
   )
-}
-
-MobileMenuButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  mobileMenuOpen: PropTypes.bool.isRequired,
 }
 
 export default MobileMenuButton
