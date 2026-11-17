@@ -5,9 +5,8 @@ import {
 } from '../../helpers/priorities'
 import { buildScheduleWorkOrderFormData as buildFormData } from './raiseWorkOrderForm'
 
-// These tests assume the awaabs law reason for repair feature toggle is on
 const buildScheduleWorkOrderFormData = (workOrderData) =>
-  buildFormData(workOrderData, { enableAwaabsLawReasonForRepair: true })
+  buildFormData(workOrderData)
 
 const mockBankHolidays = jest.fn()
 
