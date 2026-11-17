@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const usePageVisibility = (onVisibleCallback) => {
+const usePageVisibility = (onVisibleCallback: () => void) => {
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {

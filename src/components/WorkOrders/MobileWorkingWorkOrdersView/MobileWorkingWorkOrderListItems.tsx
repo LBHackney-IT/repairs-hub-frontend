@@ -1,10 +1,17 @@
 import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem'
+import { WorkOrder } from '../../../models/workOrder'
+import { User } from '../../UserContext'
+
+interface Props {
+  workOrders: WorkOrder[] | null
+  currentUser: User
+}
 
 export const MobileWorkingWorkOrderListItems = ({
   workOrders,
   currentUser,
-}) => {
-  const formatStatusText = (statusText) => {
+}: Props) => {
+  const formatStatusText = (statusText: string) => {
     const status = statusText.toLowerCase()
 
     if (status === 'no access') return 'No access'

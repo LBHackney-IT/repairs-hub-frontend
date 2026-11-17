@@ -2,7 +2,11 @@ import Head from 'next/head'
 import { hotjar } from 'react-hotjar'
 import { useEffect } from 'react'
 
-const Meta = ({ title = '' }) => {
+interface Props {
+  title?: string
+}
+
+const Meta = ({ title = '' }: Props) => {
   const applicationTitle = 'Hackney Repairs Hub'
   useEffect(() => {
     if (!window.Cypress) {

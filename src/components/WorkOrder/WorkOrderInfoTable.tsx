@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types'
 import { Table, TBody, TR, TH, TD } from '../Layout/Table'
+import { WorkOrder } from '../../models/workOrder'
 
-const WorkOrderInfoTable = ({ workOrder }) => (
+interface Props {
+  workOrder: Pick<WorkOrder, 'property' | 'tradeDescription' | 'description'>
+}
+
+const WorkOrderInfoTable = ({ workOrder }: Props) => (
   <div>
     <Table className="govuk-!-margin-top-5 govuk-!-width-full">
       <TBody>
@@ -21,9 +25,5 @@ const WorkOrderInfoTable = ({ workOrder }) => (
     </Table>
   </div>
 )
-
-WorkOrderInfoTable.propTypes = {
-  workOrder: PropTypes.object.isRequired,
-}
 
 export default WorkOrderInfoTable

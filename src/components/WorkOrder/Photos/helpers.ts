@@ -1,4 +1,4 @@
-export const mockFile = (name) => {
+export const mockFile = (name: string): File => {
   const dataBase64 = 'VEhJUyBJUyBUSEUgQU5TV0VSCg=='
 
   const arrayBuffer = Uint8Array.from(window.atob(dataBase64), (c) =>
