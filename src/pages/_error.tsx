@@ -1,8 +1,15 @@
 import NextErrorComponent from 'next/error'
+import { NextPageContext } from 'next'
 
 import * as Sentry from '@sentry/nextjs'
 
-const RepairsHubError = ({ statusCode, hasGetInitialPropsRun, err }) => {
+type Props = {
+  statusCode: number
+  hasGetInitialPropsRun?: boolean
+  err?: Error | null
+}
+
+const RepairsHubError = ({ statusCode, hasGetInitialPropsRun, err }: Props) => {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
     // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
@@ -14,8 +21,11 @@ const RepairsHubError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   return <NextErrorComponent statusCode={statusCode} />
 }
 
-RepairsHubError.getInitialProps = async (context) => {
-  const errorInitialProps = await NextErrorComponent.getInitialProps(context)
+RepairsHubError.getInitialProps = async (context: NextPageContext) => {
+  const errorInitialProps: {
+    statusCode: number
+    hasGetInitialPropsRun?: boolean
+  } = await NextErrorComponent.getInitialProps(context)
 
   const { res, err, asPath } = context
 
@@ -55,7 +65,7 @@ RepairsHubError.getInitialProps = async (context) => {
   // information about what the error might be. This is unexpected and may
   // indicate a bug introduced in Next.js, so record it in Sentry
   Sentry.captureException(
-    new Error(`_error.js getInitialProps missing data at path: ${asPath}`)
+    new Error(`_error.tsx getInitialProps missing data at path: ${asPath}`)
   )
   await Sentry.flush(2000)
 
