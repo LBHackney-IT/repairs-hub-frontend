@@ -37,13 +37,22 @@ export const TR = ({ index, reference, className, id, children }: TRProps) => (
 
 interface THProps extends BaseProps {
   scope?: string
+  colSpan?: number
   width?: string
   type?: string
 }
 
-export const TH = ({ scope, width, type, className, children }: THProps) => (
+export const TH = ({
+  scope,
+  colSpan,
+  width,
+  type,
+  className,
+  children,
+}: THProps) => (
   <th
     scope={scope}
+    colSpan={colSpan}
     className={cx(
       'govuk-table__header',
       width ? `govuk-!-width-${width}` : null,

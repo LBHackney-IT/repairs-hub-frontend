@@ -76,7 +76,7 @@ export default defineConfig([
       'react/jsx-uses-vars': 2,
       '@typescript-eslint/no-unused-expressions': 'warn',
       'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'warn',
+      'react/prop-types': 'off',
       '@typescript-eslint/no-require-imports': 'warn',
       'react/no-children-prop': 'warn',
       '@typescript-eslint/no-unused-vars': 'warn',
