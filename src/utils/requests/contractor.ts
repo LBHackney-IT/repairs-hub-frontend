@@ -52,7 +52,14 @@ export const fetchContractorsRequest = async ({
   return contractors
 }
 
-export const fetchContractorsByTradeRequest = (params: object) =>
+export interface ContractorsByTradeParams {
+  propertyReference: string
+  tradeCode: string
+}
+
+export const fetchContractorsByTradeRequest = (
+  params: ContractorsByTradeParams
+) =>
   frontEndApiRequest({
     method: 'get',
     path: '/api/contractors',

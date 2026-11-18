@@ -93,7 +93,7 @@ export const getAlertsRequest = async (
 }
 
 export const fetchPropertyTenureRequest = (propertyReference: string) =>
-  frontEndApiRequest({
+  frontEndApiRequest<PropertyTenureResponse>({
     method: 'get',
     path: `/api/properties/${propertyReference}`,
   })
@@ -104,7 +104,23 @@ export const fetchLegalDisrepairStatusRequest = (propertyReference: string) =>
     path: `/api/properties/legalDisrepair/${propertyReference}`,
   })
 
-export const searchPropertiesRequest = (params: object) =>
+export interface SearchPropertiesParams {
+  searchText: string
+  pageSize?: string
+  pageNumber?: number
+}
+
+export interface UpdateMainContactData {
+  contactInformation: {
+    contactType: string
+    value: string
+    description: string
+    subType: string
+    addressExtended?: unknown
+  }
+}
+
+export const searchPropertiesRequest = (params: SearchPropertiesParams) =>
   frontEndApiRequest({
     method: 'get',
     path: '/api/properties/search',
@@ -126,7 +142,7 @@ export const fetchContactDetailsRequest = (tenureId: string) =>
 export const updateMainContactRequest = (
   contactId: string,
   personId: string,
-  requestData: object
+  requestData: UpdateMainContactData
 ) =>
   frontEndApiRequest({
     method: 'PATCH',

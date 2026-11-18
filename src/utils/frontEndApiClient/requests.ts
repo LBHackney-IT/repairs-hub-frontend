@@ -29,7 +29,7 @@ const getSafeInternalApiPath = (path: string): string => {
   return trimmedPath
 }
 
-export const frontEndApiRequest = async ({
+export const frontEndApiRequest = async <T = any>({
   method,
   path,
   params = null,
@@ -43,7 +43,7 @@ export const frontEndApiRequest = async ({
   requestData?: object
   paramsSerializer?: any
   timeout?: number
-}): Promise<any> => {
+}): Promise<T> => {
   const config: AxiosRequestConfig = {
     method: method,
     url: getSafeInternalApiPath(path),

@@ -1,6 +1,14 @@
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
 
-export const fetchAvailableAppointmentsRequest = (params: object) =>
+export interface AvailableAppointmentsParams {
+  workOrderReference: string
+  fromDate: string
+  toDate: string
+}
+
+export const fetchAvailableAppointmentsRequest = (
+  params: AvailableAppointmentsParams
+) =>
   frontEndApiRequest({
     method: 'get',
     path: '/api/appointments',

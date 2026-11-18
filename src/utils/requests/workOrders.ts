@@ -6,6 +6,11 @@ import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDe
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { WorkOrderTasks } from '../../models/workOrderTasks'
 import { postJobStatusUpdateRequest } from './jobStatusUpdate'
+import { BudgetCode } from '../../models/budgetCode'
+import { VariationResponseObject } from '../../types/variations/types'
+import { closeWorkOrderDataRequest } from '../hact/workOrderComplete/closeWorkOrder'
+import { buildCancelWorkOrderFormData } from '../hact/workOrderComplete/cancelWorkOrderForm'
+import { buildScheduleWorkOrderFormData } from '../hact/workOrderSchedule/raiseWorkOrderForm'
 
 export const getAppointmentDetailsRequest = async (
   workOrderReference: string
@@ -164,13 +169,24 @@ export const postNoteRequest = async (
 }
 
 export const fetchWorkOrderTasksRequest = (workOrderReference: string) =>
-  frontEndApiRequest({
+  frontEndApiRequest<WorkOrderTasks[]>({
     method: 'get',
     path: `/api/workOrders/${workOrderReference}/tasks`,
   })
 
+export interface WorkOrdersParams {
+  propertyReference?: string
+  PageSize?: number
+  PageNumber?: number
+  sort?: string
+  TradeCodes?: string
+  IncludeFollowOns?: boolean
+  // Filter keys built by buildWorkOrdersParams
+  [filter: string]: unknown
+}
+
 export const fetchWorkOrdersRequest = (
-  params: object,
+  params: WorkOrdersParams,
   paramsSerializer?: any
 ) =>
   frontEndApiRequest({
@@ -180,9 +196,13 @@ export const fetchWorkOrdersRequest = (
     ...(paramsSerializer && { paramsSerializer }),
   })
 
+export interface ScheduleWorkOrderParams {
+  parentWorkOrderId?: string
+}
+
 export const scheduleWorkOrderRequest = (
-  requestData: object,
-  params?: object
+  requestData: ReturnType<typeof buildScheduleWorkOrderFormData>,
+  params?: ScheduleWorkOrderParams
 ) =>
   frontEndApiRequest({
     method: 'post',
@@ -191,21 +211,34 @@ export const scheduleWorkOrderRequest = (
     params,
   })
 
-export const fetchBudgetCodesRequest = (params: object) =>
-  frontEndApiRequest({
+export interface BudgetCodesParams {
+  contractorReference?: string
+}
+
+export const fetchBudgetCodesRequest = (params: BudgetCodesParams) =>
+  frontEndApiRequest<BudgetCode[]>({
     method: 'get',
     path: '/api/workOrders/budget-codes',
     params,
   })
 
-export const startWorkOrderRequest = (requestData: object) =>
+export interface StartWorkOrderData {
+  startTime: Date | string
+  workOrderId: string
+}
+
+export const startWorkOrderRequest = (requestData: StartWorkOrderData) =>
   frontEndApiRequest({
     method: 'put',
     path: `/api/workOrders/starttime`,
     requestData,
   })
 
-export const completeWorkOrderRequest = (requestData: object) =>
+export const completeWorkOrderRequest = (
+  requestData:
+    | closeWorkOrderDataRequest
+    | ReturnType<typeof buildCancelWorkOrderFormData>
+) =>
   frontEndApiRequest({
     method: 'post',
     path: `/api/workOrderComplete`,
@@ -233,7 +266,7 @@ export const fetchWorkOrderFiltersRequest = () =>
 export const fetchWorkOrderVariationTasksRequest = (
   workOrderReference: string
 ) =>
-  frontEndApiRequest({
+  frontEndApiRequest<VariationResponseObject>({
     method: 'get',
     path: `/api/workOrders/${workOrderReference}/variation-tasks`,
   })

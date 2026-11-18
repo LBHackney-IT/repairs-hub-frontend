@@ -1,8 +1,14 @@
 import { frontEndApiRequest } from '../../frontEndApiClient/requests'
 
+export interface BulkCloseData {
+  reason: string
+  completionDate: string
+  workOrderReferences: string[]
+}
+
 export const bulkCloseWorkOrdersRequest = (
   closeToBase: boolean,
-  requestData: object
+  requestData: BulkCloseData
 ) =>
   frontEndApiRequest({
     method: 'post',
