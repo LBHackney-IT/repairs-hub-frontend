@@ -33,7 +33,9 @@ const isNonWorkingDay = (date: Date) => {
 
 export const isCurrentTimeOperativeOvertime = () => {
   if (typeof window.Cypress != 'undefined' && window.Cypress) {
-    if (typeof window.Cypress.expose('IsCurrentOperativeOvertime') == 'boolean') {
+    if (
+      typeof window.Cypress.expose('IsCurrentOperativeOvertime') == 'boolean'
+    ) {
       return window.Cypress.expose('IsCurrentOperativeOvertime')
     }
 
