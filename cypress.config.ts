@@ -41,6 +41,15 @@ export default defineConfig({
           process.env[name] = process.env[name].replace(/\\\$/g, '$')
         })
 
+      // Cypress 16 removed Cypress.env(). Non-sensitive values are read with
+      // Cypress.expose(), which config.env (where dotenv-flow puts them) doesn't feed.
+      config.expose = {
+        ...config.expose,
+        NEXT_PUBLIC_PROPERTIES_PAGE_SIZE:
+          config.env.NEXT_PUBLIC_PROPERTIES_PAGE_SIZE,
+        NEXT_PUBLIC_OUT_OF_HOURS_LINK: config.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK,
+      }
+
       return config
     },
     baseUrl: 'http://localhost:5001/',

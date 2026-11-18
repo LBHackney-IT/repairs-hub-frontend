@@ -149,7 +149,7 @@ describe('Raise repair form', () => {
     cy.get('input[id="rateScheduleItems[0][code]"]').type(
       'INP5R001 - Pre insp of wrks by Constructr - £1{enter}'
     )
-    cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type(1)
+    cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type('1')
 
     cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
     cy.get('[data-testid="reasonForRepair"]').select('None of the above')
@@ -291,7 +291,7 @@ describe('Raise repair form', () => {
     cy.get('input[id="rateScheduleItems[0][code]"]').type(
       'INP5R001 - Pre insp of wrks by Constructr - £1{enter}'
     )
-    cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type(1)
+    cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type('1')
 
     cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
     cy.get('[data-testid="reasonForRepair"]').select('Damp & Mould')
@@ -432,7 +432,7 @@ describe('Raise repair form', () => {
     cy.get('input[id="rateScheduleItems[0][code]"]').type(
       'INP5R001 - Pre insp of wrks by Constructr - £1{enter}'
     )
-    cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type(1)
+    cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type('1')
 
     cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
 
