@@ -17,7 +17,12 @@ const Spinner = ({ resource, width = 60, height = width }: Props) => (
     animate={{ rotate: 360 }}
     transition={{ duration: 1.2, ease: 'linear', repeat: Infinity }}
   >
-    <g fill="none" fillRule="evenodd" transform="translate(3 3)" strokeWidth="5">
+    <g
+      fill="none"
+      fillRule="evenodd"
+      transform="translate(3 3)"
+      strokeWidth="5"
+    >
       <circle strokeOpacity=".15" cx="18" cy="18" r="18" />
       <motion.circle
         cx="18"
