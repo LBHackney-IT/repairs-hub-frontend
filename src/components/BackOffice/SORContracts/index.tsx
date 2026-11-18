@@ -7,14 +7,16 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 import {
-  SorContractsMode,
   addContractsSelected,
   copyContractsSelected,
   dataToRequestObject,
   propertyReferencesMatch,
-  saveContractChangesToDatabase,
   validatePropertyReference,
 } from './utils'
+import {
+  SorContractsMode,
+  saveContractChangesToDatabase,
+} from '@/root/src/utils/requests/backOffice/sorContracts'
 
 import { DataList } from '../../Form'
 

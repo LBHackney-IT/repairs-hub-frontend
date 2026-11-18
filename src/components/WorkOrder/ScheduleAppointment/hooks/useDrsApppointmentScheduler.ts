@@ -2,7 +2,7 @@ import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { buildDataFromScheduleAppointment } from '@/root/src/utils/hact/jobStatusUpdate/notesForm'
 import { useContext, useEffect, useRef, useState } from 'react'
 import UserContext from '../../../UserContext'
-import { getOrCreateSchedulerSessionId } from '../../../../utils/frontEndApiClient/users/schedulerSession'
+import { getOrCreateSchedulerSessionId } from '../../../../utils/requests/schedulerSession'
 
 export const useDrsAppointmentScheduler = (workOrderReference: string) => {
   const [schedulerSessionId, setSchedulerSessionId] = useState<string | null>(

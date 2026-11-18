@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 
-import { fetchContractors } from '../requests'
+import { fetchContractors } from '@/root/src/utils/requests/backOffice/contractor'
 import { fetchContracts } from '@/root/src/utils/requests/contract'
 
 export interface Contractor {
