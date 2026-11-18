@@ -3,18 +3,16 @@ import { useQuery } from 'react-query'
 
 import { fetchContractorsRequest } from '@/requests/backOffice/contractor'
 import { fetchContractsRequest } from '@/requests/contract'
-
-export interface Contractor {
-  contractorReference: string
-  contractorName: string
-}
+import { ContractorOption } from '@/models/contractorOption'
 
 const useSelectContract = () => {
-  const [contractors, setContractors] = useState<Contractor[] | null>(null)
+  const [contractors, setContractors] = useState<ContractorOption[] | null>(
+    null
+  )
   const [
     selectedContractor,
     setSelectedContractor,
-  ] = useState<Contractor | null>(null)
+  ] = useState<ContractorOption | null>(null)
 
   const [selectedContract, setSelectedContract] = useState<string | null>(null)
 

@@ -1,5 +1,5 @@
 import { frontEndApiRequest } from '../../frontEndApiClient/requests'
-import type { Trade } from '../../../components/BackOffice/AddSORCodes/useSelectTrade'
+import type { Trade } from '../../../models/trade'
 
 export const fetchTradesRequest = async (): Promise<Trade[]> => {
   return await frontEndApiRequest({

@@ -7,6 +7,7 @@ import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { WorkOrderTasks } from '../../models/workOrderTasks'
 import { postJobStatusUpdateRequest } from './jobStatusUpdate'
 import { BudgetCode } from '../../models/budgetCode'
+import { WorkOrderHierarchy } from '../../models/workOrderHierarchy'
 import { VariationResponseObject } from '../../types/variations/types'
 import { closeWorkOrderDataRequest } from '../hact/workOrderComplete/closeWorkOrder'
 import { buildCancelWorkOrderFormData } from '../hact/workOrderComplete/cancelWorkOrderForm'
@@ -252,7 +253,7 @@ export const fetchWorkOrderNotesRequest = (workOrderReference: string) =>
   })
 
 export const fetchWorkOrderHierarchyRequest = (workOrderReference: string) =>
-  frontEndApiRequest({
+  frontEndApiRequest<WorkOrderHierarchy>({
     path: `/api/workOrders/${workOrderReference}/hierarchy`,
     method: 'get',
   })

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { WorkOrderHierarchy } from './types'
+import { WorkOrderHierarchy } from '@/models/workOrderHierarchy'
 import RelatedWorkOrderViewList from './RelatedWorkOrderViewList'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { fetchWorkOrderHierarchyRequest } from '@/requests/workOrders'
@@ -23,9 +23,7 @@ const RelatedWorkOrdersView = ({ workOrderReference, tabName }: Props) => {
     setHierarchy(null)
 
     try {
-      const response: WorkOrderHierarchy = await fetchWorkOrderHierarchyRequest(
-        workOrderReference
-      )
+      const response = await fetchWorkOrderHierarchyRequest(workOrderReference)
 
       setHierarchy(response)
     } catch (e) {

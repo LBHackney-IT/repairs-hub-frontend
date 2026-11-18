@@ -1,7 +1,9 @@
 import { frontEndApiRequest } from '../../frontEndApiClient/requests'
-import type { Contractor } from '../../../components/BackOffice/hooks/useSelectContract'
+import type { ContractorOption } from '../../../models/contractorOption'
 
-export const fetchContractorsRequest = async (): Promise<Contractor[]> => {
+export const fetchContractorsRequest = async (): Promise<
+  ContractorOption[]
+> => {
   return await frontEndApiRequest({
     method: 'get',
     path: '/api/contractors?getAllContractors=true',

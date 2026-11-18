@@ -18,7 +18,8 @@ import {
   useState,
 } from 'react'
 import NewSORCode, { SorCodeErrors } from '../Components/NewSORCode'
-import useSelectTrade, { Trade } from './useSelectTrade'
+import useSelectTrade from './useSelectTrade'
+import { Trade } from '@/models/trade'
 import ConfirmationModal from '../../ConfirmationModal'
 
 import useSelectContract from '../hooks/useSelectContract'

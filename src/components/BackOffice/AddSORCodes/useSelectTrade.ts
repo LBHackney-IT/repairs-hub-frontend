@@ -1,9 +1,5 @@
 import { ChangeEvent, useState } from 'react'
-
-export interface Trade {
-  code: string
-  name: string
-}
+import { Trade } from '@/models/trade'
 
 const useSelectTrade = (trades: Trade[] | null) => {
   const [selectedTrade, setSelectedTrade] = useState<Trade | null>(null)
