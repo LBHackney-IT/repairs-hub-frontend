@@ -556,7 +556,7 @@ describe('Show property', () => {
         cy.contains('a', 'Out of hours note').should(
           'have.attr',
           'href',
-          Cypress.env('NEXT_PUBLIC_OUT_OF_HOURS_LINK')
+          Cypress.expose('NEXT_PUBLIC_OUT_OF_HOURS_LINK')
         )
       })
     })

@@ -87,7 +87,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
   context('during normal working hours', () => {
     beforeEach(() => {
-      Cypress.env('IsCurrentOperativeOvertime', false)
+      Cypress.expose('IsCurrentOperativeOvertime', false)
       cy.clearFilesDatabase()
     })
 
@@ -1204,7 +1204,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
   context('when outside working hours (overtime could apply)', () => {
     beforeEach(() => {
-      Cypress.env('IsCurrentOperativeOvertime', true)
+      Cypress.expose('IsCurrentOperativeOvertime', true)
     })
 
     context('and the overtime payment type is chosen', () => {
