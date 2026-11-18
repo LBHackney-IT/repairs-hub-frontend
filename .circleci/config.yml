@@ -61,8 +61,17 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-      - browser-tools/install_chrome:
-          chrome-version: "141.0.7390.122"
+      # Chrome is pinned: Cypress 13 crashes ("* is not a valid URL") with the
+      # latest Chrome, and browser-tools/install_chrome can't pin a version.
+      - run:
+          name: Install pinned Chrome
+          command: |
+            CHROME_VERSION="141.0.7390.122"
+            curl -fsSL -o /tmp/chrome.zip "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip"
+            sudo rm -rf /opt/chrome-linux64
+            sudo unzip -q /tmp/chrome.zip -d /opt
+            sudo ln -sf /opt/chrome-linux64/chrome /usr/local/bin/google-chrome
+            google-chrome --version
       # Cypress' own binary is cached between runs.
       - restore_cache:
           keys:
