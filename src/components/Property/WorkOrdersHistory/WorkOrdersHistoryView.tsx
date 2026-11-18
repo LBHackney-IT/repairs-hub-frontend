@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchWorkOrdersRequest } from '@/requests/workOrders'
 
 const WORK_ORDERS_HISTORY_PAGE_SIZE = 50
 
@@ -22,15 +22,11 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }: Props) => {
     setError(null)
 
     try {
-      const data = await frontEndApiRequest({
-        path: '/api/workOrders/',
-        method: 'get',
-        params: {
-          propertyReference: propertyReference,
-          PageSize: WORK_ORDERS_HISTORY_PAGE_SIZE,
-          PageNumber: pageNumber,
-          sort: 'dateraised:desc',
-        },
+      const data = await fetchWorkOrdersRequest({
+        propertyReference: propertyReference,
+        PageSize: WORK_ORDERS_HISTORY_PAGE_SIZE,
+        PageNumber: pageNumber,
+        sort: 'dateraised:desc',
       })
 
       setWorkOrders([...workOrders, ...data])

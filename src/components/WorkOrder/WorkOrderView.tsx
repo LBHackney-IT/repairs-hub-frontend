@@ -7,10 +7,16 @@ import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import { getWorkOrderDetails, getWorkOrderTasks } from '@/requests/workOrders'
+import {
+  getWorkOrderDetailsRequest,
+  getWorkOrderTasksRequest,
+} from '@/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { getAlerts, getPropertyTenureData } from '@/requests/property'
+import {
+  getAlertsRequest,
+  getPropertyTenureDataRequest,
+} from '@/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { useAppointmentDetails } from '@/requests/hooks/useAppointmentDetails'
 
@@ -65,8 +71,8 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
 
     try {
       const [workOrderResponse, tasksAndSorsResponse] = await Promise.all([
-        getWorkOrderDetails(workOrderReference),
-        getWorkOrderTasks(workOrderReference),
+        getWorkOrderDetailsRequest(workOrderReference),
+        getWorkOrderTasksRequest(workOrderReference),
       ])
 
       if (!workOrderResponse.success) throw workOrderResponse.error
@@ -81,7 +87,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         )
       )
 
-      const propertyTenureResponse = await getPropertyTenureData(
+      const propertyTenureResponse = await getPropertyTenureDataRequest(
         workOrderResponse.response?.propertyReference
       )
       if (!propertyTenureResponse.success) throw propertyTenureResponse.error
@@ -105,7 +111,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
 
   const fetchAlerts = async () => {
     setAlertsLoading(true)
-    const alertsResponse = await getAlerts(property?.propertyReference)
+    const alertsResponse = await getAlertsRequest(property?.propertyReference)
 
     if (!alertsResponse.success) {
       setAlertsError(alertsResponse.error.message)

@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import BackButton from '../../Layout/BackButton'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import {
-  createSorExistenceValidator,
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import { createSorExistenceValidator } from '@/utils/frontEndApiClient/requests'
 import { updateExistingTasksQuantities } from '@/utils/updateTasks'
 import { isSpendLimitReachedResponse } from '@/utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
@@ -14,15 +11,21 @@ import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
-import { getWorkOrderDetails } from '@/requests/workOrders'
+import {
+  fetchWorkOrderTasksRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
-import { getContractor } from '@/requests/contractor'
+import { getContractorRequest } from '@/requests/contractor'
 import { CurrentUser } from '@/root/src/types/variations/types'
 import SorCode from '@/root/src/models/sorCode'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { BudgetCode } from '@/root/src/models/budgetCode'
 import Contractor from '@/root/src/models/contractor'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
+import { fetchSorCodesRequest } from '@/requests/scheduleOfRates'
+import { fetchHubUserRequest } from '@/requests/user'
 
 interface Props {
   reference: string
@@ -86,11 +89,7 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
     setLoading(true)
 
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: formData,
-      })
+      await postJobStatusUpdateRequest(formData)
       setOverSpendLimit(overSpendLimit)
       setShowUpdateSuccess(true)
     } catch (e) {
@@ -109,16 +108,12 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
   }
 
   const sorSearchRequest = (searchText) =>
-    frontEndApiRequest({
-      method: 'get',
-      path: '/api/schedule-of-rates/codes',
-      params: {
-        tradeCode: workOrder.tradeCode,
-        propertyReference: workOrder.propertyReference,
-        contractorReference: workOrder.contractorReference,
-        showAllTrades: true,
-        filter: searchText,
-      },
+    fetchSorCodesRequest({
+      tradeCode: workOrder.tradeCode,
+      propertyReference: workOrder.propertyReference,
+      contractorReference: workOrder.contractorReference,
+      showAllTrades: true,
+      filter: searchText,
     })
 
   const incrementalSORSearchRequired = (contractor) => {
@@ -138,12 +133,9 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
     setError(null)
 
     try {
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const currentUser = await fetchHubUserRequest()
 
-      const workOrderResponse = await getWorkOrderDetails(reference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(reference)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -151,12 +143,9 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
 
       const workOrder = workOrderResponse.response
 
-      const tasks = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${reference}/tasks`,
-      })
+      const tasks = await fetchWorkOrderTasksRequest(reference)
 
-      const contractorResponse = await getContractor(
+      const contractorResponse = await getContractorRequest(
         workOrder.contractorReference
       )
       if (!contractorResponse.success) {
@@ -168,15 +157,11 @@ const WorkOrderUpdateView = ({ reference }: Props) => {
       )
 
       if (!multiTradeIncrementalSearch) {
-        const sorCodes = await frontEndApiRequest({
-          path: '/api/schedule-of-rates/codes',
-          method: 'get',
-          params: {
-            tradeCode: workOrder.tradeCode,
-            propertyReference: workOrder.propertyReference,
-            contractorReference: workOrder.contractorReference,
-            showAdditionalTrades: true,
-          },
+        const sorCodes = await fetchSorCodesRequest({
+          tradeCode: workOrder.tradeCode,
+          propertyReference: workOrder.propertyReference,
+          contractorReference: workOrder.contractorReference,
+          showAdditionalTrades: true,
         })
 
         setSorCodeArrays([sorCodes])

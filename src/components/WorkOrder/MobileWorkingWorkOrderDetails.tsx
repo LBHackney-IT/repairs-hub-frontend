@@ -3,7 +3,7 @@ import { GridColumn, GridRow } from '../Layout/Grid'
 import TruncateText from '../Layout/TruncateText'
 import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
-import { getAlerts } from '@/requests/property'
+import { getAlertsRequest } from '@/requests/property'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import { useRouter } from 'next/router'
 import { formatDateTime } from '../../utils/time'
@@ -47,7 +47,7 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
 
   const fetchAlerts = async () => {
     setAlertsLoading(true)
-    const alertsResponse = await getAlerts(property.propertyReference)
+    const alertsResponse = await getAlertsRequest(property.propertyReference)
 
     if (!alertsResponse.success) {
       setAlertsError(alertsResponse.error.message)

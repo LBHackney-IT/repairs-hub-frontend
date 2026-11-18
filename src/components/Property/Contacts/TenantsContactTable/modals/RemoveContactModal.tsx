@@ -1,4 +1,4 @@
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
+import { deleteContactRequest } from '@/requests/property'
 import ConfirmationModal from '../../../../ConfirmationModal'
 import { useState, useEffect } from 'react'
 
@@ -18,14 +18,9 @@ const RemoveContactModal = ({
   }, [showModal])
 
   const handleOnSubmit = () => {
-    const path = `/api/contact-details/?contactId=${phoneNumber.contactId}&personId=${tenant.personId}`
-
     setIsLoading(true)
     setModalError(null)
-    frontEndApiRequest({
-      method: 'delete',
-      path,
-    })
+    deleteContactRequest(phoneNumber.contactId, tenant.personId)
       .then((res) => {
         console.log({ res })
 

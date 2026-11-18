@@ -7,7 +7,7 @@ export interface SaveSorCodesData {
   tradeCode: string
 }
 
-export const saveSorCodesToDatabase = async (data: SaveSorCodesData) => {
+export const saveSorCodesToDatabaseRequest = async (data: SaveSorCodesData) => {
   await frontEndApiRequest({
     method: 'post',
     path: `/api/backoffice/sor-codes`,

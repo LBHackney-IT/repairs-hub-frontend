@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, Method } from 'axios'
 import { paramsSerializer } from '@/utils/urls'
-import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
+import { checkSorCodesRequest } from '../requests/scheduleOfRates'
 
 // Only relative paths to this app's own /api routes may be requested, so that
 // user-controlled values interpolated into a path can't redirect the request.
@@ -43,7 +43,7 @@ export const frontEndApiRequest = async ({
   requestData?: object
   paramsSerializer?: any
   timeout?: number
-}) => {
+}): Promise<any> => {
   const config: AxiosRequestConfig = {
     method: method,
     url: getSafeInternalApiPath(path),
@@ -59,15 +59,6 @@ export const frontEndApiRequest = async ({
   const { data } = await axios(config)
 
   return data
-}
-
-export const fetchSimpleFeatureToggles: () => Promise<SimpleFeatureToggleResponse> = async () => {
-  const featureToggleData = await frontEndApiRequest({
-    method: 'get',
-    path: '/api/simple-feature-toggle',
-  })
-
-  return featureToggleData
 }
 
 export const createSorExistenceValidator = (
@@ -88,18 +79,16 @@ export const createSorExistenceValidator = (
     }
 
     try {
-      const sorCodes = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/schedule-of-rates/check',
-        params: {
+      const sorCodes = await checkSorCodesRequest(
+        {
           tradeCode: tradeCode,
           propertyReference: propertyRef,
           contractorReference: contractorRef,
           sorCode: codesForValidation,
           isRaisable: isRaisable,
         },
-        ...(paramsSerializer && { paramsSerializer }),
-      })
+        paramsSerializer
+      )
 
       validationResults.validCodes = sorCodes.filter((sorCodeObj) =>
         codesForValidation.includes(sorCodeObj.code)

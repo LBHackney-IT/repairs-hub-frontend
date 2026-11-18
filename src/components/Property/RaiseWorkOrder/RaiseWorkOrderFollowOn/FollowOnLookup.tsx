@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import ErrorMessage from '../../../Errors/ErrorMessage'
 import { DataList } from '../../../Form'
 import SpinnerWithLabel from '../../../SpinnerWithLabel'
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchWorkOrdersRequest } from '@/requests/workOrders'
 
 interface Props {
   visible: boolean
@@ -31,16 +31,12 @@ const FollowOnLookup = (props: Props) => {
 
     // Fetch 5 most recent work orders
     try {
-      const workOrders = await frontEndApiRequest({
-        path: '/api/workOrders/',
-        method: 'get',
-        params: {
-          propertyReference: propertyReference,
-          PageSize: 5,
-          PageNumber: 1,
-          sort: 'dateraised:desc',
-          IncludeFollowOns: false,
-        },
+      const workOrders = await fetchWorkOrdersRequest({
+        propertyReference: propertyReference,
+        PageSize: 5,
+        PageNumber: 1,
+        sort: 'dateraised:desc',
+        IncludeFollowOns: false,
       })
 
       setWorkOrders(() => workOrders)

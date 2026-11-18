@@ -15,12 +15,14 @@ jest.mock('@/requests/trades', () => ({
     })
   ),
 }))
-jest.mock('@/root/src/utils/frontEndApiClient/requests', () => ({
-  fetchSimpleFeatureToggles: jest.fn(() =>
+jest.mock('@/requests/featureToggles', () => ({
+  fetchSimpleFeatureTogglesRequest: jest.fn(() =>
     Promise.resolve({
       enableFollowOnIsEmergencyField: true,
     })
   ),
+}))
+jest.mock('@/root/src/utils/frontEndApiClient/requests', () => ({
   frontEndApiRequest: jest.fn(() =>
     Promise.resolve({
       email: 'test@test.com',

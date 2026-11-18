@@ -9,7 +9,7 @@ export interface SorContractsRequest {
   mode: SorContractsMode
 }
 
-export const saveContractChangesToDatabase = async (
+export const saveContractChangesToDatabaseRequest = async (
   data: SorContractsRequest
 ) => {
   return await frontEndApiRequest({

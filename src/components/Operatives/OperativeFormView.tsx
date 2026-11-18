@@ -2,19 +2,21 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import OperativeForm from './OperativeForm'
 import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
 import {
-  getAppointmentDetails,
-  getWorkOrderDetails,
+  getAppointmentDetailsRequest,
+  getWorkOrderDetailsRequest,
 } from '@/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { WorkOrder } from '../../models/workOrder'
 import { CurrentUser } from '../../types/variations/types'
 import { Operative } from '../../models/operativeModel'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
+import { fetchHubUserRequest } from '@/requests/user'
+import { fetchOperativesRequest } from '@/requests/operatives'
 
 interface Props {
   workOrderReference: string
@@ -43,11 +45,7 @@ const OperativeFormView = ({ workOrderReference }: Props) => {
     setLoading(true)
 
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: operativeAssignmentFormData,
-      })
+      await postJobStatusUpdateRequest(operativeAssignmentFormData)
 
       router.push(
         `/operatives/${currentUser?.operativePayrollNumber}/work-orders/${workOrderReference}`
@@ -63,20 +61,19 @@ const OperativeFormView = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const currentUser: CurrentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const currentUser: CurrentUser = await fetchHubUserRequest()
 
       setCurrentUser(currentUser)
 
-      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(
+        workOrderReference
+      )
       if (!workOrderResponse.success) throw workOrderResponse.error
       const workOrder = workOrderResponse.response
 
       setWorkOrder(workOrder)
 
-      const appointmentDetailsResponse = await getAppointmentDetails(
+      const appointmentDetailsResponse = await getAppointmentDetailsRequest(
         workOrderReference
       )
       if (!appointmentDetailsResponse.success)
@@ -93,10 +90,7 @@ const OperativeFormView = ({ workOrderReference }: Props) => {
         sortedOperatives.map((o) => `${o.jobPercentage}%`)
       )
 
-      const operatives = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/operatives`,
-      })
+      const operatives = await fetchOperativesRequest()
       setAvailableOperatives(operatives)
     } catch (e) {
       setWorkOrder(null)

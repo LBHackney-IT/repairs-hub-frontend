@@ -5,11 +5,11 @@ import PropertiesTable from '../Properties/PropertiesTable'
 import { PrimarySubmitButton } from '../Form'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import { searchPropertiesRequest } from '@/requests/property'
 
 interface SearchProps {
   query?: {
@@ -79,14 +79,10 @@ const Search: React.FC<SearchProps> = ({ query }) => {
 
     try {
       if (searchQuery) {
-        const propertiesData: PropertyData = await frontEndApiRequest({
-          method: 'get',
-          path: '/api/properties/search',
-          params: {
-            searchText: searchQuery,
-            ...(searchQuery && { pageSize: NEXT_PUBLIC_PROPERTIES_PAGE_SIZE }),
-            ...(pageNumber && { pageNumber: parseInt(pageNumber) }),
-          },
+        const propertiesData: PropertyData = await searchPropertiesRequest({
+          searchText: searchQuery,
+          ...(searchQuery && { pageSize: NEXT_PUBLIC_PROPERTIES_PAGE_SIZE }),
+          ...(pageNumber && { pageNumber: parseInt(pageNumber) }),
         })
 
         setSearchHitTotal(parseInt(propertiesData.total))

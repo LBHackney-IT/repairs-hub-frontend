@@ -1,8 +1,8 @@
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { buildDataFromScheduleAppointment } from '@/root/src/utils/hact/jobStatusUpdate/notesForm'
 import { useContext, useEffect, useRef, useState } from 'react'
 import UserContext from '../../../UserContext'
-import { getOrCreateSchedulerSessionId } from '@/requests/schedulerSession'
+import { getOrCreateSchedulerSessionIdRequest } from '@/requests/schedulerSession'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
 
 export const useDrsAppointmentScheduler = (workOrderReference: string) => {
   const [schedulerSessionId, setSchedulerSessionId] = useState<string | null>(
@@ -18,7 +18,7 @@ export const useDrsAppointmentScheduler = (workOrderReference: string) => {
     setIsLoading(true)
 
     try {
-      const sessionId = await getOrCreateSchedulerSessionId()
+      const sessionId = await getOrCreateSchedulerSessionIdRequest()
       setSchedulerSessionId(sessionId)
     } catch (err) {
       console.error(err)
@@ -40,11 +40,7 @@ export const useDrsAppointmentScheduler = (workOrderReference: string) => {
       `${user.name} opened the DRS Web Booking Manager`
     )
 
-    await frontEndApiRequest({
-      method: 'post',
-      path: '/api/jobStatusUpdate',
-      requestData: jobStatusUpdate,
-    })
+    await postJobStatusUpdateRequest(jobStatusUpdate)
 
     setTimeout(() => fetchSchedulerSessionId(), 500)
   }

@@ -2,11 +2,8 @@ import { useState, useEffect } from 'react'
 import RaiseWorkOrderForm from '../RaiseWorkOrderForm'
 import Spinner from '../../../Spinner'
 import ErrorMessage from '../../../Errors/ErrorMessage'
-import { getOrCreateSchedulerSessionId } from '@/requests/schedulerSession'
-import {
-  frontEndApiRequest,
-  createSorExistenceValidator,
-} from '@/utils/frontEndApiClient/requests'
+import { getOrCreateSchedulerSessionIdRequest } from '@/requests/schedulerSession'
+import { createSorExistenceValidator } from '@/utils/frontEndApiClient/requests'
 import {
   HIGH_PRIORITY_CODES,
   PRIORITY_CODES_REQUIRING_APPOINTMENTS,
@@ -26,6 +23,13 @@ import AnnouncementMessage from './AnnouncementMessage'
 import RaiseWorkOrderSuccessPage from './SuccessPage'
 import { Trade } from '@/root/src/models/trade'
 import { useSimpleFeatureToggles } from '@/root/src/hooks/useSimpleFeatureToggle'
+import { scheduleWorkOrderRequest } from '@/requests/workOrders'
+import { fetchPropertyTenureRequest } from '@/requests/property'
+import {
+  fetchPrioritiesRequest,
+  fetchTradesForPropertyRequest,
+} from '@/requests/scheduleOfRates'
+import { fetchHubUserRequest } from '@/requests/user'
 
 interface Props {
   propertyReference: string
@@ -100,12 +104,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         params['parentWorkOrderId'] = parentWorkOrderId
       }
 
-      const scheduleWorkOrderResponse = await frontEndApiRequest({
-        method: 'post',
-        path: `/api/workOrders/schedule`,
-        requestData: formData,
-        params,
-      })
+      const scheduleWorkOrderResponse = await scheduleWorkOrderRequest(
+        formData,
+        params
+      )
 
       setWorkOrderReference(scheduleWorkOrderResponse.id)
 
@@ -141,7 +143,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         setImmediateOrEmergencyRepairText(true)
         setImmediateOrEmergencyDLO(true)
       } else {
-        const schedulerSessionId = await getOrCreateSchedulerSessionId()
+        const schedulerSessionId = await getOrCreateSchedulerSessionIdRequest()
 
         setExternallyManagedAppointment(true)
         setExternalAppointmentManagementUrl(
@@ -180,22 +182,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         trades,
         user,
       ] = await Promise.all([
-        frontEndApiRequest({
-          method: 'get',
-          path: `/api/properties/${propertyReference}`,
-        }),
-        frontEndApiRequest({
-          method: 'get',
-          path: `/api/schedule-of-rates/priorities`,
-        }),
-        frontEndApiRequest({
-          method: 'get',
-          path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
-        }),
-        frontEndApiRequest({
-          method: 'get',
-          path: '/api/hub-user',
-        }),
+        fetchPropertyTenureRequest(propertyReference),
+        fetchPrioritiesRequest(),
+        fetchTradesForPropertyRequest(propertyReference),
+        fetchHubUserRequest(),
       ])
 
       setTenure(propertyTenureResponse.tenure)

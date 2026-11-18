@@ -1,14 +1,17 @@
 import { render, waitFor } from '@testing-library/react'
 import EditWorkOrder from './EditWorkOrder'
-import { getWorkOrderDetails } from '@/requests/workOrders'
-import { getContactDetails, getPropertyTenureData } from '@/requests/property'
+import { getWorkOrderDetailsRequest } from '@/requests/workOrders'
+import {
+  getContactDetailsRequest,
+  getPropertyTenureDataRequest,
+} from '@/requests/property'
 
 jest.mock('@/requests/workOrders', () => ({
-  getWorkOrderDetails: jest.fn(),
+  getWorkOrderDetailsRequest: jest.fn(),
 }))
 jest.mock('@/requests/property', () => ({
-  getPropertyTenureData: jest.fn(),
-  getContactDetails: jest.fn(),
+  getPropertyTenureDataRequest: jest.fn(),
+  getContactDetailsRequest: jest.fn(),
 }))
 
 const mockWorkOrder = {
@@ -66,17 +69,17 @@ const mockContactDetails = [
 ]
 describe('EditWorkOrder Component', () => {
   beforeEach(() => {
-    getWorkOrderDetails.mockResolvedValue({
+    getWorkOrderDetailsRequest.mockResolvedValue({
       response: mockWorkOrder,
       success: true,
       error: null,
     })
-    getPropertyTenureData.mockResolvedValue({
+    getPropertyTenureDataRequest.mockResolvedValue({
       response: mockPropertyData,
       success: true,
       error: null,
     })
-    getContactDetails.mockResolvedValue({
+    getContactDetailsRequest.mockResolvedValue({
       response: mockContactDetails,
       success: true,
       error: null,

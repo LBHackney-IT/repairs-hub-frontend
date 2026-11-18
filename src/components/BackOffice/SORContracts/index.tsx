@@ -15,7 +15,7 @@ import {
 } from './utils'
 import {
   SorContractsMode,
-  saveContractChangesToDatabase,
+  saveContractChangesToDatabaseRequest,
 } from '@/requests/backOffice/sorContracts'
 
 import { DataList } from '../../Form'
@@ -166,7 +166,7 @@ const SORContracts = () => {
       selectedOption
     )
 
-    saveContractChangesToDatabase(body)
+    saveContractChangesToDatabaseRequest(body)
       .then(() => {
         setFormSuccess(true)
       })

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrderHierarchy } from './types'
 import RelatedWorkOrderViewList from './RelatedWorkOrderViewList'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchWorkOrderHierarchyRequest } from '@/requests/workOrders'
 
 interface Props {
   tabName: string
@@ -23,10 +23,9 @@ const RelatedWorkOrdersView = ({ workOrderReference, tabName }: Props) => {
     setHierarchy(null)
 
     try {
-      const response: WorkOrderHierarchy = await frontEndApiRequest({
-        path: `/api/workOrders/${workOrderReference}/hierarchy`,
-        method: 'get',
-      })
+      const response: WorkOrderHierarchy = await fetchWorkOrderHierarchyRequest(
+        workOrderReference
+      )
 
       setHierarchy(response)
     } catch (e) {

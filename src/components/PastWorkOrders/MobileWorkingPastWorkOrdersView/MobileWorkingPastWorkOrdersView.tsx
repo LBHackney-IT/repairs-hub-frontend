@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from 'react'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { getYesterdayDate } from '@/root/src/utils/date'
 import { beginningOfDay, getWorkingDaysBeforeDate } from '@/root/src/utils/time'
 
@@ -14,6 +13,7 @@ import {
   WorkOrderType,
   WorkOrdersType,
 } from '@/root/src/types/variations/types'
+import { fetchOperativeAppointmentsRequest } from '@/requests/operatives'
 
 const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
@@ -40,10 +40,10 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     setError(null)
     setIsLoading(true)
     try {
-      const data = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/operatives/${currentUser.operativePayrollNumber}/appointments?date=${targetDate}`,
-      })
+      const data = await fetchOperativeAppointmentsRequest(
+        currentUser.operativePayrollNumber,
+        { date: targetDate }
+      )
 
       const workOrders: WorkOrdersType = data.map(
         (wo: WorkOrderType) => new WorkOrder(wo)

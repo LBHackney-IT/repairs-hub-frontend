@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { CurrentUser } from '@/root/src/types/variations/types'
+import { fetchHubUserRequest } from '@/requests/user'
 
 // Define props interface for child components
 interface WithCurrentUserProps {
@@ -24,10 +24,7 @@ const PastOrdersCurrentUserWrapper = ({ children }: Props) => {
     setError(null)
 
     try {
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const currentUser = await fetchHubUserRequest()
 
       setCurrentUser(currentUser)
     } catch (e) {

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import ConfirmCloseWorkOrderWithoutPhotosForm from '../ConfirmCloseWorkOrderWithoutPhotosForm'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
-import { getWorkOrderDetails } from '@/requests/workOrders'
+import { getWorkOrderDetailsRequest } from '@/requests/workOrders'
 import { ApiResponseType } from '@/root/src/types/requests/types'
 import { WorkOrder } from '@/root/src/models/workOrder'
+import { postCloseWithoutPhotoFeedbackRequest } from '@/requests/feedback'
 
 interface Props {
   workOrderId: string
@@ -32,7 +32,7 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
   const loadWorkOrder = async () => {
     setLoadingStatus('Fetching work order data')
 
-    const workOrderResponse: ApiResponseType<WorkOrder> = await getWorkOrderDetails(
+    const workOrderResponse: ApiResponseType<WorkOrder> = await getWorkOrderDetailsRequest(
       workOrderId
     )
 
@@ -73,11 +73,7 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
     setRequestError(null)
     setLoadingStatus('Submitting feedback')
 
-    frontEndApiRequest({
-      method: 'post',
-      path: '/api/feedback/close-work-order-without-photo',
-      requestData,
-    })
+    postCloseWithoutPhotoFeedbackRequest(requestData)
       .then(() => {
         // dont turn off loading
         // to hide screen flash

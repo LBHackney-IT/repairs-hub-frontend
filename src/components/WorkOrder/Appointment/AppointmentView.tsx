@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay, beginningOfWeek, daysAfter } from '@/utils/time'
 import BackButton from '../../Layout/BackButton'
 import PropertyDetails from './PropertyDetails'
@@ -12,9 +11,18 @@ import Panel from '../../Template/Panel'
 import NoAvailableAppointments from './NoAvailableAppointments'
 import { toISODate } from '../../../utils/date'
 import { createWOLinks } from '@/utils/successPageLinks'
-import { getWorkOrderDetails } from '@/requests/workOrders'
+import {
+  fetchWorkOrderTasksRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchPropertyTenureRequest } from '@/requests/property'
+import {
+  createAppointmentRequest,
+  fetchAvailableAppointmentsRequest,
+} from '@/requests/appointments'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
 
 interface Props {
   workOrderReference: string
@@ -43,7 +51,9 @@ const AppointmentView = ({ workOrderReference, successText }: Props) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(
+        workOrderReference
+      )
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -58,26 +68,18 @@ const AppointmentView = ({ workOrderReference, successText }: Props) => {
         return
       }
 
-      const tasksAndSors = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
-      const propertyObject = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/${workOrder.propertyReference}`,
-      })
+      const tasksAndSors = await fetchWorkOrderTasksRequest(workOrderReference)
+      const propertyObject = await fetchPropertyTenureRequest(
+        workOrder.propertyReference
+      )
       const currentDate = beginningOfDay(new Date())
       const startOfCalendar = beginningOfWeek(currentDate)
       const endOfCalendar = daysAfter(startOfCalendar, 41)
 
-      const availableAppointments = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/appointments',
-        params: {
-          workOrderReference: workOrderReference,
-          fromDate: toISODate(startOfCalendar),
-          toDate: toISODate(endOfCalendar),
-        },
+      const availableAppointments = await fetchAvailableAppointmentsRequest({
+        workOrderReference: workOrderReference,
+        fromDate: toISODate(startOfCalendar),
+        toDate: toISODate(endOfCalendar),
       })
 
       setWorkOrder(workOrder)
@@ -119,16 +121,8 @@ const AppointmentView = ({ workOrderReference, successText }: Props) => {
     setLoading(true)
 
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/appointments`,
-        requestData: formData,
-      }).then(() =>
-        frontEndApiRequest({
-          method: 'post',
-          path: `/api/jobStatusUpdate`,
-          requestData: commentsForJobStatus,
-        })
+      await createAppointmentRequest(formData).then(() =>
+        postJobStatusUpdateRequest(commentsForJobStatus)
       )
       setScheduleAppointmentSuccess(true)
     } catch (e) {

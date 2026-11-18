@@ -1,16 +1,21 @@
 import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
 import RateScheduleItem from '../WorkElement/RateScheduleItem'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
-import { getWorkOrderDetails } from '@/requests/workOrders'
+import {
+  fetchWorkOrderTasksRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import { fetchSorCodesRequest } from '@/requests/scheduleOfRates'
+import { fetchHubUserRequest } from '@/requests/user'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
 
 const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
@@ -25,7 +30,7 @@ const NewTaskForm = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrderDetails(reference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(reference)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -33,30 +38,20 @@ const NewTaskForm = ({ workOrderReference }) => {
 
       const workOrder = workOrderResponse.response
 
-      const sorCodes = await frontEndApiRequest({
-        path: '/api/schedule-of-rates/codes',
-        method: 'get',
-        params: {
-          tradeCode: workOrder.tradeCode,
-          propertyReference: workOrder.propertyReference,
-          contractorReference: workOrder.contractorReference,
-          showAdditionalTrades: true,
-        },
+      const sorCodes = await fetchSorCodesRequest({
+        tradeCode: workOrder.tradeCode,
+        propertyReference: workOrder.propertyReference,
+        contractorReference: workOrder.contractorReference,
+        showAdditionalTrades: true,
       })
 
       setSorCodes(sorCodes)
 
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const currentUser = await fetchHubUserRequest()
 
       setCurrentUser(currentUser)
 
-      const tasksAndSors = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
+      const tasksAndSors = await fetchWorkOrderTasksRequest(workOrderReference)
 
       setExistingTasks(tasksAndSors)
     } catch (e) {
@@ -89,11 +84,7 @@ const NewTaskForm = ({ workOrderReference }) => {
     )
 
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: workOrderUpdateFormData,
-      })
+      await postJobStatusUpdateRequest(workOrderUpdateFormData)
 
       router.push(
         `/operatives/${currentUser?.operativePayrollNumber}/work-orders/${workOrderReference}`

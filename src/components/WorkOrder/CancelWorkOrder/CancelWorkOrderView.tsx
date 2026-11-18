@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import SuccessPage from '../../SuccessPage/index'
 import { cancelWorkOrderLinks } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
-import { getWorkOrderDetails } from '@/requests/workOrders'
+import {
+  completeWorkOrderRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 interface Props {
@@ -23,11 +25,7 @@ const CancelWorkOrderView = ({ workOrderReference }: Props) => {
     setLoading(true)
 
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/workOrderComplete`,
-        requestData: formData,
-      })
+      await completeWorkOrderRequest(formData)
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
@@ -40,7 +38,9 @@ const CancelWorkOrderView = ({ workOrderReference }: Props) => {
   const getCancelWorkOrderView = async () => {
     setError(null)
 
-    const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+    const workOrderResponse = await getWorkOrderDetailsRequest(
+      workOrderReference
+    )
 
     if (!workOrderResponse.success) {
       setWorkOrder(null)

@@ -5,8 +5,8 @@ import SuccessMessage from '../Components/SuccessMessage'
 
 import Layout from '../Layout'
 
-import { fetchTrades } from '@/requests/backOffice/trades'
-import { saveSorCodesToDatabase } from '@/requests/backOffice/sorCodes'
+import { fetchTradesRequest } from '@/requests/backOffice/trades'
+import { saveSorCodesToDatabaseRequest } from '@/requests/backOffice/sorCodes'
 
 import SorCode from '@/root/src/models/sorCode'
 import {
@@ -112,7 +112,7 @@ const AddSORCodes = () => {
   }
 
   useEffect(() => {
-    fetchTrades()
+    fetchTradesRequest()
       .then((res) => {
         setTrades(res)
       })
@@ -296,7 +296,7 @@ const AddSORCodes = () => {
       tradeCode: selectedTrade.code,
     }
 
-    saveSorCodesToDatabase(data)
+    saveSorCodesToDatabaseRequest(data)
       .then(() => {
         setFormSuccess(true)
       })

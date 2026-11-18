@@ -1,6 +1,7 @@
 import { CurrentUser } from '../types/variations/types'
 import { useCallback, useEffect, useState } from 'react'
-import { frontEndApiRequest } from './frontEndApiClient/requests'
+import { fetchHubUserRequest } from '@/requests/user'
+import { postLogMessageRequest } from '@/requests/logging'
 
 type Category = 'PHOTOS' | 'WORK_ORDERS' | 'APPOINTMENTS' // Extend as needed
 
@@ -10,12 +11,7 @@ type Category = 'PHOTOS' | 'WORK_ORDERS' | 'APPOINTMENTS' // Extend as needed
  */
 async function sendLogMessage(message: string): Promise<void> {
   try {
-    await frontEndApiRequest({
-      method: 'post',
-      path: '/api/logging',
-      requestData: { message },
-      timeout: 5000, // Add timeout to prevent hanging requests
-    })
+    await postLogMessageRequest(message)
   } catch (loggingError) {
     // Don't throw - logging failures shouldn't break the app
     console.error('Failed to log message:', loggingError)
@@ -39,10 +35,7 @@ const useCloudwatchLogger = (
       setUser(currentUser)
       return
     }
-    frontEndApiRequest({
-      method: 'get',
-      path: '/api/hub-user',
-    })
+    fetchHubUserRequest()
       .then((user) => {
         setUser(user)
       })

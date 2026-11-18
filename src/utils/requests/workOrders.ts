@@ -5,8 +5,9 @@ import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { WorkOrderTasks } from '../../models/workOrderTasks'
+import { postJobStatusUpdateRequest } from './jobStatusUpdate'
 
-export const getAppointmentDetails = async (
+export const getAppointmentDetailsRequest = async (
   workOrderReference: string
 ): Promise<ApiResponseType<WorkOrderAppointmentDetails | null>> => {
   try {
@@ -39,7 +40,7 @@ export const getAppointmentDetails = async (
   }
 }
 
-export const getWorkOrderDetails = async (
+export const getWorkOrderDetailsRequest = async (
   workOrderReference: string
 ): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
@@ -70,7 +71,7 @@ export const getWorkOrderDetails = async (
   }
 }
 
-export const editWorkOrder = async (
+export const editWorkOrderRequest = async (
   id: string,
   description: string,
   callerName: string,
@@ -108,14 +109,13 @@ export const editWorkOrder = async (
   }
 }
 
-export const getWorkOrderTasks = async (
+export const getWorkOrderTasksRequest = async (
   workOrderReference: string
 ): Promise<ApiResponseType<WorkOrderTasks[]>> => {
   try {
-    const tasksResponse: WorkOrderTasks[] = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/workOrders/${workOrderReference}/tasks`,
-    })
+    const tasksResponse: WorkOrderTasks[] = await fetchWorkOrderTasksRequest(
+      workOrderReference
+    )
 
     return {
       success: true,
@@ -137,15 +137,11 @@ export const getWorkOrderTasks = async (
   }
 }
 
-export const postNote = async (
+export const postNoteRequest = async (
   noteData: NoteDataType
 ): Promise<ApiResponseType<null>> => {
   try {
-    await frontEndApiRequest({
-      method: 'post',
-      path: `/api/jobStatusUpdate`,
-      requestData: noteData,
-    })
+    await postJobStatusUpdateRequest(noteData)
 
     return {
       success: true,
@@ -166,3 +162,78 @@ export const postNote = async (
     }
   }
 }
+
+export const fetchWorkOrderTasksRequest = (workOrderReference: string) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: `/api/workOrders/${workOrderReference}/tasks`,
+  })
+
+export const fetchWorkOrdersRequest = (
+  params: object,
+  paramsSerializer?: any
+) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: '/api/workOrders/',
+    params,
+    ...(paramsSerializer && { paramsSerializer }),
+  })
+
+export const scheduleWorkOrderRequest = (
+  requestData: object,
+  params?: object
+) =>
+  frontEndApiRequest({
+    method: 'post',
+    path: `/api/workOrders/schedule`,
+    requestData,
+    params,
+  })
+
+export const fetchBudgetCodesRequest = (params: object) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: '/api/workOrders/budget-codes',
+    params,
+  })
+
+export const startWorkOrderRequest = (requestData: object) =>
+  frontEndApiRequest({
+    method: 'put',
+    path: `/api/workOrders/starttime`,
+    requestData,
+  })
+
+export const completeWorkOrderRequest = (requestData: object) =>
+  frontEndApiRequest({
+    method: 'post',
+    path: `/api/workOrderComplete`,
+    requestData,
+  })
+
+export const fetchWorkOrderNotesRequest = (workOrderReference: string) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: `/api/workOrders/${workOrderReference}/notes`,
+  })
+
+export const fetchWorkOrderHierarchyRequest = (workOrderReference: string) =>
+  frontEndApiRequest({
+    path: `/api/workOrders/${workOrderReference}/hierarchy`,
+    method: 'get',
+  })
+
+export const fetchWorkOrderFiltersRequest = () =>
+  frontEndApiRequest({
+    method: 'get',
+    path: '/api/filter/WorkOrder',
+  })
+
+export const fetchWorkOrderVariationTasksRequest = (
+  workOrderReference: string
+) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: `/api/workOrders/${workOrderReference}/variation-tasks`,
+  })

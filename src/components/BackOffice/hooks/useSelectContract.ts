@@ -1,8 +1,8 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 
-import { fetchContractors } from '@/requests/backOffice/contractor'
-import { fetchContracts } from '@/requests/contract'
+import { fetchContractorsRequest } from '@/requests/backOffice/contractor'
+import { fetchContractsRequest } from '@/requests/contract'
 
 export interface Contractor {
   contractorReference: string
@@ -23,7 +23,7 @@ const useSelectContract = () => {
   useEffect(() => {
     setLoadingContractors(true)
 
-    fetchContractors()
+    fetchContractorsRequest()
       .then((res) => {
         setContractors(res)
       })
@@ -39,7 +39,7 @@ const useSelectContract = () => {
     ['contracts', selectedContractor?.contractorReference],
     () =>
       selectedContractor
-        ? fetchContracts({
+        ? fetchContractsRequest({
             isActive: true,
             contractorReference: selectedContractor.contractorReference,
             sorCode: null,
