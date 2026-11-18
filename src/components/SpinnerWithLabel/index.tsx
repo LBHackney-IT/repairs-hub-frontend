@@ -13,7 +13,7 @@ const SpinnerWithLabel = (props: Props) => {
       style={{ display: 'flex', alignItems: 'center' }}
     >
       <Spinner />
-      <span style={{ margin: '0 0 0 15px' }}>{label}</span>
+      <span style={{ margin: '0 0 0 15px', color: '#505a5f' }}>{label}</span>
     </div>
   )
 }
