@@ -8,7 +8,7 @@ import RateScheduleItem from '../WorkElement/RateScheduleItem'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
-import { getWorkOrderDetails } from '../../utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 

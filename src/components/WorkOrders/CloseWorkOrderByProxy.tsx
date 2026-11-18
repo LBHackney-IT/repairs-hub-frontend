@@ -20,7 +20,7 @@ import SpinnerWithLabel from '../SpinnerWithLabel'
 import {
   getAppointmentDetails,
   getWorkOrderDetails,
-} from '../../utils/requests/workOrders'
+} from '@/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { Operative } from '../../models/operativeModel'

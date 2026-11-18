@@ -1,7 +1,7 @@
 import type {
   SorContractsMode,
   SorContractsRequest,
-} from '@/root/src/utils/requests/backOffice/sorContracts'
+} from '@/requests/backOffice/sorContracts'
 
 export const validatePropertyReference = (propertyReference: string) => {
   const regex = /^\d{8}$/gm

@@ -1,6 +1,6 @@
 import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
-import { getAlerts } from '@/root/src/utils/requests/property'
+import { getAlerts } from '@/requests/property'
 import { useEffect, useState } from 'react'
 
 export const usePropertyFlags = (propertyReference: string) => {

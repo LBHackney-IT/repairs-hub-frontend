@@ -1,15 +1,12 @@
 import { render, waitFor } from '@testing-library/react'
 import EditWorkOrder from './EditWorkOrder'
-import { getWorkOrderDetails } from '@/utils/requests/workOrders'
-import {
-  getContactDetails,
-  getPropertyTenureData,
-} from '@/utils/requests/property'
+import { getWorkOrderDetails } from '@/requests/workOrders'
+import { getContactDetails, getPropertyTenureData } from '@/requests/property'
 
-jest.mock('@/utils/requests/workOrders', () => ({
+jest.mock('@/requests/workOrders', () => ({
   getWorkOrderDetails: jest.fn(),
 }))
-jest.mock('@/utils/requests/property', () => ({
+jest.mock('@/requests/property', () => ({
   getPropertyTenureData: jest.fn(),
   getContactDetails: jest.fn(),
 }))

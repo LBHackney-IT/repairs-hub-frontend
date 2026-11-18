@@ -16,7 +16,7 @@ import {
 import {
   SorContractsMode,
   saveContractChangesToDatabase,
-} from '@/root/src/utils/requests/backOffice/sorContracts'
+} from '@/requests/backOffice/sorContracts'
 
 import { DataList } from '../../Form'
 

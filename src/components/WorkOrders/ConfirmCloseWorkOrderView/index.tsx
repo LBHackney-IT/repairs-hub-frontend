@@ -5,7 +5,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
-import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/requests/workOrders'
 import { ApiResponseType } from '@/root/src/types/requests/types'
 import { WorkOrder } from '@/root/src/models/workOrder'
 

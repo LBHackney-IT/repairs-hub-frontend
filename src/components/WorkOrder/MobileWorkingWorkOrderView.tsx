@@ -26,7 +26,7 @@ import { formatRequestErrorMessage } from '../../utils/errorHandling/formatError
 import {
   getAppointmentDetails,
   getWorkOrderDetails,
-} from '../../utils/requests/workOrders'
+} from '@/requests/workOrders'
 import { CurrentUser } from '../../types/variations/types'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'

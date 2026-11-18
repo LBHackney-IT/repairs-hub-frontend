@@ -6,7 +6,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import SuccessPage from '../../SuccessPage/index'
 import { cancelWorkOrderLinks } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
-import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/requests/workOrders'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 interface Props {

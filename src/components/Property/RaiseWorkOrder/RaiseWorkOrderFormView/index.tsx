@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import RaiseWorkOrderForm from '../RaiseWorkOrderForm'
 import Spinner from '../../../Spinner'
 import ErrorMessage from '../../../Errors/ErrorMessage'
-import { getOrCreateSchedulerSessionId } from '@/utils/requests/schedulerSession'
+import { getOrCreateSchedulerSessionId } from '@/requests/schedulerSession'
 import {
   frontEndApiRequest,
   createSorExistenceValidator,

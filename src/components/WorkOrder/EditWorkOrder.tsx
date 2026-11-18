@@ -16,12 +16,9 @@ import {
   postNote,
   editWorkOrder,
   getWorkOrderDetails,
-} from '@/utils/requests/workOrders'
+} from '@/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
-import {
-  getPropertyTenureData,
-  getContactDetails,
-} from '../../utils/requests/property'
+import { getPropertyTenureData, getContactDetails } from '@/requests/property'
 
 export type EditWorkOrderProps = {
   workOrderReference: string

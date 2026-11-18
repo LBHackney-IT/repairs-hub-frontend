@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 
 const TestErrorMessage = 'Test submission error'
 
-jest.mock('@/root/src/utils/requests/trades', () => ({
+jest.mock('@/requests/trades', () => ({
   getTrades: jest.fn(() =>
     Promise.resolve({
       success: true,

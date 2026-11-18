@@ -20,7 +20,7 @@ import {
   authorisationApprovedLinks,
   cancelWorkOrderLinks,
 } from '@/utils/successPageLinks'
-import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 

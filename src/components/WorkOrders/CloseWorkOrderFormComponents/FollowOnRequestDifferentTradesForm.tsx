@@ -3,7 +3,7 @@ import { Checkbox, DataList } from '../../Form'
 import { useState, useEffect } from 'react'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
-import { getTradeFilters } from '@/root/src/utils/requests/trades'
+import { getTradeFilters } from '@/requests/trades'
 
 const maxLength = 100
 // TODO: Set() takes a single iterable, so this currently contains only the

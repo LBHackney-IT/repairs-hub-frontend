@@ -4,7 +4,7 @@ import PropertyFlags from './PropertyFlags'
 import Alerts from './Alerts'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { getAlerts } from '../../utils/requests/property'
+import { getAlerts } from '@/requests/property'
 import { Address, Tenure } from '../../models/propertyTenure'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 

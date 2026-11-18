@@ -6,8 +6,8 @@ import WarningInfoBox from '../Template/WarningInfoBox'
 import ErrorMessage from '../Errors/ErrorMessage'
 import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractSection from './Contract/ContractSection'
-import { fetchContractors } from '@/root/src/utils/requests/contractor'
-import { fetchContracts } from '@/root/src/utils/requests/contract'
+import { fetchContractors } from '@/requests/contractor'
+import { fetchContracts } from '@/requests/contract'
 
 import {
   filterActiveContractsByExpiryDate,

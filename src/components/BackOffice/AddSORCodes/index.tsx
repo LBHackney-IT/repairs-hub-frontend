@@ -5,8 +5,8 @@ import SuccessMessage from '../Components/SuccessMessage'
 
 import Layout from '../Layout'
 
-import { fetchTrades } from '@/root/src/utils/requests/backOffice/trades'
-import { saveSorCodesToDatabase } from '@/root/src/utils/requests/backOffice/sorCodes'
+import { fetchTrades } from '@/requests/backOffice/trades'
+import { saveSorCodesToDatabase } from '@/requests/backOffice/sorCodes'
 
 import SorCode from '@/root/src/models/sorCode'
 import {

@@ -22,6 +22,7 @@ module.exports = {
     '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@/models/(.*)$': '<rootDir>/src/models/$1',
     '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
+    '^@/requests/(.*)$': '<rootDir>/src/utils/requests/$1',
     '^@/root/(.*)$': '<rootDir>/$1',
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@/types/(.*)$': '<rootDir>/src/types/$1',

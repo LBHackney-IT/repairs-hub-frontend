@@ -7,15 +7,12 @@ import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import {
-  getWorkOrderDetails,
-  getWorkOrderTasks,
-} from '../../utils/requests/workOrders'
+import { getWorkOrderDetails, getWorkOrderTasks } from '@/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { getAlerts, getPropertyTenureData } from '../../utils/requests/property'
+import { getAlerts, getPropertyTenureData } from '@/requests/property'
 import { Property, Tenure } from '../../models/propertyTenure'
-import { useAppointmentDetails } from '../../utils/requests/hooks/useAppointmentDetails'
+import { useAppointmentDetails } from '@/requests/hooks/useAppointmentDetails'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
