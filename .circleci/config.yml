@@ -61,7 +61,8 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-      - browser-tools/install_chrome
+      - browser-tools/install_chrome:
+          chrome-version: "141.0.7390.122"
       # Cypress' own binary is cached between runs.
       - restore_cache:
           keys:
