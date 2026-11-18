@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import PropertyDetails from './PropertyDetails'
 import Spinner from '../Spinner'
@@ -13,7 +12,11 @@ import {
   Tenure,
 } from '../../models/propertyTenure'
 
-const PropertyView = ({ propertyReference }) => {
+interface Props {
+  propertyReference: string
+}
+
+const PropertyView = ({ propertyReference }: Props) => {
   const [property, setProperty] = useState<Property>({} as Property)
   const [tenure, setTenure] = useState<Tenure>({} as Tenure)
   const [loading, setLoading] = useState(false)
@@ -90,10 +93,6 @@ const PropertyView = ({ propertyReference }) => {
       )}
     </>
   )
-}
-
-PropertyView.propTypes = {
-  propertyReference: PropTypes.string.isRequired,
 }
 
 export default PropertyView

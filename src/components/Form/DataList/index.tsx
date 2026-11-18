@@ -12,14 +12,14 @@ interface Props {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   children?: ReactNode
   error?: FieldError | { message?: string }
-  disabled?: boolean
+  disabled?: boolean | string
   register?: any
   widthClass?: string
   required?: boolean
   labelMessage?: string
   value?: string
   defaultValue?: string
-  additionalDivClasses?: string
+  additionalDivClasses?: string | string[]
   maxLength?: number
   remainingCharacterCount?: number
 }
@@ -104,8 +104,8 @@ const DataList = ({
         }
         aria-describedby={hint && `${name}-hint`}
         onChange={(e) => onChange && onChange(e)}
-        disabled={disabled}
-        aria-disabled={disabled}
+        disabled={disabled as boolean}
+        aria-disabled={disabled as any}
         list={`autocomplete-list-${name}`}
         autoComplete="off"
         defaultValue={defaultValue}

@@ -297,6 +297,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
           >
             <th
               class="govuk-table__header govuk-table__header border-none"
+              colspan="2"
               scope="row"
             >
               <p
