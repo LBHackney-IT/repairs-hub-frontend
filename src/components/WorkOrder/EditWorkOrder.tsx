@@ -226,7 +226,10 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
             >
               Tenants
             </h3>
-            <TenantContactsTable tenants={tenants} reloadContacts={contacts} />
+            <TenantContactsTable
+              tenants={tenants}
+              reloadContacts={fetchWorkOrderDetails}
+            />
 
             <h3
               className="lbh-heading-h3"

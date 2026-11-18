@@ -12,7 +12,7 @@ exports[`EditWorkOrder Component should render correctly after fetching work ord
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
