@@ -66,7 +66,7 @@ jobs:
       - run:
           name: Install pinned Chrome
           command: |
-            CHROME_VERSION="141.0.7390.122"
+            CHROME_VERSION="157.0.8103.78"
             curl -fsSL -o /tmp/chrome.zip "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip"
             sudo rm -rf /opt/chrome-linux64
             sudo unzip -q /tmp/chrome.zip -d /opt
@@ -107,7 +107,7 @@ jobs:
             # Cypress expects files to be separated with commas
             TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt | perl -pe 'chomp if eof' | tr '\n' ',')
             echo $TESTFILES
-            NODE_ENV=test yarn start-test http://localhost:5001 "yarn cy:run --reporter cypress-multi-reporters --reporter-options configFile=cypress-reporter-config.json --spec \"$TESTFILES\""
+            NODE_ENV=test yarn start-test http://localhost:5001 "yarn cypress run --browser /opt/chrome-linux64/chrome --headless --reporter cypress-multi-reporters --reporter-options configFile=cypress-reporter-config.json --spec \"$TESTFILES\""
       # Run even when tests fail so CircleCI still gets file paths in the
       # junit output and can keep splitting by timings accurately.
       - run:
