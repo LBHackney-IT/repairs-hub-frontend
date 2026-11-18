@@ -107,7 +107,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -588,7 +588,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -995,7 +995,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -1476,7 +1476,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -1813,7 +1813,7 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -2028,7 +2028,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -2467,7 +2467,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -2906,7 +2906,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -3345,7 +3345,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"
@@ -3703,7 +3703,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       Back
     </a>
     <div
-      class="govuk-grid-row undefined"
+      class="govuk-grid-row"
     >
       <div
         class="govuk-grid-column-two-thirds"

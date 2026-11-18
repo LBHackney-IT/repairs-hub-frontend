@@ -236,7 +236,6 @@ const AddSORCodes = () => {
   const renderConfirmationModal = () => {
     if (showDialog) {
       return (
-        // @ts-expect-error Props validation
         <ConfirmationModal
           title={'Add new SOR codes?'}
           showDialog
@@ -328,7 +327,6 @@ const AddSORCodes = () => {
 
               {renderConfirmationModal()}
 
-              {/* @ts-expect-error Props validation */}
               <DataList
                 name="contractor"
                 label="Contractor"
@@ -342,7 +340,6 @@ const AddSORCodes = () => {
                 <Spinner />
               ) : (
                 <div>
-                  {/* @ts-expect-error Props validation */}
                   <DataList
                     name="contract"
                     label="Contract"
@@ -359,7 +356,6 @@ const AddSORCodes = () => {
                 </div>
               )}
 
-              {/* @ts-expect-error Props validation */}
               <DataList
                 name="trade"
                 label="Trade"
