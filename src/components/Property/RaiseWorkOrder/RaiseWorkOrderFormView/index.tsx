@@ -3,7 +3,7 @@ import RaiseWorkOrderForm from '../RaiseWorkOrderForm'
 import Spinner from '../../../Spinner'
 import ErrorMessage from '../../../Errors/ErrorMessage'
 import { getOrCreateSchedulerSessionIdRequest } from '@/requests/schedulerSession'
-import { createSorExistenceValidator } from '@/utils/frontEndApiClient/requests'
+import { createSorExistenceValidator } from '@/utils/helpers/sorExistenceValidator'
 import {
   HIGH_PRIORITY_CODES,
   PRIORITY_CODES_REQUIRING_APPOINTMENTS,
