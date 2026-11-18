@@ -73,7 +73,6 @@ const FollowOnLookup = (props: Props) => {
 
   return (
     <div>
-      {/* @ts-expect-error Props validation */}
       <DataList
         name="parentWorkOrder"
         label="Please select the original work order this relates to"

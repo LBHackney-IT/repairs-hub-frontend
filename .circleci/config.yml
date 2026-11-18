@@ -61,7 +61,17 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-      - browser-tools/install_chrome
+      # Chrome is pinned: Cypress 13 crashes ("* is not a valid URL") with the
+      # latest Chrome, and browser-tools/install_chrome can't pin a version.
+      - run:
+          name: Install pinned Chrome
+          command: |
+            CHROME_VERSION="157.0.8103.78"
+            curl -fsSL -o /tmp/chrome.zip "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip"
+            sudo rm -rf /opt/chrome-linux64
+            sudo unzip -q /tmp/chrome.zip -d /opt
+            sudo ln -sf /opt/chrome-linux64/chrome /usr/local/bin/google-chrome
+            google-chrome --version
       # Cypress' own binary is cached between runs.
       - restore_cache:
           keys:
@@ -97,7 +107,7 @@ jobs:
             # Cypress expects files to be separated with commas
             TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt | perl -pe 'chomp if eof' | tr '\n' ',')
             echo $TESTFILES
-            NODE_ENV=test yarn start-test http://localhost:5001 "yarn cy:run --reporter cypress-multi-reporters --reporter-options configFile=cypress-reporter-config.json --spec \"$TESTFILES\""
+            NODE_ENV=test yarn start-test http://localhost:5001 "yarn cypress run --browser /opt/chrome-linux64/chrome --headless --reporter cypress-multi-reporters --reporter-options configFile=cypress-reporter-config.json --spec \"$TESTFILES\""
       # Run even when tests fail so CircleCI still gets file paths in the
       # junit output and can keep splitting by timings accurately.
       - run:
