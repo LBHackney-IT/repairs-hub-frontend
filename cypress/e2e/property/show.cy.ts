@@ -97,7 +97,7 @@ describe('Show property', () => {
         )
 
         // Mock many properties for the first page of results
-        let properties = [...Array(50).keys()]
+        const properties: any[] = [...Array(50).keys()]
 
         properties.forEach((property, index) => {
           const referenceIndex = (50 - index).toString()
@@ -237,8 +237,8 @@ describe('Show property', () => {
 
     context('When filter dropdown is used', () => {
       beforeEach(() => {
-        let workOrderCount = 50
-        let workOrders = []
+        const workOrderCount = 50
+        const workOrders = []
 
         for (let i = 0; i < workOrderCount; i++) {
           const referenceIndexString = `100000${i}`
@@ -556,7 +556,7 @@ describe('Show property', () => {
         cy.contains('a', 'Out of hours note').should(
           'have.attr',
           'href',
-          Cypress.env('NEXT_PUBLIC_OUT_OF_HOURS_LINK')
+          Cypress.expose('NEXT_PUBLIC_OUT_OF_HOURS_LINK')
         )
       })
     })

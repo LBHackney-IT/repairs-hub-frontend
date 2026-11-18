@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe('Search', () => {
-  const totalPageSize = Cypress.env('NEXT_PUBLIC_PROPERTIES_PAGE_SIZE')
+  const totalPageSize = Cypress.expose('NEXT_PUBLIC_PROPERTIES_PAGE_SIZE')
   const totalResults = totalPageSize + 1
   const lastPageLastItemReference = totalResults.toString().padStart(8, '0')
 

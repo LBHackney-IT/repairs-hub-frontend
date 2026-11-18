@@ -451,7 +451,7 @@ describe('Closing a work order on behalf of an operative', () => {
       const photo1 = 'photo_1.jpg'
       cy.get('input[type="file"]').selectFile(
         Array(11)
-          .fill()
+          .fill(null)
           .map((_, i) => ({
             contents: `cypress/fixtures/photos/${photo1}`,
             fileName: `photo_${i + 1}.jpg`,

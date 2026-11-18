@@ -47,7 +47,7 @@ jobs:
           pkg-manager: yarn
       - run:
           name: Type check
-          command: yarn tsc --noEmit
+          command: yarn typecheck
       - run:
           name: Audit production dependencies
           # yarn audit exits with a bitmask (8 = high, 16 = critical); only fail on those
