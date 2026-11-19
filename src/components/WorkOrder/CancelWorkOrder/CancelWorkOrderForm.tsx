@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../../Form'
 import WorkOrderInfoTable from '../WorkOrderInfoTable'
@@ -13,7 +12,12 @@ import { isContractorScheduledInternally } from '@/utils/helpers/workOrders'
 import { useState } from 'react'
 import { CannotCancelJobWarningBox } from '../../DrsBookingLifeCycleStatusBadge'
 
-const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
+interface Props {
+  workOrder: any
+  onFormSubmit: (...args: any[]) => any
+}
+
+const CancelWorkOrderForm = ({ workOrder, onFormSubmit }: Props) => {
   const { register, handleSubmit, errors } = useForm()
   const [scheduledInternally] = useState(
     isContractorScheduledInternally(workOrder.contractorReference)
@@ -92,11 +96,6 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
       </div>
     </div>
   )
-}
-
-CancelWorkOrderForm.propTypes = {
-  workOrder: PropTypes.object.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
 }
 
 export default CancelWorkOrderForm

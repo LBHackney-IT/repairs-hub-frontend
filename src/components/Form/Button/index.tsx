@@ -3,7 +3,7 @@ import cx from 'classnames'
 export interface Props {
   onClick?: () => void
   label: string
-  type: 'submit' | 'reset' | 'button'
+  type?: 'submit' | 'reset' | 'button'
   isSecondary?: boolean
   className?: string
   [x: string]: any
