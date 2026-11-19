@@ -1,0 +1,74 @@
+import { GridRow, GridColumn } from '../../Layout/Grid'
+import { TextInput } from '../../Form'
+
+interface Props {
+  latestTasks: any[]
+  errors: any
+  register: (...args: any[]) => any
+}
+
+const LatestRateScheduleItems = ({ latestTasks, errors, register }: Props) => {
+  return (
+    <div>
+      <section className="section" id="existing-rate-schedule-items">
+        <h2 className="lbh-heading-h2">
+          Latest tasks and SORS against the work order
+        </h2>
+
+        <GridRow className="rate-schedule-items align-items-center">
+          {latestTasks.map((t, index) => (
+            <div key={index}>
+              <GridColumn width="two-thirds">
+                <TextInput
+                  name={`sor-code-${index}`}
+                  label={index == 0 ? 'SOR code' : ''}
+                  widthClass={`sor-code-${index} govuk-!-width-full`}
+                  register={register}
+                  disabled="disabled"
+                  value={`${[t.code, t.description]
+                    .filter(Boolean)
+                    .join(' - ')}`}
+                />
+                <input
+                  id={`original-rate-schedule-item-${index}`}
+                  name={`original-rate-schedule-item-${index}`}
+                  type="hidden"
+                  value={t.id}
+                  ref={register}
+                />
+              </GridColumn>
+              <GridColumn width="one-third">
+                <TextInput
+                  name={`quantity-${index}`}
+                  label={index == 0 ? 'Quantity' : ''}
+                  error={errors && errors?.[`quantity-${index}`]}
+                  widthClass={`quantity-${index} govuk-!-width-full`}
+                  defaultValue={t.quantity}
+                  register={register({
+                    required: 'Please enter a quantity',
+                    validate: (value) => {
+                      const maxTwoDecimalPoints = /^(?=.*\d)\d*(?:\.\d{1,2})?$/
+                      if (isNaN(value)) {
+                        return 'Quantity must be a number'
+                      } else if (value < 0) {
+                        return 'Quantity must be 0 or more'
+                      } else if (!maxTwoDecimalPoints.test(value)) {
+                        return 'Quantity including a decimal point is permitted a maximum of 2 decimal places'
+                      } else {
+                        return true
+                      }
+                    },
+                  })}
+                />
+              </GridColumn>
+            </div>
+          ))}
+        </GridRow>
+
+        <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+      </section>
+    </div>
+  )
+}
+
+export default LatestRateScheduleItems

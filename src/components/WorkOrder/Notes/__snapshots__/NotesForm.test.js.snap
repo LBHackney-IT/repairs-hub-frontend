@@ -79,7 +79,6 @@ exports[`NotesForm component should render properly when display form is true 1`
         </div>
         <input
           id="workOrderReference"
-          label="workOrderReference"
           name="workOrderReference"
           type="hidden"
           value="10002222"
