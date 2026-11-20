@@ -1,7 +1,6 @@
 import { useState, useEffect, MouseEvent } from 'react'
 import { useRouter } from 'next/router'
 import { setFilterOptions } from '@/utils/helpers/filter'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { paramsSerializer } from '@/utils/urls'
 import { convertValuesOfObjectToArray } from '@/utils/helpers/array'
 import {
@@ -10,6 +9,7 @@ import {
   removeFilter,
 } from '@/utils/helpers/workOrdersFilters'
 import { formatRequestErrorMessage } from '@/utils/errorHandling/formatErrorMessage'
+import { fetchWorkOrdersRequest } from '@/requests/workOrders'
 
 type Filters = Record<string, any>
 
@@ -59,7 +59,7 @@ export const useWorkOrdersView = (urlQuery: Record<string, any>) => {
     setAppliedFilters(updatedAppliedFilters)
   }
 
-  const fetchWorkOrders = async (
+  const loadWorkOrders = async (
     pageNumber: number,
     filterOptions: Filters = {}
   ) => {
@@ -67,12 +67,10 @@ export const useWorkOrdersView = (urlQuery: Record<string, any>) => {
     setError(null)
 
     try {
-      const workOrders = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/workOrders/',
-        params: buildWorkOrdersParams(filterOptions, pageNumber),
-        paramsSerializer,
-      })
+      const workOrders = await fetchWorkOrdersRequest(
+        buildWorkOrdersParams(filterOptions, pageNumber),
+        paramsSerializer
+      )
 
       setWorkOrders(workOrders)
     } catch (e) {
@@ -88,7 +86,7 @@ export const useWorkOrdersView = (urlQuery: Record<string, any>) => {
   const queryKey = JSON.stringify(query)
 
   useEffect(() => {
-    fetchWorkOrders(pageNumber, query)
+    loadWorkOrders(pageNumber, query)
   }, [queryKey])
 
   const handlePageClick = (newPageNumber: number) => {

@@ -13,15 +13,15 @@ import ContactsTable from '../../components/Property/Contacts/ContactsTable'
 import { WorkOrder } from '@/models/workOrder'
 
 import {
-  postNote,
-  editWorkOrder,
-  getWorkOrderDetails,
-} from '@/utils/requests/workOrders'
+  postNoteRequest,
+  editWorkOrderRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 import {
-  getPropertyTenureData,
-  getContactDetails,
-} from '../../utils/requests/property'
+  getPropertyTenureDataRequest,
+  getContactDetailsRequest,
+} from '@/requests/property'
 
 export type EditWorkOrderProps = {
   workOrderReference: string
@@ -55,7 +55,9 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
   const fetchWorkOrderDetails = async () => {
     setLoading(true)
-    const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+    const workOrderResponse = await getWorkOrderDetailsRequest(
+      workOrderReference
+    )
 
     if (!workOrderResponse.success) {
       setError(workOrderResponse.error.message)
@@ -65,7 +67,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
     setWorkOrder(workOrderResponse.response)
 
-    const propertyTenureDataResponse = await getPropertyTenureData(
+    const propertyTenureDataResponse = await getPropertyTenureDataRequest(
       workOrderResponse.response.propertyReference
     )
 
@@ -78,7 +80,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
     const { tenure } = propertyTenureDataResponse.response
 
     if (tenure != null) {
-      const contactDetailsResponse = await getContactDetails(tenure?.id)
+      const contactDetailsResponse = await getContactDetailsRequest(tenure?.id)
       if (!contactDetailsResponse.success) {
         setError(contactDetailsResponse.error.message)
         setLoading(false)
@@ -104,7 +106,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
       note: `Description updated: ${data.editRepairDescription}`,
       workOrderReference: workOrder.reference,
     })
-    const editWorkOrderResponse = await editWorkOrder(
+    const editWorkOrderResponse = await editWorkOrderRequest(
       workOrder.reference,
       data.editRepairDescription,
       data.callerName,
@@ -115,7 +117,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
       return
     }
 
-    const postNoteResponse = await postNote(noteData)
+    const postNoteResponse = await postNoteRequest(noteData)
 
     if (!postNoteResponse.success) {
       setError(postNoteResponse.error.message)

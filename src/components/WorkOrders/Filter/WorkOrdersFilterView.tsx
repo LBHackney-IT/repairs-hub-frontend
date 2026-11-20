@@ -1,6 +1,5 @@
 import { MouseEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WorkOrdersFilter from './WorkOrdersFilter'
 import {
@@ -8,6 +7,7 @@ import {
   FilterOptionsByCategory,
 } from '@/utils/helpers/filter'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchWorkOrderFiltersRequest } from '@/requests/workOrders'
 
 interface Props {
   onFilterSubmit: (formData: Record<string, Record<string, unknown>>) => void
@@ -48,10 +48,7 @@ const WorkOrdersFilterView = ({
     setError(null)
 
     try {
-      const workOrderFilters = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/filter/WorkOrder',
-      })
+      const workOrderFilters = await fetchWorkOrderFiltersRequest()
 
       setFilters(workOrderFilters)
     } catch (e) {

@@ -1,7 +1,11 @@
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import Layout from '../Layout'
 import { useEffect, useState } from 'react'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
+import {
+  fetchWorkOrdersBySyncStatusRequest,
+  resendOrderRequest,
+  resetSyncStatusRequest,
+} from '@/requests/backOffice/drsSync'
 
 interface WorkOrderResponse {
   reference: number
@@ -27,10 +31,7 @@ const DrsSyncView = () => {
     if (isLoading) return
     setIsLoading(true)
 
-    frontEndApiRequest({
-      method: 'get',
-      path: '/api/backoffice/work-orders-by-sync-status',
-    })
+    fetchWorkOrdersBySyncStatusRequest()
       .then((res) => {
         console.log({ res })
 
@@ -52,12 +53,8 @@ const DrsSyncView = () => {
 
     setIsLoading(true)
 
-    frontEndApiRequest({
-      method: 'post',
-      path: '/api/backoffice/resend-order',
-      requestData: {
-        workOrderId,
-      },
+    resendOrderRequest({
+      workOrderId,
     })
       .then((res) => {
         console.log({ res })
@@ -82,12 +79,8 @@ const DrsSyncView = () => {
 
     setIsLoading(true)
 
-    frontEndApiRequest({
-      method: 'post',
-      path: '/api/backoffice/reset-sync-status',
-      requestData: {
-        workOrderId,
-      },
+    resetSyncStatusRequest({
+      workOrderId,
     })
       .then((res) => {
         console.log({ res })

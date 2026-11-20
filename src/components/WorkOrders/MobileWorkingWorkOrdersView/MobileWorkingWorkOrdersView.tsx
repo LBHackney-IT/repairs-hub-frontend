@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../../Spinner'
@@ -12,6 +11,7 @@ import { MobileWorkingWorkOrderListItems } from './MobileWorkingWorkOrderListIte
 import TabsVersionTwo from '../../TabsVersionTwo/Index'
 import { Button } from '../../Form'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchOperativeAppointmentsRequest } from '@/requests/operatives'
 
 const SIXTY_SECONDS = 60 * 1000
 
@@ -43,11 +43,10 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     setIsLoading(true)
 
     try {
-      const data = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/operatives/${currentUser.operativePayrollNumber}/appointments`,
-        timeout: 5000,
-      })
+      const data = await fetchOperativeAppointmentsRequest(
+        currentUser.operativePayrollNumber,
+        { timeout: 5000 }
+      )
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
       const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())

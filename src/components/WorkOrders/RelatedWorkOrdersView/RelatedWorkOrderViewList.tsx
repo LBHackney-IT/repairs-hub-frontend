@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { format } from 'date-fns'
 import Status from '../../WorkOrder/Status'
-import { WorkOrderHierarchy } from './types'
+import { WorkOrderHierarchy } from '@/models/workOrderHierarchy'
 import FollowOnFlag from '../../Flags/FollowOnFlag'
 
 interface Props {

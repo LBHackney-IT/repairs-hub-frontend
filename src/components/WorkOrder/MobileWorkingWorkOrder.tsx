@@ -22,7 +22,6 @@ import {
   optionsForPaymentType,
 } from '@/utils/paymentTypes'
 import Status from './Status'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { useState } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
@@ -31,6 +30,7 @@ import WarningInfoBox from '../Template/WarningInfoBox'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { startWorkOrderRequest } from '@/requests/workOrders'
 
 const VARIATION_PENDING_APPROVAL_STATUS = 'Variation Pending Approval'
 
@@ -81,11 +81,7 @@ const MobileWorkingWorkOrder = (props: Props) => {
       workOrderId: workOrderReference,
     }
 
-    frontEndApiRequest({
-      method: 'put',
-      path: `/api/workOrders/starttime`,
-      requestData,
-    })
+    startWorkOrderRequest(requestData)
       .then(() => {
         // update clientSide
         workOrder.startTime = startTime.toISOString()

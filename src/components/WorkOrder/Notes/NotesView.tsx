@@ -3,12 +3,13 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import NotesForm from './NotesForm'
 import NotesTimeline from './NotesTimeline'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { sortObjectsByDateKey } from '@/utils/date'
 import { TabName } from '../../Tabs/tabNames'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
+import { fetchWorkOrderNotesRequest } from '@/requests/workOrders'
 
 interface Props {
   workOrderReference: string
@@ -40,11 +41,7 @@ const NotesView = (props: Props) => {
   const onFormSubmit = async (formData) => {
     setLoading(true)
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: formData,
-      })
+      await postJobStatusUpdateRequest(formData)
       setDisplayForm(false)
       getNotesView(workOrderReference)
     } catch (e) {
@@ -65,10 +62,7 @@ const NotesView = (props: Props) => {
     setError(null)
 
     try {
-      const notes = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/notes`,
-      })
+      const notes = await fetchWorkOrderNotesRequest(workOrderReference)
 
       setNotes(sortObjectsByDateKey(notes, ['time'], 'time'))
     } catch (e) {

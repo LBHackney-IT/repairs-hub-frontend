@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import BackButton from '../../Layout/BackButton'
 import Spinner from '../../Spinner'
 import { useForm } from 'react-hook-form'
@@ -9,9 +8,14 @@ import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import AppointmentHeader from '../AppointmentHeader'
-import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
+import {
+  fetchWorkOrderTasksRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
+import { fetchHubUserRequest } from '@/requests/user'
 
 const EditTaskForm = ({ workOrderReference, taskId }) => {
   const [tasks, setTasks] = useState<any>({})
@@ -39,11 +43,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     )
 
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: workOrderUpdateFormData,
-      })
+      await postJobStatusUpdateRequest(workOrderUpdateFormData)
 
       router.push(
         `/operatives/${currentUser?.operativePayrollNumber}/work-orders/${workOrderReference}`
@@ -62,7 +62,9 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(
+        workOrderReference
+      )
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -70,19 +72,13 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
 
       const workOrder = workOrderResponse.response
 
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const currentUser = await fetchHubUserRequest()
 
       setCurrentUser(currentUser)
 
       setWorkOrder(workOrder)
 
-      const tasksAndSors = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
+      const tasksAndSors = await fetchWorkOrderTasksRequest(workOrderReference)
 
       setTasks(tasksAndSors)
 
