@@ -9,6 +9,7 @@ import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import { searchPropertiesRequest } from '@/requests/property'
 
 interface SearchProps {
@@ -161,7 +162,9 @@ const Search: React.FC<SearchProps> = ({ query }) => {
         </section>
 
         {loading ? (
-          <Spinner />
+          <div className="govuk-!-margin-top-6">
+            <SpinnerWithLabel label="Fetching results" />
+          </div>
         ) : (
           <>
             {properties?.length > 0 && (
