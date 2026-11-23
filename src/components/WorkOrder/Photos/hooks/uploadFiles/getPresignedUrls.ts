@@ -1,6 +1,6 @@
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { Link } from '../types'
 import faultTolerantRequest from './faultTolerantRequest'
+import { fetchPhotoUploadLinksRequest } from '@/requests/photos'
 
 const getPresignedUrls = async (
   workOrderReference: string,
@@ -9,13 +9,9 @@ const getPresignedUrls = async (
   const requestOperation = async () => {
     const result: {
       links: Link[]
-    } = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/workOrders/images/uploadLink`,
-      params: {
-        workOrderReference: workOrderReference,
-        numberOfFiles: numberOfFiles,
-      },
+    } = await fetchPhotoUploadLinksRequest({
+      workOrderReference: workOrderReference,
+      numberOfFiles: numberOfFiles,
     })
     return result
   }

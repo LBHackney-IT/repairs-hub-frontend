@@ -8,7 +8,6 @@ import Radios from '../../Form/Radios'
 import SuccessPage from '../../SuccessPage/index'
 import WarningText from '../../Template/WarningText'
 import { TextArea, PrimarySubmitButton } from '../../Form'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import {
   buildAuthorisationApprovedFormData,
   buildAuthorisationRejectedFormData,
@@ -20,9 +19,14 @@ import {
   authorisationApprovedLinks,
   cancelWorkOrderLinks,
 } from '@/utils/successPageLinks'
-import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
+import {
+  fetchWorkOrderTasksRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
+import { fetchHubUserRequest } from '@/requests/user'
 
 interface Props {
   workOrderReference: string
@@ -59,11 +63,7 @@ const AuthorisationView = ({ workOrderReference }: Props) => {
     setLoading(true)
 
     try {
-      frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: formData,
-      })
+      postJobStatusUpdateRequest(formData)
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
@@ -83,7 +83,9 @@ const AuthorisationView = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(
+        workOrderReference
+      )
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -91,14 +93,8 @@ const AuthorisationView = ({ workOrderReference }: Props) => {
 
       const workOrder = workOrderResponse.response
 
-      const tasksAndSors = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
-      const user = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const tasksAndSors = await fetchWorkOrderTasksRequest(workOrderReference)
+      const user = await fetchHubUserRequest()
       setShortAddress(workOrder.property)
       setRaiseSpendLimit(parseFloat(user.raiseLimit))
 

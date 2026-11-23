@@ -4,13 +4,16 @@ import UserContext from '../UserContext'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import VariationAuthorisationSummary from '../WorkOrder/Authorisation/VariationAuthorisationSummary'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
 import {
   Variation,
   VariationResponseObject,
 } from '../../types/variations/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import {
+  fetchWorkOrderTasksRequest,
+  fetchWorkOrderVariationTasksRequest,
+} from '@/requests/workOrders'
 
 interface Props {
   workOrderReference: string
@@ -28,11 +31,8 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const variationResponse: VariationResponseObject = await frontEndApiRequest(
-        {
-          method: 'get',
-          path: `/api/workOrders/${workOrderReference}/variation-tasks`,
-        }
+      const variationResponse: VariationResponseObject = await fetchWorkOrderVariationTasksRequest(
+        workOrderReference
       )
 
       setVariation(variationResponse.variation)
@@ -61,10 +61,7 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const tasksAndSors = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
+      const tasksAndSors = await fetchWorkOrderTasksRequest(workOrderReference)
 
       setOriginalSors(tasksAndSors.filter((t) => t.original))
     } catch (e) {

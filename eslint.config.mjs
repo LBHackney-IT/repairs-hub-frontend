@@ -93,4 +93,30 @@ export default defineConfig([
       'react-hooks/exhaustive-deps': 'warn',
     },
   },
+  {
+    // Requests are defined once, in src/utils/requests. Components, hooks and
+    // other utils call those functions instead of using the client directly.
+    files: ['src/**/*.{ts,tsx,js,jsx}'],
+    ignores: [
+      'src/utils/requests/**',
+      'src/utils/frontEndApiClient/**',
+      'src/pages/api/**',
+      '**/*.test.*',
+    ],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['**/frontEndApiClient/requests'],
+              importNames: ['frontEndApiRequest'],
+              message:
+                'Define requests in src/utils/requests and import them from there (@/requests/...) instead of calling frontEndApiRequest directly.',
+            },
+          ],
+        },
+      ],
+    },
+  },
 ])

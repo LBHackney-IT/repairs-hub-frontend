@@ -1,4 +1,4 @@
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
+import { bulkCloseWorkOrdersRequest } from '@/requests/backOffice/bulkClose'
 import { FormEvent, useState } from 'react'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { Button, TextArea, TextInput } from '../../Form'
@@ -145,17 +145,9 @@ const CloseWorkOrders = () => {
 
     if (closeToBaseSelected()) body.completionDate = closedDate
 
-    const url = `/api/backOffice/bulk-close/${
-      closeToBaseSelected() ? 'close-to-base' : 'cancel'
-    }`
-
     setLoading(true)
 
-    frontEndApiRequest({
-      method: 'post',
-      path: url,
-      requestData: body,
-    })
+    bulkCloseWorkOrdersRequest(closeToBaseSelected(), body)
       .then(() => {
         setFormSuccess(true)
         clearForm()

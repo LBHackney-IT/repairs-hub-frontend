@@ -1,5 +1,5 @@
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import faultTolerantRequest from './faultTolerantRequest'
+import { completePhotoUploadRequest } from '@/requests/photos'
 
 const completeUpload = async (
   workOrderReference: string,
@@ -8,15 +8,11 @@ const completeUpload = async (
   uploadGroupLabel: string
 ) => {
   const requestOperation = async () => {
-    const result = await frontEndApiRequest({
-      method: 'post',
-      path: `/api/workOrders/images/completeUpload`,
-      requestData: {
-        workOrderReference,
-        s3Objects,
-        description,
-        uploadGroupLabel,
-      },
+    const result = await completePhotoUploadRequest({
+      workOrderReference,
+      s3Objects,
+      description,
+      uploadGroupLabel,
     })
     return result
   }

@@ -3,7 +3,7 @@ import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
 
-export const getContractor = async (
+export const getContractorRequest = async (
   contractorReference: string
 ): Promise<ApiResponseType<Contractor | null>> => {
   try {
@@ -36,7 +36,7 @@ interface FetchContractorsArguments {
   contractsExpiryFilterDate: Date
 }
 
-export const fetchContractors = async ({
+export const fetchContractorsRequest = async ({
   contractsExpiryFilterDate,
 }: FetchContractorsArguments): Promise<Contractor[] | null> => {
   const params = {}
@@ -51,3 +51,17 @@ export const fetchContractors = async ({
 
   return contractors
 }
+
+export interface ContractorsByTradeParams {
+  propertyReference: string
+  tradeCode: string
+}
+
+export const fetchContractorsByTradeRequest = (
+  params: ContractorsByTradeParams
+) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: '/api/contractors',
+    params,
+  })

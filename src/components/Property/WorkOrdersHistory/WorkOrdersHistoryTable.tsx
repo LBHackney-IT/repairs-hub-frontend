@@ -5,7 +5,10 @@ import Spinner from '../../Spinner'
 import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter/Index'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  fetchWorkOrderFiltersRequest,
+  fetchWorkOrdersRequest,
+} from '@/requests/workOrders'
 
 interface Props {
   tabName: string
@@ -63,10 +66,7 @@ const WorkOrdersHistoryTable = ({
     }
     try {
       setLoading(true)
-      const workOrderFilters = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/filter/WorkOrder',
-      })
+      const workOrderFilters = await fetchWorkOrderFiltersRequest()
       const filterKeyAndDescription = workOrderFilters.Trades.find(
         (element) => element.description === trade
       )
@@ -74,16 +74,12 @@ const WorkOrdersHistoryTable = ({
       setTradeCode(filterKey)
       setTradeDescription(trade)
       try {
-        const data = await frontEndApiRequest({
-          path: '/api/workOrders/',
-          method: 'get',
-          params: {
-            propertyReference: propertyReference,
-            PageNumber: 1,
-            sort: 'dateraised:desc',
-            TradeCodes: filterKey,
-            PageSize: 0, //Fetch all
-          },
+        const data = await fetchWorkOrdersRequest({
+          propertyReference: propertyReference,
+          PageNumber: 1,
+          sort: 'dateraised:desc',
+          TradeCodes: filterKey,
+          PageSize: 0, //Fetch all
         })
         setFilteredOrders(data)
       } catch (e) {

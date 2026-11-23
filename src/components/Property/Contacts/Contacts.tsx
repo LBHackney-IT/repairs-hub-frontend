@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import WarningText from '../../Template/WarningText'
 import ContactsTable from './ContactsTable'
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import Spinner from '../../Spinner'
 import TenantContactsTable from './TenantsContactTable/TenantsContactTable'
 import usePageVisibility from './TenantsContactTable/hooks/usePageVisibility'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchContactDetailsRequest } from '@/requests/property'
 
 const warningText = (contacts) => {
   if (contacts.length < 1) {
@@ -33,10 +33,7 @@ const Contacts = ({ tenureId }: Props) => {
     }
 
     try {
-      const contactDetails = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/contact-details/${tenureId}`,
-      })
+      const contactDetails = await fetchContactDetailsRequest(tenureId)
 
       setContacts(contactDetails)
     } catch (e) {

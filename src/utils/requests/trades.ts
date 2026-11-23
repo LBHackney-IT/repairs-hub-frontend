@@ -1,20 +1,17 @@
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
-import { frontEndApiRequest } from '../frontEndApiClient/requests'
+import { fetchWorkOrderFiltersRequest } from './workOrders'
 
 export type TradeFilter = {
   key: string
   description: string
 }
 
-export const getTradeFilters = async (): Promise<
+export const getTradeFiltersRequest = async (): Promise<
   ApiResponseType<TradeFilter[]>
 > => {
   try {
-    const workOrderFilters = await frontEndApiRequest({
-      method: 'get',
-      path: '/api/filter/WorkOrder',
-    })
+    const workOrderFilters = await fetchWorkOrderFiltersRequest()
     return {
       success: true,
       response: workOrderFilters.Trades,

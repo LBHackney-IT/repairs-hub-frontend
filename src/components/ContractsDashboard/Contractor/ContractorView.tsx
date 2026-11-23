@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { useMemo, useState } from 'react'
-import { fetchContracts } from '@/root/src/utils/requests/contract'
+import { fetchContractsRequest } from '@/requests/contract'
 
 import Layout from '../../BackOffice/Layout'
 import SorSearch from '../SorSearch'
@@ -27,7 +27,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
       { isActive: true, contractorReference: contractorReference },
     ],
     () =>
-      fetchContracts({
+      fetchContractsRequest({
         isActive: true,
         contractorReference: contractorReference,
         sorCode: null,
@@ -44,7 +44,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
       { isActive: false, contractorReference: contractorReference },
     ],
     () =>
-      fetchContracts({
+      fetchContractsRequest({
         isActive: false,
         contractorReference: contractorReference,
         sorCode: null,
@@ -58,7 +58,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   } = useQuery(
     ['sorContracts', contractorReference, sorCode?.toLocaleUpperCase()],
     () =>
-      fetchContracts({
+      fetchContractsRequest({
         isActive: null,
         contractorReference: contractorReference,
         sorCode: sorCode?.toLocaleUpperCase(),
