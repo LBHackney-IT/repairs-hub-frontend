@@ -87,7 +87,10 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }: Props) => {
   return (
     <>
       {loading ? (
-        <Spinner />
+        <>
+          <h2 className="lbh-heading-h2">{tabName}</h2>
+          <Spinner />
+        </>
       ) : (
         <>
           {workOrders && renderWorkOrdersHistoryTable()}

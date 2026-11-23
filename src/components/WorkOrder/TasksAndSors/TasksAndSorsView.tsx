@@ -12,9 +12,12 @@ interface Props {
 const TasksAndSorsView = ({ tabName, tasksAndSors, budgetCode }: Props) => {
   const originalTasksAndSors = tasksAndSors.filter((t) => t.original)
 
+  if (!tasksAndSors || tasksAndSors.length === 0) {
+    return <h2 className="lbh-heading-h2 tab-title">{tabName}</h2>
+  }
+
   return (
-    tasksAndSors &&
-    tasksAndSors.length > 0 && (
+    <>
       <TasksAndSorsTable
         /**
                 Latest refers to the latest (live) tasks and sors against the work order,
@@ -31,7 +34,7 @@ const TasksAndSorsView = ({ tabName, tasksAndSors, budgetCode }: Props) => {
         tabName={tabName}
         budgetCode={budgetCode}
       />
-    )
+    </>
   )
 }
 

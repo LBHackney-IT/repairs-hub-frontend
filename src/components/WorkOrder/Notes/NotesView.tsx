@@ -80,7 +80,13 @@ const NotesView = (props: Props) => {
     getNotesView(workOrderReference)
   }, [])
 
-  if (loading || loadingAppointmentDetails) return <Spinner />
+  if (loading || loadingAppointmentDetails)
+    return (
+      <>
+        <h2 className="lbh-heading-h2">{tabName}</h2>
+        <Spinner />
+      </>
+    )
 
   return (
     <>

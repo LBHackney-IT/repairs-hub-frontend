@@ -39,18 +39,14 @@ const RelatedWorkOrdersView = ({ workOrderReference, tabName }: Props) => {
     fetchHierarchy()
   }, [])
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (error) {
-    return <ErrorMessage label={error} />
-  }
-
   return (
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
-      {hierarchy && <RelatedWorkOrderViewList hierarchy={hierarchy} />}
+      {isLoading && <Spinner />}
+      {error && <ErrorMessage label={error} />}
+      {!isLoading && hierarchy && (
+        <RelatedWorkOrderViewList hierarchy={hierarchy} />
+      )}
     </>
   )
 }

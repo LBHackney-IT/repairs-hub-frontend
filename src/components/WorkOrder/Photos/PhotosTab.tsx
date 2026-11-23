@@ -15,7 +15,7 @@ interface Props {
   tabName: string
 }
 
-const PhotosTab = ({ workOrderReference }: Props) => {
+const PhotosTab = ({ workOrderReference, tabName }: Props) => {
   const [photos, setPhotos] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -57,11 +57,17 @@ const PhotosTab = ({ workOrderReference }: Props) => {
     getPhotos(workOrderReference)
   }, [])
 
-  if (isLoading) return <Spinner />
+  if (isLoading)
+    return (
+      <>
+        <h2 className="lbh-heading-h2">{tabName}</h2>
+        <Spinner />
+      </>
+    )
 
   return (
     <div className="photos-tab">
-      <h2 className="lbh-heading-h2">Photos</h2>
+      <h2 className="lbh-heading-h2">{tabName}</h2>
 
       {error && <ErrorMessage label={error} />}
 
