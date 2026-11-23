@@ -1,5 +1,5 @@
 import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
-import { getAppointmentDetails } from '@/root/src/utils/requests/workOrders'
+import { getAppointmentDetailsRequest } from '@/root/src/utils/requests/workOrders'
 import { useEffect, useState } from 'react'
 
 export const useAppointmentDetails = (workOrderReference: string) => {
@@ -15,7 +15,7 @@ export const useAppointmentDetails = (workOrderReference: string) => {
     setError(null)
     setIsLoading(true)
 
-    const appointmentDetailsResponse = await getAppointmentDetails(
+    const appointmentDetailsResponse = await getAppointmentDetailsRequest(
       workOrderReference
     )
 

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { fetchWorkOrderFiltersRequest } from '@/requests/workOrders'
 
 interface WorkOrdersHistoryFilterProps {
   onSelectTrade: (e: React.ChangeEvent<HTMLSelectElement>) => void
@@ -15,10 +15,7 @@ const WorkOrdersHistoryFilter = ({
 
   const getTrades = async () => {
     try {
-      const workOrderFilters = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/filter/WorkOrder',
-      })
+      const workOrderFilters = await fetchWorkOrderFiltersRequest()
       setTrades(workOrderFilters.Trades)
     } catch (e) {
       console.error('An error has occured:', e.response)

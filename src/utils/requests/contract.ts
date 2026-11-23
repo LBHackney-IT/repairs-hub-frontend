@@ -7,7 +7,7 @@ interface FetchContractsArguments {
   sorCode: string | undefined
 }
 
-export const fetchContracts = async ({
+export const fetchContractsRequest = async ({
   isActive,
   contractorReference,
   sorCode,
@@ -28,7 +28,7 @@ export const fetchContracts = async ({
   return contracts
 }
 
-export const fetchContract = async (
+export const fetchContractRequest = async (
   contractReference: string
 ): Promise<Contract | null> => {
   const contract = await frontEndApiRequest({

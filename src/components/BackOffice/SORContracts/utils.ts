@@ -1,23 +1,7 @@
-import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
-
-export type SorContractsMode = 'Copy' | 'Add'
-
-export interface SorContractsRequest {
-  sourcePropertyReference: string
-  destinationPropertyReference: string
-  contractReference: string
-  mode: SorContractsMode
-}
-
-export const saveContractChangesToDatabase = async (
-  data: SorContractsRequest
-) => {
-  return await frontEndApiRequest({
-    method: 'POST',
-    path: `/api/backOffice/sor-contracts`,
-    requestData: data,
-  })
-}
+import type {
+  SorContractsMode,
+  SorContractsRequest,
+} from '@/requests/backOffice/sorContracts'
 
 export const validatePropertyReference = (propertyReference: string) => {
   const regex = /^\d{8}$/gm

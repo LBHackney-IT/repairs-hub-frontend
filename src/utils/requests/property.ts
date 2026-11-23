@@ -4,15 +4,12 @@ import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { PropertyTenureResponse } from '../../models/propertyTenure'
 import { CautionaryAlertsResponse } from '../../models/cautionaryAlerts'
 
-export const getPropertyTenureData = async (
+export const getPropertyTenureDataRequest = async (
   propertyReference: string
 ): Promise<ApiResponseType<PropertyTenureResponse>> => {
   try {
-    const propertyTenureData: PropertyTenureResponse = await frontEndApiRequest(
-      {
-        method: 'get',
-        path: `/api/properties/${propertyReference}`,
-      }
+    const propertyTenureData: PropertyTenureResponse = await fetchPropertyTenureRequest(
+      propertyReference
     )
 
     return {
@@ -42,14 +39,11 @@ interface ContactDetails {
   tenureType: string
 }
 
-export const getContactDetails = async (
+export const getContactDetailsRequest = async (
   tenureId: string
 ): Promise<ApiResponseType<ContactDetails[] | null>> => {
   try {
-    const contactDetails = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/contact-details/${tenureId}`,
-    })
+    const contactDetails = await fetchContactDetailsRequest(tenureId)
 
     return {
       success: true,
@@ -70,7 +64,7 @@ export const getContactDetails = async (
   }
 }
 
-export const getAlerts = async (
+export const getAlertsRequest = async (
   propertyReference
 ): Promise<ApiResponseType<CautionaryAlertsResponse>> => {
   try {
@@ -97,3 +91,67 @@ export const getAlerts = async (
     }
   }
 }
+
+export const fetchPropertyTenureRequest = (propertyReference: string) =>
+  frontEndApiRequest<PropertyTenureResponse>({
+    method: 'get',
+    path: `/api/properties/${propertyReference}`,
+  })
+
+export const fetchLegalDisrepairStatusRequest = (propertyReference: string) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: `/api/properties/legalDisrepair/${propertyReference}`,
+  })
+
+export interface SearchPropertiesParams {
+  searchText: string
+  pageSize?: string
+  pageNumber?: number
+}
+
+export interface UpdateMainContactData {
+  contactInformation: {
+    contactType: string
+    value: string
+    description: string
+    subType: string
+    addressExtended?: unknown
+  }
+}
+
+export const searchPropertiesRequest = (params: SearchPropertiesParams) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: '/api/properties/search',
+    params,
+  })
+
+export const fetchBoilerHouseRequest = (boilerHouseId: string) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: `/api/properties/guid-pk/${boilerHouseId}`,
+  })
+
+export const fetchContactDetailsRequest = (tenureId: string) =>
+  frontEndApiRequest({
+    method: 'get',
+    path: `/api/contact-details/${tenureId}`,
+  })
+
+export const updateMainContactRequest = (
+  contactId: string,
+  personId: string,
+  requestData: UpdateMainContactData
+) =>
+  frontEndApiRequest({
+    method: 'PATCH',
+    path: `/api/contact-details/?contactId=${contactId}&personId=${personId}`,
+    requestData,
+  })
+
+export const deleteContactRequest = (contactId: string, personId: string) =>
+  frontEndApiRequest({
+    method: 'delete',
+    path: `/api/contact-details/?contactId=${contactId}&personId=${personId}`,
+  })

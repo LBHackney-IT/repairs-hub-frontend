@@ -7,7 +7,6 @@ import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../SuccessPage/index'
@@ -18,14 +17,18 @@ import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import {
-  getAppointmentDetails,
-  getWorkOrderDetails,
-} from '../../utils/requests/workOrders'
+  completeWorkOrderRequest,
+  getAppointmentDetailsRequest,
+  getWorkOrderDetailsRequest,
+  startWorkOrderRequest,
+} from '@/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { Operative } from '../../models/operativeModel'
 import { clearIndexedDb } from '../WorkOrder/Photos/hooks/uploadFiles/cacheFile'
 import useCloudwatchLogger from '../../utils/cloudwatchLogger'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
+import { fetchOperativesRequest } from '@/requests/operatives'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -102,29 +105,17 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
       }
 
       if (workOrder.canAssignOperative) {
-        await frontEndApiRequest({
-          method: 'post',
-          path: `/api/jobStatusUpdate`,
-          requestData: operativeAssignmentFormData,
-        })
+        await postJobStatusUpdateRequest(operativeAssignmentFormData)
       }
 
       if (startDate !== '') {
-        await frontEndApiRequest({
-          method: 'put',
-          path: `/api/workOrders/starttime`,
-          requestData: {
-            startTime: startDate,
-            workOrderId: reference,
-          },
+        await startWorkOrderRequest({
+          startTime: startDate,
+          workOrderId: reference,
         })
       }
 
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/workOrderComplete`,
-        requestData: workOrderCompleteFormData,
-      })
+      await completeWorkOrderRequest(workOrderCompleteFormData)
 
       if (files.length > 0) {
         cwLogger.log(`${files.length} files uploaded`)
@@ -143,12 +134,14 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrderDetails(reference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(reference)
       if (!workOrderResponse.success) throw workOrderResponse.error
       const workOrder = workOrderResponse.response
       setWorkOrder(new WorkOrder(workOrder))
 
-      const appointmentDetailsResponse = await getAppointmentDetails(reference)
+      const appointmentDetailsResponse = await getAppointmentDetailsRequest(
+        reference
+      )
       if (!appointmentDetailsResponse.success)
         throw appointmentDetailsResponse.error
       const appointmentDetails = appointmentDetailsResponse.response
@@ -159,10 +152,7 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
 
         setSelectedOperatives(appointmentDetails.operatives)
 
-        const operatives = await frontEndApiRequest({
-          method: 'get',
-          path: `/api/operatives`,
-        })
+        const operatives = await fetchOperativesRequest()
         setAvailableOperatives(operatives)
       }
     } catch (e) {

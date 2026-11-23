@@ -4,7 +4,7 @@ import PropertyFlags from './PropertyFlags'
 import Alerts from './Alerts'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { getAlerts } from '../../utils/requests/property'
+import { getAlertsRequest } from '@/requests/property'
 import { Address, Tenure } from '../../models/propertyTenure'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 
@@ -36,7 +36,7 @@ const PropertyDetailsGrid = ({
 
   const fetchAlerts = async () => {
     setAlertsLoading(true)
-    const alertsResponse = await getAlerts(propertyReference)
+    const alertsResponse = await getAlertsRequest(propertyReference)
 
     if (!alertsResponse.success) {
       setAlertsError(alertsResponse.error.message)
