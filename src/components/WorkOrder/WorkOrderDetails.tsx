@@ -13,7 +13,6 @@ interface Props {
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
   tenure?: Tenure
-  alertsLoading: boolean
   alertsError: string | null
   alerts: CautionaryAlert[]
 }
@@ -27,7 +26,6 @@ const WorkOrderDetails = (props: Props) => {
     appointmentDetailsError,
     tenure,
     alerts,
-    alertsLoading,
     alertsError,
   } = props
 
@@ -41,11 +39,7 @@ const WorkOrderDetails = (props: Props) => {
 
       <p className="lbh-body-m">{workOrder.description}</p>
 
-      <WorkOrderAlerts
-        alerts={alerts}
-        isLoading={alertsLoading}
-        error={alertsError}
-      />
+      <WorkOrderAlerts alerts={alerts} error={alertsError} />
 
       <WorkOrderHeader
         propertyReference={

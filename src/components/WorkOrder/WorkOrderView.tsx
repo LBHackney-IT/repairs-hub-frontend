@@ -113,7 +113,6 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
             appointmentDetailsError={appointmentDetailsError}
             tenure={tenure}
             alerts={alerts}
-            alertsLoading={alertsLoading}
             alertsError={alertsError}
           />
         ) : workOrderError ? (
