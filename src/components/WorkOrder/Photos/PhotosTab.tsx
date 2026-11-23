@@ -57,16 +57,6 @@ const PhotosTab = ({ workOrderReference, tabName }: Props) => {
     getPhotos(workOrderReference)
   }, [])
 
-  if (isLoading)
-    return (
-      <>
-        <h2 className="lbh-heading-h2">{tabName}</h2>
-        <div className="govuk-!-margin-top-6">
-          <SpinnerWithLabel label="Fetching photos…" />
-        </div>
-      </>
-    )
-
   return (
     <div className="photos-tab">
       <h2 className="lbh-heading-h2">{tabName}</h2>
@@ -84,10 +74,16 @@ const PhotosTab = ({ workOrderReference, tabName }: Props) => {
         />
       </span>
 
-      <PhotoViewList
-        photos={photos}
-        onSubmitSetDescription={onSubmitSetDescription}
-      />
+      {isLoading ? (
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching photos…" />
+        </div>
+      ) : (
+        <PhotoViewList
+          photos={photos}
+          onSubmitSetDescription={onSubmitSetDescription}
+        />
+      )}
     </div>
   )
 }
