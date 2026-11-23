@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Spinner from '../../Spinner'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import UploadPhotosForm from './UploadPhotosForm'
 import PhotoViewList from './PhotoViewList'
@@ -61,7 +61,9 @@ const PhotosTab = ({ workOrderReference, tabName }: Props) => {
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
-        <Spinner />
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching photos…" />
+        </div>
       </>
     )
 

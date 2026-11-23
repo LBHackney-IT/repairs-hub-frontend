@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Spinner from '../../Spinner'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import NotesForm from './NotesForm'
 import NotesTimeline from './NotesTimeline'
@@ -86,7 +86,9 @@ const NotesView = (props: Props) => {
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
-        <Spinner />
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching notes…" />
+        </div>
       </>
     )
 

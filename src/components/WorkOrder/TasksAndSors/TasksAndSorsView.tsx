@@ -27,7 +27,9 @@ const TasksAndSorsView = ({
       <>
         <h2 className="lbh-heading-h2 tab-title">{tabName}</h2>
         {tasksAndSorsLoading && (
-          <SpinnerWithLabel label="Fetching tasks and SORs…" />
+          <div className="govuk-!-margin-top-6">
+            <SpinnerWithLabel label="Fetching tasks and SORs…" />
+          </div>
         )}
         {tasksAndSorsError && <ErrorMessage label={tasksAndSorsError} />}
       </>

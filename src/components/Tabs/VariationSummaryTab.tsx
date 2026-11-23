@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import UserContext from '../UserContext'
-import Spinner from '../Spinner'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import VariationAuthorisationSummary from '../WorkOrder/Authorisation/VariationAuthorisationSummary'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
@@ -85,7 +85,9 @@ const VariationSummaryTab = ({ workOrderReference, tabName }: Props) => {
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
-        <Spinner />
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching pending variation…" />
+        </div>
       </>
     )
 
