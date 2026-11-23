@@ -1,5 +1,6 @@
 import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
 import PropertyFlags from '../Property/PropertyFlags'
+import ErrorMessage from '../Errors/ErrorMessage'
 import WorkOrderInfo from './WorkOrderInfo'
 import { WorkOrder } from '@/models/workOrder'
 
@@ -12,11 +13,11 @@ interface Props {
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
-  loadingAppointmentDetails: boolean
-  address: Address
-  subTypeDescription: string
-  tenure: Tenure
-  canRaiseRepair: boolean
+  address?: Address
+  subTypeDescription?: string
+  tenure?: Tenure
+  canRaiseRepair?: boolean
+  propertyError?: string | null
 }
 
 const WorkOrderHeader = (props: Props) => {
@@ -25,23 +26,28 @@ const WorkOrderHeader = (props: Props) => {
     workOrder,
     appointmentDetails,
     appointmentDetailsError,
-    loadingAppointmentDetails,
     address,
     subTypeDescription,
     tenure,
     canRaiseRepair,
+    propertyError,
   } = props
 
   return (
     <div className="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6">
       <div className="govuk-grid-column-one-third">
-        <PropertyDetailsAddress
-          address={address}
-          propertyReference={propertyReference}
-          subTypeDescription={subTypeDescription}
-          hasLinkToProperty={true}
-        />
-        <PropertyFlags tenure={tenure} canRaiseRepair={canRaiseRepair} />
+        {propertyError && <ErrorMessage label={propertyError} />}
+        {!propertyError && (
+          <>
+            <PropertyDetailsAddress
+              address={address}
+              propertyReference={propertyReference}
+              subTypeDescription={subTypeDescription}
+              hasLinkToProperty={true}
+            />
+            <PropertyFlags tenure={tenure} canRaiseRepair={canRaiseRepair} />
+          </>
+        )}
       </div>
       <div className="govuk-grid-column-one-third">
         <WorkOrderInfo workOrder={workOrder} />
@@ -50,7 +56,6 @@ const WorkOrderHeader = (props: Props) => {
         <WorkOrderAppointmentDetailsHeader
           appointmentDetails={appointmentDetails}
           appointmentDetailsError={appointmentDetailsError}
-          loadingAppointmentDetails={loadingAppointmentDetails}
           workOrder={workOrder}
         />
       </div>

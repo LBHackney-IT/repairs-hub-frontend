@@ -80,7 +80,9 @@ const NotesView = (props: Props) => {
     getNotesView(workOrderReference)
   }, [])
 
-  if (loading || loadingAppointmentDetails)
+  // The tab can be mounted before the work order and appointment details
+  // have loaded, and the timeline needs both
+  if (loading || loadingAppointmentDetails || !workOrder)
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>

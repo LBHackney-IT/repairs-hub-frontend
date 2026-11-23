@@ -4,33 +4,22 @@ import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '../../utils/statusCod
 import { formatDateTime } from '../../utils/time'
 import ErrorMessage from '../Errors/ErrorMessage'
 import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
-import Spinner from '../Spinner'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
 
 interface Props {
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
-  loadingAppointmentDetails: boolean
 
   workOrder: WorkOrder
 }
 
 const WorkOrderAppointmentDetailsHeader = (props: Props) => {
-  const {
-    appointmentDetails,
-    appointmentDetailsError,
-    loadingAppointmentDetails,
-    workOrder,
-  } = props
+  const { appointmentDetails, appointmentDetailsError, workOrder } = props
 
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
-
-  if (loadingAppointmentDetails) {
-    return <Spinner />
-  }
 
   if (appointmentDetailsError) {
     return <ErrorMessage label={appointmentDetailsError} />
