@@ -84,11 +84,11 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     }
   }, [canPrint])
 
-  // The details block waits for everything it shows (work order, property and
-  // tenure, appointment details) so it appears in one go rather than shifting
-  // as each part arrives. Alerts are the exception, they load in place.
-  const detailsLoading =
-    workOrderLoading || propertyLoading || loadingAppointmentDetails
+  // The details block waits for the work order and property so it appears in
+  // one go rather than shifting as each part arrives. Appointment details and
+  // alerts are the exceptions: they come from external services that can be
+  // slow or never respond, so they load in place and don't hold the page up.
+  const detailsLoading = workOrderLoading || propertyLoading
 
   const detailsReady = !workOrderError && !detailsLoading
 
@@ -111,6 +111,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
             workOrder={workOrder}
             appointmentDetails={appointmentDetails}
             appointmentDetailsError={appointmentDetailsError}
+            loadingAppointmentDetails={loadingAppointmentDetails}
             tenure={tenure}
             alerts={alerts}
             alertsError={alertsError}

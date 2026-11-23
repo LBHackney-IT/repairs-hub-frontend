@@ -13,6 +13,7 @@ interface Props {
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
   address?: Address
   subTypeDescription?: string
   tenure?: Tenure
@@ -26,6 +27,7 @@ const WorkOrderHeader = (props: Props) => {
     workOrder,
     appointmentDetails,
     appointmentDetailsError,
+    loadingAppointmentDetails,
     address,
     subTypeDescription,
     tenure,
@@ -56,6 +58,7 @@ const WorkOrderHeader = (props: Props) => {
         <WorkOrderAppointmentDetailsHeader
           appointmentDetails={appointmentDetails}
           appointmentDetailsError={appointmentDetailsError}
+          loadingAppointmentDetails={loadingAppointmentDetails}
           workOrder={workOrder}
         />
       </div>

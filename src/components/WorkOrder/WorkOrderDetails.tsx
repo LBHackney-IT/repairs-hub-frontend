@@ -12,6 +12,7 @@ interface Props {
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
   tenure?: Tenure
   alertsError: string | null
   alerts: CautionaryAlert[]
@@ -24,6 +25,7 @@ const WorkOrderDetails = (props: Props) => {
     workOrder,
     appointmentDetails,
     appointmentDetailsError,
+    loadingAppointmentDetails,
     tenure,
     alerts,
     alertsError,
@@ -49,6 +51,7 @@ const WorkOrderDetails = (props: Props) => {
         workOrder={workOrder}
         appointmentDetails={appointmentDetails}
         appointmentDetailsError={appointmentDetailsError}
+        loadingAppointmentDetails={loadingAppointmentDetails}
         address={property?.address}
         subTypeDescription={property?.hierarchyType?.subTypeDescription}
         tenure={tenure}

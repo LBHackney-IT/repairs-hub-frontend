@@ -2,6 +2,7 @@ import { WorkOrder } from '../../models/workOrder'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '../../utils/statusCodes'
 import { formatDateTime } from '../../utils/time'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
 import AppointmentDetails from './AppointmentDetails'
@@ -10,16 +11,26 @@ import Operatives from './Operatives'
 interface Props {
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
+  loadingAppointmentDetails: boolean
 
   workOrder: WorkOrder
 }
 
 const WorkOrderAppointmentDetailsHeader = (props: Props) => {
-  const { appointmentDetails, appointmentDetailsError, workOrder } = props
+  const {
+    appointmentDetails,
+    appointmentDetailsError,
+    loadingAppointmentDetails,
+    workOrder,
+  } = props
 
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
+
+  if (loadingAppointmentDetails) {
+    return <SpinnerWithLabel label="Fetching appointment details…" />
+  }
 
   if (appointmentDetailsError) {
     return <ErrorMessage label={appointmentDetailsError} />
