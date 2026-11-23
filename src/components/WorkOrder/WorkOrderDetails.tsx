@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react'
 import UserContext from '../UserContext'
 import WorkOrderHeader from './WorkOrderHeader'
-import { GridRow, GridColumn } from '../Layout/Grid'
-import BackButton from '../Layout/BackButton'
+import WorkOrderPageHeading from './WorkOrderPageHeading'
 import MultiButton from '../Layout/MultiButton'
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
@@ -76,27 +75,17 @@ const WorkOrderDetails = (props: Props) => {
   return (
     <>
       <div className="govuk-!-display-none-print">
-        <BackButton />
-
-        <GridRow>
-          <GridColumn width="two-thirds">
-            <h1 className="lbh-heading-h1 display-inline govuk-!-margin-right-6">
-              Work order: {workOrder.reference.toString().padStart(8, '0')}
-            </h1>
-          </GridColumn>
-          <GridColumn width="one-third">
-            {currentWorkOrderActionMenu?.length > 0 &&
-              !workOrder.closedDated && (
-                <MultiButton
-                  name="workOrderMenu"
-                  label="Select work order"
-                  secondary={false}
-                  choices={currentWorkOrderActionMenu}
-                  workOrderReference={workOrder.reference}
-                />
-              )}
-          </GridColumn>
-        </GridRow>
+        <WorkOrderPageHeading workOrderReference={workOrder.reference}>
+          {currentWorkOrderActionMenu?.length > 0 && !workOrder.closedDated && (
+            <MultiButton
+              name="workOrderMenu"
+              label="Select work order"
+              secondary={false}
+              choices={currentWorkOrderActionMenu}
+              workOrderReference={workOrder.reference}
+            />
+          )}
+        </WorkOrderPageHeading>
 
         {workOrder?.isFollowOn && (
           <div className="govuk-!-margin-top-2">

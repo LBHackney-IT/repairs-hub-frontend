@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
-import Spinner from '../Spinner'
+import WorkOrderPageHeading from './WorkOrderPageHeading'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
@@ -132,12 +133,21 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     fetchAlerts()
   }, [property?.propertyReference])
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (error) {
-    return <ErrorMessage label={error} />
+  if (isLoading || error) {
+    return (
+      <>
+        <div className="govuk-!-display-none-print">
+          <WorkOrderPageHeading workOrderReference={workOrderReference} />
+        </div>
+        {isLoading ? (
+          <div className="govuk-!-margin-top-6">
+            <SpinnerWithLabel label="Fetching work order…" />
+          </div>
+        ) : (
+          <ErrorMessage label={error} />
+        )}
+      </>
+    )
   }
 
   return (
