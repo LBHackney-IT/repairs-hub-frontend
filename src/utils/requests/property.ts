@@ -3,6 +3,7 @@ import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { PropertyTenureResponse } from '../../models/propertyTenure'
 import { CautionaryAlertsResponse } from '../../models/cautionaryAlerts'
+import { FIVE_MINUTES, queryClient } from '../queryClient'
 
 export const getPropertyTenureDataRequest = async (
   propertyReference: string
@@ -68,10 +69,9 @@ export const getAlertsRequest = async (
   propertyReference
 ): Promise<ApiResponseType<CautionaryAlertsResponse>> => {
   try {
-    const alerts = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${propertyReference}/alerts`,
-    })
+    const alerts = await queryClient.fetchQuery(
+      propertyAlertsQuery(propertyReference)
+    )
 
     return {
       success: true,
@@ -92,17 +92,41 @@ export const getAlertsRequest = async (
   }
 }
 
+export const propertyTenureQuery = (propertyReference: string) => ({
+  queryKey: ['property', propertyReference, 'tenure'],
+  queryFn: () =>
+    frontEndApiRequest<PropertyTenureResponse>({
+      method: 'get',
+      path: `/api/properties/${propertyReference}`,
+    }),
+  staleTime: FIVE_MINUTES,
+})
+
 export const fetchPropertyTenureRequest = (propertyReference: string) =>
-  frontEndApiRequest<PropertyTenureResponse>({
-    method: 'get',
-    path: `/api/properties/${propertyReference}`,
-  })
+  queryClient.fetchQuery(propertyTenureQuery(propertyReference))
+
+export const legalDisrepairStatusQuery = (propertyReference: string) => ({
+  queryKey: ['property', propertyReference, 'legalDisrepair'],
+  queryFn: () =>
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/legalDisrepair/${propertyReference}`,
+    }),
+  staleTime: FIVE_MINUTES,
+})
 
 export const fetchLegalDisrepairStatusRequest = (propertyReference: string) =>
-  frontEndApiRequest({
-    method: 'get',
-    path: `/api/properties/legalDisrepair/${propertyReference}`,
-  })
+  queryClient.fetchQuery(legalDisrepairStatusQuery(propertyReference))
+
+export const propertyAlertsQuery = (propertyReference: string) => ({
+  queryKey: ['property', propertyReference, 'alerts'],
+  queryFn: () =>
+    frontEndApiRequest<CautionaryAlertsResponse>({
+      method: 'get',
+      path: `/api/properties/${propertyReference}/alerts`,
+    }),
+  staleTime: FIVE_MINUTES,
+})
 
 export interface SearchPropertiesParams {
   searchText: string
@@ -120,18 +144,32 @@ export interface UpdateMainContactData {
   }
 }
 
+export const searchPropertiesQuery = (params: SearchPropertiesParams) => ({
+  queryKey: ['propertySearch', params],
+  queryFn: () =>
+    frontEndApiRequest({
+      method: 'get',
+      path: '/api/properties/search',
+      params,
+    }),
+  staleTime: FIVE_MINUTES,
+})
+
 export const searchPropertiesRequest = (params: SearchPropertiesParams) =>
-  frontEndApiRequest({
-    method: 'get',
-    path: '/api/properties/search',
-    params,
-  })
+  queryClient.fetchQuery(searchPropertiesQuery(params))
+
+export const boilerHouseQuery = (boilerHouseId: string) => ({
+  queryKey: ['boilerHouse', boilerHouseId],
+  queryFn: () =>
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/guid-pk/${boilerHouseId}`,
+    }),
+  staleTime: FIVE_MINUTES,
+})
 
 export const fetchBoilerHouseRequest = (boilerHouseId: string) =>
-  frontEndApiRequest({
-    method: 'get',
-    path: `/api/properties/guid-pk/${boilerHouseId}`,
-  })
+  queryClient.fetchQuery(boilerHouseQuery(boilerHouseId))
 
 export const fetchContactDetailsRequest = (tenureId: string) =>
   frontEndApiRequest({

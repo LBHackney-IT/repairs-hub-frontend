@@ -1,5 +1,6 @@
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
 import { Priority } from '../../models/priority'
+import { FOUR_HOURS, queryClient } from '../queryClient'
 
 export interface SorCodesParams {
   tradeCode: string
@@ -26,11 +27,21 @@ export const fetchSorCodesRequest = (params: SorCodesParams) =>
     params,
   })
 
+// Priorities never change, so keep them for the whole session. cacheTime has to
+// match staleTime, as entries nothing is subscribed to are dropped after it
+export const prioritiesQuery = () => ({
+  queryKey: ['priorities'],
+  queryFn: () =>
+    frontEndApiRequest<Priority[]>({
+      method: 'get',
+      path: `/api/schedule-of-rates/priorities`,
+    }),
+  staleTime: FOUR_HOURS,
+  cacheTime: FOUR_HOURS,
+})
+
 export const fetchPrioritiesRequest = () =>
-  frontEndApiRequest<Priority[]>({
-    method: 'get',
-    path: `/api/schedule-of-rates/priorities`,
-  })
+  queryClient.fetchQuery(prioritiesQuery())
 
 export const fetchTradesForPropertyRequest = (propertyReference: string) =>
   frontEndApiRequest({

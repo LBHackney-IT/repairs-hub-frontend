@@ -5,7 +5,8 @@ import type { AppContext, AppProps } from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
 import * as Sentry from '@sentry/nextjs'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query'
+import { queryClient } from '../utils/queryClient'
 
 import {
   checkAuthorisation,
@@ -29,8 +30,6 @@ if (typeof window !== 'undefined') {
     ? document.body.className + ' js-enabled'
     : 'js-enabled'
 }
-
-const queryClient = new QueryClient()
 
 type MyAppProps = AppProps & {
   userDetails?: ReturnType<typeof buildUser>

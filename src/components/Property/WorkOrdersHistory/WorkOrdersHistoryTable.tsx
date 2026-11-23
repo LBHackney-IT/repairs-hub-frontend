@@ -5,10 +5,8 @@ import Spinner from '../../Spinner'
 import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter/Index'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
-import {
-  fetchWorkOrderFiltersRequest,
-  fetchWorkOrdersRequest,
-} from '@/requests/workOrders'
+import { fetchWorkOrdersRequest } from '@/requests/workOrders'
+import { fetchWorkOrderFiltersRequest } from '@/requests/trades'
 
 interface Props {
   tabName: string

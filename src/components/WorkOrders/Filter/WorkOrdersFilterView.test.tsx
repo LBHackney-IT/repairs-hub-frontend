@@ -3,6 +3,7 @@ import UserContext from '../../UserContext'
 import WorkOrdersFilterView from './WorkOrdersFilterView'
 import { contractManager } from 'factories/contract_manager'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { queryClient } from '@/utils/queryClient'
 
 jest.mock('@/utils/frontEndApiClient/requests')
 
@@ -45,6 +46,7 @@ describe('WorkOrdersFilterView component', () => {
 
   beforeEach(() => {
     apiRequest.mockReset()
+    queryClient.clear()
   })
 
   describe('filter options', () => {

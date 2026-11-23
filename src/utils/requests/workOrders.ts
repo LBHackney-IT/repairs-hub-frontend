@@ -10,6 +10,7 @@ import { BudgetCode } from '../../models/budgetCode'
 import { WorkOrderHierarchy } from '../../models/workOrderHierarchy'
 import { VariationResponseObject } from '../../types/variations/types'
 import { closeWorkOrderDataRequest } from '../hact/workOrderComplete/closeWorkOrder'
+import { FIVE_MINUTES, queryClient } from '../queryClient'
 import { buildCancelWorkOrderFormData } from '../hact/workOrderComplete/cancelWorkOrderForm'
 import { buildScheduleWorkOrderFormData } from '../hact/workOrderSchedule/raiseWorkOrderForm'
 
@@ -216,12 +217,19 @@ export interface BudgetCodesParams {
   contractorReference?: string
 }
 
+export const budgetCodesQuery = (params: BudgetCodesParams) => ({
+  queryKey: ['budgetCodes', params],
+  queryFn: () =>
+    frontEndApiRequest<BudgetCode[]>({
+      method: 'get',
+      path: '/api/workOrders/budget-codes',
+      params,
+    }),
+  staleTime: FIVE_MINUTES,
+})
+
 export const fetchBudgetCodesRequest = (params: BudgetCodesParams) =>
-  frontEndApiRequest<BudgetCode[]>({
-    method: 'get',
-    path: '/api/workOrders/budget-codes',
-    params,
-  })
+  queryClient.fetchQuery(budgetCodesQuery(params))
 
 export interface StartWorkOrderData {
   startTime: Date | string
@@ -256,12 +264,6 @@ export const fetchWorkOrderHierarchyRequest = (workOrderReference: string) =>
   frontEndApiRequest<WorkOrderHierarchy>({
     path: `/api/workOrders/${workOrderReference}/hierarchy`,
     method: 'get',
-  })
-
-export const fetchWorkOrderFiltersRequest = () =>
-  frontEndApiRequest({
-    method: 'get',
-    path: '/api/filter/WorkOrder',
   })
 
 export const fetchWorkOrderVariationTasksRequest = (

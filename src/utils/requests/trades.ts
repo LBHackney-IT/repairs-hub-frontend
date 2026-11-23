@@ -1,6 +1,21 @@
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
-import { fetchWorkOrderFiltersRequest } from './workOrders'
+import { frontEndApiRequest } from '../frontEndApiClient/requests'
+import { FOUR_HOURS, queryClient } from '../queryClient'
+
+export const workOrderFiltersQuery = () => ({
+  queryKey: ['workOrderFilters'],
+  queryFn: () =>
+    frontEndApiRequest({
+      method: 'get',
+      path: '/api/filter/WorkOrder',
+    }),
+  staleTime: FOUR_HOURS,
+  cacheTime: FOUR_HOURS,
+})
+
+export const fetchWorkOrderFiltersRequest = () =>
+  queryClient.fetchQuery(workOrderFiltersQuery())
 
 export type TradeFilter = {
   key: string
