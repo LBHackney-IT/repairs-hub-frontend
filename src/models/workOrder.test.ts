@@ -102,7 +102,9 @@ describe('WorkOrder', () => {
     })
 
     const allowedPriorityCodes = [
-      (URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE, SURVEY_PRIORITY_CODE),
+      URGENT_PRIORITY_CODE,
+      NORMAL_PRIORITY_CODE,
+      SURVEY_PRIORITY_CODE,
     ]
 
     allowedPriorityCodes.forEach((code) => {
@@ -121,7 +123,9 @@ describe('WorkOrder', () => {
     })
 
     const disabledPriorities = [
-      (IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE, PLANNED_PRIORITY_CODE),
+      IMMEDIATE_PRIORITY_CODE,
+      EMERGENCY_PRIORITY_CODE,
+      PLANNED_PRIORITY_CODE,
     ]
 
     disabledPriorities.forEach((code) => {
