@@ -16,6 +16,16 @@ export type followOnDataRequest = {
   otherTrade?: string
 }
 
+// The follow-on details as held by the close work order form, before being
+// built into a request. The trades are the selected trade options (with their
+// form field name and label), not just their values.
+export type FollowOnFormData = Omit<
+  followOnDataRequest,
+  'requiredFollowOnTrades'
+> & {
+  requiredFollowOnTrades: { name: string; label: string; value: string }[]
+}
+
 export type closeWorkOrderDataRequest = {
   workOrderReference: {
     id: string

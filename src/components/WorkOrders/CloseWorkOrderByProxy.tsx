@@ -6,6 +6,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
+  FollowOnFormData,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
@@ -67,7 +68,9 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
     setSelectedPercentagesToShowOnEdit,
   ] = useState([])
 
-  const [followOnData, setFollowOnData] = useState(null)
+  const [followOnData, setFollowOnData] = useState<FollowOnFormData | null>(
+    null
+  )
 
   const FORM_PAGE = 1
   const SUMMARY_PAGE = 2
