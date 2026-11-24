@@ -35,8 +35,7 @@ describe('Approving the completion of a work order', () => {
 
     cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
-    cy.get('[data-testid=details] summary').click()
-    cy.contains('label', 'Approve Completion').click()
+    // Approve Completion is the first action, so it is the main button
     cy.contains('a', 'Approve Completion')
       .should('have.attr', 'href', '/work-orders/10000012/approve-completion')
       .click()
