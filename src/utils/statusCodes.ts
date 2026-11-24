@@ -23,6 +23,11 @@ export const STATUS_AUTHORISATION_PENDING_APPROVAL = {
   description: 'Authorisation Pending Approval',
 }
 
+export const STATUS_COMPLETION_PENDING_APPROVAL = {
+  code: 1020,
+  description: 'Completion Pending Approval',
+}
+
 export const STATUS_VARIATION_APPROVED = {
   code: 1080,
   description: 'Variation Approved',
@@ -102,15 +107,28 @@ export const WORK_ORDERS_STATUSES = [
   STATUS_CANCELLED.description,
   STATUS_VARIATION_PENDING_APPROVAL.description,
   STATUS_AUTHORISATION_PENDING_APPROVAL.description,
+  STATUS_COMPLETION_PENDING_APPROVAL.description,
   STATUS_VARIATION_APPROVED.description,
   STATUS_VARIATION_REJECTED.description,
   STATUS_NO_ACCESS.description,
   'Work Completed', // can be deleted following backend release of PR #641
 ]
 
+// Statuses where the work order is still open, so it can be updated, closed,
+// cancelled or edited. Anything not listed here has been closed, either
+// completed, cancelled or no access, or is waiting for completion approval.
+export const OPEN_WORK_ORDERS_STATUSES = [
+  STATUS_IN_PROGRESS.description,
+  STATUS_VARIATION_PENDING_APPROVAL.description,
+  STATUS_AUTHORISATION_PENDING_APPROVAL.description,
+  STATUS_VARIATION_APPROVED.description,
+  STATUS_VARIATION_REJECTED.description,
+]
+
 export const CLOSED_STATUS_DESCRIPTIONS = [
   STATUS_CANCELLED.description,
   STATUS_AUTHORISATION_PENDING_APPROVAL.description,
+  STATUS_COMPLETION_PENDING_APPROVAL.description,
   STATUS_COMPLETED.description,
   STATUS_NO_ACCESS.description,
   'Work Completed', // can be deleted following backend release of PR #641
@@ -118,6 +136,7 @@ export const CLOSED_STATUS_DESCRIPTIONS = [
 
 export const CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES = [
   STATUS_COMPLETED.description,
+  STATUS_COMPLETION_PENDING_APPROVAL.description,
   STATUS_NO_ACCESS.description,
   'Work Completed', // can be deleted following backend release of PR #641
 ]

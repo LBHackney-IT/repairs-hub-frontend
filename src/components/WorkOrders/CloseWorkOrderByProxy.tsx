@@ -26,6 +26,7 @@ import { formatRequestErrorMessage } from '../../utils/errorHandling/formatError
 import { Operative } from '../../models/operativeModel'
 import { clearIndexedDb } from '../WorkOrder/Photos/hooks/uploadFiles/cacheFile'
 import useCloudwatchLogger from '../../utils/cloudwatchLogger'
+import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -72,6 +73,11 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(FORM_PAGE)
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
+
+  const [
+    simpleFeatureToggles,
+    loadingFeatureToggles,
+  ] = useSimpleFeatureToggles()
 
   const cwLogger = useCloudwatchLogger('PHOTOS', `ByProxy | ${reference}`)
 
@@ -334,7 +340,16 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
     setStartTime(formData.startTime)
   }
 
-  if (loadingStatus) return <SpinnerWithLabel label={loadingStatus} />
+  const requiresApprovalToComplete =
+    !!simpleFeatureToggles?.enableCompletionApprovalStep &&
+    !!workOrder?.requiresApprovalToComplete()
+
+  const closedAsPendingApproval =
+    requiresApprovalToComplete && reason === 'Work Order Completed'
+
+  if (loadingStatus || loadingFeatureToggles) {
+    return <SpinnerWithLabel label={loadingStatus ?? 'Loading'} />
+  }
 
   return (
     <>
@@ -366,6 +381,7 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
               existingStartTime={workOrder.startTime !== null}
               followOnData={followOnData}
               isLoading={loadingStatus !== null}
+              requiresApprovalToComplete={requiresApprovalToComplete}
             />
           )}
 
@@ -392,13 +408,18 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
               followOnData={followOnData}
               files={files}
               description={description}
+              requiresApprovalToComplete={requiresApprovalToComplete}
             />
           )}
           {currentPage === CONFIRMATION_PAGE && (
             <SuccessPage
               banner={
                 <Panel
-                  title="Work order closed"
+                  title={
+                    closedAsPendingApproval
+                      ? 'Work order closed, completion pending approval'
+                      : 'Work order closed'
+                  }
                   workOrderReference={workOrder.reference}
                 />
               }

@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { PAYMENT_TYPE_FORM_DESCRIPTIONS } from '@/utils/paymentTypes'
 import { PrimarySubmitButton } from '../Form'
+import CompletionApprovalNotice from './CompletionApprovalNotice'
 import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 import dayjs from 'dayjs'
 import PhotoListWithPreview from '../WorkOrder/Photos/PhotoListWithPreview'
@@ -31,6 +32,7 @@ interface Props {
   files: any[]
   operativeNames: string[]
   followOnData: any
+  requiresApprovalToComplete?: boolean
 }
 
 const SummaryCloseWorkOrder = (props: Props) => {
@@ -47,6 +49,7 @@ const SummaryCloseWorkOrder = (props: Props) => {
     files,
     description,
     followOnData = null,
+    requiresApprovalToComplete = false,
   } = props
 
   const { handleSubmit } = useForm({})
@@ -172,6 +175,11 @@ const SummaryCloseWorkOrder = (props: Props) => {
             </Table>
           </>
         )}
+
+        <CompletionApprovalNotice
+          requiresApprovalToComplete={requiresApprovalToComplete}
+          isCompleting={reason === 'Work Order Completed'}
+        />
 
         <div style={{ margin: '30px 0 0 0', display: 'flex' }}>
           {' '}

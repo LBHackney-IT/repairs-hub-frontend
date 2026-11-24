@@ -85,16 +85,15 @@ const WorkOrderDetails = (props: Props) => {
             </h1>
           </GridColumn>
           <GridColumn width="one-third">
-            {currentWorkOrderActionMenu?.length > 0 &&
-              !workOrder.closedDated && (
-                <MultiButton
-                  name="workOrderMenu"
-                  label="Select work order"
-                  secondary={false}
-                  choices={currentWorkOrderActionMenu}
-                  workOrderReference={workOrder.reference}
-                />
-              )}
+            {currentWorkOrderActionMenu?.length > 0 && (
+              <MultiButton
+                name="workOrderMenu"
+                label="Select work order"
+                secondary={false}
+                choices={currentWorkOrderActionMenu}
+                workOrderReference={workOrder.reference}
+              />
+            )}
           </GridColumn>
         </GridRow>
 

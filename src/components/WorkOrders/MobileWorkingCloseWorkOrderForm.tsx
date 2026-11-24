@@ -9,6 +9,7 @@ import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import useFormPersist from 'react-hook-form-persist'
+import CompletionApprovalNotice from './CompletionApprovalNotice'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -51,6 +52,7 @@ interface MobileWorkingCloseWorkOrderFormProps {
     followOnFiles: File[]
   ) => void
   isLoading: boolean
+  requiresApprovalToComplete?: boolean
   presetValues?: Partial<CloseWorkOrderValues>
 }
 
@@ -58,6 +60,7 @@ const MobileWorkingCloseWorkOrderForm = ({
   workOrderReference,
   onSubmit,
   isLoading,
+  requiresApprovalToComplete = false,
   presetValues = {},
 }: MobileWorkingCloseWorkOrderFormProps) => {
   const {
@@ -193,6 +196,11 @@ const MobileWorkingCloseWorkOrderForm = ({
             error={errors && errors.notes}
           />
 
+          <CompletionApprovalNotice
+            requiresApprovalToComplete={requiresApprovalToComplete}
+            isCompleting={watch('reason') === 'Work Order Completed'}
+          />
+
           {selectedFurtherWorkRequired ? (
             <PrimarySubmitButton
               label="Add details"
@@ -258,6 +266,11 @@ const MobileWorkingCloseWorkOrderForm = ({
                 />
               )}
             </div>
+
+            <CompletionApprovalNotice
+              requiresApprovalToComplete={requiresApprovalToComplete}
+              isCompleting={true}
+            />
 
             <PrimarySubmitButton
               id="submit-work-order-close"

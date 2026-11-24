@@ -1,8 +1,9 @@
 import {
-  STATUS_CANCELLED,
   STATUS_VARIATION_PENDING_APPROVAL,
   STATUS_AUTHORISATION_PENDING_APPROVAL,
+  STATUS_COMPLETION_PENDING_APPROVAL,
   WORK_ORDERS_STATUSES,
+  OPEN_WORK_ORDERS_STATUSES,
 } from './statusCodes'
 
 import {
@@ -12,6 +13,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   DATA_ADMIN_ROLE,
   CONTRACTOR_CAN_CANCEL_ROLE,
+  COMPLETION_APPROVAL_MANAGER_ROLE,
 } from './user'
 
 type WorkOrderAction = {
@@ -29,14 +31,14 @@ export const WORK_ORDER_ACTIONS: WorkOrderAction[] = [
     title: 'Update',
     description: 'Update Work Order',
     permittedRoles: [CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE],
-    permittedStatuses: WORK_ORDERS_STATUSES,
+    permittedStatuses: OPEN_WORK_ORDERS_STATUSES,
   },
   {
     href: 'close',
     title: 'Close',
     description: 'Close Work Order',
     permittedRoles: [CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE],
-    permittedStatuses: WORK_ORDERS_STATUSES,
+    permittedStatuses: OPEN_WORK_ORDERS_STATUSES,
   },
   {
     href: 'variation-authorisation',
@@ -57,6 +59,13 @@ export const WORK_ORDER_ACTIONS: WorkOrderAction[] = [
     }),
   },
   {
+    href: 'approve-completion',
+    title: 'Approve Completion',
+    description: 'Approve Work Order Completion',
+    permittedRoles: [COMPLETION_APPROVAL_MANAGER_ROLE, DATA_ADMIN_ROLE],
+    permittedStatuses: [STATUS_COMPLETION_PENDING_APPROVAL.description],
+  },
+  {
     href: 'cancel',
     title: 'Cancel',
     description: 'Cancel Work Order',
@@ -66,9 +75,7 @@ export const WORK_ORDER_ACTIONS: WorkOrderAction[] = [
       CONTRACT_MANAGER_ROLE,
       CONTRACTOR_CAN_CANCEL_ROLE,
     ],
-    permittedStatuses: WORK_ORDERS_STATUSES.filter((status) => {
-      return status !== STATUS_CANCELLED.description
-    }),
+    permittedStatuses: OPEN_WORK_ORDERS_STATUSES,
   },
   {
     href: 'print',
@@ -92,6 +99,6 @@ export const WORK_ORDER_ACTIONS: WorkOrderAction[] = [
       CONTRACT_MANAGER_ROLE,
       DATA_ADMIN_ROLE,
     ],
-    permittedStatuses: WORK_ORDERS_STATUSES,
+    permittedStatuses: OPEN_WORK_ORDERS_STATUSES,
   },
 ]

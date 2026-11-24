@@ -6,7 +6,7 @@ export const useSimpleFeatureToggles = (): [
   SimpleFeatureToggleResponse,
   boolean
 ] => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const [
     simpleFeatureToggles,

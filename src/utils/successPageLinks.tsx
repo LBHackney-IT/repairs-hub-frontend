@@ -153,3 +153,13 @@ export const authorisationApprovedLinks = (workOrderReference) => {
     { href: `/`, text: 'Manage work orders' },
   ]
 }
+
+export const completionApprovedLinks = (workOrderReference) => {
+  return [
+    {
+      href: `/work-orders/${workOrderReference}`,
+      text: 'View work order',
+    },
+    { href: `/`, text: 'Manage work orders' },
+  ]
+}
