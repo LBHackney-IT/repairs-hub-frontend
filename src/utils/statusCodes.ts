@@ -101,7 +101,7 @@ export const FOLLOW_ON_REQUEST_AVAILABLE_TRADES = [
   },
 ]
 
-export const WORK_ORDERS_STATUSES = [
+export const ALL_WORK_ORDER_STATUSES = [
   STATUS_IN_PROGRESS.description,
   STATUS_COMPLETED.description,
   STATUS_CANCELLED.description,
@@ -111,7 +111,6 @@ export const WORK_ORDERS_STATUSES = [
   STATUS_VARIATION_APPROVED.description,
   STATUS_VARIATION_REJECTED.description,
   STATUS_NO_ACCESS.description,
-  'Work Completed', // can be deleted following backend release of PR #641
 ]
 
 // Statuses where the work order is still open, so it can be updated, closed,

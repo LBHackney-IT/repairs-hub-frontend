@@ -11,7 +11,7 @@ import {
   CLOSED_STATUS_DESCRIPTIONS,
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
   STATUS_COMPLETED,
-  WORK_ORDERS_STATUSES,
+  ALL_WORK_ORDER_STATUSES,
 } from '@/utils/statusCodes'
 import { WorkOrder } from './workOrder'
 import MockDate from 'mockdate'
@@ -63,7 +63,7 @@ describe('WorkOrder', () => {
   })
 
   describe('canBeScheduled()', () => {
-    const allowedStatuses = WORK_ORDERS_STATUSES.filter(
+    const allowedStatuses = ALL_WORK_ORDER_STATUSES.filter(
       (status) => !CLOSED_STATUS_DESCRIPTIONS.includes(status)
     )
 
@@ -181,7 +181,7 @@ describe('WorkOrder', () => {
       expect(workOrder.completionReason()).toBe('Completed')
     })
 
-    WORK_ORDERS_STATUSES.filter(
+    ALL_WORK_ORDER_STATUSES.filter(
       (status) =>
         status !== STATUS_COMPLETED.description && status !== 'Work Completed'
     ).forEach((status) => {

@@ -2,7 +2,7 @@ import {
   STATUS_VARIATION_PENDING_APPROVAL,
   STATUS_AUTHORISATION_PENDING_APPROVAL,
   STATUS_COMPLETION_PENDING_APPROVAL,
-  WORK_ORDERS_STATUSES,
+  ALL_WORK_ORDER_STATUSES,
   OPEN_WORK_ORDERS_STATUSES,
 } from './statusCodes'
 
@@ -44,18 +44,14 @@ export const WORK_ORDER_ACTIONS: WorkOrderAction[] = [
     title: 'Variation Authorisation',
     description: 'Authorise Work Order Variation',
     permittedRoles: [CONTRACT_MANAGER_ROLE],
-    permittedStatuses: WORK_ORDERS_STATUSES.filter((status) => {
-      return status === STATUS_VARIATION_PENDING_APPROVAL.description
-    }),
+    permittedStatuses: [STATUS_VARIATION_PENDING_APPROVAL.description],
   },
   {
     href: 'authorisation',
     title: 'Authorisation',
     description: 'Authorise Work Order',
     permittedRoles: [AUTHORISATION_MANAGER_ROLE],
-    permittedStatuses: WORK_ORDERS_STATUSES.filter((status) => {
-      return status === STATUS_AUTHORISATION_PENDING_APPROVAL.description
-    }),
+    permittedStatuses: [STATUS_AUTHORISATION_PENDING_APPROVAL.description],
   },
   {
     href: 'approve-completion',
@@ -86,7 +82,7 @@ export const WORK_ORDER_ACTIONS: WorkOrderAction[] = [
       CONTRACT_MANAGER_ROLE,
       CONTRACTOR_ROLE,
     ],
-    permittedStatuses: WORK_ORDERS_STATUSES,
+    permittedStatuses: ALL_WORK_ORDER_STATUSES,
   },
   {
     href: 'edit',
