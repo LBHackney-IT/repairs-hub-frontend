@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { SimpleFeatureToggleResponse } from '../pages/api/simple-feature-toggle'
-import { fetchSimpleFeatureToggles } from '../utils/frontEndApiClient/requests'
+import { fetchSimpleFeatureTogglesRequest } from '@/requests/featureToggles'
 
 export const useSimpleFeatureToggles = (): [
   SimpleFeatureToggleResponse,
@@ -16,7 +16,7 @@ export const useSimpleFeatureToggles = (): [
   useEffect(() => {
     setIsLoading(true)
 
-    fetchSimpleFeatureToggles()
+    fetchSimpleFeatureTogglesRequest()
       .then((fetchedFeatureToggles) => {
         setSimpleFeatureToggles(fetchedFeatureToggles)
       })

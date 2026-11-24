@@ -1,9 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import ErrorMessage from '../Errors/ErrorMessage'
-import {
-  fetchSimpleFeatureToggles,
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import {} from '@/utils/frontEndApiClient/requests'
+import { fetchSimpleFeatureTogglesRequest } from '@/requests/featureToggles'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
@@ -24,15 +22,21 @@ import { APIResponseError } from '../../types/requests/types'
 import { buildVariationFormData } from '../../utils/hact/jobStatusUpdate/variation'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import {
-  getAppointmentDetails,
-  getWorkOrderDetails,
-} from '../../utils/requests/workOrders'
+  completeWorkOrderRequest,
+  fetchWorkOrderTasksRequest,
+  getAppointmentDetailsRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { CurrentUser } from '../../types/variations/types'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { clearIndexedDb } from './Photos/hooks/uploadFiles/cacheFile'
 import useCloudwatchLogger from '../../utils/cloudwatchLogger'
+import { fetchPropertyTenureRequest } from '@/requests/property'
+import { fetchHubUserRequest } from '@/requests/user'
+import { fetchWorkOrderPhotosRequest } from '@/requests/photos'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
 
 interface Props {
   workOrderReference: string
@@ -76,12 +80,14 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(
+        workOrderReference
+      )
       if (!workOrderResponse.success) throw workOrderResponse.error
 
       const workOrder = workOrderResponse.response
 
-      const appointmentDetailsResponse = await getAppointmentDetails(
+      const appointmentDetailsResponse = await getAppointmentDetailsRequest(
         workOrderReference
       )
       if (!appointmentDetailsResponse.success)
@@ -89,27 +95,17 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
 
       const appointmentDetails = appointmentDetailsResponse.response
 
-      const featureToggleData = await fetchSimpleFeatureToggles()
+      const featureToggleData = await fetchSimpleFeatureTogglesRequest()
 
-      const propertyObject = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/${workOrder.propertyReference}`,
-      })
+      const propertyObject = await fetchPropertyTenureRequest(
+        workOrder.propertyReference
+      )
 
-      const tasksAndSors = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
+      const tasksAndSors = await fetchWorkOrderTasksRequest(workOrderReference)
 
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const currentUser = await fetchHubUserRequest()
 
-      const photos = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/images/${workOrderReference}`,
-      })
+      const photos = await fetchWorkOrderPhotosRequest(workOrderReference)
 
       setFeatureToggles(featureToggleData)
       setPhotos(photos)
@@ -155,16 +151,14 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
   const onWorkOrderProgressToCloseSubmit = async (formData) => {
     try {
       if (formData.variationReason) {
-        await frontEndApiRequest({
-          method: 'post',
-          path: `/api/jobStatusUpdate`,
-          requestData: buildVariationFormData(
+        await postJobStatusUpdateRequest(
+          buildVariationFormData(
             tasksAndSors,
             [],
             workOrderReference,
             formData.variationReason
-          ),
-        })
+          )
+        )
       }
 
       formData.paymentType && setPaymentType(formData.paymentType)
@@ -278,11 +272,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
         cwLogger.log(`Upload Success | ${group.files.length} files uploaded`)
       }
       setLoadingStatus('Completing workorder')
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/workOrderComplete`,
-        requestData: closeWorkOrderFormData,
-      })
+      await completeWorkOrderRequest(closeWorkOrderFormData)
 
       if (filesToUpload.length > 0) {
         cwLogger.log(

@@ -19,6 +19,8 @@ interface Props {
   propertyReference: string
   workOrderReference: string
   tasksAndSors: any
+  tasksAndSorsLoading: boolean
+  tasksAndSorsError: string | null
   budgetCode: any
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails
@@ -31,6 +33,8 @@ const WorkOrderViewTabs = (props: Props) => {
     propertyReference,
     workOrderReference,
     tasksAndSors,
+    tasksAndSorsLoading,
+    tasksAndSorsError,
     budgetCode,
     workOrder,
     appointmentDetails,
@@ -51,6 +55,8 @@ const WorkOrderViewTabs = (props: Props) => {
       propertyReference={propertyReference}
       workOrderReference={workOrderReference}
       tasksAndSors={tasksAndSors}
+      tasksAndSorsLoading={tasksAndSorsLoading}
+      tasksAndSorsError={tasksAndSorsError}
       budgetCode={budgetCode}
       workOrder={workOrder}
       appointmentDetails={appointmentDetails}

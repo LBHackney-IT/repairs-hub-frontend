@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 
 const TestErrorMessage = 'Test submission error'
 
-jest.mock('@/root/src/utils/requests/trades', () => ({
+jest.mock('@/requests/trades', () => ({
   getTrades: jest.fn(() =>
     Promise.resolve({
       success: true,
@@ -15,12 +15,14 @@ jest.mock('@/root/src/utils/requests/trades', () => ({
     })
   ),
 }))
-jest.mock('@/root/src/utils/frontEndApiClient/requests', () => ({
-  fetchSimpleFeatureToggles: jest.fn(() =>
+jest.mock('@/requests/featureToggles', () => ({
+  fetchSimpleFeatureTogglesRequest: jest.fn(() =>
     Promise.resolve({
       enableFollowOnIsEmergencyField: true,
     })
   ),
+}))
+jest.mock('@/root/src/utils/frontEndApiClient/requests', () => ({
   frontEndApiRequest: jest.fn(() =>
     Promise.resolve({
       email: 'test@test.com',

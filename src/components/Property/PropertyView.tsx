@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import PropertyDetails from './PropertyDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
 import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
@@ -11,6 +10,10 @@ import {
   PropertyTenureResponse,
   Tenure,
 } from '../../models/propertyTenure'
+import {
+  fetchLegalDisrepairStatusRequest,
+  fetchPropertyTenureRequest,
+} from '@/requests/property'
 
 interface Props {
   propertyReference: string
@@ -28,10 +31,9 @@ const PropertyView = ({ propertyReference }: Props) => {
     setError(null)
 
     try {
-      const data: PropertyTenureResponse = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/${propertyReference}`,
-      })
+      const data: PropertyTenureResponse = await fetchPropertyTenureRequest(
+        propertyReference
+      )
 
       setProperty(data.property)
       if (data.tenure) setTenure(data.tenure)
@@ -45,10 +47,7 @@ const PropertyView = ({ propertyReference }: Props) => {
   }
 
   const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/legalDisrepair/${propertyReference}`,
-    })
+    fetchLegalDisrepairStatusRequest(propertyReference)
       .then((isInLegalDisrepair) =>
         setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
       )

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import Spinner from '../../Spinner'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { WorkOrderHierarchy } from './types'
+import { WorkOrderHierarchy } from '@/models/workOrderHierarchy'
 import RelatedWorkOrderViewList from './RelatedWorkOrderViewList'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchWorkOrderHierarchyRequest } from '@/requests/workOrders'
 
 interface Props {
   tabName: string
@@ -23,10 +23,7 @@ const RelatedWorkOrdersView = ({ workOrderReference, tabName }: Props) => {
     setHierarchy(null)
 
     try {
-      const response: WorkOrderHierarchy = await frontEndApiRequest({
-        path: `/api/workOrders/${workOrderReference}/hierarchy`,
-        method: 'get',
-      })
+      const response = await fetchWorkOrderHierarchyRequest(workOrderReference)
 
       setHierarchy(response)
     } catch (e) {
@@ -42,18 +39,18 @@ const RelatedWorkOrdersView = ({ workOrderReference, tabName }: Props) => {
     fetchHierarchy()
   }, [])
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (error) {
-    return <ErrorMessage label={error} />
-  }
-
   return (
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
-      {hierarchy && <RelatedWorkOrderViewList hierarchy={hierarchy} />}
+      {isLoading && (
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching related work orders…" />
+        </div>
+      )}
+      {error && <ErrorMessage label={error} />}
+      {!isLoading && hierarchy && (
+        <RelatedWorkOrderViewList hierarchy={hierarchy} />
+      )}
     </>
   )
 }

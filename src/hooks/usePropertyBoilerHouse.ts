@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { frontEndApiRequest } from '../utils/frontEndApiClient/requests'
+import { fetchBoilerHouseRequest } from '@/requests/property'
 
 type BoilerHouse = {
   propertyReference: string
@@ -12,10 +12,7 @@ export const usePropertyBoilerHouse = (boilerHouseId: string) => {
   const [boilerHouseError, setBoilerHouseError] = useState<string>()
 
   useEffect(() => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/guid-pk/${boilerHouseId}`,
-    })
+    fetchBoilerHouseRequest(boilerHouseId)
       .then((res) => {
         setBoilerHouse({
           propertyReference: res.propertyReference,

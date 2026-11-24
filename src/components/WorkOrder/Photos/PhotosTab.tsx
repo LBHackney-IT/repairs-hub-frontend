@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react'
-import Spinner from '../../Spinner'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import UploadPhotosForm from './UploadPhotosForm'
 import PhotoViewList from './PhotoViewList'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { clearIndexedDb } from './hooks/uploadFiles/cacheFile'
+import {
+  fetchWorkOrderPhotosRequest,
+  updatePhotoFileGroupRequest,
+} from '@/requests/photos'
 
 interface Props {
   workOrderReference: string
   tabName: string
 }
 
-const PhotosTab = ({ workOrderReference }: Props) => {
+const PhotosTab = ({ workOrderReference, tabName }: Props) => {
   const [photos, setPhotos] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -21,10 +24,7 @@ const PhotosTab = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const photos = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/images/${workOrderReference}`,
-      })
+      const photos = await fetchWorkOrderPhotosRequest(workOrderReference)
 
       setPhotos(photos)
     } catch (e) {
@@ -40,11 +40,7 @@ const PhotosTab = ({ workOrderReference }: Props) => {
     setIsLoading(true)
 
     try {
-      await frontEndApiRequest({
-        method: 'patch',
-        path: `/api/workOrders/images/fileGroup`,
-        requestData,
-      })
+      await updatePhotoFileGroupRequest(requestData)
 
       getPhotos(workOrderReference)
     } catch (e) {
@@ -61,11 +57,9 @@ const PhotosTab = ({ workOrderReference }: Props) => {
     getPhotos(workOrderReference)
   }, [])
 
-  if (isLoading) return <Spinner />
-
   return (
     <div className="photos-tab">
-      <h2 className="lbh-heading-h2">Photos</h2>
+      <h2 className="lbh-heading-h2">{tabName}</h2>
 
       {error && <ErrorMessage label={error} />}
 
@@ -80,10 +74,16 @@ const PhotosTab = ({ workOrderReference }: Props) => {
         />
       </span>
 
-      <PhotoViewList
-        photos={photos}
-        onSubmitSetDescription={onSubmitSetDescription}
-      />
+      {isLoading ? (
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching photos…" />
+        </div>
+      ) : (
+        <PhotoViewList
+          photos={photos}
+          onSubmitSetDescription={onSubmitSetDescription}
+        />
+      )}
     </div>
   )
 }

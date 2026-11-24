@@ -10,7 +10,7 @@ import {
 } from 'react-hook-form'
 import { followOnDataRequest } from '@/root/src/utils/hact/workOrderComplete/closeWorkOrder'
 import { useEffect, useState } from 'react'
-import { fetchSimpleFeatureToggles } from '@/root/src/utils/frontEndApiClient/requests'
+import { fetchSimpleFeatureTogglesRequest } from '@/requests/featureToggles'
 import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
 import { JSX } from 'react'
 
@@ -47,7 +47,7 @@ const FollowOnRequestTypeOfWorkForm = (
   ] = useState<SimpleFeatureToggleResponse>()
 
   useEffect(() => {
-    fetchSimpleFeatureToggles().then((fetchedFeatureToggles) => {
+    fetchSimpleFeatureTogglesRequest().then((fetchedFeatureToggles) => {
       setSimpleFeatureToggles(fetchedFeatureToggles)
     })
   }, [])

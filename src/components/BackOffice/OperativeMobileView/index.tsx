@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import SelectedOperative from './SelectedOperative'
 import Layout from '../Layout'
@@ -7,18 +6,16 @@ import MobileWorkingWorkOrdersView from '../../WorkOrders/MobileWorkingWorkOrder
 import { filterOperatives, HubOperative } from './utils'
 import type { Operative } from '@/root/src/models/operativeModel'
 import { useRouter } from 'next/router'
+import { fetchOperativesRequest } from '@/requests/operatives'
 
 const OperativeMobileView = () => {
   const router = useRouter()
 
-  const fetchOperatives = async () =>
+  const loadOperatives = async () =>
     new Promise<void>((resolve) => {
       setIsLoading(true)
 
-      frontEndApiRequest({
-        method: 'get',
-        path: '/api/operatives',
-      })
+      fetchOperativesRequest()
         .then((res) => {
           const sortedOperatives = res
             .sort((a, b) => a.name.localeCompare(b.name))
@@ -68,7 +65,7 @@ const OperativeMobileView = () => {
   ] = useState<HubOperative | null>(null)
 
   useEffect(() => {
-    fetchOperatives().then(() => {
+    loadOperatives().then(() => {
       const query = router.query
 
       if (!Object.prototype.hasOwnProperty.call(query, 'operative')) return

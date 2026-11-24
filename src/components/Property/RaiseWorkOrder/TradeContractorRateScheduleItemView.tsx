@@ -8,12 +8,14 @@ import {
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import BudgetCodeItemView from './BudgetCodeItemView'
 import UserContext from '@/components/UserContext'
 import { canAssignBudgetCode } from '@/utils/userPermissions'
 import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
-import { getContractor } from '@/root/src/utils/requests/contractor'
+import {
+  fetchContractorsByTradeRequest,
+  getContractorRequest,
+} from '@/requests/contractor'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import Contractor from '@/root/src/models/contractor'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
@@ -22,6 +24,8 @@ import { BudgetCode } from '@/root/src/models/budgetCode'
 import { DeepMap, FieldError } from 'react-hook-form'
 import { Priority } from '@/root/src/models/priority'
 import { Trade } from '@/root/src/models/trade'
+import { fetchBudgetCodesRequest } from '@/requests/workOrders'
+import { fetchSorCodesRequest } from '@/requests/scheduleOfRates'
 
 interface Props {
   trades: Trade[]
@@ -197,7 +201,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     setGetContractorError(null)
     setLoadingContractor(true)
 
-    const contractorResponse = await getContractor(contractorRef)
+    const contractorResponse = await getContractorRequest(contractorRef)
 
     setLoadingContractor(false)
 
@@ -236,13 +240,9 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     setGetContractorsError(null)
 
     try {
-      const contractors = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/contractors',
-        params: {
-          propertyReference: propertyReference,
-          tradeCode: tradeCode,
-        },
+      const contractors = await fetchContractorsByTradeRequest({
+        propertyReference: propertyReference,
+        tradeCode: tradeCode,
       })
 
       setContractors(contractors)
@@ -269,11 +269,7 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
         params['contractorReference'] = contractorReference
       }
 
-      const budgetCodes = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/workOrders/budget-codes',
-        params,
-      })
+      const budgetCodes = await fetchBudgetCodesRequest(params)
 
       setBudgetCodes(budgetCodes)
     } catch (e) {
@@ -292,15 +288,11 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
     setGetSorCodesError(null)
 
     try {
-      const sorCodes = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/schedule-of-rates/codes',
-        params: {
-          tradeCode: tradeCode,
-          propertyReference: propertyRef,
-          contractorReference: contractorRef,
-          isRaisable: true,
-        },
+      const sorCodes = await fetchSorCodesRequest({
+        tradeCode: tradeCode,
+        propertyReference: propertyRef,
+        contractorReference: contractorRef,
+        isRaisable: true,
       })
 
       setSorCodeArrays([
@@ -326,17 +318,13 @@ const TradeContractorRateScheduleItemView = (props: Props) => {
   // When searching large numbers of SORs, we make an SOR request
   // with a specific text filter.
   const sorSearchRequest = (searchText) =>
-    frontEndApiRequest({
-      method: 'get',
-      path: '/api/schedule-of-rates/codes',
-      params: {
-        tradeCode: tradeCode,
-        propertyReference: propertyReference,
-        contractorReference: contractorReference,
-        isRaisable: true,
-        filter: searchText,
-        showAllTrades: true,
-      },
+    fetchSorCodesRequest({
+      tradeCode: tradeCode,
+      propertyReference: propertyReference,
+      contractorReference: contractorReference,
+      isRaisable: true,
+      filter: searchText,
+      showAllTrades: true,
     })
 
   return (

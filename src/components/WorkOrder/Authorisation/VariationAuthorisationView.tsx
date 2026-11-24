@@ -13,7 +13,6 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import { rejectLinks, generalLinks } from '@/utils/successPageLinks'
@@ -21,10 +20,16 @@ import {
   Variation,
   VariationResponseObject,
 } from '../../../types/variations/types'
-import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
+import {
+  fetchWorkOrderTasksRequest,
+  fetchWorkOrderVariationTasksRequest,
+  getWorkOrderDetailsRequest,
+} from '@/requests/workOrders'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
+import { fetchHubUserRequest } from '@/requests/user'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
 
 const APPROVE_REQUEST = 'Approve request'
 const REJECT_REQUEST = 'Reject request'
@@ -59,7 +64,9 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(
+        workOrderReference
+      )
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -67,17 +74,11 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
 
       const workOrder = workOrderResponse.response
 
-      const variationResponse: VariationResponseObject = await frontEndApiRequest(
-        {
-          method: 'get',
-          path: `/api/workOrders/${workOrderReference}/variation-tasks`,
-        }
+      const variationResponse: VariationResponseObject = await fetchWorkOrderVariationTasksRequest(
+        workOrderReference
       )
 
-      const user = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const user = await fetchHubUserRequest()
 
       setVariation(variationResponse.variation)
       setBudgetCode(workOrder.budgetCode)
@@ -117,10 +118,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const tasksAndSors = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
+      const tasksAndSors = await fetchWorkOrderTasksRequest(workOrderReference)
 
       setOriginalSors(tasksAndSors.filter((t) => t.original))
     } catch (e) {
@@ -152,11 +150,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
   const makePostRequest = async (formData) => {
     setLoading(true)
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: formData,
-      })
+      await postJobStatusUpdateRequest(formData)
       setFormSuccess(true)
     } catch (e) {
       console.error(e)

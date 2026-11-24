@@ -1,6 +1,4 @@
 import axios, { AxiosRequestConfig, Method } from 'axios'
-import { paramsSerializer } from '@/utils/urls'
-import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 
 // Only relative paths to this app's own /api routes may be requested, so that
 // user-controlled values interpolated into a path can't redirect the request.
@@ -29,7 +27,7 @@ const getSafeInternalApiPath = (path: string): string => {
   return trimmedPath
 }
 
-export const frontEndApiRequest = async ({
+export const frontEndApiRequest = async <T = any>({
   method,
   path,
   params = null,
@@ -43,7 +41,7 @@ export const frontEndApiRequest = async ({
   requestData?: object
   paramsSerializer?: any
   timeout?: number
-}) => {
+}): Promise<T> => {
   const config: AxiosRequestConfig = {
     method: method,
     url: getSafeInternalApiPath(path),
@@ -59,70 +57,4 @@ export const frontEndApiRequest = async ({
   const { data } = await axios(config)
 
   return data
-}
-
-export const fetchSimpleFeatureToggles: () => Promise<SimpleFeatureToggleResponse> = async () => {
-  const featureToggleData = await frontEndApiRequest({
-    method: 'get',
-    path: '/api/simple-feature-toggle',
-  })
-
-  return featureToggleData
-}
-
-export const createSorExistenceValidator = (
-  tradeCode,
-  propertyRef,
-  contractorRef,
-  isRaisable
-) => {
-  return async (codesForValidation) => {
-    const validationResults = {
-      allCodesValid: false,
-      validCodes: [],
-      invalidCodes: [],
-    }
-
-    if (codesForValidation.length === 0) {
-      return { ...validationResults, allCodesValid: true }
-    }
-
-    try {
-      const sorCodes = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/schedule-of-rates/check',
-        params: {
-          tradeCode: tradeCode,
-          propertyReference: propertyRef,
-          contractorReference: contractorRef,
-          sorCode: codesForValidation,
-          isRaisable: isRaisable,
-        },
-        ...(paramsSerializer && { paramsSerializer }),
-      })
-
-      validationResults.validCodes = sorCodes.filter((sorCodeObj) =>
-        codesForValidation.includes(sorCodeObj.code)
-      )
-
-      const validCodes = validationResults.validCodes.map(
-        (sorCodeObj) => sorCodeObj.code
-      )
-
-      validationResults.invalidCodes = codesForValidation.filter(
-        (code) => !validCodes.includes(code)
-      )
-
-      if (validationResults.validCodes.length === codesForValidation.length) {
-        validationResults.allCodesValid = true
-      }
-
-      return validationResults
-    } catch (e) {
-      throw new Error(
-        `Cannot fetch SOR codes for validation: ${JSON.stringify(e)}`,
-        { cause: e }
-      )
-    }
-  }
 }

@@ -1,12 +1,12 @@
 import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/notesForm'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { getAppointmentDetails } from './requests/workOrders'
+import { getAppointmentDetailsRequest } from './requests/workOrders'
+import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
 
 const onWindowFocusCallback = async (workOrderReference) => {
   // fetch workOrder page to trigger manual sync
   // (calling this endpoint will fetch latest appointment from DRS)
 
-  const getAppointmentDetailsResponse = await getAppointmentDetails(
+  const getAppointmentDetailsResponse = await getAppointmentDetailsRequest(
     workOrderReference
   )
 
@@ -30,11 +30,7 @@ const openExternalLinkEventHandler = async (workOrderReference, userName) => {
   )
 
   try {
-    await frontEndApiRequest({
-      method: 'post',
-      path: `/api/jobStatusUpdate`,
-      requestData: jobStatusUpdate,
-    })
+    await postJobStatusUpdateRequest(jobStatusUpdate)
   } catch (e) {
     console.error(e)
   }

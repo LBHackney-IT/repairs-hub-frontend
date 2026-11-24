@@ -1,6 +1,8 @@
 import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
-import { getAlerts } from '@/root/src/utils/requests/property'
+import {
+  fetchLegalDisrepairStatusRequest,
+  getAlertsRequest,
+} from '@/requests/property'
 import { useEffect, useState } from 'react'
 
 export const usePropertyFlags = (propertyReference: string) => {
@@ -14,10 +16,7 @@ export const usePropertyFlags = (propertyReference: string) => {
 
   const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
     return new Promise<void>((resolve) => {
-      frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/legalDisrepair/${propertyReference}`,
-      })
+      fetchLegalDisrepairStatusRequest(propertyReference)
         .then((isInLegalDisrepair) => {
           setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
           resolve()
@@ -33,7 +32,7 @@ export const usePropertyFlags = (propertyReference: string) => {
   }
 
   const fetchAlerts = async (propertyReference: string) => {
-    const alertsResponse = await getAlerts(propertyReference)
+    const alertsResponse = await getAlertsRequest(propertyReference)
 
     if (!alertsResponse.success) {
       setAlertsError(alertsResponse.error.message)

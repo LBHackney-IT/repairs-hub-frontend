@@ -1,4 +1,4 @@
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
+import { updateMainContactRequest } from '@/requests/property'
 import ConfirmationModal from '../../../../ConfirmationModal'
 import { useState, useEffect } from 'react'
 
@@ -31,13 +31,7 @@ const SetAsMainModal = ({
       },
     }
 
-    const path = `/api/contact-details/?contactId=${phoneNumber.contactId}&personId=${tenant.personId}`
-
-    frontEndApiRequest({
-      method: 'PATCH',
-      path,
-      requestData: body,
-    })
+    updateMainContactRequest(phoneNumber.contactId, tenant.personId, body)
       .then((res) => {
         console.log({ res })
 

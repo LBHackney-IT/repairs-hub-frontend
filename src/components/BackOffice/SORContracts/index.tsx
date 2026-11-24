@@ -7,14 +7,16 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 import {
-  SorContractsMode,
   addContractsSelected,
   copyContractsSelected,
   dataToRequestObject,
   propertyReferencesMatch,
-  saveContractChangesToDatabase,
   validatePropertyReference,
 } from './utils'
+import {
+  SorContractsMode,
+  saveContractChangesToDatabaseRequest,
+} from '@/requests/backOffice/sorContracts'
 
 import { DataList } from '../../Form'
 
@@ -164,7 +166,7 @@ const SORContracts = () => {
       selectedOption
     )
 
-    saveContractChangesToDatabase(body)
+    saveContractChangesToDatabaseRequest(body)
       .then(() => {
         setFormSuccess(true)
       })
