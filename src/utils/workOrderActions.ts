@@ -20,7 +20,6 @@ type WorkOrderAction = {
   description: string
   permittedRoles: string[]
   permittedStatuses: string[]
-  disabled?: boolean
 }
 
 export const WORK_ORDER_ACTIONS: WorkOrderAction[] = [

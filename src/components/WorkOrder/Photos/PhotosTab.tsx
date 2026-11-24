@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Spinner from '../../Spinner'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import UploadPhotosForm from './UploadPhotosForm'
 import PhotoViewList from './PhotoViewList'
@@ -15,7 +15,7 @@ interface Props {
   tabName: string
 }
 
-const PhotosTab = ({ workOrderReference }: Props) => {
+const PhotosTab = ({ workOrderReference, tabName }: Props) => {
   const [photos, setPhotos] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -57,11 +57,9 @@ const PhotosTab = ({ workOrderReference }: Props) => {
     getPhotos(workOrderReference)
   }, [])
 
-  if (isLoading) return <Spinner />
-
   return (
     <div className="photos-tab">
-      <h2 className="lbh-heading-h2">Photos</h2>
+      <h2 className="lbh-heading-h2">{tabName}</h2>
 
       {error && <ErrorMessage label={error} />}
 
@@ -76,10 +74,16 @@ const PhotosTab = ({ workOrderReference }: Props) => {
         />
       </span>
 
-      <PhotoViewList
-        photos={photos}
-        onSubmitSetDescription={onSubmitSetDescription}
-      />
+      {isLoading ? (
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching photos…" />
+        </div>
+      ) : (
+        <PhotoViewList
+          photos={photos}
+          onSubmitSetDescription={onSubmitSetDescription}
+        />
+      )}
     </div>
   )
 }

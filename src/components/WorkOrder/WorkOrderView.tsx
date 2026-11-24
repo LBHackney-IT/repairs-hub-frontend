@@ -1,24 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useCallback } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
-import Spinner from '../Spinner'
+import WorkOrderPageHeading from './WorkOrderPageHeading'
+import WorkOrderActionMenu from './WorkOrderActionMenu'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { WorkOrder } from '@/models/workOrder'
-import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
-import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import {
-  getWorkOrderDetailsRequest,
-  getWorkOrderTasksRequest,
-} from '@/requests/workOrders'
-import { APIResponseError } from '../../types/requests/types'
-import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import {
-  getAlertsRequest,
-  getPropertyTenureDataRequest,
-} from '@/requests/property'
-import { Property, Tenure } from '../../models/propertyTenure'
 import { useAppointmentDetails } from '@/requests/hooks/useAppointmentDetails'
+import { useWorkOrder } from '@/requests/hooks/useWorkOrder'
+import { useWorkOrderTasks } from '@/requests/hooks/useWorkOrderTasks'
+import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
+import { useAlerts } from '@/requests/hooks/useAlerts'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -27,16 +19,32 @@ interface Props {
 }
 
 const WorkOrderView = ({ workOrderReference }: Props) => {
-  const [workOrder, setWorkOrder] = useState<WorkOrder>()
+  const {
+    workOrder,
+    isLoading: workOrderLoading,
+    error: workOrderError,
+  } = useWorkOrder(workOrderReference)
 
-  const [property, setProperty] = useState<Property>()
-  const [tenure, setTenure] = useState<Tenure>()
-  const [tasksAndSors, setTasksAndSors] = useState([])
-  const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
-  const [alertsLoading, setAlertsLoading] = useState(false)
-  const [alertsError, setAlertsError] = useState<string | null>()
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>()
+  const {
+    tasksAndSors,
+    isLoading: tasksLoading,
+    error: tasksError,
+  } = useWorkOrderTasks(workOrderReference)
+
+  // The work order carries the property reference, so everything that
+  // depends on the property starts as soon as the work order is available
+  const propertyReference = workOrder?.propertyReference
+
+  const {
+    property,
+    tenure,
+    isLoading: propertyLoading,
+    error: propertyError,
+  } = usePropertyTenure(propertyReference)
+
+  const { alerts, isLoading: alertsLoading, error: alertsError } = useAlerts(
+    propertyReference
+  )
 
   const {
     appointmentDetails,
@@ -44,8 +52,19 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     error: appointmentDetailsError,
   } = useAppointmentDetails(workOrderReference)
 
-  const printClickHandler = () => {
-    if (loadingAppointmentDetails || appointmentDetailsError) {
+  // The print ticket needs all of the data, so printing waits for it
+  const canPrint =
+    !!workOrder &&
+    !!property &&
+    !!appointmentDetails &&
+    !tasksLoading &&
+    !tasksError &&
+    !alertsLoading &&
+    !loadingAppointmentDetails &&
+    !appointmentDetailsError
+
+  const printClickHandler = useCallback(() => {
+    if (!canPrint) {
       // disable print button when loading or error
       return
     }
@@ -63,113 +82,73 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         .getElementById('rear-image-container')
         .appendChild(workOrderRearImage)
     }
-  }
+  }, [canPrint])
 
-  const getWorkOrderView = async (workOrderReference: string) => {
-    setError(null)
-    setIsLoading(() => true)
+  // The details block waits for the work order and property so it appears in
+  // one go rather than shifting as each part arrives. Appointment details and
+  // alerts are the exceptions: they come from external services that can be
+  // slow or never respond, so they load in place and don't hold the page up.
+  const detailsLoading = workOrderLoading || propertyLoading
 
-    try {
-      const [workOrderResponse, tasksAndSorsResponse] = await Promise.all([
-        getWorkOrderDetailsRequest(workOrderReference),
-        getWorkOrderTasksRequest(workOrderReference),
-      ])
-
-      if (!workOrderResponse.success) throw workOrderResponse.error
-      setWorkOrder(new WorkOrder(workOrderResponse.response))
-
-      if (!tasksAndSorsResponse.success) throw tasksAndSorsResponse.error
-      setTasksAndSors(
-        sortObjectsByDateKey(
-          tasksAndSorsResponse.response,
-          ['dateAdded'],
-          'dateAdded'
-        )
-      )
-
-      const propertyTenureResponse = await getPropertyTenureDataRequest(
-        workOrderResponse.response?.propertyReference
-      )
-      if (!propertyTenureResponse.success) throw propertyTenureResponse.error
-
-      setProperty(() => propertyTenureResponse.response.property)
-      if (propertyTenureResponse.response.tenure) {
-        setTenure(() => propertyTenureResponse.response.tenure)
-      }
-    } catch (e) {
-      console.error('An error has occured:', e.response)
-
-      if (e instanceof APIResponseError) {
-        setError(e.message)
-      } else {
-        setError(formatRequestErrorMessage(e))
-      }
-    }
-
-    setIsLoading(() => false)
-  }
-
-  const fetchAlerts = async () => {
-    setAlertsLoading(true)
-    const alertsResponse = await getAlertsRequest(property?.propertyReference)
-
-    if (!alertsResponse.success) {
-      setAlertsError(alertsResponse.error.message)
-      setAlertsLoading(false)
-      return
-    }
-
-    setAlerts(alertsResponse.response.alerts)
-    setAlertsLoading(false)
-  }
-
-  useEffect(() => {
-    getWorkOrderView(workOrderReference)
-  }, [])
-
-  useEffect(() => {
-    if (!property?.propertyReference) return
-    fetchAlerts()
-  }, [property?.propertyReference])
-
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (error) {
-    return <ErrorMessage label={error} />
-  }
+  const detailsReady = !workOrderError && !detailsLoading
 
   return (
     <>
-      <WorkOrderDetails
-        property={property}
-        workOrder={workOrder}
-        appointmentDetails={appointmentDetails}
-        appointmentDetailsError={appointmentDetailsError}
-        loadingAppointmentDetails={loadingAppointmentDetails}
-        tenure={tenure}
-        printClickHandler={printClickHandler}
-        alerts={alerts}
-        alertsLoading={alertsLoading}
-        alertsError={alertsError}
-      />
+      <div className="govuk-!-display-none-print">
+        <WorkOrderPageHeading workOrderReference={workOrderReference}>
+          {detailsReady && (
+            <WorkOrderActionMenu
+              workOrder={workOrder}
+              printClickHandler={printClickHandler}
+            />
+          )}
+        </WorkOrderPageHeading>
 
-      <WorkOrderViewTabs
-        propertyReference={property?.propertyReference}
-        workOrderReference={workOrderReference}
-        tasksAndSors={tasksAndSors}
-        budgetCode={workOrder?.budgetCode}
-        workOrder={workOrder}
-        appointmentDetails={appointmentDetails}
-        appointmentDetailsError={appointmentDetailsError}
-        loadingAppointmentDetails={loadingAppointmentDetails}
-      />
+        {detailsReady ? (
+          <WorkOrderDetails
+            property={property}
+            propertyError={propertyError}
+            workOrder={workOrder}
+            appointmentDetails={appointmentDetails}
+            appointmentDetailsError={appointmentDetailsError}
+            loadingAppointmentDetails={loadingAppointmentDetails}
+            tenure={tenure}
+            alerts={alerts}
+            alertsError={alertsError}
+          />
+        ) : workOrderError ? (
+          <ErrorMessage label={workOrderError} />
+        ) : (
+          <div className="govuk-!-margin-top-6">
+            <SpinnerWithLabel label="Fetching work order…" />
+          </div>
+        )}
+
+        {/* The tabs are mounted straight away, but kept hidden until the
+            details above are ready, so the open tab loads its data in parallel
+            instead of only starting once it becomes visible */}
+        {!workOrderError && (
+          <div style={detailsReady ? undefined : { display: 'none' }}>
+            <WorkOrderViewTabs
+              propertyReference={propertyReference}
+              workOrderReference={workOrderReference}
+              tasksAndSors={tasksAndSors}
+              tasksAndSorsLoading={tasksLoading}
+              tasksAndSorsError={tasksError}
+              budgetCode={workOrder?.budgetCode}
+              workOrder={workOrder}
+              appointmentDetails={appointmentDetails}
+              appointmentDetailsError={appointmentDetailsError}
+              loadingAppointmentDetails={loadingAppointmentDetails}
+            />
+          </div>
+        )}
+      </div>
 
       {/* Only displayed for print media */}
-      {!loadingAppointmentDetails && !appointmentDetailsError && (
+      {canPrint && (
         // Conditionally renders printable component. Print is disabled
-        // if either of these are true
+        // if the data it needs hasn't loaded
         <PrintJobTicketDetails
           workOrder={workOrder}
           appointmentDetails={appointmentDetails}

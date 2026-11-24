@@ -129,7 +129,7 @@ export const getWorkOrderTasksRequest = async (
       error: null,
     }
   } catch (e: any) {
-    console.error('An error has occurred:', e)
+    console.error('An error has occurred:', e.response)
 
     return {
       success: false,

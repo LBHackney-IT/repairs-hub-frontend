@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
-import Spinner from '../../Spinner'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { fetchWorkOrdersRequest } from '@/requests/workOrders'
@@ -87,7 +87,12 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }: Props) => {
   return (
     <>
       {loading ? (
-        <Spinner />
+        <>
+          <h2 className="lbh-heading-h2">{tabName}</h2>
+          <div className="govuk-!-margin-top-6">
+            <SpinnerWithLabel label="Fetching work orders history…" />
+          </div>
+        </>
       ) : (
         <>
           {workOrders && renderWorkOrdersHistoryTable()}

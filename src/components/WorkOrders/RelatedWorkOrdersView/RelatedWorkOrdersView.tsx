@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Spinner from '../../Spinner'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { WorkOrderHierarchy } from '@/models/workOrderHierarchy'
 import RelatedWorkOrderViewList from './RelatedWorkOrderViewList'
@@ -39,18 +39,18 @@ const RelatedWorkOrdersView = ({ workOrderReference, tabName }: Props) => {
     fetchHierarchy()
   }, [])
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (error) {
-    return <ErrorMessage label={error} />
-  }
-
   return (
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
-      {hierarchy && <RelatedWorkOrderViewList hierarchy={hierarchy} />}
+      {isLoading && (
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching related work orders…" />
+        </div>
+      )}
+      {error && <ErrorMessage label={error} />}
+      {!isLoading && hierarchy && (
+        <RelatedWorkOrderViewList hierarchy={hierarchy} />
+      )}
     </>
   )
 }
