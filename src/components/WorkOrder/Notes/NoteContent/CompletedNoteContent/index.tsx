@@ -28,7 +28,8 @@ const CompletedNoteContent = (props: Props) => {
     note.note,
     completionDate,
     appointmentDetails?.operatives ?? [],
-    workOrder.paymentType
+    workOrder.paymentType,
+    workOrder.requiresApprovalToComplete?.()
   )
 
   if (appointmentDetailsError) {
