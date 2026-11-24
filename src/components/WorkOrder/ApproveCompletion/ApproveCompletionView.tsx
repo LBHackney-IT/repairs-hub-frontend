@@ -22,7 +22,9 @@ const ApproveCompletionView = ({ workOrderReference }: Props) => {
 
   useEffect(() => {
     const loadWorkOrder = async () => {
-      const workOrderResponse = await getWorkOrderDetailsRequest(workOrderReference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(
+        workOrderReference
+      )
 
       if (workOrderResponse.success) {
         setIsPendingApproval(
