@@ -13,6 +13,7 @@ declare global {
       loginWithMultipleContractorRole(): Chainable<void>
       loginWithContractManagerRole(): Chainable<void>
       loginWithAuthorisationManagerRole(): Chainable<void>
+      loginWithCompletionApprovalManagerRole(): Chainable<void>
       loginWithOperativeRole(): Chainable<void>
       loginWithOneJobAtATimeOperativeRole(): Chainable<void>
       loginWithAgentAndBudgetCodeOfficerRole(): Chainable<void>
@@ -66,6 +67,9 @@ Cypress.Commands.add('loginWithContractManagerRole', () =>
 )
 Cypress.Commands.add('loginWithAuthorisationManagerRole', () =>
   loginAs('authorisationManager', 'user.json')
+)
+Cypress.Commands.add('loginWithCompletionApprovalManagerRole', () =>
+  loginAs('completionApprovalManager', 'user.json')
 )
 Cypress.Commands.add('loginWithOperativeRole', () =>
   loginAs('operative', 'operative.json')
