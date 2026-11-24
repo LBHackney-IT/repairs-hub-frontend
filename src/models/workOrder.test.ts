@@ -62,6 +62,29 @@ describe('WorkOrder', () => {
     })
   })
 
+  describe('requiresApprovalToComplete()', () => {
+    it('returns true when the contractor is the electrical contractor (H06)', () => {
+      const workOrder = new WorkOrder({ contractorReference: 'H06' })
+
+      expect(workOrder.requiresApprovalToComplete()).toBe(true)
+    })
+
+    it.each(['H04', 'H01', 'PCL'])(
+      'returns false when the contractor reference is %s',
+      (contractorReference) => {
+        const workOrder = new WorkOrder({ contractorReference })
+
+        expect(workOrder.requiresApprovalToComplete()).toBe(false)
+      }
+    )
+
+    it('returns false when there is no contractor reference', () => {
+      const workOrder = new WorkOrder({})
+
+      expect(workOrder.requiresApprovalToComplete()).toBe(false)
+    })
+  })
+
   describe('canBeScheduled()', () => {
     const allowedStatuses = ALL_WORK_ORDER_STATUSES.filter(
       (status) => !CLOSED_STATUS_DESCRIPTIONS.includes(status)
