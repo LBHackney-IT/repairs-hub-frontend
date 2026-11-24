@@ -8,7 +8,7 @@ import PageAnnouncement from '../../Template/PageAnnouncement'
 import ApproveCompletionForm from './ApproveCompletionForm'
 import { completionApprovedLinks } from '@/utils/successPageLinks'
 import { STATUS_COMPLETION_PENDING_APPROVAL } from '@/utils/statusCodes'
-import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetailsRequest } from '@/utils/requests/workOrders'
 
 interface Props {
   workOrderReference: string
@@ -22,7 +22,7 @@ const ApproveCompletionView = ({ workOrderReference }: Props) => {
 
   useEffect(() => {
     const loadWorkOrder = async () => {
-      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      const workOrderResponse = await getWorkOrderDetailsRequest(workOrderReference)
 
       if (workOrderResponse.success) {
         setIsPendingApproval(
