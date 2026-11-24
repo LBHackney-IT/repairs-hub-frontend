@@ -88,7 +88,9 @@ export class SorCodeValidator {
       ? this.sorCodesToValidate
       : this.#deduplicateAndMark(this.sorCodesToValidate)
 
-    this.validatedCodeSet = codes.map((code) => validationResults.validCodes.find((c) => c.code === code))
+    this.validatedCodeSet = codes.map((code) =>
+      validationResults.validCodes.find((c) => c.code === code)
+    )
 
     return true
   }
