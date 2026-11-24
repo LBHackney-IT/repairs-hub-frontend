@@ -19,7 +19,7 @@ const CompletionApprovalNotice = ({
       name="completion-approval-notice"
       className="govuk-!-margin-bottom-6"
       header="This job needs approval before it is completed"
-      text="When you complete this job it will be set to Completion Pending Approval. Once the completion is approved, it will be updated in bonus calculation."
+      text="When you complete this job it will be set to Completion Pending Approval. Once the completion is approved, it will be updated in bonus calc."
     />
   )
 }

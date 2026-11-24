@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton } from '../Form'
-import CompletionApprovalNotice from './CompletionApprovalNotice'
 import BackButton from '../Layout/BackButton'
 import DatePicker from '../Form/DatePicker'
 import isPast from 'date-fns/isPast'
@@ -47,7 +46,6 @@ interface Props {
   followOnStatus?: string
   followOnData?: FollowOnFormData | null
   isLoading?: boolean
-  requiresApprovalToComplete?: boolean
   defaultFiles?: File[]
   description?: string
 }
@@ -74,7 +72,6 @@ const CloseWorkOrderForm = (props: Props) => {
     followOnStatus,
     followOnData,
     isLoading,
-    requiresApprovalToComplete = false,
     defaultFiles,
     description,
   } = props
@@ -336,11 +333,6 @@ const CloseWorkOrderForm = (props: Props) => {
           register={register}
           error={errors && errors.notes}
           defaultValue={notes}
-        />
-
-        <CompletionApprovalNotice
-          requiresApprovalToComplete={requiresApprovalToComplete}
-          reason={watch('reason') ?? reason}
         />
 
         <PrimarySubmitButton

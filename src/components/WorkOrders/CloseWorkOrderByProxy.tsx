@@ -374,7 +374,6 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
               existingStartTime={workOrder.startTime !== null}
               followOnData={followOnData}
               isLoading={loadingStatus !== null}
-              requiresApprovalToComplete={requiresApprovalToComplete}
             />
           )}
 

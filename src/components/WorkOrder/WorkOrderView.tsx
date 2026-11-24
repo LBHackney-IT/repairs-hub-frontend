@@ -7,7 +7,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { useAppointmentDetails } from '@/requests/hooks/useAppointmentDetails'
-import { useWorkOrder } from '@/requests/hooks/useWorkOrder'
+import { useWorkOrderDetails } from '@/requests/hooks/useWorkOrderDetails'
 import { useWorkOrderTasks } from '@/requests/hooks/useWorkOrderTasks'
 import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
 import { useAlerts } from '@/requests/hooks/useAlerts'
@@ -23,7 +23,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     workOrder,
     isLoading: workOrderLoading,
     error: workOrderError,
-  } = useWorkOrder(workOrderReference)
+  } = useWorkOrderDetails(workOrderReference)
 
   const {
     tasksAndSors,
