@@ -19,6 +19,18 @@ const TableRow = (props) => {
   )
 }
 
+// The parts of the follow-on form state this summary displays
+interface FollowOnSummaryData {
+  requiredFollowOnTrades: { value: string }[]
+  otherTrade?: string
+  isMultipleOperatives?: boolean
+  followOnTypeDescription?: string
+  stockItemsRequired?: boolean
+  nonStockItemsRequired?: boolean
+  materialNotes?: string
+  additionalNotes?: string
+}
+
 interface Props {
   reference: string
   onJobSubmit: () => Promise<void>
@@ -27,11 +39,11 @@ interface Props {
   startDate: string
   changeStep: () => void
   reason: string
-  paymentType: string
+  paymentType?: string
   description: string
-  files: any[]
-  operativeNames: string[]
-  followOnData: any
+  files: File[]
+  operativeNames?: string[]
+  followOnData?: FollowOnSummaryData | null
   requiresApprovalToComplete?: boolean
 }
 
@@ -178,7 +190,7 @@ const SummaryCloseWorkOrder = (props: Props) => {
 
         <CompletionApprovalNotice
           requiresApprovalToComplete={requiresApprovalToComplete}
-          isCompleting={reason === 'Work Order Completed'}
+          reason={reason}
         />
 
         <div style={{ margin: '30px 0 0 0', display: 'flex' }}>

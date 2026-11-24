@@ -1,17 +1,16 @@
 import WarningInfoBox from '../Template/WarningInfoBox'
 
 interface Props {
-  // The completion approval step is on and this job needs approval to complete
   requiresApprovalToComplete: boolean
-  // Only completed visits need approval, not for example No Access
-  isCompleting: boolean
+  reason?: string
 }
 
 const CompletionApprovalNotice = ({
   requiresApprovalToComplete,
-  isCompleting,
+  reason,
 }: Props) => {
-  if (!requiresApprovalToComplete || !isCompleting) {
+  // Only completed visits need approval, not other reasons such as No Access
+  if (!requiresApprovalToComplete || reason !== 'Work Order Completed') {
     return null
   }
 

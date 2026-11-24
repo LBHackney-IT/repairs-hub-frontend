@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 
 describe('SummaryCloseWorkOrder component', () => {
@@ -48,7 +48,11 @@ describe('SummaryCloseWorkOrder component', () => {
         changeStep={props.changeStep}
         operativeNames={props.operatives}
         paymentType={'Overtime'}
-        files={['url1', 'url2', 'url3']}
+        files={[
+          new File([''], 'photo1.jpg'),
+          new File([''], 'photo2.jpg'),
+          new File([''], 'photo3.jpg'),
+        ]}
         description="some description"
       />
     )
@@ -143,5 +147,48 @@ describe('SummaryCloseWorkOrder component', () => {
       />
     )
     expect(asFragment()).toMatchSnapshot()
+  })
+
+  describe('completion approval notice', () => {
+    const renderSummary = (
+      requiresApprovalToComplete: boolean,
+      reason: string
+    ) =>
+      render(
+        <SummaryCloseWorkOrder
+          reference={props.reference}
+          notes={props.notes}
+          completionDate={props.completionDate}
+          startDate={props.startDate}
+          reason={reason}
+          onJobSubmit={props.onJobSubmit}
+          changeStep={props.changeStep}
+          files={[]}
+          description=""
+          requiresApprovalToComplete={requiresApprovalToComplete}
+        />
+      )
+
+    it('is shown when the job needs approval and is being completed', () => {
+      renderSummary(true, 'Work Order Completed')
+
+      expect(screen.getByTestId('completion-approval-notice')).toBeVisible()
+    })
+
+    it('is not shown when the job does not need approval', () => {
+      renderSummary(false, 'Work Order Completed')
+
+      expect(
+        screen.queryByTestId('completion-approval-notice')
+      ).not.toBeInTheDocument()
+    })
+
+    it('is not shown when the job is closed for another reason', () => {
+      renderSummary(true, 'No Access')
+
+      expect(
+        screen.queryByTestId('completion-approval-notice')
+      ).not.toBeInTheDocument()
+    })
   })
 })

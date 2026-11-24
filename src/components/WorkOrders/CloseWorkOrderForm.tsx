@@ -339,7 +339,7 @@ const CloseWorkOrderForm = (props: Props) => {
 
         <CompletionApprovalNotice
           requiresApprovalToComplete={requiresApprovalToComplete}
-          isCompleting={(watch('reason') ?? reason) === 'Work Order Completed'}
+          reason={watch('reason') ?? reason}
         />
 
         <PrimarySubmitButton

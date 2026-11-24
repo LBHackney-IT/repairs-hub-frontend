@@ -198,7 +198,7 @@ const MobileWorkingCloseWorkOrderForm = ({
 
           <CompletionApprovalNotice
             requiresApprovalToComplete={requiresApprovalToComplete}
-            isCompleting={watch('reason') === 'Work Order Completed'}
+            reason={watch('reason')}
           />
 
           {selectedFurtherWorkRequired ? (
@@ -269,7 +269,7 @@ const MobileWorkingCloseWorkOrderForm = ({
 
             <CompletionApprovalNotice
               requiresApprovalToComplete={requiresApprovalToComplete}
-              isCompleting={true}
+              reason={watch('reason')}
             />
 
             <PrimarySubmitButton
