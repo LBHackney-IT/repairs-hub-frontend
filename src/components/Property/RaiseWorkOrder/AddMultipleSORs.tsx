@@ -104,8 +104,8 @@ const AddMultipleSORs = (props: Props) => {
         <div className="govuk-checkboxes lbh-checkboxes govuk-!-margin-bottom-4">
           <Checkbox
             name="preserveDuplicates"
-            label="Preserve duplicates"
-            hintText="With this option on, duplicates will not be removed."
+            label="Keep duplicate SOR codes"
+            hintText="By default, repeated codes and codes already on this work order are removed. Tick this to keep them."
             register={register}
           />
         </div>
