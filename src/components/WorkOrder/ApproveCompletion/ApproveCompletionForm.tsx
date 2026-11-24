@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { TextArea, PrimarySubmitButton } from '../../Form'
-import { approveWorkOrderCompletion } from '@/root/src/utils/requests/workOrders'
+import { approveWorkOrderCompletionRequest } from '@/root/src/utils/requests/workOrders'
 
 interface Props {
   workOrderReference: string
@@ -26,7 +26,7 @@ const ApproveCompletionForm = ({ workOrderReference, onApproved }: Props) => {
     setSubmitting(true)
     setError(null)
 
-    const approveResponse = await approveWorkOrderCompletion(
+    const approveResponse = await approveWorkOrderCompletionRequest(
       workOrderReference,
       note
     )
