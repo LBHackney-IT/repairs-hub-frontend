@@ -18,19 +18,23 @@ export class SorCodeValidator {
   errors: SorCodeError[]
   validatedCodeSet: ({ code: string } | undefined)[]
   duplicateCodes: string[]
+  preserveDuplicates: boolean
 
   constructor({
     currentSorCodes = [],
     sorCodesToValidate = [],
     additionalValidationCallback = () => {},
+    preserveDuplicates = false,
   }: {
     currentSorCodes?: string[]
     sorCodesToValidate?: string[]
     additionalValidationCallback?: SorCodeValidator['additionalValidationCallback']
+    preserveDuplicates?: boolean
   }) {
     this.currentSorCodes = currentSorCodes
     this.sorCodesToValidate = sorCodesToValidate
     this.additionalValidationCallback = additionalValidationCallback
+    this.preserveDuplicates = preserveDuplicates
 
     this.errors = []
     this.validatedCodeSet = []
@@ -78,9 +82,13 @@ export class SorCodeValidator {
       return false
     }
 
-    this.validatedCodeSet = this.#deduplicateAndMark(
-      this.sorCodesToValidate
-    ).map((code) => validationResults.validCodes.find((c) => c.code === code))
+    this.duplicateCodes = []
+
+    const codes = this.preserveDuplicates
+      ? this.sorCodesToValidate
+      : this.#deduplicateAndMark(this.sorCodesToValidate)
+
+    this.validatedCodeSet = codes.map((code) => validationResults.validCodes.find((c) => c.code === code))
 
     return true
   }

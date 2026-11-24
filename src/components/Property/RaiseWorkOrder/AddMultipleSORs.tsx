@@ -1,4 +1,4 @@
-import { TextArea, PrimarySubmitButton } from '../../Form'
+import { TextArea, PrimarySubmitButton, Checkbox } from '../../Form'
 import { useForm } from 'react-hook-form'
 import { SorCodeValidator } from '@/utils/helpers/SorCodeValidator'
 import { Dispatch, SetStateAction, useState } from 'react'
@@ -30,7 +30,7 @@ const AddMultipleSORs = (props: Props) => {
 
   const [performingValidation, setPerformingValidation] = useState(false)
 
-  const onSubmit = async ({ newSorCodes }) => {
+  const onSubmit = async ({ newSorCodes, preserveDuplicates }) => {
     setPerformingValidation(true)
 
     const strippedCodes = newSorCodes
@@ -40,6 +40,7 @@ const AddMultipleSORs = (props: Props) => {
 
     if (strippedCodes.length > 0) {
       const validator = new SorCodeValidator({
+        preserveDuplicates: !!preserveDuplicates,
         currentSorCodes,
         sorCodesToValidate: strippedCodes,
         additionalValidationCallback: sorExistenceValidationCallback,
@@ -99,6 +100,15 @@ const AddMultipleSORs = (props: Props) => {
           rows={6}
           placeholder="04500910&#10;49PLMAT2&#10;RTR03016"
         />
+
+        <div className="govuk-checkboxes lbh-checkboxes govuk-!-margin-bottom-4">
+          <Checkbox
+            name="preserveDuplicates"
+            label="Preserve duplicates"
+            hintText="With this option on, duplicates will not be removed."
+            register={register}
+          />
+        </div>
 
         {validationErrors.length > 0 && (
           <WarningInfoBox
