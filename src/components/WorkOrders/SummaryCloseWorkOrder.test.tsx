@@ -3,13 +3,11 @@ import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 
 describe('SummaryCloseWorkOrder component', () => {
   beforeAll(() => {
-    global.URL = {
-      createObjectURL: jest.fn(() => 'mockResponseUrl'),
-    }
+    URL.createObjectURL = jest.fn(() => 'mockResponseUrl')
   })
 
   const props = {
-    reference: 10000012,
+    reference: '10000012',
     notes: 'this is a note',
     completionDate: '2021-02-03T11:33:35.757339',
     startDate: '2021-02-03T11:33:35.757339',
