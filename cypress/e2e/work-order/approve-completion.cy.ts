@@ -55,8 +55,11 @@ describe('Approving the completion of a work order', () => {
         otherType: 'approveCompletion',
       })
 
-    cy.get('.govuk-panel').within(() => {
-      cy.get('.govuk-panel__title').contains('Work order completion approved')
+    cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-page-announcement__title').contains(
+        'Work order completion approved'
+      )
+      cy.contains('Reference number 10000012')
     })
   })
 })
