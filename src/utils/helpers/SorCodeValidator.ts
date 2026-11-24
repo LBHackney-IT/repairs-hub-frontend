@@ -1,36 +1,51 @@
+import SorCode from '@/models/sorCode'
+
 const SOR_CODE_VALID_LENGTH = 8
 const SOR_CODE_INVALID_CHARACTER_REGEX = /\s/ // Any whitespace
 
-type SorCodeValidationResults = {
-  validCodes: { code: string }[]
+export type ValidatedSorCode = Pick<
+  SorCode,
+  'code' | 'cost' | 'shortDescription'
+> & { code: string }
+
+export type SorCodeValidationResults = {
+  allCodesValid?: boolean
+  validCodes: ValidatedSorCode[]
   invalidCodes: string[]
 }
 
-type SorCodeError = { code: string; message: string }
+export type SorCodeValidationCallback = (
+  codes: string[]
+) => Promise<SorCodeValidationResults> | SorCodeValidationResults
+
+export type SorCodeError = { code: string; message: string }
+
+type SorCodeValidatorOptions = {
+  currentSorCodes?: string[]
+  sorCodesToValidate?: string[]
+  additionalValidationCallback?: SorCodeValidationCallback
+  preserveDuplicates?: boolean
+}
 
 export class SorCodeValidator {
   currentSorCodes: string[]
   sorCodesToValidate: string[]
-  additionalValidationCallback: (
-    codes: string[]
-  ) => Promise<SorCodeValidationResults> | SorCodeValidationResults | void
+  additionalValidationCallback: SorCodeValidationCallback
 
   errors: SorCodeError[]
-  validatedCodeSet: ({ code: string } | undefined)[]
+  validatedCodeSet: ValidatedSorCode[]
   duplicateCodes: string[]
   preserveDuplicates: boolean
 
   constructor({
     currentSorCodes = [],
     sorCodesToValidate = [],
-    additionalValidationCallback = () => {},
+    additionalValidationCallback = () => ({
+      validCodes: [],
+      invalidCodes: [],
+    }),
     preserveDuplicates = false,
-  }: {
-    currentSorCodes?: string[]
-    sorCodesToValidate?: string[]
-    additionalValidationCallback?: SorCodeValidator['additionalValidationCallback']
-    preserveDuplicates?: boolean
-  }) {
+  }: SorCodeValidatorOptions) {
     this.currentSorCodes = currentSorCodes
     this.sorCodesToValidate = sorCodesToValidate
     this.additionalValidationCallback = additionalValidationCallback
@@ -45,38 +60,29 @@ export class SorCodeValidator {
     this.errors = []
     this.validatedCodeSet = []
 
-    this.sorCodesToValidate.forEach((code) => {
-      if (!this.#isValidCode(code)) {
-        this.errors.push({ code, message: 'Invalid SOR code format' })
-      }
-    })
+    const codesWithValidFormat = this.sorCodesToValidate.filter((code) =>
+      this.#isValidCode(code)
+    )
 
-    const validationResults = (await this.additionalValidationCallback(
-      this.sorCodesToValidate.filter(
-        (code) =>
-          // codes which failed format validation aren't validated further
-          !this.errors.some((errorObj) => errorObj.code === code)
-      )
-    )) as SorCodeValidationResults
+    this.errors = this.sorCodesToValidate
+      .filter((code) => !this.#isValidCode(code))
+      .map((code) => ({ code, message: 'Invalid SOR code format' }))
+
+    // codes which failed format validation aren't validated further
+    const validationResults = await this.additionalValidationCallback(
+      codesWithValidFormat
+    )
 
     validationResults.invalidCodes.forEach((code) => {
-      this.errors.push({
-        code,
-        message: 'SOR code does not exist',
-      })
+      this.errors.push({ code, message: 'SOR code does not exist' })
     })
 
-    this.errors.sort(({ code: codeA }, { code: codeB }) => {
-      // match the order of the supplied sor codes
-      const indexOfCodeA = this.sorCodesToValidate.indexOf(codeA)
-      const indexOfCodeB = this.sorCodesToValidate.indexOf(codeB)
-
-      if (indexOfCodeA === indexOfCodeB) {
-        return 0
-      }
-
-      return indexOfCodeA < indexOfCodeB ? -1 : 1
-    })
+    // match the order of the supplied sor codes
+    this.errors.sort(
+      (a, b) =>
+        this.sorCodesToValidate.indexOf(a.code) -
+        this.sorCodesToValidate.indexOf(b.code)
+    )
 
     if (this.errors.length > 0) {
       return false
@@ -88,9 +94,9 @@ export class SorCodeValidator {
       ? this.sorCodesToValidate
       : this.#deduplicateAndMark(this.sorCodesToValidate)
 
-    this.validatedCodeSet = codes.map((code) =>
-      validationResults.validCodes.find((c) => c.code === code)
-    )
+    this.validatedCodeSet = codes
+      .map((code) => validationResults.validCodes.find((c) => c.code === code))
+      .filter((sorCode): sorCode is ValidatedSorCode => sorCode !== undefined)
 
     return true
   }
@@ -103,18 +109,19 @@ export class SorCodeValidator {
   }
 
   #deduplicateAndMark(sorCodesToValidate: string[]): string[] {
-    return sorCodesToValidate.reduce((deduplicatedCodes: string[], code) => {
-      if (
-        deduplicatedCodes.includes(code) ||
-        this.currentSorCodes.includes(code)
-      ) {
-        if (!this.duplicateCodes.includes(code)) {
-          this.duplicateCodes.push(code)
-        }
-      } else {
-        deduplicatedCodes.push(code)
+    const uniqueCodes: string[] = []
+
+    sorCodesToValidate.forEach((code) => {
+      const isDuplicate =
+        uniqueCodes.includes(code) || this.currentSorCodes.includes(code)
+
+      if (!isDuplicate) {
+        uniqueCodes.push(code)
+      } else if (!this.duplicateCodes.includes(code)) {
+        this.duplicateCodes.push(code)
       }
-      return deduplicatedCodes
-    }, [])
+    })
+
+    return uniqueCodes
   }
 }

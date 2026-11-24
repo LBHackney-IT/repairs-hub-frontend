@@ -1,15 +1,31 @@
 import { TextArea, PrimarySubmitButton, Checkbox } from '../../Form'
 import { useForm } from 'react-hook-form'
-import { SorCodeValidator } from '@/utils/helpers/SorCodeValidator'
 import { Dispatch, SetStateAction, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import WarningInfoBox from '../../Template/WarningInfoBox'
+import {
+  SorCodeError,
+  SorCodeValidator,
+  SorCodeValidationCallback,
+  ValidatedSorCode,
+} from '@/utils/helpers/SorCodeValidator'
+
+type FormValues = {
+  newSorCodes: string
+  preserveDuplicates: boolean
+}
+
+const parseSorCodes = (input: string): string[] =>
+  input
+    .split('\n')
+    .map((code) => code.trim())
+    .filter(Boolean)
 
 interface Props {
-  currentSorCodes: any[]
+  currentSorCodes: string[]
   setPageBackToFormView: () => void
-  sorExistenceValidationCallback: any
-  setSorCodesFromBatchUpload: (sorCodes: any) => void
+  sorExistenceValidationCallback: SorCodeValidationCallback
+  setSorCodesFromBatchUpload: (sorCodes: ValidatedSorCode[]) => void
   setAnnouncementMessage: Dispatch<SetStateAction<string>>
   setIsPriorityEnabled: Dispatch<SetStateAction<boolean>>
 }
@@ -24,45 +40,49 @@ const AddMultipleSORs = (props: Props) => {
     setIsPriorityEnabled,
   } = props
 
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, errors } = useForm<FormValues>()
 
-  const [validationErrors, setValidationErrors] = useState([])
+  const [validationErrors, setValidationErrors] = useState<SorCodeError[]>([])
 
   const [performingValidation, setPerformingValidation] = useState(false)
 
-  const onSubmit = async ({ newSorCodes, preserveDuplicates }) => {
+  const validateAndSubmit = async (
+    sorCodesToValidate: string[],
+    preserveDuplicates: boolean
+  ) => {
+    const validator = new SorCodeValidator({
+      preserveDuplicates,
+      currentSorCodes,
+      sorCodesToValidate,
+      additionalValidationCallback: sorExistenceValidationCallback,
+    })
+
+    await validator.validate()
+
+    if (validator.errors.length > 0) {
+      setValidationErrors(validator.errors)
+      return
+    }
+
+    setAnnouncementMessage(
+      validator.duplicateCodes.length > 0
+        ? 'Duplicate SOR codes have been removed'
+        : ''
+    )
+    setSorCodesFromBatchUpload(validator.validatedCodeSet)
+    setIsPriorityEnabled(true)
+    setPageBackToFormView()
+  }
+
+  const onSubmit = async ({ newSorCodes, preserveDuplicates }: FormValues) => {
     setPerformingValidation(true)
 
-    const strippedCodes = newSorCodes
-      .split('\n')
-      .map((code) => code.trim())
-      .filter((x) => x)
+    const strippedCodes = parseSorCodes(newSorCodes)
 
-    if (strippedCodes.length > 0) {
-      const validator = new SorCodeValidator({
-        preserveDuplicates: !!preserveDuplicates,
-        currentSorCodes,
-        sorCodesToValidate: strippedCodes,
-        additionalValidationCallback: sorExistenceValidationCallback,
-      })
-
-      await validator.validate()
-
-      if (validator.errors.length > 0) {
-        setValidationErrors(validator.errors)
-      } else {
-        validator.duplicateCodes.length > 0
-          ? setAnnouncementMessage('Duplicate SOR codes have been removed')
-          : setAnnouncementMessage('')
-
-        setSorCodesFromBatchUpload(validator.validatedCodeSet)
-        if (newSorCodes.length > 0) {
-          setIsPriorityEnabled(true)
-        }
-        setPageBackToFormView()
-      }
-    } else {
+    if (strippedCodes.length === 0) {
       setValidationErrors([])
+    } else {
+      await validateAndSubmit(strippedCodes, !!preserveDuplicates)
     }
 
     setPerformingValidation(false)
