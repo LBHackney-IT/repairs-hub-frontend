@@ -10,6 +10,7 @@ import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/format
 import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointmentDetails'
 import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
 import { fetchWorkOrderNotesRequest } from '@/requests/workOrders'
+import { useSimpleFeatureToggles } from '@/root/src/hooks/useSimpleFeatureToggle'
 
 interface Props {
   workOrderReference: string
@@ -32,6 +33,8 @@ const NotesView = (props: Props) => {
     appointmentDetailsError,
     loadingAppointmentDetails,
   } = props
+
+  const [featureToggles, loadingFeatureToggles] = useSimpleFeatureToggles()
 
   const [notes, setNotes] = useState([])
   const [loading, setLoading] = useState(false)
@@ -82,7 +85,12 @@ const NotesView = (props: Props) => {
 
   // The tab can be mounted before the work order and appointment details
   // have loaded, and the timeline needs both
-  if (loading || loadingAppointmentDetails || !workOrder)
+  if (
+    loading ||
+    loadingAppointmentDetails ||
+    loadingFeatureToggles ||
+    !workOrder
+  )
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
@@ -91,6 +99,10 @@ const NotesView = (props: Props) => {
         </div>
       </>
     )
+
+  const requiresApprovalToComplete =
+    !!featureToggles?.enableCompletionApprovalStep &&
+    !!workOrder.requiresApprovalToComplete()
 
   return (
     <>
@@ -105,6 +117,7 @@ const NotesView = (props: Props) => {
         <NotesTimeline
           notes={notes}
           workOrder={workOrder}
+          requiresApprovalToComplete={requiresApprovalToComplete}
           appointmentDetails={appointmentDetails}
           appointmentDetailsError={appointmentDetailsError}
           setActiveTab={setActiveTab}
