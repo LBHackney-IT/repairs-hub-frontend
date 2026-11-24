@@ -6,6 +6,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
+  FollowOnFormData,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
@@ -27,6 +28,7 @@ import { formatRequestErrorMessage } from '../../utils/errorHandling/formatError
 import { Operative } from '../../models/operativeModel'
 import { clearIndexedDb } from '../WorkOrder/Photos/hooks/uploadFiles/cacheFile'
 import useCloudwatchLogger from '../../utils/cloudwatchLogger'
+import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
 import { postJobStatusUpdateRequest } from '@/requests/jobStatusUpdate'
 import { fetchOperativesRequest } from '@/requests/operatives'
 
@@ -66,7 +68,9 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
     setSelectedPercentagesToShowOnEdit,
   ] = useState([])
 
-  const [followOnData, setFollowOnData] = useState(null)
+  const [followOnData, setFollowOnData] = useState<FollowOnFormData | null>(
+    null
+  )
 
   const FORM_PAGE = 1
   const SUMMARY_PAGE = 2
@@ -75,6 +79,11 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(FORM_PAGE)
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
+
+  const [
+    simpleFeatureToggles,
+    loadingFeatureToggles,
+  ] = useSimpleFeatureToggles()
 
   const cwLogger = useCloudwatchLogger('PHOTOS', `ByProxy | ${reference}`)
 
@@ -324,7 +333,16 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
     setStartTime(formData.startTime)
   }
 
-  if (loadingStatus) return <SpinnerWithLabel label={loadingStatus} />
+  const requiresApprovalToComplete =
+    !!simpleFeatureToggles?.enableCompletionApprovalStep &&
+    !!workOrder?.requiresApprovalToComplete()
+
+  const closedAsPendingApproval =
+    requiresApprovalToComplete && reason === 'Work Order Completed'
+
+  if (loadingStatus || loadingFeatureToggles) {
+    return <SpinnerWithLabel label={loadingStatus ?? 'Loading'} />
+  }
 
   return (
     <>
@@ -382,13 +400,18 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
               followOnData={followOnData}
               files={files}
               description={description}
+              requiresApprovalToComplete={requiresApprovalToComplete}
             />
           )}
           {currentPage === CONFIRMATION_PAGE && (
             <SuccessPage
               banner={
                 <Panel
-                  title="Work order closed"
+                  title={
+                    closedAsPendingApproval
+                      ? 'Work order closed, completion pending approval'
+                      : 'Work order closed'
+                  }
                   workOrderReference={workOrder.reference}
                 />
               }

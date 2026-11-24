@@ -3,6 +3,7 @@ import UserContext from '../UserContext'
 import MultiButton from '../Layout/MultiButton'
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
+import { STATUS_COMPLETION_PENDING_APPROVAL } from '@/utils/statusCodes'
 
 interface Props {
   workOrder: WorkOrder
@@ -36,7 +37,14 @@ const WorkOrderActionMenu = ({ workOrder, printClickHandler }: Props) => {
     [user, workOrder.status, printClickHandler]
   )
 
-  if (choices.length === 0 || workOrder.closedDated) return null
+  const isCompletionPendingApproval =
+    workOrder.status === STATUS_COMPLETION_PENDING_APPROVAL.description
+
+  if (
+    choices.length === 0 ||
+    (workOrder.closedDated && !isCompletionPendingApproval)
+  )
+    return null
 
   return (
     <MultiButton

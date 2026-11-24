@@ -1,7 +1,7 @@
 import { getWorkOrderDetailsRequest } from '@/requests/workOrders'
 import { useApiRequest } from './useApiRequest'
 
-export const useWorkOrder = (workOrderReference: string) => {
+export const useWorkOrderDetails = (workOrderReference: string) => {
   const { data, error, isLoading } = useApiRequest(() =>
     getWorkOrderDetailsRequest(workOrderReference)
   )

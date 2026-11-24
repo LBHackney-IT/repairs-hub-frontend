@@ -15,6 +15,7 @@ describe('GET /api/simple-feature-toggle', () => {
     process.env.FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED = 'true'
     process.env.ENABLE_AWAABS_LAW_REASON_FOR_REPAIR = 'true'
     process.env.ENABLE_HEALTH_AND_SAFETY_FLAG = 'true'
+    process.env.ENABLE_COMPLETION_APPROVAL_STEP = 'true'
 
     const { req, res } = await authorisedRouteRequest({ method: 'GET' })
 
@@ -26,6 +27,7 @@ describe('GET /api/simple-feature-toggle', () => {
       enableFollowOnIsEmergencyField: true,
       enableAwaabsLawReasonForRepair: true,
       enableHealthAndSafetyFlag: true,
+      enableCompletionApprovalStep: true,
     })
   })
 
@@ -34,6 +36,7 @@ describe('GET /api/simple-feature-toggle', () => {
     delete process.env.FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED
     delete process.env.ENABLE_AWAABS_LAW_REASON_FOR_REPAIR
     delete process.env.ENABLE_HEALTH_AND_SAFETY_FLAG
+    delete process.env.ENABLE_COMPLETION_APPROVAL_STEP
 
     const { req, res } = await authorisedRouteRequest({ method: 'GET' })
 
@@ -44,6 +47,7 @@ describe('GET /api/simple-feature-toggle', () => {
       enableFollowOnIsEmergencyField: false,
       enableAwaabsLawReasonForRepair: false,
       enableHealthAndSafetyFlag: false,
+      enableCompletionApprovalStep: false,
     })
   })
 })

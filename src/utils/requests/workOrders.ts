@@ -5,6 +5,7 @@ import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { WorkOrderTasks } from '../../models/workOrderTasks'
+import { buildApproveCompletionFormData } from '../hact/jobStatusUpdate/approveCompletion'
 import { postJobStatusUpdateRequest } from './jobStatusUpdate'
 import { BudgetCode } from '../../models/budgetCode'
 import { WorkOrderHierarchy } from '../../models/workOrderHierarchy'
@@ -111,6 +112,33 @@ export const editWorkOrderRequest = async (
           ? 'Invalid request data'
           : formatRequestErrorMessage(e)
       ),
+    }
+  }
+}
+
+export const approveWorkOrderCompletionRequest = async (
+  workOrderReference: string,
+  note?: string
+): Promise<ApiResponseType<null>> => {
+  try {
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: buildApproveCompletionFormData(workOrderReference, note),
+    })
+
+    return {
+      success: true,
+      response: null,
+      error: null,
+    }
+  } catch (e: any) {
+    console.error('An error has occurred:', e)
+
+    return {
+      success: false,
+      response: null,
+      error: new APIResponseError(formatRequestErrorMessage(e)),
     }
   }
 }
