@@ -13,21 +13,17 @@ import {
 interface Props {
   tabName: string
   workOrders: any[]
-  pageNumber?: number
-  loadMoreWorkOrders?: (...args: any[]) => any
-  pageSize: number
   propertyReference: string
-  setPageNumber?: any
+  hasMore: boolean
+  loadMore: () => void
 }
 
 const WorkOrdersHistoryTable = ({
   workOrders,
   tabName,
-  pageNumber,
-  loadMoreWorkOrders,
-  pageSize,
   propertyReference,
-  setPageNumber,
+  hasMore,
+  loadMore,
 }: Props) => {
   const { user } = useContext(UserContext)
   const [tradeCode, setTradeCode] = useState(null)
@@ -35,31 +31,7 @@ const WorkOrdersHistoryTable = ({
   const [filteredOrders, setFilteredOrders] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const moreWorkOrdersAvailable = () => {
-    // TODO: Replace with a real count from the API
-    const maxWorkOrders = pageNumber * pageSize
-
-    return workOrders.length >= maxWorkOrders
-  }
-
-  const renderLoadMoreWorkOrders = () => {
-    if (moreWorkOrdersAvailable()) {
-      return (
-        <div className="page-navigation govuk-!-padding-bottom-5">
-          <button
-            className="govuk-button left-page-button"
-            data-module="govuk-button"
-            onClick={() => loadMoreWorkOrders(pageNumber + 1)}
-          >
-            Load more
-          </button>
-        </div>
-      )
-    }
-  }
-
   const onSelectTrade = async (trade) => {
-    setPageNumber(1)
     if (trade === '') {
       setTradeCode(null)
       return
@@ -93,7 +65,6 @@ const WorkOrdersHistoryTable = ({
   }
 
   const clearFilters = () => {
-    setPageNumber(1)
     setTradeCode(null)
   }
 
@@ -133,7 +104,17 @@ const WorkOrdersHistoryTable = ({
       return (
         <>
           {RenderWorkOrdersTable(workOrders, user)}
-          {workOrders && renderLoadMoreWorkOrders()}
+          {hasMore && (
+            <div className="page-navigation govuk-!-padding-bottom-5">
+              <button
+                className="govuk-button left-page-button"
+                data-module="govuk-button"
+                onClick={loadMore}
+              >
+                Load more
+              </button>
+            </div>
+          )}
         </>
       )
     }
