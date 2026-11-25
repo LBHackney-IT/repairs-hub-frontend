@@ -2,7 +2,8 @@ import PropertyDetails from './PropertyDetails'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import Meta from '../Meta'
-import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
+import WorkOrdersHistoryView from './WorkOrdersHistory/WorkOrdersHistoryView'
+import { TabName } from '../Tabs/tabNames'
 import { Tenure } from '../../models/propertyTenure'
 import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
 import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
@@ -48,7 +49,10 @@ const PropertyView = ({ propertyReference }: Props) => {
               simpleFeatureToggles?.enableHealthAndSafetyFlag
             }
           />
-          <PropertyViewTabs propertyReference={propertyReference} />
+          <WorkOrdersHistoryView
+            propertyReference={propertyReference}
+            tabName={TabName.WorkOrderHistory}
+          />
         </>
       )}
 
