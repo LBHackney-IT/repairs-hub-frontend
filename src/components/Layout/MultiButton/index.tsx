@@ -76,7 +76,11 @@ const MultiButton = ({
   workOrderReference,
 }: Props) => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [currentValue, setCurrentValue] = useLocalStorage(name, '0')
+  const [storedValue, setCurrentValue] = useLocalStorage(name, '0')
+
+  // The stored index is shared across work orders, so it can be out of range
+  // when this work order has fewer choices - fall back to the first choice
+  const currentValue = choices[storedValue] ? storedValue : '0'
 
   const selection = choices[currentValue]
 

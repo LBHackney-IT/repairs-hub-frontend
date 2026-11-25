@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import UserContext from '../UserContext'
-import Spinner from '../Spinner'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import VariationAuthorisationSummary from '../WorkOrder/Authorisation/VariationAuthorisationSummary'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
@@ -17,9 +17,10 @@ import {
 
 interface Props {
   workOrderReference: string
+  tabName: string
 }
 
-const VariationSummaryTab = ({ workOrderReference }: Props) => {
+const VariationSummaryTab = ({ workOrderReference, tabName }: Props) => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [variation, setVariation] = useState<Variation | null>(null)
@@ -80,11 +81,21 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
     getTasksAndSorsView(workOrderReference)
   }, [])
 
-  if (loading) return <Spinner />
+  if (loading)
+    return (
+      <>
+        <h2 className="lbh-heading-h2">{tabName}</h2>
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching pending variation…" />
+        </div>
+      </>
+    )
 
   if (variation && variation.tasks && originalSors) {
     return (
       <>
+        <h2 className="lbh-heading-h2">{tabName}</h2>
+
         {user.roles.includes('contract_manager') && (
           <div className="display-inline">
             <Link
@@ -108,7 +119,10 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
   }
 
   return (
-    <p className="lbh-body-s">There are no variations for this work order.</p>
+    <>
+      <h2 className="lbh-heading-h2">{tabName}</h2>
+      <p className="lbh-body-s">There are no variations for this work order.</p>
+    </>
   )
 }
 

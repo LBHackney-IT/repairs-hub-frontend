@@ -8,6 +8,7 @@ import ErrorMessage from '@/root/src/components/Errors/ErrorMessage'
 interface Props {
   note: Note
   workOrder: WorkOrder
+  requiresApprovalToComplete?: boolean
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
   setActiveTab: (tabName: TabName) => void
@@ -17,6 +18,7 @@ const CompletedNoteContent = (props: Props) => {
   const {
     note,
     workOrder,
+    requiresApprovalToComplete = false,
     setActiveTab,
     appointmentDetails,
     appointmentDetailsError,
@@ -28,7 +30,8 @@ const CompletedNoteContent = (props: Props) => {
     note.note,
     completionDate,
     appointmentDetails?.operatives ?? [],
-    workOrder.paymentType
+    workOrder.paymentType,
+    requiresApprovalToComplete
   )
 
   if (appointmentDetailsError) {

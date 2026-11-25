@@ -2,27 +2,33 @@ import { render } from '@testing-library/react'
 import { agent } from '../../../factories/agent'
 import UserContext from '../UserContext'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
+import { Operative } from '../../models/operativeModel'
+
+const DATE_RAISED = '2021-01-01T10:00:00.000Z'
+
+const operativeDefaults: Operative = {
+  id: 0,
+  name: '',
+  jobPercentage: 0,
+  payrollNumber: '',
+  trades: [],
+  isOnejobatatime: false,
+}
 
 describe('CloseWorkOrderForm component', () => {
   const operatives = [
-    {
-      id: 1,
-      name: 'Operative A',
-    },
-    {
-      id: 2,
-      name: 'Operative B',
-    },
+    { ...operativeDefaults, id: 1, name: 'Operative A' },
+    { ...operativeDefaults, id: 2, name: 'Operative B' },
   ]
 
   const props = {
-    reference: 10000012,
+    reference: '10000012',
     onSubmit: jest.fn(),
     notes: 'this is a note',
     completionTime: '14:30',
-    completionDate: new Date('2021-01-12T16:24:26.632Z'),
+    completionDate: '2021-01-12T16:24:26.632Z',
     startTime: '14:30',
-    startDate: new Date('2021-01-12T16:24:26.632Z'),
+    startDate: '2021-01-12T16:24:26.632Z',
     operatives: operatives,
     availableOperatives: operatives,
     reason: 'No Access',
@@ -39,6 +45,7 @@ describe('CloseWorkOrderForm component', () => {
       >
         <CloseWorkOrderForm
           reference={props.reference}
+          dateRaised={DATE_RAISED}
           onSubmit={props.onSubmit}
           notes={props.notes}
           completionTime={props.completionTime}
@@ -71,6 +78,7 @@ describe('CloseWorkOrderForm component', () => {
       >
         <CloseWorkOrderForm
           reference={props.reference}
+          dateRaised={DATE_RAISED}
           onSubmit={props.onSubmit}
           notes={props.notes}
           completionTime={props.completionTime}
@@ -97,24 +105,18 @@ describe('CloseWorkOrderForm component', () => {
 
 describe('CloseWorkOrderForm component - when follow-on functionality is enabled', () => {
   const operatives = [
-    {
-      id: 1,
-      name: 'Operative A',
-    },
-    {
-      id: 2,
-      name: 'Operative B',
-    },
+    { ...operativeDefaults, id: 1, name: 'Operative A' },
+    { ...operativeDefaults, id: 2, name: 'Operative B' },
   ]
 
   const props = {
-    reference: 10000012,
+    reference: '10000012',
     onSubmit: jest.fn(),
     notes: 'this is a note',
     completionTime: '14:30',
-    completionDate: new Date('2021-01-12T16:24:26.632Z'),
+    completionDate: '2021-01-12T16:24:26.632Z',
     startTime: '14:30',
-    startDate: new Date('2021-01-12T16:24:26.632Z'),
+    startDate: '2021-01-12T16:24:26.632Z',
     operatives: operatives,
     availableOperatives: operatives,
     reason: 'No Access',
@@ -131,6 +133,7 @@ describe('CloseWorkOrderForm component - when follow-on functionality is enabled
       >
         <CloseWorkOrderForm
           reference={props.reference}
+          dateRaised={DATE_RAISED}
           onSubmit={props.onSubmit}
           notes={props.notes}
           completionTime={props.completionTime}
@@ -163,6 +166,7 @@ describe('CloseWorkOrderForm component - when follow-on functionality is enabled
       >
         <CloseWorkOrderForm
           reference={props.reference}
+          dateRaised={DATE_RAISED}
           onSubmit={props.onSubmit}
           notes={props.notes}
           completionTime={props.completionTime}

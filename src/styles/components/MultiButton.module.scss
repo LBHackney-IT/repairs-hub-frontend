@@ -4,7 +4,9 @@
   position: relative;
   display: inline-flex;
   flex-direction: row;
-  align-items: center;
+  // stretch so the dropdown button matches the main button's height when
+  // its label wraps onto multiple lines
+  align-items: stretch;
   @include govuk-font($size: 16);
 
   z-index: 1;
@@ -15,6 +17,10 @@
     margin-top: 0;
   }
 
+  > details {
+    display: flex;
+  }
+
   @include govuk-media-query($from: tablet) {
     width: auto;
   }
@@ -22,6 +28,9 @@
 
 .button {
   margin-top: 0;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
   border-radius: 10px 0px 0px 10px;
   color: lbh-colour('lbh-white') !important;
 
@@ -46,6 +55,8 @@
   margin-top: 0;
   display: flex;
   max-width: 100px;
+  height: 100%;
+  box-sizing: border-box;
   justify-content: center;
   align-items: center;
   line-height: 30%;
