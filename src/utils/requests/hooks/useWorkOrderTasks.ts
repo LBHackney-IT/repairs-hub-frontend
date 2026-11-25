@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getWorkOrderTasksRequest } from '@/requests/workOrders'
+import { getWorkOrderTasksRequest } from '../workOrders'
 import { WorkOrderTasks } from '@/root/src/models/workOrderTasks'
 import { sortObjectsByDateKey } from '@/utils/date'
 import { useApiRequest } from './useApiRequest'

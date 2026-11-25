@@ -143,13 +143,14 @@ export const approveWorkOrderCompletionRequest = async (
   }
 }
 
-export const getWorkOrderTasksRequestRequest = async (
+export const getWorkOrderTasksRequest = async (
   workOrderReference: string
 ): Promise<ApiResponseType<WorkOrderTasks[]>> => {
   try {
-    const tasksResponse: WorkOrderTasks[] = await fetchWorkOrderTasksRequest(
-      workOrderReference
-    )
+    const tasksResponse: WorkOrderTasks[] = await frontEndApiRequest<WorkOrderTasks[]>({
+      method: 'get',
+      path: `/api/workOrders/${workOrderReference}/tasks`,
+    })
 
     return {
       success: true,
@@ -196,12 +197,6 @@ export const postNoteRequest = async (
     }
   }
 }
-
-export const fetchWorkOrderTasksRequest = (workOrderReference: string) =>
-  frontEndApiRequest<WorkOrderTasks[]>({
-    method: 'get',
-    path: `/api/workOrders/${workOrderReference}/tasks`,
-  })
 
 export interface WorkOrdersParams {
   propertyReference?: string
