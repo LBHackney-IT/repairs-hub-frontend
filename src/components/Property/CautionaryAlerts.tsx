@@ -1,18 +1,22 @@
 import { useState } from 'react'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import Alerts from '../Property/Alerts'
+import Alerts from './Alerts'
 import ErrorMessage from '../Errors/ErrorMessage'
+import Spinner from '../Spinner'
 
 interface Props {
   alerts: CautionaryAlert[]
+  isLoading?: boolean
   error: string | null
 }
 
-const WorkOrderAlerts = ({ alerts, error }: Props) => {
+const CautionaryAlerts = ({ alerts, isLoading = false, error }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <>
+      {isLoading && <Spinner resource="alerts" />}
+
       {alerts?.length > 0 && (
         <ul
           className="lbh-list hackney-property-alerts"
@@ -31,9 +35,10 @@ const WorkOrderAlerts = ({ alerts, error }: Props) => {
           />
         </ul>
       )}
+
       {error && <ErrorMessage label={error} />}
     </>
   )
 }
 
-export default WorkOrderAlerts
+export default CautionaryAlerts

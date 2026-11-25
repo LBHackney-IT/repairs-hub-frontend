@@ -1,9 +1,6 @@
-import { useState } from 'react'
 import PropertyDetailsAddress from './PropertyDetailsAddress'
 import PropertyFlags from './PropertyFlags'
-import Alerts from './Alerts'
-import Spinner from '../Spinner'
-import ErrorMessage from '../Errors/ErrorMessage'
+import CautionaryAlerts from './CautionaryAlerts'
 import { useAlerts } from '@/requests/hooks/useAlerts'
 import { Address, Tenure } from '../../models/propertyTenure'
 
@@ -28,8 +25,6 @@ const PropertyDetailsGrid = ({
   canRaiseRepair,
   tmoName,
 }: PropertyDetailsGridProps) => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(false)
-
   const { alerts, isLoading: alertsLoading, error: alertsError } = useAlerts(
     propertyReference
   )
@@ -45,26 +40,11 @@ const PropertyDetailsGrid = ({
             hasLinkToProperty={hasLinkToProperty}
           />
 
-          {alerts.length > 0 && (
-            <ul
-              className="lbh-list hackney-property-alerts"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                marginBottom: '1em',
-                maxWidth: isExpanded ? '' : '30em',
-              }}
-            >
-              <Alerts
-                alerts={alerts}
-                setIsExpanded={setIsExpanded}
-                isExpanded={isExpanded}
-              />
-            </ul>
-          )}
-          {alertsLoading && <Spinner resource="alerts" />}
-          {alertsError && <ErrorMessage label={alertsError} />}
+          <CautionaryAlerts
+            alerts={alerts}
+            isLoading={alertsLoading}
+            error={alertsError}
+          />
 
           <PropertyFlags
             tenure={tenure}

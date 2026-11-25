@@ -1,5 +1,5 @@
 import WorkOrderHeader from './WorkOrderHeader'
-import WorkOrderAlerts from './WorkOrderAlerts'
+import CautionaryAlerts from '../Property/CautionaryAlerts'
 import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
@@ -41,7 +41,7 @@ const WorkOrderDetails = (props: Props) => {
 
       <p className="lbh-body-m">{workOrder.description}</p>
 
-      <WorkOrderAlerts alerts={alerts} error={alertsError} />
+      <CautionaryAlerts alerts={alerts} error={alertsError} />
 
       <WorkOrderHeader
         propertyReference={
