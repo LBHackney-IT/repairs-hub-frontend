@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import PropertyDetailsAddress from './PropertyDetailsAddress'
 import PropertyFlags from './PropertyFlags'
 import Alerts from './Alerts'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { getAlertsRequest } from '@/requests/property'
+import { useAlerts } from '@/requests/hooks/useAlerts'
 import { Address, Tenure } from '../../models/propertyTenure'
-import { CautionaryAlert } from '../../models/cautionaryAlerts'
 
 interface PropertyDetailsGridProps {
   propertyReference: string
@@ -29,28 +28,11 @@ const PropertyDetailsGrid = ({
   canRaiseRepair,
   tmoName,
 }: PropertyDetailsGridProps) => {
-  const [alerts, setAlerts] = useState<CautionaryAlert[] | []>([])
-  const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
-  const [alertsError, setAlertsError] = useState<string | null>()
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
-  const fetchAlerts = async () => {
-    setAlertsLoading(true)
-    const alertsResponse = await getAlertsRequest(propertyReference)
-
-    if (!alertsResponse.success) {
-      setAlertsError(alertsResponse.error.message)
-      setAlertsLoading(false)
-      return
-    }
-
-    setAlerts(alertsResponse.response.alerts)
-    setAlertsLoading(false)
-  }
-
-  useEffect(() => {
-    fetchAlerts()
-  }, [])
+  const { alerts, isLoading: alertsLoading, error: alertsError } = useAlerts(
+    propertyReference
+  )
 
   return (
     <div className="govuk-grid-row">
@@ -63,7 +45,7 @@ const PropertyDetailsGrid = ({
             hasLinkToProperty={hasLinkToProperty}
           />
 
-          {alerts?.length > 0 && (
+          {alerts.length > 0 && (
             <ul
               className="lbh-list hackney-property-alerts"
               style={{

@@ -64,7 +64,7 @@ export const getContactDetailsRequest = async (
   }
 }
 
-export const getAlertsRequest = async (
+export const getCautionaryAlertsRequest = async (
   propertyReference
 ): Promise<ApiResponseType<CautionaryAlertsResponse>> => {
   try {

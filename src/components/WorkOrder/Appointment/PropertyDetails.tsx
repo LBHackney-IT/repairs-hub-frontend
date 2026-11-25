@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getAlertsRequest } from '@/requests/property'
+import { getCautionaryAlertsRequest } from '@/requests/property'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 import PropertyFlags from '../../Property/PropertyFlags'
 import Alerts from '../../Property/Alerts'
@@ -32,7 +32,7 @@ const PropertyDetails = ({
 
   const fetchAlerts = async () => {
     setAlertsLoading(true)
-    const alertsResponse = await getAlertsRequest(propertyReference)
+    const alertsResponse = await getCautionaryAlertsRequest(propertyReference)
 
     if (!alertsResponse.success) {
       setAlertsError(alertsResponse.error.message)

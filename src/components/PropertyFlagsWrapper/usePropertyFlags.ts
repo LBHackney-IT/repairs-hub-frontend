@@ -1,7 +1,7 @@
 import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
 import {
   getLegalDisrepairStatusRequest,
-  getAlertsRequest,
+  getCautionaryAlertsRequest,
 } from '@/requests/property'
 import { useEffect, useState } from 'react'
 
@@ -26,7 +26,7 @@ export const usePropertyFlags = (propertyReference: string) => {
   }
 
   const fetchAlerts = async (propertyReference: string) => {
-    const alertsResponse = await getAlertsRequest(propertyReference)
+    const alertsResponse = await getCautionaryAlertsRequest(propertyReference)
 
     if (!alertsResponse.success) {
       setAlertsError(alertsResponse.error.message)
