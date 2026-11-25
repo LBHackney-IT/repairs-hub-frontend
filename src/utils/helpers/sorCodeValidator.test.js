@@ -289,5 +289,129 @@ describe('sorCodeValidator', () => {
         expect(sorCodeValidator.duplicateCodes).toEqual(['12345678'])
       })
     })
+
+    describe('when preserveDuplicates is true', () => {
+      describe('and some supplied codes duplicate the currentSorCodes', () => {
+        const sorCodeValidator = new SorCodeValidator({
+          currentSorCodes: ['12345678', 'ABCDEFGH', 'somecode'],
+          sorCodesToValidate: ['12345678', 'ABCDEFGH', 'ABCD5678'],
+          preserveDuplicates: true,
+          additionalValidationCallback: async () => ({
+            validCodes: [
+              { code: '12345678' },
+              { code: 'ABCDEFGH' },
+              { code: 'ABCD5678' },
+            ],
+            invalidCodes: [],
+          }),
+        })
+
+        it('validate() returns true', async () => {
+          expect(await sorCodeValidator.validate()).toEqual(true)
+        })
+
+        it('.errors returns an empty array after validation', async () => {
+          await sorCodeValidator.validate()
+
+          expect(sorCodeValidator.errors).toEqual([])
+        })
+
+        it('.validatedCodeSet keeps the codes which duplicate currentSorCodes', async () => {
+          await sorCodeValidator.validate()
+
+          expect(sorCodeValidator.validatedCodeSet).toEqual([
+            { code: '12345678' },
+            { code: 'ABCDEFGH' },
+            { code: 'ABCD5678' },
+          ])
+        })
+
+        it('.duplicateCodes returns an empty array after validation', async () => {
+          await sorCodeValidator.validate()
+
+          expect(sorCodeValidator.duplicateCodes).toEqual([])
+        })
+      })
+
+      describe('and the supplied codes contain duplicates within the same array', () => {
+        const sorCodeValidator = new SorCodeValidator({
+          currentSorCodes: [],
+          sorCodesToValidate: [
+            '12345678',
+            '12345678',
+            'ABCDEFGH',
+            '12345678',
+            'ABCD1234',
+          ],
+          preserveDuplicates: true,
+          additionalValidationCallback: async () => ({
+            validCodes: [
+              { code: '12345678' },
+              { code: 'ABCDEFGH' },
+              { code: 'ABCD1234' },
+            ],
+            invalidCodes: [],
+          }),
+        })
+
+        it('validate() returns true', async () => {
+          expect(await sorCodeValidator.validate()).toEqual(true)
+        })
+
+        it('.errors returns an empty array after validation', async () => {
+          await sorCodeValidator.validate()
+
+          expect(sorCodeValidator.errors).toEqual([])
+        })
+
+        it('.validatedCodeSet keeps every code in the supplied order', async () => {
+          await sorCodeValidator.validate()
+
+          expect(sorCodeValidator.validatedCodeSet).toEqual([
+            { code: '12345678' },
+            { code: '12345678' },
+            { code: 'ABCDEFGH' },
+            { code: '12345678' },
+            { code: 'ABCD1234' },
+          ])
+        })
+
+        it('.duplicateCodes returns an empty array after validation', async () => {
+          await sorCodeValidator.validate()
+
+          expect(sorCodeValidator.duplicateCodes).toEqual([])
+        })
+      })
+
+      describe('and the supplied codes include duplicates and a code which fails additional validation', () => {
+        const sorCodeValidator = new SorCodeValidator({
+          currentSorCodes: [],
+          sorCodesToValidate: ['12345678', '12345678', 'ABCDEFGH'],
+          preserveDuplicates: true,
+          additionalValidationCallback: async () => ({
+            validCodes: [{ code: '12345678' }],
+            invalidCodes: ['ABCDEFGH'],
+          }),
+        })
+
+        it('validate() returns false', async () => {
+          expect(await sorCodeValidator.validate()).toEqual(false)
+        })
+
+        it('.errors returns the code which failed validation', async () => {
+          await sorCodeValidator.validate()
+
+          expect(sorCodeValidator.errors).toEqual([
+            { code: 'ABCDEFGH', message: 'SOR code does not exist' },
+          ])
+        })
+
+        it('.validatedCodeSet returns an empty array after validation', async () => {
+          await sorCodeValidator.validate()
+
+          expect(sorCodeValidator.validatedCodeSet).toEqual([])
+        })
+      })
+    })
   })
 })
