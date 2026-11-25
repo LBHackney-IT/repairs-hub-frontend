@@ -7,6 +7,7 @@ import { WorkOrderAppointmentDetails } from '@/root/src/models/workOrderAppointm
 interface Props {
   notes: Note[]
   workOrder: WorkOrder
+  requiresApprovalToComplete?: boolean
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
   setActiveTab: (tabName: TabName) => void
@@ -16,6 +17,7 @@ const NotesTimeline = (props: Props) => {
   const {
     notes,
     workOrder,
+    requiresApprovalToComplete = false,
     setActiveTab,
     appointmentDetails,
     appointmentDetailsError,
@@ -37,6 +39,7 @@ const NotesTimeline = (props: Props) => {
             <NoteEntry
               note={note}
               workOrder={workOrder}
+              requiresApprovalToComplete={requiresApprovalToComplete}
               appointmentDetails={appointmentDetails}
               appointmentDetailsError={appointmentDetailsError}
               setActiveTab={setActiveTab}
