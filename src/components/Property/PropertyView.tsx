@@ -4,6 +4,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import Meta from '../Meta'
 import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
 import { Tenure } from '../../models/propertyTenure'
+import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
 import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
 import { useLegalDisrepairStatus } from '@/requests/hooks/useLegalDisrepairStatus'
 
@@ -25,7 +26,12 @@ const PropertyView = ({ propertyReference }: Props) => {
     error: legalDisrepairError,
   } = useLegalDisrepairStatus(propertyReference)
 
-  if (propertyLoading || legalDisrepairLoading)
+  const [
+    simpleFeatureToggles,
+    featureTogglesLoading,
+  ] = useSimpleFeatureToggles()
+
+  if (propertyLoading || legalDisrepairLoading || featureTogglesLoading)
     return <SpinnerWithLabel label="Fetching property details…" />
 
   return (
@@ -38,6 +44,9 @@ const PropertyView = ({ propertyReference }: Props) => {
             tenure={tenure ?? ({} as Tenure)}
             showLegalDisrepairFlag={isInLegalDisrepair}
             showUnderWarrantyFlag={property.isUnderWarranty}
+            showHealthAndSafetyFlag={
+              simpleFeatureToggles?.enableHealthAndSafetyFlag
+            }
           />
           <PropertyViewTabs propertyReference={propertyReference} />
         </>
