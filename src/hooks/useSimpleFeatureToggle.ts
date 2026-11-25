@@ -4,9 +4,11 @@ import { fetchSimpleFeatureTogglesRequest } from '@/requests/featureToggles'
 
 export const useSimpleFeatureToggles = (): [
   SimpleFeatureToggleResponse,
-  boolean
+  boolean,
+  Error | null
 ] => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [error, setError] = useState<Error | null>(null)
 
   const [
     simpleFeatureToggles,
@@ -15,6 +17,7 @@ export const useSimpleFeatureToggles = (): [
 
   useEffect(() => {
     setIsLoading(true)
+    setError(null)
 
     fetchSimpleFeatureTogglesRequest()
       .then((fetchedFeatureToggles) => {
@@ -22,11 +25,12 @@ export const useSimpleFeatureToggles = (): [
       })
       .catch((err) => {
         console.error('failed to fetch feature toggles', err)
+        setError(err)
       })
       .finally(() => {
         setIsLoading(false)
       })
   }, [])
 
-  return [simpleFeatureToggles, isLoading]
+  return [simpleFeatureToggles, isLoading, error]
 }

@@ -2,9 +2,9 @@ import { WorkOrder } from '../../models/workOrder'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '../../utils/statusCodes'
 import { formatDateTime } from '../../utils/time'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
-import Spinner from '../Spinner'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
 
@@ -29,7 +29,7 @@ const WorkOrderAppointmentDetailsHeader = (props: Props) => {
   )
 
   if (loadingAppointmentDetails) {
-    return <Spinner />
+    return <SpinnerWithLabel label="Fetching appointment details…" />
   }
 
   if (appointmentDetailsError) {

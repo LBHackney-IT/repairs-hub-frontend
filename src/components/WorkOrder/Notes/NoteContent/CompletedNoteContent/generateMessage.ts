@@ -7,9 +7,12 @@ const generateMessage = (
   userComments: string,
   completionDate: Date | null,
   operativesWithPercentages: WorkOrderOperative[],
-  paymentType: string
+  paymentType: string,
+  requiresApprovalToComplete: boolean = false
 ): string => {
-  let note = 'Closed - Completed'
+  let note = requiresApprovalToComplete
+    ? 'Closed - Completion pending approval'
+    : 'Closed - Completed'
 
   if (completionDate) {
     note += `: ${completionDate.toLocaleDateString('en-GB', {
@@ -35,7 +38,8 @@ const generateMessage = (
     note += ` - Assigned operatives ${operativesWithPercentagesValue}`
   }
 
-  if (paymentType) {
+  // Pending approval work orders are not in bonus calculation until approved
+  if (paymentType && !requiresApprovalToComplete) {
     note += ` - ${formatPaymentType(paymentType)}`
   }
 

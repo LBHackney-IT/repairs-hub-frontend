@@ -49,6 +49,7 @@ functions:
       DATA_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/data-admin-group}
       CONTRACT_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-admin-group}
       FOLLOWON_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/followon-admin-group}
+      COMPLETION_APPROVAL_MANAGER_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/completion-approval-manager-group}
       DLO_CONTRACTOR_GOOGLE_GROUPNAME: repairs-hub-contractors-dlo
       CONTACT_DETAILS_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/contact-details-api-url}
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
@@ -74,6 +75,7 @@ functions:
       FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.environment-variables.follow-on-is-emergency-field-enabled.${self:provider.stage}}
       ENABLE_AWAABS_LAW_REASON_FOR_REPAIR: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-awaabs-law-reason-for-repair}
       ENABLE_HEALTH_AND_SAFETY_FLAG: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-health-safety-flag}
+      ENABLE_COMPLETION_APPROVAL_STEP: ${ssm:/repairs-hub/${self:provider.stage}/repairs-enable-completion-approval-step}
       
       TAG_MANAGER_ID: ${self:custom.environment-variables.tag-manager-id.${self:provider.stage}}
 

@@ -9,6 +9,7 @@ export const BUDGET_CODE_OFFICER_ROLE = 'budget_code_officer'
 export const DATA_ADMIN_ROLE = 'data_admin'
 export const CONTRACT_ADMIN_ROLE = 'contract_admin'
 export const FOLLOWON_ADMIN_ROLE = 'followon_admin'
+export const COMPLETION_APPROVAL_MANAGER_ROLE = 'completion_approval_manager'
 
 export const ALL_ROLES = [
   AGENT_ROLE,
@@ -22,6 +23,7 @@ export const ALL_ROLES = [
   CONTRACT_ADMIN_ROLE,
   FOLLOWON_ADMIN_ROLE,
   DLO_CONTRACTOR_ROLE,
+  COMPLETION_APPROVAL_MANAGER_ROLE,
 ]
 
 export const buildUser = (
@@ -39,6 +41,7 @@ export const buildUser = (
     CONTRACT_ADMIN_GOOGLE_GROUPNAME,
     FOLLOWON_ADMIN_GOOGLE_GROUPNAME,
     DLO_CONTRACTOR_GOOGLE_GROUPNAME,
+    COMPLETION_APPROVAL_MANAGER_GOOGLE_GROUPNAME,
   } = process.env
 
   const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
@@ -99,6 +102,10 @@ export const buildUser = (
       if (isFollowOnAdminGroupName(groupName)) {
         roles.add(FOLLOWON_ADMIN_ROLE)
       }
+
+      if (isCompletionApprovalManagerGroupName(groupName)) {
+        roles.add(COMPLETION_APPROVAL_MANAGER_ROLE)
+      }
     })
 
     return [...roles]
@@ -134,6 +141,9 @@ export const buildUser = (
   const isFollowOnAdminGroupName = (groupName: string) =>
     groupName === FOLLOWON_ADMIN_GOOGLE_GROUPNAME
 
+  const isCompletionApprovalManagerGroupName = (groupName: string) =>
+    groupName === COMPLETION_APPROVAL_MANAGER_GOOGLE_GROUPNAME
+
   const isDloContractorGroupName = (groupName: string) =>
     groupName === DLO_CONTRACTOR_GOOGLE_GROUPNAME
 
@@ -149,7 +159,8 @@ export const buildUser = (
       isBudgetCodeOfficerGroupName(groupName) ||
       isDataAdminGroupName(groupName) ||
       isContractAdminGroupName(groupName) ||
-      isFollowOnAdminGroupName(groupName)
+      isFollowOnAdminGroupName(groupName) ||
+      isCompletionApprovalManagerGroupName(groupName)
   )
 
   const roles: string[] = rolesFromGroups(groupNames)
@@ -183,5 +194,8 @@ export const buildUser = (
     hasDataAdminPermissions: hasRole(DATA_ADMIN_ROLE),
     hasContractAdminPermissions: hasRole(CONTRACT_ADMIN_ROLE),
     hasFollowOnAdminPermissions: hasRole(FOLLOWON_ADMIN_ROLE),
+    hasCompletionApprovalManagerPermissions: hasRole(
+      COMPLETION_APPROVAL_MANAGER_ROLE
+    ),
   }
 }

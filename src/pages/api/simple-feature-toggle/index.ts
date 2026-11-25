@@ -6,6 +6,7 @@ export interface SimpleFeatureToggleResponse {
   enableFollowOnIsEmergencyField: boolean
   enableAwaabsLawReasonForRepair: boolean
   enableHealthAndSafetyFlag: boolean
+  enableCompletionApprovalStep: boolean
 }
 
 export default authoriseServiceAPIRequest(async (req, res) => {
@@ -20,6 +21,9 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
     enableHealthAndSafetyFlag:
       process.env.ENABLE_HEALTH_AND_SAFETY_FLAG === 'true',
+
+    enableCompletionApprovalStep:
+      process.env.ENABLE_COMPLETION_APPROVAL_STEP === 'true',
   }
 
   res.status(HttpStatus.StatusCodes.OK).json(data)
