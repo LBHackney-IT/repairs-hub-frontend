@@ -47,7 +47,9 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
 
   const fetchAlerts = async () => {
     setAlertsLoading(true)
-    const alertsResponse = await getCautionaryAlertsRequest(property.propertyReference)
+    const alertsResponse = await getCautionaryAlertsRequest(
+      property.propertyReference
+    )
 
     if (!alertsResponse.success) {
       setAlertsError(alertsResponse.error.message)
