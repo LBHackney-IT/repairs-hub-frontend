@@ -1,5 +1,7 @@
 import RaiseWorkOrderStatus from './RaiseWorkOrderStatus'
-import PropertyDetailsGrid from './PropertyDetailsGrid'
+import PropertyDetailsAddress from './PropertyDetailsAddress'
+import PropertyFlags from './PropertyFlags'
+import CautionaryAlerts from './CautionaryAlerts'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOutOfHours } from '@/utils/helpers/completionDateTimes'
 import Link from 'next/link'
@@ -65,19 +67,27 @@ const PropertyDetails = ({
         </Link>
       </div>
     )}
-    <PropertyDetailsGrid
-      propertyReference={property.propertyReference}
-      boilerHouseId={property.boilerHouseId}
-      address={property.address}
-      subTypeDescription="Property details"
-      tenure={tenure}
-      canRaiseRepair={property.canRaiseRepair}
-      hasLinkToProperty={false}
-      tmoName={property.tmoName}
-      alerts={alerts}
-      alertsLoading={alertsLoading}
-      alertsError={alertsError}
-    />
+    <div className="lbh-body-s">
+      <PropertyDetailsAddress
+        address={property.address}
+        propertyReference={property.propertyReference}
+        subTypeDescription="Property details"
+        hasLinkToProperty={false}
+      />
+
+      <CautionaryAlerts
+        alerts={alerts}
+        isLoading={alertsLoading}
+        error={alertsError}
+      />
+
+      <PropertyFlags
+        tenure={tenure}
+        canRaiseRepair={property.canRaiseRepair}
+        tmoName={property.tmoName}
+        boilerHouseId={property.boilerHouseId}
+      />
+    </div>
   </div>
 )
 
