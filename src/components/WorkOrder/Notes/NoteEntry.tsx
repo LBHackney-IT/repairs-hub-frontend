@@ -28,6 +28,7 @@ const DetectImageNote = (userNote: string) => {
 interface Props {
   note: Note
   workOrder: WorkOrder
+  requiresApprovalToComplete?: boolean
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
   setActiveTab: (tab: string) => void
@@ -36,6 +37,7 @@ interface Props {
 const NoteEntry = ({
   note,
   workOrder,
+  requiresApprovalToComplete = false,
   setActiveTab,
   appointmentDetails,
   appointmentDetailsError,
@@ -49,6 +51,7 @@ const NoteEntry = ({
       <NoteContent
         note={note}
         workOrder={workOrder}
+        requiresApprovalToComplete={requiresApprovalToComplete}
         appointmentDetails={appointmentDetails}
         appointmentDetailsError={appointmentDetailsError}
         setActiveTab={setActiveTab}
@@ -60,12 +63,14 @@ const NoteEntry = ({
 const NoteContent = ({
   note,
   workOrder,
+  requiresApprovalToComplete,
   appointmentDetails,
   appointmentDetailsError,
   setActiveTab,
 }: {
   note: Note
   workOrder: WorkOrder
+  requiresApprovalToComplete: boolean
   appointmentDetails: WorkOrderAppointmentDetails
   appointmentDetailsError: string | null
   setActiveTab: (tabName: TabName) => void
@@ -79,6 +84,7 @@ const NoteContent = ({
       <CompletedNoteContent
         note={note}
         workOrder={workOrder}
+        requiresApprovalToComplete={requiresApprovalToComplete}
         appointmentDetails={appointmentDetails}
         appointmentDetailsError={appointmentDetailsError}
         setActiveTab={setActiveTab}

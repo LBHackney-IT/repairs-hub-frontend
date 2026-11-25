@@ -13,6 +13,8 @@ interface TabComponentProps {
   propertyReference: string
   workOrderReference: string
   tasksAndSors: any
+  tasksAndSorsLoading: boolean
+  tasksAndSorsError: string | null
   budgetCode: any
   workOrder: WorkOrder
   appointmentDetails: WorkOrderAppointmentDetails

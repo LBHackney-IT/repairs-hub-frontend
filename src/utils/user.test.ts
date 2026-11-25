@@ -22,6 +22,7 @@ const GROUPS = {
   dataAdmin: 'test-data-admins',
   contractAdmin: 'test-contract-admins',
   followOnAdmin: 'test-followon-admins',
+  completionApprovalManager: 'test-completion-approval-managers',
 }
 
 // Every permission flag, all off. Each group below switches on only its own.
@@ -38,6 +39,7 @@ const NO_PERMISSIONS: Permissions = {
   hasDataAdminPermissions: false,
   hasContractAdminPermissions: false,
   hasFollowOnAdminPermissions: false,
+  hasCompletionApprovalManagerPermissions: false,
   hasAnyPermissions: false,
 }
 
@@ -60,6 +62,8 @@ describe('buildUser', () => {
     process.env.DATA_ADMIN_GOOGLE_GROUPNAME = GROUPS.dataAdmin
     process.env.CONTRACT_ADMIN_GOOGLE_GROUPNAME = GROUPS.contractAdmin
     process.env.FOLLOWON_ADMIN_GOOGLE_GROUPNAME = GROUPS.followOnAdmin
+    process.env.COMPLETION_APPROVAL_MANAGER_GOOGLE_GROUPNAME =
+      GROUPS.completionApprovalManager
   })
 
   afterAll(() => {
@@ -131,6 +135,14 @@ describe('buildUser', () => {
         'follow-on admin',
         GROUPS.followOnAdmin,
         { hasFollowOnAdminPermissions: true, hasAnyPermissions: true },
+      ],
+      [
+        'completion approval manager',
+        GROUPS.completionApprovalManager,
+        {
+          hasCompletionApprovalManagerPermissions: true,
+          hasAnyPermissions: true,
+        },
       ],
     ])(
       'the %s group gives only the matching permissions',

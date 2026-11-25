@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { PAYMENT_TYPE_FORM_DESCRIPTIONS } from '@/utils/paymentTypes'
 import { PrimarySubmitButton } from '../Form'
+import CompletionApprovalNotice from './CompletionApprovalNotice'
 import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 import dayjs from 'dayjs'
 import PhotoListWithPreview from '../WorkOrder/Photos/PhotoListWithPreview'
@@ -18,6 +19,18 @@ const TableRow = (props) => {
   )
 }
 
+// The parts of the follow-on form state this summary displays
+interface FollowOnSummaryData {
+  requiredFollowOnTrades: { value: string }[]
+  otherTrade?: string
+  isMultipleOperatives?: boolean
+  followOnTypeDescription?: string
+  stockItemsRequired?: boolean
+  nonStockItemsRequired?: boolean
+  materialNotes?: string
+  additionalNotes?: string
+}
+
 interface Props {
   reference: string
   onJobSubmit: () => Promise<void>
@@ -26,11 +39,12 @@ interface Props {
   startDate: string
   changeStep: () => void
   reason: string
-  paymentType: string
+  paymentType?: string
   description: string
-  files: any[]
-  operativeNames: string[]
-  followOnData: any
+  files: File[]
+  operativeNames?: string[]
+  followOnData?: FollowOnSummaryData | null
+  requiresApprovalToComplete?: boolean
 }
 
 const SummaryCloseWorkOrder = (props: Props) => {
@@ -47,6 +61,7 @@ const SummaryCloseWorkOrder = (props: Props) => {
     files,
     description,
     followOnData = null,
+    requiresApprovalToComplete = false,
   } = props
 
   const { handleSubmit } = useForm({})
@@ -172,6 +187,11 @@ const SummaryCloseWorkOrder = (props: Props) => {
             </Table>
           </>
         )}
+
+        <CompletionApprovalNotice
+          requiresApprovalToComplete={requiresApprovalToComplete}
+          reason={reason}
+        />
 
         <div style={{ margin: '30px 0 0 0', display: 'flex' }}>
           {' '}

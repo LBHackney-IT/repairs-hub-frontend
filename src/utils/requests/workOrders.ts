@@ -12,6 +12,7 @@ import { VariationResponseObject } from '../../types/variations/types'
 import { closeWorkOrderDataRequest } from '../hact/workOrderComplete/closeWorkOrder'
 import { buildCancelWorkOrderFormData } from '../hact/workOrderComplete/cancelWorkOrderForm'
 import { buildScheduleWorkOrderFormData } from '../hact/workOrderSchedule/raiseWorkOrderForm'
+import { buildApproveCompletionFormData } from '../hact/jobStatusUpdate/approveCompletion'
 
 export const getAppointmentDetailsRequest = async (
   workOrderReference: string
@@ -115,7 +116,34 @@ export const editWorkOrderRequest = async (
   }
 }
 
-export const getWorkOrderTasksRequest = async (
+export const approveWorkOrderCompletionRequest = async (
+  workOrderReference: string,
+  note?: string
+): Promise<ApiResponseType<null>> => {
+  try {
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: buildApproveCompletionFormData(workOrderReference, note),
+    })
+
+    return {
+      success: true,
+      response: null,
+      error: null,
+    }
+  } catch (e: any) {
+    console.error('An error has occurred:', e)
+
+    return {
+      success: false,
+      response: null,
+      error: new APIResponseError(formatRequestErrorMessage(e)),
+    }
+  }
+}
+
+export const getWorkOrderTasksRequestRequest = async (
   workOrderReference: string
 ): Promise<ApiResponseType<WorkOrderTasks[]>> => {
   try {
@@ -129,7 +157,7 @@ export const getWorkOrderTasksRequest = async (
       error: null,
     }
   } catch (e: any) {
-    console.error('An error has occurred:', e)
+    console.error('An error has occurred:', e.response)
 
     return {
       success: false,

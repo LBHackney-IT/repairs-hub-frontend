@@ -8,7 +8,7 @@ import {
   FieldValues,
   UseFormMethods,
 } from 'react-hook-form'
-import { followOnDataRequest } from '@/root/src/utils/hact/workOrderComplete/closeWorkOrder'
+import { FollowOnFormData } from '@/root/src/utils/hact/workOrderComplete/closeWorkOrder'
 import { useEffect, useState } from 'react'
 import { fetchSimpleFeatureTogglesRequest } from '@/requests/featureToggles'
 import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
@@ -21,7 +21,7 @@ interface FollowOnRequestTypeOfWorkFormProps {
   setError: (name: string, error: FieldError) => void
   clearErrors: (name?: string | string[]) => void
   watch: CallableFunction
-  followOnData?: Partial<followOnDataRequest>
+  followOnData?: Partial<FollowOnFormData>
   hasWhiteBackground?: boolean
   isGrid?: boolean
 }

@@ -65,6 +65,12 @@ export class WorkOrder {
     )
   }
 
+  // Electrical jobs need sign off before they are completed (and sent to bonus
+  // calc), because the electrical certification is required
+  requiresApprovalToComplete = () => {
+    return this.contractorReference === 'H06'
+  }
+
   canBeScheduled = () => {
     return (
       this.statusAllowsScheduling() &&
