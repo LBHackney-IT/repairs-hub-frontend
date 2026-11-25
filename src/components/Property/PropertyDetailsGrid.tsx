@@ -1,8 +1,8 @@
 import PropertyDetailsAddress from './PropertyDetailsAddress'
 import PropertyFlags from './PropertyFlags'
 import CautionaryAlerts from './CautionaryAlerts'
-import { useAlerts } from '@/requests/hooks/useAlerts'
 import { Address, Tenure } from '../../models/propertyTenure'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
 
 interface PropertyDetailsGridProps {
   propertyReference: string
@@ -13,6 +13,9 @@ interface PropertyDetailsGridProps {
   hasLinkToProperty: boolean
   canRaiseRepair: boolean
   tmoName: string
+  alerts: CautionaryAlert[]
+  alertsLoading: boolean
+  alertsError: string | null
 }
 
 const PropertyDetailsGrid = ({
@@ -24,38 +27,35 @@ const PropertyDetailsGrid = ({
   hasLinkToProperty,
   canRaiseRepair,
   tmoName,
-}: PropertyDetailsGridProps) => {
-  const { alerts, isLoading: alertsLoading, error: alertsError } = useAlerts(
-    propertyReference
-  )
+  alerts,
+  alertsLoading,
+  alertsError,
+}: PropertyDetailsGridProps) => (
+  <div className="govuk-grid-row">
+    <div className="govuk-grid-column-one-half-from-desktop">
+      <div className="lbh-body-s">
+        <PropertyDetailsAddress
+          address={address}
+          propertyReference={propertyReference}
+          subTypeDescription={subTypeDescription}
+          hasLinkToProperty={hasLinkToProperty}
+        />
 
-  return (
-    <div className="govuk-grid-row">
-      <div className="govuk-grid-column-one-half-from-desktop">
-        <div className="lbh-body-s">
-          <PropertyDetailsAddress
-            address={address}
-            propertyReference={propertyReference}
-            subTypeDescription={subTypeDescription}
-            hasLinkToProperty={hasLinkToProperty}
-          />
+        <CautionaryAlerts
+          alerts={alerts}
+          isLoading={alertsLoading}
+          error={alertsError}
+        />
 
-          <CautionaryAlerts
-            alerts={alerts}
-            isLoading={alertsLoading}
-            error={alertsError}
-          />
-
-          <PropertyFlags
-            tenure={tenure}
-            canRaiseRepair={canRaiseRepair}
-            tmoName={tmoName}
-            boilerHouseId={boilerHouseId}
-          />
-        </div>
+        <PropertyFlags
+          tenure={tenure}
+          canRaiseRepair={canRaiseRepair}
+          tmoName={tmoName}
+          boilerHouseId={boilerHouseId}
+        />
       </div>
     </div>
-  )
-}
+  </div>
+)
 
 export default PropertyDetailsGrid

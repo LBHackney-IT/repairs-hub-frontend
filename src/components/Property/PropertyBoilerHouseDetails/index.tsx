@@ -1,5 +1,4 @@
 import { usePropertyBoilerHouse } from '../../../hooks/usePropertyBoilerHouse'
-import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
 interface Props {
@@ -7,13 +6,14 @@ interface Props {
 }
 
 const PropertyBoilerHouseDetails = ({ boilerHouseId }: Props) => {
-  const { loading, boilerHouse, boilerHouseError } = usePropertyBoilerHouse(
+  const { boilerHouse, boilerHouseError } = usePropertyBoilerHouse(
     boilerHouseId
   )
 
-  if (loading) return <Spinner resource="propertyBoilerHouseDetails" />
-
   if (boilerHouseError) return <ErrorMessage label={boilerHouseError} />
+
+  // Nothing to show until the boiler house has loaded
+  if (!boilerHouse) return null
 
   return (
     <li className="bg-dark-green" data-testid="boiler-house-details">

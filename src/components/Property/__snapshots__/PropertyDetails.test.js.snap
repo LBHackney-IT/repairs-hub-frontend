@@ -70,37 +70,6 @@ exports[`PropertyDetails component when the date is after out of hours should sh
               </span>
             </div>
           </div>
-          <svg
-            data-testid="spinner-alerts"
-            height="60"
-            stroke="#00703c"
-            viewBox="0 0 42 42"
-            width="60"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              fill="none"
-              fill-rule="evenodd"
-              stroke-width="5"
-              transform="translate(3 3)"
-            >
-              <circle
-                cx="18"
-                cy="18"
-                r="18"
-                stroke-opacity=".15"
-              />
-              <circle
-                cx="18"
-                cy="18"
-                pathLength="1"
-                r="18"
-                stroke-dasharray="0.15 1"
-                stroke-dashoffset="0"
-                stroke-linecap="round"
-              />
-            </g>
-          </svg>
           <ul
             class="lbh-list hackney-property-alerts"
             style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
@@ -178,37 +147,6 @@ exports[`PropertyDetails component when the date is before out of hours does not
               </span>
             </div>
           </div>
-          <svg
-            data-testid="spinner-alerts"
-            height="60"
-            stroke="#00703c"
-            viewBox="0 0 42 42"
-            width="60"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              fill="none"
-              fill-rule="evenodd"
-              stroke-width="5"
-              transform="translate(3 3)"
-            >
-              <circle
-                cx="18"
-                cy="18"
-                r="18"
-                stroke-opacity=".15"
-              />
-              <circle
-                cx="18"
-                cy="18"
-                pathLength="1"
-                r="18"
-                stroke-dasharray="0.15 1"
-                stroke-dashoffset="0"
-                stroke-linecap="round"
-              />
-            </g>
-          </svg>
           <ul
             class="lbh-list hackney-property-alerts"
             style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"

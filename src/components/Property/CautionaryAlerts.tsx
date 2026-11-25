@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import Alerts from './Alerts'
 import ErrorMessage from '../Errors/ErrorMessage'
-import Spinner from '../Spinner'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 
 interface Props {
   alerts: CautionaryAlert[]
@@ -15,7 +15,9 @@ const CautionaryAlerts = ({ alerts, isLoading = false, error }: Props) => {
 
   return (
     <>
-      {isLoading && <Spinner resource="alerts" />}
+      {isLoading && (
+        <SpinnerWithLabel resource="alerts" label="Fetching alerts…" />
+      )}
 
       {alerts?.length > 0 && (
         <ul

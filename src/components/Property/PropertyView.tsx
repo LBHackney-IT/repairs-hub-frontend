@@ -7,6 +7,7 @@ import { TabName } from '../Tabs/tabNames'
 import { Tenure } from '../../models/propertyTenure'
 import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
 import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
+import { useAlerts } from '@/requests/hooks/useAlerts'
 import { useLegalDisrepairStatus } from '@/requests/hooks/useLegalDisrepairStatus'
 
 interface Props {
@@ -26,6 +27,12 @@ const PropertyView = ({ propertyReference }: Props) => {
     isLoading: legalDisrepairLoading,
     error: legalDisrepairError,
   } = useLegalDisrepairStatus(propertyReference)
+
+  // Not part of detailsLoading: the alerts can be slow, so they shouldn't hold
+  // up the page. Started here so the request runs alongside the others
+  const { alerts, isLoading: alertsLoading, error: alertsError } = useAlerts(
+    propertyReference
+  )
 
   const [
     simpleFeatureToggles,
@@ -55,6 +62,9 @@ const PropertyView = ({ propertyReference }: Props) => {
           showHealthAndSafetyFlag={
             simpleFeatureToggles?.enableHealthAndSafetyFlag
           }
+          alerts={alerts}
+          alertsLoading={alertsLoading}
+          alertsError={alertsError}
         />
       )}
 

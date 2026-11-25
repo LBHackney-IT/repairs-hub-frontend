@@ -6,6 +6,7 @@ import Link from 'next/link'
 import LegalDisrepairFlag from './LegalDisrepairFlag'
 import UnderWarrantyFlag from './UnderWarrantyFlag'
 import { Property, Tenure } from '../../models/propertyTenure'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { HealthAndSafetyHazardAlert } from '../Alerts/HealthAndSafetyHazardAlert'
 
 interface PropertyDetailsProps {
@@ -14,6 +15,9 @@ interface PropertyDetailsProps {
   showLegalDisrepairFlag?: boolean
   showUnderWarrantyFlag?: boolean
   showHealthAndSafetyFlag?: boolean
+  alerts: CautionaryAlert[]
+  alertsLoading: boolean
+  alertsError: string | null
 }
 
 const PropertyDetails = ({
@@ -22,6 +26,9 @@ const PropertyDetails = ({
   showLegalDisrepairFlag = false,
   showUnderWarrantyFlag = false,
   showHealthAndSafetyFlag = false,
+  alerts,
+  alertsLoading,
+  alertsError,
 }: PropertyDetailsProps) => (
   <div>
     <BackButton />
@@ -67,6 +74,9 @@ const PropertyDetails = ({
       canRaiseRepair={property.canRaiseRepair}
       hasLinkToProperty={false}
       tmoName={property.tmoName}
+      alerts={alerts}
+      alertsLoading={alertsLoading}
+      alertsError={alertsError}
     />
   </div>
 )

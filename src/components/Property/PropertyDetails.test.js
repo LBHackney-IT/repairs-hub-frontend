@@ -49,6 +49,9 @@ describe('PropertyDetails component', () => {
           property={props.property}
           tenure={props.tenure}
           showLegalDisrepairFlag={false}
+          alerts={[]}
+          alertsLoading={false}
+          alertsError={null}
         />
       )
 
@@ -71,6 +74,9 @@ describe('PropertyDetails component', () => {
           property={props.property}
           tenure={props.tenure}
           showLegalDisrepairFlag={false}
+          alerts={[]}
+          alertsLoading={false}
+          alertsError={null}
         />
       )
 
