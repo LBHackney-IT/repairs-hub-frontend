@@ -1,5 +1,5 @@
 import PropertyDetails from './PropertyDetails'
-import Spinner from '../Spinner'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import Meta from '../Meta'
 import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
@@ -25,7 +25,8 @@ const PropertyView = ({ propertyReference }: Props) => {
     error: legalDisrepairError,
   } = useLegalDisrepairStatus(propertyReference)
 
-  if (propertyLoading || legalDisrepairLoading) return <Spinner />
+  if (propertyLoading || legalDisrepairLoading)
+    return <SpinnerWithLabel label="Fetching property details…" />
 
   return (
     <>
