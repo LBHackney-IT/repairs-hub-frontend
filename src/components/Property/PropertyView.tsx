@@ -1,95 +1,49 @@
-import { useState, useEffect } from 'react'
 import PropertyDetails from './PropertyDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import Meta from '../Meta'
 import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
-import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import {
-  Property,
-  PropertyTenureResponse,
-  Tenure,
-} from '../../models/propertyTenure'
-import {
-  fetchLegalDisrepairStatusRequest,
-  fetchPropertyTenureRequest,
-} from '@/requests/property'
+import { Tenure } from '../../models/propertyTenure'
+import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
+import { useLegalDisrepairStatus } from '@/requests/hooks/useLegalDisrepairStatus'
 
 interface Props {
   propertyReference: string
 }
 
 const PropertyView = ({ propertyReference }: Props) => {
-  const [property, setProperty] = useState<Property>({} as Property)
-  const [tenure, setTenure] = useState<Tenure>({} as Tenure)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState(null)
-  const [legalDisrepairError, setLegalDisRepairError] = useState(null)
+  const {
+    property,
+    tenure,
+    isLoading: propertyLoading,
+    error: propertyError,
+  } = usePropertyTenure(propertyReference)
 
-  const getPropertyView = async (propertyReference) => {
-    setError(null)
+  const {
+    isInLegalDisrepair,
+    isLoading: legalDisrepairLoading,
+    error: legalDisrepairError,
+  } = useLegalDisrepairStatus(propertyReference)
 
-    try {
-      const data: PropertyTenureResponse = await fetchPropertyTenureRequest(
-        propertyReference
-      )
-
-      setProperty(data.property)
-      if (data.tenure) setTenure(data.tenure)
-    } catch (e) {
-      setProperty(null)
-      console.error('An error has occured:', e.response)
-      setError(formatRequestErrorMessage(e))
-    }
-
-    setLoading(false)
-  }
-
-  const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
-    fetchLegalDisrepairStatusRequest(propertyReference)
-      .then((isInLegalDisrepair) =>
-        setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
-      )
-      .catch((error) => {
-        console.error('Error loading legal disrepair status:', error.response)
-        setLegalDisRepairError(
-          `Error loading legal disrepair status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setLoading(false))
-  }
-
-  useEffect(() => {
-    setLoading(true)
-
-    getPropertyView(propertyReference)
-    getPropertyInfoOnLegalDisrepair(propertyReference)
-  }, [])
+  if (propertyLoading || legalDisrepairLoading) return <Spinner />
 
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
+      <Meta title={property?.address?.addressLine} />
+      {property?.address && property?.hierarchyType && (
         <>
-          <Meta title={property?.address?.addressLine} />
-          {property?.address && property?.hierarchyType && tenure && (
-            <>
-              <PropertyDetails
-                property={property}
-                tenure={tenure}
-                showLegalDisrepairFlag={isInLegalDisrepair}
-                showUnderWarrantyFlag={property.isUnderWarranty}
-              />
-              <PropertyViewTabs propertyReference={propertyReference} />
-            </>
-          )}
-
-          {error && <ErrorMessage label={error} />}
-          {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
+          <PropertyDetails
+            property={property}
+            tenure={tenure ?? ({} as Tenure)}
+            showLegalDisrepairFlag={isInLegalDisrepair}
+            showUnderWarrantyFlag={property.isUnderWarranty}
+          />
+          <PropertyViewTabs propertyReference={propertyReference} />
         </>
       )}
+
+      {propertyError && <ErrorMessage label={propertyError} />}
+      {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
     </>
   )
 }

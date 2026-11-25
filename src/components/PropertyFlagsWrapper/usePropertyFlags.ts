@@ -1,34 +1,28 @@
 import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
 import {
-  fetchLegalDisrepairStatusRequest,
+  getLegalDisrepairStatusRequest,
   getAlertsRequest,
 } from '@/requests/property'
 import { useEffect, useState } from 'react'
 
 export const usePropertyFlags = (propertyReference: string) => {
   const [legalDisrepairError, setLegalDisRepairError] = useState<string>()
-  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState<boolean>()
 
   const [alerts, setAlerts] = useState<CautionaryAlert[]>([])
   const [alertsError, setAlertsError] = useState<string | null>()
 
   const [loading, setLoading] = useState(false)
 
-  const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
-    return new Promise<void>((resolve) => {
-      fetchLegalDisrepairStatusRequest(propertyReference)
-        .then((isInLegalDisrepair) => {
-          setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
-          resolve()
-        })
-        .catch((error) => {
-          console.error('Error loading legal disrepair status:', error.response)
-          setLegalDisRepairError(
-            `Error loading legal disrepair status: ${error.response?.status} with message: ${error.response?.data?.message}`
-          )
-          resolve()
-        })
-    })
+  const getPropertyInfoOnLegalDisrepair = async (propertyReference: string) => {
+    const response = await getLegalDisrepairStatusRequest(propertyReference)
+
+    if (!response.success) {
+      setLegalDisRepairError(response.error.message)
+      return
+    }
+
+    setIsInLegalDisrepair(response.response.propertyIsInLegalDisrepair)
   }
 
   const fetchAlerts = async (propertyReference: string) => {
