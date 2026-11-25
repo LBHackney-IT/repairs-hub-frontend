@@ -32,28 +32,42 @@ const PropertyView = ({ propertyReference }: Props) => {
     featureTogglesLoading,
   ] = useSimpleFeatureToggles()
 
-  if (propertyLoading || legalDisrepairLoading || featureTogglesLoading)
-    return <SpinnerWithLabel label="Fetching property details…" />
+  const detailsLoading =
+    propertyLoading || legalDisrepairLoading || featureTogglesLoading
+
+  const detailsReady =
+    !detailsLoading && !!property?.address && !!property?.hierarchyType
 
   return (
     <>
       <Meta title={property?.address?.addressLine} />
-      {property?.address && property?.hierarchyType && (
-        <>
-          <PropertyDetails
-            property={property}
-            tenure={tenure ?? ({} as Tenure)}
-            showLegalDisrepairFlag={isInLegalDisrepair}
-            showUnderWarrantyFlag={property.isUnderWarranty}
-            showHealthAndSafetyFlag={
-              simpleFeatureToggles?.enableHealthAndSafetyFlag
-            }
-          />
+
+      {detailsLoading && (
+        <SpinnerWithLabel label="Fetching property details…" />
+      )}
+
+      {detailsReady && (
+        <PropertyDetails
+          property={property}
+          tenure={tenure ?? ({} as Tenure)}
+          showLegalDisrepairFlag={isInLegalDisrepair}
+          showUnderWarrantyFlag={property.isUnderWarranty}
+          showHealthAndSafetyFlag={
+            simpleFeatureToggles?.enableHealthAndSafetyFlag
+          }
+        />
+      )}
+
+      {/* The history is mounted straight away, but kept hidden until the
+          details above are ready, so it loads its data in parallel instead of
+          only starting once it becomes visible */}
+      {!propertyError && (
+        <div style={detailsReady ? undefined : { display: 'none' }}>
           <WorkOrdersHistoryView
             propertyReference={propertyReference}
             tabName={TabName.WorkOrderHistory}
           />
-        </>
+        </div>
       )}
 
       {propertyError && <ErrorMessage label={propertyError} />}
