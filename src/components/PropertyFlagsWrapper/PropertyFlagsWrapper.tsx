@@ -1,7 +1,8 @@
 import ErrorMessage from '../Errors/ErrorMessage'
 import Spinner from '../Spinner'
 import WarningInfoBox from '../Template/WarningInfoBox'
-import { usePropertyFlags } from './usePropertyFlags'
+import { useLegalDisrepairStatus } from '@/requests/hooks/useLegalDisrepairStatus'
+import { useCautionaryAlerts } from '@/requests/hooks/useCautionaryAlerts'
 import CautionaryAlerts from '../Property/CautionaryAlerts'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import PropertyFlags from '../Property/PropertyFlags'
@@ -20,11 +21,17 @@ const PropertyFlagsWrapper = (props: Props) => {
 
   const {
     isInLegalDisrepair,
-    legalDisrepairError,
+    error: legalDisrepairError,
+    isLoading: legalDisrepairLoading,
+  } = useLegalDisrepairStatus(propertyReference)
+
+  const {
     alerts,
-    alertsError,
-    loading,
-  } = usePropertyFlags(propertyReference)
+    error: alertsError,
+    isLoading: alertsLoading,
+  } = useCautionaryAlerts(propertyReference)
+
+  const loading = legalDisrepairLoading || alertsLoading
 
   return (
     <>
@@ -46,9 +53,7 @@ const PropertyFlagsWrapper = (props: Props) => {
       {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
       <div className="lbh-body-s">
-        {!loading && (
-          <CautionaryAlerts alerts={alerts} error={alertsError ?? null} />
-        )}
+        {!loading && <CautionaryAlerts alerts={alerts} error={alertsError} />}
 
         <PropertyFlags
           canRaiseRepair={property?.canRaiseRepair}
