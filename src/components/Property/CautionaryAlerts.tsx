@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import Alerts from './Alerts'
+import TruncateText from '../Layout/TruncateText'
 import ErrorMessage from '../Errors/ErrorMessage'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 
@@ -30,11 +30,31 @@ const CautionaryAlerts = ({ alerts, isLoading = false, error }: Props) => {
             maxWidth: isExpanded ? '' : '30em',
           }}
         >
-          <Alerts
-            alerts={alerts}
-            setIsExpanded={setIsExpanded}
-            isExpanded={isExpanded}
-          />
+          {alerts.map((alert, index) => (
+            <li
+              className="bg-orange"
+              style={{
+                padding: '0.5rem',
+                overflow: 'hidden',
+                borderRadius: '10px',
+              }}
+              key={index}
+            >
+              <p style={{ marginTop: 0 }}>
+                {alert.comments} <strong>({alert.type})</strong>
+              </p>
+              {alert.comments === 'Specific Requirements' && (
+                <TruncateText
+                  text={alert.reason}
+                  numberOfLines="3"
+                  pTagClassName="lbh-body-s text-!-white"
+                  linkClassName="lbh-body-xs text-!-white"
+                  setIsExpanded={setIsExpanded}
+                  isExpanded={isExpanded}
+                />
+              )}
+            </li>
+          ))}
         </ul>
       )}
 

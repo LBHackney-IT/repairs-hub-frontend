@@ -37,37 +37,47 @@ exports[`MobileWorkingWorkOrderDetails component should render properly work ord
     >
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
-    <svg
-      data-testid="spinner-alerts"
-      height="60"
-      stroke="#00703c"
-      viewBox="0 0 42 42"
-      width="60"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      class="govuk-body"
+      style="display: flex; align-items: center;"
     >
-      <g
-        fill="none"
-        fill-rule="evenodd"
-        stroke-width="5"
-        transform="translate(3 3)"
+      <svg
+        data-testid="spinner-alerts"
+        height="60"
+        stroke="#00703c"
+        viewBox="0 0 42 42"
+        width="60"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <circle
-          cx="18"
-          cy="18"
-          r="18"
-          stroke-opacity=".15"
-        />
-        <circle
-          cx="18"
-          cy="18"
-          pathLength="1"
-          r="18"
-          stroke-dasharray="0.15 1"
-          stroke-dashoffset="0"
-          stroke-linecap="round"
-        />
-      </g>
-    </svg>
+        <g
+          fill="none"
+          fill-rule="evenodd"
+          stroke-width="5"
+          transform="translate(3 3)"
+        >
+          <circle
+            cx="18"
+            cy="18"
+            r="18"
+            stroke-opacity=".15"
+          />
+          <circle
+            cx="18"
+            cy="18"
+            pathLength="1"
+            r="18"
+            stroke-dasharray="0.15 1"
+            stroke-dashoffset="0"
+            stroke-linecap="round"
+          />
+        </g>
+      </svg>
+      <span
+        style="margin: 0px 0px 0px 15px; color: rgb(80, 90, 95);"
+      >
+        Fetching alerts…
+      </span>
+    </div>
     <div
       class="work-order-information"
     >
