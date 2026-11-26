@@ -8,6 +8,7 @@ import { authorisationManager } from 'factories/authorisation_manager'
 describe('WorkOrdersHistoryTable component', () => {
   const props = {
     tabName: 'Work orders history',
+    propertyReference: '00012345',
     workOrders: [
       {
         reference: 10000012,
@@ -43,6 +44,7 @@ describe('WorkOrdersHistoryTable component', () => {
           <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
+            propertyReference={props.propertyReference}
             hasMore={false}
             loadMore={() => {}}
           />
@@ -59,6 +61,7 @@ describe('WorkOrdersHistoryTable component', () => {
           <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
+            propertyReference={props.propertyReference}
             hasMore={false}
             loadMore={() => {}}
           />
@@ -75,6 +78,7 @@ describe('WorkOrdersHistoryTable component', () => {
           <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
+            propertyReference={props.propertyReference}
             hasMore={false}
             loadMore={() => {}}
           />
