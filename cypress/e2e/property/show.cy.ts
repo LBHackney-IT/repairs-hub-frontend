@@ -55,19 +55,31 @@ describe('Show property', () => {
     })
   })
 
-  describe('Work Order History', () => {
-    it('Displays the history tab active', () => {
-      cy.visit('/properties/00012345')
-      cy.wait(['@property', '@workOrdersHistory'])
-
-      cy.contains('.tabs-button', 'Work orders history')
+  context('when the property cannot be found', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { statusCode: 404, body: { message: 'Property not found' } }
+      ).as('propertyNotFound')
     })
 
+    it('shows an error message, without the property details or work order history', () => {
+      cy.visit('/properties/00012345')
+      cy.wait('@propertyNotFound')
+
+      cy.get('[data-testid=error-message]').contains(
+        'Could not find a property with reference 00012345'
+      )
+      cy.contains('Dwelling: 16 Pitcairn House').should('not.exist')
+      cy.contains('Work orders history').should('not.exist')
+    })
+  })
+
+  describe('Work Order History', () => {
     context('when no repairs have been raised on the property', () => {
       it('Displays no repairs text', () => {
         cy.visit('/properties/00012345')
         cy.wait(['@property', '@workOrdersHistory'])
-        cy.contains('.tabs-button', 'Work orders history').click()
         cy.get('.lbh-heading-h2').contains('Work orders history')
         cy.get('.lbh-heading-h4').contains('There are no historical repairs')
       })
@@ -169,8 +181,6 @@ describe('Show property', () => {
       })
 
       it('Displays the first page of repairs', () => {
-        // cy.get('.govuk-tabs').within(() => {
-        cy.contains('.tabs-button', 'Work orders history')
         cy.get('.lbh-heading-h2').contains('Work orders history')
 
         // Work orders history table headers
@@ -199,7 +209,6 @@ describe('Show property', () => {
           cy.contains('Work complete')
           cy.contains('The earliest repair for page one')
         })
-        // })
       })
 
       it('Clicks the first repair of work orders history', () => {
@@ -362,7 +371,7 @@ describe('Show property', () => {
       })
 
       it('Does not display a Load more button', () => {
-        cy.contains('.tabs-button', 'Work orders history').click()
+        cy.get('.lbh-heading-h2').contains('Work orders history')
         cy.contains('button', 'Load more').should('not.exist')
       })
     })
@@ -377,7 +386,8 @@ describe('Show property', () => {
 
       it('Work order history is still visible', () => {
         cy.visit('/properties/00012345')
-        cy.contains('.tabs-button', 'Work orders history')
+        cy.wait(['@propertyNotRaisable', '@workOrdersHistory'])
+        cy.get('.lbh-heading-h2').contains('Work orders history')
       })
     })
   })
@@ -454,9 +464,7 @@ describe('Show property', () => {
         // Some page content rendered
         cy.contains('Dwelling: 16 Pitcairn House')
 
-        cy.get('.hackney-property-alerts').each(() => {
-          cy.contains('Cannot fetch alerts')
-        })
+        cy.get('[data-testid=error-message]').contains('Cannot fetch alerts')
       })
     })
 
