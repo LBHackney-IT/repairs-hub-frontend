@@ -7,7 +7,7 @@ import {
   FilterOptionsByCategory,
 } from '@/utils/helpers/filter'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
-import { fetchWorkOrderFiltersRequest } from '@/requests/workOrders'
+import { fetchWorkOrderFiltersRequest } from '@/requests/trades'
 
 interface Props {
   onFilterSubmit: (formData: Record<string, Record<string, unknown>>) => void

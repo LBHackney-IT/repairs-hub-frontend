@@ -2,7 +2,7 @@ import { ChangeEvent, useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 
 import { fetchContractorsRequest } from '@/requests/backOffice/contractor'
-import { fetchContractsRequest } from '@/requests/contract'
+import { fetchContractsRequest } from '@/requests/backOffice/contract'
 import { ContractorOption } from '@/models/contractorOption'
 
 const useSelectContract = () => {

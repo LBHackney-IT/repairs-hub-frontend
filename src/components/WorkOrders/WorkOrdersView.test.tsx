@@ -5,6 +5,7 @@ import UserContext from '../UserContext'
 import WorkOrdersView from './WorkOrdersView'
 import { contractManager } from 'factories/contract_manager'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { queryClient } from '@/utils/queryClient'
 import filterOptions from '../../../cypress/fixtures/filter/workOrder.json'
 
 jest.mock('@/utils/frontEndApiClient/requests')
@@ -115,6 +116,7 @@ const removeTag = (text: string) =>
 describe('WorkOrdersView component', () => {
   beforeEach(() => {
     apiRequest.mockReset()
+    queryClient.clear()
     localStorage.clear()
     mockApi()
   })

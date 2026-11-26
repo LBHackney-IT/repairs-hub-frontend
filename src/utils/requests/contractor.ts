@@ -2,15 +2,25 @@ import Contractor from '../../models/contractor'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
+import { FIVE_MINUTES, queryClient } from '../queryClient'
+
+export const contractorQuery = (contractorReference: string) => ({
+  queryKey: ['contractor', contractorReference],
+  queryFn: () =>
+    frontEndApiRequest<Contractor>({
+      method: 'get',
+      path: `/api/contractors/${contractorReference}`,
+    }),
+  staleTime: FIVE_MINUTES,
+})
 
 export const getContractorRequest = async (
   contractorReference: string
 ): Promise<ApiResponseType<Contractor | null>> => {
   try {
-    const contractor = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/contractors/${contractorReference}`,
-    })
+    const contractor = await queryClient.fetchQuery(
+      contractorQuery(contractorReference)
+    )
 
     return {
       success: true,
@@ -32,36 +42,22 @@ export const getContractorRequest = async (
   }
 }
 
-interface FetchContractorsArguments {
-  contractsExpiryFilterDate: Date
-}
-
-export const fetchContractorsRequest = async ({
-  contractsExpiryFilterDate,
-}: FetchContractorsArguments): Promise<Contractor[] | null> => {
-  const params = {}
-  if (contractsExpiryFilterDate !== null)
-    params['contractsExpiryFilterDate'] = contractsExpiryFilterDate
-
-  const contractors = await frontEndApiRequest({
-    method: 'get',
-    path: '/api/backoffice/contractors',
-    params: params,
-  })
-
-  return contractors
-}
-
 export interface ContractorsByTradeParams {
   propertyReference: string
   tradeCode: string
 }
 
+export const contractorsByTradeQuery = (params: ContractorsByTradeParams) => ({
+  queryKey: ['contractorsByTrade', params],
+  queryFn: () =>
+    frontEndApiRequest({
+      method: 'get',
+      path: '/api/contractors',
+      params,
+    }),
+  staleTime: FIVE_MINUTES,
+})
+
 export const fetchContractorsByTradeRequest = (
   params: ContractorsByTradeParams
-) =>
-  frontEndApiRequest({
-    method: 'get',
-    path: '/api/contractors',
-    params,
-  })
+) => queryClient.fetchQuery(contractorsByTradeQuery(params))

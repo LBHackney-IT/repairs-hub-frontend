@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { fetchWorkOrderFiltersRequest } from '@/requests/workOrders'
+import { fetchWorkOrderFiltersRequest } from '@/requests/trades'
 
 interface WorkOrdersHistoryFilterProps {
   onSelectTrade: (e: React.ChangeEvent<HTMLSelectElement>) => void

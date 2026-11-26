@@ -1,5 +1,5 @@
-import { frontEndApiRequest } from '../frontEndApiClient/requests'
-import Contract from '../../models/contract'
+import { frontEndApiRequest } from '../../frontEndApiClient/requests'
+import Contract from '../../../models/contract'
 
 interface FetchContractsArguments {
   isActive: boolean | undefined
