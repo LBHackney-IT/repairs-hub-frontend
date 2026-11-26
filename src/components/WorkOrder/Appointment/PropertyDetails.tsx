@@ -1,4 +1,4 @@
-import { useAlerts } from '@/requests/hooks/useAlerts'
+import { useCautionaryAlerts } from '@/requests/hooks/useCautionaryAlerts'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 import PropertyFlags from '../../Property/PropertyFlags'
 import CautionaryAlerts from '../../Property/CautionaryAlerts'
@@ -21,7 +21,7 @@ const PropertyDetails = ({
   propertyReference,
   boilerHouseId,
 }: PropertyDetailsProps) => {
-  const { alerts, isLoading: alertsLoading, error: alertsError } = useAlerts(
+  const { alerts, isLoading: alertsLoading, error: alertsError } = useCautionaryAlerts(
     propertyReference
   )
 

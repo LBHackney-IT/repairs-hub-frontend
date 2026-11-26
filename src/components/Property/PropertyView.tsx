@@ -7,7 +7,7 @@ import { TabName } from '../Tabs/tabNames'
 import { Tenure } from '../../models/propertyTenure'
 import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
 import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
-import { useAlerts } from '@/requests/hooks/useAlerts'
+import { useCautionaryAlerts } from '@/requests/hooks/useCautionaryAlerts'
 import { useLegalDisrepairStatus } from '@/requests/hooks/useLegalDisrepairStatus'
 
 interface Props {
@@ -30,7 +30,7 @@ const PropertyView = ({ propertyReference }: Props) => {
 
   // Not part of detailsLoading: the alerts can be slow, so they shouldn't hold
   // up the page. Started here so the request runs alongside the others
-  const { alerts, isLoading: alertsLoading, error: alertsError } = useAlerts(
+  const { alerts, isLoading: alertsLoading, error: alertsError } = useCautionaryAlerts(
     propertyReference
   )
 
