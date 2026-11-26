@@ -11,6 +11,7 @@ import {
   DATA_ADMIN_ROLE,
   CONTRACT_ADMIN_ROLE,
   FOLLOWON_ADMIN_ROLE,
+  COMPLETION_APPROVAL_MANAGER_ROLE,
 } from '../../src/utils/user'
 
 export type E2eRole =
@@ -25,6 +26,7 @@ export type E2eRole =
   | 'dataAdmin'
   | 'contractAdmin'
   | 'followOnAdmin'
+  | 'completionApprovalManager'
 
 // Env variables holding the Cognito group name(s) each role signs in with. Most
 // are the same variables the app matches exactly. Agents and contractors are
@@ -45,6 +47,11 @@ const ROLE_GROUP_VARIABLES: Record<E2eRole, string[]> = {
   contractAdmin: ['CONTRACT_ADMIN_GOOGLE_GROUPNAME'],
   // Raising a repair is an agent page, so a follow-on admin is an agent too
   followOnAdmin: ['E2E_EXAMPLE_AGENT_GROUP', 'FOLLOWON_ADMIN_GOOGLE_GROUPNAME'],
+  // Work order pages are agent pages, so an approval manager is an agent too
+  completionApprovalManager: [
+    'E2E_EXAMPLE_AGENT_GROUP',
+    'COMPLETION_APPROVAL_MANAGER_GOOGLE_GROUPNAME',
+  ],
 }
 
 // The role each group variable has to give the user
@@ -60,6 +67,7 @@ const VARIABLE_ROLE: Record<string, string> = {
   DATA_ADMIN_GOOGLE_GROUPNAME: DATA_ADMIN_ROLE,
   CONTRACT_ADMIN_GOOGLE_GROUPNAME: CONTRACT_ADMIN_ROLE,
   FOLLOWON_ADMIN_GOOGLE_GROUPNAME: FOLLOWON_ADMIN_ROLE,
+  COMPLETION_APPROVAL_MANAGER_GOOGLE_GROUPNAME: COMPLETION_APPROVAL_MANAGER_ROLE,
 }
 
 const groupsForRole = (role: E2eRole) =>

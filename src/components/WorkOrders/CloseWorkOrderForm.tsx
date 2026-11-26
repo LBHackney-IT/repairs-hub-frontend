@@ -22,10 +22,11 @@ import { canRaiseAFollowOn } from '../../utils/userPermissions'
 import UserContext from '../UserContext'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 import { Operative } from '../../models/operativeModel'
+import { FollowOnFormData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 
 interface Props {
   reference: string
-  onSubmit: (formData: any, files: any) => void
+  onSubmit: (formData: any, files: File[]) => void
   notes: string
   completionTime: string
   completionDate: string
@@ -41,12 +42,12 @@ interface Props {
   availableOperatives: Operative[]
   assignedOperativesToWorkOrder: Operative[]
   operativeAssignmentMandatory: boolean
-  selectedPercentagesToShowOnEdit: any[]
-  followOnStatus: string
-  followOnData: any
-  isLoading: boolean
-  defaultFiles: any[]
-  description: string
+  selectedPercentagesToShowOnEdit: string[]
+  followOnStatus?: string
+  followOnData?: FollowOnFormData | null
+  isLoading?: boolean
+  defaultFiles?: File[]
+  description?: string
 }
 
 const CloseWorkOrderForm = (props: Props) => {

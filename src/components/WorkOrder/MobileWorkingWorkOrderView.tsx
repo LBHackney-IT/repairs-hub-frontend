@@ -293,10 +293,17 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
           },
         })
 
+      const pendingApproval =
+        !isNoAccess &&
+        featureToggles?.enableCompletionApprovalStep &&
+        workOrder?.requiresApprovalToComplete()
+
       setModalFlashMessage(
-        `Work order ${workOrderReference} successfully ${
-          isNoAccess ? 'closed with no access' : 'closed'
-        }`
+        pendingApproval
+          ? `Work order ${workOrderReference} successfully closed, it is now pending completion approval`
+          : `Work order ${workOrderReference} successfully ${
+              isNoAccess ? 'closed with no access' : 'closed'
+            }`
       )
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i)
@@ -345,6 +352,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
           workOrderReference={workOrderReference}
           onSubmit={onWorkOrderCompleteSubmit}
           isLoading={loadingStatus !== null}
+          requiresApprovalToComplete={
+            !!featureToggles?.enableCompletionApprovalStep &&
+            !!workOrder?.requiresApprovalToComplete()
+          }
           presetValues={closeFormValues}
         />
       )}

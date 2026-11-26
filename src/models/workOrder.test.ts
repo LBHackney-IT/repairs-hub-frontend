@@ -11,7 +11,7 @@ import {
   CLOSED_STATUS_DESCRIPTIONS,
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
   STATUS_COMPLETED,
-  WORK_ORDERS_STATUSES,
+  ALL_WORK_ORDER_STATUSES,
 } from '@/utils/statusCodes'
 import { WorkOrder } from './workOrder'
 import MockDate from 'mockdate'
@@ -62,8 +62,31 @@ describe('WorkOrder', () => {
     })
   })
 
+  describe('requiresApprovalToComplete()', () => {
+    it('returns true when the contractor is the electrical contractor (H06)', () => {
+      const workOrder = new WorkOrder({ contractorReference: 'H06' })
+
+      expect(workOrder.requiresApprovalToComplete()).toBe(true)
+    })
+
+    it.each(['H04', 'H01', 'PCL'])(
+      'returns false when the contractor reference is %s',
+      (contractorReference) => {
+        const workOrder = new WorkOrder({ contractorReference })
+
+        expect(workOrder.requiresApprovalToComplete()).toBe(false)
+      }
+    )
+
+    it('returns false when there is no contractor reference', () => {
+      const workOrder = new WorkOrder({})
+
+      expect(workOrder.requiresApprovalToComplete()).toBe(false)
+    })
+  })
+
   describe('canBeScheduled()', () => {
-    const allowedStatuses = WORK_ORDERS_STATUSES.filter(
+    const allowedStatuses = ALL_WORK_ORDER_STATUSES.filter(
       (status) => !CLOSED_STATUS_DESCRIPTIONS.includes(status)
     )
 
@@ -102,7 +125,9 @@ describe('WorkOrder', () => {
     })
 
     const allowedPriorityCodes = [
-      (URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE, SURVEY_PRIORITY_CODE),
+      URGENT_PRIORITY_CODE,
+      NORMAL_PRIORITY_CODE,
+      SURVEY_PRIORITY_CODE,
     ]
 
     allowedPriorityCodes.forEach((code) => {
@@ -121,7 +146,9 @@ describe('WorkOrder', () => {
     })
 
     const disabledPriorities = [
-      (IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE, PLANNED_PRIORITY_CODE),
+      IMMEDIATE_PRIORITY_CODE,
+      EMERGENCY_PRIORITY_CODE,
+      PLANNED_PRIORITY_CODE,
     ]
 
     disabledPriorities.forEach((code) => {
@@ -181,7 +208,7 @@ describe('WorkOrder', () => {
       expect(workOrder.completionReason()).toBe('Completed')
     })
 
-    WORK_ORDERS_STATUSES.filter(
+    ALL_WORK_ORDER_STATUSES.filter(
       (status) =>
         status !== STATUS_COMPLETED.description && status !== 'Work Completed'
     ).forEach((status) => {
