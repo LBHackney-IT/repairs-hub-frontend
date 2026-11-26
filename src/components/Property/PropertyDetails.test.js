@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import PropertyDetails from './PropertyDetails'
 
 const axios = require('axios')
@@ -32,6 +32,7 @@ describe('PropertyDetails component', () => {
       typeDescription: 'Secure',
       tenancyAgreementReference: 'tenancyAgreementRef1',
     },
+    warrantyStatus: null,
   }
 
   describe('when the date is before out of hours does not show the link', () => {
@@ -75,6 +76,93 @@ describe('PropertyDetails component', () => {
       )
 
       expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('warrantyStatus flag', () => {
+    const originalSpreadsheetId =
+      process.env.NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID
+
+    beforeEach(() => {
+      process.env.NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID = 'test-spreadsheet-id'
+    })
+
+    afterEach(() => {
+      process.env.NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID = originalSpreadsheetId
+    })
+
+    it('hides warranty/defects notice when warrantyStatus is null', async () => {
+      render(
+        <PropertyDetails
+          property={{ ...props.property }}
+          tenure={props.tenure}
+        />
+      )
+
+      await screen.findByRole('heading', {
+        name: /Dwelling: 16 Pitcairn House/,
+      })
+
+      expect(
+        screen.queryByText('Property under warranty period')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('Property under defects period')
+      ).not.toBeInTheDocument()
+    })
+
+    it('shows warranty notice when warrantyStatus is WARRANTIES', async () => {
+      render(
+        <PropertyDetails
+          property={{ ...props.property, warrantyStatus: 'WARRANTIES' }}
+          tenure={props.tenure}
+        />
+      )
+
+      expect(
+        await screen.findByText('Property under warranty period')
+      ).toBeInTheDocument()
+      expect(
+        screen.getByText(/This property is currently under a warranty period/)
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('link', {
+          name: 'New Property Warranties Spreadsheet',
+        })
+      ).toHaveAttribute(
+        'href',
+        'https://docs.google.com/spreadsheets/d/test-spreadsheet-id?gid=0'
+      )
+    })
+
+    it('shows defects notice when warrantyStatus is DEFECTS', async () => {
+      render(
+        <PropertyDetails
+          property={{ ...props.property, warrantyStatus: 'DEFECTS' }}
+          tenure={props.tenure}
+        />
+      )
+
+      expect(
+        await screen.findByText('Property under defects period')
+      ).toBeInTheDocument()
+      expect(
+        screen.getByText(/This property is currently under a defects period/)
+      ).toBeInTheDocument()
+    })
+
+    it('shows error notice when warrantyStatus is invalid', async () => {
+      render(
+        <PropertyDetails
+          property={{ ...props.property, warrantyStatus: 'blah' }}
+          tenure={props.tenure}
+        />
+      )
+
+      expect(
+        await screen.findByText('Error: Invalid Defects & Warranties Status')
+      ).toBeInTheDocument()
+      expect(screen.getByText(/Invalid status:/)).toBeInTheDocument()
     })
   })
 })

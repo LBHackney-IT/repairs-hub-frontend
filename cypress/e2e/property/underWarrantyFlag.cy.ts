@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 
-describe('Property page - under warranty', () => {
-  context('When property is under warranty', () => {
+describe('Property page - warranty and defects status', () => {
+  context('When property is under warranty period', () => {
     beforeEach(() => {
       cy.fixture('properties/property.json').then((propertyResponse) => {
-        propertyResponse.property.isUnderWarranty = true
+        propertyResponse.property.warrantyStatus = 'WARRANTIES'
         cy.intercept(
           { method: 'GET', path: '/api/properties/00012345' },
           { body: propertyResponse }
@@ -17,13 +17,13 @@ describe('Property page - under warranty', () => {
       })
     })
 
-    it('Shows warning info', () => {
+    it('Shows warranty warning info', () => {
       cy.loginWithAgentRole()
 
       cy.visit('/properties/00012345')
 
       cy.get('.warning-info-box').within(() => {
-        cy.contains('This property is under warranty')
+        cy.contains('Property under warranty period')
         cy.contains('Regeneration Aftercare & Defects Team')
         cy.contains('0208 356 1998')
 
