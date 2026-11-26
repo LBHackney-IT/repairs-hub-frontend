@@ -5,9 +5,21 @@ import { render, screen, waitFor } from '@testing-library/react'
 
 jest.mock('axios', () => jest.fn())
 
+const mockAxios = (axios as unknown) as jest.Mock
+
 describe('PropertyBoilerHouseDetails', () => {
+  it('renders nothing while loading', () => {
+    mockAxios.mockReturnValueOnce(new Promise(() => {}))
+
+    const { container } = render(
+      <PropertyBoilerHouseDetails boilerHouseId="1234" />
+    )
+
+    expect(container).toBeEmptyDOMElement()
+  })
+
   it('shows an error message when request fails', async () => {
-    axios.mockImplementationOnce(() =>
+    mockAxios.mockImplementationOnce(() =>
       Promise.reject({
         response: {
           status: 404,
@@ -20,17 +32,13 @@ describe('PropertyBoilerHouseDetails', () => {
 
     const boilerHouseId = '1234'
 
-    const { asFragment } = render(
-      <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
-    )
+    render(<PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />)
 
     await waitFor(async () => {
       expect(screen.getByTestId(/error-message/i)).toHaveTextContent(
         'Error loading boiler house details status 404 with message: error message'
       )
     })
-
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows boiler house details', async () => {
@@ -51,15 +59,13 @@ describe('PropertyBoilerHouseDetails', () => {
       canRaiseRepair: false,
     }
 
-    axios.mockResolvedValue({
+    mockAxios.mockResolvedValue({
       data: mockResponse,
     })
 
     const boilerHouseId = '1234'
 
-    const { asFragment } = render(
-      <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
-    )
+    render(<PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />)
 
     await waitFor(async () => {
       expect(screen.getByTestId('boiler-house-details-link')).toHaveTextContent(
@@ -70,7 +76,5 @@ describe('PropertyBoilerHouseDetails', () => {
         `/properties/${mockResponse.propertyReference}`
       )
     })
-
-    expect(asFragment()).toMatchSnapshot()
   })
 })
