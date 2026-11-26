@@ -80,7 +80,6 @@ const PropertyView = ({ propertyReference }: Props) => {
                 property={property}
                 tenure={tenure}
                 showLegalDisrepairFlag={isInLegalDisrepair}
-                showUnderWarrantyFlag={property.isUnderWarranty}
               />
               <PropertyViewTabs propertyReference={propertyReference} />
             </>

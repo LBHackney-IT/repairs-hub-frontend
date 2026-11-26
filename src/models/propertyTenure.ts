@@ -9,7 +9,7 @@ export interface Property {
   hierarchyType: HierarchyType
   tmoName: string
   canRaiseRepair: boolean
-  isUnderWarranty: boolean
+  warrantyStatus?: string | null
   boilerHouseId: string
   healthAndSafetyRatingMessage: string
 }
