@@ -30,9 +30,11 @@ const PropertyView = ({ propertyReference }: Props) => {
 
   // Not part of detailsLoading: the alerts can be slow, so they shouldn't hold
   // up the page. Started here so the request runs alongside the others
-  const { alerts, isLoading: alertsLoading, error: alertsError } = useCautionaryAlerts(
-    propertyReference
-  )
+  const {
+    alerts,
+    isLoading: alertsLoading,
+    error: alertsError,
+  } = useCautionaryAlerts(propertyReference)
 
   const [
     simpleFeatureToggles,

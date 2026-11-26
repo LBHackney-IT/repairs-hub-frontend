@@ -21,9 +21,11 @@ const PropertyDetails = ({
   propertyReference,
   boilerHouseId,
 }: PropertyDetailsProps) => {
-  const { alerts, isLoading: alertsLoading, error: alertsError } = useCautionaryAlerts(
-    propertyReference
-  )
+  const {
+    alerts,
+    isLoading: alertsLoading,
+    error: alertsError,
+  } = useCautionaryAlerts(propertyReference)
 
   return (
     <GridRow className="lbh-body-s govuk-!-margin-bottom-2">

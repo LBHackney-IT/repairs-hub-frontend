@@ -42,9 +42,11 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     error: propertyError,
   } = usePropertyTenure(propertyReference)
 
-  const { alerts, isLoading: alertsLoading, error: alertsError } = useCautionaryAlerts(
-    propertyReference
-  )
+  const {
+    alerts,
+    isLoading: alertsLoading,
+    error: alertsError,
+  } = useCautionaryAlerts(propertyReference)
 
   const {
     appointmentDetails,
