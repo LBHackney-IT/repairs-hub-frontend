@@ -92,11 +92,10 @@ describe('Show property', () => {
       '/properties/00012345/raise-repair/new'
     )
 
-    cy.checkForTenureDetails('Tenure: Secure', [
-      'Alert 1',
-      'Specific Requirements',
-      'Reason 1, very important',
-    ])
+    cy.contains('.hackney-property-alerts li', 'Tenure: Secure')
+    cy.contains('.hackney-property-alerts li', 'Alert 1')
+    cy.contains('.hackney-property-alerts li', 'Specific Requirements')
+    cy.contains('.hackney-property-alerts li', 'Reason 1, very important')
 
     cy.get('[data-testid="boiler-house-details"]').contains(
       'Booster Pump 1-93 Pitcairn House St Thomass Square'

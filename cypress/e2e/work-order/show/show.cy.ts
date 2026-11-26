@@ -411,14 +411,14 @@ describe('Show work order page', () => {
       cy.contains('WO 10000621')
 
       // contains not full description, checks for css class that hides the rest of the text (.truncate-line-3)
+      // (only the description: alerts have their own show more)
       cy.contains('Description')
-      cy.get('.truncate-line-3').contains(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
-      )
+      cy.contains('p', 'Lorem ipsum dolor sit amet').as('description')
+      cy.get('@description').should('have.class', 'truncate-line-3')
 
       cy.get('a').contains('show more').click()
       //css class responsible for hiding the rest of the text should not exist
-      cy.get('.truncate-line-3').should('not.exist')
+      cy.get('@description').should('not.have.class', 'truncate-line-3')
       cy.get('a').contains('show more').should('not.exist')
       //full text
       cy.contains(
@@ -428,9 +428,7 @@ describe('Show work order page', () => {
       cy.get('a').contains('show less').click()
 
       //hides full text
-      cy.get('.truncate-line-3').contains(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
-      )
+      cy.get('@description').should('have.class', 'truncate-line-3')
     })
 
     it('shows images uploaded to workOrder', () => {
