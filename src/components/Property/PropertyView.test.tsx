@@ -237,6 +237,18 @@ describe('PropertyView component', () => {
     })
   })
 
+  it('shows the under warranty flag when the property is under warranty', () => {
+    mockHooks({
+      propertyTenure: { property: { ...property, isUnderWarranty: true } },
+    })
+
+    render(<PropertyView propertyReference="00012345" />)
+
+    expect(
+      screen.getByText('This property is under warranty')
+    ).toBeInTheDocument()
+  })
+
   describe('legal disrepair', () => {
     it('shows the legal disrepair flag when the property is in legal disrepair', () => {
       mockHooks({ legalDisrepair: { isInLegalDisrepair: true } })

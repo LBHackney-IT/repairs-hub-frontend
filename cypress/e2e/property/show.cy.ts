@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 
+// Only the happy path and the paths that need the whole app (request URLs,
+// navigation and permissions) are tested here. Everything else on the property
+// page is covered by the Jest tests for its components and hooks.
 describe('Show property', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
@@ -8,6 +11,19 @@ describe('Show property', () => {
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     ).as('property')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+      { body: { propertyIsInLegalDisrepair: false } }
+    ).as('legalDisrepair')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/guid-pk/4552c539-2e00-8533-078d-9cc59d9115da',
+      },
+      { fixture: 'properties/boilerHouse.json' }
+    ).as('boilerHouse')
 
     cy.intercept(
       {
@@ -41,9 +57,15 @@ describe('Show property', () => {
     ).as('alerts')
   })
 
-  it('displays property details', () => {
+  it('displays the property', () => {
     cy.visit('/properties/00012345')
-    cy.wait(['@property', '@workOrdersHistory'])
+    cy.wait([
+      '@property',
+      '@legalDisrepair',
+      '@alerts',
+      '@boilerHouse',
+      '@workOrdersHistory',
+    ])
 
     cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
 
@@ -53,38 +75,53 @@ describe('Show property', () => {
       cy.contains('St Thomass Square')
       cy.contains('E9 6PT')
     })
+
+    cy.contains('a', 'Raise a work order on this dwelling').should(
+      'have.attr',
+      'href',
+      '/properties/00012345/raise-repair/new'
+    )
+
+    cy.checkForTenureDetails('Tenure: Secure', [
+      'Alert 1',
+      'Specific Requirements',
+      'Reason 1, very important',
+    ])
+
+    cy.get('[data-testid="boiler-house-details"]').contains(
+      'Booster Pump 1-93 Pitcairn House St Thomass Square'
+    )
+
+    cy.contains('This property is currently under legal disrepair').should(
+      'not.exist'
+    )
+
+    cy.get('.lbh-heading-h2').contains('Work orders history')
+    cy.get('.lbh-heading-h4').contains('There are no historical repairs')
   })
 
-  context('when the property cannot be found', () => {
+  context('when the property is in legal disrepair', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
-        { statusCode: 404, body: { message: 'Property not found' } }
-      ).as('propertyNotFound')
+        { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+        { fixture: 'properties/propertyInLegalDisrepair.json' }
+      ).as('legalDisrepair')
     })
 
-    it('shows an error message, without the property details or work order history', () => {
+    it('shows the legal disrepair warning', () => {
       cy.visit('/properties/00012345')
-      cy.wait('@propertyNotFound')
+      cy.wait(['@property', '@legalDisrepair'])
 
-      cy.get('[data-testid=error-message]').contains(
-        'Could not find a property with reference 00012345'
-      )
-      cy.contains('Dwelling: 16 Pitcairn House').should('not.exist')
-      cy.contains('Work orders history').should('not.exist')
+      cy.get('.warning-info-box').within(() => {
+        cy.contains('This property is currently under legal disrepair')
+        cy.contains(
+          'Before raising a work order you must call the Legal Disrepair Team'
+        )
+      })
     })
   })
 
   describe('Work Order History', () => {
-    context('when no repairs have been raised on the property', () => {
-      it('Displays no repairs text', () => {
-        cy.visit('/properties/00012345')
-        cy.wait(['@property', '@workOrdersHistory'])
-        cy.get('.lbh-heading-h2').contains('Work orders history')
-        cy.get('.lbh-heading-h4').contains('There are no historical repairs')
-      })
-    })
-
     context('when many repairs have been raised on the property', () => {
       beforeEach(() => {
         cy.intercept(
@@ -339,247 +376,20 @@ describe('Show property', () => {
         cy.contains('Door Entry Engineer')
       })
     })
-
-    context('when the are fewer repairs than the initial page size', () => {
-      beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'GET',
-            path:
-              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
-          },
-          {
-            body: [
-              {
-                reference: 10000000,
-                dateRaised: '2021-01-22T11:02:00.334849',
-                lastUpdated: null,
-                priority: '2 [E] EMERGENCY',
-                property: '315 Banister House  Homerton High Street',
-                owner: 'Alphatrack (S) Systems Lt',
-                description: 'The only repair',
-                propertyReference: '00012345',
-                tradeCode: 'DE',
-                tradeDescription: 'Door Entry Engineer - DE',
-                status: 'In Progress',
-              },
-            ],
-          }
-        )
-
-        cy.visit('/properties/00012345')
-      })
-
-      it('Does not display a Load more button', () => {
-        cy.get('.lbh-heading-h2').contains('Work orders history')
-        cy.contains('button', 'Load more').should('not.exist')
-      })
-    })
-
-    context('when a repair cannot be raised on the property', () => {
-      beforeEach(() => {
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/propertyRepairNotRaisable.json' }
-        ).as('propertyNotRaisable')
-      })
-
-      it('Work order history is still visible', () => {
-        cy.visit('/properties/00012345')
-        cy.wait(['@propertyNotRaisable', '@workOrdersHistory'])
-        cy.get('.lbh-heading-h2').contains('Work orders history')
-      })
-    })
   })
 
-  describe('Raise work order', () => {
-    context('when a repair can be raised on this property', () => {
-      it('shows a raise a work order link', () => {
-        cy.visit('/properties/00012345')
-        cy.wait(['@property', '@workOrdersHistory'])
-
-        cy.contains('a', 'Raise a work order on this dwelling').should(
-          'have.attr',
-          'href',
-          '/properties/00012345/raise-repair/new'
-        )
-      })
-    })
-
-    context('when a repair cannot be raised on this property', () => {
-      beforeEach(() => {
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/propertyRepairNotRaisable.json' }
-        ).as('propertyNotRaisable')
-      })
-
-      it('does not show a raise work order link', () => {
-        cy.visit('/properties/00012345')
-        cy.wait('@propertyNotRaisable')
-
-        cy.contains('Raise a work order on this dwelling').should('not.exist')
-
-        cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
-          cy.contains(
-            'Cannot raise a work order on this property due to tenure type'
-          )
-        })
-      })
-    })
-  })
-
-  describe('Tenures and Alerts', () => {
-    it('shows Tenure and Alerts section', () => {
-      cy.visit('/properties/00012345')
-      cy.wait(['@property', '@workOrdersHistory', '@alerts'])
-
-      cy.checkForTenureDetails('Tenure: Secure', [
-        'Alert 1',
-        'Specific Requirements',
-        'Reason 1, very important',
-      ])
-    })
-
-    context('when the alerts API responds with an error', () => {
-      beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/properties/00012345/alerts',
-          },
-          {
-            statusCode: 404,
-            body: {
-              message: 'Cannot fetch alerts',
-            },
-          }
-        ).as('alertsError')
-      })
-
-      it('shows an error message in the place of the component', () => {
-        cy.visit('/properties/00012345')
-        cy.wait(['@property', '@workOrdersHistory', '@alertsError'])
-
-        // Some page content rendered
-        cy.contains('Dwelling: 16 Pitcairn House')
-
-        cy.get('[data-testid=error-message]').contains('Cannot fetch alerts')
-      })
-    })
-
-    context('when the property has no tenure type', () => {
-      beforeEach(() => {
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/propertyNoTenure.json' }
-        ).as('propertyNoTenureType')
-
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-          { body: { propertyIsInLegalDisrepair: false } }
-        ).as('propertyInLegalDisrepair')
-
-        cy.visit('/properties/00012345')
-        cy.wait(['@propertyNoTenureType', '@propertyInLegalDisrepair'])
-      })
-
-      it('does not show Tenure', () => {
-        cy.contains('Tenure').should('not.exist')
-      })
-    })
-  })
-
-  describe('TMO', () => {
-    context('when the property has a valid TMO', () => {
-      beforeEach(() => {
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/propertyWithTmo.json' }
-        ).as('propertyValidTMO')
-
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-          { body: { propertyIsInLegalDisrepair: false } }
-        ).as('propertyInLegalDisrepair')
-      })
-
-      it('shows TMO details', () => {
-        cy.visit('/properties/00012345')
-        cy.wait(['@propertyValidTMO', '@propertyInLegalDisrepair'])
-
-        cy.get('.hackney-property-alerts').contains('TMO: Testing TMO')
-      })
-    })
-
-    context("when the TMO is 'London Borough of Hackney'", () => {
-      beforeEach(() => {
-        cy.fixture('properties/propertyWithTmo.json')
-          .then((property) => {
-            property.tmoName = 'London Borough of Hackney'
-            cy.intercept(
-              { method: 'GET', path: '/api/properties/00012345' },
-              { body: property }
-            )
-          })
-          .as('propertyTMOHackney')
-      })
-
-      it('does not show TMO details', () => {
-        cy.visit('/properties/00012345')
-        cy.wait(['@propertyTMOHackney'])
-
-        // Hard-coded rule in frontend to ignore a TMO matching the above name
-        cy.contains('London Borough of Hackney').should('not.exist')
-      })
-    })
-  })
-
-  describe('Out of hours link', () => {
+  context('when signed in with a role that cannot view properties', () => {
     beforeEach(() => {
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
-        { fixture: 'properties/property.json' }
-      ).as('workOrder')
-
-      cy.intercept(
-        {
-          method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
-        },
-        { body: [] }
-      ).as('workOrdersHistory')
+      cy.clearCookies()
+      cy.loginWithOperativeRole()
     })
 
-    context('when the current time is out of working hours', () => {
-      beforeEach(() => {
-        cy.clock(new Date('Thursday 16 September 2021 18:01:00'))
+    it('denies access to the property page', () => {
+      cy.visit('/properties/00012345')
 
-        cy.visit('/properties/00012345')
-        cy.wait(['@workOrdersHistory', '@workOrder'])
-      })
-
-      it('displays a link', () => {
-        cy.contains('a', 'Out of hours note').should(
-          'have.attr',
-          'href',
-          Cypress.expose('NEXT_PUBLIC_OUT_OF_HOURS_LINK')
-        )
-      })
-    })
-
-    context('when the current time is within working hours', () => {
-      beforeEach(() => {
-        cy.clock(new Date('Thursday 16 September 2021 08:01:00'))
-
-        cy.visit('/properties/00012345')
-        cy.wait(['@workOrdersHistory', '@workOrder'])
-      })
-
-      it('does not display a link', () => {
-        cy.contains('a', 'Out of hours note').should('not.exist')
-      })
+      cy.url().should('contain', '/access-denied')
+      cy.contains('Access denied')
+      cy.contains('Dwelling: 16 Pitcairn House').should('not.exist')
     })
   })
 })
