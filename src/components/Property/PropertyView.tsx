@@ -1,95 +1,89 @@
-import { useState, useEffect } from 'react'
 import PropertyDetails from './PropertyDetails'
-import Spinner from '../Spinner'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 import ErrorMessage from '../Errors/ErrorMessage'
 import Meta from '../Meta'
-import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
-import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import {
-  Property,
-  PropertyTenureResponse,
-  Tenure,
-} from '../../models/propertyTenure'
-import {
-  fetchLegalDisrepairStatusRequest,
-  fetchPropertyTenureRequest,
-} from '@/requests/property'
+import WorkOrdersHistoryView from './WorkOrdersHistory/WorkOrdersHistoryView'
+import { TabName } from '../Tabs/tabNames'
+import { Tenure } from '../../models/propertyTenure'
+import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
+import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
+import { useCautionaryAlerts } from '@/requests/hooks/useCautionaryAlerts'
+import { useLegalDisrepairStatus } from '@/requests/hooks/useLegalDisrepairStatus'
 
 interface Props {
   propertyReference: string
 }
 
 const PropertyView = ({ propertyReference }: Props) => {
-  const [property, setProperty] = useState<Property>({} as Property)
-  const [tenure, setTenure] = useState<Tenure>({} as Tenure)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState(null)
-  const [legalDisrepairError, setLegalDisRepairError] = useState(null)
+  const {
+    property,
+    tenure,
+    isLoading: propertyLoading,
+    error: propertyError,
+  } = usePropertyTenure(propertyReference)
 
-  const getPropertyView = async (propertyReference) => {
-    setError(null)
+  const {
+    isInLegalDisrepair,
+    isLoading: legalDisrepairLoading,
+    error: legalDisrepairError,
+  } = useLegalDisrepairStatus(propertyReference)
 
-    try {
-      const data: PropertyTenureResponse = await fetchPropertyTenureRequest(
-        propertyReference
-      )
+  // Not part of detailsLoading: the alerts can be slow, so they shouldn't hold
+  // up the page. Started here so the request runs alongside the others
+  const {
+    alerts,
+    isLoading: alertsLoading,
+    error: alertsError,
+  } = useCautionaryAlerts(propertyReference)
 
-      setProperty(data.property)
-      if (data.tenure) setTenure(data.tenure)
-    } catch (e) {
-      setProperty(null)
-      console.error('An error has occured:', e.response)
-      setError(formatRequestErrorMessage(e))
-    }
+  const [
+    simpleFeatureToggles,
+    featureTogglesLoading,
+  ] = useSimpleFeatureToggles()
 
-    setLoading(false)
-  }
+  const detailsLoading =
+    propertyLoading || legalDisrepairLoading || featureTogglesLoading
 
-  const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
-    fetchLegalDisrepairStatusRequest(propertyReference)
-      .then((isInLegalDisrepair) =>
-        setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
-      )
-      .catch((error) => {
-        console.error('Error loading legal disrepair status:', error.response)
-        setLegalDisRepairError(
-          `Error loading legal disrepair status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setLoading(false))
-  }
-
-  useEffect(() => {
-    setLoading(true)
-
-    getPropertyView(propertyReference)
-    getPropertyInfoOnLegalDisrepair(propertyReference)
-  }, [])
+  const detailsReady =
+    !detailsLoading && !!property?.address && !!property?.hierarchyType
 
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <Meta title={property?.address?.addressLine} />
-          {property?.address && property?.hierarchyType && tenure && (
-            <>
-              <PropertyDetails
-                property={property}
-                tenure={tenure}
-                showLegalDisrepairFlag={isInLegalDisrepair}
-                showUnderWarrantyFlag={property.isUnderWarranty}
-              />
-              <PropertyViewTabs propertyReference={propertyReference} />
-            </>
-          )}
+      <Meta title={property?.address?.addressLine} />
 
-          {error && <ErrorMessage label={error} />}
-          {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
-        </>
+      {detailsLoading && (
+        <SpinnerWithLabel label="Fetching property details…" />
       )}
+
+      {detailsReady && (
+        <PropertyDetails
+          property={property}
+          tenure={tenure ?? ({} as Tenure)}
+          showLegalDisrepairFlag={isInLegalDisrepair}
+          legalDisrepairError={legalDisrepairError}
+          showUnderWarrantyFlag={property.isUnderWarranty}
+          showHealthAndSafetyFlag={
+            simpleFeatureToggles?.enableHealthAndSafetyFlag
+          }
+          alerts={alerts}
+          alertsLoading={alertsLoading}
+          alertsError={alertsError}
+        />
+      )}
+
+      {/* The history is mounted straight away, but kept hidden until the
+          details above are ready, so it loads its data in parallel instead of
+          only starting once it becomes visible */}
+      {!propertyError && (
+        <div style={detailsReady ? undefined : { display: 'none' }}>
+          <WorkOrdersHistoryView
+            propertyReference={propertyReference}
+            tabName={TabName.WorkOrderHistory}
+          />
+        </div>
+      )}
+
+      {propertyError && <ErrorMessage label={propertyError} />}
     </>
   )
 }

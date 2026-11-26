@@ -2,17 +2,18 @@ import Spinner from '../Spinner'
 
 interface Props {
   label: string
+  resource?: string
 }
 
 const SpinnerWithLabel = (props: Props) => {
-  const { label } = props
+  const { label, resource } = props
 
   return (
     <div
       className="govuk-body"
       style={{ display: 'flex', alignItems: 'center' }}
     >
-      <Spinner />
+      <Spinner resource={resource} />
       <span style={{ margin: '0 0 0 15px', color: '#505a5f' }}>{label}</span>
     </div>
   )

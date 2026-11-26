@@ -1,11 +1,7 @@
-import { useState, useEffect } from 'react'
-import { getAlertsRequest } from '@/requests/property'
+import { useCautionaryAlerts } from '@/requests/hooks/useCautionaryAlerts'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 import PropertyFlags from '../../Property/PropertyFlags'
-import Alerts from '../../Property/Alerts'
-import ErrorMessage from '../../Errors/ErrorMessage'
-import Spinner from '../../Spinner'
-import { CautionaryAlert } from '@/root/src/models/cautionaryAlerts'
+import CautionaryAlerts from '../../Property/CautionaryAlerts'
 import { Address, Tenure } from '@/root/src/models/propertyTenure'
 
 interface PropertyDetailsProps {
@@ -25,28 +21,11 @@ const PropertyDetails = ({
   propertyReference,
   boilerHouseId,
 }: PropertyDetailsProps) => {
-  const [alerts, setAlerts] = useState<CautionaryAlert[] | []>([])
-  const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
-  const [alertsError, setAlertsError] = useState<string | null>()
-  const [isExpanded, setIsExpanded] = useState<boolean>(false)
-
-  const fetchAlerts = async () => {
-    setAlertsLoading(true)
-    const alertsResponse = await getAlertsRequest(propertyReference)
-
-    if (!alertsResponse.success) {
-      setAlertsError(alertsResponse.error.message)
-      setAlertsLoading(false)
-      return
-    }
-
-    setAlerts(alertsResponse.response.alerts)
-    setAlertsLoading(false)
-  }
-
-  useEffect(() => {
-    fetchAlerts()
-  }, [])
+  const {
+    alerts,
+    isLoading: alertsLoading,
+    error: alertsError,
+  } = useCautionaryAlerts(propertyReference)
 
   return (
     <GridRow className="lbh-body-s govuk-!-margin-bottom-2">
@@ -54,27 +33,11 @@ const PropertyDetails = ({
         <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
           {subTypeDescription}: {address.addressLine}
         </h1>
-        {alertsLoading && <Spinner resource="alerts" />}
-        {alerts?.length > 0 && (
-          <ul
-            className="lbh-list hackney-property-alerts"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              marginBottom: '1em',
-              maxWidth: isExpanded ? '' : '30em',
-            }}
-          >
-            <Alerts
-              alerts={alerts}
-              setIsExpanded={setIsExpanded}
-              isExpanded={isExpanded}
-            />
-          </ul>
-        )}
-
-        {alertsError && <ErrorMessage label={alertsError} />}
+        <CautionaryAlerts
+          alerts={alerts}
+          isLoading={alertsLoading}
+          error={alertsError}
+        />
 
         <PropertyFlags
           tenure={tenure}

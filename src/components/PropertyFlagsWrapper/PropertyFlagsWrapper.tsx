@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import ErrorMessage from '../Errors/ErrorMessage'
 import Spinner from '../Spinner'
 import WarningInfoBox from '../Template/WarningInfoBox'
-import { usePropertyFlags } from './usePropertyFlags'
-import Alerts from '../Property/Alerts'
+import { useLegalDisrepairStatus } from '@/requests/hooks/useLegalDisrepairStatus'
+import { useCautionaryAlerts } from '@/requests/hooks/useCautionaryAlerts'
+import CautionaryAlerts from '../Property/CautionaryAlerts'
 import { Property, Tenure } from '@/root/src/models/propertyTenure'
 import PropertyFlags from '../Property/PropertyFlags'
 import { HealthAndSafetyHazardAlert } from '../Alerts/HealthAndSafetyHazardAlert'
@@ -19,15 +19,19 @@ interface Props {
 const PropertyFlagsWrapper = (props: Props) => {
   const { propertyReference, property, tenure, simpleFeatureToggles } = props
 
-  const [isExpanded, setIsExpanded] = useState<boolean>(false)
-
   const {
     isInLegalDisrepair,
-    legalDisrepairError,
+    error: legalDisrepairError,
+    isLoading: legalDisrepairLoading,
+  } = useLegalDisrepairStatus(propertyReference)
+
+  const {
     alerts,
-    alertsError,
-    loading,
-  } = usePropertyFlags(propertyReference)
+    error: alertsError,
+    isLoading: alertsLoading,
+  } = useCautionaryAlerts(propertyReference)
+
+  const loading = legalDisrepairLoading || alertsLoading
 
   return (
     <>
@@ -49,26 +53,7 @@ const PropertyFlagsWrapper = (props: Props) => {
       {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
       <div className="lbh-body-s">
-        {!loading && alerts?.length > 0 && (
-          <ul
-            className="lbh-list hackney-property-alerts"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              marginBottom: '1em',
-              maxWidth: isExpanded ? '' : '30em',
-            }}
-          >
-            <Alerts
-              alerts={alerts}
-              setIsExpanded={setIsExpanded}
-              isExpanded={isExpanded}
-            />
-          </ul>
-        )}
-
-        {alertsError && <ErrorMessage label={alertsError} />}
+        {!loading && <CautionaryAlerts alerts={alerts} error={alertsError} />}
 
         <PropertyFlags
           canRaiseRepair={property?.canRaiseRepair}

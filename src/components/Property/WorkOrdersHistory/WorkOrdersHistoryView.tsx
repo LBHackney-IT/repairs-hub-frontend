@@ -1,11 +1,7 @@
-import { useState, useEffect } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
-import { fetchWorkOrdersRequest } from '@/requests/workOrders'
-
-const WORK_ORDERS_HISTORY_PAGE_SIZE = 50
+import { useWorkOrdersHistory } from '@/requests/hooks/useWorkOrdersHistory'
 
 interface Props {
   tabName: string
@@ -13,64 +9,38 @@ interface Props {
 }
 
 const WorkOrdersHistoryView = ({ propertyReference, tabName }: Props) => {
-  const [pageNumber, setPageNumber] = useState(1)
-  const [workOrders, setWorkOrders] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<any>()
+  const {
+    workOrders,
+    isLoading,
+    error,
+    hasMore,
+    loadMore,
+  } = useWorkOrdersHistory(propertyReference)
 
-  const getWorkOrdersHistoryView = async (propertyReference, pageNumber) => {
-    setError(null)
-
-    try {
-      const data = await fetchWorkOrdersRequest({
-        propertyReference: propertyReference,
-        PageSize: WORK_ORDERS_HISTORY_PAGE_SIZE,
-        PageNumber: pageNumber,
-        sort: 'dateraised:desc',
-      })
-
-      setWorkOrders([...workOrders, ...data])
-    } catch (e) {
-      setWorkOrders(null)
-      console.error('An error has occured:', e.response)
-      setError(formatRequestErrorMessage(e))
-    }
-
-    setLoading(false)
+  if (isLoading) {
+    return (
+      <>
+        <h2 className="lbh-heading-h2">{tabName}</h2>
+        <div className="govuk-!-margin-top-6">
+          <SpinnerWithLabel label="Fetching work orders history…" />
+        </div>
+      </>
+    )
   }
 
-  useEffect(() => {
-    setLoading(true)
+  return (
+    <>
+      {workOrders.length > 0 && (
+        <WorkOrdersHistoryTable
+          workOrders={workOrders}
+          tabName={tabName}
+          propertyReference={propertyReference}
+          hasMore={hasMore}
+          loadMore={loadMore}
+        />
+      )}
 
-    getWorkOrdersHistoryView(propertyReference, pageNumber)
-  }, [])
-
-  const loadMoreWorkOrders = (newPageNumber) => {
-    setLoading(true)
-    setPageNumber(pageNumber + 1)
-
-    getWorkOrdersHistoryView(propertyReference, newPageNumber)
-  }
-
-  const renderWorkOrdersHistoryTable = () => {
-    if (workOrders?.length > 0) {
-      return (
-        <>
-          <WorkOrdersHistoryTable
-            workOrders={workOrders}
-            tabName={tabName}
-            pageNumber={pageNumber}
-            loadMoreWorkOrders={loadMoreWorkOrders}
-            pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
-            propertyReference={propertyReference}
-            setPageNumber={setPageNumber}
-          />
-        </>
-      )
-    }
-
-    if (!error) {
-      return (
+      {workOrders.length === 0 && !error && (
         <>
           <h2 className="lbh-heading-h2">{tabName}</h2>
           <div>
@@ -80,25 +50,9 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }: Props) => {
             </h4>
           </div>
         </>
-      )
-    }
-  }
-
-  return (
-    <>
-      {loading ? (
-        <>
-          <h2 className="lbh-heading-h2">{tabName}</h2>
-          <div className="govuk-!-margin-top-6">
-            <SpinnerWithLabel label="Fetching work orders history…" />
-          </div>
-        </>
-      ) : (
-        <>
-          {workOrders && renderWorkOrdersHistoryTable()}
-          {error && <ErrorMessage label={error} />}
-        </>
       )}
+
+      {error && <ErrorMessage label={error} />}
     </>
   )
 }

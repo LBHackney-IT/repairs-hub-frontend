@@ -225,6 +225,31 @@ export const fetchWorkOrdersRequest = (
     ...(paramsSerializer && { paramsSerializer }),
   })
 
+export const getWorkOrdersHistoryRequest = async (
+  propertyReference: string,
+  pageNumber: number,
+  pageSize: number
+): Promise<ApiResponseType<WorkOrder[]>> => {
+  try {
+    const workOrders: WorkOrder[] = await fetchWorkOrdersRequest({
+      propertyReference,
+      PageSize: pageSize,
+      PageNumber: pageNumber,
+      sort: 'dateraised:desc',
+    })
+
+    return { success: true, response: workOrders, error: null }
+  } catch (e) {
+    console.error('An error has occurred:', e.response)
+
+    return {
+      success: false,
+      response: null,
+      error: new APIResponseError(formatRequestErrorMessage(e)),
+    }
+  }
+}
+
 export interface ScheduleWorkOrderParams {
   parentWorkOrderId?: string
 }

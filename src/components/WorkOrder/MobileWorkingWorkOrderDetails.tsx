@@ -1,16 +1,14 @@
 import { WorkOrder } from '@/models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import TruncateText from '../Layout/TruncateText'
-import { useEffect, useState } from 'react'
-import Spinner from '@/components/Spinner'
-import { getAlertsRequest } from '@/requests/property'
-import ErrorMessage from '@/components/Errors/ErrorMessage'
+import { useState } from 'react'
+import { useCautionaryAlerts } from '@/requests/hooks/useCautionaryAlerts'
 import { useRouter } from 'next/router'
 import { formatDateTime } from '../../utils/time'
 import Status from './Status'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
-import Alerts from '../Property/Alerts'
+import CautionaryAlerts from '../Property/CautionaryAlerts'
 
 interface Props {
   property: Property
@@ -22,9 +20,11 @@ interface Props {
 const MobileWorkingWorkOrderDetails = (props: Props) => {
   const { property, workOrder, appointmentDetails } = props
 
-  const [alertsLoading, setAlertsLoading] = useState<boolean>(false)
-  const [alertsError, setAlertsError] = useState<string | null>()
-  const [alerts, setAlerts] = useState([])
+  const {
+    alerts,
+    isLoading: alertsLoading,
+    error: alertsError,
+  } = useCautionaryAlerts(property.propertyReference)
   const [isExpanded, setIsExpanded] = useState(false)
 
   const router = useRouter()
@@ -44,24 +44,6 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
       },
     })
   }
-
-  const fetchAlerts = async () => {
-    setAlertsLoading(true)
-    const alertsResponse = await getAlertsRequest(property.propertyReference)
-
-    if (!alertsResponse.success) {
-      setAlertsError(alertsResponse.error.message)
-      setAlertsLoading(false)
-      return
-    }
-
-    setAlerts(alertsResponse.response.alerts)
-    setAlertsLoading(false)
-  }
-
-  useEffect(() => {
-    fetchAlerts()
-  }, [])
 
   return (
     <>
@@ -117,27 +99,11 @@ const MobileWorkingWorkOrderDetails = (props: Props) => {
           </>
         )}
 
-        {alertsLoading && <Spinner resource="alerts" />}
-        {alerts?.length > 0 && (
-          <ul
-            className="lbh-list hackney-property-alerts"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              marginBottom: '1em',
-              maxWidth: isExpanded ? '' : '30em',
-            }}
-          >
-            <Alerts
-              alerts={alerts}
-              setIsExpanded={setIsExpanded}
-              isExpanded={isExpanded}
-            />
-          </ul>
-        )}
-
-        {alertsError && <ErrorMessage label={alertsError} />}
+        <CautionaryAlerts
+          alerts={alerts}
+          isLoading={alertsLoading}
+          error={alertsError}
+        />
 
         <div className="work-order-information">
           {cautionaryAlertsType().length > 0 && (

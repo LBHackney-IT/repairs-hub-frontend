@@ -1,114 +1,98 @@
 import RaiseWorkOrderStatus from './RaiseWorkOrderStatus'
-import PropertyDetailsGrid from './PropertyDetailsGrid'
+import PropertyDetailsAddress from './PropertyDetailsAddress'
+import PropertyFlags from './PropertyFlags'
+import CautionaryAlerts from './CautionaryAlerts'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOutOfHours } from '@/utils/helpers/completionDateTimes'
 import Link from 'next/link'
-import WarningInfoBox from '../Template/WarningInfoBox'
+import LegalDisrepairFlag from './LegalDisrepairFlag'
+import UnderWarrantyFlag from './UnderWarrantyFlag'
 import { Property, Tenure } from '../../models/propertyTenure'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { HealthAndSafetyHazardAlert } from '../Alerts/HealthAndSafetyHazardAlert'
-import { useSimpleFeatureToggles } from '../../hooks/useSimpleFeatureToggle'
-import Spinner from '../Spinner'
+import ErrorMessage from '../Errors/ErrorMessage'
 
 interface PropertyDetailsProps {
   property: Property
   tenure: Tenure
   showLegalDisrepairFlag?: boolean
+  legalDisrepairError?: string | null
   showUnderWarrantyFlag?: boolean
+  showHealthAndSafetyFlag?: boolean
+  alerts: CautionaryAlert[]
+  alertsLoading: boolean
+  alertsError: string | null
 }
 
 const PropertyDetails = ({
   tenure,
   property,
   showLegalDisrepairFlag = false,
+  legalDisrepairError = null,
   showUnderWarrantyFlag = false,
-}: PropertyDetailsProps) => {
-  const [simpleFeatureToggles, isLoading] = useSimpleFeatureToggles()
+  showHealthAndSafetyFlag = false,
+  alerts,
+  alertsLoading,
+  alertsError,
+}: PropertyDetailsProps) => (
+  <div>
+    <BackButton />
+    <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
+      {property.hierarchyType.subTypeDescription}:{' '}
+      {property.address.addressLine}
+    </h1>
 
-  if (isLoading) {
-    return <Spinner />
-  }
+    {showLegalDisrepairFlag && <LegalDisrepairFlag />}
+    {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
+    {showHealthAndSafetyFlag && (
+      <HealthAndSafetyHazardAlert
+        message={property?.healthAndSafetyRatingMessage}
+      />
+    )}
 
-  return (
+    {showUnderWarrantyFlag && <UnderWarrantyFlag />}
     <div>
-      <BackButton />
-      <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
-        {property.hierarchyType.subTypeDescription}:{' '}
-        {property.address.addressLine}
-      </h1>
-
-      {showLegalDisrepairFlag && (
-        <WarningInfoBox
-          header="This property is currently under legal disrepair"
-          text="Before raising a work order you must call the Legal Disrepair Team"
-          style={{ maxWidth: 600 }}
-        />
-      )}
-
-      {simpleFeatureToggles?.enableHealthAndSafetyFlag && (
-        <HealthAndSafetyHazardAlert
-          message={property?.healthAndSafetyRatingMessage}
-        />
-      )}
-
-      {showUnderWarrantyFlag && (
-        <WarningInfoBox
-          header="This property is under warranty"
-          text={
-            <p>
-              Before raising a work order please check the{' '}
-              <a
-                href={`https://docs.google.com/spreadsheets/d/${process.env.NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID}?gid=0`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {' '}
-                New Property Warranties Spreadsheet{' '}
-              </a>
-              and contact the{' '}
-              <strong>Regeneration Aftercare & Defects Team</strong> by sending
-              an email to
-              <a href="mailto:aftercareanddefects@hackney.gov.uk">
-                {' '}
-                aftercareanddefects@hackney.gov.uk{' '}
-              </a>
-              or calling <strong>0208 356 1998</strong> to ensure eligibility
-            </p>
-          }
-          style={{ maxWidth: 600, backgroundColor: 'lavender' }}
-        />
-      )}
-      <div>
-        <RaiseWorkOrderStatus
-          canRaiseRepair={property.canRaiseRepair}
-          description={property.hierarchyType.subTypeDescription}
-          propertyReference={property.propertyReference}
-        />
-      </div>
-      {isCurrentTimeOutOfHours() && (
-        <div>
-          <Link href={process.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK} legacyBehavior>
-            <a
-              target="_blank"
-              rel="noopener"
-              className="lbh-link lbh-body-l lbh-!-font-weight-medium"
-            >
-              Out of hours note
-            </a>
-          </Link>
-        </div>
-      )}
-      <PropertyDetailsGrid
-        propertyReference={property.propertyReference}
-        boilerHouseId={property.boilerHouseId}
-        address={property.address}
-        subTypeDescription="Property details"
-        tenure={tenure}
+      <RaiseWorkOrderStatus
         canRaiseRepair={property.canRaiseRepair}
-        hasLinkToProperty={false}
-        tmoName={property.tmoName}
+        description={property.hierarchyType.subTypeDescription}
+        propertyReference={property.propertyReference}
       />
     </div>
-  )
-}
+    {isCurrentTimeOutOfHours() && (
+      <div>
+        <Link href={process.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK} legacyBehavior>
+          <a
+            target="_blank"
+            rel="noopener"
+            className="lbh-link lbh-body-l lbh-!-font-weight-medium"
+          >
+            Out of hours note
+          </a>
+        </Link>
+      </div>
+    )}
+    <div className="lbh-body-s">
+      <PropertyDetailsAddress
+        address={property.address}
+        propertyReference={property.propertyReference}
+        subTypeDescription="Property details"
+        hasLinkToProperty={false}
+      />
+
+      <CautionaryAlerts
+        alerts={alerts}
+        isLoading={alertsLoading}
+        error={alertsError}
+      />
+
+      <PropertyFlags
+        tenure={tenure}
+        canRaiseRepair={property.canRaiseRepair}
+        tmoName={property.tmoName}
+        boilerHouseId={property.boilerHouseId}
+      />
+    </div>
+  </div>
+)
 
 export default PropertyDetails

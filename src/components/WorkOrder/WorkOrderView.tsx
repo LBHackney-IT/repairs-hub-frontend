@@ -10,7 +10,7 @@ import { useAppointmentDetails } from '@/requests/hooks/useAppointmentDetails'
 import { useWorkOrderDetails } from '@/requests/hooks/useWorkOrderDetails'
 import { useWorkOrderTasks } from '@/requests/hooks/useWorkOrderTasks'
 import { usePropertyTenure } from '@/requests/hooks/usePropertyTenure'
-import { useAlerts } from '@/requests/hooks/useAlerts'
+import { useCautionaryAlerts } from '@/requests/hooks/useCautionaryAlerts'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -42,9 +42,11 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     error: propertyError,
   } = usePropertyTenure(propertyReference)
 
-  const { alerts, isLoading: alertsLoading, error: alertsError } = useAlerts(
-    propertyReference
-  )
+  const {
+    alerts,
+    isLoading: alertsLoading,
+    error: alertsError,
+  } = useCautionaryAlerts(propertyReference)
 
   const {
     appointmentDetails,
