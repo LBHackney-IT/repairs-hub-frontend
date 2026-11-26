@@ -60,6 +60,7 @@ const PropertyView = ({ propertyReference }: Props) => {
           property={property}
           tenure={tenure ?? ({} as Tenure)}
           showLegalDisrepairFlag={isInLegalDisrepair}
+          legalDisrepairError={legalDisrepairError}
           showUnderWarrantyFlag={property.isUnderWarranty}
           showHealthAndSafetyFlag={
             simpleFeatureToggles?.enableHealthAndSafetyFlag
@@ -83,7 +84,6 @@ const PropertyView = ({ propertyReference }: Props) => {
       )}
 
       {propertyError && <ErrorMessage label={propertyError} />}
-      {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
     </>
   )
 }

@@ -10,11 +10,13 @@ import UnderWarrantyFlag from './UnderWarrantyFlag'
 import { Property, Tenure } from '../../models/propertyTenure'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { HealthAndSafetyHazardAlert } from '../Alerts/HealthAndSafetyHazardAlert'
+import ErrorMessage from '../Errors/ErrorMessage'
 
 interface PropertyDetailsProps {
   property: Property
   tenure: Tenure
   showLegalDisrepairFlag?: boolean
+  legalDisrepairError?: string | null
   showUnderWarrantyFlag?: boolean
   showHealthAndSafetyFlag?: boolean
   alerts: CautionaryAlert[]
@@ -26,6 +28,7 @@ const PropertyDetails = ({
   tenure,
   property,
   showLegalDisrepairFlag = false,
+  legalDisrepairError = null,
   showUnderWarrantyFlag = false,
   showHealthAndSafetyFlag = false,
   alerts,
@@ -40,6 +43,7 @@ const PropertyDetails = ({
     </h1>
 
     {showLegalDisrepairFlag && <LegalDisrepairFlag />}
+    {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
     {showHealthAndSafetyFlag && (
       <HealthAndSafetyHazardAlert
         message={property?.healthAndSafetyRatingMessage}
